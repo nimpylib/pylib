@@ -1,8 +1,5 @@
 # Almost direct translation of https://github.com/famzah/langs-performance/blob/master/primes.py
 import pylib
-import times
-import os
-import math
 
 proc get_primes7(n: int): seq[int] = 
   if n < 2:

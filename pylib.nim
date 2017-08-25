@@ -22,10 +22,17 @@ template `**`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = pow(a, b)
 template `**`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = pow(B(a), b)
 template `<=`*[A: SomeInteger, B: SomeReal](a: A, b: B): bool = B(a) < b
 
-proc `//`*[A, B: SomeNumber](a: A, b: B): float | int = 
-  let data = float(trunc(a / b))
-  if data.trunc == data:
-    result = int(data)
+# 5.0 // 2
+proc `//`*[A, B: SomeNumber](a: A, b: B): int | float {.inline.} = 
+  let data = floor(float(a) / float(b))
+  # Both arguments are float - result if float
+  when A is SomeReal and B is SomeReal: result = data
+  # Convert result to float
+  elif A is SomeReal: result = A(data)
+  # Convert result to float
+  elif A is SomeInteger and B is SomeReal: result = B(data)
+  # Both arguments are int - result is int
+  else: result = int(data)
 
 converter bool*[T](arg: T): bool = 
   # If we have len proc for this object
@@ -115,7 +122,6 @@ proc any[T](iter: Iterable[T]): bool =
       return True
   return False
 
-
 when isMainModule:
   import unittest
   suite "Python functions in Nim":
@@ -140,3 +146,13 @@ when isMainModule:
       checkpoint "Errors"
       expect ValueError:
         let data = range(1, 2, 0)
+    
+    test "Floor division":
+      check(5.0 // 2 == 2.0)
+      check(5 // 2 == 2)
+      check(5 // 7 == 0)
+      check(-10 // 3 == -4)
+      check(5 // -6 == -1)
+      check(5 // -2 == -3)
+      check(5 // -3 == -2)
+      check(5 // -3.0 == -2.0)
