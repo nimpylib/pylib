@@ -1,10 +1,12 @@
 import strutils, math, sequtils, strfmt, macros, unicode, tables
 export strfmt, math, tables, strutils
+import pyclass
+export pyclass
 
 type 
   Iterable[T] = concept x
     for value in x:
-      type(value) is T
+      value is T
 
 const
   True* = true
@@ -22,8 +24,8 @@ template `**`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = pow(a, b)
 template `**`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = pow(B(a), b)
 template `<=`*[A: SomeInteger, B: SomeReal](a: A, b: B): bool = B(a) < b
 
-# 5.0 // 2
 proc `//`*[A, B: SomeNumber](a: A, b: B): int | float {.inline.} = 
+  ## Python-like floor division
   let data = floor(float(a) / float(b))
   # Both arguments are float - result if float
   when A is SomeReal and B is SomeReal: result = data
@@ -35,12 +37,15 @@ proc `//`*[A, B: SomeNumber](a: A, b: B): int | float {.inline.} =
   else: result = int(data)
 
 converter bool*[T](arg: T): bool = 
+  ## Converts argument to boolean
+  ## checking python-like truthiness
   # If we have len proc for this object
   when compiles(arg.len):
     arg.len > 0
   # If we can compare if it's not 0
   elif compiles(arg != 0):
     arg != 0
+  # If we can compare if it's greater than 0
   elif compiles(arg > 0):
     arg > 0 or arg < 0
   # Initialized variables only
@@ -75,12 +80,13 @@ macro print*(data: varargs[untyped]): untyped =
     printImpl(`objects`, `arguments`)
 
 proc input*(prompt = ""): string = 
+  ## Python-like input procedure
   if prompt.len > 0:
     stdout.write(prompt)
   stdin.readLine()
 
 iterator range*[T](start, stop: T, step: int, dummy = false): T = 
-  ## Range iterator similar to python's "range"
+  ## Python-like range iterator
   ## Supports negative values!
   # dummy is used to distinguish iterators from templates, so
   # templates wouldn't end in an endless recursion
@@ -105,22 +111,27 @@ iterator range*[T](stop: T, dummy = false): T =
   for x in T(0)..<stop:
     yield x
 
+
 # Templates for range so you don't need to use toSeq manually
 template range*[T](start, stop: T, step: int): seq[T] = toSeq(range(start, stop, step, true))
 template range*[T](start, stop: T): seq[T] = toSeq(range(start, stop, true))
 template range*[T](stop: T): seq[T] = toSeq(range(stop, true))
 
-proc all[T](iter: Iterable[T]): bool = 
+proc all*[T](iter: Iterable[T]): bool = 
+  ## Checks if all values in iterable are truthy
   for element in iter:
     if not bool(element):
       return False
   return True
 
-proc any[T](iter: Iterable[T]): bool = 
+proc any*[T](iter: Iterable[T]): bool = 
+  ## Checks if at least one value in iterable is truthy
   for element in iter:
     if bool(element):
       return True
   return False
+
+
 
 when isMainModule:
   import unittest
@@ -156,3 +167,4 @@ when isMainModule:
       check(5 // -2 == -3)
       check(5 // -3 == -2)
       check(5 // -3.0 == -2.0)
+
