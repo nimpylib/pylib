@@ -1,2 +1,2 @@
 import unittest
-include trange
+include trange, tintdiv
