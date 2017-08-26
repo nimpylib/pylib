@@ -7,3 +7,5 @@ srcDir        = "src"
 
 requires "nim >= 0.17.1"
 
+task test, "Runs the test suite":
+  exec "nim c -r tests/tester"
