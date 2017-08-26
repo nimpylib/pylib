@@ -1,6 +1,6 @@
-import strutils, math, sequtils, strfmt, macros, unicode, tables
-export strfmt, math, tables, strutils
-import pyclass
+import strutils, math, sequtils, macros, unicode, tables
+export math, tables, strutils
+import pylib/pyclass
 export pyclass
 
 type 
@@ -24,7 +24,7 @@ template `**`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = pow(a, b)
 template `**`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = pow(B(a), b)
 template `<=`*[A: SomeInteger, B: SomeReal](a: A, b: B): bool = B(a) < b
 
-proc `//`*[A, B: SomeNumber](a: A, b: B): int | float {.inline.} = 
+proc `//`*[A, B: SomeReal | SomeInteger](a: A, b: B): int | float {.inline.} = 
   ## Python-like floor division
   let data = floor(float(a) / float(b))
   # Both arguments are float - result if float
@@ -32,7 +32,7 @@ proc `//`*[A, B: SomeNumber](a: A, b: B): int | float {.inline.} =
   # Convert result to float
   elif A is SomeReal: result = A(data)
   # Convert result to float
-  elif A is SomeInteger and B is SomeReal: result = B(data)
+  elif B is SomeReal: result = B(data)
   # Both arguments are int - result is int
   else: result = int(data)
 
@@ -100,14 +100,10 @@ iterator range*[T](start, stop: T, step: int, dummy = false): T =
       yield x
 
 iterator range*[T](start, stop: T, dummy = false): T =
-  ## Range iterator similar to python's "range"
-  ## Supports negative values!
   for x in start..<stop: 
     yield x
 
 iterator range*[T](stop: T, dummy = false): T = 
-  ## Range iterator similar to python's "range"
-  ## Supports negative values!
   for x in T(0)..<stop:
     yield x
 
@@ -119,19 +115,17 @@ template range*[T](stop: T): seq[T] = toSeq(range(stop, true))
 
 proc all*[T](iter: Iterable[T]): bool = 
   ## Checks if all values in iterable are truthy
+  result = true
   for element in iter:
     if not bool(element):
-      return False
-  return True
+      return false
 
 proc any*[T](iter: Iterable[T]): bool = 
   ## Checks if at least one value in iterable is truthy
+  result = false
   for element in iter:
     if bool(element):
-      return True
-  return False
-
-
+      return true
 
 when isMainModule:
   import unittest
@@ -167,4 +161,3 @@ when isMainModule:
       check(5 // -2 == -3)
       check(5 // -3 == -2)
       check(5 // -3.0 == -2.0)
-
