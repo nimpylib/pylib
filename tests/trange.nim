@@ -2,7 +2,7 @@ test "Range-like Nim procedure":
   # We don't need to check if iterators work because these "range" calls are
   # just templates calling toSeq(range iterator(arguments)) 
   checkpoint "One argument - stop"
-  check range(0).len == 0
+  check range(1).len == 1
   check list(range(5)) == @[0, 1, 2, 3, 4]
   checkpoint "Two arguments - start and stop"
   check list(range(3, 5)) == @[3, 4]
