@@ -75,4 +75,4 @@ macro class*(obj, body: untyped): untyped =
     # Finally create a procedure and add it to result!
     result.add newProc(procName, args, beforeBody, nnkProcDef)
   # Echo generated code
-  echo result.toStrLit
+  # echo result.toStrLit

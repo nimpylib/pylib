@@ -1,4 +1,3 @@
-import unittest, pylib
 test "Floor division":
   check(5.0 // 2 == 2.0)
   check(5 // 2 == 2)

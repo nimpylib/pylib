@@ -17,10 +17,12 @@ template `<=`*[A: SomeReal, B: SomeInteger](a: A, b: B): bool = a <= A(b)
 template `==`*[A: SomeInteger, B: SomeReal](a: A, b: B): bool = B(a) == b
 template `==`*[A: SomeReal, B: SomeInteger](a: A, b: B): bool = a == A(b)
 
-# Modulo python-like shortcut
-template `%`*[T: SomeNumber](a, b: T): T = a mod b
-template `%`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = a mod A(b)
-template `%`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = B(a) mod b
+# Python-like modulo
+proc `%`*[T: SomeNumber](a, b: T): T = 
+  result = if b < 0: -(abs(a) mod b) else: abs(a) mod b
+
+template `%`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = a % A(b)
+template `%`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = B(a) % b
 
 template `/`*(x, y: BiggestInt): float = system.`/`(int(x), int(y))
 

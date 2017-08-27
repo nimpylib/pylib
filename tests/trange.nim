@@ -1,6 +1,3 @@
-import unittest
-include pylib/range
-
 test "Range-like Nim procedure":
   # We don't need to check if iterators work because these "range" calls are
   # just templates calling toSeq(range iterator(arguments)) 
@@ -22,3 +19,8 @@ test "Range-like Nim procedure":
   checkpoint "Zero step"
   expect AssertionError:
     discard range(1, 2, 0)
+  checkpoint "For loop"
+  var data: seq[int] = @[]
+  for x in range(0, -10, -2):
+    data.add(x)
+  check data == @[0, -2, -4, -6, -8]

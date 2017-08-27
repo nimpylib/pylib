@@ -31,16 +31,14 @@ proc genProc(item: NimNode): NimNode =
   return newProc(procName, args, beforeBody, nnkProcDef)
 
 macro tonim*(body: untyped): untyped = 
-  result = quote do:
-    import ../pylib
+  result = newStmtList()
   for i in 0..<body.len:
     result.add body[i]
   # sequence of variables which were already initialized
   # so we don't need to redefine them again
   var assigned = newSeq[string]()
-  for badI in 0..<body.len:
-    let item = body[badI]
-    let i = badI + 1
+  for i in 0..<body.len:
+    let item = body[i]
     case item.kind
     of nnkCommand:
       # function
@@ -54,4 +52,4 @@ macro tonim*(body: untyped): untyped =
       assigned.add $varName
       result[i] = newVarStmt(varName, varValue)
     else: discard
-  echo result.toStrLit
+  # echo result.toStrLit
