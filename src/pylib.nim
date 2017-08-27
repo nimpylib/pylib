@@ -1,5 +1,5 @@
 import strutils, math, sequtils, macros, unicode, tables
-export math, tables, strutils
+export math, tables
 import pylib/[
   class, print, types, ops, string/strops, string/pystring, tonim,
   pyrandom]

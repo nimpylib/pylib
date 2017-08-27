@@ -19,14 +19,16 @@ template `==`*[A: SomeReal, B: SomeInteger](a: A, b: B): bool = a == A(b)
 
 # Python-like modulo
 proc `%`*[T: SomeNumber](a, b: T): T = 
-  result = if b < 0: -(abs(a) mod b) else: abs(a) mod b
+  result = abs(a) mod b
+  # Result should have same sign as the second argument
+  if b < 0: result = -result
 
 template `%`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = a % A(b)
 template `%`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = B(a) % b
 
 template `/`*(x, y: BiggestInt): float = system.`/`(int(x), int(y))
 
-proc `//`*[A, B: SomeReal | SomeInteger](a: A, b: B): int | float {.inline.} = 
+proc `//`*[A, B: SomeReal | SomeInteger](a: A, b: B): int | float = 
   ## Python-like floor division
   let data = floor(float(a) / float(b))
   # Both arguments are float - result if float

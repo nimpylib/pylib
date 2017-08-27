@@ -1,4 +1,5 @@
 import strutils
+
 template str*(a: untyped): string = $a
 template int*(a: string): BiggestInt = parseBiggestInt(a)
 template int*[T: SomeNumber](a: T): untyped = system.int(a)
