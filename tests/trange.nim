@@ -24,3 +24,10 @@ test "Range-like Nim procedure":
   for x in range(0, -10, -2):
     data.add(x)
   check data == @[0, -2, -4, -6, -8]
+  let myrange = range(0, 41412423, 4122)
+  check 11566332 in myrange
+  check 1 notin myrange
+  check myrange.len == 10047
+  check myrange[5123] == 21117006
+  check max(myrange) == 41409612
+  check min(myrange) == 0

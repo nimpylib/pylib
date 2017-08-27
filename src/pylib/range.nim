@@ -3,8 +3,7 @@ import strutils, math
 type
   Range*[T] = object
     start, stop: T
-    step: int
-    len: int
+    step, len: int
 
 proc `$`*[T](rng: Range[T]): string = 
   ## Python-like stringify for range
@@ -27,8 +26,6 @@ template range*[T](stop: T): Range[T] = range(0, stop)
 iterator items*[T](rng: Range[T]): T = 
   ## Python-like range iterator
   ## Supports negative values!
-  # dummy is used to distinguish iterators from templates, so
-  # templates wouldn't end in an endless recursion
   if rng.step > 0 and rng.stop > 0:
     for x in countup(rng.start, rng.stop - 1, rng.step):
       yield x
@@ -46,11 +43,25 @@ proc contains*[T](x: Range[T], y: T): bool =
       y > x.stop and y <= x.start
   result = result and ((y - x.start) mod x.step == 0)
 
-proc list*[T](rng: Range[T]): seq[T] = 
+proc `[]`*[T](x: Range[T], y: int): T = 
+  ## Get value from range by index
+  ## Doesn't iterate over range
+  assert(y < x.len, "Index out of bounds")
+  result = x.start + (x.step * y)
+
+proc min*[T](x: Range[T]): T = 
+  ## Get minimum value from range
+  x[if x.step > 0: 0 else: x.len - 1]
+
+proc max*[T](x: Range[T]): T = 
+  ## Get maximum value from range
+  x[if x.step > 0: x.len - 1 else: 0]
+
+proc list*[T](x: Range[T]): seq[T] = 
   ## Python-like list procedure for range
   # Preallocate sequence for efficiency
-  result = newSeq[T](rng.len)
+  result = newSeq[T](x.len)
   var i = 0
-  for x in rng:
-    result[i] = x
+  for val in x:
+    result[i] = val
     inc i
