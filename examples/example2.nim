@@ -1,4 +1,5 @@
 import pylib
+import strutils
 type Customer = ref object
   name: string
   balance: float
