@@ -14,6 +14,8 @@ proc `$`*[T](rng: Range[T]): string =
 
 proc range*[T](start, stop: T, step: int): Range[T] = 
   assert(step != 0, "Step must not be zero!")
+  when compiles(stop > start):
+    assert(stop > start xor step < 0, "Stop must be reachable from start with given step!")
   result.start = start
   result.stop = stop
   result.step = step
@@ -26,7 +28,7 @@ template range*[T](stop: T): Range[T] = range(0, stop)
 iterator items*[T](rng: Range[T]): T = 
   ## Python-like range iterator
   ## Supports negative values!
-  if rng.step > 0 and rng.stop > 0:
+  if rng.step > 0:
     for x in countup(rng.start, rng.stop - 1, rng.step):
       yield x
   elif rng.step < 0:
