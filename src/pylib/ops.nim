@@ -1,7 +1,5 @@
 import math
 
-template `*`*(a: string | char, b: int): string = a.repeat(b)
-
 # Power templates for different types of arguments
 template `**`*[T](a: T, b: Natural): T = a ^ b
 template `**`*[T: SomeReal](a, b: T): T = pow(a, b)
@@ -24,6 +22,8 @@ template `%`*[T: SomeNumber](a, b: T): T = a mod b
 template `%`*[A: SomeReal, B: SomeInteger](a: A, b: B): A = a mod A(b)
 template `%`*[A: SomeInteger; B: SomeReal](a: A, b: B): B = B(a) mod b
 
+template `/`*(x, y: BiggestInt): float = system.`/`(int(x), int(y))
+
 proc `//`*[A, B: SomeReal | SomeInteger](a: A, b: B): int | float {.inline.} = 
   ## Python-like floor division
   let data = floor(float(a) / float(b))
@@ -35,4 +35,3 @@ proc `//`*[A, B: SomeReal | SomeInteger](a: A, b: B): int | float {.inline.} =
   elif B is SomeReal: result = B(data)
   # Both arguments are int - result is int
   else: result = int(data)
-
