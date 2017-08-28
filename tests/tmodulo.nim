@@ -2,7 +2,7 @@ import math
 test "Modulo operations":
   check 6 % 2 == 0
   check 7 % 2 == 1
-  check -5 % 3 == 2
+  check -5 % 3 == 1
   var a = 3.5
   var b = 0.67
   check round(a % b, 2) == 0.15
