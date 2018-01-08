@@ -1,5 +1,7 @@
 # Nimpylib
 
+
+# WARNING: This repository is mostly a PoC, for full py2nim transpiler see [py2nim](https://github.com/metacraft-labs/py2nim)
 Nimpylib is a collection of python-like operators and functions. It can help you to translate your Python program to Nim. 
 
 Also there's simple ```class``` macro similar to Python class (but without inheritance)
