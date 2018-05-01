@@ -5,3 +5,4 @@ test "String operations":
   check 'h' + "ell" + 'o' == "hello"
   check ' '.join(["hello", "world"]) == "hello world"
   check "\t\n ".isspace()
+  check "hello world".isalnum()
