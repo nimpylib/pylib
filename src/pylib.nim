@@ -58,3 +58,20 @@ proc divmod*(a: int8, b: int8):   array[0..1, int8]  = [int8(a / b), int8(a mod 
 proc divmod*(a: int16, b: int16): array[0..1, int16] = [int16(a / b), int16(a mod b)]
 proc divmod*(a: int32, b: int32): array[0..1, int32] = [int32(a / b), int32(a mod b)]
 proc divmod*(a: int64, b: int64): array[0..1, int64] = [int64(a / b), int64(a mod b)]
+
+
+# Mimics Pythons `with open(file, mode='r') as file:` context manager.
+template with_open*(f: string, mode: char='r', statements: untyped) =
+  var fileMode: FileMode
+  case mode  # From http://devdocs.io/python~3.6/library/functions#open
+  of 'r': fileMode = FileMode.fmRead
+  of 'w': fileMode = FileMode.fmWrite
+  of 'a': fileMode = FileMode.fmAppend
+  of 'b': fileMode = FileMode.fmReadWrite
+  of 't': fileMode = FileMode.fmReadWrite
+  of '+': fileMode = FileMode.fmReadWrite
+  of 'x': fileMode = FileMode.fmReadWriteExisting
+  # 'U' is Deprecated on Python.
+  var file {.inject.} = open(f, fileMode)
+  defer: file.close()
+  statements
