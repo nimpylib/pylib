@@ -59,6 +59,30 @@ proc divmod*(a: int32, b: int32): array[0..1, int32] = [int32(a / b), int32(a mo
 proc divmod*(a: int64, b: int64): array[0..1, int64] = [int64(a / b), int64(a mod b)]
 
 
+# Mimic Pythons sys.* useful to query basic info of the system.
+type VersionInfos = tuple[
+  major: int8, minor: int8, micro: int8, releaselevel: string, serial: int8]
+
+const version_info: VersionInfos = (
+  major: NimMajor.int8, minor: NimMinor.int8,
+  micro: NimPatch.int8, releaselevel: "final", serial: 0.int8)
+
+type Sis = tuple[
+  platform: string, maxsize: int64, version: string, version_info: VersionInfos,
+  byteorder: string, copyright: string, hexversion: string, api_version: string]
+
+const sys*: Sis = (  # From http://devdocs.io/python~3.6/library/sys
+  platform:     hostOS,                          # Operating System
+  maxsize:      high(BiggestInt),                # Biggest Integer possible
+  version:      NimVersion,                      # SemVer of Nim
+  version_info: version_info,                    # Tuple VersionInfos
+  byteorder:    $cpuEndian,                      # CPU Endian
+  copyright:    "MIT",                           # Copyright
+  hexversion:   NimVersion.toHex.toLowerAscii(), # Version Hexadecimal string
+  api_version:  NimVersion                       # SemVer of Nim
+)
+
+
 # # Mimics Pythons `with open(file, mode='r') as file:` context manager.
 # template with_open*(f: string, mode: char='r', statements: untyped): stmt =
 #   echo "inside"
