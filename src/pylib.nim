@@ -1,4 +1,5 @@
-import strutils, math, sequtils, macros, unicode, tables, strformat, times, nativesockets
+import strutils, math, sequtils, macros, unicode, tables, strformat, times
+import nativesockets, json
 export math, tables
 import pylib/[
   class, print, types, ops, string/strops, string/pystring, tonim, pyrandom]
@@ -51,12 +52,17 @@ proc any*[T](iter: Iterable[T]): bool =
     if bool(element):
       return true
 
+
 # Mimics Pythons divmod().
 proc divmod*(a: int, b: int):     array[0..1, int]   = [int(a / b), int(a mod b)]
 proc divmod*(a: int8, b: int8):   array[0..1, int8]  = [int8(a / b), int8(a mod b)]
 proc divmod*(a: int16, b: int16): array[0..1, int16] = [int16(a / b), int16(a mod b)]
 proc divmod*(a: int32, b: int32): array[0..1, int32] = [int32(a / b), int32(a mod b)]
 proc divmod*(a: int64, b: int64): array[0..1, int64] = [int64(a / b), int64(a mod b)]
+
+
+# Mimics Pythons loads() to load JSON.
+proc loads*(buffer: string): JsonNode = parseJson(buffer)
 
 
 # Mimic Pythons sys.* useful to query basic info of the system.
@@ -85,6 +91,7 @@ const sys*: Sis = (  # From http://devdocs.io/python~3.6/library/sys
 
 # Mimic Pythons platform.* useful to query basic info of the platform.
 type Platforms = tuple[node: string, system: string, machine: string]
+
 const platform*: Platforms = (node: getHostname(), system: hostOS,
                               machine: hostCPU, processor: hostCPU)
 
