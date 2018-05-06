@@ -1,8 +1,7 @@
-import strutils, math, sequtils, macros, unicode, tables
+import strutils, math, sequtils, macros, unicode, tables, strformat, times
 export math, tables
 import pylib/[
-  class, print, types, ops, string/strops, string/pystring, tonim,
-  pyrandom]
+  class, print, types, ops, string/strops, string/pystring, tonim, pyrandom]
 export class, print, types, ops, strops, pystring, tonim, pyrandom
 
 type
@@ -60,18 +59,30 @@ proc divmod*(a: int32, b: int32): array[0..1, int32] = [int32(a / b), int32(a mo
 proc divmod*(a: int64, b: int64): array[0..1, int64] = [int64(a / b), int64(a mod b)]
 
 
-# Mimics Pythons `with open(file, mode='r') as file:` context manager.
-template with_open*(f: string, mode: char='r', statements: untyped) =
-  var fileMode: FileMode
-  case mode  # From http://devdocs.io/python~3.6/library/functions#open
-  of 'r': fileMode = FileMode.fmRead
-  of 'w': fileMode = FileMode.fmWrite
-  of 'a': fileMode = FileMode.fmAppend
-  of 'b': fileMode = FileMode.fmReadWrite
-  of 't': fileMode = FileMode.fmReadWrite
-  of '+': fileMode = FileMode.fmReadWrite
-  of 'x': fileMode = FileMode.fmReadWriteExisting
-  # 'U' is Deprecated on Python.
-  var file {.inject.} = open(f, fileMode)
-  defer: file.close()
-  statements
+# # Mimics Pythons `with open(file, mode='r') as file:` context manager.
+# template with_open*(f: string, mode: char='r', statements: untyped): stmt =
+#   echo "inside"
+#   var fileMode: FileMode
+#   case mode  # From http://devdocs.io/python~3.6/library/functions#open
+#   of 'r': fileMode = FileMode.fmRead
+#   of 'w': fileMode = FileMode.fmWrite
+#   of 'a': fileMode = FileMode.fmAppend
+#   of 'b': fileMode = FileMode.fmReadWrite
+#   of 't': fileMode = FileMode.fmReadWrite
+#   of '+': fileMode = FileMode.fmReadWrite
+#   of 'x': fileMode = FileMode.fmReadWriteExisting
+#   # 'U' is Deprecated on Python.
+#   var file {.inject.} = open(f, fileMode)
+#   defer: file.close()
+#   statements
+#
+#
+# # Mimics Pythons `timeit()`
+# template timeit*(setup: string="discard", teardown: string="discard",
+#                  number: int=1_000_000, statements: untyped): untyped =
+#   defer: teardown
+#   setup
+#   let started = now()
+#   for i in 0..number:
+#     statements
+#   echo fmt"{number} Repetitions on {now() - started}."
