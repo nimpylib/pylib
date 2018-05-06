@@ -1,4 +1,4 @@
-import strutils, math, sequtils, macros, unicode, tables, strformat, times
+import strutils, math, sequtils, macros, unicode, tables, strformat, times, nativesockets
 export math, tables
 import pylib/[
   class, print, types, ops, string/strops, string/pystring, tonim, pyrandom]
@@ -72,15 +72,21 @@ type Sis = tuple[
   byteorder: string, copyright: string, hexversion: string, api_version: string]
 
 const sys*: Sis = (  # From http://devdocs.io/python~3.6/library/sys
-  platform:     hostOS,                          # Operating System
-  maxsize:      high(BiggestInt),                # Biggest Integer possible
-  version:      NimVersion,                      # SemVer of Nim
-  version_info: version_info,                    # Tuple VersionInfos
-  byteorder:    $cpuEndian,                      # CPU Endian
-  copyright:    "MIT",                           # Copyright
-  hexversion:   NimVersion.toHex.toLowerAscii(), # Version Hexadecimal string
-  api_version:  NimVersion                       # SemVer of Nim
+  platform:     hostOS,                          # Operating System.
+  maxsize:      high(BiggestInt),                # Biggest Integer possible.
+  version:      NimVersion,                      # SemVer of Nim.
+  version_info: version_info,                    # Tuple VersionInfos.
+  byteorder:    $cpuEndian,                      # CPU Endian.
+  copyright:    "MIT",                           # Copyright of Nim.
+  hexversion:   NimVersion.toHex.toLowerAscii(), # Version Hexadecimal string.
+  api_version:  NimVersion                       # SemVer of Nim.
 )
+
+
+# Mimic Pythons platform.* useful to query basic info of the platform.
+type Platforms = tuple[node: string, system: string, machine: string]
+const platform*: Platforms = (node: getHostname(), system: hostOS,
+                              machine: hostCPU, processor: hostCPU)
 
 
 # # Mimics Pythons `with open(file, mode='r') as file:` context manager.
