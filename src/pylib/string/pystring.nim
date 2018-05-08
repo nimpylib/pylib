@@ -41,3 +41,11 @@ proc capwords*[T: string](a: T, sep: char=' '): string =
 
 # Mimics Python str.isalnum() -> bool
 proc isalnum*[T: string | char](a: T): bool = strutils.isAlphaNumeric($a)
+
+
+# Mimics Python str or str -> str
+proc `or`*(a, b: string): string =
+  ## "or" for string,return a if a is not nil or empty else b,or empty if b is nil.
+  let a = if a == nil: "" else: a
+  let b = if b == nil: "" else: b
+  return if a != "": a else: b
