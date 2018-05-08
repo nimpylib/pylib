@@ -49,3 +49,9 @@ proc `or`*(a, b: string): string =
   let a = if a == nil: "" else: a
   let b = if b == nil: "" else: b
   return if a != "": a else: b
+
+
+# Mimics Python not str -> bool
+proc `not`*(s: string): bool =
+  ## "not" for strings, return true if the string is not nil or empty.
+  s == nil or s == ""
