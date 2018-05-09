@@ -104,21 +104,19 @@ template timeit*(repetitions: int, statements: untyped): untyped =
     now(), repetitions, now() - started, cpuTime() - cpuStarted)
 
 
-# # Mimics Pythons `with open(file, mode='r') as file:` context manager.
-# template with_open*(f: string, mode: char='r', statements: untyped): stmt =
-#   echo "inside"
-#   var fileMode: FileMode
-#   case mode  # From http://devdocs.io/python~3.6/library/functions#open
-#   of 'r': fileMode = FileMode.fmRead
-#   of 'w': fileMode = FileMode.fmWrite
-#   of 'a': fileMode = FileMode.fmAppend
-#   of 'b': fileMode = FileMode.fmReadWrite
-#   of 't': fileMode = FileMode.fmReadWrite
-#   of '+': fileMode = FileMode.fmReadWrite
-#   of 'x': fileMode = FileMode.fmReadWriteExisting
-#   # 'U' is Deprecated on Python.
-#   var file {.inject.} = open(f, fileMode)
-#   defer: file.close()
-#   statements
-#
-#
+# Mimics Pythons `with open(file, mode='r') as file:` context manager.
+template with_open*(f: string, mode: char, statements: untyped): untyped =
+  var fileMode: FileMode
+  case mode  # From http://devdocs.io/python~3.6/library/functions#open
+  of 'r': fileMode = FileMode.fmRead
+  of 'w': fileMode = FileMode.fmWrite
+  of 'a': fileMode = FileMode.fmAppend
+  of 'b': fileMode = FileMode.fmReadWrite
+  of 't': fileMode = FileMode.fmReadWrite
+  of '+': fileMode = FileMode.fmReadWrite
+  of 'x': fileMode = FileMode.fmReadWriteExisting
+  else:   fileMode = FileMode.fmRead
+  # 'U' is Deprecated on Python.
+  var file {.inject.} = open(f, fileMode)
+  defer: file.close()
+  statements

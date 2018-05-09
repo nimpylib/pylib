@@ -81,7 +81,7 @@ true
 
 2018-05-09T02:01:33-03:00 TimeIt: 100 Repetitions on 920 milliseconds, 853 microseconds, and 808 nanoseconds, CPU Time 0.00128.
 >>>
->>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
+>>> with_open("some_file.txt", 'r'):  # Mimics Pythons with open(file, mode='r') as file:
       while not end_of_file(file):
         print(file.read_line())
 
