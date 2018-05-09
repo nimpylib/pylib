@@ -59,7 +59,7 @@ true
 >>> (zetta, exa) = divmod(exa,  int64(1_024))
 >>> (yotta, zetta) = divmod(zetta, int64(1_024))
 >>>
->>> print(loads("""{"key": "value"}"""))  #  Mimic Pythons json.loads(str)
+>>> print(json_loads("""{"key": "value"}""")  #  Mimic Pythons json.loads(str)
 {"key":"value"}
 >>>
 >>> print(sys.platform)              #  Mimic Pythons sys.*
