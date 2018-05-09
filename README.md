@@ -127,6 +127,6 @@ nimble install pylib
 - [Nimble](https://github.com/nim-lang/nimble#installation)
 
 
-# Other Python-like modules
+### Other Python-like modules
 
 - https://nimble.directory/search?query=python
