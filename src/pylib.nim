@@ -89,7 +89,7 @@ const sys*: Sis = (  # From http://devdocs.io/python~3.6/library/sys
 
 
 # Mimic Pythons platform.* useful to query basic info of the platform.
-type Platforms = tuple[node: string, system: string, machine: string]
+type Platforms = tuple[system: string, machine: string, processor: string]
 
 const platform*: Platforms = (system: hostOS, machine: hostCPU, processor: hostCPU)
 
