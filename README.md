@@ -129,4 +129,4 @@ nimble install pylib
 
 # Other Python-like modules
 
-- https://github.com/achesak/nim-pythonpathlib#about
+- https://nimble.directory/search?query=python
