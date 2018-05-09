@@ -33,6 +33,7 @@ Hello World Capitalized
 >>>
 >>> discard str("This is a string.")  # string.
 >>> discard int(42)                   # integer.
+>>> discard int('9')                  # integer from char.
 >>> discard float(1.0)                # float.
 >>>
 >>> let integer_bytes = int64(2313354324)
