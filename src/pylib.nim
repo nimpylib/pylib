@@ -1,5 +1,4 @@
-import strutils, math, sequtils, macros, unicode, tables, strformat, times
-import nativesockets, json
+import strutils, math, sequtils, macros, unicode, tables, strformat, times, json
 export math, tables
 import pylib/[
   class, print, types, ops, string/strops, string/pystring, tonim, pyrandom]
@@ -92,8 +91,7 @@ const sys*: Sis = (  # From http://devdocs.io/python~3.6/library/sys
 # Mimic Pythons platform.* useful to query basic info of the platform.
 type Platforms = tuple[node: string, system: string, machine: string]
 
-const platform*: Platforms = (node: getHostname(), system: hostOS,
-                              machine: hostCPU, processor: hostCPU)
+const platform*: Platforms = (system: hostOS, machine: hostCPU, processor: hostCPU)
 
 
 # # Mimics Pythons `with open(file, mode='r') as file:` context manager.
