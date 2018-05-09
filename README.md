@@ -73,7 +73,7 @@ Hello World Capitalized
 >>> not ""      #  Mimic Pythons not str
 true
 >>>
->>> echo loads("""{"key": "value"}""")  #  Mimic Pythons json.loads(str)
+>>> print(loads("""{"key": "value"}"""))  #  Mimic Pythons json.loads(str)
 {"key":"value"}
 >>>
 >>> print(sys.platform)              #  Mimic Pythons sys.*
