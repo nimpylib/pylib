@@ -62,6 +62,14 @@ true
 >>> print(platform.processor)        #  Mimic Pythons platform.*
 "amd64"
 >>>
+>>> var truty: bool
+>>> truty = all([True, True, False]) #  Mimic Pythons all(iterable)
+>>> print(truty)
+false
+>>> truty = any([True, True, False]) #  Mimic Pythons any(iterable)
+>>> print(truty)
+true
+>>>
 >>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
       while not end_of_file(file):
         print(file.read_line())
