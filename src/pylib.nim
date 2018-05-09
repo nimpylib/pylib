@@ -60,8 +60,8 @@ proc divmod*(a: int32, b: int32): array[0..1, int32] = [int32(a / b), int32(a mo
 proc divmod*(a: int64, b: int64): array[0..1, int64] = [int64(a / b), int64(a mod b)]
 
 
-# Mimics Pythons loads() to load JSON.
-proc loads*(buffer: string): JsonNode = parseJson(buffer)
+# Mimics Pythons json.loads() to load JSON.
+proc json_loads*(buffer: string): JsonNode = parseJson(buffer)
 
 
 # Mimic Pythons sys.* useful to query basic info of the system.
