@@ -26,8 +26,21 @@ Nimpylib heavily relies on Nim generics, converters, operator overloading, and e
 >>>
 >>> print(capwords("hello world capitalized"))  # Like Pythons string.capwords()
 Hello World Capitalized
->>> print("a".center(9))  # Mimic Pythons str.center()
-         a        
+>>> print("a".center(9))       # Mimic Pythons str.center()
+"         a         "
+>>>
+>>> print("abc123".isalnum())  #  Mimic Pythons str.isalnim()
+true
+>>> print("abc123#$%".isalnum())
+false
+>>>
+>>> print("" or "b")   #  Mimic Pythons str or str
+"b"
+>>> print("a" or "b")
+"a"
+>>>
+>>> print(not "")      #  Mimic Pythons not str
+true
 >>>
 >>> print("Hello,", input("What is your name? "), endl="\n~\n")  #  Mimic Pythons input()
 >>>
@@ -45,14 +58,6 @@ Hello World Capitalized
 >>> (exa, peta)  = divmod(peta, int64(1_024))
 >>> (zetta, exa) = divmod(exa,  int64(1_024))
 >>> (yotta, zetta) = divmod(zetta, int64(1_024))
->>>
->>> print("" or "b")   #  Mimic Pythons str or str
-"b"
->>> print("a" or "b")
-"a"
->>>
->>> print(not "")      #  Mimic Pythons not str
-true
 >>>
 >>> print(loads("""{"key": "value"}"""))  #  Mimic Pythons json.loads(str)
 {"key":"value"}
