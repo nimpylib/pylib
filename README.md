@@ -76,8 +76,8 @@ false
 >>> print(truty)
 true
 >>>
->>> timeit 100:  #  Mimic Pythons timeit.timeit("code_to_benchmark", number=int)
-      sleep(9)   # Repeats this code 100 times. Output is very informative.
+>>> timeit(100):  #  Mimic Pythons timeit.timeit("code_to_benchmark", number=int)
+      sleep(9)    # Repeats this code 100 times. Output is very informative.
 
 2018-05-09T02:01:33-03:00 TimeIt: 100 Repetitions on 920 milliseconds, 853 microseconds, and 808 nanoseconds, CPU Time 0.00128.
 >>>
