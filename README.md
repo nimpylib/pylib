@@ -16,8 +16,8 @@ Nimpylib heavily relies on Nim generics, converters, operator overloading, and e
 >>> import pylib
 >>> include pylib/range  # It's necessary to include range module separately
 >>>
->>> let data = range(0, -10, -2)
->>> print(data)
+>>> let python_like_range = range(0, -10, -2)  #  Mimic Pythons range()
+>>> print(python_like_range)                   #  Mimic Pythons print()
 @[0, -2, -4, -6, -8]
 >>>
 >>> for i in range(10):
@@ -65,12 +65,12 @@ Hello World Capitalized
 >>> (zetta, exa) = divmod(exa,  int64(1_024))
 >>> (yotta, zetta) = divmod(zetta, int64(1_024))
 >>>
->>> "" or "b"   #  Mimic Pythons str or str
+>>> print("" or "b")   #  Mimic Pythons str or str
 "b"
->>> "a" or "b"
+>>> print("a" or "b")
 "a"
 >>>
->>> not ""      #  Mimic Pythons not str
+>>> print(not "")      #  Mimic Pythons not str
 true
 >>>
 >>> print(loads("""{"key": "value"}"""))  #  Mimic Pythons json.loads(str)
