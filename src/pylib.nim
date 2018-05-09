@@ -94,6 +94,16 @@ type Platforms = tuple[system: string, machine: string, processor: string]
 const platform*: Platforms = (system: hostOS, machine: hostCPU, processor: hostCPU)
 
 
+# Mimics Pythons `timeit.timeit()`
+template timeit*(repetitions: int, statements: untyped): untyped =
+  let started = now()
+  let cpuStarted = cpuTime()
+  for i in 0..repetitions:
+    statements
+  echo "$1 TimeIt: $2 Repetitions on $3, CPU Time $4.".format(
+    now(), repetitions, now() - started, cpuTime() - cpuStarted)
+
+
 # # Mimics Pythons `with open(file, mode='r') as file:` context manager.
 # template with_open*(f: string, mode: char='r', statements: untyped): stmt =
 #   echo "inside"
@@ -112,12 +122,3 @@ const platform*: Platforms = (system: hostOS, machine: hostCPU, processor: hostC
 #   statements
 #
 #
-# # Mimics Pythons `timeit()`
-# template timeit*(setup: string="discard", teardown: string="discard",
-#                  number: int=1_000_000, statements: untyped): untyped =
-#   defer: teardown
-#   setup
-#   let started = now()
-#   for i in 0..number:
-#     statements
-#   echo fmt"{number} Repetitions on {now() - started}."

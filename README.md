@@ -1,4 +1,4 @@
-# Nimpylib
+# NimPylib
 
 - **This repository is mostly a PoC, for full py2nim transpiler see [py2nim](https://github.com/metacraft-labs/py2nim)**
 
@@ -29,7 +29,7 @@ Hello World Capitalized
 >>> print("a".center(9))       # Mimic Pythons str.center()
 "         a         "
 >>>
->>> print("abc123".isalnum())  #  Mimic Pythons str.isalnim()
+>>> print("abc123".isalnum())  #  Mimic Pythons str.isalnum()
 true
 >>> print("abc123#$%".isalnum())
 false
@@ -76,6 +76,11 @@ false
 >>> print(truty)
 true
 >>>
+>>> timeit 100:  #  Mimic Pythons timeit.timeit("code_to_benchmark", number=int)
+      sleep(9)   # Repeats this code 100 times. Output is very informative.
+
+2018-05-09T02:01:33-03:00 TimeIt: 100 Repetitions on 920 milliseconds, 853 microseconds, and 808 nanoseconds, CPU Time 0.00128.
+>>>
 >>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
       while not end_of_file(file):
         print(file.read_line())
@@ -105,6 +110,7 @@ true
 ```
 
 - [Check the Examples folder for more examples.](https://github.com/Yardanico/nimpylib/tree/master/examples)
+[Have more Macros or Templates for Python-like syntax, send Pull Request.](https://github.com/Yardanico/nimpylib/pulls)
 
 
 # Install
