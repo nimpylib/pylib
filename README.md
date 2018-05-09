@@ -35,26 +35,6 @@ Hello World Capitalized
 >>> discard int(42)                   # integer.
 >>> discard float(1.0)                # float.
 >>>
->>> type Example = ref object
-      start: int
-      stop: int
-      step: int
-
->>>
->>> class Example(object):
-      """Example class with Python-ish Nim syntax!."""
-
-      def init(self, start, stop, step=1):
-        self.start = start
-        self.stop = stop
-        self.step = step
-
-      def stopit(self, argument):
-        """Example function with Python-ish Nim syntax."""
-        self.stop = argument
-        return self.stop
-
->>>
 >>> let integer_bytes = int64(2313354324)
 >>> (kilo, bite) = divmod(integer_bytes, int64(1_024))  # Mimic Python divmod()
 >>> (mega, kilo) = divmod(kilo, int64(1_024))
@@ -85,6 +65,27 @@ true
 >>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
       while not end_of_file(file):
         print(file.read_line())
+
+>>>
+>>>
+>>> type Example = ref object
+      start: int
+      stop: int
+      step: int
+
+>>>
+>>> class Example(object):            #  Mimic Python Classes.
+      """Example class with Python-ish Nim syntax!."""
+
+      def init(self, start, stop, step=1):
+        self.start = start
+        self.stop = stop
+        self.step = step
+
+      def stopit(self, argument):
+        """Example function with Python-ish Nim syntax."""
+        self.stop = argument
+        return self.stop
 
 >>>
 ```
