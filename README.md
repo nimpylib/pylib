@@ -125,3 +125,8 @@ nimble install pylib
 
 - [Nim](https://nim-lang.org)
 - [Nimble](https://github.com/nim-lang/nimble#installation)
+
+
+# Other Python-like modules
+
+- https://github.com/achesak/nim-pythonpathlib#about
