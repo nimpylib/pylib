@@ -31,7 +31,7 @@ Hello World Capitalized
 >>> print("a".center(9))  # Mimic Pythons str.center()
          a        
 >>>
->>> print("Hello,", input("What is your name? "), endl="\n~~~\n")
+>>> print("Hello,", input("What is your name? "), endl="\n~\n")  #  Mimic Pythons input()
 >>>
 >>> discard str("This is a string.")  # string.
 >>> discard int(42)                   # integer.
@@ -74,6 +74,9 @@ Hello World Capitalized
 >>>
 >>> not ""      #  Mimic Pythons not str
 true
+>>>
+>>> echo loads("""{"key": "value"}""")  #  Mimic Pythons json.loads(str)
+{"key":"value"}
 >>>
 >>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
       while not end_of_file(file):
