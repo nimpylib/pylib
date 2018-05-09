@@ -67,6 +67,14 @@ Hello World Capitalized
 >>> (zetta, exa) = divmod(exa,  int64(1_024))
 >>> (yotta, zetta) = divmod(zetta, int64(1_024))
 >>>
+>>> "" or "b"   #  Mimic Pythons str or str
+"b"
+>>> "a" or "b"
+"a"
+>>>
+>>> not ""      #  Mimic Pythons not str
+true
+>>>
 >>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
       while not end_of_file(file):
         print(file.read_line())
