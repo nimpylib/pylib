@@ -12,8 +12,6 @@ Nimpylib heavily relies on Nim generics, converters, operator overloading, and e
 
 # Use
 
-Example: Python-like `range`, `print`, `class`, `def` and more:
-
 ```nim
 >>> import pylib
 >>> include pylib/range  # It's necessary to include range module separately
@@ -77,6 +75,12 @@ true
 >>>
 >>> echo loads("""{"key": "value"}""")  #  Mimic Pythons json.loads(str)
 {"key":"value"}
+>>>
+>>> print(sys.platform)              #  Mimic Pythons sys.*
+"linux"
+>>>
+>>> print(platform.processor)        #  Mimic Pythons platform.*
+"amd64"
 >>>
 >>> with_open("/path/to/file.txt"):  # Mimic Pythons `with open(file, mode='r') as file:`
       while not end_of_file(file):
