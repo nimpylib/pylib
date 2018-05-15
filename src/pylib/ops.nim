@@ -1,5 +1,14 @@
 import math
 
+
+when not defined SomeFloat:
+  ## Type class matching all floating point number types.
+  ## Workaround for Error: undeclared identifier: 'SomeFloat'.
+  ## SomeFloat used to be SomeReal, see:
+  ## https://github.com/nim-lang/Nim/commit/efae3668570b51fa14483663d1979a6a8a6852fe
+  type SomeFloat* = float | float32 | float64
+
+
 # Power templates for different types of arguments
 template `**`*[T](a: T, b: Natural): T = a ^ b
 template `**`*[T: SomeFloat](a, b: T): T = pow(a, b)
