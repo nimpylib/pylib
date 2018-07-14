@@ -5,9 +5,6 @@ jobs:
     steps:
       - run: echo 'export PATH=./Nim/bin:$PATH' >> $BASH_ENV
       - checkout
-      # Reuse cached Nim compiler
-      - restore_cache:
-          key: compiler-0000
       - run:
           command: |
             if [ -d Nim ]; then
