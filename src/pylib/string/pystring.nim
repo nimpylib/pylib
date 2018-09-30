@@ -1,5 +1,6 @@
 import strutils
 import unicode
+
 const
   ascii_lowercase* = "abcdefghijklmnopqrstuvwxyz"
   ascii_uppercase* = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -43,15 +44,15 @@ proc capwords*[T: string](a: T, sep: char=' '): string =
 proc isalnum*[T: string | char](a: T): bool = strutils.isAlphaNumeric($a)
 
 
-# Mimics Python str or str -> str
 proc `or`*(a, b: string): string =
-  ## "or" for string,return a if a is not nil or empty else b,or empty if b is nil.
-  let a = if a == nil: "" else: a
-  let b = if b == nil: "" else: b
-  return if a != "": a else: b
+  ## Mimics Python str or str -> str.
+  ## "or" for string,return a if a is not "" or empty else b,or empty if b is "".
+  let a = if a == "": "" else: a
+  let b = if b == "": "" else: b
+  if a != "": a else: b
 
 
-# Mimics Python not str -> bool
 proc `not`*(s: string): bool =
+  ## # Mimics Python not str -> bool.
   ## "not" for strings, return true if the string is not nil or empty.
-  s == nil or s == ""
+  s == ""
