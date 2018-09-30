@@ -10,8 +10,8 @@ type
       value is T
 
 const
-  True* = true
-  False* = false
+  True* = true    ## True with Capital leter like Python.
+  False* = false  ## False with Capital leter like Python.
 
 converter bool*[T](arg: T): bool =
   ## Converts argument to boolean
@@ -60,8 +60,9 @@ proc divmod*(a: int32, b: int32): array[0..1, int32] = [int32(a / b), int32(a mo
 proc divmod*(a: int64, b: int64): array[0..1, int64] = [int64(a / b), int64(a mod b)]
 
 
-# Mimics Pythons json.loads() to load JSON.
-proc json_loads*(buffer: string): JsonNode = parseJson(buffer)
+proc json_loads*(buffer: string): JsonNode =
+  ## Mimics Pythons json.loads() to load JSON.
+  parseJson(buffer)
 
 
 # Mimic Pythons sys.* useful to query basic info of the system.
@@ -94,8 +95,8 @@ type Platforms = tuple[system: string, machine: string, processor: string]
 const platform*: Platforms = (system: hostOS, machine: hostCPU, processor: hostCPU)
 
 
-# Mimics Pythons `timeit.timeit()`
 template timeit*(repetitions: int, statements: untyped): untyped =
+  ## Mimics Pythons `timeit.timeit()`
   let started = now()
   let cpuStarted = cpuTime()
   for i in 0..repetitions:
@@ -104,10 +105,11 @@ template timeit*(repetitions: int, statements: untyped): untyped =
     now(), repetitions, now() - started, cpuTime() - cpuStarted)
 
 
-# Mimics Pythons `with open(file, mode='r') as file:` context manager.
 template with_open*(f: string, mode: char, statements: untyped): untyped =
+  ## Mimics Pythons `with open(file, mode='r') as file:` context manager.
+  ## Based on http://devdocs.io/python~3.6/library/functions#open
   var fileMode: FileMode
-  case mode  # From http://devdocs.io/python~3.6/library/functions#open
+  case mode
   of 'r': fileMode = FileMode.fmRead
   of 'w': fileMode = FileMode.fmWrite
   of 'a': fileMode = FileMode.fmAppend

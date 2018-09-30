@@ -1,6 +1,6 @@
 import macros, sequtils, strutils, ../pylib
 
-proc genProc(item: NimNode): NimNode = 
+proc genProc(item: NimNode): NimNode =
   # a(b, c=1)
   let define = item[1]
   var procName = define[0]
@@ -30,14 +30,14 @@ proc genProc(item: NimNode): NimNode =
   # Finally create a procedure and add it to result!
   return newProc(procName, args, beforeBody, nnkProcDef)
 
-macro tonim*(body: untyped): untyped = 
+macro tonim*(body: untyped): untyped =
   result = newStmtList()
-  for i in 0..<body.len:
+  for i in 0 .. body.len - 1:
     result.add body[i]
   # sequence of variables which were already initialized
   # so we don't need to redefine them again
   var assigned = newSeq[string]()
-  for i in 0..<body.len:
+  for i in 0 .. body.len - 1:
     let item = body[i]
     case item.kind
     of nnkCommand:
