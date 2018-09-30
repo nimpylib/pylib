@@ -5,7 +5,7 @@ import pylib/[
 export class, print, types, ops, strops, pystring, tonim, pyrandom
 
 type
-  Iterable*[T] = concept x
+  Iterable*[T] = concept x  ## Mimic Pythons Iterable.
     for value in x:
       value is T
 
