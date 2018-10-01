@@ -37,7 +37,7 @@ proc casefold*[T: string | char](a: T): string | char =
 
 proc center*[T: string | char](a: T, width: Natural, fillchar: char=' '): string | char =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
-  repeat($fillchar, width) + a + repeat($fillchar, width)
+  repeat(fillchar, width) & a & repeat(fillchar, width)
 
 proc capwords*[T: string](a: T, sep: char=' '): string =
   ## Mimics Python string.capwords(sep) -> str
