@@ -1,4 +1,5 @@
 import unittest, pylib
+
 include pylib/range
 
-include trange, tintdiv, tclass, ttonim, tstring, tmodulo
+include trange, tintdiv, tclass, ttonim, tstring, tmodulo, tmiscelaneous
