@@ -65,21 +65,21 @@ proc input*(prompt = ""): string =
     stdout.write(prompt)
   stdin.readLine()
 
-proc all*[T](iter: Iterable[T]): bool =
+func all*[T](iter: Iterable[T]): bool =
   ## Checks if all values in iterable are truthy
   result = true
   for element in iter:
     if not bool(element):
       return false
 
-proc any*[T](iter: Iterable[T]): bool =
+func any*[T](iter: Iterable[T]): bool =
   ## Checks if at least one value in iterable is truthy
   result = false
   for element in iter:
     if bool(element):
       return true
 
-proc divmod*(a, b: SomeInteger): array[0..1, int] =
+func divmod*(a, b: SomeInteger): array[0..1, int] =
   ## Mimics Pythons ``divmod()``.
   [int(a / b), int(a mod b)]
 
