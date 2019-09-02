@@ -1,7 +1,7 @@
 import strutils, macros
 
-proc printImpl*(objects: openarray[string], sep=" ", endl="\n", 
-                file=stdout, flush=false) = 
+proc printImpl*(objects: openarray[string], sep=" ", endl="\n",
+                file=stdout, flush=false) =
   ## Print procedure implementation. Use print macro instead!
   # Write all objects joined by sep
   file.write(objects.join(sep))
@@ -12,7 +12,7 @@ proc printImpl*(objects: openarray[string], sep=" ", endl="\n",
     file.flushFile()
 
 macro print*(data: varargs[untyped]): untyped =
-  ## Print macro, which is identical to Python "print()" function with 
+  ## Print macro, which is identical to Python "print()" function with
   ## one change: end argument renamed to endl
   var objects = newTree(nnkBracket)
   var arguments = newTree(nnkArglist)
