@@ -28,7 +28,7 @@ template `==`*[A: SomeFloat, B: SomeInteger](a: A, b: B): bool = a == A(b)
 
 template `/`*(x, y: BiggestInt): float = system.`/`(int(x), int(y))
 
-proc `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): int | float =
+func `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): int | float =
   ## Python-like floor division
   let data = floor(float(a) / float(b))
   # Both arguments are float - result if float
@@ -40,7 +40,7 @@ proc `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): int | float =
   # Both arguments are int - result is int
   else: result = int(data)
 
-proc `%`*[T: SomeNumber](a, b: T): T =
+func `%`*[T: SomeNumber](a, b: T): T =
   ## Python-like modulo
   result = a - b * (a // b)
 
