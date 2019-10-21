@@ -27,3 +27,10 @@ test "String operations":
 
   check "a" or "b" == "a"
   check "" or "b" == "b"
+
+  check f"{666.0} Hello {42} World {true} ! {1 + 2}" == "666.0 Hello 42 World true ! 3"
+  check f"" == ""
+  check f" " == " "
+  check f"""""" == ""
+  check f""" """ == " "
+  check f"hello {42}" & " world" == "hello 42 world"

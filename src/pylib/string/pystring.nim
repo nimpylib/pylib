@@ -1,4 +1,5 @@
 import strutils, unicode
+from strformat import `&`
 
 const
   ascii_lowercase* = "abcdefghijklmnopqrstuvwxyz"
@@ -59,3 +60,8 @@ func `not`*(s: string): bool =
   ## # Mimics Python not str -> bool.
   ## "not" for strings, return true if the string is not nil or empty.
   s == ""
+
+template f*(pattern: string): untyped =
+  ## An alias for ``&``. Mimics Python F-String.
+  bind `&`
+  &pattern
