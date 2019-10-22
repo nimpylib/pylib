@@ -114,3 +114,6 @@ template with_open*(f: string, mode: char, statements: untyped): untyped =
   var file {.inject.} = open(f, fileMode)
   defer: file.close()
   statements
+
+template pass*(_: any) = discard # pass 42
+template pass*() = discard       # pass()

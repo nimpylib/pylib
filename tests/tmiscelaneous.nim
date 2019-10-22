@@ -10,6 +10,13 @@ test "Miscelaneous":
   check divmod(4, 2) == [2, 0]
   check divmod(4.int8, 2.int8) == [2, 0]
 
+  pass 42  # Mimic pass, instead of discard, not exactly the same but close.
+  pass true
+  pass 1.2
+  pass()
+  pass "a"
+  pass 'b'
+
   checkpoint "Timeit"
   timeit(9):
     discard
