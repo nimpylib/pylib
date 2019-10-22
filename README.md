@@ -45,10 +45,10 @@ true
 >>>
 >>> print("Hello,", input("What is your name? "), endl="\n~\n")  #  Mimic Pythons input()
 >>>
->>> discard str("This is a string.")  # string.
->>> discard int(42)                   # integer.
->>> discard int('9')                  # integer from char.
->>> discard float(1.0)                # float.
+>>> pass str("This is a string.")  # string.
+>>> pass int(42)                   # integer.
+>>> pass int('9')                  # integer from char.
+>>> pass float(1.0)                # float.
 >>>
 >>> let integer_bytes = int64(2313354324)
 >>> (kilo, bite) = divmod(integer_bytes, int64(1_024))  # Mimic Python divmod()
