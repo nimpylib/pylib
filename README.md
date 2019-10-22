@@ -152,6 +152,7 @@ nimble install pylib
 - ✅ `timeit()`
 - ✅ `json.loads()` can Pretty-Print
 - ✅ `True` / `False`
+- ✅ `__import__()` (Named `import()`)
 - ✅ `pass`
 - ✅ `abs()`
 - ✅ `all()`

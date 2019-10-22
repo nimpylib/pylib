@@ -120,3 +120,5 @@ template pass*() = discard       # pass()
 
 template lambda*(code: untyped): untyped =
   ( proc (): auto = code )  # Mimic Pythons Lambda
+
+template `import`*(module: string): untyped = import module  # Mimic Pythons __import__()

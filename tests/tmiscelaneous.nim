@@ -4,6 +4,8 @@ import times
 from pylib/future import braces
 #import pylib/antigravity
 
+`import`("strutils")  # __import__()
+
 
 test "Miscelaneous":
   check True == true
