@@ -142,12 +142,25 @@ nimble install pylib
 # Requisites
 
 - [Nim](https://nim-lang.org)
-- [Nimble](https://github.com/nim-lang/nimble#installation)
 
 
 ### Other Python-like modules
 
 - https://nimble.directory/search?query=python
+
+
+### Tests
+
+```console
+$ nimble test
+  [OK] Range-like Nim procedure
+  [OK] Floor division
+  [OK] Class macro
+  [OK] tonim macro
+  [OK] String operations
+  [OK] Modulo operations
+  [OK] Miscelaneous
+```
 
 
 #### Stats
