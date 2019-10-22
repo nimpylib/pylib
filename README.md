@@ -60,6 +60,10 @@ true
 >>> (zetta, exa) = divmod(exa,  int64(1_024))
 >>> (yotta, zetta) = divmod(zetta, int64(1_024))
 >>>
+>>> let arg = "hello"
+>>> let anon = lambda: arg + " world"  # Mimic Pythons lambda
+>>> assert anon() == "hello world"
+>>>
 >>> print(json_loads("""{"key": "value"}""")  #  Mimic Pythons json.loads(str)
 {"key":"value"}
 >>>

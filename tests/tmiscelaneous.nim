@@ -17,6 +17,10 @@ test "Miscelaneous":
   pass "a"
   pass 'b'
 
+  let arg = "hello"
+  let anon = lambda: arg & " world"
+  check anon() == "hello world"
+
   checkpoint "Timeit"
   timeit(9):
     discard

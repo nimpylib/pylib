@@ -117,3 +117,6 @@ template with_open*(f: string, mode: char, statements: untyped): untyped =
 
 template pass*(_: any) = discard # pass 42
 template pass*() = discard       # pass()
+
+template lambda*(code: untyped): untyped =
+  ( proc (): auto = code )  # Mimic Pythons Lambda
