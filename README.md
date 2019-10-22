@@ -1,5 +1,16 @@
 # NimPylib
 
+![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=for-the-badge)
+![](https://img.shields.io/github/languages/count/Yardanico/nimpylib?logoColor=green&style=for-the-badge)
+![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=for-the-badge "Star NimPylib on GitHub!")
+![](https://img.shields.io/maintenance/yes/2019?style=for-the-badge "2019")
+![](https://img.shields.io/github/languages/code-size/Yardanico/nimpylib?style=for-the-badge)
+![](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=for-the-badge "Bugs")
+![](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=for-the-badge "PRs")
+![](https://img.shields.io/github/commit-activity/y/Yardanico/nimpylib?style=for-the-badge)
+![](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=for-the-badge "Commits")
+
+
 - **This repository is mostly a PoC, for full py2nim transpiler see [py2nim](https://github.com/metacraft-labs/py2nim)**
 
 Nimpylib is a collection of python-like operators and functions (syntax sugar).
@@ -138,3 +149,11 @@ nimble install pylib
 ### Other Python-like modules
 
 - https://nimble.directory/search?query=python
+
+
+#### Stats
+
+![Star nimpylib on GitHub](https://starchart.cc/Yardanico/nimpylib.svg "Star nimpylib on GitHub!")
+
+
+[  ⬆️  ⬆️  ⬆️  ⬆️  ](#NimPylib "Go to top")
