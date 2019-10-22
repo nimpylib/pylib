@@ -12,10 +12,6 @@
 Nimpylib is a collection of python-like operators and functions (syntax sugar).
 It can help you to translate your Python program to Nim.
 
-Also there's simple `class` macro similar to Python `class` (but without inheritance).
-
-Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
-
 
 # Use
 
@@ -122,6 +118,10 @@ true
 
 >>>
 ```
+
+Also there's simple `class` macro similar to Python `class` (but without inheritance).
+
+Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
 
 - [Check the Examples folder for more examples.](https://github.com/Yardanico/nimpylib/tree/master/examples)
 [Have more Macros or Templates for Python-like syntax, send Pull Request.](https://github.com/Yardanico/nimpylib/pulls)
