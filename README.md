@@ -7,7 +7,6 @@
 ![](https://img.shields.io/github/languages/code-size/Yardanico/nimpylib?style=for-the-badge)
 ![](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=for-the-badge "Bugs")
 ![](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=for-the-badge "PRs")
-![](https://img.shields.io/github/commit-activity/y/Yardanico/nimpylib?style=for-the-badge)
 ![](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=for-the-badge "Commits")
 
 
@@ -153,7 +152,7 @@ nimble install pylib
 
 #### Stats
 
-![Star nimpylib on GitHub](https://starchart.cc/Yardanico/nimpylib.svg "Star nimpylib on GitHub!")
+![Star nimpylib on GitHub](https://starchart.cc/Yardanico/nimpylib.svg "Star NimPylib on GitHub!")
 
 
 [  ⬆️  ⬆️  ⬆️  ⬆️  ](#NimPylib "Go to top")
