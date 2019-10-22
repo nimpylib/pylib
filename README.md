@@ -9,9 +9,6 @@
 ![](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=for-the-badge "PRs")
 ![](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=for-the-badge "Commits")
 
-
-- **This repository is mostly a PoC, for full py2nim transpiler see [py2nim](https://github.com/metacraft-labs/py2nim)**
-
 Nimpylib is a collection of python-like operators and functions (syntax sugar).
 It can help you to translate your Python program to Nim.
 
@@ -188,6 +185,7 @@ nimble install pylib
 ### Other Python-like modules
 
 - https://nimble.directory/search?query=python
+- [Full py2nim transpiler](https://github.com/metacraft-labs/py2nim)
 
 
 ### Tests
