@@ -16,6 +16,9 @@ Nimpylib heavily relies on Nim generics, converters, operator overloading, and e
 >>> import pylib
 >>> include pylib/range  # It's necessary to include range module separately
 >>>
+>>> from pylib/future import braces
+>>> import pylib/antigravity
+>>>
 >>> print( f"{9.0} Hello {42} World {1 + 2}" ) #  Mimic Pythons F-String
 >>> let python_like_range = range(0, -10, -2)  #  Mimic Pythons range()
 >>> print(python_like_range)                   #  Mimic Pythons print()
