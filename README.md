@@ -144,16 +144,16 @@ nimble install pylib
 # Support
 
 - ✅ F-Strings `f"foo {variable} bar {1 + 2} baz"` and string functions
-- ✅ Python OOP with methods and DocStrings
+- ✅ Python OOP class with methods and DocStrings
 - ✅ `import antigravity`
 - ✅ `from __future__ import braces`
 - ✅ `lambda:`
 - ✅ `with open("file.ext", 'w'):` Read, write, append, etc
-- ✅ `timeit()`
-- ✅ `json.loads()` can Pretty-Print
+- ✅ `timeit()` with Nanoseconds precision
+- ✅ `json.loads()` also can Pretty-Print
 - ✅ `True` / `False`
-- ✅ `__import__()` (Named `import()`)
-- ✅ `pass`
+- ✅ `__import__()` Named `import()`
+- ✅ `pass` also can take and discard any arguments
 - ✅ `abs()`
 - ✅ `all()`
 - ✅ `any()`
