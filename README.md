@@ -136,12 +136,53 @@ true
 nimble install pylib
 ```
 
-- Uninstall `nimble uninstall pylib`.
+- Uninstall `nimble uninstall pylib`. https://nimble.directory/pkg/pylib
 
 
 # Requisites
 
 - [Nim](https://nim-lang.org)
+
+
+# Support
+
+- ✅ F-Strings `f"foo {variable} bar {1 + 2} baz"` and string functions
+- ✅ Python OOP with methods and DocStrings
+- ✅ `import antigravity`
+- ✅ `from __future__ import braces`
+- ✅ `lambda:`
+- ✅ `with open("file.ext", 'w'):` Read, write, append, etc
+- ✅ `timeit()`
+- ✅ `json.loads()` can Pretty-Print
+- ✅ `True` / `False`
+- ✅ `pass`
+- ✅ `abs()`
+- ✅ `all()`
+- ✅ `any()`
+- ✅ `bin()`
+- ✅ `chr()`
+- ✅ `divmod()`
+- ✅ `enumerate()`
+- ✅ `filter()`
+- ✅ `float()`
+- ✅ `hex()`
+- ✅ `id()`
+- ✅ `input()`
+- ✅ `int()`
+- ✅ `isinstance()`
+- ✅ `issubclass()`
+- ✅ `iter()`
+- ✅ `list()`
+- ✅ `map()`
+- ✅ `max()`
+- ✅ `min()`
+- ✅ `oct()`
+- ✅ `ord()`
+- ✅ `print("foo")` / `print "foo"` (Python2 like)
+- ✅ `range()`
+- ✅ `str()`
+- ✅ `sum()`
+- More...
 
 
 ### Other Python-like modules
