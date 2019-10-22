@@ -31,6 +31,15 @@ It can help you to translate your Python program to Nim.
       print(i, endl=" ")
 0 1 2 3 4 5 6 7 8 9
 >>>
+>>> if ( "a".`:=` 6 ) > 5:
+>>>   assert a == 6
+>>>
+>>> if ( "b".`:=` 42.0 ) > 5.0:
+>>>   assert b == 42.0
+>>>
+>>> if ( "c".`:=` "hello" ) == "hello":
+>>>   assert c == "hello"
+>>>
 >>> print(capwords("hello world capitalized"))  # Like Pythons string.capwords()
 Hello World Capitalized
 >>> print("a".center(9))       # Mimic Pythons str.center()
@@ -154,6 +163,7 @@ nimble install pylib
 - ✅ `True` / `False`
 - ✅ `__import__()` Named `import()`
 - ✅ `pass` also can take and discard any arguments
+- ✅ `:=` Walrus Operator, for numbers and strings
 - ✅ `abs()`
 - ✅ `all()`
 - ✅ `any()`

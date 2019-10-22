@@ -28,6 +28,18 @@ test "Miscelaneous":
   let anon = lambda: arg & " world"
   check anon() == "hello world"
 
+  if ( "a".`:=` 6 ) > 5:
+    assert a == 6
+
+  if ( "b".`:=` 42.0 ) > 5.0:
+    assert b == 42.0
+
+  if ( "c".`:=` "hello" ) == "hello":
+    assert c == "hello"
+
+  if ( "d".`:=` 'z' ) == 'z':
+    assert d == 'z'
+
   checkpoint "Timeit"
   timeit(9):
     discard

@@ -122,3 +122,14 @@ template lambda*(code: untyped): untyped =
   ( proc (): auto = code )  # Mimic Pythons Lambda
 
 template `import`*(module: string): untyped = import module  # Mimic Pythons __import__()
+
+macro `:=`*(variable: string, value: SomeNumber|char|string): untyped =
+  ## Mimic Pythons Walrus Operator. Creates new variable from string and assign value.
+  var v: string
+  case value.kind
+  of nnkCharLit: v = "char(" & $value.intVal & ")"
+  of nnkIntLit..nnkUInt64Lit: v = $value.intVal
+  of nnkFloatLit..nnkFloat64Lit: v = $value.floatVal
+  of nnkStrLit..nnkTripleStrLit: v = "\"\"\"" & value.strVal & "\"\"\""
+  else: discard # Limited by argument type anyways.
+  parseStmt "(var " & $variable & "=" & v & ";" & $variable & ")"
