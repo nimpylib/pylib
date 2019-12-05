@@ -1,5 +1,7 @@
 # NimPylib
 
+![](https://raw.githubusercontent.com/Yardanico/nimpylib/master/carbon.png "Python-like Syntax for Nim")
+
 ![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=for-the-badge)
 ![](https://img.shields.io/github/languages/count/Yardanico/nimpylib?logoColor=green&style=for-the-badge)
 ![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=for-the-badge "Star NimPylib on GitHub!")
@@ -8,8 +10,6 @@
 ![](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=for-the-badge "Bugs")
 ![](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=for-the-badge "PRs")
 ![](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=for-the-badge "Commits")
-
-![](carbon.png "Python-like Syntax for Nim")
 
 Nimpylib is a collection of python-like operators and functions (syntax sugar).
 It can help you to translate your Python program to Nim.
