@@ -188,10 +188,11 @@ nimble install pylib
 - ✅ `min()`
 - ✅ `oct()`
 - ✅ `ord()`
-- ✅ `print("foo")` / `print "foo"` (Python2 like)
+- ✅ `print("foo")` / `print "foo"` Python2 like
 - ✅ `range()`
 - ✅ `str()`
 - ✅ `sum()`
+- ✅ `<>` Python 1.x and 2.x `!=`
 - More...
 
 
