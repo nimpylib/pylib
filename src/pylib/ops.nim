@@ -17,6 +17,9 @@ template `<=`*[A: SomeFloat, B: SomeInteger](a: A, b: B): bool = a <= A(b)
 template `==`*[A: SomeInteger, B: SomeFloat](a: A, b: B): bool = B(a) == b
 template `==`*[A: SomeFloat, B: SomeInteger](a: A, b: B): bool = a == A(b)
 
+template `<>`*[A: SomeInteger, B: SomeFloat](a: A, b: B): bool = B(a) != b # Python 1.x and 2.x
+template `<>`*[A: SomeFloat, B: SomeInteger](a: A, b: B): bool = a != A(b) # Python 1.x and 2.x
+
 template `/`*(x, y: BiggestInt): float = system.`/`(int(x), int(y))
 
 func `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): int | float {.inline.} =
