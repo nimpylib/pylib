@@ -192,7 +192,12 @@ nimble install pylib
 - ✅ `range()`
 - ✅ `str()`
 - ✅ `sum()`
-- ✅ `<>` Python 1.x and 2.x `!=`
+- ✅ `<>` Python1 and Python2 `!=`
+- ✅ `long()` Python2 like
+- ✅ `unicode()` Python2 like
+- ✅ `ascii()` Python2 like
+- ✅ `u"string here"` / `u'a'` Python2 like
+- ✅ `b"string here"` / `b'a'` Python2 like
 - More...
 
 
