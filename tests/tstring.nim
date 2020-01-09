@@ -7,9 +7,6 @@ test "String operations":
   check ' '.join(["hello", "world"]) == "hello world"
   check "\t\n ".isspace()
 
-  check "hello".isalnum()
-  check "01234".isalnum()
-
   check "hello world".capwords == "Hello World"
   check "01234".capwords == "01234"
 

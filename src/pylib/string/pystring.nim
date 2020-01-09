@@ -47,10 +47,6 @@ func capwords*[T: string](a: T, sep: char=' '): string =
       result.add($sep)
   result = strutils.strip(result)
 
-template isalnum*[T: string | char](a: T): bool =
-  ## Mimics Python str.isalnum() -> bool
-  strutils.isAlphaNumeric($a)
-
 template `or`*(a, b: string): string =
   ## Mimics Python str or str -> str.
   ## "or" for string,return a if a is not "" or empty else b,or empty if b is "".
