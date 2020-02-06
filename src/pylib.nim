@@ -115,6 +115,8 @@ template with_open*(f: string, mode: char | string, statements: untyped): untype
 
       Traceback (most recent call last):
           FileNotFoundError: [Errno 2] No such file or directory: """ & f
+    # Python people always try to use file.read() that wont exist on Nim.
+    template read(fileType: File): string = fileType.readAll()
     var file {.inject.} = open(f, pyfileMode)
     try: # defer: wont like top level,because is a template itself.
       statements
