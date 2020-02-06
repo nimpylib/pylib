@@ -99,20 +99,28 @@ template timeit*(repetitions: int, statements: untyped): untyped =
   echo "$1 TimeIt: $2 Repetitions on $3, CPU Time $4.".format(
     now(), repetitions, now() - started, cpuTime() - cpuStarted)
 
-template with_open*(f: string, mode: char, statements: untyped): untyped =
+template with_open*(f: string, mode: char | string, statements: untyped): untyped =
   ## Mimics Pythons ``with open(file, mode='r') as file:`` context manager.
   ## Based on http://devdocs.io/python~3.7/library/functions#open
-  let pyfileMode = case mode
-    of 'w': fileMode = FileMode.fmWrite
-    of 'a': fileMode = FileMode.fmAppend
-    of 'b', 't', '+': fileMode = FileMode.fmReadWrite
-    of 'x': fileMode = FileMode.fmReadWriteExisting
-    else:   fileMode = FileMode.fmRead
-  var file {.inject.} = open(f, pyfileMode)
-  try:
-    statements
-  finally:
-    file.close()
+  block:  # Error: redefinition of 'file'.
+    let pyfileMode = case $mode  # Allows generinc char|string
+      of "w": FileMode.fmWrite
+      of "a": FileMode.fmAppend
+      of "x": FileMode.fmReadWriteExisting
+      of "b", "t", "+": FileMode.fmReadWrite
+      else:   FileMode.fmRead
+    # Change "Error: cannot open: foo" for Python-copied traceback.
+    if pyfileMode == FileMode.fmRead or pyfileMode == FileMode.fmReadWriteExisting:
+      doAssert existsFile(f), """
+
+      Traceback (most recent call last):
+          FileNotFoundError: [Errno 2] No such file or directory: """ & f
+    var file {.inject.} = open(f, pyfileMode)
+    try: # defer: wont like top level,because is a template itself.
+      statements
+    finally:
+      file.close()  # file variable not declared after this.
+
 
 template pass*(_: any) = discard # pass 42
 template pass*() = discard       # pass()
