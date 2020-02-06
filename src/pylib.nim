@@ -1,8 +1,10 @@
-import strutils, math, sequtils, macros, unicode, tables, strformat, times, json
-export math, tables
+import strutils, math, sequtils, macros, unicode, tables, strformat, times, json, lenientops
+export math, tables, lenientops
 import pylib/[
   class, print, types, ops, string/strops, string/pystring, tonim, pyrandom]
 export class, print, types, ops, strops, pystring, tonim, pyrandom
+
+{.warning: "Math with mixed float and int enabled. AutoConversion from int to float enabled, convert explicitly to skip.".}
 
 type
   Iterable*[T] = concept x  ## Mimic Pythons Iterable.
