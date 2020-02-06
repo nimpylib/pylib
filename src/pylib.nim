@@ -102,20 +102,17 @@ template timeit*(repetitions: int, statements: untyped): untyped =
 template with_open*(f: string, mode: char, statements: untyped): untyped =
   ## Mimics Pythons ``with open(file, mode='r') as file:`` context manager.
   ## Based on http://devdocs.io/python~3.7/library/functions#open
-  var fileMode: FileMode
-  case mode
-  of 'r': fileMode = FileMode.fmRead
-  of 'w': fileMode = FileMode.fmWrite
-  of 'a': fileMode = FileMode.fmAppend
-  of 'b': fileMode = FileMode.fmReadWrite
-  of 't': fileMode = FileMode.fmReadWrite
-  of '+': fileMode = FileMode.fmReadWrite
-  of 'x': fileMode = FileMode.fmReadWriteExisting
-  else:   fileMode = FileMode.fmRead
-  # 'U' is Deprecated on Python.
-  var file {.inject.} = open(f, fileMode)
-  defer: file.close()
-  statements
+  let pyfileMode = case mode
+    of 'w': fileMode = FileMode.fmWrite
+    of 'a': fileMode = FileMode.fmAppend
+    of 'b', 't', '+': fileMode = FileMode.fmReadWrite
+    of 'x': fileMode = FileMode.fmReadWriteExisting
+    else:   fileMode = FileMode.fmRead
+  var file {.inject.} = open(f, pyfileMode)
+  try:
+    statements
+  finally:
+    file.close()
 
 template pass*(_: any) = discard # pass 42
 template pass*() = discard       # pass()
