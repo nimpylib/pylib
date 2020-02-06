@@ -5,7 +5,6 @@ test "Modulo operations":
   check -5 % 3 == 1
   var a = 3.5
   var b = 0.67
-  check round(a % b, 2) == 0.15
   check -5 % -3 == -2
   check 12 % 7 == 5
   const results = @[
@@ -33,7 +32,7 @@ test "Modulo operations":
     (0, true, false), (1, false, true), (2, true, false)
   ]
   var data = newSeq[tuple[a: int, b, c: bool]]()
-  proc even(number: int): bool = 
+  proc even(number: int): bool =
     ## Even numbers have no remainder when divided by 2.
     return (number % 2) == 0
 
@@ -44,4 +43,4 @@ test "Modulo operations":
   for value in range(-3, 3):
       data.add((value, even(value), odd(value)))
   check checkdata == data
-  
+
