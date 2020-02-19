@@ -156,10 +156,11 @@ nimble install pylib
 
 - ✅ F-Strings `f"foo {variable} bar {1 + 2} baz"` and string functions
 - ✅ Python OOP class with methods and DocStrings
+- ✅ Math with Float and Int mixed like Python.
 - ✅ `import antigravity`
 - ✅ `from __future__ import braces`
 - ✅ `lambda:`
-- ✅ `with open("file.ext", 'w'):` Read, write, append, etc
+- ✅ `with open("file.ext", 'w'):` Read, write, append, and `file.read()`.
 - ✅ `timeit()` with Nanoseconds precision
 - ✅ `json.loads()` also can Pretty-Print
 - ✅ `True` / `False`
