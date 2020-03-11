@@ -116,7 +116,7 @@ template with_open*(f: string, mode: char | string, statements: untyped): untype
       Traceback (most recent call last):
           FileNotFoundError: [Errno 2] No such file or directory: """ & f
     # Python people always try to use file.read() that wont exist on Nim.
-    template read(fileType: File): string = fileType.readAll()
+    template read(fileType: File): string {.used.} = fileType.readAll()
     var file {.inject.} = open(f, pyfileMode)
     try: # defer: wont like top level,because is a template itself.
       statements
@@ -130,13 +130,26 @@ template with_NamedTemporaryFile*(statements: untyped): untyped =
     let path = getTempDir() / $rand(100_000..999_999)
     when not defined(release): echo path
     # Python people always try to use file.read() that wont exist on Nim.
-    template read(fileType: File): string = fileType.readAll()
+    template read(fileType: File): string {.used.} = fileType.readAll()
     var file {.inject.} = open(path, fmReadWrite)
     try: # defer: wont like top level,because is a template itself.
       statements
     finally:
       file.close()  # file variable not declared after this.
       discard tryRemoveFile(path)
+
+template with_TemporaryDirectory*(statements: untyped): untyped =
+  ## Mimic Python ``with tempfile.TemporaryDirectory():`` context manager.
+  ## Can be used like ``with_TemporaryDirectory(): echo name``.
+  block:  # Error: redefinition.
+    let name {.inject.} = getTempDir() / $rand(100_000..999_999)
+    when not defined(release): echo name
+    # Python people always try to use file.read() that wont exist on Nim.
+    template read(fileType: File): string {.used.} = fileType.readAll()
+    try: # defer: wont like top level,because is a template itself.
+      statements
+    finally:
+      try: removeDir(name) except: discard
 
 template pass*(_: any) = discard # pass 42
 template pass*() = discard       # pass()
