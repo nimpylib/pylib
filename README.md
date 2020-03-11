@@ -107,6 +107,15 @@ true
       while not end_of_file(file):    # File is automatically assigned to file variable.
         print(file.read_line())       # No need for " as file", just path and mode.
                                       # File is closed automatically.
+
+>>> with_NamedTemporaryFile():        # Mimics Pythons with tempfile.NamedTemporaryFile() as file:
+      print(file.read())              # File is automatically assigned to file variable.
+                                      # File is closed and deleted automatically.
+
+>>> with_TemporaryDirectory():        # Mimics Pythons with tempfile.TemporaryDirectory():
+      print(name)                     # Folder path is automatically assigned to name variable.
+                                      # Folder is deleted automatically.
+
 >>>
 >>> type Example = ref object
       start: int
