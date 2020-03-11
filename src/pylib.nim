@@ -144,6 +144,7 @@ template with_TemporaryDirectory*(statements: untyped): untyped =
   block:  # Error: redefinition.
     let name {.inject.} = getTempDir() / $rand(100_000..999_999)
     when not defined(release): echo name
+    discard existsOrCreateDir(name)
     # Python people always try to use file.read() that wont exist on Nim.
     template read(fileType: File): string {.used.} = fileType.readAll()
     try: # defer: wont like top level,because is a template itself.
