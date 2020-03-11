@@ -123,6 +123,20 @@ template with_open*(f: string, mode: char | string, statements: untyped): untype
     finally:
       file.close()  # file variable not declared after this.
 
+template with_NamedTemporaryFile*(statements: untyped): untyped =
+  ## Mimic Python ``with tempfile.NamedTemporaryFile() as file:`` context manager.
+  ## Can be used like ``with_NamedTemporaryFile(): echo file.read()``.
+  block:  # Error: redefinition of 'file'.
+    let path = getTempDir() / $rand(100_000..999_999)
+    when not defined(release): echo path
+    # Python people always try to use file.read() that wont exist on Nim.
+    template read(fileType: File): string = fileType.readAll()
+    var file {.inject.} = open(path, fmReadWrite)
+    try: # defer: wont like top level,because is a template itself.
+      statements
+    finally:
+      file.close()  # file variable not declared after this.
+      discard tryRemoveFile(path)
 
 template pass*(_: any) = discard # pass 42
 template pass*() = discard       # pass()
