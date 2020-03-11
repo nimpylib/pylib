@@ -161,6 +161,8 @@ nimble install pylib
 - ✅ `from __future__ import braces`
 - ✅ `lambda:`
 - ✅ `with open("file.ext", 'w'):` Read, write, append, and `file.read()`.
+- ✅ `with tempfile.TemporaryDirectory():` Read, write, append, and `file.read()`.
+- ✅ `with tempfile.NamedTemporaryFile() as file:` Read, write, append, and `file.read()`.
 - ✅ `timeit()` with Nanoseconds precision
 - ✅ `json.loads()` also can Pretty-Print
 - ✅ `True` / `False`
