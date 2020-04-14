@@ -15,9 +15,9 @@ func `$`*[T](rng: Range[T]): string =
 func range*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   ## Creates new range object with given *start* and *stop* of any integer type
   ## and *step* of int
-  doAssert step != 0, "range() arg 3 must not be zero!." # Copied from actual Python error.
-  when compiles(stop > start):
-    assert stop > start xor step < 0, "Stop must be reachable from start with given step!"
+  # Copied from actual Python error.
+  if step == 0:
+    raise newException(ValueError, "range() arg 3 must not be zero!")
   result.start = start
   result.stop = stop
   result.step = step
@@ -72,3 +72,4 @@ func list*[T](x: Range[T]): seq[T] =
   for val in x:
     result[i] = val
     inc i
+    
