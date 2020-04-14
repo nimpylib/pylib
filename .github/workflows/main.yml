@@ -1,0 +1,30 @@
+name: Build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Cache choosenim
+      id: cache-choosenim
+      uses: actions/cache@v1
+      with:
+        path: ~/.choosenim
+        key: ${{ runner.os }}-choosenim-1.2.0
+    - name: Cache nimble
+      id: cache-nimble
+      uses: actions/cache@v1
+      with:
+        path: ~/.nimble
+        key: ${{ runner.os }}-nimble-1.2.0
+    - name: Install Nim
+      if: steps.cache-choosenim.outputs.cache-hit != 'true' || steps.cache-nimble.outputs.cache-hit != 'true'
+      run: |
+        export CHOOSENIM_CHOOSE_VERSION="1.2.0"
+        curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh
+        sh init.sh -y
+    - name: Test nimpylib
+      run: |
+        export PATH=$HOME/.nimble/bin:$PATH
+        echo $PATH
+        nimble test
