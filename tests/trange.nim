@@ -17,7 +17,7 @@ test "Range-like Nim procedure":
   let a = 10
   check list(range(a, a+2)) == @[a, a + 1]
   checkpoint "Zero step"
-  expect AssertionError:
+  expect ValueError:
     discard list(range(1, 2, 0))
   checkpoint "For loop"
   var data: seq[int] = @[]
