@@ -177,7 +177,7 @@ nimble install pylib
 - ✅ `True` / `False`
 - ✅ `__import__()` Named `import()`
 - ✅ `pass` also can take and discard any arguments
-- ✅ `:=` Walrus Operator, for numbers and strings
+- ✅ `:=` Walrus Operator
 - ✅ `abs()`
 - ✅ `all()`
 - ✅ `any()`

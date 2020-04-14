@@ -10,13 +10,16 @@ type
   Iterable*[T] = concept x  ## Mimic Pythons Iterable.
     for value in x:
       value is T
+  
   Platforms* = tuple[
     system: string, machine: string, processor: string
   ]  ## Mimic Pythons platform.* useful to query basic info of the platform.
+
   VersionInfos* = tuple[
     major: int8, minor: int8, micro: int8, releaselevel: string, serial: int8
   ]  ## Mimic Pythons sys.* useful to query basic info of the system.
-  Sis* = tuple[
+
+  Sys* = tuple[
     platform: string, maxsize: int64, version: string, version_info: VersionInfos,
     byteorder: string, copyright: string, hexversion: string, api_version: string
   ]  ## Mimic Pythons sys.* useful to query basic info of the system.
@@ -32,7 +35,7 @@ const
     releaselevel: "final",
     serial: 0.int8
   )  ## Version information (SemVer).
-  sys*: Sis = (
+  sys*: Sys = (
     platform:     hostOS,                          # Operating System.
     maxsize:      high(BiggestInt),                # Biggest Integer possible.
     version:      NimVersion,                      # SemVer of Nim.
@@ -57,7 +60,7 @@ converter bool*[T](arg: T): bool =
     arg > 0 or arg < 0
   # Initialized variables only
   else:
-    not arg.isNil()
+    arg != nil
 
 converter toStr[T](arg: T): string = $arg
 
@@ -160,13 +163,8 @@ template lambda*(code: untyped): untyped =
 
 template `import`*(module: string): untyped = import module  # Mimic Pythons __import__()
 
-macro `:=`*(variable: string, value: SomeNumber|char|string): untyped =
-  ## Mimic Pythons Walrus Operator. Creates new variable from string and assign value.
-  var v: string
-  case value.kind
-  of nnkCharLit: v = "char(" & $value.intVal & ")"
-  of nnkIntLit..nnkUInt64Lit: v = $value.intVal
-  of nnkFloatLit..nnkFloat64Lit: v = $value.floatVal
-  of nnkStrLit..nnkTripleStrLit: v = "\"\"\"" & value.strVal & "\"\"\""
-  else: discard # Limited by argument type anyways.
-  parseStmt "(var " & $variable & "=" & v & ";" & $variable & ")"
+macro `:=`*(name, value: untyped): untyped = 
+  ## Mimic Pythons Operator.
+  ## Creates new variable from string and assign value.
+  result = quote do:
+    (var `name` = `value`; `name`)
