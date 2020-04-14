@@ -163,8 +163,7 @@ template lambda*(code: untyped): untyped =
 
 template `import`*(module: string): untyped = import module  # Mimic Pythons __import__()
 
-macro `:=`*(name, value: untyped): untyped = 
+template `:=`*(name, value: untyped): untyped = 
   ## Mimic Pythons Operator.
-  ## Creates new variable from string and assign value.
-  result = quote do:
-    (var `name` = `value`; `name`)
+  ## Creates new variable `name` and assign `value` to it.
+  (var name = value; name)
