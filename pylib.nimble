@@ -1,5 +1,5 @@
 version       = "0.1.0"
-author        = "Danil Yarantsev (Yardanico)"
+author        = "Danil Yarantsev (Yardanico), Juan Carlos (juancarlospaco)"
 description   = "Nim library with python-like functions and operators"
 license       = "MIT"
 skipDirs      = @["examples"]
