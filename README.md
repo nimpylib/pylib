@@ -1,17 +1,16 @@
 # NimPylib
 
 ![](https://raw.githubusercontent.com/Yardanico/nimpylib/master/carbon.png "Python-like Syntax for Nim")
+[![Build status](https://github.com/Yardanico/nimpylib/workflows/Build/badge.svg)](https://github.com/Yardanico/nimpylib/actions)
+![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=flat)
+![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=flat "Star NimPylib on GitHub!")
+![](https://img.shields.io/maintenance/yes/2020?style=flat "2020")
+![](https://img.shields.io/github/languages/code-size/Yardanico/nimpylib?style=flat)
+[![Issues](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/issues)
+[![PRs](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/pulls)
+[![Commits](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/commits/)
 
-![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=for-the-badge)
-![](https://img.shields.io/github/languages/count/Yardanico/nimpylib?logoColor=green&style=for-the-badge)
-![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=for-the-badge "Star NimPylib on GitHub!")
-![](https://img.shields.io/maintenance/yes/2019?style=for-the-badge "2019")
-![](https://img.shields.io/github/languages/code-size/Yardanico/nimpylib?style=for-the-badge)
-![](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=for-the-badge "Bugs")
-![](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=for-the-badge "PRs")
-![](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=for-the-badge "Commits")
-
-Nimpylib is a collection of python-like operators and functions (syntax sugar).
+Nimpylib is a collection of Python-like operators and functions (syntax sugar).
 It can help you to translate your Python program to Nim.
 
 
