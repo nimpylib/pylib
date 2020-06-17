@@ -1,49 +1,57 @@
-import strutils, math, sequtils, macros, unicode, tables, strformat, times, json, lenientops
-export math, tables, lenientops
+import strutils, math, macros, unicode, tables, strformat, times, json
+export math, tables
 import pylib/[
-  class, print, types, ops, string/strops, string/pystring, tonim, pyrandom]
-export class, print, types, ops, strops, pystring, tonim, pyrandom
+  class, print, types, ops, unpack,
+  string/strops, string/pystring,
+  tonim, pyrandom
+]
+export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom
 
-{.warning: "Math with mixed float and int enabled. AutoConversion from int to float enabled, convert explicitly to skip.".}
+
+when not defined(pylibNoLenient):
+  {.warning: "'lenientops' module was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int->float conversions yourself".}
+  import lenientops
+  export lenientops
 
 type
   Iterable*[T] = concept x  ## Mimic Pythons Iterable.
     for value in x:
       value is T
   
-  Platforms* = tuple[
+  Platform* = tuple[  ## Python-like platform.*
     system: string, machine: string, processor: string
-  ]  ## Mimic Pythons platform.* useful to query basic info of the platform.
+  ]
 
-  VersionInfos* = tuple[
-    major: int8, minor: int8, micro: int8, releaselevel: string, serial: int8
-  ]  ## Mimic Pythons sys.* useful to query basic info of the system.
+  VersionInfo* = tuple[  ## Python-like sys.version_info
+    major: int, minor: int, micro: int, releaselevel: string, serial: int
+  ]
 
-  Sys* = tuple[
-    platform: string, maxsize: int64, version: string, version_info: VersionInfos,
+  Sys* = tuple[  ## Python-like sys.*
+    platform: string, maxsize: int64, version: string, version_info: VersionInfo,
     byteorder: string, copyright: string, hexversion: string, api_version: string
-  ]  ## Mimic Pythons sys.* useful to query basic info of the system.
+  ]
 
 const
-  True* = true    ## True with Capital leter like Python.
-  False* = false  ## False with Capital leter like Python.
-  platform*: Platforms = (system: hostOS, machine: hostCPU, processor: hostCPU)  ## Platform info.
-  version_info*: VersionInfos = (
-    major: NimMajor.int8,
-    minor: NimMinor.int8,
-    micro: NimPatch.int8,
+  # Python-like boolean literals
+  True* = true ## True
+  False* = false ## False
+  platform*: Platform = (system: hostOS, machine: hostCPU, processor: hostCPU)  ## Platform info.
+  version_info*: VersionInfo = (
+    major: NimMajor,
+    minor: NimMinor,
+    micro: NimPatch,
     releaselevel: "final",
-    serial: 0.int8
+    serial: 0
   )  ## Version information (SemVer).
   sys*: Sys = (
-    platform:     hostOS,                          # Operating System.
-    maxsize:      high(BiggestInt),                # Biggest Integer possible.
-    version:      NimVersion,                      # SemVer of Nim.
-    version_info: version_info,                    # Tuple VersionInfos.
-    byteorder:    $cpuEndian,                      # CPU Endian.
-    copyright:    "MIT",                           # Copyright of Nim.
-    hexversion:   NimVersion.toHex.toLowerAscii(), # Version Hexadecimal string.
-    api_version:  NimVersion                       # SemVer of Nim.
+    platform:     hostOS,
+    maxsize:      high(BiggestInt),
+    version:      NimVersion,
+    version_info: version_info,
+    byteorder:    $cpuEndian,
+    copyright:    "MIT",
+    hexversion:   NimVersion.toHex.toLowerAscii(),
+    api_version:  NimVersion
   )  ## From http://devdocs.io/python~3.7/library/sys
 
 
@@ -84,27 +92,33 @@ func any*[T](iter: Iterable[T]): bool =
     if bool(element):
       return true
 
-func divmod*(a, b: SomeInteger): array[0..1, int] =
+func divmod*(a, b: SomeInteger): (int, int) =
   ## Mimics Pythons ``divmod()``.
-  [int(a / b), int(a mod b)]
+  result = (int(a / b), int(a mod b))
 
 proc json_loads*(buffer: string): JsonNode =
   ## Mimics Pythons ``json.loads()`` to load JSON.
-  parseJson(buffer)
+  result = parseJson(buffer)
+
+import times
 
 template timeit*(repetitions: int, statements: untyped): untyped =
   ## Mimics Pythons ``timeit.timeit()``, output shows more information than Pythons.
+  bind times.`$`
   let
     started = now()
     cpuStarted = cpuTime()
-  for i in 0..repetitions:
+  for i in 0 .. repetitions:
     statements
   echo "$1 TimeIt: $2 Repetitions on $3, CPU Time $4.".format(
-    now(), repetitions, now() - started, cpuTime() - cpuStarted)
+    $now(), repetitions, $(now() - started), $(cpuTime() - cpuStarted))
+
+import os
 
 template with_open*(f: string, mode: char | string, statements: untyped): untyped =
   ## Mimics Pythons ``with open(file, mode='r') as file:`` context manager.
   ## Based on http://devdocs.io/python~3.7/library/functions#open
+  bind existsFile
   block:  # Error: redefinition of 'file'.
     let pyfileMode = case $mode  # Allows generinc char|string
       of "w": FileMode.fmWrite
@@ -159,9 +173,7 @@ template pass*(_: any) = discard # pass 42
 template pass*() = discard       # pass()
 
 template lambda*(code: untyped): untyped =
-  ( proc (): auto = code )  # Mimic Pythons Lambda
-
-template `import`*(module: string): untyped = import module  # Mimic Pythons __import__()
+  (proc (): auto = code)  # Mimic Pythons Lambda
 
 template `:=`*(name, value: untyped): untyped = 
   ## Mimic Pythons Operator.

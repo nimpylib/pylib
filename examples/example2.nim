@@ -33,9 +33,9 @@ class Customer(object):
       self.balance += amount
       return self.balance
 
-let c = newCustomer("Daniil", 500)
-print("Took 250, there's $1 money left.".format(c.withdraw(250.0)))
-print("Added 1337, there's now $1 money".format(c.deposit(1337.0)))
+let c = newCustomer("Jack", 500)
+print("Took 250, new balance is $1.".format(c.withdraw(250.0)))
+print("Added 1337, new balance is $1.".format(c.deposit(1337.0)))
 
 
 type Shape = ref object

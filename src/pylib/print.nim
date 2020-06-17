@@ -23,7 +23,5 @@ macro print*(data: varargs[untyped]): untyped =
     else:
       # Add object and stringify it automatically
       objects.add(newCall("$", arg))
-  # XXX: Do we need to convert objects to sequence?
-  # objects = prefix(objects, "@")
   result = quote do:
     `printProc`(`objects`, `arguments`)

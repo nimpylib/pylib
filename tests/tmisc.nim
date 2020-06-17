@@ -1,21 +1,14 @@
 import times
 
-
-from pylib/future import braces
-#import pylib/antigravity
-
-`import`("strutils")  # __import__()
-
-
 test "Miscelaneous":
   check True == true
   check False == false
   check bool("foo") == True
   check bool("") == False
 
-  check divmod(666, 1024) == [0, 666]
-  check divmod(4, 2) == [2, 0]
-  check divmod(4.int8, 2.int8) == [2, 0]
+  check divmod(666, 1024) == (0, 666)
+  check divmod(4, 2) == (2, 0)
+  check divmod(4.int8, 2.int8) == (2, 0)
 
   pass 42  # Mimic pass, instead of discard, not exactly the same but close.
   pass true
