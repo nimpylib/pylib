@@ -191,7 +191,7 @@ nimble install pylib
 - [x] `oct()`
 - [x] `ord()`
 - [x] `print("foo")` / `print "foo"` Python2 like
-- [x] `range()` but named `xrange()` Python2 like
+- [x] `range()` but named `xrange()` like in Python 2
 - [x] `str()`
 - [x] `sum()`
 - [x] `<>` Python1 and Python2 `!=`
