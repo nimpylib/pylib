@@ -3,10 +3,9 @@ export math, tables
 import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
-  tonim, pyrandom
+  tonim, pyrandom, xrange
 ]
-export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom
-
+export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom, xrange
 
 when not defined(pylibNoLenient):
   {.warning: "'lenientops' module was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int->float conversions yourself".}
@@ -17,7 +16,7 @@ type
   Iterable*[T] = concept x  ## Mimic Pythons Iterable.
     for value in x:
       value is T
-  
+
   Platform* = tuple[  ## Python-like platform.*
     system: string, machine: string, processor: string
   ]
@@ -175,7 +174,7 @@ template pass*() = discard       # pass()
 template lambda*(code: untyped): untyped =
   (proc (): auto = code)  # Mimic Pythons Lambda
 
-template `:=`*(name, value: untyped): untyped = 
+template `:=`*(name, value: untyped): untyped =
   ## Mimic Pythons Operator.
   ## Creates new variable `name` and assign `value` to it.
   (var name = value; name)
