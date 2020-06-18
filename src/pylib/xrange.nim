@@ -23,7 +23,7 @@ func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
 
 template xrange*[T: SomeInteger](start, stop: T): Range[T] =
   ## Shortcut for range(start, stop, 1)
-  xrange(start, stop, 1.Positive)
+  xrange(start, stop, 1)
 
 template xrange*[T: SomeInteger](stop: T): Range[T] =
   ## Shortcut for range(0, stop, 1)
