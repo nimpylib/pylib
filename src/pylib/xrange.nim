@@ -14,7 +14,8 @@ func `$`*[T](rng: Range[T]): string =
 func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   ## Creates new range object with given *start* and *stop* of any integer type
   ## and *step* of int
-  assert step != 0, "range() arg 3 must not be zero!"
+  if unlikely(step == 0):
+    raise newException(ValueError, "range() arg 3 must not be zero!")
   result.start = start
   result.stop = stop
   result.step = step

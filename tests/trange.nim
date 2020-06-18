@@ -14,7 +14,7 @@ test "Range-like Nim procedure":
   check list(xrange(0, -10, -2)) == @[0, -2, -4, -6, -8]
   check list(xrange(5, -5, -3)) == @[5, 2, -1, -4]
   checkpoint "Variables"
-  let a = 10
+  const a = 10
   check list(xrange(a, a + 2)) == @[a, a + 1]
   checkpoint "Zero step"
   expect ValueError:
