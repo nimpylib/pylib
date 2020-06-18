@@ -19,20 +19,18 @@ It can help you to translate your Python program to Nim.
 
 ```nim
 import pylib
-# It's necessary to include range module separately
-include pylib/range
 
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
-let python_like_range = range(0, -10, -2)
+let python_like_range = xrange(0, -10, -2) # range() is named xrange() like Python2
 print(list(python_like_range)) # @[0, -2, -4, -6, -8]
 
-for i in range(10):
+for i in xrange(10):
   # 0 1 2 3 4 5 6 7 8 9
   print(i, endl=" ")
 print("done!")
 
 # Python-like variable unpacking
-let data = list(range(3, 15, 2))
+let data = list(xrange(3, 15, 2))
 data.unpack(first, second, *rest, last)
 assert (first + second + last) == (3 + 5 + 13)
 assert rest == @[7, 9, 11]
@@ -193,7 +191,7 @@ nimble install pylib
 - [x] `oct()`
 - [x] `ord()`
 - [x] `print("foo")` / `print "foo"` Python2 like
-- [x] `range()`
+- [x] `range()` but named `xrange()` like in Python 2
 - [x] `str()`
 - [x] `sum()`
 - [x] `<>` Python1 and Python2 `!=`

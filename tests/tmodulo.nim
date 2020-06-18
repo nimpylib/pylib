@@ -14,7 +14,7 @@ test "Modulo operations":
 
   checkpoint "Evenly divisible numbers from 0 to 9"
   var compare = newSeq[string]()
-  for i in range(0, 10):
+  for i in xrange(0, 10):
     var line = $i & ":"
 
     if (i % 4) == 0:
@@ -42,6 +42,6 @@ test "Modulo operations":
     ## Odd numbers have 1 or -1 remainder when divided by 2.
     return (number % 2) != 0
 
-  for value in range(-3, 3):
+  for value in xrange(-3, 3):
       data.add((value, even(value), odd(value)))
   check checkdata == data

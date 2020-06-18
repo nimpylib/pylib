@@ -1,8 +1,7 @@
 import strutils, math
 
 type
-  ## Python-like range object
-  Range*[T] = object
+  Range*[T] = object ## Python-like range object
     start, stop: T
     step, len: int
 
@@ -12,24 +11,26 @@ func `$`*[T](rng: Range[T]): string =
   else:
     "range($1, $2)".format(rng.start, rng.stop)
 
-func range*[T: SomeInteger](start, stop: T, step: int): Range[T] =
+func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   ## Creates new range object with given *start* and *stop* of any integer type
   ## and *step* of int
-  # Copied from actual Python error.
-  if step == 0:
+  if unlikely(step == 0):
     raise newException(ValueError, "range() arg 3 must not be zero!")
   result.start = start
   result.stop = stop
   result.step = step
   result.len = int(math.ceil((stop - start) / step))
 
-template range*[T: SomeInteger](start, stop: T): Range[T] =
+template xrange*[T: SomeInteger](start, stop: T): Range[T] =
   ## Shortcut for range(start, stop, 1)
-  range(start, stop, 1)
+  xrange(start, stop, 1)
 
-template range*[T: SomeInteger](stop: T): Range[T] =
+template xrange*[T: SomeInteger](stop: T): Range[T] =
   ## Shortcut for range(0, stop, 1)
-  range(0, stop)
+  xrange(0, stop)
+
+template len*[T](rng: Range[T]): int =
+  rng.len
 
 iterator items*[T](rng: Range[T]): T =
   var res = rng.start
@@ -52,16 +53,16 @@ func contains*[T](x: Range[T], y: T): bool =
       y > x.stop and y <= x.start
   result = result and ((y - x.start) mod x.step == 0)
 
-func `[]`*[T](x: Range[T], y: int): T =
+func `[]`*[T](x: Range[T], y: Natural): T {.inline.} =
   ## Get value from range by its index
-  assert(y < x.len, "Index out of bounds")
+  assert y < x.len, "Index out of bounds"
   result = x.start + (x.step * y)
 
-func min*[T](x: Range[T]): T =
+func min*[T](x: Range[T]): T {.inline.} =
   ## Get minimum value from range
   x[if x.step > 0: 0 else: x.len - 1]
 
-func max*[T](x: Range[T]): T =
+func max*[T](x: Range[T]): T {.inline.} =
   ## Get maximum value from range
   x[if x.step > 0: x.len - 1 else: 0]
 
@@ -72,4 +73,3 @@ func list*[T](x: Range[T]): seq[T] =
   for val in x:
     result[i] = val
     inc i
-    

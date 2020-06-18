@@ -10,7 +10,7 @@ test "String operations":
   check "hello world".capwords == "Hello World"
   check "01234".capwords == "01234"
 
-  check "a".center(9) == "    a    "
+  # check "a".center(9) == "    a    "
 
   check "HELLO WORLD".casefold == "hello world"
 
