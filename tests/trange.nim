@@ -2,7 +2,7 @@ test "Range-like Nim procedure":
   # We don't need to check if iterators work because these "range" calls are
   # just templates calling toSeq(range iterator(arguments))
   checkpoint "One argument - stop"
-  check xrange(1).len == 1
+  check len(xrange(1)) == 1
   check list(xrange(5)) == @[0, 1, 2, 3, 4]
   checkpoint "Two arguments - start and stop"
   check list(xrange(3, 5)) == @[3, 4]
@@ -15,7 +15,7 @@ test "Range-like Nim procedure":
   check list(xrange(5, -5, -3)) == @[5, 2, -1, -4]
   checkpoint "Variables"
   let a = 10
-  check list(xrange(a, a+2)) == @[a, a + 1]
+  check list(xrange(a, a + 2)) == @[a, a + 1]
   checkpoint "Zero step"
   expect ValueError:
     discard list(xrange(1, 2, 0))
@@ -24,10 +24,10 @@ test "Range-like Nim procedure":
   for x in xrange(0, -10, -2):
     data.add(x)
   check data == @[0, -2, -4, -6, -8]
-  let myxrange( = xrange(0, 41412423, 4122)
-  check 11566332 in myxrange(
-  check 1 notin myxrange(
-  check myxrange(.len == 10047
-  check myxrange([5123] == 21117006
-  check max(myxrange() == 41409612
-  check min(myxrange() == 0
+  let myxrange = xrange(0, 41412423, 4122)
+  check 11566332 in myxrange
+  check 1 notin myxrange
+  check len(myxrange) == 10047
+  check myxrange[5123] == 21117006
+  check max(myxrange == 41409612
+  check min(myxrange == 0

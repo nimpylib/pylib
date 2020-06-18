@@ -11,9 +11,10 @@ func `$`*[T](rng: Range[T]): string =
   else:
     "range(" & $rng.start & ", " & $rng.stop & ")"
 
-func xrange*[T: SomeInteger](start, stop: T, step: Positive): Range[T] =
+func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   ## Creates new range object with given *start* and *stop* of any integer type
   ## and *step* of int
+  assert step != 0, "range() arg 3 must not be zero!"
   result.start = start
   result.stop = stop
   result.step = step
