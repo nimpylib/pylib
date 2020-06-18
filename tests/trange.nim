@@ -29,5 +29,5 @@ test "Range-like Nim procedure":
   check 1 notin myxrange
   check len(myxrange) == 10047
   check myxrange[5123] == 21117006
-  check max(myxrange == 41409612
-  check min(myxrange == 0
+  check max(myxrange) == 41409612
+  check min(myxrange) == 0
