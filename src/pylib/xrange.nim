@@ -1,4 +1,4 @@
-import math
+import strutils, math
 
 type
   Range*[T] = object ## Python-like range object
@@ -7,9 +7,9 @@ type
 
 func `$`*[T](rng: Range[T]): string =
   if rng.step != 1:
-    "range(" & $rng.start & ", " & $rng.stop & ", " & $rng.step & ")"
+    "range($1, $2, $3)".format(rng.start, rng.stop, rng.step)
   else:
-    "range(" & $rng.start & ", " & $rng.stop & ")"
+    "range($1, $2)".format(rng.start, rng.stop)
 
 func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   ## Creates new range object with given *start* and *stop* of any integer type
