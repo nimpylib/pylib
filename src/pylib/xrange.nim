@@ -29,6 +29,9 @@ template xrange*[T: SomeInteger](stop: T): Range[T] =
   ## Shortcut for range(0, stop, 1)
   xrange(0, stop)
 
+template len*[T](rng: Range[T]): int =
+  rng.len
+
 iterator items*[T](rng: Range[T]): T =
   var res = rng.start
   if rng.step > 0:
