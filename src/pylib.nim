@@ -3,9 +3,9 @@ export math, tables
 import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
-  tonim, pyrandom, xrange
+  tonim, pyrandom, xrange, enumerate
 ]
-export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom, xrange
+export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom, xrange, enumerate
 
 when not defined(pylibNoLenient):
   {.warning: "'lenientops' module was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int->float conversions yourself".}
