@@ -30,10 +30,13 @@ type
     byteorder: string, copyright: string, hexversion: string, api_version: string
   ]
 
+  NoneType* = distinct bool
+
 const
   # Python-like boolean literals
   True* = true ## True
   False* = false ## False
+  None* = NoneType(false) ## Python-like None for special handling
   platform*: Platform = (system: hostOS, machine: hostCPU, processor: hostCPU)  ## Platform info.
   version_info*: VersionInfo = (
     major: NimMajor,
@@ -75,7 +78,7 @@ converter bool*(arg: HasMoreThan): bool = arg > 0 or arg < 0
 converter bool*(arg: CanCompToNil): bool = arg != nil
 ]#
 
-converter bool*[T](arg: T): bool =
+converter toBool*[T](arg: T): bool =
   ## Converts argument to boolean, checking python-like truthiness.
   # If we have len proc for this object
   when compiles(arg.len):
@@ -87,8 +90,14 @@ converter bool*[T](arg: T): bool =
   elif compiles(arg > 0):
     arg > 0 or arg < 0
   # Initialized variables only
-  else:
+  elif compiles(arg != nil):
     arg != nil
+  else:
+    # XXX: is this correct?
+    true
+
+proc bool*[T](arg: T): bool = 
+  toBool(arg)
 
 proc input*(prompt = ""): string =
   ## Python-like ``input()`` procedure
@@ -109,6 +118,42 @@ func any*[T](iter: Iterable[T]): bool =
   for element in iter:
     if bool(element):
       return true
+
+iterator items*[T](getIter: proc(): iterator(): T): T = 
+  ## Special items() iterator for pylib internal iterators
+  let iter = getIter()
+  while (let x = iter(); not finished(iter)):
+    yield x
+
+proc list*[T](getIter: proc: iterator(): T): seq[T] =
+  ## Special list() procedure for pylib internal iterators
+  for item in items(getIter):
+    result.add item
+
+proc filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T = 
+  ## Python-like filter(fun, iter)
+  runnableExamples:
+    proc isAnswer(arg: string): bool = 
+      return arg in ["yes", "no", "maybe"]
+    
+    let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
+    let filtered = filter(isAnswer, values)
+    doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
+  
+  result = proc(): iterator(): T = 
+    result = iterator(): T =
+      for item in iter:
+        if comp(item):
+          yield item
+
+proc filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T = 
+  ## Python-like filter(None, iter)
+  runnableExamples:
+    let values = @["", "", "", "yes", "no", "why"]
+    let filtered = list(filter(None, values))
+    doAssert filtered == @["yes", "no", "why"]
+
+  result = filter[T](pylib.bool, iter)
 
 func divmod*(a, b: SomeInteger): (int, int) =
   ## Mimics Pythons ``divmod()``.
