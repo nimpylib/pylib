@@ -1,4 +1,4 @@
-import macros, sequtils, strutils, ../pylib
+import macros, sequtils, strutils
 
 proc genProc(item: NimNode): NimNode =
   # a(b, c=1)
@@ -31,8 +31,9 @@ proc genProc(item: NimNode): NimNode =
   return newProc(procName, args, beforeBody, nnkProcDef)
 
 macro tonim*(body: untyped): untyped =
+  #echo treerepr body
   result = newStmtList()
-  for i in 0 .. body.len - 1:
+  for i in 0 ..< body.len:
     result.add body[i]
   # sequence of variables which were already initialized
   # so we don't need to redefine them again
@@ -41,8 +42,9 @@ macro tonim*(body: untyped): untyped =
     let item = body[i]
     case item.kind
     of nnkCommand:
-      # function
-      result[i] = genProc(item)
+      # Transform def function definition to Nim
+      if $item[0] == "def":
+        result[i] = genProc(item)
     of nnkAsgn:
       # variable assignment
       let (varName, varValue) = (item[0], item[1])
@@ -52,4 +54,46 @@ macro tonim*(body: untyped): untyped =
       assigned.add $varName
       result[i] = newVarStmt(varName, varValue)
     else: discard
-  # echo result.toStrLit
+
+
+#[
+import ../pylib
+
+tonim:
+  def add(x, y):
+    return x + y
+  
+  def subtract(x, y):
+    return x - y
+
+  def multiply(x, y):
+    return x * y
+
+  def divide(x, y):
+    return x / y
+  
+  def default_arg(x, y = 5):
+    return "hello" * y
+  
+  my_list = ["apples", "bananas"]
+  print(my_list)
+
+  # Python Program to calculate the square root
+
+  # Note: change this value for a different result
+  num = 8 
+
+  # To take the input from the user
+  #num = float(input('Enter a number: '))
+
+  num_sqrt = num ** 0.5
+  print(num_sqrt)
+
+  print add(5, 3)
+  print add(5.0, 3.0)
+  print subtract(6, 3)
+  print multiply(5, 7)
+  print divide(35, 7)
+  print default_arg(0)
+
+]#
