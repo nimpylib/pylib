@@ -72,3 +72,7 @@ test "oct()":
   check oct(8) == "0o10"
   check oct(-56) == "-0o70"
   check oct(0) == "0o0"
+
+test "ord()":
+  check ord("👑") == 0x1F451
+  check ord('A') == 65

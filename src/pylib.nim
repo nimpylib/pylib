@@ -54,6 +54,27 @@ const
   )  ## From http://devdocs.io/python~3.7/library/sys
 
 
+# https://github.com/nim-lang/Nim/issues/8197
+#[
+type
+  HasLen = concept x
+    x.len is int
+  
+  HasNotEqual = concept x
+    x != 0 is bool
+
+  HasMoreThan = concept x
+    x > 0 is bool
+  
+  CanCompToNil = concept x
+    x == nil is bool
+
+converter bool*(arg: HasLen): bool = arg.len > 0
+converter bool*(arg: HasNotEqual): bool = arg != 0
+converter bool*(arg: HasMoreThan): bool = arg > 0 or arg < 0
+converter bool*(arg: CanCompToNil): bool = arg != nil
+]#
+
 converter bool*[T](arg: T): bool =
   ## Converts argument to boolean, checking python-like truthiness.
   # If we have len proc for this object
@@ -68,8 +89,6 @@ converter bool*[T](arg: T): bool =
   # Initialized variables only
   else:
     arg != nil
-
-converter toStr[T](arg: T): string = $arg
 
 proc input*(prompt = ""): string =
   ## Python-like ``input()`` procedure
@@ -115,6 +134,9 @@ func oct*(a: SomeInteger): string =
     toOct(abs(a), 30)
   result = temp.toLowerAscii().strip(chars = {'0'}, trailing = false)
   result.insert(prefix, 0)
+
+func ord*(a: string): int = 
+  result = system.int(a.runeAt(0))
 
 proc json_loads*(buffer: string): JsonNode =
   ## Mimics Pythons ``json.loads()`` to load JSON.
