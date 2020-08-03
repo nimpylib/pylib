@@ -178,11 +178,11 @@ nimble install pylib
 - [x] `filter()`
 - [x] `float()`
 - [x] `hex()`
-- [x] `id()`
+- [ ] `id()`
 - [x] `input()`
 - [x] `int()`
-- [x] `isinstance()`
-- [x] `issubclass()`
+- [ ] `isinstance()`
+- [ ] `issubclass()`
 - [x] `iter()`
 - [x] `list()`
 - [x] `map()`

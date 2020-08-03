@@ -121,19 +121,23 @@ func hex*(a: SomeInteger): string =
 func chr*(a: SomeInteger): string = 
   $Rune(a)
 
-func oct*(a: SomeInteger): string = 
-  # use a big enough number for everyone
-  var prefix = "0o"
-  var temp = if a > 0:
-    toOct(a, 30)
-  # Special case because otherwise we'd strip 0 with strip below
-  elif a == 0:
-    return "0o0"
-  else:
-    prefix.insert "-"
-    toOct(abs(a), 30)
-  result = temp.toLowerAscii().strip(chars = {'0'}, trailing = false)
-  result.insert(prefix, 0)
+template makeConv(name, call: untyped, len: int, pfix: string) = 
+  func `name`*(a: SomeInteger): string = 
+    # use a big enough number for everyone
+    var prefix = `pfix`
+    var temp = if a > 0:
+      call(a, `len`)
+    # Special case because otherwise we'd strip 0 with strip below
+    elif a == 0:
+      return "0o0"
+    else:
+      prefix.insert "-"
+      call(abs(a), `len`)
+    result = temp.toLowerAscii().strip(chars = {'0'}, trailing = false)
+    result.insert(prefix, 0)
+
+makeConv(oct, toOct, 30, "0o")
+makeConv(bin, toBin, 70, "0b")
 
 func ord*(a: string): int = 
   result = system.int(a.runeAt(0))
