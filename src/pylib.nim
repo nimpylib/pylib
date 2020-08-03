@@ -123,18 +123,14 @@ func chr*(a: SomeInteger): string =
 
 template makeConv(name, call: untyped, len: int, pfix: string) = 
   func `name`*(a: SomeInteger): string = 
-    # use a big enough number for everyone
-    var prefix = `pfix`
-    var temp = if a > 0:
-      call(a, `len`)
-    # Special case because otherwise we'd strip 0 with strip below
-    elif a == 0:
-      return "0o0"
-    else:
-      prefix.insert "-"
-      call(abs(a), `len`)
-    result = temp.toLowerAscii().strip(chars = {'0'}, trailing = false)
-    result.insert(prefix, 0)
+    # Special case
+    if a == 0:
+      return `pfix` & "0"
+    result = call(abs(a), `len`).toLowerAscii().strip(chars = {'0'}, trailing = false)
+    # Do it like in Python - add - sign
+    result.insert(`pfix`)
+    if a < 0:
+      result.insert "-"
 
 makeConv(oct, toOct, 30, "0o")
 makeConv(bin, toBin, 70, "0b")
