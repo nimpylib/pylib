@@ -95,6 +95,10 @@ func divmod*(a, b: SomeInteger): (int, int) =
   ## Mimics Pythons ``divmod()``.
   result = (int(a / b), int(a mod b))
 
+func hex*(a: SomeInteger): string = 
+  result = toHex(a).toLowerAscii().strip(chars = {'0'}, trailing = false)
+  result.insert("0x", 0)
+
 proc json_loads*(buffer: string): JsonNode =
   ## Mimics Pythons ``json.loads()`` to load JSON.
   result = parseJson(buffer)
