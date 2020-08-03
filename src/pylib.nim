@@ -99,6 +99,23 @@ func hex*(a: SomeInteger): string =
   result = toHex(a).toLowerAscii().strip(chars = {'0'}, trailing = false)
   result.insert("0x", 0)
 
+func chr*(a: SomeInteger): string = 
+  $Rune(a)
+
+func oct*(a: SomeInteger): string = 
+  # use a big enough number for everyone
+  var prefix = "0o"
+  var temp = if a > 0:
+    toOct(a, 30)
+  # Special case because otherwise we'd strip 0 with strip below
+  elif a == 0:
+    return "0o0"
+  else:
+    prefix.insert "-"
+    toOct(abs(a), 30)
+  result = temp.toLowerAscii().strip(chars = {'0'}, trailing = false)
+  result.insert(prefix, 0)
+
 proc json_loads*(buffer: string): JsonNode =
   ## Mimics Pythons ``json.loads()`` to load JSON.
   result = parseJson(buffer)

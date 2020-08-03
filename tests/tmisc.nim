@@ -63,3 +63,12 @@ test "hex()":
   check hex(23) == "0x17"
   check hex(ord('a')) == "0x61"
   check hex(231582835) == "0xdcdac73"
+
+test "chr()":
+  check chr(65) == 'A'
+  check chr(0x1F451) == "👑"
+
+test "oct()":
+  check oct(8) == "0o10"
+  check oct(-56) == "-0o70"
+  check oct(0) == "0o0"
