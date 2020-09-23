@@ -3,9 +3,9 @@ export math, tables
 import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
-  tonim, pyrandom, xrange, enumerate
+  tonim, pyrandom, xrange
 ]
-export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom, xrange, enumerate
+export class, print, types, ops, unpack, strops, pystring, tonim, pyrandom, xrange
 
 when not defined(pylibNoLenient):
   {.warning: "'lenientops' module was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int->float conversions yourself".}
@@ -62,13 +62,13 @@ const
 type
   HasLen = concept x
     x.len is int
-  
+
   HasNotEqual = concept x
     x != 0 is bool
 
   HasMoreThan = concept x
     x > 0 is bool
-  
+
   CanCompToNil = concept x
     x == nil is bool
 
@@ -96,7 +96,7 @@ converter toBool*[T](arg: T): bool =
     # XXX: is this correct?
     true
 
-proc bool*[T](arg: T): bool = 
+proc bool*[T](arg: T): bool =
   toBool(arg)
 
 proc input*(prompt = ""): string =
@@ -119,7 +119,7 @@ func any*[T](iter: Iterable[T]): bool =
     if bool(element):
       return true
 
-iterator items*[T](getIter: proc(): iterator(): T): T = 
+iterator items*[T](getIter: proc(): iterator(): T): T =
   ## Special items() iterator for pylib internal iterators
   let iter = getIter()
   while (let x = iter(); not finished(iter)):
@@ -130,23 +130,23 @@ proc list*[T](getIter: proc: iterator(): T): seq[T] =
   for item in items(getIter):
     result.add item
 
-proc filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T = 
+proc filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T =
   ## Python-like filter(fun, iter)
   runnableExamples:
-    proc isAnswer(arg: string): bool = 
+    proc isAnswer(arg: string): bool =
       return arg in ["yes", "no", "maybe"]
-    
+
     let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
     let filtered = filter(isAnswer, values)
     doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
-  
-  result = proc(): iterator(): T = 
+
+  result = proc(): iterator(): T =
     result = iterator(): T =
       for item in iter:
         if comp(item):
           yield item
 
-proc filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T = 
+proc filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T =
   ## Python-like filter(None, iter)
   runnableExamples:
     let values = @["", "", "", "yes", "no", "why"]
@@ -159,15 +159,15 @@ func divmod*(a, b: SomeInteger): (int, int) =
   ## Mimics Pythons ``divmod()``.
   result = (int(a / b), int(a mod b))
 
-func hex*(a: SomeInteger): string = 
+func hex*(a: SomeInteger): string =
   result = toHex(a).toLowerAscii().strip(chars = {'0'}, trailing = false)
   result.insert("0x", 0)
 
-func chr*(a: SomeInteger): string = 
+func chr*(a: SomeInteger): string =
   $Rune(a)
 
-template makeConv(name, call: untyped, len: int, pfix: string) = 
-  func `name`*(a: SomeInteger): string = 
+template makeConv(name, call: untyped, len: int, pfix: string) =
+  func `name`*(a: SomeInteger): string =
     # Special case
     if a == 0:
       return `pfix` & "0"
@@ -180,7 +180,7 @@ template makeConv(name, call: untyped, len: int, pfix: string) =
 makeConv(oct, toOct, 30, "0o")
 makeConv(bin, toBin, 70, "0b")
 
-func ord*(a: string): int = 
+func ord*(a: string): int =
   result = system.int(a.runeAt(0))
 
 proc json_loads*(buffer: string): JsonNode =
