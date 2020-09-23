@@ -43,22 +43,6 @@ test "timeit":
   timeit(9):
     discard
 
-test "enumerate() macro":
-  let my_list = ["apple", "banana", "grapes", "pear"]
-
-  var mycount = 0
-
-  for counter, value in enumerate(my_list):
-    check mycount == counter
-    check my_list[counter] == my_list[mycount]
-    inc mycount
-  
-  mycount = 0
-  for counter, value in enumerate(my_list, 150):
-    check mycount + 150 == counter
-    check my_list[counter - 150] == my_list[mycount]
-    inc mycount 
-
 test "hex()":
   check hex(23) == "0x17"
   check hex(ord('a')) == "0x61"
@@ -82,22 +66,22 @@ test "bin()":
   check bin(-140140140140) == "-0b10000010100001000000001101011001101100"
 
 test "filter()":
-  # function that filters vowels 
-  proc fun(variable: char): bool = 
-    const letters = ['a', 'e', 'i', 'o', 'u'] 
-    if (variable in letters): 
+  # function that filters vowels
+  proc fun(variable: char): bool =
+    const letters = ['a', 'e', 'i', 'o', 'u']
+    if (variable in letters):
       return True
-    else: 
+    else:
       return False
 
-  # sequence 
+  # sequence
   let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
-  let filtered = filter(fun, sequence) 
+  let filtered = filter(fun, sequence)
   let res = @['e', 'e', 'i', 'e', 'o']
   var data: seq[char]
   for s in filtered:
     data.add s
-  
+
   check data == res
   data = @[]
   for s in filtered:
