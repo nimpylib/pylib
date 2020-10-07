@@ -17,7 +17,6 @@ test "pass":
   pass 42  # Mimic pass, instead of discard, not exactly the same but close.
   pass true
   pass 1.2
-  pass()
   pass "a"
   pass 'b'
 
