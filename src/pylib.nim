@@ -1,8 +1,11 @@
 when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
-import strutils, math, macros, unicode, tables, strformat, times, json
+import std / [
+  strutils, math, macros, unicode, tables, strformat, times, json
+]
 export math, tables
+
 import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
