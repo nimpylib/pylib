@@ -128,7 +128,8 @@ iterator items*[T](getIter: proc(): iterator(): T): T =
   while (let x = iter(); not finished(iter)):
     yield x
 
-func list*[T](getIter: proc: iterator(): T): seq[T] =
+# XXX: compiler says that list has side effects for some reason
+proc list*[T](getIter: proc: iterator(): T): seq[T] =
   ## Special list() procedure for pylib internal iterators
   for item in items(getIter):
     result.add item
