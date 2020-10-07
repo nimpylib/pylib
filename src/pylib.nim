@@ -1,3 +1,6 @@
+when defined(nimHasStrictFuncs):
+  {.experimental: "strictFuncs".}
+
 import strutils, math, macros, unicode, tables, strformat, times, json
 export math, tables
 import pylib/[
@@ -125,12 +128,13 @@ iterator items*[T](getIter: proc(): iterator(): T): T =
   while (let x = iter(); not finished(iter)):
     yield x
 
+# XXX: compiler says that list has side effects for some reason
 proc list*[T](getIter: proc: iterator(): T): seq[T] =
   ## Special list() procedure for pylib internal iterators
   for item in items(getIter):
     result.add item
 
-proc filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T =
+func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T =
   ## Python-like filter(fun, iter)
   runnableExamples:
     proc isAnswer(arg: string): bool =
@@ -146,7 +150,7 @@ proc filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator()
         if comp(item):
           yield item
 
-proc filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T =
+func filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T =
   ## Python-like filter(None, iter)
   runnableExamples:
     let values = @["", "", "", "yes", "no", "why"]
@@ -159,10 +163,6 @@ func divmod*(a, b: SomeInteger): (int, int) =
   ## Mimics Pythons ``divmod()``.
   result = (int(a / b), int(a mod b))
 
-func hex*(a: SomeInteger): string =
-  result = toHex(a).toLowerAscii().strip(chars = {'0'}, trailing = false)
-  result.insert("0x", 0)
-
 func chr*(a: SomeInteger): string =
   $Rune(a)
 
@@ -171,14 +171,21 @@ template makeConv(name, call: untyped, len: int, pfix: string) =
     # Special case
     if a == 0:
       return `pfix` & "0"
-    result = call(abs(a), `len`).toLowerAscii().strip(chars = {'0'}, trailing = false)
+    result = call(
+      when a isnot SomeUnsignedInt: 
+        abs(a) 
+      else: 
+        a, 
+      `len`).toLowerAscii().strip(chars = {'0'}, trailing = false)
     # Do it like in Python - add - sign
     result.insert(`pfix`)
     if a < 0:
       result.insert "-"
 
+# Max length is derived from the max value for uint64
 makeConv(oct, toOct, 30, "0o")
 makeConv(bin, toBin, 70, "0b")
+makeConv(hex, toHex, 20, "0x")
 
 func ord*(a: string): int =
   result = system.int(a.runeAt(0))
@@ -205,7 +212,7 @@ import os
 template with_open*(f: string, mode: char | string, statements: untyped): untyped =
   ## Mimics Pythons ``with open(file, mode='r') as file:`` context manager.
   ## Based on http://devdocs.io/python~3.7/library/functions#open
-  bind existsFile
+  bind fileExists
   block:  # Error: redefinition of 'file'.
     let pyfileMode = case $mode  # Allows generinc char|string
       of "w": FileMode.fmWrite
@@ -215,7 +222,7 @@ template with_open*(f: string, mode: char | string, statements: untyped): untype
       else:   FileMode.fmRead
     # Change "Error: cannot open: foo" for Python-copied traceback.
     if pyfileMode == FileMode.fmRead or pyfileMode == FileMode.fmReadWriteExisting:
-      doAssert existsFile(f), """
+      doAssert fileExists(f), """
 
       Traceback (most recent call last):
           FileNotFoundError: [Errno 2] No such file or directory: """ & f
@@ -256,8 +263,7 @@ template with_TemporaryDirectory*(statements: untyped): untyped =
       finally:
         try: removeDir(name) except: discard
 
-template pass*(_: any) = discard # pass 42
-template pass*() = discard       # pass()
+template pass*(_: untyped) = discard # pass 42
 
 template lambda*(code: untyped): untyped =
   (proc (): auto = code)  # Mimic Pythons Lambda

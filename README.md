@@ -1,7 +1,5 @@
 # NimPylib
 
-![](https://raw.githubusercontent.com/Yardanico/nimpylib/master/carbon.png "Python-like Syntax for Nim")
-
 [![Build status](https://github.com/Yardanico/nimpylib/workflows/Build/badge.svg)](https://github.com/Yardanico/nimpylib/actions)
 ![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=flat)
 ![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=flat "Star NimPylib on GitHub!")
@@ -54,8 +52,7 @@ print(not "") # true
 
 print("Hello,", input("What is your name? "), endl="\n~\n")
 
-pass # do nothing
-pass str("This is a string.")
+pass str("This is a string.") # discard the string
 
 let integer_bytes = 2_313_354_324
 var bite, kilo, mega, giga, tera, peta, exa, zetta, yotta: int
