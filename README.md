@@ -165,6 +165,7 @@ nimble install pylib
 - [x] `pass` also can take and discard any arguments
 - [x] `:=` Walrus Operator
 - [x] `{"a": 1} | {"b": 2}` Dict merge operator
+- [x] `|=` Dict merge operator
 - [x] Python-like OOP class with methods and DocStrings (without inheritance)
 - [x] `abs()`
 - [x] `all()`
