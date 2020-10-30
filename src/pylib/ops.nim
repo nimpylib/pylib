@@ -40,3 +40,8 @@ template `%`*[T: SomeNumber](a, b: T): T =
 
 template `%`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = a % A(b)
 template `%`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = B(a) % b
+
+template `==`*(a, b: typedesc): bool =
+  ## Compare 2 typedesc like Python.
+  runnableExamples: doAssert type(1) == type(2)
+  a is b
