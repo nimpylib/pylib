@@ -1,6 +1,6 @@
 import strutils, macros
 
-proc printImpl(objects: openarray[string], sep=" ", endl="\n",
+proc printImpl(objects: openArray[string], sep=" ", endl="\n",
                 file=stdout, flush=false) =
   # Write all objects joined by sep
   file.write(objects.join(sep))
