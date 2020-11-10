@@ -16,7 +16,4 @@ jobs:
       with:
         nim-version: '1.4.0'
     - name: Test nimpylib
-      run: |
-        export PATH=$HOME/.nimble/bin:$PATH
-        echo $PATH
-        nimble test
+      run: nimble test
