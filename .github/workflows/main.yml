@@ -17,3 +17,9 @@ jobs:
         nim-version: '1.4.0'
     - name: Test nimpylib
       run: nimble test
+    - name: Update GitHub Pages HTML documentation
+      uses: EndBug/add-and-commit@v5  # https://github.com/EndBug/add-and-commit
+      with:
+        add: 'docs --force'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
