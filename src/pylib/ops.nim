@@ -45,3 +45,11 @@ template `==`*(a, b: typedesc): bool =
   ## Compare 2 typedesc like Python.
   runnableExamples: doAssert type(1) == type(2)
   a is b
+
+template degress*(x: SomeFloat): untyped =
+  ## https://devdocs.io/python/library/math#math.degrees
+  radToDeg(x)
+
+template radians*(x: SomeFloat): untyped =
+  ## https://devdocs.io/python/library/math#math.radians
+  degToRad(x)
