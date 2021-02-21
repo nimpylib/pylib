@@ -3,7 +3,7 @@
 [![Build status](https://github.com/Yardanico/nimpylib/workflows/Build/badge.svg)](https://github.com/Yardanico/nimpylib/actions)
 ![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=flat)
 ![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=flat "Star NimPylib on GitHub!")
-![](https://img.shields.io/maintenance/yes/2020?style=flat "2020")
+![](https://img.shields.io/maintenance/yes/2021?style=flat)
 ![](https://img.shields.io/github/languages/code-size/Yardanico/nimpylib?style=flat)
 [![Issues](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/issues)
 [![PRs](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/pulls)
