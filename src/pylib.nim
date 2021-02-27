@@ -125,12 +125,7 @@ func any*[T](iter: Iterable[T]): bool =
     if bool(element):
       return true
 
-iterator items*[T](getIter: proc(): iterator(): T): T =
-  ## Special items() iterator for pylib internal iterators
-  when not defined(js):
-    let iter = getIter()
-    while (let x = iter(); not finished(iter)):
-      yield x
+iterator items*[T](getIter: proc(): iterator(): T): T  # Forward declaration needed for other procs.
 
 # XXX: compiler says that list has side effects for some reason
 proc list*[T](getIter: proc: iterator(): T): seq[T] =
@@ -224,6 +219,12 @@ template `:=`*(name, value: untyped): untyped =
 
 
 when not defined(js):
+  iterator items*[T](getIter: proc(): iterator(): T): T =
+    ## Special items() iterator for pylib internal iterators
+    let iter = getIter()
+    while (let x = iter(); not finished(iter)):
+      yield x
+
   proc input*(prompt = ""): string =
     ## Python-like ``input()`` procedure. Returns empty string for JS target.
     if prompt.len > 0:
