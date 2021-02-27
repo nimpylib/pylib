@@ -209,7 +209,7 @@ template timeit*(repetitions: int, statements: untyped): untyped =
   ## Mimics Pythons ``timeit.timeit()``, output shows more information than Pythons.
   bind times.`$`
   template cpuTimeImpl(): untyped =
-    when defined(nodejs): now() else: cpuTime()
+    when defined(js): now() else: cpuTime()
   let
     started = now()
     cpuStarted = cpuTimeImpl()
