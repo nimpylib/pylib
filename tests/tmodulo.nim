@@ -1,4 +1,4 @@
-import math
+import std/math
 
 
 test "Modulo operations":

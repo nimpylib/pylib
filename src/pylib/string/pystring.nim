@@ -1,5 +1,5 @@
-import strutils, unicode
-from strformat import fmt
+import std/[strutils, unicode]
+from std/strformat import fmt
 import strops
 
 const

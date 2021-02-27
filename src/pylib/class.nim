@@ -1,4 +1,4 @@
-import macros
+import std/macros
 
 macro class*(obj, body: untyped): untyped = 
   # We accept "class Shape:" and "Class Shape(object):"

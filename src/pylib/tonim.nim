@@ -1,4 +1,4 @@
-import macros, sequtils, strutils
+import std/[macros, sequtils, strutils]
 
 proc genProc(item: NimNode): NimNode =
   # a(b, c=1)

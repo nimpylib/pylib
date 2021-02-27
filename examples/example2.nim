@@ -1,5 +1,5 @@
 import pylib
-import strutils
+import std/strutils
 type Customer = ref object
   name: string
   balance: float

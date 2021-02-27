@@ -1,4 +1,4 @@
-import random
+import std/random
 export random
 
 template seed*() = randomize()

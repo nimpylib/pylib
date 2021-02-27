@@ -1,4 +1,4 @@
-import strutils, math
+import std/[strutils, math]
 
 type
   Range*[T] = object ## Python-like range object

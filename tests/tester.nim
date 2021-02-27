@@ -1,3 +1,5 @@
-import unittest, pylib
+import std/[unittest]
+import pylib
 
-include trange, tintdiv, tclass, ttonim, tstring, tmodulo, tmisc, tunpack
+include trange, tintdiv, tclass, ttonim, tstring
+include tmodulo, tmisc, tunpack, twith

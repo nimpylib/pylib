@@ -1,5 +1,5 @@
 # From https://github.com/Yardanico/nim-snippets/blob/master/unpack_macro.nim
-import macros
+import std/macros
 
 proc unpackImpl(data: NimNode, values: NimNode): NimNode = 
   # If we have only 1 value - we got number of variables to unpack
@@ -108,7 +108,7 @@ macro unpack*(data: untyped, values: varargs[untyped]): untyped =
     let values = @[3, 2, 5, 7]
     doAssert values.unpack(4) == (3, 2, 5, 7)
 
-    import strutils
+    import std/strutils
     "how are you".split().unpack(ca, cb, cc)
 
     doAssert @[ca, cb, cc].join(", ") == "how, are, you"

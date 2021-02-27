@@ -1,4 +1,4 @@
-import strutils
+import std/strutils
 
 template str*(a: untyped): string = $a
 template unicode*(a: untyped): string = $a

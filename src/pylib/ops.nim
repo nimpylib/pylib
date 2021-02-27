@@ -1,4 +1,4 @@
-import math
+import std/math
 
 # Power templates for different types of arguments
 template `**`*[T](a: T, b: Natural): T = a ^ b

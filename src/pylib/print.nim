@@ -1,4 +1,4 @@
-import strutils, macros
+import std/[strutils, macros]
 
 proc printImpl(objects: openArray[string], sep=" ", endl="\n",
                 file=stdout, flush=false) =

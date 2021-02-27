@@ -1,4 +1,4 @@
-import tables
+import std/tables
 
 type 
   TableLikeObj* = Table or OrderedTable or CountTable
@@ -10,7 +10,7 @@ func `|`*[A, B: TableLike](a: A, b: B): A =
   ## a new dict is created from `a` and `b`, keys in the second 
   ## operand override keys in the first operand 
   runnableExamples:
-    import tables
+    import std/tables
 
     let d = {"spam": "1", "eggs": "2", "cheese": "3"}.toTable
     let e = {"cheese": "cheddar", "aardvark": "Ethel"}.toTable
@@ -36,7 +36,7 @@ proc `|=`*[A: TableLikeRef, B: TableLike](a: A, b: B) =
   ## Python-like in-place dict update operator.
   ## `b` is added into `a`, keys in `b` override same keys from `a`
   runnableExamples:
-    import tables
+    import std/tables
 
     let d = {"spam": "1", "eggs": "2", "cheese": "3"}.newTable
     let e = {"cheese": "cheddar", "aardvark": "Ethel"}.newTable
@@ -51,7 +51,7 @@ func `|=`*[A: TableLikeObj, B: TableLike](a: var A, b: B) =
   ## Python-like in-place dict update operator.
   ## `b` is added into `a`, keys in `b` override same keys from `a`
   runnableExamples:
-    import tables
+    import std/tables
 
     var d = {"spam": "1", "eggs": "2", "cheese": "3"}.toTable
     let e = {"cheese": "cheddar", "aardvark": "Ethel"}.newTable

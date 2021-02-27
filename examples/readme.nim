@@ -1,7 +1,7 @@
 import pylib
 
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
-let python_like_range = xrange(0, -10, -2)
+let python_like_range = xrange(0, -10, -2) # range() is named xrange() like Python2
 print(list(python_like_range)) # @[0, -2, -4, -6, -8]
 
 for i in xrange(10):
@@ -35,7 +35,7 @@ print(not "") # true
 print("Hello,", input("What is your name? "), endl="\n~\n")
 
 pass # do nothing
-pass str("This is a string.")
+pass str("This is a string.") # discard the string
 
 let integer_bytes = 2_313_354_324
 var bite, kilo, mega, giga, tera, peta, exa, zetta, yotta: int
@@ -65,28 +65,27 @@ print(truty) # false
 truty = any([True, True, False])
 print(truty) # true
 
-from os import sleep
+from std/os import sleep
 
 timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
   sleep(9)    # Repeats this code 100 times. Output is very informative.
 
 # 2020-06-17T21:59:09+03:00 TimeIt: 100 Repetitions on 927 milliseconds, 704 microseconds, and 816 nanoseconds, CPU Time 0.0007382400000000003.
 
-with_open("some_file.txt", 'w'):
+# Support for Python-like with statements
+# All objects are closed at the end of the with statement
+with open("some_file.txt", 'w') as file:
   file.write_line("hello world!")
 
-with_open("some_file.txt", 'r'):  # Mimics Pythons with open(file, mode='r') as file:
-  while not end_of_file(file):    # File is automatically assigned to file variable.
-    print(file.read_line())       # No need for " as file", just path and mode.
-                                  # File is closed automatically.
+with open("some_file.txt", 'r') as file:
+  while not end_of_file(file):
+    print(file.read_line())
 
-with_NamedTemporaryFile():        # Mimics Pythons with tempfile.NamedTemporaryFile() as file:
-  print(file.read())              # File is automatically assigned to file variable.
-                                  # File is closed and deleted automatically.
+with NamedTemporaryFile() as file:
+  file.write_line("test!")
 
-with_TemporaryDirectory():        # Mimics Pythons with tempfile.TemporaryDirectory():
-  print(name)                     # Folder path is automatically assigned to name variable.
-                                  # Folder is deleted automatically.
+with TemporaryDirectory() as name:
+  print(name)
 
 type Example = ref object
   start: int
