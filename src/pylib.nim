@@ -44,6 +44,10 @@ type
 
   NoneType* = distinct bool
 
+  TemporaryDirectory* = object
+    name: string
+
+
 const
   # Python-like boolean literals
   True* = true ## True
@@ -188,10 +192,9 @@ template `:=`*(name, value: untyped): untyped =
 when not defined(js):
   iterator items*[T](getIter: proc(): iterator(): T): T =
     ## Special items() iterator for pylib internal iterators
-    when not defined(js):
-      let iter = getIter()
-      while (let x = iter(); not finished(iter)):
-        yield x
+    let iter = getIter()
+    while (let x = iter(); not finished(iter)):
+      yield x
 
   # XXX: compiler says that list has side effects for some reason
   proc list*[T](getIter: proc: iterator(): T): seq[T] =
@@ -248,10 +251,6 @@ when not defined(js):
     let path = getTempDir() / $rand(100_000..999_999)
     when not defined(release): echo path
     result = open(path, fmReadWrite)
-
-  type
-    TemporaryDirectory* = object
-      name: string
 
   proc open*(ctx: var TemporaryDirectory): string =
     result = getTempDir() / $rand(100_000..999_999)
