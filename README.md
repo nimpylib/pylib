@@ -18,6 +18,7 @@ It can help you to translate your Python program to Nim.
 ```nim
 import pylib
 
+print 42  # print can be used with and without parenthesis too, like Python2.
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
 let python_like_range = xrange(0, -10, -2) # range() is named xrange() like Python2
 print(list(python_like_range)) # @[0, -2, -4, -6, -8]
@@ -177,11 +178,8 @@ nimble install pylib
 - [x] `filter()`
 - [x] `float()`
 - [x] `hex()`
-- [ ] `id()`
 - [x] `input()`
 - [x] `int()`
-- [ ] `isinstance()`
-- [ ] `issubclass()`
 - [x] `iter()`
 - [x] `list()`
 - [x] `map()`
@@ -199,6 +197,9 @@ nimble install pylib
 - [x] `ascii()` Python2 like
 - [x] `u"string here"` / `u'a'` Python2 like
 - [x] `b"string here"` / `b'a'` Python2 like
+- [ ] `isinstance()`
+- [ ] `issubclass()`
+- [ ] `id()`
 - More...
 
 
