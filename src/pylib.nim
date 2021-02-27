@@ -111,13 +111,6 @@ converter toBool*[T](arg: T): bool =
 proc bool*[T](arg: T): bool =
   toBool(arg)
 
-proc input*(prompt = ""): string =
-  ## Python-like ``input()`` procedure. Returns empty string for JS target.
-  when not defined(js):
-    if prompt.len > 0:
-      stdout.write(prompt)
-    stdin.readLine()
-
 func all*[T](iter: Iterable[T]): bool =
   ## Checks if all values in iterable are truthy
   result = true
@@ -231,6 +224,12 @@ template `:=`*(name, value: untyped): untyped =
 
 
 when not defined(js):
+  proc input*(prompt = ""): string =
+    ## Python-like ``input()`` procedure. Returns empty string for JS target.
+    if prompt.len > 0:
+      stdout.write(prompt)
+    stdin.readLine()
+
   ## Python has file.read() to read the full file.
   template read*(f: File): string = f.readAll()
 
