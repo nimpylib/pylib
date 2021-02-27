@@ -5,15 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     if: "! contains(github.event.head_commit.message, '[skip ci]')"
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Cache nimble
       id: cache-nimble
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       with:
         path: ~/.nimble
         key: ${{ runner.os }}-nimble
     - uses: jiro4989/setup-nim-action@v1
       with:
-        nim-version: '1.4.0'
+        nim-version: '1.4.4'
     - name: Test nimpylib
       run: nimble test

@@ -1,4 +1,4 @@
-import std/[macros, sequtils, strutils]
+import std/macros
 
 proc genProc(item: NimNode): NimNode =
   # a(b, c=1)
@@ -62,7 +62,7 @@ import ../pylib
 tonim:
   def add(x, y):
     return x + y
-  
+
   def subtract(x, y):
     return x - y
 
@@ -71,17 +71,17 @@ tonim:
 
   def divide(x, y):
     return x / y
-  
+
   def default_arg(x, y = 5):
     return "hello" * y
-  
+
   my_list = ["apples", "bananas"]
   print(my_list)
 
   # Python Program to calculate the square root
 
   # Note: change this value for a different result
-  num = 8 
+  num = 8
 
   # To take the input from the user
   #num = float(input('Enter a number: '))

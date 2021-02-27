@@ -60,37 +60,39 @@ test "ord()":
   check ord("👑") == 0x1F451
   check ord('A') == 65
 
-test "bin()":
-  check bin(32587328532) == "0b11110010110010110110010110000010100"
-  check bin(-140140140140) == "-0b10000010100001000000001101011001101100"
 
-test "filter()":
-  # function that filters vowels
-  proc fun(variable: char): bool =
-    const letters = ['a', 'e', 'i', 'o', 'u']
-    if (variable in letters):
-      return True
-    else:
-      return False
+when not defined(js):
+  test "bin()":
+    check bin(32587328532) == "0b11110010110010110110010110000010100"
+    check bin(-140140140140) == "-0b10000010100001000000001101011001101100"
 
-  # sequence
-  let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
-  let filtered = filter(fun, sequence)
-  let res = @['e', 'e', 'i', 'e', 'o']
-  var data: seq[char]
-  for s in filtered:
-    data.add s
+  test "filter()":
+    # function that filters vowels
+    proc fun(variable: char): bool =
+      const letters = ['a', 'e', 'i', 'o', 'u']
+      if (variable in letters):
+        return true
+      else:
+        return false
 
-  check data == res
-  data = @[]
-  for s in filtered:
-    data.add s
+    # sequence
+    let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
+    let filtered = filter(fun, sequence)
+    let res = @['e', 'e', 'i', 'e', 'o']
+    var data: seq[char]
+    for s in filtered:
+      data.add s
 
-  check data == res
-  check list(filtered) == res
+    check data == res
+    data = @[]
+    for s in filtered:
+      data.add s
 
-  let otherData = @[0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 0, 31254, 0]
+    check data == res
+    check list(filtered) == res
 
-  let other = filter(None, otherData)
+    let otherData = @[0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 0, 31254, 0]
 
-  check list(other) == @[1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 31254]
+    let other = filter(None, otherData)
+
+    check list(other) == @[1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 31254]

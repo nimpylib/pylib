@@ -2,7 +2,7 @@ when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
 import std/[
-  strutils, math, macros, unicode, tables, strformat, times, json
+  strutils, math, macros, unicode, tables, strformat, times, json, os, times,
 ]
 export math, tables
 
@@ -13,8 +13,8 @@ import pylib/[
   pywith
 ]
 export
-  class, print, types, ops, unpack, strops, 
-  pystring, tonim, pyrandom, xrange, pytables, 
+  class, print, types, ops, unpack, strops,
+  pystring, tonim, pyrandom, xrange, pytables,
   pywith
 
 when not defined(pylibNoLenient):
@@ -112,10 +112,11 @@ proc bool*[T](arg: T): bool =
   toBool(arg)
 
 proc input*(prompt = ""): string =
-  ## Python-like ``input()`` procedure
-  if prompt.len > 0:
-    stdout.write(prompt)
-  stdin.readLine()
+  ## Python-like ``input()`` procedure. Returns empty string for JS target.
+  when not defined(js):
+    if prompt.len > 0:
+      stdout.write(prompt)
+    stdin.readLine()
 
 func all*[T](iter: Iterable[T]): bool =
   ## Checks if all values in iterable are truthy
@@ -133,9 +134,10 @@ func any*[T](iter: Iterable[T]): bool =
 
 iterator items*[T](getIter: proc(): iterator(): T): T =
   ## Special items() iterator for pylib internal iterators
-  let iter = getIter()
-  while (let x = iter(); not finished(iter)):
-    yield x
+  when not defined(js):
+    let iter = getIter()
+    while (let x = iter(); not finished(iter)):
+      yield x
 
 # XXX: compiler says that list has side effects for some reason
 proc list*[T](getIter: proc: iterator(): T): seq[T] =
@@ -181,10 +183,10 @@ template makeConv(name, call: untyped, len: int, pfix: string) =
     if a == 0:
       return `pfix` & "0"
     result = call(
-      when a isnot SomeUnsignedInt: 
-        abs(a) 
-      else: 
-        a, 
+      when a isnot SomeUnsignedInt:
+        abs(a)
+      else:
+        a,
       `len`).toLowerAscii().strip(chars = {'0'}, trailing = false)
     # Do it like in Python - add - sign
     result.insert(`pfix`)
@@ -203,52 +205,18 @@ proc json_loads*(buffer: string): JsonNode =
   ## Mimics Pythons ``json.loads()`` to load JSON.
   result = parseJson(buffer)
 
-import std/times
-
 template timeit*(repetitions: int, statements: untyped): untyped =
   ## Mimics Pythons ``timeit.timeit()``, output shows more information than Pythons.
   bind times.`$`
+  template cpuTimeImpl(): untyped =
+    when defined(nodejs): now() else: cpuTime()
   let
     started = now()
-    cpuStarted = cpuTime()
+    cpuStarted = cpuTimeImpl()
   for i in 0 .. repetitions:
     statements
   echo "$1 TimeIt: $2 Repetitions on $3, CPU Time $4.".format(
-    $now(), repetitions, $(now() - started), $(cpuTime() - cpuStarted))
-
-import std/os
-
-## Python has file.read() to read the full file.
-template read*(f: File): string = f.readAll()
-
-proc open*(f: string, mode: StringLike): File = 
-  ## Python-like `open(file, mode)`
-  let pyfileMode = 
-    case $mode
-    of "w": FileMode.fmWrite
-    of "a": FileMode.fmAppend
-    of "x": FileMode.fmReadWriteExisting
-    of "b", "t", "+": FileMode.fmReadWrite
-    else:   FileMode.fmRead
-  result = open(f, pyfileMode)
-
-proc NamedTemporaryFile*(): File = 
-  let path = getTempDir() / $rand(100_000..999_999)
-  when not defined(release): echo path
-  result = open(path, fmReadWrite)
-
-type
-  TemporaryDirectory* = object
-    name: string
-
-proc open*(ctx: var TemporaryDirectory): string = 
-  result = getTempDir() / $rand(100_000..999_999)
-  when not defined(release): echo result
-  createDir(result)
-  ctx.name = result
-
-proc close*(ctx: TemporaryDirectory) = 
-  removeDir(ctx.name)
+    $now(), repetitions, $(now() - started), $(cpuTimeImpl() - cpuStarted))
 
 template pass*: untyped = discard
 template pass*(_: untyped): untyped = discard # pass 42
@@ -260,3 +228,37 @@ template `:=`*(name, value: untyped): untyped =
   ## Mimic Pythons Operator.
   ## Creates new variable `name` and assign `value` to it.
   (var name = value; name)
+
+
+when not defined(js):
+  ## Python has file.read() to read the full file.
+  template read*(f: File): string = f.readAll()
+
+  proc open*(f: string, mode: StringLike): File =
+    ## Python-like `open(file, mode)`
+    let pyfileMode =
+      case $mode
+      of "w": FileMode.fmWrite
+      of "a": FileMode.fmAppend
+      of "x": FileMode.fmReadWriteExisting
+      of "b", "t", "+": FileMode.fmReadWrite
+      else:   FileMode.fmRead
+    result = open(f, pyfileMode)
+
+  proc NamedTemporaryFile*(): File =
+    let path = getTempDir() / $rand(100_000..999_999)
+    when not defined(release): echo path
+    result = open(path, fmReadWrite)
+
+  type
+    TemporaryDirectory* = object
+      name: string
+
+  proc open*(ctx: var TemporaryDirectory): string =
+    result = getTempDir() / $rand(100_000..999_999)
+    when not defined(release): echo result
+    createDir(result)
+    ctx.name = result
+
+  proc close*(ctx: TemporaryDirectory) {.inline.} =
+    removeDir(ctx.name)
