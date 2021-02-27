@@ -125,39 +125,6 @@ func any*[T](iter: Iterable[T]): bool =
     if bool(element):
       return true
 
-iterator items*[T](getIter: proc(): iterator(): T): T  # Forward declaration needed for other procs.
-
-# XXX: compiler says that list has side effects for some reason
-proc list*[T](getIter: proc: iterator(): T): seq[T] =
-  ## Special list() procedure for pylib internal iterators
-  for item in items(getIter):
-    result.add item
-
-func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T =
-  ## Python-like filter(fun, iter)
-  runnableExamples:
-    proc isAnswer(arg: string): bool =
-      return arg in ["yes", "no", "maybe"]
-
-    let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
-    let filtered = filter(isAnswer, values)
-    doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
-
-  result = proc(): iterator(): T =
-    result = iterator(): T =
-      for item in iter:
-        if comp(item):
-          yield item
-
-func filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T =
-  ## Python-like filter(None, iter)
-  runnableExamples:
-    let values = @["", "", "", "yes", "no", "why"]
-    let filtered = list(filter(None, values))
-    doAssert filtered == @["yes", "no", "why"]
-
-  result = filter[T](pylib.bool, iter)
-
 func divmod*(a, b: SomeInteger): (int, int) =
   ## Mimics Pythons ``divmod()``.
   result = (int(a / b), int(a mod b))
@@ -221,12 +188,44 @@ template `:=`*(name, value: untyped): untyped =
 when not defined(js):
   iterator items*[T](getIter: proc(): iterator(): T): T =
     ## Special items() iterator for pylib internal iterators
-    let iter = getIter()
-    while (let x = iter(); not finished(iter)):
-      yield x
+    when not defined(js):
+      let iter = getIter()
+      while (let x = iter(); not finished(iter)):
+        yield x
+
+  # XXX: compiler says that list has side effects for some reason
+  proc list*[T](getIter: proc: iterator(): T): seq[T] =
+    ## Special list() procedure for pylib internal iterators
+    for item in items(getIter):
+      result.add item
+
+  func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T =
+    ## Python-like filter(fun, iter)
+    runnableExamples:
+      proc isAnswer(arg: string): bool =
+        return arg in ["yes", "no", "maybe"]
+
+      let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
+      let filtered = filter(isAnswer, values)
+      doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
+
+    result = proc(): iterator(): T =
+      result = iterator(): T =
+        for item in iter:
+          if comp(item):
+            yield item
+
+  func filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T =
+    ## Python-like filter(None, iter)
+    runnableExamples:
+      let values = @["", "", "", "yes", "no", "why"]
+      let filtered = list(filter(None, values))
+      doAssert filtered == @["yes", "no", "why"]
+
+    result = filter[T](pylib.bool, iter)
 
   proc input*(prompt = ""): string =
-    ## Python-like ``input()`` procedure. Returns empty string for JS target.
+    ## Python-like ``input()`` procedure.
     if prompt.len > 0:
       stdout.write(prompt)
     stdin.readLine()
