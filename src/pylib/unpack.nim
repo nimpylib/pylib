@@ -1,7 +1,7 @@
 # From https://github.com/Yardanico/nim-snippets/blob/master/unpack_macro.nim
 import std/macros
 
-proc unpackImpl(data: NimNode, values: NimNode): NimNode = 
+proc unpackImpl(data: NimNode, values: NimNode): NimNode =
   # If we have only 1 value - we got number of variables to unpack
   let lenPresent = values.len == 1 and values[0].kind == nnkIntLit
   result = nnkStmtList.newTree()
@@ -17,13 +17,15 @@ proc unpackImpl(data: NimNode, values: NimNode): NimNode =
 
   if lenPresent:
     var data = nnkPar.newTree()
-
-    for ind in 0 ..< values[0].intVal:
+    let len2unpack = values[0].intVal
+    if not(len2unpack > 0):
+      error"Length to unpack must be a non-zero positive integer"
+    for ind in 0 ..< len2unpack:
       data.add quote do:
         `nameIdent`[`ind`]
-    
+
     result.add data
-  
+
   else:
     var valIdx = 0 # current data index, needed for handling *
     var backwards = false # we need to use ^ after we find an *
@@ -38,7 +40,7 @@ proc unpackImpl(data: NimNode, values: NimNode): NimNode =
         let needGenerate = valName != ident"_"
         # get how much variables we have till the end (+1)
         let ends = values.len - i
-        # starting from the next value we'll do backwards indexing 
+        # starting from the next value we'll do backwards indexing
         backwards = true
         # let `valName` = `nameIdent`[`valIdx` .. ^`ends`]
         if needGenerate:
@@ -69,12 +71,12 @@ proc unpackImpl(data: NimNode, values: NimNode): NimNode =
       # increment otherwise
       valIdx += (if backwards: -1 else: 1)
 
-macro unpack*(data: untyped, values: varargs[untyped]): untyped = 
+macro unpack*(data: untyped, values: varargs[untyped]): untyped =
   runnableExamples:
     # Simple unpacking - you need to provide the length to unpack
     let (a, b, c) = @[1, 2, 3, 4].unpack(3)
     doAssert (a + b + c) == 6
-  
+
     # When unpacking with length you get a tuple so you can assign it
     # to something like let (a, b, ...) = x later
     doAssert @[1, 2, 3, 5].unpack(2) == (1, 2)
@@ -101,7 +103,7 @@ macro unpack*(data: untyped, values: varargs[untyped]): untyped =
     data.unpack(k, r, *_, f)
     doAssert k == 1
     doAssert r == 2
-    doAssert f == 6 
+    doAssert f == 6
 
     # You're not limited to simple expressions, you can call this
     # macro with somewhat complex expressions or variables
