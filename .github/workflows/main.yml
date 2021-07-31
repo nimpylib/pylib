@@ -14,6 +14,6 @@ jobs:
         key: ${{ runner.os }}-nimble
     - uses: jiro4989/setup-nim-action@v1
       with:
-        nim-version: '1.4.4'
+        nim-version: '1.4.8'
     - name: Test nimpylib
       run: nimble test
