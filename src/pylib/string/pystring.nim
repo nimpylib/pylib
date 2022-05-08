@@ -13,7 +13,8 @@ const
   whitespace* = " \t\n\r\x0b\x0c"
   printable* = digits & ascii_letters & punctuation & whitespace
 
-func index*(a: string, b: StringLike, start = 0, last = 0): int =
+func index*(a: string, b: StringLike, start = 0, last = -1): int =
+  var last = if last == -1: a.len else: last
   result = a.find(b, start, last)
   if result == -1:
     raise newException(ValueError, "substring not found")
