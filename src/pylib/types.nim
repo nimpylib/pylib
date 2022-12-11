@@ -1,8 +1,18 @@
 import std/strutils
+import std/unicode
 
 template str*(a: untyped): string = $a
 template unicode*(a: untyped): string = $a
-template ascii*(a: untyped): string = $a
+
+from pylib import ord
+proc ascii*(us:string):string=
+  for s in us.utf8:
+    if s.len == 1: # is ascii char
+      result.add s.escape(prefix = "",suffix = "")
+    else:
+      result.add r"\u" & $ord(s)
+
+
 template u*(a: string): string = a
 template u*(a: char): string = $a
 template b*(a: string): string = a
