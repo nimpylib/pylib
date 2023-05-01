@@ -10,6 +10,7 @@ proc ascii*(us:string):string=
   ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
   runnableExamples:
     assert ascii("𐀀") == r"'\U00010000'"
+    assert ascii("đ") == r"'\u0111'"
     assert ascii("和") == r"'\u548c'"
     let s = ascii("v我\n\e")
     when not defined(asciiNimCharEsc): 
@@ -27,7 +28,7 @@ proc ascii*(us:string):string=
         if c == '\e': result.add "\\x1b"
         else: result.addEscapedChar c
     elif s.len<4:
-      result.add r"\u" & ord(s).toHex.strip(trailing=false, chars={'0'}).toLowerAscii
+      result.add r"\u" & ord(s).toHex[12..^1].toLowerAscii
     else:
       result.add r"\U" & ord(s).toHex[8..^1]
   result.add '\''
