@@ -17,7 +17,7 @@ proc raw_ascii(us: string): string =
     elif s.len<4:
       result.add r"\u" & ord(s).toHex(4).toLowerAscii
     else:
-      result.add r"\U" & ord(s).toHex(8)
+      result.add r"\U" & ord(s).toHex(8).toLowerAscii
 proc ascii*(us:string): string=
   ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
   ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
