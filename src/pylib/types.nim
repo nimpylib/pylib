@@ -5,34 +5,37 @@ template str*(a: untyped): string = $a
 template unicode*(a: untyped): string = $a
 
 template ord(a: string): int = system.int(a.runeAt(0))
-proc ascii*(us:string):string=
-  ##   nim's Escape Char feature can be enabled via `-d:asciiNimCharEsc`,
-  ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
-  runnableExamples:
-    assert ascii("𐀀") == r"'\U00010000'"
-    assert ascii("đ") == r"'\u0111'"
-    assert ascii("和") == r"'\u548c'"
-    let s = ascii("v我\n\e")
-    when not defined(asciiNimCharEsc): 
-      let rs = r"'v\u6211\n\x1b'"
-    else: 
-      let rs = r"'v\u6211\n\e'"
-    assert s == rs
-  result.add '\''
+proc raw_ascii(us: string): string =
   for s in us.utf8:
     if s.len == 1:  # is a ascii char
-      when defined(asciiNimCharEsc):
+      when defined(useNimCharEsc):
         result.addEscapedChar s[0]
       else:
         let c = s[0]
         if c == '\e': result.add "\\x1b"
         else: result.addEscapedChar c
     elif s.len<4:
-      result.add r"\u" & ord(s).toHex[12..^1].toLowerAscii
+      result.add r"\u" & ord(s).toHex(4).toLowerAscii
     else:
-      result.add r"\U" & ord(s).toHex[8..^1]
-  result.add '\''
-template ascii*(a: untyped): string = ascii($a)
+      result.add r"\U" & ord(s).toHex(8)
+proc ascii*(us:string): string=
+  ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
+  ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
+  runnableExamples:
+    assert ascii("𐀀") == r"'\U00010000'"
+    assert ascii("đ") == r"'\u0111'"
+    assert ascii("和") == r"'\u548c'"
+    let s = ascii("v我\n\e")
+    when not defined(useNimCharEsc):
+      let rs = r"'v\u6211\n\x1b'"
+    else:
+      let rs = r"'v\u6211\n\e'"
+    assert s == rs
+  '\'' & raw_ascii(us) & '\''
+template ascii*(a: untyped): string =
+  runnableExamples:
+    assert ascii(6) == "6"
+  raw_ascii($a)
 
 template u*(a: string): string = a
 template u*(a: char): string = $a
