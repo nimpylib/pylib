@@ -19,12 +19,13 @@ unsupport:
   - generator (yield within def)  *TODO*
   - `**kws`
   - `*` and `/` in parameters-list
-see codes in `when isMainModule` and `runnableExamples` for more details
+see codes in `runnableExamples` for more details
 ]##
 import std/macros
 template emptyn: NimNode = newEmptyNode()
-proc defImpl(signature, body: NimNode, pragmas = emptyn, def_restype = ident"auto"): NimNode
-proc asyncImpl(defsign, body: NimNode): NimNode
+proc defImpl*(signature, body: NimNode, pragmas = emptyn, def_restype = ident"auto"): NimNode
+proc asyncImpl*(defsign, body: NimNode): NimNode
+
 proc defAux(signature, body: NimNode, def_argtype = ident"untyped", restype = def_argtype, nnkType = nnkTemplateDef, pragmas = emptyn): NimNode =
   ## XXX: deftype is for both params and result
   let name = signature[0]
@@ -60,7 +61,6 @@ proc defAux(signature, body: NimNode, def_argtype = ident"untyped", restype = de
            ,typ   # type
            ,val   # default value # can be omitted as empty node is default value
     )
-
   var nbody = newStmtList()
   if body[0].kind in nnkStrLit..nnkTripleStrLit:
     nbody.add newCommentStmtNode($body[0])
@@ -76,6 +76,7 @@ proc defAux(signature, body: NimNode, def_argtype = ident"untyped", restype = de
       nbody.add ele
     
   newProc(name, params, nbody, nnkType, pragmas) 
+
 
 template parseArrow{.dirty.} =
   mixin signature, name_params, restype
@@ -100,11 +101,15 @@ proc defImpl(signature, body: NimNode, pragmas = emptyn, def_restype = ident"aut
   parseArrow
   defAux(name_params, body, argtype, restype, nnkProcDef, pragmas)
 
-
 macro def*(signature, body): untyped =
   runnableExamples:
     def add(a,b): return a + b # use auto as argtype and restype
     def iadd(a: int, b = 1): return a + b
+    def nested():
+      def f():
+        return 1
+      return f()
+    echo nested()
     def max(a, b, *args):
       "doc-str. This is a fully python-compatiable `max`"
       def max2(a,b):
@@ -113,8 +118,10 @@ macro def*(signature, body): untyped =
       for i in args:
         result = max2(result, i)
       return result
-    echo max(3,6,8,4) # this tells the code is Nim!"
+    echo max(3,6,8,4)
   defImpl(signature, body)
+
+
 proc asyncImpl(defsign, body: NimNode): NimNode =
   let 
     pre = defsign[0]
@@ -124,28 +131,21 @@ proc asyncImpl(defsign, body: NimNode): NimNode =
     apragma = newNimNode(nnkPragma).add(ident"async")
     restype = newNimNode(nnkBracketExpr).add(ident"Future", ident"void")
   defImpl(signature, body, apragma, restype)
-macro async*(defsign, body): untyped = asyncImpl defsign, body
+
+macro async*(defsign, body): untyped =
   ## `async def ...`
-when isMainModule:
-  define t(a, b):
-    a & b
-  echo t("a", "bc")
-  def f(a: int, b = 1, *args) -> int:
-    "a func"
-    for i in args:
-      echo i
-    return a+b
-  echo f(1,2, 'a', 'b')
-  def nested():
-    def f():
-      return 1
-    return f()
-  echo nested()
-  when not defined(nimscript):
-    import std/asyncdispatch
+  runnableExamples:
+    import std/async
     async def af():
       echo "no restype mean Future[void]"
-    waitFor af()
     async def afi() -> Future[int]:
       return 3
-    echo waitFor afi()
+    when defined(js):
+      await af()
+      echo await afi()
+    else:
+      import std/asyncdispatch
+      waitFor af()
+      echo waitFor afi()
+  asyncImpl defsign, body
+

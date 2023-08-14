@@ -1,4 +1,4 @@
-import std/math
+# import std/math # this has been done by `pylib` in `tester.nim`
 
 
 test "Modulo operations":
