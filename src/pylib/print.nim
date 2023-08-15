@@ -2,9 +2,9 @@ import std/[strutils, macros]
 
 when defined(js):
   import jsconsole
-  proc toJsStr(s: string): cstring{.importjs: "(new TextDecoder()).decode(new Int8Array(#))".}
+  
   proc printImpl(objects: openArray[string], sep=" ", endl="\n", flush=false) =
-    console.log(objects.join(sep).toJsStr, endl)
+    console.log(objects.join(sep).cstring, endl)
 else:
   proc printImpl(objects: openArray[string], sep=" ", endl="\n",
                   file=stdout, flush=false) =
