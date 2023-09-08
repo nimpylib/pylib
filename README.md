@@ -1,13 +1,6 @@
 # NimPylib
 
-[![Build status](https://github.com/Yardanico/nimpylib/workflows/Build/badge.svg)](https://github.com/Yardanico/nimpylib/actions)
-![](https://img.shields.io/github/languages/top/Yardanico/nimpylib?style=flat)
-![](https://img.shields.io/github/stars/Yardanico/nimpylib?style=flat "Star NimPylib on GitHub!")
-![](https://img.shields.io/maintenance/yes/2021?style=flat)
-![](https://img.shields.io/github/languages/code-size/Yardanico/nimpylib?style=flat)
-[![Issues](https://img.shields.io/github/issues-raw/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/issues)
-[![PRs](https://img.shields.io/github/issues-pr-raw/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/pulls)
-[![Commits](https://img.shields.io/github/last-commit/Yardanico/nimpylib?style=flat)](https://github.com/Yardanico/nimpylib/commits/)
+> fork from https://github.com/Yardanico/nimpylib, which is not maintained now
 
 Nimpylib is a collection of Python-like operators and functions (syntax sugar).
 It can help you to translate your Python program to Nim.
@@ -25,7 +18,7 @@ print(list(python_like_range)) # @[0, -2, -4, -6, -8]
 
 # func definition
 # typing is suppported and optional
-def f(a: int, b = 1, *args) -> int:
+def foo(a: int, b = 1, *args) -> int:
   def add(a, b): return a + b # nesting
   for i in args: print(i)
   return add(a, b)
