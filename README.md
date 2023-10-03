@@ -138,10 +138,10 @@ Nimpylib heavily relies on Nim generics, converters, operator overloading, and e
 
 To install nimpylib, you can simply run
 ```
-nimble install pylib
+nimble install https://github.com/litlighilit/nimpylib
 ```
 
-- Uninstall with `nimble uninstall pylib`. https://nimble.directory/pkg/pylib
+- Uninstall with `nimble uninstall pylib`.
 
 
 # Requisites
@@ -194,7 +194,7 @@ nimble install pylib
 - [x] `<>` Python1 and Python2 `!=`
 - [x] `long()` Python2 like
 - [x] `unicode()` Python2 like
-- [x] `ascii()` Python2 like
+- [x] `ascii()`
 - [x] `u"string here"` / `u'a'` Python2 like
 - [x] `b"string here"` / `b'a'` Python2 like
 - [ ] `isinstance()`
@@ -224,7 +224,8 @@ $ nimble test
 [OK] unpack macro
 ```
 
-
+<!-- too small to show now
 #### Stats
 
-![Star nimpylib on GitHub](https://starchart.cc/Yardanico/nimpylib.svg "Star NimPylib on GitHub!")
+![Star nimpylib on GitHub]( "Star NimPylib on GitHub!")
+-->
