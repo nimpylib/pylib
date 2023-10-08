@@ -23,6 +23,9 @@ def foo(a: int, b = 1, *args) -> int:
   for i in args: print(i)
   return add(a, b)
 
+# python 3.12's type statement
+type More[T] = T | list[T] # which is originally supported by nim-lang itself, however ;)
+
 for i in xrange(10):
   # 0 1 2 3 4 5 6 7 8 9
   print(i, endl=" ")
