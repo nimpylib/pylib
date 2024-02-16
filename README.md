@@ -1,6 +1,6 @@
 # NimPylib
 
-> fork from https://github.com/Yardanico/nimpylib, which is not maintained now
+> fork from https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
 
 Nimpylib is a collection of Python-like operators and functions (syntax sugar).
 It can help you to translate your Python program to Nim.
@@ -57,7 +57,7 @@ print(not "") # true
 print("Hello,", input("What is your name? "), endl="\n~\n")
 
 pass # do nothing
-pass str("This is a string.") # discard the string
+pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
 let integer_bytes = 2_313_354_324
 var bite, kilo, mega, giga, tera, peta, exa, zetta, yotta: int
@@ -87,7 +87,7 @@ print(truty) # false
 truty = any([True, True, False])
 print(truty) # true
 
-from std/os import sleep
+from std/os import sleep  # python's `sleep` is in `time` module, however
 
 timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
   sleep(9)    # Repeats this code 100 times. Output is very informative.
