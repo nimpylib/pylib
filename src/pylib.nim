@@ -9,12 +9,12 @@ export math, tables
 import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
-  tonim, pyrandom, xrange, pytables,
+  tonim, pyrandom, range, pytables,
   pywith, pydef
 ]
 export
   class, print, types, ops, unpack, strops,
-  pystring, tonim, pyrandom, xrange, pytables,
+  pystring, tonim, pyrandom, range, pytables,
   pywith, pydef
 
 when not defined(pylibNoLenient):

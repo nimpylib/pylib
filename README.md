@@ -13,7 +13,7 @@ import pylib
 
 print 42  # print can be used with and without parenthesis too, like Python2.
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
-let python_like_range = xrange(0, -10, -2) # range() is named xrange() like Python2
+let python_like_range = range(0, -10, -2)
 print(list(python_like_range)) # @[0, -2, -4, -6, -8]
 
 # func definition
@@ -26,13 +26,13 @@ def foo(a: int, b = 1, *args) -> int:
 # python 3.12's type statement
 type More[T] = T | list[T] # which is originally supported by nim-lang itself, however ;)
 
-for i in xrange(10):
+for i in range(10):
   # 0 1 2 3 4 5 6 7 8 9
   print(i, endl=" ")
 print("done!")
 
 # Python-like variable unpacking
-let data = list(xrange(3, 15, 2))
+let data = list(range(3, 15, 2))
 data.unpack(first, second, *rest, last)
 assert (first + second + last) == (3 + 5 + 13)
 assert rest == @[7, 9, 11]
@@ -191,7 +191,7 @@ nimble install https://github.com/litlighilit/nimpylib
 - [x] `oct()`
 - [x] `ord()`
 - [x] `print("foo")` / `print "foo"` Python2 like
-- [x] `range()` but named `xrange()` like in Python 2
+- [x] `range()`
 - [x] `str()`
 - [x] `sum()`
 - [x] `<>` Python1 and Python2 `!=`

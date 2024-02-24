@@ -11,7 +11,7 @@ func `$`*[T](rng: Range[T]): string =
   else:
     "range($1, $2)".format(rng.start, rng.stop)
 
-func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
+func range*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   ## Creates new range object with given *start* and *stop* of any integer type
   ## and *step* of int
   if unlikely(step == 0):
@@ -21,13 +21,13 @@ func xrange*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   result.step = step
   result.len = int(math.ceil((stop - start) / step))
 
-template xrange*[T: SomeInteger](start, stop: T): Range[T] =
+template range*[T: SomeInteger](start, stop: T): Range[T] =
   ## Shortcut for range(start, stop, 1)
-  xrange(start, stop, 1)
+  range(start, stop, 1)
 
-template xrange*[T: SomeInteger](stop: T): Range[T] =
+template range*[T: SomeInteger](stop: T): Range[T] =
   ## Shortcut for range(0, stop, 1)
-  xrange(0, stop)
+  range(0, stop)
 
 template len*[T](rng: Range[T]): int =
   rng.len
