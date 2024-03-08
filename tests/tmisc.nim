@@ -77,19 +77,17 @@ when not defined(js):
 
     # sequence
     let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
-    let filtered = filter(fun, sequence)
+    template genFiltered(): untyped = filter(fun, sequence)
+    let filtered = genFiltered()
     let res = @['e', 'e', 'i', 'e', 'o']
     var data: seq[char]
     for s in filtered:
       data.add s
 
     check data == res
-    data = @[]
-    for s in filtered:
-      data.add s
 
-    check data == res
-    check list(filtered) == res
+    let nFiltered = genFiltered()
+    check list(nFiltered) == res
 
     let otherData = @[0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 0, 31254, 0]
 

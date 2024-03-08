@@ -4,6 +4,8 @@ when defined(nimHasStrictFuncs):
 import std/[
   strutils, math, macros, unicode, tables, strformat, times, json, os,
 ]
+when defined(js): import std/jsconsole
+
 export math, tables
 
 import pylib/[
@@ -189,69 +191,94 @@ template `:=`*(name, value: untyped): untyped =
   (var name = value; name)
 
 
+
+type Filter[T] = object
+  iter: iterator(): T
+iterator items*[T](f: Filter[T]): T =
+  #while(let x = f.iter(); not finished(f.iter)):
+  for x in f.iter():
+    yield x
+
 when not defined(js):
-  iterator items*[T](getIter: proc(): iterator(): T): T =
-    ## Special items() iterator for pylib internal iterators
-    let iter = getIter()
-    while (let x = iter(); not finished(iter)):
-      yield x
+  # when for js:
+  #  nim will compile about `for i in iter`'s `i`
+  #  say: internal error: expr(nkBracketExpr, tyUserTypeClassInst)
 
-  # XXX: compiler says that list has side effects for some reason
-  proc list*[T](getIter: proc: iterator(): T): seq[T] =
-    ## Special list() procedure for pylib internal iterators
-    for item in items(getIter):
-      result.add item
+  # XXX: compiler says that list has side effects as it may call `items`
+  proc list*[T](iter: Iterable[T]): seq[T] =
+    for i in iter:
+      result.add i
 
-  func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): proc(): iterator(): T =
-    ## Python-like filter(fun, iter)
-    runnableExamples:
-      proc isAnswer(arg: string): bool =
-        return arg in ["yes", "no", "maybe"]
+func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T] =
+  ## Python-like filter(fun, iter)
+  runnableExamples:
+    proc isAnswer(arg: string): bool =
+      return arg in ["yes", "no", "maybe"]
 
-      let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
-      let filtered = filter(isAnswer, values)
-      doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
+    let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
+    let filtered = filter(isAnswer, values)
+    doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
 
-    result = proc(): iterator(): T =
-      result = iterator(): T =
-        for item in iter:
-          if comp(item):
-            yield item
+  var it =
+    iterator(): T =
+      for item in iter:
+        if comp(item):
+          yield item
+  Filter[T](iter: it)
 
-  func filter*[T](arg: NoneType, iter: Iterable[T]): proc(): iterator(): T =
-    ## Python-like filter(None, iter)
-    runnableExamples:
-      let values = @["", "", "", "yes", "no", "why"]
-      let filtered = list(filter(None, values))
-      doAssert filtered == @["yes", "no", "why"]
+func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T] =
+  ## Python-like filter(None, iter)
+  runnableExamples:
+    let values = @["", "", "", "yes", "no", "why"]
+    let filtered = list(filter(None, values))
+    doAssert filtered == @["yes", "no", "why"]
 
-    result = filter[T](pylib.bool, iter)
+  result = filter[T](pylib.bool, iter)
 
-  proc input*(prompt = ""): string =
-    ## Python-like ``input()`` procedure.
+
+proc input*(prompt = ""): string =
+  ## Python-like ``input()`` procedure.
+  when defined(js):
+    when not defined(nodejs): {.error: "".}
+    console.log(prompt)
+    var jsResStr: cstring
+    {.emit:"""
+let rlmod;
+import("readline").then(m=>{rlmod=m});
+let inter = rlmod.createInterface(
+  {input: process.stdin, output: process.stdout});
+""" .}
+    # vscode's nim ext's just
+    #  cannot highlight correctly if putting the following three `emit` as one
+    {.emit: [ "inter.question(\"", prompt.cstring ] .}
+    {.emit: ["\", inp=>{", jsResStr] .}
+    {.emit: "=inp; inter.close()});" .}
+    result = $jsResStr
+  else:
     if prompt.len > 0:
       stdout.write(prompt)
     stdin.readLine()
 
-  ## Python has file.read() to read the full file.
-  template read*(f: File): string = f.readAll()
+## Python has file.read() to read the full file.
+template read*(f: File): string = f.readAll()
 
-  proc open*(f: string, mode: StringLike): File =
-    ## Python-like `open(file, mode)`
-    let pyfileMode =
-      case $mode
-      of "w": FileMode.fmWrite
-      of "a": FileMode.fmAppend
-      of "x": FileMode.fmReadWriteExisting
-      of "b", "t", "+": FileMode.fmReadWrite
-      else:   FileMode.fmRead
-    result = open(f, pyfileMode)
+proc open*(f: string, mode: StringLike): File =
+  ## Python-like `open(file, mode)`
+  let pyfileMode =
+    case $mode
+    of "w": FileMode.fmWrite
+    of "a": FileMode.fmAppend
+    of "x": FileMode.fmReadWriteExisting
+    of "b", "t", "+": FileMode.fmReadWrite
+    else:   FileMode.fmRead
+  result = open(f, pyfileMode)
 
-  proc NamedTemporaryFile*(): File =
-    let path = getTempDir() / $rand(100_000..999_999)
-    when not defined(release): echo path
-    result = open(path, fmReadWrite)
+proc NamedTemporaryFile*(): File =
+  let path = getTempDir() / $rand(100_000..999_999)
+  when not defined(release): echo path
+  result = open(path, fmReadWrite)
 
+when not defined(js):
   proc open*(ctx: var TemporaryDirectory): string =
     result = getTempDir() / $rand(100_000..999_999)
     when not defined(release): echo result
