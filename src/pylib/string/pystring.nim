@@ -39,11 +39,11 @@ template center*(a: StringLike, width: Natural, fillchar = ' '): string =
   let hWidth = width div 2
   repeat(fillchar, hWidth) & a & repeat(fillchar, hWidth)
 
-func capwords*(a: StringLike, sep = ' '): string =
+func capwords*(a: StringLike, sep = " "): string =
   ## Mimics Python string.capwords(sep) -> str
-  for word in split(strutils.strip($a), $sep):
-    result.add(strutils.capitalizeAscii(word))
-    result.add($sep)
+  for word in split(strutils.strip($a), sep):
+    result.add(unicode.capitalize(word))
+    result.add(sep)
   result = strutils.strip(result)
 
 template `or`*(a, b: string): string =
