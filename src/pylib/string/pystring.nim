@@ -26,7 +26,7 @@ func rindex*(a: string, b: StringLike, start = 0, last = 0): int =
 
 template isspace*(a: StringLike): bool = unicode.isSpace($a)
 
-template join*(sep: StringLike, a: openArray[untyped]): string =
+template join*[T](sep: StringLike, a: openArray[T]): string =
   ## Mimics Python join() -> string
   a.join($sep)
 
