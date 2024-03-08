@@ -25,7 +25,7 @@ if (c := "hello") == "hello":
   assert c == "hello"
 
 print(capwords("hello world capitalized")) # "Hello World Capitalized"
-print("a".center(9)) # "         a         "
+print("a".center(9)) # "    a    "
 
 print("" or "b") # "b"
 print("a" or "b") # "a"

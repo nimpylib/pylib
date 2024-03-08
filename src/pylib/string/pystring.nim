@@ -36,7 +36,8 @@ template casefold*(a: StringLike): string =
 
 template center*(a: StringLike, width: Natural, fillchar = ' '): string =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
-  repeat(fillchar, width) & a & repeat(fillchar, width)
+  let hWidth = width div 2
+  repeat(fillchar, hWidth) & a & repeat(fillchar, hWidth)
 
 func capwords*(a: StringLike, sep = ' '): string =
   ## Mimics Python string.capwords(sep) -> str
