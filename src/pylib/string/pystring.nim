@@ -31,7 +31,7 @@ template join*[T](sep: StringLike, a: openArray[T]): string =
   a.join($sep)
 
 template casefold*(a: StringLike): string =
-  ## Mimics Python str.casefold() -> bool
+  ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
 
 template center*(a: StringLike, width: Natural, fillchar = ' '): string =
