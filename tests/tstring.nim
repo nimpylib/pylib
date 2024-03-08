@@ -7,6 +7,8 @@ test "String operations":
   check ' '.join(["hello", "world"]) == "hello world"
   check "\t\n ".isspace()
 
+  check "a\u2000 \u2000b".split() == @["a","b"] ## \u2000 is of Unicode spaces
+  check capitalize("aBΔ") == "Abδ"
   check "hello δδ".capwords == "Hello Δδ" ## support Unicode
   check "01234".capwords == "01234"
 
