@@ -138,6 +138,12 @@ func divmod*(a, b: SomeInteger): (int, int) =
 func chr*(a: SomeInteger): string =
   $Rune(a)
 
+proc absInt[T: SomeSignedInt](x: T): T{.inline.} =
+  ## when js, `system.abs` will gen: `(-1)*x`, which can lead to a runtime err
+  ## as `x` may be a `bigint`, which causes error:
+  ##    Uncaught TypeError: Cannot mix BigInt and other types, ...
+  if x < 0.T: result = T(-1) * x
+  else: result = x
 template makeConv(name, call: untyped, len: int, pfix: string) =
   func `name`*(a: SomeInteger): string =
     # Special case
@@ -145,14 +151,15 @@ template makeConv(name, call: untyped, len: int, pfix: string) =
       return `pfix` & "0"
     result = call(
       when a isnot SomeUnsignedInt:
-        abs(a)
+        absInt(a)
       else:
         a,
       `len`).toLowerAscii().strip(chars = {'0'}, trailing = false)
     # Do it like in Python - add - sign
     result.insert(`pfix`)
-    if a < 0:
-      result.insert "-"
+    when a isnot SomeUnsignedInt: # optimization
+      if a < 0:
+        result.insert "-"
 
 # Max length is derived from the max value for uint64
 makeConv(oct, toOct, 30, "0o")
