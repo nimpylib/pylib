@@ -109,16 +109,15 @@ macro def*(signature, body): untyped =
       def f():
         return 1
       return f()
-    echo nested()
     def max(a, b, *args):
-      "doc-str. This is a fully python-compatiable `max`"
+      "This is doc-str: a python-like `max`"
       def max2(a,b):
         if a>b: return a
         else: return b
+      result = max2(a, b)
       for i in args:
         result = max2(result, i)
       return result
-    echo max(3,6,8,4)
   defImpl(signature, body)
 
 
