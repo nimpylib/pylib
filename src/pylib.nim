@@ -31,19 +31,6 @@ type
     for value in x:
       value is T
 
-  Platform* = tuple[  ## Python-like platform.*
-    system: string, machine: string, processor: string
-  ]
-
-  VersionInfo* = tuple[  ## Python-like sys.version_info
-    major: int, minor: int, micro: int, releaselevel: string, serial: int
-  ]
-
-  Sys* = tuple[  ## Python-like sys.*
-    platform: string, maxsize: int64, version: string, version_info: VersionInfo,
-    byteorder: string, copyright: string, hexversion: string, api_version: string
-  ]
-
   NoneType* = distinct bool
 
   TemporaryDirectory* = object
@@ -55,15 +42,15 @@ const
   True* = true ## True
   False* = false ## False
   None* = NoneType(false) ## Python-like None for special handling
-  platform*: Platform = (system: hostOS, machine: hostCPU, processor: hostCPU)  ## Platform info.
-  version_info*: VersionInfo = (
+  platform* = (system: hostOS, machine: hostCPU, processor: hostCPU)  ## Platform info.
+  version_info* = (
     major: NimMajor,
     minor: NimMinor,
     micro: NimPatch,
     releaselevel: "final",
     serial: 0
   )  ## Version information (SemVer).
-  sys*: Sys = (
+  sys* = (
     platform:     hostOS,
     maxsize:      high(BiggestInt),
     version:      NimVersion,
@@ -74,6 +61,10 @@ const
     api_version:  NimVersion
   )  ## From http://devdocs.io/python~3.7/library/sys
 
+type
+  Platform* = typeof(platform)
+  VersionInfo* = typeof(version_info)
+  Sys* = typeof(sys)
 
 # https://github.com/nim-lang/Nim/issues/8197
 #[
