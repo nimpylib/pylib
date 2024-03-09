@@ -206,41 +206,56 @@ iterator items*[T](f: Filter[T]): T =
   for x in f.iter():
     yield x
 
-when not defined(js):
-  # when for js:
-  #  nim will compile about `for i in iter`'s `i`
-  #  say: internal error: expr(nkBracketExpr, tyUserTypeClassInst)
-
-  # XXX: compiler says that list has side effects as it may call `items`
+when defined(js):
+  proc list*[T](iter: Iterable[T]): seq[T]{.error:"""
+XXX: when for js:
+ nim compiler will complain about `for i in iter`'s `i` ,
+ saying: internal error: expr(nkBracketExpr, tyUserTypeClassInst)
+""".} # TODO: when solved, remove workaround below.
+else:
+  # it has side effects as it calls `items`
   proc list*[T](iter: Iterable[T]): seq[T] =
     for i in iter:
       result.add i
+# XXX: a workaround, at least support some types
+func list*[T](arr: openArray[T]): seq[T] =
+  for i in arr:
+    result.add i
 
-func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T] =
-  ## Python-like filter(fun, iter)
-  runnableExamples:
-    proc isAnswer(arg: string): bool =
-      return arg in ["yes", "no", "maybe"]
+when defined(js):
+  func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
+For JS backend, nowadays due to a bug, Nim Compiler failed to compile it.
+  as Filter is impl via lambda iterator,
+For details, see https://github.com/nim-lang/Nim/issues/23382
+""".} # TODO: when solved, update tests in `tmisc.nim`
+  func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T]{.error:
+    "see sources for why JS is unsupported".}
+else:
+  func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T] =
+    ## Python-like filter(fun, iter)
+    runnableExamples:
+      proc isAnswer(arg: string): bool =
+        return arg in ["yes", "no", "maybe"]
 
-    let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
-    let filtered = filter(isAnswer, values)
-    doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
+      let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
+      let filtered = filter(isAnswer, values)
+      doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
 
-  var it =
-    iterator(): T =
-      for item in iter:
-        if comp(item):
-          yield item
-  Filter[T](iter: it)
+    var it =
+      iterator(): T =
+        for item in iter:
+          if comp(item):
+            yield item
+    Filter[T](iter: it)
 
-func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T] =
-  ## Python-like filter(None, iter)
-  runnableExamples:
-    let values = @["", "", "", "yes", "no", "why"]
-    let filtered = list(filter(None, values))
-    doAssert filtered == @["yes", "no", "why"]
+  func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T] =
+    ## Python-like filter(None, iter)
+    runnableExamples:
+      let values = @["", "", "", "yes", "no", "why"]
+      let filtered = list(filter(None, values))
+      doAssert filtered == @["yes", "no", "why"]
 
-  result = filter[T](pylib.bool, iter)
+    result = filter[T](pylib.bool, iter)
 
 
 proc input*(prompt = ""): string =

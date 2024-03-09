@@ -65,28 +65,28 @@ test "bin()":
   check bin(32587328532) == "0b11110010110010110110010110000010100"
   check bin(-140140140140) == "-0b10000010100001000000001101011001101100"
 
-test "filter()":
-  # function that filters vowels
-  proc fun(variable: char): bool =
-    const letters = ['a', 'e', 'i', 'o', 'u']
-    if (variable in letters):
-      return true
-    else:
-      return false
+when not defined(js):
+  # see `filter`'s doc for why JS unsupport
+  test "filter()":
+    # function that filters vowels
+    proc fun(variable: char): bool =
+      const letters = ['a', 'e', 'i', 'o', 'u']
+      if (variable in letters):
+        return true
+      else:
+        return false
 
-  # sequence
-  let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
-  template genFiltered(): untyped = filter(fun, sequence)
-  let filtered = genFiltered()
-  let res = @['e', 'e', 'i', 'e', 'o']
-  var data: seq[char]
-  for s in filtered:
-    data.add s
+    # sequence
+    let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
+    template genFiltered(): untyped = filter(fun, sequence)
+    let filtered = genFiltered()
+    let res = @['e', 'e', 'i', 'e', 'o']
+    var data: seq[char]
+    for s in filtered:
+      data.add s
 
-  check data == res
+    check data == res
 
-  when not defined(js):
-    # see `list`'s comments for why not impl for js yet
     let nFiltered = genFiltered()
     check list(nFiltered) == res
 
