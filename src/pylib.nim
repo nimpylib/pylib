@@ -215,10 +215,8 @@ func list*[T](arr: openArray[T]): seq[T] =
 
 when defined(js):
   func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
-For JS backend, nowadays due to a bug, Nim Compiler failed to compile it.
-  as Filter is impl via lambda iterator,
-For details, see https://github.com/nim-lang/Nim/issues/23382
-""".} # TODO: when solved, update tests in `tmisc.nim`
+Closure iterator is not supported for JS (Filter is impl via lambda iterator)
+""".} # TODO: impl by other methods & when solved, update tests in `tmisc.nim`
   func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T]{.error:
     "see sources for why JS is unsupported".}
 else:
