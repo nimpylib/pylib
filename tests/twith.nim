@@ -1,10 +1,11 @@
 import std/locks
-
+import std/streams
 
 test "With statement":
-  writeFile("tempfiletest", "just a test")
+  let cont = "just a test"
+  template newStream(): untyped = newStringStream(cont)
 
-  with open("tempfiletest", fmRead) as f:
+  with newStream() as f:
     check f.readLine() == "just a test"
 
   template open(l: Lock): untyped = l.acquire()
@@ -18,13 +19,13 @@ test "With statement":
 
   type
     SomeCtxManager = object
-      f: File
+      f: Stream
     SomeOtherManager = object
 
-  proc makeSomeCtxManager(fname: string): SomeCtxManager = 
-    SomeCtxManager(f: open(fname, fmRead))
+  proc makeSomeCtxManager(): SomeCtxManager = 
+    SomeCtxManager(f: newStream())
 
-  proc enter(s: SomeCtxManager): File = 
+  proc enter(s: SomeCtxManager): Stream = 
     s.f
 
   proc exit(s: SomeCtxManager) =
@@ -36,29 +37,29 @@ test "With statement":
   proc close(o: SomeOtherManager) = 
     discard
 
-  with makeSomeCtxManager("tempfiletest") as f:
+  with makeSomeCtxManager() as f:
     check f.readAll() == "just a test"
 
   with SomeOtherManager() as some:
     check some == "Something else"
 
   # Nested
-  with open("tempfiletest", fmRead) as f1:
-    with open("tempfiletest", fmRead) as f2:
+  with newStream() as f1:
+    with newStream() as f2:
       check f1.readLine() == f2.readLine() == "just a test"
 
-  var ctx = makeSomeCtxManager("tempfiletest")
-  var f = open("tempfiletest", fmRead)
+  var ctx = makeSomeCtxManager()
+  var f = newStream()
   # Multiple
-  with open("tempfiletest", fmRead) as f1, open("tempfiletest", fmRead), 
-    makeSomeCtxManager("tempfiletest") as f2, makeSomeCtxManager("tempfiletest"),
+  with newStream() as f1, newStream(), 
+    newStream() as f2, makeSomeCtxManager(),
     ctx, f:
     check f1.readLine() == f2.readLine() == f.readLine() == "just a test"
 
   # Discard context manager
-  with makeSomeCtxManager("tempfiletest"):
+  with makeSomeCtxManager():
     discard
 
   # Discard a normal value
-  with open("tempfiletest", fmRead):
+  with newStream():
     discard

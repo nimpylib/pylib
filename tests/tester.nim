@@ -9,7 +9,5 @@ include
   tstring,
   tmodulo,
   tunpack,
-  tmisc
-
-when not defined(js):
-  include twith  # TODO: Check, is just a macro, should work?.
+  tmisc,
+  twith
