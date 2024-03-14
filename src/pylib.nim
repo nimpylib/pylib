@@ -4,7 +4,6 @@ when defined(nimHasStrictFuncs):
 import std/[
   strutils, math, macros, unicode, tables, strformat, times, json, os,
 ]
-when defined(js): import std/jsconsole
 
 export math, tables
 
@@ -250,46 +249,51 @@ else:
 proc input*(prompt = ""): string =
   ## Python-like ``input()`` procedure.
   when defined(js):
-    when not defined(nodejs): {.error: "".}
-    console.log(prompt)
     var jsResStr: cstring
-    {.emit:"""
-let rlmod;
-import("readline").then(m=>{rlmod=m});
-let inter = rlmod.createInterface(
-  {input: process.stdin, output: process.stdout});
-""" .}
-    # vscode's nim ext's just
-    #  cannot highlight correctly if putting the following three `emit` as one
-    {.emit: [ "inter.question(\"", prompt.cstring ] .}
-    {.emit: ["\", inp=>{", jsResStr] .}
-    {.emit: "=inp; inter.close()});" .}
+    let jsPs = prompt.cstring
+    when not defined(nodejs):  # browesr or deno
+      asm "`jsResStr` = prompt(`jsPs`);"
+    else:
+      {.error: "not impl for NodeJs".}
+      asm """
+    ;{
+    let rlmod = require("readline")
+    let jsArr = new Array();
+    let rlinter = rlmod.createInterface(
+      {input: process.stdin, output: process.stdout});
+    rlinter.question(`jsPs`, inp=>{
+      rlinter.close();
+      `jsResStr` = inp  // XXX: this is executed asynchronously... 
+      // So `result` will be just null when returned
+    });
+    }
+"""
     result = $jsResStr
   else:
     if prompt.len > 0:
       stdout.write(prompt)
     stdin.readLine()
 
-## Python has file.read() to read the full file.
-template read*(f: File): string = f.readAll()
-
-proc open*(f: string, mode: StringLike): File =
-  ## Python-like `open(file, mode)`
-  let pyfileMode =
-    case $mode
-    of "w": FileMode.fmWrite
-    of "a": FileMode.fmAppend
-    of "x": FileMode.fmReadWriteExisting
-    of "b", "t", "+": FileMode.fmReadWrite
-    else:   FileMode.fmRead
-  result = open(f, pyfileMode)
-
-proc NamedTemporaryFile*(): File =
-  let path = getTempDir() / $rand(100_000..999_999)
-  when not defined(release): echo path
-  result = open(path, fmReadWrite)
-
 when not defined(js):
+  ## Python has file.read() to read the full file.
+  template read*(f: File): string = f.readAll()
+
+  proc open*(f: string, mode: StringLike): File =
+    ## Python-like `open(file, mode)`
+    let pyfileMode =
+      case $mode
+      of "w": FileMode.fmWrite
+      of "a": FileMode.fmAppend
+      of "x": FileMode.fmReadWriteExisting
+      of "b", "t", "+": FileMode.fmReadWrite
+      else:   FileMode.fmRead
+    result = open(f, pyfileMode)
+
+  proc NamedTemporaryFile*(): File =
+    let path = getTempDir() / $rand(100_000..999_999)
+    when not defined(release): echo path
+    result = open(path, fmReadWrite)
+
   proc open*(ctx: var TemporaryDirectory): string =
     result = getTempDir() / $rand(100_000..999_999)
     when not defined(release): echo result
