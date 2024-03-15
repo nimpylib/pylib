@@ -233,11 +233,9 @@ func list*[T](arr: openArray[T]): seq[T] =
     result.add i
 
 when defined(js):
-  func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
+  func filter*[T](comp: NoneType | proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
 Closure iterator is not supported for JS (Filter is impl via lambda iterator)
 """.} # TODO: impl by other methods & when solved, update tests in `tmisc.nim`
-  func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T]{.error:
-    "see sources for why JS is unsupported".}
 else:
   func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T] =
     ## Python-like filter(fun, iter)
