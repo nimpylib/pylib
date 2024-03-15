@@ -35,6 +35,7 @@ type
   TemporaryDirectory* = object
     name: string
 
+  TypeError* = object of CatchableError
 
 const
   # Python-like boolean literals
@@ -159,8 +160,24 @@ makeConv(oct, toOct, 30, "0o")
 makeConv(bin, toBin, 70, "0b")
 makeConv(hex, toHex, 20, "0x")
 
-func ord*(a: string): int =
+func ord1*(a: string): int =
+  runnableExamples:
+    assert ord1("123") == ord("1")
   result = system.int(a.runeAt(0))
+
+proc ord*(a: string): int =
+  runnableExamples:
+    doAssert ord("δ") == 0x03b4
+    when not defined(release):
+      doAssertRaises TypeError:
+        discard ord("12")
+
+  when not defined(release):
+    let ulen = a.runeLen
+    if ulen != 1:
+      raise newException(TypeError, 
+        "TypeError: ord() expected a character, but string of length " & $ulen & " found")
+  result = ord1 a
 
 proc json_loads*(buffer: string): JsonNode =
   ## Mimics Pythons ``json.loads()`` to load JSON.
