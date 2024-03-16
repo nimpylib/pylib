@@ -11,12 +11,12 @@ import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
   tonim, pyrandom, range, pytables,
-  pywith, pydef
+  pywith, pydef, io
 ]
 export
   class, print, types, ops, unpack, strops,
   pystring, tonim, pyrandom, range, pytables,
-  pywith, pydef
+  pywith, pydef, io
 
 when not defined(pylibNoLenient):
   {.warning: "'lenientops' module was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int->float conversions yourself".}
@@ -296,16 +296,6 @@ when not defined(js):
   ## Python has file.read() to read the full file.
   template read*(f: File): string = f.readAll()
 
-  proc open*(f: string, mode: StringLike): File =
-    ## Python-like `open(file, mode)`
-    let pyfileMode =
-      case $mode
-      of "w": FileMode.fmWrite
-      of "a": FileMode.fmAppend
-      of "x": FileMode.fmReadWriteExisting
-      of "b", "t", "+": FileMode.fmReadWrite
-      else:   FileMode.fmRead
-    result = open(f, pyfileMode)
 
   proc NamedTemporaryFile*(): File =
     let path = getTempDir() / $rand(100_000..999_999)
