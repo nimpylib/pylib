@@ -138,7 +138,7 @@ thus no override and no dynamic dispatch is performed.
       # Function body
       var firstBody = def[2]
       # Python special "doc" comment
-      if firstBody[0].kind == nnkTripleStrLit:
+      if firstBody[0].kind in nnkStrLit..nnkTripleStrLit:
         firstBody[0] = newCommentStmtNode($firstBody[0])
       # If we're generating a constructor proc - we need to return self
       # after we've created it
@@ -148,7 +148,7 @@ thus no override and no dynamic dispatch is performed.
       beforeBody.add firstBody
       # Finally create a procedure and add it to result!
       defs.add newProc(procName, args, beforeBody, nnkMethodDef, pragmas=pragmas)
-    of nnkStrLit, nnkRStrLit:
+    of nnkStrLit, nnkRStrLit, nnkTripleStrLit:
       result.add newCommentStmtNode $def
     else:
       discard
