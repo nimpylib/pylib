@@ -1,6 +1,23 @@
 import std/macros
 
 macro class*(obj, body: untyped): untyped = 
+  ##[
+*NOTE*: Now the implement assume each `def` in each child class
+overwrite parent class's `def`, which is surely not always true,
+
+What's more, it will be false in some less-noted cases:
+```Nim
+class O:
+  def f(self): return 1
+class O1(O):
+  def f(self): return 1.0
+```
+The above code will cause `Warning: use {.base.} for base methods; baseless methods are deprecated [UseBase]`
+
+as the rettype of previous one is int, while the latter is float,
+thus no override and no dynamic dispatch is performed.
+
+]##
   runnableExamples:
     class O:
       "doc"
@@ -10,13 +27,36 @@ macro class*(obj, body: untyped): untyped =
       def f(self): return self.b
     let o = O()
     assert o.f() == 2
-  # We accept "class Shape:" and "Class Shape(object):"
-  let
-    classId = if obj.kind == nnkIdent: obj else: obj[0]
-    className = $classId
+
+    class O1(O):
+      a1 = -1
+      def f(self): return self.a1
+    let o1 = O1()
+    assert o1.a == 0
+    let oo: O = o1
+    assert oo.f() == -1,$oo.f() 
+
+    # err: class OO(O1, O): aaa = 1
+  # We accept "class Shape:" "class Shape():" or  "Class Shape(object):"
+  let EN = newEmptyNode()
+  var
+    classId: NimNode = obj
+    supClsNode = nnkOfInherit.newTree ident"RootObj"
+    pragmas = nnkPragma.newTree ident"base"
+  if obj.kind != nnkIdent:  #  class O([SupCls])
+    classId = obj[0]
+    expectKind obj, nnkCall
+    let supLen = obj.len - 1
+    if supLen == 1:   #  class O(SupCls)
+      supClsNode = nnkOfInherit.newTree obj[1]
+      pragmas = EN
+    elif supLen > 1:
+      error "multi-inhert is not allowed in Nim, " &
+        "i.e. only one super class is expected, got " & $supLen
+  
+  let className = $classId
   
   result = newStmtList()
-  let EN = newEmptyNode()
   var typDefLs = nnkRecList.newTree()
   template addAttr(name; typ=EN, defVal=EN) =
     typDefLs.add nnkIdentDefs.newTree(name, typ, defVal)
@@ -107,12 +147,12 @@ macro class*(obj, body: untyped): untyped =
       # Add statement which will occur before function body
       beforeBody.add firstBody
       # Finally create a procedure and add it to result!
-      defs.add newProc(procName, args, beforeBody, nnkProcDef)
+      defs.add newProc(procName, args, beforeBody, nnkMethodDef, pragmas=pragmas)
     of nnkStrLit, nnkRStrLit:
       result.add newCommentStmtNode $def
     else:
       discard
-  let ty =  nnkRefTy.newTree nnkObjectTy.newTree(EN, EN, typDefLs)
+  let ty = nnkRefTy.newTree nnkObjectTy.newTree(EN, supClsNode, typDefLs)
   let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId, EN, ty)
   result.add typDef
   result.add defs
