@@ -33,6 +33,7 @@ const
 
 type
   IOBase* = object of RootObj
+    # tried using `ref object` here, but lead to some compile-err
     closed*: bool
     file: File # Python does not have this field, but we can use, as here's Nim
 
