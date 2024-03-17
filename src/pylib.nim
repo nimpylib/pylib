@@ -11,7 +11,7 @@ import pylib/[
   class, print, types, ops, unpack,
   string/strops, string/pystring,
   tonim, pyrandom, range, pytables,
-  pywith, pydef, io
+  pywith, io, classdef/class, classdef/pydef
 ]
 export
   class, print, types, ops, unpack, strops,

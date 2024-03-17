@@ -21,18 +21,33 @@ unsupport:
   - `*` and `/` in parameters-list
 see codes in `runnableExamples` for more details
 ]##
+
+#[def has AST structure like this:
+  Command
+    Ident !"def"
+    Call
+      Ident !"argument"
+      Ident !"second_argument"
+      ExprEqExpr
+        Ident !"default_arg"
+        FloatLit 0.0
+    StmtList
+      procedure body here
+]#
+
 import std/macros
 template emptyn: NimNode = newEmptyNode()
-proc defImpl*(signature, body: NimNode, pragmas = emptyn, def_restype = ident"auto"): NimNode
+proc defImpl*(signature, body: NimNode, pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode
+  ## if `signature` is of arrow expr (like f()->int), then def_restype is ignored
 proc asyncImpl*(defsign, body: NimNode): NimNode
 
-proc defAux(signature, body: NimNode, def_argtype = ident"untyped", restype = def_argtype, nnkType = nnkTemplateDef, pragmas = emptyn): NimNode =
-  ## XXX: deftype is for both params and result
-  let name = signature[0]
-  let slen = signature.len
-  var params = @[restype]
-  for i in 1 ..< slen:
-    let param = signature[i]
+
+proc parseParams(
+  resParams: var seq[NimNode], params: NimNode, def_argtype = ident"untyped",
+    start=0) =
+  let slen = params.len
+  for i in start ..< slen:
+    let param = params[i]
     var
       pname: NimNode
       typ = def_argtype
@@ -53,14 +68,38 @@ proc defAux(signature, body: NimNode, def_argtype = ident"untyped", restype = de
         typ = newNimNode(nnkBracketExpr).add(ident"varargs", def_argtype)
       of "**":
         error"can't implment **kws"
+      else:
+        error "bad syntax, only *arg and **kw shall appear"
     else:
       error "unknown ast " & $param.kind
 
-    params.add newIdentDefs(
+    resParams.add newIdentDefs(
             pname # name
            ,typ   # type
            ,val   # default value # can be omitted as empty node is default value
     )
+
+proc splitArrow(signature: NimNode; name_params, restype: var NimNode) =
+  if signature.kind == nnkInfix:
+    expectIdent(signature[0], "->")
+    name_params = signature[1]
+    restype = signature[2]
+
+proc parseSignature*(signature: NimNode, deftype = ident"untyped"
+    ): tuple[name: NimNode, params: seq[NimNode]] =
+  ## deftype is for both params and result,
+  ## but if `signature` is of arrow expr, then restype will be its rhs.
+  var
+    name_params = signature
+    restype = deftype
+  splitArrow signature, name_params, restype
+  let name = name_params[0]
+  var params = @[restype]
+  parseParams(params, name_params, def_argtype=deftype, start=1)
+  result.name = name
+  result.params = params
+
+proc parseBody*(body: NimNode): NimNode =
   var nbody = newStmtList()
   if body[0].kind in nnkStrLit..nnkTripleStrLit:
     nbody.add newCommentStmtNode($body[0])
@@ -74,41 +113,42 @@ proc defAux(signature, body: NimNode, def_argtype = ident"untyped", restype = de
         else: ele
     else:
       nbody.add ele
+  result = nbody
     
-  newProc(name, params, nbody, nnkType, pragmas) 
 
+proc defAux(signature, body: NimNode,
+            deftype = ident"untyped",
+            procType = nnkTemplateDef, pragmas = emptyn): NimNode =
 
-template parseArrow{.dirty.} =
-  mixin signature, name_params, restype
-  if signature.kind == nnkInfix:
-    expectIdent(signature[0], "->")
-    name_params = signature[1]
-    restype = signature[2]
+  let tup = parseSignature(signature, deftype=deftype)
+  let
+    name = tup.name
+    params = tup.params
+  let nbody = parseBody body
+  newProc(name, params, nbody, procType, pragmas) 
+
 macro define*(signature, body): untyped =
   ## almost the same as `def`, but is for `template` instead of `proc`
   ##
   ## XXX: nesting `define` is not allowed. If wanting, use `template`
-  var
-    name_params = signature
-    restype = ident"untyped"
-  parseArrow
-  defAux(name_params, body)
-proc defImpl(signature, body: NimNode, pragmas = emptyn, def_restype = ident"auto"): NimNode =
-  var
-    name_params = signature
-    argtype = def_restype
-    restype = argtype
-  parseArrow
-  defAux(name_params, body, argtype, restype, nnkProcDef, pragmas)
+  runnableExamples:
+    define templ(a): a+1  # note template has no implicit `result` variable
+    assert templ(3) == 4
+  defAux(signature, body, deftype=ident"untyped", procType=nnkTemplateDef)
+
+proc defImpl(signature, body: NimNode, pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode =
+  defAux(signature, body, deftype, procType, pragmas)
 
 macro def*(signature, body): untyped =
   runnableExamples:
     def add(a,b): return a + b # use auto as argtype and restype
-    def iadd(a: int, b = 1): return a + b
-    def nested():
-      def f():
-        return 1
-      return f()
+    def addi(a: int, b = 1) -> int: return add(a, b)
+    assert addi(3) == 4
+    def nested(a):
+      def closure():
+        return a
+      return closure
+    assert nested(3)() == 3
     def max(a, b, *args):
       "This is doc-str: a python-like `max`"
       def max2(a,b):
@@ -118,6 +158,7 @@ macro def*(signature, body): untyped =
       for i in args:
         result = max2(result, i)
       return result
+    assert max(1,4,2,5,0) == 5
   defImpl(signature, body)
 
 
@@ -136,7 +177,7 @@ macro async*(defsign, body): untyped =
   runnableExamples:
     import std/async
     async def af():
-      echo "no restype mean Future[void]"
+      discard "no restype mean Future[void]"
     async def afi() -> Future[int]:
       return 3
     when defined(js):
@@ -145,6 +186,6 @@ macro async*(defsign, body): untyped =
     else:
       import std/asyncdispatch
       waitFor af()
-      echo waitFor afi()
+      assert 3 == waitFor(afi())
   asyncImpl defsign, body
 
