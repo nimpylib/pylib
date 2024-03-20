@@ -51,7 +51,7 @@ func tell*(f: IOBase): int64 = f.getFilePos()
 
 func isatty*(f: IOBase): bool = f.isatty()
 
-proc fileno*(f: IOBase): int = int getFileHandle f  # or getOsFileHandle ?
+proc fileno*(f: IOBase): int = int getOsFileHandle f
 const DEFAULT_BUFFER_SIZE = 8192
 
 # XXX: not take effect yet
