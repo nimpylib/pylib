@@ -31,6 +31,16 @@ const
   SEEK_CUR* = 1
   SEEK_END* = 2
 
+const DefNewLine* = "None"  ## here it's used to mean `open(...newline=None)` in Python (i.e. Universial NewLine)
+
+type
+  NewlineType = enum
+    nlUniversal      ## Universal Newline mode and always use \n
+    nlUniversalAsIs  ## Universal Newline mode but returns newline AS-IS
+    nlReturn
+    nlCarriageReturn
+    nlCarriage
+
 type
   IOBase* = object of RootObj
     # tried using `ref object` here, but lead to some compile-err
@@ -75,6 +85,10 @@ type
     errors*: string 
     encErrors: EncErrors  ## do not use string, so is always valid
     iEncCvt, oEncCvt: EncodingConverter
+    newline: NewlineType
+    readnl, writenl: string
+    readtranslate, readuniversal: bool
+    writetranslate: bool
 
   TextIOWrapper* = object of TextIOBase
     name*: string
@@ -87,6 +101,29 @@ type
   BufferedRandom* = object of BufferedIOBase
   BufferedReader* = object of BufferedIOBase
   BufferedWriter* = object of BufferedIOBase
+
+proc parseNewLineType(nl: string): NewLineType =
+  case nl
+  of DefNewLine: nlUniversal
+  of "": nlUniversalAsIs
+  of "\n": nlReturn
+  of "\r\n": nlCarriageReturn
+  of "\r": nlCarriage
+  else:  # err like Python
+    raise newException(ValueError, "illegal newline value: " & nl)
+
+proc initNewLineMode(self: var TextIOBase, newline: string) =
+  let
+    nlm = parseNewLineType newline
+    nlWillOr = nlm in {nlUniversal, nlUniversalAsIs}
+
+  self.newline = nlm
+
+  self.readuniversal = nlWillOr
+  self.readtranslate = nlm == nlUniversal
+  self.readnl = newline
+  self.writetranslate = newline != ""
+  self.writenl = if nlWillOr: "\p" else: newline
 
 template Raise(exc; msg): untyped =
   raise newException(exc, msg)
@@ -155,27 +192,73 @@ template warn(warn: typeof(warnings), message: string, category: Warning = UserW
 
 template Iencode = 
   result = self.iEncCvt.convert result
+
+# TODO: re-impl using `_get_decoded_chars` (like Python)
+template t_readlineTill(res; cond: bool, till: char = '\n') = 
+  # a very slowish impl...
+  var c: char
+  try:
+    while cond:
+      c = self.file.readChar()
+      res.add c
+      if c == till: break
+  except EOFError: discard
+
+proc readlineTill(self: IOBase, res: var string, cond: bool, till: char = '\n') = 
+   t_readlineTill res, cond, till
+
+method readline*(self: IOBase): string{.base.} = self.readlineTill result, true
+  ## The line terminator is always bytes '\n' for binary files
+method readline*(self: IOBase, size: Natural): string{.base.} = t_readlineTill result, result.len<size
+
+method readline*(self: TextIOBase): string =
+  ## Python's readline 
+  case self.newline
+  of nlUniversal:
+    if self.file.readLine(result):
+      result.add '\n'
+  of nlCarriage:
+    self.readlineTill result, true, '\r'
+  of nlReturn:
+    self.readlineTill result, true, '\n'
+  else:
+    warnings.warn("not implement of readline in mode " & $self.newline)
+  Iencode
+  
+  
+method readline*(self: TextIOBase, size: Natural): string =
+  case self.newline
+  of nlCarriage:
+    t_readlineTill result, result.len<size, '\r'
+  of nlReturn:
+    t_readlineTill result, result.len<size, '\n'
+  else:
+    warnings.warn("not implement of readline in mode " & $self.newline)
+  Iencode
+
 method read*(self: IOBase): string{.base.} = self.file.readAll
 method read*(self: IOBase, size: int): string{.base.} = 
   discard self.file.readChars(toOpenArray(result, 0, size-1))
 
+# TODO: re-impl using `_get_decoded_chars` (like Python)
 method read*(self: TextIOBase): string =
-  result = procCall read IOBase(self)
+  while true:
+    let s = self.readline()
+    if s == "": break
+    result.add s
   Iencode
 method read*(self: TextIOBase, size: int): string = 
-  result = procCall read(IOBase(self), size)
+  while true:
+    let s = self.readline(size)
+    if s == "": break
+    result.add s
   Iencode
 
-method readline*(self: IOBase): string{.base.} = 
-  self.file.readLine()
-method readline*(self: TextIOBase): string =
-  result = procCall readline IOBase(self)
-  Iencode
-  
-  
 method write*(self: IOBase, s: string): int{.base.} =
   self.file.write s
   s.len
+
+# TODO: re-impl to respect newline mode
 method write*(self: TextIOBase, s: string): int =
   result = procCall write(IOBase(self), self.oEncCvt.convert(s))
 
@@ -194,11 +277,6 @@ const
   DefEncoding* = ""
   DefErrors* = "strict"
   LocaleEncoding* = "locale"
-
-type WarnTyp = enum
-  DeprecationWarning, RuntimeWarning
-# XXX: `warnings.warn` shall be more than just the folowing:
-let warnings = (warn: proc (s: string, typ: WarnTyp, lvl: int)=echo $typ & s)
 
 template raise_ValueError(s) = raise newException(ValueError, s)
 template raise_FileExistsError(s) = raise newException(FileExistsError, s)
@@ -309,9 +387,16 @@ proc open*(
   buffering: int = -1,
   encoding: string = DefEncoding, 
   errors: string = DefErrors,  # in Python, the default None/invalid string means "strict"
-  #newline
+  newline: string|char = DefNewLine,
   #closefd=True, opener
 ): IOBase = 
+  ## WARN:
+  ## 
+  ## - line buffering is not implemented,
+  ## (In Python, `buffering` being 1 means line buffering)
+  ## - `errors` is not just ignored, always 'strict'
+  
+  # TODO: impl line_buffering, at least for write
   runnableExamples:
     const fn = "tempfiletest"
     doAssertRaises LookupError:
@@ -347,8 +432,7 @@ proc open*(
     except ValueError:
       raise newException(LookupError, "unknown encoding: " & encoding)
   
-    result = TextIOWrapper(
-        file: file,
+    var res = TextIOWrapper(
         errors: errors,
         encErrors: parseErrors errors,
         iEncCvt: iEncCvt,
@@ -356,8 +440,9 @@ proc open*(
         encoding: encoding,
         mode: smode,
     )
-  else:
-    result.file = file
+    res.initNewLineMode(newline)
+    result = res
+  result.file = file
 
 
 when isMainModule:
