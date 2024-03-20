@@ -134,6 +134,25 @@ method seek*(self: TextIOBase, cookie: int64, whence=SEEK_SET): int64{.discardab
   # and replay the effect of read(chars_to_skip) from there.
   return procCall seek(IOBase(self), 0, whence)
 
+
+type Warning = enum
+  UserWarning, DeprecationWarning, RuntimeWarning
+# some simple impl for Python's warnings
+type Warnings = object
+var warnings: Warnings
+
+proc formatwarning(message: string, category: Warning, filename: string, lineno: int, ): string =
+  "$#:$#: $#: $#\n" % [filename, $lineno, $category, message]  # can use strformat.fmt
+
+template warn(warn: typeof(warnings), message: string, category: Warning = UserWarning
+    , stacklevel=1  #, source = None
+  )=
+  let
+    pos = instantiationInfo(index = stacklevel-2) # XXX: correct ?
+    lineno = pos.line
+    file = pos.filename
+  stderr.write formatwarning(message, category, file, lineno)
+
 template Iencode = 
   result = self.iEncCvt.convert result
 method read*(self: IOBase): string{.base.} = self.file.readAll
