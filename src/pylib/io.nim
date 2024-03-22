@@ -42,7 +42,7 @@ type
     nlCarriage
 
 type
-  IOBase* = object of RootObj
+  IOBase* = ref object of RootObj
     # tried using `ref object` here, but lead to some compile-err
     closed*: bool
     file: File # Python does not have this field, but we can use, as here's Nim
@@ -80,7 +80,7 @@ type EncErrors*{.pure.} = enum
                       ##   (only for encoding).
 
 type
-  TextIOBase* = object of IOBase
+  TextIOBase* = ref object of IOBase
     encoding*: string
     errors*: string 
     encErrors: EncErrors  ## do not use string, so is always valid
@@ -90,17 +90,17 @@ type
     readtranslate, readuniversal: bool
     writetranslate: bool
 
-  TextIOWrapper* = object of TextIOBase
+  TextIOWrapper* = ref object of TextIOBase
     name*: string
     mode*: string
   
-  RawIOBase* = object of IOBase
-  FileIO* = object of RawIOBase
+  RawIOBase* = ref object of IOBase
+  FileIO* = ref object of RawIOBase
 
-  BufferedIOBase* = object of IOBase
-  BufferedRandom* = object of BufferedIOBase
-  BufferedReader* = object of BufferedIOBase
-  BufferedWriter* = object of BufferedIOBase
+  BufferedIOBase* = ref object of IOBase
+  BufferedRandom* = ref object of BufferedIOBase
+  BufferedReader* = ref object of BufferedIOBase
+  BufferedWriter* = ref object of BufferedIOBase
 
 proc parseNewLineType(nl: string): NewLineType =
   case nl
@@ -112,7 +112,7 @@ proc parseNewLineType(nl: string): NewLineType =
   else:  # err like Python
     raise newException(ValueError, "illegal newline value: " & nl)
 
-proc initNewLineMode(self: var TextIOBase, newline: string) =
+proc initNewLineMode(self: var TextIOWrapper, newline: string) =
   let
     nlm = parseNewLineType newline
     nlWillOr = nlm in {nlUniversal, nlUniversalAsIs}
@@ -171,6 +171,16 @@ method seek*(self: TextIOBase, cookie: int64, whence=SEEK_SET): int64{.discardab
   # and replay the effect of read(chars_to_skip) from there.
   return procCall seek(IOBase(self), 0, whence)
 
+proc c_fgetc(stream: File): cint {.
+  importc: "fgetc", header: "<stdio.h>", tags: [].}
+proc c_ungetc(c: cint, f: File): cint {.
+  importc: "ungetc", header: "<stdio.h>", tags: [].}
+
+proc peekChar(self: IOBase): char =
+  let ci = c_fgetc(self.file)
+  if ci < 0.cint: raise newException(EOFError, "")
+  discard c_ungetc(ci, self.file)
+  result = char ci
 
 type Warning = enum
   UserWarning, DeprecationWarning, RuntimeWarning
@@ -193,48 +203,113 @@ template warn(warn: typeof(warnings), message: string, category: Warning = UserW
 template Iencode = 
   result = self.iEncCvt.convert result
 
+const NoneChar = '\0'  # means None
+type
+  NL_t = array[2, char]
+  sNL_t = static NL_t
+template only1nl(c): untyped = [c, NoneChar]
+const AllNL = [NoneChar, NoneChar]
+
+proc add(s: var string, nl: NL_t) =
+  if nl[0] == NoneChar: return
+  s.add nl[0]
+  if nl[1] != NoneChar:
+    s.add nl[1]
+  
 # TODO: re-impl using `_get_decoded_chars` (like Python)
-template t_readlineTill(res; cond: bool, till: char = '\n') = 
+template t_readlineTill(res; cond: bool, till: sNL_t = only1nl('\n')): NL_t = 
   # a very slowish impl...
-  var c: char
+  var nlRes: NL_t
   try:
     while cond:
-      c = self.file.readChar()
-      res.add c
-      if c == till: break
-  except EOFError: discard
+      nlRes[0] = self.file.readChar()
+      when till == AllNL:
+        if nlRes[0] == '\n':
+          nlRes = only1nl '\n'
+          break
+        elif nlRes[0] == '\r':
+          if self.peekChar() == '\n':
+            nlRes[1] = self.readChar()
+          else:
+            nlRes[1] = NoneChar
+          break
+        else:
+          res.add nlRes[0]
+      
+      else:
+        if nlRes[0] == till[0]:
+          when till[1] == NoneChar:
+            nlRes[1] = NoneChar
+            break
+          else:
+            if self.peekChar() == till[1]:
+              nlRes[1] = self.readChar()
+              break
+            else:
+              res.add nlRes[0]
+        else:
+          res.add nlRes[0]
 
-proc readlineTill(self: IOBase, res: var string, cond: bool, till: char = '\n') = 
-   t_readlineTill res, cond, till
+  except EOFError:
+    for e in nlRes.mitems:
+      if e notin {'\r', '\n'}:
+        e = NoneChar
+  nlRes
 
-method readline*(self: IOBase): string{.base.} = self.readlineTill result, true
+proc readlineTill(self: IOBase, res: var string, cond: bool, till: sNL_t = only1nl('\n')): NL_t = 
+  t_readlineTill res, cond, till
+
+method readline*(self: IOBase): string{.base.} =
   ## The line terminator is always bytes '\n' for binary files
-method readline*(self: IOBase, size: Natural): string{.base.} = t_readlineTill result, result.len<size
+  result.add self.readlineTill(result, true)
+method readline*(self: IOBase, size: Natural): string{.base.} =
+  result.add t_readlineTill(result, result.len<size)
 
-method readline*(self: TextIOBase): string =
-  ## Python's readline 
+template readlineWithTill(Till) =
+  template addTill(nl) = result.add Till(nl)
   case self.newline
   of nlUniversal:
-    if self.file.readLine(result):
+    if Till(AllNL) != [NoneChar, NoneChar]:
       result.add '\n'
-  of nlCarriage:
-    self.readlineTill result, true, '\r'
-  of nlReturn:
-    self.readlineTill result, true, '\n'
-  else:
-    warnings.warn("not implement of readline in mode " & $self.newline)
+  of nlUniversalAsIs: addTill AllNL
+  of nlCarriage: addTill only1nl '\r'
+  of nlReturn: addTill only1nl '\n'
+  of nlCarriageReturn: addTill ['\r', '\n']
   Iencode
-  
+
+method readline*(self: TextIOBase): string =
+  ## Python's readline
+  runnableExamples:
+    import std/strutils
+    const fn = "tempfiletest"
+    proc check(ls: varargs[string], newline: string) =
+      var f = io.open(fn, newline=newline)
+      for l in ls:
+        let s = f.readline()
+        assert s == l, 
+          "expected $#, but got $#, with newline=$#" % [l.repr, s.repr, newline.repr]
+        
+      f.close()
+    
+    writeFile fn, "abc\r\n123\n-\r_"
+
+    check "abc\n", "123\n", "-\n", "_", newline=DefNewLine
+    check "abc\r\n", "123\n", "-\r", "_", newline=""
+    check "abc\r", "\n123\n-\r", "_", newline="\r"
+    check "abc\r\n", "123\n", "-\r_", newline="\n"
+    check "abc\r\n", "123\n-\r_", newline="\r\n"
+
+  template Till(nl): untyped = self.readlineTill(result, true, nl)
+  readlineWithTill Till
+  #[case self.newline: of nlUniversal:
+    if self.file.readLine(result): if not self.file.endOfFile: result.add '\n']#
+  # If coding as above, we have to check EOF, as the line above only returns false when reading at EOF
+  # But we just cannot, as Python's `readline()` for `newline=None` even treat '\r' as newline,
+  #  while Nim's readline (innerly calling `fgets` of C) doesn't
   
 method readline*(self: TextIOBase, size: Natural): string =
-  case self.newline
-  of nlCarriage:
-    t_readlineTill result, result.len<size, '\r'
-  of nlReturn:
-    t_readlineTill result, result.len<size, '\n'
-  else:
-    warnings.warn("not implement of readline in mode " & $self.newline)
-  Iencode
+  template Till(nl): untyped = t_readlineTill(result, result.len<size, nl)
+  readlineWithTill Till
 
 method read*(self: IOBase): string{.base.} = self.file.readAll
 method read*(self: IOBase, size: int): string{.base.} = 
@@ -262,12 +337,20 @@ method write*(self: IOBase, s: string): int{.base.} =
 method write*(self: TextIOBase, s: string): int =
   result = procCall write(IOBase(self), self.oEncCvt.convert(s))
 
-method close*(self: var IOBase){.base.} =
+
+# workaround,
+#  a Nim's bug: when ref object+method+var+procCall
+#   error: 'self_p0' is a pointer to pointer; did you mean to dereference it before applying '->' to it?
+#   close__6958ZprogramZutilsZnimpylibZsrcZpylibZio_u643(&self_p0->Sup);
+template base_close() =
   if self.closed: return
   self.closed = false
   self.file.close()
+  
+method close*(self: var IOBase){.base.} = base_close()
 method close*(self: var TextIOBase) =
-  procCall close IOBase(self)
+  #procCall close IOBase(self)
+  base_close()
   self.iEncCvt.close()
   self.oEncCvt.close()
 
@@ -432,6 +515,7 @@ proc open*(
     except ValueError:
       raise newException(LookupError, "unknown encoding: " & encoding)
   
+    # if binary, result's init is in `genOpenInfo`
     var res = TextIOWrapper(
         errors: errors,
         encErrors: parseErrors errors,
