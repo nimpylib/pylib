@@ -86,9 +86,6 @@ type
     encErrors: EncErrors  ## do not use string, so is always valid
     iEncCvt, oEncCvt: EncodingConverter
     newline: NewlineType
-    readnl, writenl: string
-    readtranslate, readuniversal: bool
-    writetranslate: bool
 
   TextIOWrapper* = ref object of TextIOBase
     name*: string
@@ -113,17 +110,7 @@ proc parseNewLineType(nl: string): NewLineType =
     raise newException(ValueError, "illegal newline value: " & nl)
 
 proc initNewLineMode(self: var TextIOWrapper, newline: string) =
-  let
-    nlm = parseNewLineType newline
-    nlWillOr = nlm in {nlUniversal, nlUniversalAsIs}
-
-  self.newline = nlm
-
-  self.readuniversal = nlWillOr
-  self.readtranslate = nlm == nlUniversal
-  self.readnl = newline
-  self.writetranslate = newline != ""
-  self.writenl = if nlWillOr: "\p" else: newline
+  self.newline = parseNewLineType newline
 
 template Raise(exc; msg): untyped =
   raise newException(exc, msg)
@@ -329,13 +316,37 @@ method read*(self: TextIOBase, size: int): string =
     result.add s
   Iencode
 
-method write*(self: IOBase, s: string): int{.base.} =
+method write*(self: IOBase, s: string): int{.base, discardable.} =
   self.file.write s
   s.len
 
-# TODO: re-impl to respect newline mode
-method write*(self: TextIOBase, s: string): int =
-  result = procCall write(IOBase(self), self.oEncCvt.convert(s))
+method write*(self: TextIOBase, s: string): int{.discardable.} =
+  ## The following is from Python's doc of `open`: 
+  ## if newline is None, any '\n' characters written are translated to
+  ##  the system default line separator, os.linesep.
+  ## If newline is "" or '\n', no translation takes place.
+  ## If newline is any of the other legal values,
+  ## any '\n' characters written are translated to the given string.
+  runnableExamples:
+    const fn = "tempfiletest"
+    proc check(s, dest: string, newline=DefNewLine) =
+      var f = open(fn, 'w', newline=newline)
+      f.write s
+      f.close()
+      let res = readFile fn
+      assert dest == res, "expected "&dest.repr&" but got "&res.repr
+    check "1\n2", when defined(windows): "1\r\n2" else: "1\n2"
+    check "1\n2", "1\p2"  # same as above
+    check "1\n2", "1\r2", newline="\r"
+  proc retSubs(toS: string): int =
+    procCall write(IOBase(self), self.oEncCvt.convert(s.replace("\n", toS)))
+  case self.newline
+  of nlUniversalAsIs, nlReturn:
+    # no translation takes place.
+    result = procCall write(IOBase(self), self.oEncCvt.convert(s))
+  of nlUniversal: result = retSubs "\p"
+  of nlCarriage: result = retSubs "\r"
+  of nlCarriageReturn: result = retSubs "\r\n"
 
 
 # workaround,
