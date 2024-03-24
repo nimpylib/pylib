@@ -72,7 +72,7 @@ func capitalize*(a: StringLike): string =
     rune: Rune
     i = 0
   fastRuneAt(s, i, rune, doInc = true)
-  result = $toUpper(rune) & toLower substr(s.toOpenArray(i, s.high))
+  result = $toUpper(rune) & toLower substr(s, i)
 
 func capwords*(a: StringLike): string =
   ## Mimics Python string.capwords(s) -> str:
