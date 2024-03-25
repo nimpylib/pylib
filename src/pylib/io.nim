@@ -3,7 +3,7 @@
 ## different from Python
 
 ### open
-Its param: `newline, closefd, opener`
+Its param: `closefd, opener`
 is not implemented yet
 
 ### seek
@@ -332,13 +332,19 @@ method write*(self: TextIOBase, s: string): int{.discardable.} =
   ## any '\n' characters written are translated to the given string.
   runnableExamples:
     const fn = "tempfiletest"
-    proc check(s, dest: string, newline=DefNewLine) =
-      var f = open(fn, 'w', newline=newline)
-      f.write s
+    proc checkW(s, dest: string, newline=DefNewLine, encoding=DefEncoding;
+        writeLen=dest.len  # dest.len returns bytes size
+      ) =
+      var f = open(fn, 'w', newline=newline, encoding=encoding)
+      assert writeLen == f.write s
       f.close()
       let res = readFile fn
       assert dest == res, "expected "&dest.repr&" but got "&res.repr
-
+    checkW "1\n2", when defined(windows): "1\r\n2" else: "1\n2"
+    checkW "1\n2", "1\p2"  # same as above
+    checkW "1\n2", "1\r2", newline="\r"
+    checkW "我", "我", encoding="utf-8", writeLen=1
+  
   proc cvtRet(oriStr: string): int = 
     let resS = self.oEncCvt.convert(oriStr)
     discard procCall write(IOBase(self), resS)
@@ -404,8 +410,7 @@ template genOpenInfo(result; file: string, mode: string,
     modes = mode.toSet
     allSet = toSet("axrwb+tU")
   if len(modes - allSet)!=0 or len(mode) > len(modes):
-      raise_ValueError("invalid mode: '$#'" % mode)
-
+      raise_ValueError("invalid mode: $#" % mode.repr)
   let
     creating = 'x' in modes
     writing = 'w' in modes
@@ -462,7 +467,7 @@ template genOpenInfo(result; file: string, mode: string,
       elif reading:
         result = BufferedReader()
       else:
-        raise_ValueError("unknown mode: '$#'" % mode)
+        raise_ValueError("unknown mode: $#" % mode.repr)
     else:
       discard # will be TextIOWrapper( ...line_buffering)
 
@@ -470,7 +475,7 @@ template genOpenInfo(result; file: string, mode: string,
     if updating: FileMode.fmReadWrite
     elif creating:
       if fileExists file:
-        raise_FileExistsError("File exists: '$#'" % file)
+        raise_FileExistsError("File exists: $#" % file.repr)
       FileMode.fmWrite
     elif reading: FileMode.fmRead
     elif writing: FileMode.fmWrite
@@ -498,8 +503,26 @@ proc open*(
     const fn = "tempfiletest"
     doAssertRaises LookupError:
       discard open(fn, encoding="this is a invalid enc")
-    let f = open(fn, "w",  encoding="utf-8")
-    assert f.write("123") == 3
+    block Write:
+      var f = open(fn, "w",  encoding="utf-8")
+      let ret = f.write("123\r\n")
+      assert ret == 6  # Universal Newline, written "123\r\r\n"
+      assert not f.closed
+      f.close()
+      assert f.closed
+      assert readFile(fn) == "123\r\r\n"
+    block Read:
+      var f = open(fn, 'r')
+      let uniLineRes = f.read() # Universal Newline, "123\r\n\n" -> "123\n\n"
+      assert uniLineRes == "123\n\n"
+      f.close()
+    block:
+      var f = open(fn, "w+b")
+      f.write("123")
+      f.seek(0)
+      assert f.read() == "123"
+      f.close()
+
   var buf = buffering
   var
     nmode: FileMode
