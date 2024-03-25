@@ -355,7 +355,7 @@ method write*(self: TextIOBase, s: string): int{.discardable.} =
 #   close__6958ZprogramZutilsZnimpylibZsrcZpylibZio_u643(&self_p0->Sup);
 template base_close() =
   if self.closed: return
-  self.closed = false
+  self.closed = true
   self.file.close()
   
 method close*(self: var IOBase){.base.} = base_close()
