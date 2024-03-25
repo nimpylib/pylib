@@ -8,22 +8,24 @@ import std/[
 export math, tables
 
 import pylib/[
-  class, print, types, ops, unpack,
+  print, types, ops, unpack,
   string/strops, string/pystring,
-  tonim, pyrandom, range, pytables,
-  pywith, io, classdef/class, classdef/pydef
+  tonim, range, pytables,
+  pywith, classdef/class, classdef/pydef
 ]
+when not defined(js):
+  import pylib/io
+  export io
 export
   class, print, types, ops, unpack, strops,
-  pystring, tonim, pyrandom, range, pytables,
-  pywith, pydef, io
+  pystring, tonim, range, pytables,
+  pywith, pydef
 
 when not defined(pylibNoLenient):
   {.warning: "'lenientops' module was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int->float conversions yourself".}
   import std/lenientops
   export lenientops
 
-randomize()
 
 type
   Iterable*[T] = concept x  ## Mimic Pythons Iterable.
@@ -312,21 +314,3 @@ proc input*(prompt = ""): string =
       stdout.write(prompt)
     stdin.readLine()
 
-when not defined(js):
-  ## Python has file.read() to read the full file.
-  template read*(f: File): string = f.readAll()
-
-
-  proc NamedTemporaryFile*(): File =
-    let path = getTempDir() / $rand(100_000..999_999)
-    when not defined(release): echo path
-    result = open(path, fmReadWrite)
-
-  proc open*(ctx: var TemporaryDirectory): string =
-    result = getTempDir() / $rand(100_000..999_999)
-    when not defined(release): echo result
-    createDir(result)
-    ctx.name = result
-
-  proc close*(ctx: TemporaryDirectory) {.inline.} =
-    removeDir(ctx.name)
