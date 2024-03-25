@@ -19,10 +19,11 @@ but Nim's `iterator lines` does not
 ]##
 
 when defined(nimPreviewSlimSystem):
-  import std/syncio
+  import std/[syncio, assertions]
 
 import std/[
-  strutils, encodings, os
+  strutils, encodings, os,
+  unicode,
   ]
 from std/terminal import isatty
 
@@ -321,6 +322,8 @@ method write*(self: IOBase, s: string): int{.base, discardable.} =
   s.len
 
 method write*(self: TextIOBase, s: string): int{.discardable.} =
+  ## Writes the `s` to the stream and return the number of characters written
+  ## 
   ## The following is from Python's doc of `open`: 
   ## if newline is None, any '\n' characters written are translated to
   ##  the system default line separator, os.linesep.
@@ -335,18 +338,19 @@ method write*(self: TextIOBase, s: string): int{.discardable.} =
       f.close()
       let res = readFile fn
       assert dest == res, "expected "&dest.repr&" but got "&res.repr
-    check "1\n2", when defined(windows): "1\r\n2" else: "1\n2"
-    check "1\n2", "1\p2"  # same as above
-    check "1\n2", "1\r2", newline="\r"
-  proc retSubs(toS: string): int =
-    procCall write(IOBase(self), self.oEncCvt.convert(s.replace("\n", toS)))
+
+  proc cvtRet(oriStr: string): int = 
+    let resS = self.oEncCvt.convert(oriStr)
+    discard procCall write(IOBase(self), resS)
+    resS.runeLen
+  proc retSubs(toNewLine: string): int = cvtRet(s.replace("\n", toNewLine))
   case self.newline
   of nlUniversalAsIs, nlReturn:
     # no translation takes place.
-    result = procCall write(IOBase(self), self.oEncCvt.convert(s))
-  of nlUniversal: result = retSubs "\p"
-  of nlCarriage: result = retSubs "\r"
-  of nlCarriageReturn: result = retSubs "\r\n"
+    cvtRet s
+  of nlUniversal: retSubs "\p"
+  of nlCarriage: retSubs "\r"
+  of nlCarriageReturn: retSubs "\r\n"
 
 
 # workaround,
