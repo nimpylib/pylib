@@ -174,7 +174,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     classId = obj
     supCls = ident"RootObj"
     supClsNode = nnkOfInherit.newTree supCls
-    pragmas = nnkPragma.newTree ident"base"
+    defPragmas = nnkPragma.newTree ident"base"
     
   if obj.kind != nnkIdent:  #  class O([SupCls])
     classId = obj[0]
@@ -182,8 +182,9 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     let supLen = obj.len - 1
     if supLen == 1:   #  class O(SupCls)
       supCls = obj[1]
-      supClsNode = nnkOfInherit.newTree supCls
-      pragmas = emptyn
+      if supCls.kind != nnkObjectTy: # not `class O(object)`
+        supClsNode = nnkOfInherit.newTree supCls
+        defPragmas = emptyn
     elif supLen > 1:
       error "multi-inhert is not allowed in Nim, " &
         "i.e. only one super class is expected, got " & $supLen
@@ -196,6 +197,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     typDefLs.add nnkIdentDefs.newTree(name, typ, defVal)
   var defs = newStmtList()
   for def in body:
+    var pragmas = defPragmas  # will be set as empty if `isConstruct` or not base
     case def.kind
     of nnkCall: # attr define, e.g. a: int / a: int = 1
       let tup = parseDeclWithType(def)
@@ -213,18 +215,22 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       let isConstructor = procName.eqIdent "init"
       if isConstructor:
         procName = newIdentNode("new" & className)
+        pragmas = emptyn
       # First argument is the return type of the procedure
       var args = tup.params
       # Statements which will occur before proc body
       var beforeBody = newStmtList()
-      if args[1][0].eqIdent "self":
-        args[1][1] = classId
       if isConstructor:
         expectIdent args[1][0], "self"
+        args.delete 1
+        args[0] = classId
         template construct(): untyped {.dirty.} = 
           var self: type(result)
           new(self)
         beforeBody.add getAst(construct())
+      else:
+        if args[1][0].eqIdent "self":
+          args[1][1] = classId
       # Function body
       var parsedbody = recReplaceSuperCall(parseBody def[2], supCls)
       # If we're generating a constructor proc - we need to return self
@@ -234,14 +240,18 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       # Add statement which will occur before function body
       beforeBody.add parsedBody
       # Finally create a procedure and add it to result!
-      defs.add newProc(procName, args, beforeBody, nnkMethodDef, pragmas=pragmas)
+      defs.add newProc(procName, args, beforeBody, 
+        if isConstructor: nnkProcDef else: nnkMethodDef,
+        pragmas=pragmas)
     of nnkStrLit, nnkRStrLit, nnkTripleStrLit:
       result.add newCommentStmtNode $def
     else:
       result.add def  # AS-IS
   let ty = nnkRefTy.newTree nnkObjectTy.newTree(emptyn, supClsNode, typDefLs)
   let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId, emptyn, ty)
-  result.add typDef
+  result.add quote do:
+      when not declared `classId`:
+        `typDef`
   result.add defs
   # Echo generated code
   # echo result.toStrLit

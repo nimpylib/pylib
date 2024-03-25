@@ -1,4 +1,5 @@
-test "Class macro":
+#test "Class macro":# method cannot within `test` block, which is not top-level scope
+when true:
   type Customer = ref object
     name: string
     balance: float
@@ -32,7 +33,7 @@ test "Class macro":
         self.balance += amount
         return self.balance
   checkpoint "Initialisation"
-  let c = newCustomer("Daniil", 500)
+  let c = newCustomer("Daniil", 500.0)
   checkpoint "Fields"
   check c.name == "Daniil"
   check c.balance == 500
