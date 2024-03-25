@@ -2,9 +2,9 @@
 
 > fork from https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
 
-Nimpylib is a collection of Python-like operators and functions (syntax sugar).
-It can help you to translate your Python program to Nim.
-
+Nimpylib is a collection of Python-like operators and functions (<del>syntax sugar</del>no longer just syntax sugar).
+It can help you to translate your Python program to Nim,
+and gain a better view into different behaviors between Python and Nim.
 
 # Usage
 
@@ -160,7 +160,9 @@ nimble install https://github.com/litlighilit/nimpylib
 - [x] `import antigravity`
 - [x] `from __future__ import braces`
 - [x] `lambda:`
-- [x] `with open("file.ext", 'w'):` Read, write, append, and `file.read()`.
+- [x] `class` to define a new type and define method
+- [x] `with open("file.ext", 'w'[, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
+- [x] `super(...).method(...)`
 - [x] `with tempfile.TemporaryDirectory():` Read, write, append, and `file.read()`.
 - [x] `with tempfile.NamedTemporaryFile() as file:` Read, write, append, and `file.read()`.
 - [x] `timeit()` with Nanoseconds precision
