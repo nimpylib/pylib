@@ -462,17 +462,16 @@ template genOpenInfo(result; file: string, mode: string,
     else:
       discard # will be TextIOWrapper( ...line_buffering)
 
-  template chk(m: char): bool = m in modes
   let nmode =
-    if chk 'w': FileMode.fmWrite
-    elif chk 'a': FileMode.fmAppend
-    elif chk 'x':
+    if updating: FileMode.fmReadWrite
+    elif creating:
       if fileExists file:
         raise_FileExistsError("File exists: '$#'" % file)
       FileMode.fmWrite
-    elif chk '+': FileMode.fmReadWrite
-    else:   FileMode.fmRead
-  
+    elif reading: FileMode.fmRead
+    elif writing: FileMode.fmWrite
+    elif appending: FileMode.fmAppend
+    else: doAssert false;FileMode.fmRead  # impossible
   isBinary = binary
   resMode = nmode
 
