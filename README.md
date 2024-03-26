@@ -97,14 +97,18 @@ timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement
 with open("some_file.txt", 'w') as file:
-  file.write_line("hello world!")
+  file.write("hello world!")
 
 with open("some_file.txt", 'r') as file:
-  while not end_of_file(file):
-    print(file.read_line())
+    while True:
+      let s = file.readline()
+      if s == "": break
+      print(s)
+
+import pylib/Lib/tempfile
 
 with NamedTemporaryFile() as file:
-  file.write_line("test!")
+  file.write("test!")
 
 with TemporaryDirectory() as name:
   print(name)
