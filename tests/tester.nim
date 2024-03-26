@@ -1,7 +1,7 @@
 import std/[unittest]
 import pylib
 
-include
+include 
   trange,
   tintdiv,
   tclass,
@@ -11,4 +11,5 @@ include
   tunpack,
   tmisc,
   twith,
+  tio,
   tlib

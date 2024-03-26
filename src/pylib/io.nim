@@ -27,6 +27,27 @@ import std/[
   ]
 from std/terminal import isatty
 
+# TODO: impl as Python's and move to `ops.nim` and export
+proc repr(x: string): string =
+  ## repr for a string argument. Returns `x`
+  ## converted to a quoted and escaped string.
+  var quo = '"'
+  result.add quo
+  for i in 0..<x.len:
+    if x[i] in {'"', '\\', '\0'..'\31', '\127'..'\255'}:
+      result.add '\\'
+    case x[i]:
+    of '\n':
+      result.add "n\n"
+    of '\0'..'\9', '\11'..'\31', '\127'..'\255':
+      result.add $x[i].uint8
+    of '\"':
+      quo = '\''
+      result[0] = quo
+    else:
+      result.add x[i]
+  result.add quo
+
 const
   SEEK_SET* = 0
   SEEK_CUR* = 1
@@ -532,6 +553,9 @@ proc open*(
       encoding=encoding, errors=errors, isBinary=binary,resMode=nmode)
   
   var file = system.open(file, mode=nmode, bufSize=buf)
+  when declared setInheritable:
+    let handle = file.getOsFileHandle()
+    discard handle.setInheritable false
   
   if not binary:
     var iEncCvt, oEncCvt: EncodingConverter
