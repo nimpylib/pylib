@@ -16,7 +16,7 @@ type RandomNameSequence = object
   rng_pid: int
   rng: Rand
 
-var name_sequence: RandomNameSequence
+var name_sequence{.threadvar.}: RandomNameSequence
 
 const RandChars = "abcdefghijklmnopqrstuvwxyz0123456789_"
 
@@ -35,7 +35,7 @@ iterator items(self: var RandomNameSequence, times: int): string =
       letters[i] = c
     yield letters
 
-const templ = "tmp"
+const templ = "tmp"  # Py's `tempfile.template`
 
 proc mktemp*(dir: string, suffix="", prefix=templ, checker=fileExists): string =
   ## User-callable function to return a unique temporary file/dir name.  The
@@ -163,6 +163,10 @@ proc cleanup*(self: TemporaryDirectoryWrapper) =
       if not self.ignore_cleanup_errors:
         raise # XXX: see Py's TemporaryDirectory._rmtree for real impl
 
-proc `=destroy`*(self: TemporaryDirectoryWrapper) =
+proc exit*(self: TemporaryDirectoryWrapper) =
+  ## __exit__
   try: self.cleanup()
   except Exception: discard
+
+proc `=destroy`*(self: TemporaryDirectoryWrapper) =
+  self.exit()
