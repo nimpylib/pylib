@@ -208,7 +208,7 @@ nimble install https://github.com/litlighilit/nimpylib
 - [x] `b"string here"` / `b'a'` Python2 like
 - [x] `isinstance()`
 - [x] `issubclass()`
-- [ ] `id()`
+- [x] `id()`
 - More...
 
 
