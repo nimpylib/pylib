@@ -34,9 +34,6 @@ type
 
   NoneType* = distinct bool
 
-  TemporaryDirectory* = object
-    name: string
-
   TypeError* = object of CatchableError
 
 const

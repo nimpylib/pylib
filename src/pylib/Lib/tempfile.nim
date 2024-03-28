@@ -163,10 +163,9 @@ proc cleanup*(self: TemporaryDirectoryWrapper) =
       if not self.ignore_cleanup_errors:
         raise # XXX: see Py's TemporaryDirectory._rmtree for real impl
 
-proc exit*(self: TemporaryDirectoryWrapper) =
-  ## __exit__
+proc close*(self: TemporaryDirectoryWrapper) =
   try: self.cleanup()
   except Exception: discard
 
 proc `=destroy`*(self: TemporaryDirectoryWrapper) =
-  self.exit()
+  self.close()
