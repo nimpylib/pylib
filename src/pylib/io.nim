@@ -84,6 +84,7 @@ type
 type
   LookupError* = object of CatchableError
   FileExistsError* = object of OSError
+  FileNotFoundError* = object of OSError
   UnsupportedOperation* = object of OSError # and ValueError
 
 
@@ -304,7 +305,7 @@ method readline*(self: TextIOBase): string =
     import std/strutils
     const fn = "tempfiletest"
     proc check(ls: varargs[string], newline: string) =
-      var f = io.open(fn, newline=newline)
+      var f = open(fn, newline=newline)
       for l in ls:
         let s = f.readline()
         assert s == l, 
@@ -433,7 +434,7 @@ proc isatty(p: string): bool =
     result = f.isatty()
     f.close()
 
-template genOpenInfo(result; file: string, mode: string, 
+template genOpenInfo(result; file, mode: string, 
   buffering: var int,
   encoding,
   errors: string,
@@ -507,8 +508,9 @@ template genOpenInfo(result; file: string, mode: string,
   let nmode =
     if updating: FileMode.fmReadWrite
     elif creating:
-      if fileExists file:
-        raise_FileExistsError("File exists: $#" % file.repr)
+      when file is string:
+        if fileExists file:
+          raise_FileExistsError("File exists: $#" % file.repr)
       FileMode.fmWrite
     elif reading: FileMode.fmRead
     elif writing: FileMode.fmWrite
@@ -517,8 +519,14 @@ template genOpenInfo(result; file: string, mode: string,
   isBinary = binary
   resMode = nmode
 
+when defined(windows):
+  let enoent = 3  # ERROR_PATH_NOT_FOUND
+else:
+  let ENOENT{.importc, header: "<errno.h>".}: cint
+  let enoent = ENOENT.int
+
 proc open*(
-  file: string, mode: string|char = "r",
+  file: string|int, mode: string|char = "r",
   buffering: int = -1,
   encoding: string = DefEncoding, 
   errors: string = DefErrors,  # in Python, the default None/invalid string means "strict"
@@ -536,6 +544,8 @@ proc open*(
     const fn = "tempfiletest"
     doAssertRaises LookupError:
       discard open(fn, encoding="this is a invalid enc")
+    doAssertRaises FileNotFoundError:
+      discard io.open(r"   \:/ $&* ")  # an invalid filename, never existing
     block Write:
       var f = open(fn, "w",  encoding="utf-8")
       let ret = f.write("123\r\n")
@@ -564,10 +574,20 @@ proc open*(
   genOpenInfo(result, file, mode = smode, buffering=buf,
       encoding=encoding, errors=errors, isBinary=binary,resMode=nmode)
   
-  var file = system.open(file, mode=nmode, bufSize=buf)
-  when declared setInheritable:
-    let handle = file.getOsFileHandle()
-    discard handle.setInheritable false
+  var nfile: File
+  let succ = nfile.open(
+    (when file is string: file else: FileHandle file),
+    mode=nmode, bufSize=buf)
+  # Nim/Python:
+  #  The file handle associated with the resulting File is not inheritable.
+  if not succ:
+    let err = osLastError()
+    if err == OSErrorCode enoent:
+      let fn = when file is string: file else: "fd: " & $file
+      raise newException(FileNotFoundError,
+        "No such file or directory: "&fn)
+    else:
+      raiseOSError(err, "can't open " & $file)
   
   if not binary:
     var iEncCvt, oEncCvt: EncodingConverter
@@ -599,7 +619,7 @@ proc open*(
     )
     res.initNewLineMode(newline)
     result = res
-  result.file = file
+  result.file = nfile
 
 
 when isMainModule:
