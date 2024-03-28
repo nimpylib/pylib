@@ -24,7 +24,7 @@ def foo(a: int, b = 1, *args) -> int:
   return add(a, b)
 
 # python 3.12's type statement
-type More[T] = T | list[T] # which is originally supported by nim-lang itself, however ;)
+type Number = float | int  # which is originally supported by nim-lang itself, however ;) 
 
 for i in range(10):
   # 0 1 2 3 4 5 6 7 8 9
@@ -56,7 +56,6 @@ print(not "") # true
 
 print("Hello,", input("What is your name? "), endl="\n~\n")
 
-pass # do nothing
 pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
 let integer_bytes = 2_313_354_324
@@ -97,7 +96,7 @@ timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement
 with open("some_file.txt", 'w') as file:
-  file.write("hello world!")
+  let _ = file.write("hello world!")
 
 with open("some_file.txt", 'r') as file:
     while True:
@@ -108,7 +107,7 @@ with open("some_file.txt", 'r') as file:
 import pylib/Lib/tempfile
 
 with NamedTemporaryFile() as file:
-  file.write("test!")
+  let _ = file.write("test!")
 
 with TemporaryDirectory() as name:
   print(name)

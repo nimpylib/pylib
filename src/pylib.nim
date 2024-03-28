@@ -195,8 +195,15 @@ template timeit*(repetitions: int, statements: untyped): untyped =
   echo "$1 TimeIt: $2 Repetitions on $3, CPU Time $4.".format(
     $now(), repetitions, $(now() - started), $(cpuTimeImpl() - cpuStarted))
 
-template pass*: untyped = discard
-template pass*(_: untyped): untyped = discard # pass 42
+# nimv2 somehow has a bug
+# # lib.nim
+# template pass* = discard
+# template pass*(_) = discard
+#
+# # main.nim
+# import lib
+# pass  # <- Error: ambiguous identifier: 'pass' -- ...
+template pass*(_) = discard ## suport either `pass 42` or `pass`
 
 template lambda*(code: untyped): untyped =
   (proc (): auto = code)  # Mimic Pythons Lambda
