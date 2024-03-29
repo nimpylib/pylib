@@ -64,7 +64,7 @@ test "ord()":
 test "bin()":
   check bin(1) == "0b1"
   check bin(6) == "0b110"
-  when NimMajor > 2:
+  when NimMajor > 1:
     when compileOption("jsBigInt64"):
       check bin(32587328532) == "0b11110010110010110110010110000010100"
       check bin(-140140140140) == "-0b10000010100001000000001101011001101100"
