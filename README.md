@@ -2,7 +2,7 @@
 
 > fork from https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
 
-Nimpylib is a collection of Python-like operators and functions (<del>syntax sugar</del>no longer just syntax sugar).
+Nimpylib is a collection of Python-like operators and functions (<del>syntax sugar</del> no longer just syntax sugar).
 It can help you to translate your Python program to Nim,
 and gain a better view into different behaviors between Python and Nim.
 
@@ -136,9 +136,8 @@ print(e.stopit(5))
 
 Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
 
-- [Check the Examples folder for more examples.](https://github.com/Yardanico/nimpylib/tree/master/examples)
-[Have more Macros or Templates for Python-like syntax, send Pull Request.](https://github.com/Yardanico/nimpylib/pulls)
-
+Check the [Examples folder ](https://github.com/litlighilit/nimpylib/tree/master/examples)for more examples.
+Have more Macros or Templates for Python-like syntax, send [Pull Request.](https://github.com/litlighilit/nimpylib/pulls)
 
 # Installation
 
@@ -163,8 +162,8 @@ nimble install https://github.com/litlighilit/nimpylib
 - [x] `import antigravity`
 - [x] `from __future__ import braces`
 - [x] `lambda:`
-- [x] `class` to define a new type and define method
-- [x] `with open("file.ext", 'w'[, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
+- [x] `class` Python-like OOP with methods and DocStrings (without multi-inheritance)
+- [x] `with open(fn, [, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
 - [x] `super(...).method(...)`
 - [x] `with tempfile.TemporaryDirectory():` Read, write, append, and `file.read()`.
 - [x] `with tempfile.NamedTemporaryFile() as file:` Read, write, append, and `file.read()`.
@@ -175,10 +174,10 @@ nimble install https://github.com/litlighilit/nimpylib
 - [x] `:=` Walrus Operator
 - [x] `{"a": 1} | {"b": 2}` Dict merge operator
 - [x] `|=` Dict merge operator
-- [x] Python-like OOP class with methods and DocStrings (without inheritance)
 - [x] `abs()`
 - [x] `all()`
 - [x] `any()`
+- [x] `ascii()`
 - [x] `bin()`
 - [x] `chr()`
 - [x] `divmod()`
@@ -195,14 +194,14 @@ nimble install https://github.com/litlighilit/nimpylib
 - [x] `min()`
 - [x] `oct()`
 - [x] `ord()`
+- [x] `open()` (though without close_fd, opener, errors)
 - [x] `print("foo")` / `print "foo"` Python2 like
 - [x] `range()`
 - [x] `str()`
 - [x] `sum()`
-- [x] `<>` Python1 and Python2 `!=`
+- [x] `!=` and Python1 `<>`
 - [x] `long()` Python2 like
 - [x] `unicode()` Python2 like
-- [x] `ascii()`
 - [x] `u"string here"` / `u'a'` Python2 like
 - [x] `b"string here"` / `b'a'` Python2 like
 - [x] `isinstance()`
@@ -223,13 +222,27 @@ nimble install https://github.com/litlighilit/nimpylib
 $ nimble test
 [OK] Range-like Nim procedure
 [OK] Floor division
-[OK] Class macro
 [OK] tonim macro
 [OK] String operations
 [OK] Modulo operations
-2020-06-17T22:07:28+03:00 TimeIt: 9 Repetitions on 118 microseconds and 711 nanoseconds, CPU Time 5.740999999999993e-05.
-[OK] Miscelaneous
 [OK] unpack macro
+[OK] Python-like types
+[OK] divmod
+[OK] pass
+[OK] lambda
+[OK] walrus operator
+2024-03-28T22:39:46+08:00 TimeIt: 9 Repetitions on 0 nanoseconds, CPU Time 0.0.
+[OK] timeit
+[OK] hex()
+[OK] chr()
+[OK] oct()
+[OK] ord()
+[OK] bin()
+[OK] filter()
+[OK] With statement
+[OK] io & with
+[OK] tempfile
+[OK] random
 ```
 
 <!-- too small to show now
