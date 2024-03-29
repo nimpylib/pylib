@@ -425,16 +425,37 @@ proc toSet(s: string): set[char] =
 const False=false
 const True=true
 
-template getBlkSize(p: string): int =
-  getFileInfo(p, followSymlink=true).blockSize
+type
+  PathLike* = concept self
+    $self is string
+  CanIOOpenT* = int | PathLike
 
-proc isatty(p: string): bool =
-  var f: File
-  if f.open(p, fmRead):
-    result = f.isatty()
-    f.close()
+template `$`(p: PathLike): string =
+  when p is string: p
+  else: $p
 
-template genOpenInfo(result; file, mode: string, 
+template getBlkSize(p: PathLike): int =
+  getFileInfo($p, followSymlink=true).blockSize
+
+template getBlkSize(fd: int): int = 0  # TODO: use fstat instead!
+
+when defined(posix):
+  proc isatty(fildes: cint): cint {.
+    importc: "isatty", header: "<unistd.h>".}
+else:
+  proc isatty(fildes: cint): cint {.
+    importc: "_isatty", header: "<io.h>".}
+
+proc isatty(p: CanIOOpenT): bool =
+  when p is int:
+    result = bool p.cint.isatty()
+  else:
+    var f: File
+    if f.open($p, fmRead):
+      result = f.isatty()
+      f.close()
+
+template genOpenInfo(result; file; mode: string, 
   buffering: var int,
   encoding,
   errors: string,
@@ -508,8 +529,8 @@ template genOpenInfo(result; file, mode: string,
   let nmode =
     if updating: FileMode.fmReadWrite
     elif creating:
-      when file is string:
-        if fileExists file:
+      when file is PathLike:
+        if fileExists $file:
           raise_FileExistsError("File exists: $#" % file.repr)
       FileMode.fmWrite
     elif reading: FileMode.fmRead
@@ -525,8 +546,49 @@ else:
   let ENOENT{.importc, header: "<errno.h>".}: cint
   let enoent = ENOENT.int
 
-proc open*(
-  file: string|int, mode: string|char = "r",
+proc c_setvbuf(f: File, buf: pointer, mode: cint, size: csize_t): cint {.
+  importc: "setvbuf", header: "<stdio.h>".}
+let
+  IOFBF {.importc: "_IOFBF", nodecl.}: cint
+  IOLBF {.importc: "_IOLBF", nodecl.}: cint
+  # NOTE: For Win32, the behavior is the same as _IOFBF - Full Buffering
+  IONBF {.importc: "_IONBF", nodecl.}: cint
+
+# patch for system/io.nim or std/syncio.nim,
+# see https://github.com/nim-lang/Nim/pull/23456
+const
+  NoInheritFlag =
+    # Platform specific flag for creating a File without inheritance.
+    when not defined(nimInheritHandles):
+      when defined(windows): ""
+      elif defined(linux) or defined(bsd): "e"
+      else: ""
+    else: ""
+  FormatOpen: array[FileMode, cstring] = [
+    cstring("rb" & NoInheritFlag), "wb" & NoInheritFlag, "w+b" & NoInheritFlag,
+    "r+b" & NoInheritFlag, "ab" & NoInheritFlag
+  ]
+when defined(windows):
+  proc getOsfhandle(fd: cint): int {.
+    importc: "_get_osfhandle", header: "<io.h>".}
+  proc c_fdopen(filehandle: cint, mode: cstring): File {.
+    importc: "_fdopen", header: "<stdio.h>".}
+else:
+  proc c_fdopen(filehandle: cint, mode: cstring): File {.
+    importc: "fdopen", header: "<stdio.h>".}
+proc openNoNonInhertFlag(f: var File, filehandle: FileHandle,
+           mode: FileMode = fmRead): bool {.tags: [], raises: [].} =
+  when not defined(nimInheritHandles) and declared(setInheritable):
+    let oshandle = when defined(windows): FileHandle getOsfhandle(filehandle)
+                   else: filehandle
+    if not setInheritable(oshandle, false):
+      return false
+  let fop = FormatOpen[mode]
+  f = c_fdopen(filehandle, fop)
+  result = f != nil
+
+proc open*[OpenT: CanIOOpenT](
+  file: OpenT, mode: string|char = "r",
   buffering: int = -1,
   encoding: string = DefEncoding, 
   errors: string = DefErrors,  # in Python, the default None/invalid string means "strict"
@@ -575,19 +637,29 @@ proc open*(
       encoding=encoding, errors=errors, isBinary=binary,resMode=nmode)
   
   var nfile: File
-  let succ = nfile.open(
-    (when file is string: file else: FileHandle file),
-    mode=nmode, bufSize=buf)
+  when file is int: 
+    let succ = nfile.openNoNonInhertFlag(FileHandle file, mode=nmode)
+  else:
+    let succ = nfile.open($file, mode=nmode)
   # Nim/Python:
   #  The file handle associated with the resulting File is not inheritable.
   if not succ:
     let err = osLastError()
+    let fn = when file is PathLike: $file else: "fd: " & $file
     if err == OSErrorCode enoent:
-      let fn = when file is string: file else: "fd: " & $file
       raise newException(FileNotFoundError,
         "No such file or directory: "&fn)
     else:
-      raiseOSError(err, "can't open " & $file)
+      raiseOSError(err, "[Errno " & $int(err) & "] " & "can't open "&fn)
+  
+  var (bfMode, bfSize) =
+    if buf == 1: (IOLBF, 0)
+    elif buf > 0 and buf.uint <= high(uint):
+      (IOFBF, buf)
+    elif buf == 0:
+      (IONBF, 0)
+    else: doAssert false;(typeof(IOFBF)(0), 0)
+  discard c_setvbuf(nfile, nil, bfMode, cast[csize_t](bfSize))
   
   if not binary:
     var iEncCvt, oEncCvt: EncodingConverter
