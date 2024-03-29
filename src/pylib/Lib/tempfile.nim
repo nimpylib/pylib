@@ -114,9 +114,7 @@ proc NamedTemporaryFile*(mode="w+b", buffering = -1, encoding=DefEncoding,
                        newline=DefNewLine, suffix=sNone, prefix=sNone,
                        dir=sNone, delete=True, errors=DefErrors): TemporaryFileWrapper =
   runnableExamples:
-    import std/macros
     var tempf = NamedTemporaryFile()
-    echo tempf
     let msg = "test"
     tempf.write(msg)
     tempf.flush()
@@ -140,7 +138,7 @@ proc NamedTemporaryFile*(mode="w+b", buffering = -1, encoding=DefEncoding,
 
 
 type TemporaryDirectoryWrapper* = object
-  name: string
+  name*: string
   ignore_cleanup_errors, delete: bool
 
 proc mkdtemp*(suffix=sNone, prefix=sNone, dir=sNone): string =
@@ -149,10 +147,17 @@ proc mkdtemp*(suffix=sNone, prefix=sNone, dir=sNone): string =
 
 proc TemporaryDirectory*(suffix=sNone, prefix=sNone, dir=sNone, ignore_cleanup_errors=False,
      delete=True): TemporaryDirectoryWrapper =
+  runnableExamples:
+    import std/os
+    let d = TemporaryDirectory()
+    assert dirExists d.name
+    d.cleanup()
+    assert not dirExists d.name
   let tup = sanitize_params(suffix=suffix, prefix=prefix, dir=dir)
   result.name = mkdtemp(suffix=tup.suffix, prefix=tup.prefix, dir=tup.dir)
   result.delete = delete
   result.ignore_cleanup_errors = ignore_cleanup_errors
+  createDir result.name
 
 
 proc cleanup*(self: TemporaryDirectoryWrapper) =
@@ -164,6 +169,7 @@ proc cleanup*(self: TemporaryDirectoryWrapper) =
         raise # XXX: see Py's TemporaryDirectory._rmtree for real impl
 
 proc close*(self: TemporaryDirectoryWrapper) =
+  ## used to be called in `with` stmt (Python's doesn't have this)
   try: self.cleanup()
   except Exception: discard
 
