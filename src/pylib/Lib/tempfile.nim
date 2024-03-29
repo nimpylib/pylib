@@ -29,7 +29,7 @@ proc initRandomNameSequence(self: var RandomNameSequence) =
 iterator items(self: var RandomNameSequence, times: int): string =
   self.initRandomNameSequence()
   for _ in 0..times:
-    var letters = newStringUninit(8)
+    var letters = newString(8)
     for i in 0 ..< 8:
       let c = self.rng.sample(RandChars)
       letters[i] = c
