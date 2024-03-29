@@ -597,8 +597,7 @@ proc open*[OpenT: CanIOOpenT](
 ): IOBase = 
   ## WARN:
   ## 
-  ## - line buffering is not implemented,
-  ## (In Python, `buffering` being 1 means line buffering)
+  ## - `line buffering` is not support for Win32
   ## - `errors` is not just ignored, always 'strict'
   
   # TODO: impl line_buffering, at least for write
