@@ -27,6 +27,9 @@ import std/[
   ]
 from std/terminal import isatty
 
+import ./io_abc  # PathLike
+export io_abc
+
 # TODO: move to `ops.nim` and export
 proc repr(x: string): string =
   ## python's `repr(str)`
@@ -424,15 +427,6 @@ proc toSet(s: string): set[char] =
 
 const False=false
 const True=true
-
-type
-  PathLike* = concept self
-    $self is string
-  CanIOOpenT* = int | PathLike
-
-template `$`(p: PathLike): string =
-  when p is string: p
-  else: $p
 
 template getBlkSize(p: PathLike): int =
   getFileInfo($p, followSymlink=true).blockSize
