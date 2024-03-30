@@ -535,10 +535,15 @@ template genOpenInfo(result; file; mode: string,
   resMode = nmode
 
 when defined(windows):
-  let enoent = 3  # ERROR_PATH_NOT_FOUND
+  let enoent = 2
+  let ERROR_PATH_NOT_FOUND = 3
+  proc isNotFound(err: OSErrorCode): bool = 
+    let i = err.int
+    i == enoent or i == ERROR_PATH_NOT_FOUND
 else:
   let ENOENT{.importc, header: "<errno.h>".}: cint
   let enoent = ENOENT.int
+  proc isNotFound(err: OSErrorCode): bool = err == enoent
 
 proc c_setvbuf(f: File, buf: pointer, mode: cint, size: csize_t): cint {.
   importc: "setvbuf", header: "<stdio.h>".}
@@ -660,7 +665,7 @@ proc open*[OpenT: CanIOOpenT](
   if not succ:
     let err = osLastError()
     let fn = when file is PathLike: $file else: "fd: " & $file
-    if err == OSErrorCode enoent:
+    if isNotFound err:
       raise newException(FileNotFoundError,
         "No such file or directory: "&fn)
     else:
