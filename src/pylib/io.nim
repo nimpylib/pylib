@@ -597,10 +597,12 @@ proc open*[OpenT: CanIOOpenT](
   # TODO: impl line_buffering, at least for write
   runnableExamples:
     const fn = "tempfiletest"
+    const nonfn = r"   \:/ $&* "
     doAssertRaises LookupError:
-      discard open(fn, encoding="this is a invalid enc")
+      # raise LookupError instead of FileNotFoundError (like Python)
+      discard open(nonfn, encoding="this is a invalid enc")
     doAssertRaises FileNotFoundError:
-      discard io.open(r"   \:/ $&* ")  # an invalid filename, never existing
+      discard io.open(nonfn)  # an invalid filename, never existing
     block Write:
       var f = open(fn, "w",  encoding="utf-8")
       let ret = f.write("123\r\n")
@@ -629,6 +631,25 @@ proc open*[OpenT: CanIOOpenT](
   genOpenInfo(result, file, mode = smode, buffering=buf,
       encoding=encoding, errors=errors, isBinary=binary,resMode=nmode)
   
+  var iEncCvt, oEncCvt: EncodingConverter
+  if not binary:
+
+    var enc = encoding
+    if enc == DefEncoding: enc = LocaleEncoding
+    if enc == LocaleEncoding: enc = getPreferredEncoding()
+
+    try:
+      iEncCvt = encodings.open(
+        destEncoding = "UTF-8",
+        srcEncoding = enc
+      )
+      oEncCvt = encodings.open(
+        destEncoding = enc,
+        srcEncoding = "UTF-8"
+      )
+    except ValueError:
+      raise newException(LookupError, "unknown encoding: " & encoding)
+  
   var nfile: File
   when file is int: 
     let succ = nfile.openNoNonInhertFlag(FileHandle file, mode=nmode)
@@ -654,25 +675,8 @@ proc open*[OpenT: CanIOOpenT](
     else: doAssert false;(typeof(IOFBF)(0), 0)
   discard c_setvbuf(nfile, nil, bfMode, cast[csize_t](bfSize))
   
-  if not binary:
-    var iEncCvt, oEncCvt: EncodingConverter
-
-    var enc = encoding
-    if enc == DefEncoding: enc = LocaleEncoding
-    if enc == LocaleEncoding: enc = getPreferredEncoding()
-
-    try:
-      iEncCvt = encodings.open(
-        destEncoding = "UTF-8",
-        srcEncoding = enc
-      )
-      oEncCvt = encodings.open(
-        destEncoding = enc,
-        srcEncoding = "UTF-8"
-      )
-    except ValueError:
-      raise newException(LookupError, "unknown encoding: " & encoding)
   
+  if not binary:
     # if binary, result's init is in `genOpenInfo`
     var res = TextIOWrapper(
         errors: errors,
