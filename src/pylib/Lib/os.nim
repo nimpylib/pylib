@@ -133,13 +133,22 @@ else:
   let DEFAULT_DIR_FD{.importc.}: cint
   let O_CLOEXEC{.importc, header: "<fcntl.h>".}: cint
 
-macro fdopen*(fd: Positive; x: varargs[untyped]): untyped =
+
+macro unpackVarargsWith1*(callee, arg1: untyped; otherArgs: varargs[untyped]): untyped =
+  result = newCall(callee, arg1)
+  for i in 0 ..< otherArgs.len:
+    result.add otherArgs[i]
+
+template fdopen*(fd: Positive; x: varargs[untyped]): untyped =
   ## Return an open file object connected to the file descriptor fd. 
   ## 
   ## This is an alias of the io.open() function and accepts the same arguments.
   ## The only difference is that the first argument of fdopen() must always be an integer.
   runnableExamples:
     const fn = "tempfiletest"
+    proc open(fd: int, s: string): IOBase{.used.} =  # this won't be called
+      doAssert false
+      io.open(fd, s)
     let fd = open(fn, O_RDWR|O_CREAT)
     var f = fdopen(fd, "w+")
     let s = "123"
@@ -148,9 +157,9 @@ macro fdopen*(fd: Positive; x: varargs[untyped]): untyped =
     let res = f.read()
     f.close()
     assert res == s
-  result = newCall(ident"open", fd)
-  for i in x:
-    result.add i  # support kw (will be of kind: nnkExprEqExpr)
+  bind io.open
+  unpackVarargsWith1 io.open, fd, x
+  # support kw (will be of kind: nnkExprEqExpr)
 
 proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
 
