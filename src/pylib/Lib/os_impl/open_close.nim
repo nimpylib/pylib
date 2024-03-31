@@ -2,6 +2,7 @@
 import std/os
 
 import ./common
+import ./consts
 
 {.push header: "<errno.h>".}
 let errno{.importc.}: cint
@@ -9,7 +10,6 @@ let EINTR{.importc.}: cint
 {.pop.}
 
 when defined(windows):
-  import std/winlean
   when defined(nimPreviewSlimSystem):
     import std/widestrs
 

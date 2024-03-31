@@ -30,6 +30,8 @@ from std/terminal import isatty
 import ./io_abc  # PathLike
 export io_abc
 
+import ./Lib/os_impl/posix_like
+
 # TODO: move to `ops.nim` and export
 proc repr(x: string): string =
   ## python's `repr(str)`
@@ -395,6 +397,21 @@ method write*(self: TextIOBase, s: string): int{.discardable.} =
   of nlCarriage: retSubs "\r"
   of nlCarriageReturn: retSubs "\r\n"
 
+proc truncate*(self: IOBase): int{.discardable.} =
+  runnableExamples:
+    const fn = "tempfiletest"
+    var f = open(fn, "w+")
+    discard f.write("123")
+    f.seek(0)
+    f.truncate()
+    assert f.read() == ""
+    f.close()
+  result = self.tell()
+  truncate self.fileno, result
+
+proc truncate*(self: IOBase, size: int64): int{.discardable.} =
+  truncate self.fileno, size
+  size
 
 # workaround,
 #  a Nim's bug: when ref object+method+var+procCall
