@@ -4,23 +4,30 @@ import ./errno
 
 const DWin = defined(windows)
 
+type Time64 = int64
+
 when DWin:
   when defined(nimPreviewSlimSystem):
     import std/widestrs
   type
     Dev{.importc: "_dev_t", header: "<sys/types.h>".} = c_uint
     Ino = c_ushort
-    Time64 = int64
+    Mode = c_ushort
+    Nlink = c_short
+    Uid = c_short
+    Gid = c_short
+    Off = int64
+    
   {.push header: "<sys/stat.h>".}
   type
     Stat{.importc: "struct _stat".} = object
       st_ino*: Ino
-      st_mode*: c_ushort
-      st_nlink*: c_short
-      st_uid*: c_short
-      st_gid*: c_short
-      st_dev*: Dev  ## same as st_rdev
-      st_size*: int64
+      st_mode*: Mode
+      st_nlink*: Nlink
+      st_uid*: Uid
+      st_gid*: Gid
+      st_dev*: Dev  ## same as st_rdev on Windows
+      st_size*: Off
       st_atime*: Time64
       st_mtime*: Time64
       st_ctime*: Time64
@@ -29,9 +36,42 @@ when DWin:
   {.pop.}
 else:
   import posix
+  
+  template toTime(x): untyped = x.tv_sec
+  template st_atime*(s: Stat): untyped = Time64 toTime s.st_atim
+  template st_mtime*(s: Stat): untyped = Time64 toTime s.st_mtim
+  template st_ctime*(s: Stat): untyped = Time64 toTime s.st_ctim
 
-type
-  stat_result* = Stat
+const statHasMore = defined(linux)  # XXX: this check is not suitable.
+when statHasMore:
+  type
+    stat_result* = tuple[
+      st_mode: Mode, st_ino: Ino, st_dev: Dev, st_nlink: Nlink,
+      st_uid: Uid, st_gid: Gid, st_size: Off,
+      st_atime, st_mtime, st_ctime: Time64,
+
+      st_blocks: Blkcnt,
+      st_blksize: Blksize,
+      st_rdev: Dev,
+      # st_flags
+    ]  ## Python's `os.stat_result` (a NamedTuple)
+else:
+  type
+    stat_result* = tuple[
+      st_mode: Mode, st_ino: Ino, st_dev: Dev, st_nlink: Nlink,
+      st_uid: Uid, st_gid: Gid, st_size: Off,
+      st_atime, st_mtime, st_ctime: Time64,
+    ]  ## Python's `os.stat_result` (a NamedTuple)
+
+import std/macros
+
+macro to_result(s: Stat): stat_result =
+  var templ: stat_result
+  result = nnkTupleConstr.newNimNode
+  for kStr, _ in templ.fieldPairs:
+    let k = ident kStr
+    result.add newColonExpr(k, newDotExpr(s, k))
+    #  `k`: `s`.`k`
 
 proc stat*(path: CanIOOpenT): stat_result =
   ## .. warning:: Under Windows, it's just a wrapper over `_wstat`,
@@ -44,14 +84,15 @@ proc stat*(path: CanIOOpenT): stat_result =
       template zero(x) = assert x.int == 0
       zero s.st_gid
       zero s.st_uid
-
+  var st: Stat
   let ret =
     when path is int:
-      fstat(path.cint, result)
+      fstat(path.cint, st)
     else:
       when DWin:
-        wstat( newWideCString(path.fspath), result)
+        wstat( newWideCString(path.fspath), st)
       else:
-        stat(cstring path.fspath, result)
+        stat(cstring path.fspath, st)
   if ret != 0.cint:
     raiseErrno("stat " & $path)
+  result = to_result st
