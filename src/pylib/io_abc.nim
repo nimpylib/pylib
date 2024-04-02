@@ -9,3 +9,7 @@ type
   CanIOOpenT* = int | PathLike
 
 
+proc `$`*(p: CanIOOpenT): string =
+  ## Mainly for error message
+  when p is int: "fd: " & $int(p)
+  else: p.fspath
