@@ -30,7 +30,7 @@ from std/terminal import isatty
 import ./io_abc  # PathLike
 export io_abc
 
-import ./Lib/os_impl/posix_like
+import ./Lib/os_impl/posix_like/truncate
 
 # TODO: move to `ops.nim` and export
 proc repr(x: string): string =

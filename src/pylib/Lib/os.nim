@@ -16,7 +16,7 @@
 import std/os
 export os
 
-import ./os_impl/[consts, fdopen, open_close, posix_like, utils, path]
-export consts, fdopen, open_close, posix_like, utils, path
+import ./os_impl/[consts, posix_like, utils, path]
+export consts, posix_like, utils, path
 
 

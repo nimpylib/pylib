@@ -3,7 +3,7 @@
 
 import std/macros
 
-import ../../io
+import ../../../io
 export io  # for open, write,...
   
 macro unpackVarargsWith1(callee, arg1: untyped; otherArgs: varargs[untyped]): untyped =

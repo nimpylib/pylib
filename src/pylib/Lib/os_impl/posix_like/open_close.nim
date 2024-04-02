@@ -1,20 +1,19 @@
 
 import std/os
 
-import ./common
-import ./consts
+import ../common
+import ../consts
 
-{.push header: "<errno.h>".}
-let errno{.importc.}: cint
-let EINTR{.importc.}: cint
-{.pop.}
+import ./errno
+
+let EINTR{.importc, header: "<errno.h>".}: cint
 
 when defined(windows):
   when defined(nimPreviewSlimSystem):
     import std/widestrs
 
   proc c_wopen(path: WideCString, flags: cint): cint{.
-    varargs,importc:"_wopen", header:"<io.h>".}
+    varargs, importc:"_wopen", header:"<io.h>".}
 
   # if `fd` is invalide, functions returns -1 and errno is set to EBADF.
   proc c_close(fd: cint): cint{.importc:"_close", header:"<io.h>".}
@@ -57,10 +56,10 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
       fd < 0 and errno == EINTR
     ): break
   if fd < 0:
-    raiseOSError(osLastError(), "can't open " & spath)
+    raiseErrno("can't open " & spath)
   result = fd
 
 
 proc close*(fd: int) =
   if c_close(fd.cint) == -1.cint:
-    raiseOSError(osLastError(), "close")
+    raiseErrno("close fd: " & $fd)
