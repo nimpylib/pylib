@@ -1,8 +1,10 @@
 # NimPylib
 
-> fork from https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
+[![Build status](https://github.com/litlighilit/nimpylib/workflows/Build/badge.svg)](https://github.com/litlighilit/nimpylib/actions)
 
-Nimpylib is a collection of Python-like operators and functions (<del>syntax sugar</del> no longer just syntax sugar).
+> originating from a fork of https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
+
+Nimpylib is a collection of Python-like operators/functions and libraries (<del>syntax sugar</del> no longer just syntax sugar).
 It can help you to translate your Python program to Nim,
 and gain a better view into different behaviors between Python and Nim.
 
@@ -136,17 +138,23 @@ print(e.stopit(5))
 
 Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
 
-Check the [Examples folder ](https://github.com/litlighilit/nimpylib/tree/master/examples)for more examples.
-Have more Macros or Templates for Python-like syntax, send [Pull Request.](https://github.com/litlighilit/nimpylib/pulls)
+Check the [Examples folder](https://github.com/litlighilit/nimpylib/tree/master/examples) for more examples.
+Have more Macros or Templates for Python-like syntax, send [Pull Request](https://github.com/litlighilit/nimpylib/pulls).
 
 # Installation
 
 To install nimpylib, you can simply run
-```
+```shell
 nimble install https://github.com/litlighilit/nimpylib
 ```
+or
+```shell
+git clone https://github.com/litlighilit/nimpylib
+cd nimpylib
+nimble install
+```
 
-- Uninstall with `nimble uninstall pylib`.
+Uninstall with `nimble uninstall pylib`.
 
 
 # Requisites
