@@ -30,7 +30,7 @@ else:
   const
     name* = "posix"
     devnull* = "/dev/null"
-    defpath = "/bin:/usr/bin"
+    defpath* = "/bin:/usr/bin"
 
 const DW = defined(windows)
 macro uLexp(i; header: string = "<fcntl.h>") =
@@ -67,7 +67,7 @@ when DW:
   uLexp O_BINARY
   uLexp O_NOINHERIT
 else:
-  uLexp O_CLOEXEC
+  pwuLexp O_CLOEXEC  # no underline: `importc: "O_CLOEXEC"`
 
 template `|`*(a,b: cint): cint = a or b
 template `|=`*(a,b: cint) = a = a or b

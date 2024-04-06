@@ -560,7 +560,7 @@ when defined(windows):
 else:
   let ENOENT{.importc, header: "<errno.h>".}: cint
   let enoent = ENOENT.int
-  proc isNotFound(err: OSErrorCode): bool = err == enoent
+  proc isNotFound(err: OSErrorCode): bool = err.int == enoent
 
 proc c_setvbuf(f: File, buf: pointer, mode: cint, size: csize_t): cint {.
   importc: "setvbuf", header: "<stdio.h>".}

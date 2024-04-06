@@ -2,19 +2,17 @@
 import ../../../io_abc
 
 import ./open_close
+import ./errnoHandle
 import std/os
 
 when defined(windows):
   # errno_t _chsize(int _FileHandle, __int64 _Size);
   proc chsize_s(fd: cint, size: int64): cint{.importc:"_chsize_s", header:"<io.h>".}
-  proc c_strerror(errnum: cint): cstring {.
-    importc: "strerror", header: "<string.h>".}
 else:
   import std/posix
-  var errno{.importc, header: "<errno.h>".}: cint
 
 template raiseErrno(err: cint) =
-  raise newException(OSError, $c_strerror(err))
+  raise newException(OSError, errnoMsg(err))
 
 proc ftruncate*(file: Positive, length: int64) =
   when defined(windows):
@@ -24,7 +22,7 @@ proc ftruncate*(file: Positive, length: int64) =
   else:
     let err = posix.ftruncate(file.cint, length.Off)
     if err.int != 0:
-      raiseErrno errno
+      raiseErrno posix.errno
 
 proc truncate*(file: CanIOOpenT, length: Natural) =
   when file is int:

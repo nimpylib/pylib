@@ -1,6 +1,6 @@
 
 import ../common
-import ./errno
+import ./errnoHandle
 
 const DWin = defined(windows)
 

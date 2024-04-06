@@ -4,7 +4,7 @@ import std/os
 import ../common
 import ../consts
 
-import ./errno
+import ./errnoHandle
 
 let EINTR{.importc, header: "<errno.h>".}: cint
 
@@ -34,7 +34,7 @@ else:
 #define DEFAULT_DIR_FD (-100)
 #endif
 """ .}
-  let DEFAULT_DIR_FD{.importc.}: cint
+  let DEFAULT_DIR_FD{.importc, nodecl.}: cint
 
 
 proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
@@ -48,9 +48,9 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
     else:
       let cflags = flags.cint or O_CLOEXEC
       if dir_fd != DEFAULT_DIR_FD:
-        fd = c_openat(dir_fd, spath.cstring, cflags, mode)
+        fd = c_openat(dir_fd.cint, spath.cstring, cflags, mode)
       else:
-        fd = posix.open(spath.cstring, cflags, mode)
+        fd = posix.open(spath.cstring, cflags, Mode mode)
       discard setInheritable(FileHandle fd, false)
     if not (
       fd < 0 and errno == EINTR
