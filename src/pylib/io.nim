@@ -645,15 +645,18 @@ proc open*[OpenT: CanIOOpenT](
     block Write:
       var f = open(fn, "w",  encoding="utf-8")
       let ret = f.write("123\r\n")
-      assert ret == 6  # Universal Newline, written "123\r\r\n"
+      when defined(windows):
+        assert ret == 6  # Universal Newline, written "123\r\r\n"
+      else:
+        assert ret == 5  # written "123\r\n"
       assert not f.closed
       f.close()
       assert f.closed
-      assert readFile(fn) == "123\r\r\n"
+      assert readFile(fn) == (when defined(windows):"123\r\r\n" else:"123\r\n")
     block Read:
       var f = open(fn, 'r')
       let uniLineRes = f.read() # Universal Newline, "123\r\n\n" -> "123\n\n"
-      assert uniLineRes == "123\n\n"
+      assert uniLineRes == (when defined(windows):"123\n\n" else:"123\n")
       f.close()
     block:
       var f = open(fn, "w+b")
