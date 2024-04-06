@@ -1,5 +1,5 @@
 
-import pylib/lib/[tempfile, random, os]
+import pylib/Lib/[tempfile, random, os]
 
 test "os":
   const fn = "tempfiletest"

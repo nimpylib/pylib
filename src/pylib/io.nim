@@ -603,6 +603,23 @@ proc openNoNonInhertFlag(f: var File, filehandle: FileHandle,
   f = c_fdopen(filehandle, fop)
   result = f != nil
 
+# patch
+# nim's implementation assumed iconv_open returns NULL on failure,
+#  which is `(iconv_t) -1` in fact.
+proc encodings_open(
+    destEncoding = "UTF-8"; srcEncoding = "CP1252";
+    errors=DefErrors  # XXX: just ignored
+  ): EncodingConverter =
+  when defined(windows):
+    encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
+  else:
+    let cvt = encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
+    if cvt == cast[EncodingConverter](-1):
+      raise newException(EncodingError,
+        "cannot create encoding converter from " &
+        srcEncoding & " to " & destEncoding)
+    cvt
+
 proc open*[OpenT: CanIOOpenT](
   file: OpenT, mode: string|char = "r",
   buffering: int = -1,
@@ -661,15 +678,17 @@ proc open*[OpenT: CanIOOpenT](
     if enc == LocaleEncoding: enc = getPreferredEncoding()
 
     try:
-      iEncCvt = encodings.open(
+      iEncCvt = encodings_open(
         destEncoding = "UTF-8",
-        srcEncoding = enc
+        srcEncoding = enc,
+        errors = errors
       )
-      oEncCvt = encodings.open(
+      oEncCvt = encodings_open(
         destEncoding = enc,
-        srcEncoding = "UTF-8"
+        srcEncoding = "UTF-8",
+        errors = errors
       )
-    except ValueError:
+    except EncodingError:
       raise newException(LookupError, "unknown encoding: " & encoding)
   
   var nfile: File
