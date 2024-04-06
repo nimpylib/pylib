@@ -38,7 +38,7 @@ else:
 
 
 proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
-
+  ## `dir_fd` is ignored under Windows
   var fd: cint
   let spath = $path
   while true:
@@ -47,7 +47,7 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
       fd = c_wopen(newWideCString(spath), cflags, mode)
     else:
       let cflags = flags.cint or O_CLOEXEC
-      if dir_fd != DEFAULT_DIR_FD:
+      if dir_fd != -1 and dir_fd != DEFAULT_DIR_FD:
         fd = c_openat(dir_fd.cint, spath.cstring, cflags, mode)
       else:
         fd = posix.open(spath.cstring, cflags, Mode mode)
