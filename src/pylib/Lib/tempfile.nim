@@ -3,6 +3,7 @@ import std/os
 import std/random
 import std/options
 
+when defined(js): {.error: "pylib tempfile not support JS currently".}
 import ../io
 export io
 

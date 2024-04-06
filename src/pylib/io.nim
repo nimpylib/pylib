@@ -1,5 +1,7 @@
 ##[
 
+*NOTE*: not support js currently
+
 ## different from Python
 
 ### open
