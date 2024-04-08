@@ -1,0 +1,340 @@
+## 
+## *NOTE*: Currently int is not acceptable when it comes to float about functions
+
+import std/math
+import std/bitops
+import std/macros
+
+
+template aCap(s: var string) =
+  let c = s[0]
+  let nc = char(uint8(c) xor 0b0010_0000'u8)
+  s[0] = nc
+
+macro expUp(x) =
+  var s = x.strVal
+  aCap s
+  let nId = ident s
+  result = quote do:
+    const `x`* = `nId`
+
+# consts:
+expUp nan  # system.NaN
+expUp inf  # system.Inf
+expUp pi
+expUp tau
+expup e
+
+template expM(x) = export math.x
+
+#expM pow  # pylib.nim has exported it
+
+expM ceil
+expM floor
+
+expM copysign
+
+template aliasFF(fn, nimfn) =
+  func fn*[F: SomeFloat](x: F): F = nimfn
+
+aliasFF fabs, abs  # system.abs, limited for float only
+
+expM trunc
+
+expM isnan
+
+func isfinite*(x: SomeFloat): bool =
+  let cls = classify(x)
+  result = cls != fcInf and cls != fcNan
+
+func isinf*(x: SomeFloat): bool = classify(x) == fcInf
+
+expM gcd
+expM lcm
+
+aliasFF dist, hypot
+
+
+expM erf
+expM erfc
+
+expM gamma
+expM lgamma
+
+expM exp
+func expm1*[F: SomeFloat](x: F): F = exp(x) - 1
+
+expM frexp
+
+when defined(js):
+  func jsldexp*(x: SomeFloat, i: int): float =
+    ## translated from
+    ## https://blog.codefrau.net/2014/08/deconstructing-floats-frexp-and-ldexp.html
+    let steps = min(3, ceil(abs(i))/1023)
+    result = x
+    for step in 0..<steps:
+      result *= pow(2, floor(step+i)/steps)
+else:
+  {.push header: "<math.h>".}
+  proc ldexpf(arg: c_float, exp: c_int): c_float{.importc.}
+  proc ldexp(arg: c_double, exp: c_int): c_double{.importc.}
+  {.pop.}
+
+template raiseDomainErr =
+  raise newException(ValueError, "math domain error") 
+
+template raiseRangeErr =
+  raise newException(OverflowDefect, " math range error")
+
+func ldexp*(x: SomeFloat, i: int): float =
+  # NaNs, zeros and infinities are returned unchanged 
+  if x == 0.0 or not isfinite(x):
+    # Nim's int is not Python's `LongObject`
+    # and we can leave Overflow for Nim to handle
+    result = x
+  else:
+    if i > cast[typeof(i)](high c_int):
+      raiseDomainErr()
+    if i < cast[typeof(i)](low c_int):
+      result = copySign(0.0, x)
+    else:
+      result = 
+        when defined(js): jsldexp(x, i)
+        else:
+          when x is float32: ldexpf(x.c_float, i.c_int)
+          else: ldexp(x.c_double, i.c_int)
+      if result.isinf():
+        raiseRangeErr()
+
+func modf*(x: SomeFloat): tuple[intpart: float, floatpart: float] =
+  splitDecimal x.float
+
+func fmod*(x: SomeNumber, y: SomeNumber): float =
+  ## equal to `x - x*trunc(x/y)`
+  result = x.float mod y.float
+  if result.isnan:
+    raiseDomainErr()
+# nim's math.`mod` alreadly does what fmod does.
+
+func remainder*(x: SomeNumber, y: SomeNumber): float =
+  let
+    fx = y.float
+    fy = x.float
+  fx - fy * round(fx/fy)
+
+type
+  # same as pylib.nim's
+  Iterable[T] = concept x
+    for value in x:
+      value is T
+
+
+func prod*[T](iterable: Iterable[T], start=1.T): T =
+  result = start
+  for i in iterable:
+    result *= i
+
+
+type MemoryError* = OutOfMemDefect
+
+const NUM_PARTIALS = 32
+
+func fsum*[T: SomeFloat](iterable: Iterable[T]): T =
+
+  # translated from CPython v3.10.5 `Modules/mathmodule.c`
+
+  type Size = BiggestUint
+  var n = 0.Size # len
+  var m: Size = NUM_PARTIALS # cap
+
+  var x, y: T
+  var p = newSeq[T](NUM_PARTIALS)
+
+  var xsave: T
+  var special_sum, inf_sum: T = 0.0
+  var hi, yr, lo{.volatile.}: T
+
+  for orix in iterable:   # for x in iterable
+    assert(0 <= n and n <= m);
+    #assert((m == NUM_PARTIALS && p == ps) ||(m >  NUM_PARTIALS && p != nil));
+
+    x = orix # as ox is immutable
+    xsave = x
+    var i: Size = 0
+    for j in 0..<n:   # for y in partials
+      y = p[j];
+      if abs(x) < abs(y):
+        swap x, y
+      hi = x + y
+      yr = hi - x
+      lo = y - yr
+      if lo != 0.0:
+        # p.add lo
+        p[i] = lo
+        i.inc
+      x = hi
+    # now `x` is the highest (max), `xsave` is the second
+
+    n = i # ps[i:] = [x]
+    if x != 0.0:
+      if not isfinite(x):
+        #[ a nonfinite x could arise either as
+          a result of intermediate overflow, or
+          as a result of a nan or inf in the
+          summands ]#
+        if isfinite(xsave):
+          raise newException(OverflowDefect,
+                "intermediate overflow in fsum")
+
+        if isinf(xsave):
+          inf_sum += xsave
+        special_sum += xsave
+        # reset partials
+        n = 0
+      elif n >= m:
+        #_fsum_realloc(&p, n, ps, &m)
+        m *= 2
+        try:
+          p.setLen m
+        except OutOfMemDefect:
+          raise newException(MemoryError, "math.fsum partials")
+      else:
+        p[n] = x
+        n.inc
+
+  if special_sum != 0.0:
+    if isnan(inf_sum):
+      raise newException(ValueError,
+                      "-inf + inf in fsum");
+    else:
+      result = special_sum
+      return
+
+  hi = 0.0
+  if n > 0:
+    n.dec
+    hi = p[n]
+    #[ sum_exact(ps, hi) from the top, stop when the sum becomes
+      inexact. ]#
+    while n > 0:
+      x = hi
+      n.dec
+      y = p[n]
+      assert(abs(y) < abs(x))
+      hi = x + y
+      yr = hi - x
+      lo = y - yr
+      if (lo != 0.0):
+        break
+    #[ Make half-even rounding work across multiple partials.
+      Needed so that sum([1e-16, 1, 1e16]) will round-up the last
+      digit to two instead of down to zero (the 1e-16 makes the 1
+      slightly closer to two).  With a potential 1 ULP rounding
+      error fixed-up, math.fsum() can guarantee commutativity. ]#
+    if (n > 0 and ((lo < 0.0 and p[n-1] < 0.0) or
+                  (lo > 0.0 and p[n-1] > 0.0))):
+      y = lo * 2.0
+      x = hi + y
+      yr = x - hi
+      if y == yr:
+        hi = x
+
+  result = hi
+
+expM log
+aliasFF log, ln
+
+expM log2
+expM log10
+
+func log1p*[F: SomeFloat](x: F): F = log(1+x)
+
+aliasFF degress, radToDeg
+
+aliasFF radians, degToRad
+
+expM sin
+expM sinh
+expM cos
+expM cosh
+expM tan
+expM tanh
+
+
+aliasFF asin, arcsin
+aliasFF asinh, arcsinh
+aliasFF acos, arccos
+aliasFF acosh, arccosh
+aliasFF atan, arctan
+aliasFF atan2, arctan2
+aliasFF atanh, arctanh
+
+
+func comb*(n, k: int): int = binom(n, k)
+
+func perm*(n: int): int =
+  ## equal to `perm(n,n)`, returns `n!`
+  fac n
+
+func perm*(n, k: Natural): int =
+  if k > n: return 0
+  result = n
+  for i in 1..<k:
+    result *= n-i
+
+
+func factorial*(x: Natural): int =
+  fac x
+
+expM sqrt
+
+const BitPerByte = 8
+func bit_length(x: SomeInteger): int =
+  sizeof(x) * BitPerByte - bitops.countLeadingZeroBits x
+
+func isqrt*[T: SomeNumber](x: T): int =
+  runnableExamples:
+    assert 2 == isqrt 5
+  #[ the following is from CPython 3.10.5 source `Modules/mathmodule.c`:
+
+    Here's Python code: 
+
+    def isqrt(n):
+        """
+        Return the integer part of the square root of the input.
+        """
+        n = operator.index(n)
+
+        if n < 0: raise ValueError("isqrt() argument must be nonnegative")
+        if n == 0: return 0
+
+        c = (n.bit_length() - 1) // 2
+        a = 1
+        d = 0
+        for s in reversed(range(c.bit_length())):
+            # Loop invariant: (a-1)**2 < (n >> 2*(c - d)) < (a+1)**2
+            e = d
+            d = c >> s
+            a = (a << d - e - 1) + (n >> 2*c - e - d + 1) // a
+
+        return a - (a*a > n)]#
+  let n = int(x)
+
+  if n < 0:
+    raise newException(ValueError, "isqrt() argument must be nonnegative")
+  if n == 0: return 0
+  let c = (n.bit_length() - 1) div 2
+  var
+    a = 1
+    d = 0
+  if c != 0:
+    for s in countdown(c.bit_length() - 1, 0):
+      # Loop invariant: (a-1)**2 < (n >> 2*(c - d)) < (a+1)**2
+      let e = d
+      d = c shr s
+      a = (a shl d - e - 1) + (n shr (2*c) - e - d + 1) div a
+
+  result = a
+  if (a*a > n):
+    result.dec
+
