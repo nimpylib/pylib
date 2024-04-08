@@ -1,4 +1,12 @@
 import std/math
+export math.round, math.pow
+
+import ./modPow
+export modPow.pow
+
+func pow*(base, exp, modulo: float){.error: 
+  "TypeError: pow() 3rd argument not allowed unless all arguments are integers".}
+  ## raises Error like Python does, but a static error instead of runtime
 
 # Power templates for different types of arguments
 template `**`*[T](a: T, b: Natural): T = a ^ b

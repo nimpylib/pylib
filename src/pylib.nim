@@ -5,7 +5,7 @@ import std/[
   strutils, math, macros, unicode, tables, strformat, times, json, os,
 ]
 
-export math, tables
+export tables
 
 import pylib/[
   print, types, ops, unpack,
@@ -120,10 +120,6 @@ func any*[T](iter: Iterable[T]): bool =
   for element in iter:
     if bool(element):
       return true
-
-func divmod*(a, b: SomeInteger): (int, int) =
-  ## Mimics Pythons ``divmod()``.
-  result = (int(a / b), int(a mod b))
 
 func chr*(a: SomeInteger): string =
   $Rune(a)
