@@ -224,26 +224,36 @@ iterator enumerate*[T](x: Iterable[T]): (int, T) =
     yield (i, v)
     i.inc
 
-when defined(js):
-  # XXX: a workaround, at least support some types
-  func list*[T](arr: openArray[T]): seq[T] =
-    for i in arr:
+
+template listImpl(iter, result) =
+  when compiles(iter.len):
+    result = newSeq[T](iter.len)
+    for i, v in enumerate(iter):
+      result[i] = v
+  else:
+    for i in iter:
       result.add i
-  proc list*[T](iter: not openArray[T] and Iterable[T]): seq[T]{.error:"""
-XXX: when for js:
+
+
+when defined(js):
+  #[ XXX: a workaround, at least support some types
+   when for js:
  nim compiler will complain about `for i in iter`'s `i` ,
- saying: internal error: expr(nkBracketExpr, tyUserTypeClassInst)
-""".} # TODO: when solved, remove workaround below.
+ saying: internal error: expr(nkBracketExpr, tyUserTypeClassInst) ]#
+  func list*[T](arr: openArray[T]): seq[T] =
+    result = newSeq[T](arr.len)
+    for i,v in enumerate(arr):
+      result[i] = v
+  proc list*[T](iter: not openArray[T] and Iterable[T]): seq[T] = 
+    #listImpl iter, result
+    # XXX: Code above makes compiler error:
+    # `internal error: genTypeInfo(tyInferred)`
+    for i in iter:
+      result.add i
 else:
   # it has side effects as it calls `items`
   proc list*[T](iter: Iterable[T]): seq[T] =
-    when compiles(iter.len):
-      result = newSeq[T](iter.len)
-      for i, v in enumerate(iter):
-        result[i] = v
-    else:
-      for i in iter:
-        result.add i
+    listImpl iter, result
 
 when defined(js):
   func filter*[T](comp: NoneType | proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
