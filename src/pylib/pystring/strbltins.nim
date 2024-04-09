@@ -1,13 +1,47 @@
 
-
 import std/strutils
-from std/unicode import runeAt, utf8
+from std/unicode import runeAt, utf8, runeLen, Rune, `$`
+from std/strformat import fmt
+
+template f*(a: string): string = fmt a
+
+template u*(a: string): string = a
+template u*(a: char): string = $a
+template b*(a: string): string = a
+template b*(a: char): string = $a
 
 template str*(a: untyped): string = $a
 template unicode*(a: untyped): string = $a
 
 
-template ord(a: string): int = system.int(a.runeAt(0))
+func chr*(a: SomeInteger): string =
+  if a.int notin 0..0x110000:
+    raise newException(ValueError, "chr() arg not in range(0x110000)")
+  result = $Rune(a)
+
+
+func ord1*(a: string): int =
+  runnableExamples:
+    assert ord1("123") == ord("1")
+  result = system.int(a.runeAt(0))
+
+type
+  TypeError* = object of CatchableError
+
+proc ord*(a: string): int =
+  runnableExamples:
+    doAssert ord("δ") == 0x03b4
+    when not defined(release):
+      doAssertRaises TypeError:
+        discard ord("12")
+
+  when not defined(release):
+    let ulen = a.runeLen
+    if ulen != 1:
+      raise newException(TypeError, 
+        "TypeError: ord() expected a character, but string of length " & $ulen & " found")
+  result = ord1 a
+
 proc raw_ascii(us: string
   ,e1: static[bool] = false # if skip(not escape) `'`(single quotation mark)
   ,e2: static[bool] = false # if skip(not escape) `"`(double quotation mark)
@@ -31,9 +65,9 @@ proc raw_ascii(us: string
         if c == '\e': result.add "\\x1b"
         else: add12 s
     elif s.len<4:
-      result.add r"\u" & ord(s).toHex(4).toLowerAscii
+      result.add r"\u" & ord1(s).toHex(4).toLowerAscii
     else:
-      result.add r"\U" & ord(s).toHex(8)
+      result.add r"\U" & ord1(s).toHex(8)
 
 proc ascii*(us:string): string=
   ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
@@ -79,6 +113,7 @@ template ascii*(c: char): string =
       import std/assertions
     assert ascii('c') == "'c'"
   ascii($c)
+
 template ascii*(a: untyped): string =
   runnableExamples:
     when defined(nimPreviewSlimSystem):
@@ -86,19 +121,3 @@ template ascii*(a: untyped): string =
     assert ascii(6) == "6"
   raw_ascii($a)
 
-
-template u*(a: string): string = a
-template u*(a: char): string = $a
-template b*(a: string): string = a
-template b*(a: char): string = $a
-template int*(a: string): BiggestInt = parseBiggestInt(a)
-template int*(a: char): BiggestInt = parseBiggestInt($a)
-template int*[T: SomeNumber](a: T): untyped = system.int(a)
-template int*(a: bool): int = (if a: 1 else: 0)
-template long*(a: string): BiggestInt = parseBiggestInt(a)
-template long*(a: char): BiggestInt = parseBiggestInt($a)
-template long*[T: SomeNumber](a: T): untyped = system.int(a)
-template long*(a: bool): int = (if a: 1 else: 0)
-template float*(a: string): BiggestFloat = parseFloat(a)
-template float*[T: SomeNumber](a: T): untyped = system.float(a)
-template float*(a: bool): float = (if a: 1.0 else: 0.0)
