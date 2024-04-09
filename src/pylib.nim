@@ -218,8 +218,18 @@ iterator items*[T](f: Filter[T]): T =
   for x in f.iter():
     yield x
 
+iterator enumerate*[T](x: Iterable[T]): (int, T) =
+  var i = 0
+  for v in x:
+    yield (i, v)
+    i.inc
+
 when defined(js):
-  proc list*[T](iter: Iterable[T]): seq[T]{.error:"""
+  # XXX: a workaround, at least support some types
+  func list*[T](arr: openArray[T]): seq[T] =
+    for i in arr:
+      result.add i
+  proc list*[T](iter: not openArray[T] and Iterable[T]): seq[T]{.error:"""
 XXX: when for js:
  nim compiler will complain about `for i in iter`'s `i` ,
  saying: internal error: expr(nkBracketExpr, tyUserTypeClassInst)
@@ -227,12 +237,13 @@ XXX: when for js:
 else:
   # it has side effects as it calls `items`
   proc list*[T](iter: Iterable[T]): seq[T] =
-    for i in iter:
-      result.add i
-# XXX: a workaround, at least support some types
-func list*[T](arr: openArray[T]): seq[T] =
-  for i in arr:
-    result.add i
+    when compiles(iter.len):
+      result = newSeq[T](iter.len)
+      for i, v in enumerate(iter):
+        result[i] = v
+    else:
+      for i in iter:
+        result.add i
 
 when defined(js):
   func filter*[T](comp: NoneType | proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
@@ -263,7 +274,7 @@ else:
       let filtered = list(filter(None, values))
       doAssert filtered == @["yes", "no", "why"]
 
-    result = filter[T](pylib.bool, iter)
+    result = filter[T](toBool, iter)
 
 
 proc input*(prompt = ""): string =

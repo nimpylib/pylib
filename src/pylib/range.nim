@@ -65,11 +65,3 @@ func min*[T](x: Range[T]): T {.inline.} =
 func max*[T](x: Range[T]): T {.inline.} =
   ## Get maximum value from range
   x[if x.step > 0: x.len - 1 else: 0]
-
-func list*[T](x: Range[T]): seq[T] =
-  ## Generate sequence of numbers from given range
-  result = newSeq[T](x.len)
-  var i = 0
-  for val in x:
-    result[i] = val
-    inc i
