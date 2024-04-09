@@ -13,9 +13,29 @@ task testJs, "Test JS":
 task testC, "Test C":
   exec "nim r --experimental:strictFuncs --mm:orc tests/tester"
 
+import std/os
 task testDoc, "Test doc-gen and runnableExamples":
-  exec "nim doc --project --outdir:docs src/pylib.nim"
+  var arg = "pylib.nim"
+  let argn = paramCount()
+  if argn > 1:
+    let a1 = paramStr argn-1
+    if a1 == "e" or a1 == "testDoc":
+      arg = paramStr argn
+  exec "nim doc --project --outdir:docs " & srcDir / arg
 
+task testLibDoc, "Test doc-gen and runnableExamples":
+  let libDir = srcDir / "pylib/Lib"
+  #for f in walkFiles libDir/"*.nim":  # walkFiles not support nims
+  let nimSuf = ".nim"
+  for t in walkDir libDir:
+    if t.kind in {pcDir, pcLinkToDir}: continue
+    let fp = t.path
+    var cmd = "nim doc"
+    if fp.endsWith nimSuf:
+      if (fp[0..(fp.len - nimSuf.len-1)] & "_impl").dirExists:
+        cmd.add " --project"
+      exec cmd & " --outdir:docs/Lib " & fp
+  
 task test, "Runs the test suite":
   # Test C
   testCTask()
@@ -23,3 +43,4 @@ task test, "Runs the test suite":
   testJsTask()
   # Test all runnableExamples
   testDocTask()
+  testLibDocTask()
