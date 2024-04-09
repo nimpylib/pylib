@@ -2,7 +2,7 @@ when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
 import std/[
-  strutils, math, macros, unicode, tables, strformat, times, json, os,
+  strutils,  macros, unicode, tables, strformat, times, json, os,
 ]
 
 export tables

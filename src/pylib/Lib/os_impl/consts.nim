@@ -33,15 +33,6 @@ else:
     defpath* = "/bin:/usr/bin"
 
 const DW = defined(windows)
-macro uLexp(i; header: string = "<fcntl.h>") =
-  ## POSIX/Windows `importc` and export
-  ## add prefix underline when `importc` under Windows
-  let
-    strv = i.strVal
-    cn = '_' & strv
-    cnn = newLit cn
-  result = quote do:
-    let `i`*{.importc: `cnn`, header: `header`.}: cint
 
 macro pwULexp(i; header: string = "<fcntl.h>") =
   ## POSIX/Windows `importc` and export
@@ -64,10 +55,20 @@ pwULexp O_EXCL
 pwULexp O_TRUNC
 
 when DW:
+  macro uLexp(i; header: string = "<fcntl.h>") =
+    ## POSIX/Windows `importc` and export
+    ## add prefix underline when `importc` under Windows
+    let
+      strv = i.strVal
+      cn = '_' & strv
+      cnn = newLit cn
+    result = quote do:
+      let `i`*{.importc: `cnn`, header: `header`.}: cint
+
   uLexp O_BINARY
   uLexp O_NOINHERIT
 else:
-  pwuLexp O_CLOEXEC  # no underline: `importc: "O_CLOEXEC"`
+  pwULexp O_CLOEXEC  # no underline: `importc: "O_CLOEXEC"`
 
 template `|`*(a,b: cint): cint = a or b
 template `|=`*(a,b: cint) = a = a or b
