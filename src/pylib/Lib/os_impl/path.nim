@@ -24,7 +24,7 @@ template fsExp(nam, nimProc){.dirty.} =
 template psExp(nam, nimProc){.dirty.} =
   templpExp(nam, nimProc, string)
 
-fbExp isabc, isAbsolute
+fbExp isabs, isAbsolute
 pbExp isfile, fileExists
 pbExp isdir, dirExists
 
