@@ -59,7 +59,7 @@ template `%`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = a % A(b)
 template `%`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = B(a) % b
 
 
-func `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): int | float {.inline.} =
+func `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): SomeNumber {.inline.} =
   ## Python-like floor division
   runnableExamples:
     assert 13 // -3 == -5

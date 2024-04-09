@@ -11,7 +11,7 @@ test "Python-like types":
 test "divmod":
   check divmod(666, 1024) == (0, 666)
   check divmod(4, 2) == (2, 0)
-  check divmod(4.int8, 2.int8) == (2, 0)
+  check divmod(4.int8, 2.int8) == (2'i8, 0'i8)
 
 test "pass":
   pass 42  # Mimic pass, instead of discard, not exactly the same but close.
