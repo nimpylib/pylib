@@ -40,3 +40,9 @@ when not defined(js):
 test "random":
   # TODO: more test (maybe firstly set `seed`)
   check randint(1,2) in 1..2
+
+import pylib/Lib/string
+
+test "Lib/string":
+  check "hello δδ".capwords == "Hello Δδ" ## support Unicode
+  check "01234".capwords == "01234"

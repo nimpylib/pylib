@@ -9,8 +9,6 @@ test "String operations":
 
   check "a\u2000 \u2000b".split() == @["a","b"] ## \u2000 is of Unicode spaces
   check capitalize("aBΔ") == "Abδ"
-  check "hello δδ".capwords == "Hello Δδ" ## support Unicode
-  check "01234".capwords == "01234"
 
   check "a".center(9) == "    a    "
   check "a".center(1) == "a"
@@ -28,9 +26,9 @@ test "String operations":
   check "a" or "b" == "a"
   check "" or "b" == "b"
 
-  check f"{666.0} Hello {42} World {true} ! {1 + 2}" == "666.0 Hello 42 World true ! 3"
-  check f"" == ""
-  check f" " == " "
-  check f"""""" == ""
-  check f""" """ == " "
-  check f"hello {42}" & " world" == "hello 42 world"
+  check fr"{666.0} Hello {42} World {true} ! {1 + 2}" == "666.0 Hello 42 World true ! 3"
+  check fr"" == ""
+  check fr" " == " "
+  check fr"""""" == ""
+  check fr""" """ == " "
+  check fr"hello {42}" & " world" == "hello 42 world"

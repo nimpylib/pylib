@@ -10,16 +10,15 @@ export tables
 import pylib/[
   noneType, pybool, iters, collections_abc,
   print, input, numTypes, radixCvt, ops, unpack,
-  pystring/strops, pystring/pystring, pystring/strbltins,
-  tonim, pyrange, pytables,
+  pystring, tonim, pyrange, pytables,
   pysugar]
 when not defined(js):
   import pylib/io
   export io
 export
   noneType, pybool, iters, collections_abc,
-  print, input, numTypes, radixCvt, ops, unpack, strops,
-  pystring, strbltins, tonim, pyrange, pytables,
+  print, input, numTypes, radixCvt, ops, unpack,
+  pystring, tonim, pyrange, pytables,
   pysugar
 
 when not defined(pylibNoLenient):

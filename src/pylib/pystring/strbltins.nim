@@ -1,14 +1,6 @@
 
 import std/strutils
 from std/unicode import runeAt, utf8, runeLen, Rune, `$`
-from std/strformat import fmt
-
-template f*(a: string): string = fmt a
-
-template u*(a: string): string = a
-template u*(a: char): string = $a
-template b*(a: string): string = a
-template b*(a: char): string = $a
 
 template str*(a: untyped): string = $a
 template unicode*(a: untyped): string = $a
