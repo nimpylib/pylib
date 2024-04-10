@@ -1,4 +1,4 @@
-version       = "0.8.1"
+version       = "0.8.2"
 author        = "Danil Yarantsev (Yardanico), Juan Carlos (juancarlospaco), lit (litlighilit)"
 description   = "Nim library with python-like functions and operators"
 license       = "MIT"
