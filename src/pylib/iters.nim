@@ -8,10 +8,8 @@ export noneType.None
 
 type Filter[T] = object
   iter: iterator(): T
-iterator items*[T](f: Filter[T]): T =
-  #while(let x = f.iter(); not finished(f.iter)):
-  for x in f.iter():
-    yield x
+template items*[T](f: Filter[T]): T =
+  f.iter()
 
 iterator enumerate*[T](x: Iterable[T]): (int, T) =
   var i = 0
