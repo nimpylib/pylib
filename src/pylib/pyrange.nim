@@ -70,3 +70,14 @@ func max*[T](x: Range[T]): T {.inline.} =
   if unlikely(x.len == 0):
     raise newException(ValueError, "max() arg is an empty sequence")
   x[if x.step > 0: x.len - 1 else: 0]
+
+func `==`[T](x, y: Range[T]): bool =
+  ## Since Python 3.3:
+  ## Compares based on the sequence of values they define 
+  ## (instead of comparing based on object identity).
+  let eqLen = x.len == y.len
+  if eqLen and x.len == 0: return true  # empty ranges are equal
+
+  if x.start == y.start and x.step == y.step:
+      if x.stop == y.stop: return true
+      return eqLen
