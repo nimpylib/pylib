@@ -2,8 +2,8 @@ import std/[strutils, math]
 
 type
   Range*[T] = object ## Python-like range object
-    start, stop: T
-    step, len: int
+    start*, stop*: T  ## `start`, `stop`, `step` are exported since Python 3.3
+    step*, len: int
 
 func `$`*[T](rng: Range[T]): string =
   if rng.step != 1:
