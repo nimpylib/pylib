@@ -60,9 +60,13 @@ func `[]`*[T](x: Range[T], y: Natural): T {.inline.} =
   result = x.start + (x.step * y)
 
 func min*[T](x: Range[T]): T {.inline.} =
-  ## Get minimum value from range
+  ## Get minimum value from range. Python's `max(range(...))`
+  if unlikely(x.len == 0):
+    raise newException(ValueError, "min() arg is an empty sequence")
   x[if x.step > 0: 0 else: x.len - 1]
 
 func max*[T](x: Range[T]): T {.inline.} =
-  ## Get maximum value from range
+  ## Get maximum value from range. Python's `max(range(...))`
+  if unlikely(x.len == 0):
+    raise newException(ValueError, "max() arg is an empty sequence")
   x[if x.step > 0: x.len - 1 else: 0]
