@@ -20,7 +20,8 @@ func range*[T: SomeInteger](start, stop: T, step: int): Range[T] =
   result.stop = stop
   result.step = step
   result.len = int(math.ceil((stop - start) / step))
-
+  if result.len < 0: result.len = 0
+  
 template range*[T: SomeInteger](start, stop: T): Range[T] =
   ## Shortcut for range(start, stop, 1)
   range(start, stop, 1)

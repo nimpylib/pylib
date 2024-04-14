@@ -3,6 +3,7 @@ test "Range-like Nim procedure":
   # just templates calling toSeq(range iterator(arguments))
   checkpoint "One argument - stop"
   check len(range(1)) == 1
+  check len(range(4,0)) == 0
   check list(range(5)) == @[0, 1, 2, 3, 4]
   checkpoint "Two arguments - start and stop"
   check list(range(3, 5)) == @[3, 4]
