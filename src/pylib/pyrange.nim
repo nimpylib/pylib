@@ -71,6 +71,15 @@ func max*[T](x: Range[T]): T {.inline.} =
     raise newException(ValueError, "max() arg is an empty sequence")
   x[if x.step > 0: x.len - 1 else: 0]
 
+func count*[T](r: Range[T], x: T): int =
+  int(x in r)
+
+func index*[T](r: Range[T], x: T): int =
+  if x notin r:
+    raise newException(ValueError, $x & " is not in range")
+  int((x - r.start) div r.step)
+  
+
 func `==`[T](x, y: Range[T]): bool =
   ## Since Python 3.3:
   ## Compares based on the sequence of values they define 
