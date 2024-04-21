@@ -31,7 +31,7 @@ macro genIter(def) =
   let typId = ident sName.capital()
   result = newStmtList()
   result.add quote do:
-    when not declared(`typId`):  # XXX: allow overload
+    when not declared(`typId`):  # XXX: allow overload/defined types
       type `typId`[T] = object
         iter: iterator(): `rtype`
       template items*[T](x: `typId`[T]): `rtype` =
@@ -96,3 +96,18 @@ proc list*[T](iter: Iterable[T]): seq[T] =
   else:
     for i in iter:
       result.add i
+
+type Map[R] = object
+  iter: iterator (): R
+template items*[T](x: Map[T]): T =
+  x.iter()
+
+iterator map*[T, R](function: proc (x: T): R,
+  iterable: Iterable[T]): R{.genIter.} =
+  for i in iterable:
+    yield function(i)
+
+#[ XXX: hard to impl, may impl via macro
+iterator map*[T, R](function: proc (xs: varargs[T]): R,
+  iterables: varargs[Iterable[T]]): R{.genIter.}
+]#
