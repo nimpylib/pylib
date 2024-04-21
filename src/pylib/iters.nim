@@ -12,6 +12,10 @@ func capital(s: string): string =
   ## assume s[0].isLowerAscii()
   char(s[0].ord - 32) & s.substr(1)
 
+template makeIterable(Typ) =
+  template items*(x: Typ): untyped =
+    x.iter()
+
 macro genIter(def) =
   ## Generates code of non-reentrant iterable,
   ## according to an iterator.
@@ -34,8 +38,7 @@ macro genIter(def) =
     when not declared(`typId`):  # XXX: allow overload/defined types
       type `typId`[T] = object
         iter: iterator(): `rtype`
-      template items*[T](x: `typId`[T]): `rtype` =
-        x.iter()
+      makeIterable `typId`
       
   var funcDef = newProc(nameAstr, procType=nnkFuncDef, pragmas=otherPragmas)
   funcDef[2] = genericParams
@@ -99,8 +102,7 @@ proc list*[T](iter: Iterable[T]): seq[T] =
 
 type Map[R] = object
   iter: iterator (): R
-template items*[T](x: Map[T]): T =
-  x.iter()
+makeIterable Map
 
 iterator map*[T, R](function: proc (x: T): R,
   iterable: Iterable[T]): R{.genIter.} =
