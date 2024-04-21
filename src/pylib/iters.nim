@@ -6,19 +6,83 @@ from ./pybool import toBool
 import ./noneType
 export noneType.None
 
-type Filter[T] = object
-  iter: iterator(): T
-template items*[T](f: Filter[T]): T =
-  f.iter()
+import std/macros
 
-iterator enumerate*[T](x: Iterable[T]): (int, T) =
+func capital(s: string): string =
+  ## assume s[0].isLowerAscii()
+  char(s[0].ord - 32) & s.substr(1)
+
+macro genIter(def) =
+  ## Generates code of non-reentrant iterable,
+  ## according to an iterator.
+  expectKind def, nnkIteratorDef
+  let nameAstr = def[0]
+  expectKind nameAstr, nnkPostfix
+  let name = nameAstr[1]
+  let
+    genericParams = def[2]
+    r_params = def[3]
+    otherPragmas = def[4]
+    body = def.body  # def[5]
+
+  let rtype = r_params[0]
+
+  let sName = name.strVal
+  let typId = ident sName.capital()
+  result = newStmtList()
+  result.add quote do:
+    when not declared(`typId`):  # XXX: allow overload
+      type `typId`[T] = object
+        iter: iterator(): `rtype`
+      template items*[T](x: `typId`[T]): `rtype` =
+        x.iter()
+      
+  var funcDef = newProc(nameAstr, procType=nnkFuncDef, pragmas=otherPragmas)
+  funcDef[2] = genericParams
+  funcDef[3] = r_params.copy()
+  # genericParams[0].kind == nnkIdentDefs 
+  let funcResType = genericParams[0][0]
+  funcDef[3][0] = nnkBracketExpr.newTree(typId, funcResType)
+  # no need to strip doc manually,
+  #  as `body` is of lambda iterator.
+  let funcBody = quote do:
+    result.iter = iterator(): `rtype` = `body`  
+  funcDef.body = funcBody
+  result.add funcDef
+      
+  result.add def
+
+iterator filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): T{.genIter.} =
+  runnableExamples:
+    proc isAnswer(arg: string): bool =
+      return arg in ["yes", "no", "maybe"]
+
+    let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
+    let filtered = filter(isAnswer, values)  # invoke `proc filter`
+    doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
+
+  for item in iter:
+    if comp(item):
+      yield item
+
+iterator filter*[T](comp: NoneType, iter: Iterable[T]): T{.genIter.} =
+  runnableExamples:
+    let values = @["", "", "", "yes", "no", "why"]
+    let filtered = list(filter(None, values))  # invoke `proc filter`
+    doAssert filtered == @["yes", "no", "why"]
+
+  for item in iter:
+    if toBool(item):
+      yield item
+
+iterator enumerate*[T](x: Iterable[T]): (int, T){.genIter.} =
   var i = 0
   for v in x:
     yield (i, v)
     i.inc
 
-
-template listImpl(iter, result){.used.} =
+# it has side effects as it may call `items`
+proc list*[T](iter: Iterable[T]): seq[T] =
   when compiles(iter.len):
     result = newSeq[T](iter.len)
     for i, v in enumerate(iter):
@@ -26,57 +90,3 @@ template listImpl(iter, result){.used.} =
   else:
     for i in iter:
       result.add i
-
-
-when defined(js):
-  #[ XXX: a workaround, at least support some types
-   when for js:
- nim compiler will complain about `for i in iter`'s `i` ,
- saying: internal error: expr(nkBracketExpr, tyUserTypeClassInst) ]#
-  func list*[T](arr: openArray[T]): seq[T] =
-    result = newSeq[T](arr.len)
-    for i,v in enumerate(arr):
-      result[i] = v
-  proc list*[T](iter: not openArray[T] and Iterable[T]): seq[T] = 
-    #listImpl iter, result
-    # XXX: Code above makes compiler error:
-    # `internal error: genTypeInfo(tyInferred)`
-    for i in iter:
-      result.add i
-else:
-  # it has side effects as it calls `items`
-  proc list*[T](iter: Iterable[T]): seq[T] =
-    listImpl iter, result
-
-
-when defined(js):
-  func filter*[T](comp: NoneType | proc(arg: T): bool, iter: Iterable[T]): Filter[T]{.error: """
-Closure iterator is not supported for JS (Filter is impl via lambda iterator)
-""".} # TODO: impl by other methods & when solved, update tests in `tmisc.nim`
-else:
-  func filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): Filter[T] =
-    ## Python-like filter(fun, iter)
-    runnableExamples:
-      proc isAnswer(arg: string): bool =
-        return arg in ["yes", "no", "maybe"]
-
-      let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
-      let filtered = filter(isAnswer, values)
-      doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
-
-    var it =
-      iterator(): T =
-        for item in iter:
-          if comp(item):
-            yield item
-    Filter[T](iter: it)
-
-  func filter*[T](arg: NoneType, iter: Iterable[T]): Filter[T] =
-    ## Python-like filter(None, iter)
-    runnableExamples:
-      let values = @["", "", "", "yes", "no", "why"]
-      let filtered = list(filter(None, values))
-      doAssert filtered == @["yes", "no", "why"]
-
-    result = filter[T](toBool, iter)
-
