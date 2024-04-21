@@ -75,8 +75,8 @@ iterator filter*[T](comp: NoneType, iter: Iterable[T]): T{.genIter.} =
     if toBool(item):
       yield item
 
-iterator enumerate*[T](x: Iterable[T]): (int, T){.genIter.} =
-  var i = 0
+iterator enumerate*[T](x: Iterable[T], start=0): (int, T){.genIter.} =
+  var i = start
   for v in x:
     yield (i, v)
     i.inc
