@@ -81,6 +81,12 @@ iterator enumerate*[T](x: Iterable[T], start=0): (int, T){.genIter.} =
     yield (i, v)
     i.inc
 
+func list*[T](): seq[T] =
+  runnableExamples:
+    assert list[int]() == list[int]([])
+  discard
+  
+
 # it has side effects as it may call `items`
 proc list*[T](iter: Iterable[T]): seq[T] =
   when compiles(iter.len):
