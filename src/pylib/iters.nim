@@ -1,7 +1,7 @@
 
 
 
-from ./collections_abc import Iterable
+from ./collections_abc import Iterable, Sized
 from ./pybool import toBool
 import ./noneType
 export noneType.None
@@ -113,3 +113,32 @@ iterator map*[T, R](function: proc (x: T): R,
 iterator map*[T, R](function: proc (xs: varargs[T]): R,
   iterables: varargs[Iterable[T]]): R{.genIter.}
 ]#
+
+type Zip[T] = object
+  iter: iterator (): T
+makeIterable Zip
+
+type SizedGetitem = concept self
+  self is Sized
+  self[int]
+
+iterator zip*[A, B](it1: Iterable[A], it2: Iterable[B], strict: static[bool]=false): (A, B){.genIter.} =
+  template handleBound(ordLonger: int) =
+    when strict: raise newException(ValueError, 
+      "zip() argument " & $ordLonger & " is longer than argument " & $(ordLonger-1))
+    else: break
+  when it1 is SizedGetitem:
+    let le = it1.len
+    for i, v in enumerate(it2):
+      if i == le: handleBound 2
+      yield (it1[i], v)
+  elif it2 is SizedGetitem:
+    let le = it2.len
+    for i, v in enumerate(it1):
+      if i == le: handleBound 1
+      yield (v, it2[i])
+  else:
+    {.error: "this kind of `zip` is not implemented yet".}
+
+# XXX: worthy to impl? macro zip*[T](iterables: varargs[typed], strict=false)
+
