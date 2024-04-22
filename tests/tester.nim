@@ -36,6 +36,6 @@ macro gen =
         if pureName in jsExclude:
           continue
       result.add newLit fp
-  echo result.repr
+  #echo result.repr
 
 gen()
