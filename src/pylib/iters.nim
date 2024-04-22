@@ -98,7 +98,7 @@ iterator enumerate*[T](x: Iterable[T], start=0): (int, T){.genIter.} =
 
 func list*[T](): seq[T] =
   runnableExamples:
-    assert list[int]() == list[int]([])
+    assert len(list[int]()) == 0
   discard
   
 

@@ -260,7 +260,7 @@ macro translateEscapeWithErr(pattern: string): string =
 template f*(s: static[string]): string =
   ## Python F-String.
   ## 
-  ## _Not_ the same as Nim's fmt"xxx"
+  ## *Not* the same as Nim's fmt"xxx"
   ##  as that's equal to `fmt r"xxx"`, a.k.a fr"xx" in Python
   ## 
   ## Any escape-translation error is reported at compile-time,
