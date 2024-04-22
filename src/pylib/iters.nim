@@ -1,5 +1,17 @@
-
-
+## Some iterable in builtins
+##
+## XXX: For JS backend:
+## Currently due to Nim's inner buys, using of some iterable functions in this modules
+## may result in `Error: ...`:
+## 
+## - list(...)
+## - filter/map/... as func (using iterator is okey)  (solved after Nim-2.1.1)
+## 
+## For details, trace:
+## 
+## - closure iterator: https://github.com/nim-lang/Nim/issues/4695  (solved after Nim-2.1.1)
+## - `concept` about `for loop`: 
+##   https://github.com/nim-lang/Nim/issues/9550#issuecomment-2045173674
 
 from ./collections_abc import Iterable, Sized
 from ./pybool import toBool
