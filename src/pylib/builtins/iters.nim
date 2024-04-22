@@ -13,7 +13,7 @@
 ## - `concept` about `for loop`: 
 ##   https://github.com/nim-lang/Nim/issues/9550#issuecomment-2045173674
 
-from ../collections_abc import Iterable, Sized
+from ../collections_abc import Iterable, Sized, Sequence
 from ../pybool import toBool
 import ../noneType
 export noneType.None
@@ -96,11 +96,11 @@ iterator enumerate*[T](x: Iterable[T], start=0): (int, T){.genIter.} =
     yield (i, v)
     i.inc
 
-func list*[T](): seq[T] =
-  runnableExamples:
-    assert len(list[int]()) == 0
-  discard
-  
+iterator reversed*[T](x: Sequence[T]): T{.genIter.} =
+  let le = len(x)
+  for i in countdown(le-1, 0):
+    yield x[i]
+
 
 # it has side effects as it may call `items`
 proc list*[T](iter: Iterable[T]): seq[T] =
