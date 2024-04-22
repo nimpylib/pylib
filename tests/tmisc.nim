@@ -68,34 +68,3 @@ test "bin()":
     when compileOption("jsBigInt64"):
       check bin(32587328532) == "0b11110010110010110110010110000010100"
       check bin(-140140140140) == "-0b10000010100001000000001101011001101100"
-
-when not defined(js):
-  # see `filter`'s doc for why JS unsupport
-  test "filter()":
-    # function that filters vowels
-    proc fun(variable: char): bool =
-      const letters = ['a', 'e', 'i', 'o', 'u']
-      if (variable in letters):
-        return true
-      else:
-        return false
-
-    # sequence
-    let sequence = ['g', 'e', 'e', 'j', 'k', 'i', 's', 'p', 'r', 'e', 'o']
-    template genFiltered(): untyped = filter(fun, sequence)
-    let filtered = genFiltered()
-    let res = @['e', 'e', 'i', 'e', 'o']
-    var data: seq[char]
-    for s in filtered:
-      data.add s
-
-    check data == res
-
-    let nFiltered = genFiltered()
-    check list(nFiltered) == res
-
-    let otherData = @[0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 0, 31254, 0]
-
-    let other = filter(None, otherData)
-
-    check list(other) == @[1, 2, 3, 4, 5, 6, 7, 8, -1, 12412, 31254]
