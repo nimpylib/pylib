@@ -2,23 +2,20 @@ when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
 import std/[
-  strutils, tables, times, json, os,
+  strutils, tables, times, os,
 ]
 
 export tables
 
-import pylib/[
-  noneType, pybool, iters, collections_abc,
-  print, input, numTypes, radixCvt, ops, unpack,
-  pystring, tonim, pyrange, pytables,
-  pysugar]
 when not defined(js):
   import pylib/io
   export io
-export
-  noneType, pybool, iters, collections_abc,
-  print, input, numTypes, radixCvt, ops, unpack,
-  pystring, tonim, pyrange, pytables,
+import pylib/private/trans_imp
+
+impExp pylib,
+  noneType, pybool, builtins, collections_abc,
+  numTypes, radixCvt, ops, unpack,
+  pystring, tonim, pytables,
   pysugar
 
 when not defined(pylibNoLenient):
@@ -52,9 +49,6 @@ type
   VersionInfo* = typeof(version_info)
   Sys* = typeof(sys)
 
-proc json_loads*(buffer: string): JsonNode =
-  ## Mimics Pythons ``json.loads()`` to load JSON.
-  result = parseJson(buffer)
 
 template timeit*(repetitions: int, statements: untyped): untyped =
   ## Mimics Pythons ``timeit.timeit()``, output shows more information than Pythons.

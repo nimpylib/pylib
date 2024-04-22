@@ -1,6 +1,6 @@
 
-import ./pystring/[
-  strmeth, strbltins, strops, fstring
-]
+import ./private/trans_imp
 
-export strmeth, strbltins, strops, fstring
+impExp pystring, 
+  strmeth, strbltins, strops, fstring
+

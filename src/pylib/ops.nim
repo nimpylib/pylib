@@ -1,20 +1,5 @@
 import std/math
-export math.round, math.pow  # pow for float
 
-import ./modPow
-export modPow.pow
-
-func pow*(base, exp, modulo: float): int{.error: 
-  "TypeError: pow() 3rd argument not allowed unless all arguments are integers".}
-  ## raises Error like Python does, but a static error instead of runtime
-
-func pow*(base: int, exp: Natural): int =
-  ## .. warning:: `pow` with a negative `exp` shall results in float,
-  ##  but for static-type lang it's not possible for a function to return
-  ##  either a float or int, except for using a boxing type.
-  ## Therefore for `pow(base, exp)`, `exp` cannot be negative.
-  
-  base ^ exp
 
 # Power templates for different types of arguments
 template `**`*[T](a: T, b: Natural): T = a ^ b
@@ -77,41 +62,3 @@ template `==`*(a, b: typedesc): bool =
   ## Compare 2 typedesc like Python.
   runnableExamples: doAssert type(1) == type(2)
   a is b
-
-
-template id*(x): int =
-  runnableExamples:
-    let a = 1.0
-    var b = 1
-    assert id(a) != id(b)
-    # not the same as Python's (Python's small int is stored in pool)
-    block:
-      var a,b = 1
-      assert id(a) != id(b)
-  cast[int](
-    when NimMajor > 1: x.addr
-    else: x.unsafeAddr
-  )
-
-import std/macros
-
-macro wrapop(op: static[string], obj, class_or_tuple): bool =
-  if class_or_tuple.kind == nnkTupleConstr:
-    template iOr(a,b): untyped = infix(a,"or",b)
-    result = infix(obj, op, class_or_tuple[0])
-    for i in 1..<class_or_tuple.len:
-      let kid = class_or_tuple[i]
-      result = iOr(result, infix(obj, op, kid))
-  else:
-    result = infix(obj, op, class_or_tuple)
-
-template isinstance*(obj, class_or_tuple): bool =
-  runnableExamples:
-    assert isinstance(1, int)
-    assert isinstance(1.0, (int, float))
-    assert not isinstance('c', bool)
-  wrapop "is", obj, class_or_tuple
-template issubclass*(obj, class_or_tuple): bool =
-  wrapop "of", obj, class_or_tuple
-  
-  

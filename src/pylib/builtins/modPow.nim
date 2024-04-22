@@ -1,4 +1,4 @@
-## `pow`
+# `pow` with mod, imported by `./mathfunc`
 
 import std/math
 import std/bitops

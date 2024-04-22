@@ -13,9 +13,9 @@
 ## - `concept` about `for loop`: 
 ##   https://github.com/nim-lang/Nim/issues/9550#issuecomment-2045173674
 
-from ./collections_abc import Iterable, Sized
-from ./pybool import toBool
-import ./noneType
+from ../collections_abc import Iterable, Sized
+from ../pybool import toBool
+import ../noneType
 export noneType.None
 
 import std/macros
