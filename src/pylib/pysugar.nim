@@ -30,7 +30,7 @@ macro del*(seqIdx) =
   ## NOTE: Nim's del(seq, idx) is an O(1) operation, 
   ##  which moves the last element to `idx`
   runnableExamples:
-    var ls = list([1,2,3,4,5])
+    var ls = @[1,2,3,4,5]
     del ls[2]
     assert ls[2] == 4
   if seqIdx.kind == nnkBracketExpr:
