@@ -22,24 +22,23 @@ template `:=`*(name, value: untyped): untyped =
   ## Creates new variable `name` and assign `value` to it.
   (var name = value; name)
 
-macro del*(seqIdx) =
+macro del*(seqIdx: untyped) =
   ## - `del ls[idx]` -> `delete(ls, idx)`;
   ## - `del obj.attr` -> compilation-error. Nim is static-typed,
   ##  dynamically deleting object's attributes is not allowed.
   ## 
   ## NOTE: Nim's del(seq, idx) is an O(1) operation, 
   ##  which moves the last element to `idx`
-  runnableExamples:
-    var ls = @[1,2,3,4,5]
-    del ls[2]
-    assert ls[2] == 4
+  result = newCall(newDotExpr(ident"system", ident"del"), seqIdx)
+  var seqV, idx: NimNode
   if seqIdx.kind == nnkBracketExpr:
-    let
-      seqV = seqIdx[0]
-      idx  = seqIdx[1]
-    result = newCall("delete", seqV, idx)
-  # Maybe others will impl it.
-  #elif seqIdx.kind == nnkDotExpr: error "del obj.attr is unsupported in Nim"
+    seqV = seqIdx[0]
+    idx  = seqIdx[1]
+  elif seqIdx.kind == nnkCall:
+    if seqIdx[0].repr != "[]":
+      return
+    seqV = seqIdx[1]
+    idx = seqIdx[2]
   else:
-    # fallback AS-IS
-    result = newCall("del", seqIdx)
+    return
+  result = newCall("delitem", seqV, idx)

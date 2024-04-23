@@ -69,6 +69,7 @@ macro genIter(def) =
 
 iterator filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): T{.genIter.} =
   runnableExamples:
+    import pylib
     proc isAnswer(arg: string): bool =
       return arg in ["yes", "no", "maybe"]
 
@@ -82,6 +83,7 @@ iterator filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): T{.genIter.} =
 
 iterator filter*[T](comp: NoneType, iter: Iterable[T]): T{.genIter.} =
   runnableExamples:
+    import pylib
     let values = @["", "", "", "yes", "no", "why"]
     let filtered = list(filter(None, values))  # invoke `proc filter`
     doAssert filtered == @["yes", "no", "why"]
@@ -101,16 +103,6 @@ iterator reversed*[T](x: Sequence[T]): T{.genIter.} =
   for i in countdown(le-1, 0):
     yield x[i]
 
-
-# it has side effects as it may call `items`
-proc list*[T](iter: Iterable[T]): seq[T] =
-  when compiles(iter.len):
-    result = newSeq[T](iter.len)
-    for i, v in enumerate(iter):
-      result[i] = v
-  else:
-    for i in iter:
-      result.add i
 
 type Map[R] = object
   iter: iterator (): R
