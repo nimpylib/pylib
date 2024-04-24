@@ -49,8 +49,22 @@ func isfinite*(x: SomeFloat): bool =
 
 func isinf*(x: SomeFloat): bool = classify(x) == fcInf
 
-#func isclose*(a,b: SomeFloat, rel_tol=1e-09, abs_tol=0.0): bool =
+template py_math_isclose_impl*(abs) =
+  ## inner use. Implementation of isclose.
+  if rel_tol < 0.0 or abs_tol < 0.0:
+    raise newException(ValueError, "tolerances must be non-negative")
+  if a == b:
+    return 1
+  if isinf(a) or isinf(b):
+    return 0
+  let diff = fabs(b - a)
+  result =
+    diff <= fabs(rel_tol * b) or
+    diff <= fabs(rel_tol * a) or
+    diff <= abs_tol
 
+func isclose*(a,b: SomeFloat, rel_tol=1e-09, abs_tol=0.0): bool =
+  py_math_isclose_impl(abs=fabs)
 
 expM gcd
 expM lcm

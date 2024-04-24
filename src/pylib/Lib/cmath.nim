@@ -3,7 +3,10 @@ import ../builtins/complex
 
 import std/complex as ncomplex except complex
 from std/math import ln
-from ./math import isinf, isfinite, pi, e, tau, inf, nan
+from ./math import
+  isinf, isfinite, isclose,
+  pi, e, tau, inf, nan,
+  py_math_isclose_impl
 export pi, e, tau, inf, nan
 
 const nanj*: PyComplex[float64] = complex(0.0, nan)
@@ -27,9 +30,8 @@ expCC sqrt
 expCC sin
 
 
-#func isclose*(a,b: Complex, rel_tol=1e-09, abs_tol=0.0): bool =
-  
-
+func isclose*(a,b: Complex, rel_tol=1e-09, abs_tol=0.0): bool =
+  py_math_isclose_impl(abs=abs)
 
 func log*(z: PyComplex): PyComplex = ln(z)  ## ln(z)
 func log*(z: PyComplex, base: SomeNumber|PyComplex): PyComplex = (ln(z) / ln(base)).pycomplex

@@ -1,3 +1,4 @@
+## builtins.complex and its operators.
 
 import std/complex as ncomplex except im
 
@@ -19,6 +20,16 @@ func `$`*(z: PyComplex): string =
 template toNimComplex*[T](z: PyComplex[T]): Complex[T] =
   Complex[T] z
 
+template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
+  bind PyComplex
+  PyComplex[T] z
+
+func complex*[T](re, im: T): PyComplex[T] = pycomplex ncomplex.complex(re, im)
+template pycomplex*[T](re, im: T): PyComplex[T] =
+  ## alias of `complex`.
+  ## Useful when import both std/complex and pylib
+  complex(re, im)
+
 template borrowAttr(postfix) =
   ## borrow postfix, assuming returns T
   template postfix*[T](z: PyComplex[T]): T =
@@ -29,7 +40,8 @@ borrowAttr im
 borrowAttr re
 
 
-func abs*[T](z: PyComplex[T]): T = abs(z.toNimComplex)
+func abs*[T](z: PyComplex[T]): T = abs(z.toNimComplex)  ## builtins.abs for complex
+func conjugate*[T](z: PyComplex[T]): PyComplex[T] = pycomplex conjugate(z.toNimComplex)
 
 template borrowBin(op) =
   ## borrow binary op
@@ -48,13 +60,4 @@ borrowBin `/=`
 borrowBin `==`
 
   
-template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
-  bind PyComplex
-  PyComplex[T] z
-
-func complex*[T](re, im: T): PyComplex[T] = pycomplex ncomplex.complex(re, im)
-template pycomplex*[T](re, im: T): PyComplex[T] =
-  ## alias of `complex`.
-  ## Useful when import both std/complex and pylib
-  complex(re, im)
 
