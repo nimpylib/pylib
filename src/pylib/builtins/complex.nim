@@ -65,21 +65,26 @@ func conjugate*[T](z: PyComplex[T]): PyComplex[T] =
   ## complex.conjugate()
   pycomplex conjugate(z.toNimComplex)
 
+template toNimCall(op; a, b: PyComplex): untyped = op(a.toNimComplex, b.toNimComplex)
+
 template borrowBin(op) =
   ## borrow binary op
   template op*(a, b: PyComplex): PyComplex =
     bind op
-    pycomplex(op(a.toNimComplex, b.toNimComplex))
+    pycomplex(toNimCall(op, a, b))
+
+template borrowBinRetAs(op) =
+  ## borrow binary op, do not care result type
+  template op*(a, b: PyComplex): untyped =
+    bind op
+    toNimCall(op, a, b)
 
 borrowBin `+`
 borrowBin `-`
 borrowBin `*`
 borrowBin `/`
-borrowBin `+=`
-borrowBin `-=`
-borrowBin `*=`
-borrowBin `/=`
-borrowBin `==`
-
-  
-
+borrowBinRetAs `+=`
+borrowBinRetAs `-=`
+borrowBinRetAs `*=`
+borrowBinRetAs `/=`
+borrowBinRetAs `==`
