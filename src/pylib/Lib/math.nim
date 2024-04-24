@@ -49,6 +49,9 @@ func isfinite*(x: SomeFloat): bool =
 
 func isinf*(x: SomeFloat): bool = classify(x) == fcInf
 
+#func isclose*(a,b: SomeFloat, rel_tol=1e-09, abs_tol=0.0): bool =
+
+
 expM gcd
 expM lcm
 
