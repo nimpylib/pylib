@@ -1,7 +1,7 @@
 
 import ../builtins/complex
 
-from std/complex as ncomplex import nil
+import std/complex as ncomplex except complex
 from std/math import ln
 from ./math import isinf, isfinite, pi, e, tau, inf, nan
 export pi, e, tau, inf, nan
@@ -12,7 +12,7 @@ const infj*: PyComplex[float64] = complex(0.0, inf)
 
 template expCC(sym) =
   template sym*(z: PyComplex): PyComplex =
-    bind toNimComplex, pycomplex
+    bind toNimComplex, pycomplex, sym
     sym(z.toNimComplex).pycomplex
 
 

@@ -16,9 +16,8 @@ func `$`*(z: PyComplex): string =
   result.add $imag & 'j'
   result.add ')'
 
-template toNimComplex*(z: PyComplex): Complex =
-  bind Complex
-  Complex z
+template toNimComplex*[T](z: PyComplex[T]): Complex[T] =
+  Complex[T] z
 
 template borrowAttr(postfix) =
   ## borrow postfix, assuming returns T
