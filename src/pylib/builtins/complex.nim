@@ -16,17 +16,26 @@ template borrowAttr(expAs, attr) =
 borrowAttr imag, im
 borrowAttr real, re
 
+func cut2str[T: SomeFloat](x: T): string =
+  # Nim's Complex's elements can only be of float
+  result = $x
+  # removesuffix('.0')
+  # We know $<float> will be at least 3 chars (e.g. "0.0")
+  let lm2 = result.len - 2
+  if result[lm2+1] == '0' and result[lm2] == '.':
+    result.setLen lm2
+
 func `$`*(z: PyComplex): string =
   let
     real = z.real
     imag = z.imag
   result.add '('
   if real != 0:
-    result.add $real
+    result.add real.cut2str
     if imag >= 0:
       result.add '+'
     # if negative, `-` will be prefix-ed by `$`
-  result.add $imag & 'j'
+  result.add imag.cut2str & 'j'
   result.add ')'
 
 template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
