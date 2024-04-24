@@ -33,8 +33,8 @@ template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
   bind PyComplex
   PyComplex[T] z
 
-func complex*[T](re, im: T): PyComplex[T] = pycomplex ncomplex.complex(re, im)
-template pycomplex*[T](re, im: T): PyComplex[T] =
+func complex*[T](re: T, im = T(0)): PyComplex[T] = pycomplex ncomplex.complex(re, im)
+template pycomplex*[T](re: T; im = T(0)): PyComplex[T] =
   ## alias of `complex`.
   ## Useful when import both std/complex and pylib
   complex(re, im)
