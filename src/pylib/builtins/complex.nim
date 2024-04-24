@@ -88,3 +88,19 @@ borrowBinRetAs `-=`
 borrowBinRetAs `*=`
 borrowBinRetAs `/=`
 borrowBinRetAs `==`
+
+template genMixinOp(op) =
+  template op*[T: SomeFloat](a: T, z: PyComplex[T]): PyComplex[T] =
+    op(complex(a), z)
+  template op*[T: SomeFloat](z: PyComplex[T], a: T): PyComplex[T] =
+    op(complex(a), z)
+    
+  template op*[I: Someinteger, T](a: I, z: PyComplex[T]): PyComplex[T] =
+    op(complex(T(a)), z)
+  template op*[I: SomeInteger, T](z: PyComplex[T], a: I): PyComplex[T] =
+    op(complex(T(a)), z)
+
+genMixinOp `+`
+genMixinOp `-`
+genMixinOp `*`
+genMixinOp `/`
