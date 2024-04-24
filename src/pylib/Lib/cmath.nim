@@ -36,8 +36,6 @@ func isclose*(a,b: Complex, rel_tol=1e-09, abs_tol=0.0): bool =
 func log*(z: PyComplex): PyComplex = ln(z)  ## ln(z)
 func log*(z: PyComplex, base: SomeNumber|PyComplex): PyComplex = (ln(z) / ln(base)).pycomplex
 
-func log2*(z: PyComplex): PyComplex = (ln(z)/ln(2)).pycomplex
-
 template expAs(sym, alias) =
   template alias*(x: PyComplex): untyped =
     bind pycomplex
