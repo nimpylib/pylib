@@ -72,11 +72,13 @@ expM lcm
 aliasFF dist, hypot
 
 
-expM erf
-expM erfc
+when not defined(js):
+  # Those in std/math are not available for JS
+  expM erf
+  expM erfc
 
-expM gamma
-expM lgamma
+  expM gamma
+  expM lgamma
 
 expM exp
 func expm1*[F: SomeFloat](x: F): F = exp(x) - 1
