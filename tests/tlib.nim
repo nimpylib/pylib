@@ -1,5 +1,25 @@
+# XXX: While the coverage is rather low,
+#  considering many `Lib` of nimpylib are mostly wrapper around Nim's stdlib,
+#  we shall mainly focus on the cases where Python differs Nim,
+#  and leave the rest to Nim's own stdlib test.
 
-import pylib/Lib/[random]
+import pylib/Lib/[random, string, math]
+
+test "random":
+  # TODO: more test (maybe firstly set `seed`)
+  check randint(1,2) in 1..2
+
+test "Lib/string":
+  check "hello δδ".capwords == "Hello Δδ" ## support Unicode
+  check "01234".capwords == "01234"
+
+# TODO: more tests.
+test "Lib/math":
+  checkpoint "log"
+  check log(1.0/math.e) == -1
+  check log(1.0) == 0
+  check log(32.0, 2.0) == 5
+  
 
 when not defined(js):
   import pylib/Lib/os
@@ -37,12 +57,3 @@ when not defined(js):
       check f.read() == cont
     check not fileExists tname
 
-test "random":
-  # TODO: more test (maybe firstly set `seed`)
-  check randint(1,2) in 1..2
-
-import pylib/Lib/string
-
-test "Lib/string":
-  check "hello δδ".capwords == "Hello Δδ" ## support Unicode
-  check "01234".capwords == "01234"
