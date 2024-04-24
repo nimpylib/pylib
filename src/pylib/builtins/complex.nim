@@ -1,4 +1,6 @@
-## builtins.complex and its operators.
+## builtins.complex and its operators/methods.
+## 
+## Use `toNimComplex` and `pycomplex` to convert between PyComplex and Complex
 
 import std/complex as ncomplex except im
 
@@ -26,6 +28,10 @@ func cut2str[T: SomeFloat](x: T): string =
     result.setLen lm2
 
 func `$`*(z: PyComplex): string =
+  ## Returns `(a+bj)`/`(a-bj)` for `complex(a, b)`
+  ## 
+  runnableExamples:
+    assert $complex(1.0, 2.0) == "(1+2j)"  # '.0' is removed as Python's
   let
     real = z.real
     imag = z.imag
@@ -39,6 +45,7 @@ func `$`*(z: PyComplex): string =
   result.add ')'
 
 template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
+  ## Convert Nim's Complex in std/complex to PyComplex
   bind PyComplex
   PyComplex[T] z
 
@@ -53,7 +60,10 @@ template pycomplex*[T](re: T; im = T(0)): PyComplex[T] =
   complex(re, im)
 
 func abs*[T](z: PyComplex[T]): T = abs(z.toNimComplex)  ## builtins.abs for complex
-func conjugate*[T](z: PyComplex[T]): PyComplex[T] = pycomplex conjugate(z.toNimComplex)
+
+func conjugate*[T](z: PyComplex[T]): PyComplex[T] =
+  ## complex.conjugate()
+  pycomplex conjugate(z.toNimComplex)
 
 template borrowBin(op) =
   ## borrow binary op
