@@ -33,7 +33,11 @@ template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
   bind PyComplex
   PyComplex[T] z
 
-func complex*[T](re: T, im = T(0)): PyComplex[T] = pycomplex ncomplex.complex(re, im)
+func complex*[T: SomeFloat](re: T, im: T = 0.0): PyComplex[T] =
+  pycomplex ncomplex.complex(re, im)
+func complex*[T: SomeInteger](re: T, im: T = 0): PyComplex[BiggestFloat] =
+  pycomplex ncomplex.complex(re.BiggestFloat, im.BiggestFloat)
+
 template pycomplex*[T](re: T; im = T(0)): PyComplex[T] =
   ## alias of `complex`.
   ## Useful when import both std/complex and pylib
