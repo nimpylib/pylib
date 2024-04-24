@@ -2,7 +2,15 @@
 ## 
 ## Use `toNimComplex` and `pycomplex` to convert between PyComplex and Complex
 
-import std/complex as ncomplex except im
+runnableExamples:
+  assert 1+3'j == complex(1, 3) == 1.0+3.0'J
+
+  # complex only stores floats, not int,
+  # just as Python's
+  assert type(complex(1, 2).real) != int
+
+import std/complex as ncomplex except im, complex
+from std/strutils import parseFloat
 
 type PyComplex*[T] = distinct Complex[T]
 
@@ -104,3 +112,14 @@ genMixinOp `+`
 genMixinOp `-`
 genMixinOp `*`
 genMixinOp `/`
+
+template `'j`*(lit: string): PyComplex =
+  ## 1+3'j or 1+3'J
+  ## 
+  ## NOTE: Nim disallows custom suffixes without `'`.
+  ##  Therefore, something like `1+3j` is not not allowed.
+  ## Consider using `complex` instead.
+  runnableExamples:
+    assert 1+3'j == complex(1, 3) == 1.0+3.0'J
+
+  complex(0.0, lit.parseFloat)
