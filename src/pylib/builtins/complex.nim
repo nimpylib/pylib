@@ -3,11 +3,11 @@
 ## Use `toNimComplex` and `pycomplex` to convert between PyComplex and Complex
 
 runnableExamples:
-  assert 1+3'j == complex(1, 3) == 1.0+3.0'J
+  assert complex(1, 3) == 1.0+3.0'J
 
   # complex only stores floats, not int,
   # just as Python's
-  assert type(complex(1, 2).real) != int
+  assert not (type(complex(1, 2).real) is int)
 
 import std/complex as ncomplex except im, complex
 from std/strutils import parseFloat
@@ -120,6 +120,6 @@ template `'j`*(lit: string): PyComplex =
   ##  Therefore, something like `1+3j` is not not allowed.
   ## Consider using `complex` instead.
   runnableExamples:
-    assert 1+3'j == complex(1, 3) == 1.0+3.0'J
+    assert 1+3'j == 1.0+3.0'J
 
   complex(0.0, lit.parseFloat)
