@@ -29,6 +29,8 @@ type
 converter asSeq[T](self: PyList[T]): seq[T] = self.data
 converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
 
+func `@`*[T](ls: PyList[T]): seq[T] = ls.data
+
 func newPyList[T](s: seq[T]): PyList[T] = result.data = s
 template newPyList[T](len=0): untyped = newPyList newSeq[T](len)
 
