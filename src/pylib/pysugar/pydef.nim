@@ -100,24 +100,26 @@ proc parseSignature*(signature: NimNode, deftype = ident"untyped"
   result.params = params
 
 
-proc handleDocStr(res: var NimNode; n: NimNode) =
-  res.add:
-    if n.kind in nnkStrLit..nnkTripleStrLit: newCommentStmtNode($n)
-    else: n
+proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
+  if n.kind in nnkStrLit..nnkTripleStrLit: 
+    res.add newCommentStmtNode($n)
+    return true
 
-proc handleNested(res: var NimNode, c: NimNode) =
-  res.add case $c[0]
+proc parseNestedDef(c: NimNode): NimNode =
+  case $c[0]
     of "def": defImpl(c[1], c[2]) 
     of "async": asyncImpl(c[1], c[2])
     else: c
 
 proc parseBody*(body: NimNode): NimNode =
   result = newStmtList()
-  result.handleDocStr body[0]
-  for i in 1..<body.len: # for nested [async] def
+  let start =
+    if result.tryHandleDocStr body[0]: 1
+    else: 0
+  for i in start..<body.len: # for nested [async] def
     let ele = body[i]
     if ele.kind == nnkCommand:
-      result.handleNested ele
+      result.add parseNestedDef ele
     else:
       result.add ele
 

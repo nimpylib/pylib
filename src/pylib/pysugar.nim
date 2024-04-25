@@ -1,8 +1,11 @@
 
 import std/macros
 
-import ./pywith, ./classdef/class, ./classdef/pydef
-export class, pydef, pywith
+import ./pysugar/[
+  pywith, tonim, class, pydef
+]
+
+export pywith, tonim, class, pydef
 
 # nimv2 somehow has a bug
 # # lib.nim
@@ -27,11 +30,14 @@ macro del*(seqIdx: untyped) =
   ## - `del obj.attr` -> compilation-error. Nim is static-typed,
   ##  dynamically deleting object's attributes is not allowed.
   ## 
+  ## Something like `ls[1:3]` is just disallowed in Nim's syntax.
+  ## 
   ## NOTE: Nim's del(seq, idx) is an O(1) operation, 
   ##  which moves the last element to `idx`
   result = newCall(newDotExpr(ident"system", ident"del"), seqIdx)
   var seqV, idx: NimNode
   if seqIdx.kind == nnkBracketExpr:
+    # XXX: why this branch is not entered but the next?
     seqV = seqIdx[0]
     idx  = seqIdx[1]
   elif seqIdx.kind == nnkCall:
