@@ -1,4 +1,7 @@
 ## Python's `list` with its methods and `sorted` buitin
+##
+## LIMIT: `slice` literal is not supported.
+## `ls[1:3]` has to be rewritten as `ls[1..2]`
 
 
 # Currently, we use Nim's `seq` to minic list.
@@ -26,6 +29,9 @@ type
 converter asSeq[T](self: PyList[T]): seq[T] = self.data
 converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
 
+func newPyList[T](s: seq[T]): PyList[T] = result.data = s
+template newPyList[T](len=0): untyped = newPyList newSeq[T](len)
+
 iterator items*[T](self: PyList[T]): T =
   for i in self.data:
     yield i
@@ -40,6 +46,19 @@ func `[]=`*[T](self: var PyList[T], idx: int, x: T) =
 func `[]`*[T](self: PyList[T], idx: int): T =
   system.`[]`(self.asSeq, normIdx(idx, self))
 
+func `[]=`*[T](self: var PyList[T], s: HSlice, x: openArray[T]) =
+  system.`[]=`(self.asSeq, s, x)
+func `[]=`*[T](self: var PyList[T], s: HSlice, x: PyList[T]) =
+  system.`[]=`(self.asSeq, s, x.asSeq)
+
+proc list*[T](iter: Iterable[T]): PyList[T] # front decl
+func `[]=`*[T](self: var PyList[T], s: HSlice, x: Iterable[T]) =
+  self[s] = list(x)
+
+
+func `[]`*[T](self: PyList[T], s: HSlice): PyList[T] =
+  newPyList system.`[]`(self.asSeq, s)
+
 func `==`*[T](self: PyList[T], o: PyList[T]): bool = self.asSeq == o.asSeq
 func `==`*[T](self: PyList[T], o: seq[T]): bool = self.asSeq == o
 func `==`*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq == @o
@@ -47,9 +66,6 @@ func `==`*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq == @o
 template `==`*[T](o: seq[T], self: PyList[T]): bool = `==`(self, o)
 template `==`*[T](o: openArray[T], self: PyList[T]): bool = `==`(self, o)
 
-
-func newPyList[T](s: seq[T]): PyList[T] = result.data = s
-template newPyList[T](len=0): untyped = newPyList newSeq[T](len)
 
 func reverse*(self: PyList) = reverse(self.asSeq)
 
