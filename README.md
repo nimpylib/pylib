@@ -168,7 +168,6 @@ Uninstall with `nimble uninstall pylib`.
 - [x] Python-like variable unpacking
 - [x] Math with Float and Int mixed like Python.
 - [x] `import antigravity`
-- [x] `from __future__ import braces`
 - [x] `lambda:`
 - [x] `class` Python-like OOP with methods and DocStrings (without multi-inheritance)
 - [x] `with open(fn, [, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
