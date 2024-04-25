@@ -3,7 +3,7 @@ import pylib
 print 42  # print can be used with and without parenthesis too, like Python2.
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
 let python_like_range = range(0, -10, -2)
-print(list(python_like_range)) # @[0, -2, -4, -6, -8]
+print(list(python_like_range)) # [0, -2, -4, -6, -8]
 
 # func definition
 # typing is suppported and optional

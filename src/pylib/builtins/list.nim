@@ -120,7 +120,7 @@ func `$`*(ls: PyList): string =
 
   result.add "[" & $ls[0]
   for i in 1..<ls.len:
-    result.add ',' & $ls[i]
+    result.add ", " & $ls[i]
   result.add ']'
 
 type
