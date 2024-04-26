@@ -25,6 +25,8 @@ func `|`*[A, B: TableLike](a: A, b: B): A =
     let v = {"c": "2", "b": "1"}.toCountTable
     doAssert z | v  == {"a": "0", "b": "1", "c": "2"}.toCountTable
   
+  when A is ref|ptr:
+    new result
   for key, val in a.pairs:
     result[key] = val
   
