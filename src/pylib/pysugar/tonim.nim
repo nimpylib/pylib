@@ -15,6 +15,11 @@ proc genDeclAndRaise*(self: var PyAsgnRewriter; body: NimNode): NimNode =
   
   for item in body:
     case item.kind
+    of nnkVarSection, nnkLetSection, nnkConstSection:
+      # support mixin `let/var/const`
+      for defs in item:
+        mparser.add $item[0]
+      result.add item
     of nnkAsgn:
       # variable assignment
       let (varName, varValue) = (item[0], item[1])
@@ -29,17 +34,22 @@ proc genDeclAndRaise*(self: var PyAsgnRewriter; body: NimNode): NimNode =
         let varName = item[1]
         self.assigned.add $varName
       else:
-        result.add item
+        var cmd = newNimNode nnkCommand
+        for i in item:
+          cmd.add:
+            if i.kind == nnkStmtList:
+              mparser.genNimFromPython i
+            else: i
+        result.add cmd
     of nnkRaiseStmt:
       var rewriteRes = item
       var msg = newLit ""
       block rewriteRaise:
-        template rewriteWith(err) =
+        proc rewriteWith(err: NimNode) =
           let nExc = newCall("newException", err, msg)
           # User may define some routinues that are used in `raise`,
-          # which is allowed by Nim but Python, so use `when` branch.
           rewriteRes = quote do:
-            when complies(`nExc`):
+            when compiles(`nExc`):
               raise `nExc`
             else:
               `rewriteRes`
@@ -47,12 +57,14 @@ proc genDeclAndRaise*(self: var PyAsgnRewriter; body: NimNode): NimNode =
         let raiseCont = item[0]
         case raiseCont.kind
         of nnkCall:
+          # raise ErrType[(...)]
           let err = raiseCont[0]
           let contLen = raiseCont.len
-          if contLen > 1:
+          if contLen > 2:
             # cannot be python-like `raise`
             break rewriteRaise
-          if contLen == 1:
+          if contLen == 2:
+            # raise ErrType(msg)
             msg = raiseCont[1]
           rewriteWith err
         of nnkIdent:  # raise XxError
