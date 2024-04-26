@@ -37,7 +37,7 @@ print("done!")
 let data = list(range(3, 15, 2))
 data.unpack(first, second, *rest, last)
 assert (first + second + last) == (3 + 5 + 13)
-assert rest == @[7, 9, 11]
+assert @rest == @[7, 9, 11]
 
 if (a := 6) > 5:
   assert a == 6
