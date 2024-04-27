@@ -18,24 +18,6 @@ proc defImpl*(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas
   ## if `signature` is of arrow expr (like f()->int), then def_restype is ignored
 proc asyncImpl*(defsign, body: NimNode, parser: var PyFuncBodyProcesser): NimNode
 
-#[
-proc tryHandleNestedDef(res: var NimNode, c: NimNode, parser): bool =
-  template withStack(mparser; doSth) =
-    mparser.push()
-    doSth
-    mparser.pop()
-
-  let s = $c[0]
-  if s == "def":
-    parser.withStack:
-      res.add defImpl(c[1], c[2], parser=parser) 
-    return true
-  if s == "async":
-    parser.withStack:
-      res.add asyncImpl(c[1], c[2], parser=parser)
-    return true
-]#
-
 proc defAux*(signature, body: NimNode,
             deftype = ident"untyped",
             parser: var PyFuncBodyProcesser;
