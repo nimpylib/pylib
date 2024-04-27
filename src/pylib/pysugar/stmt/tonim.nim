@@ -108,7 +108,14 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   of nnkRaiseStmt:
     result.add rewriteRaise statement
   else:
-    result.add statement
+    if statement.len == 0:
+      result.add statement
+    var nStmt = newNimNode statement.kind
+    for i, e in statement.pairs():
+      nStmt.add:
+        if e.len != 0: mparser.parsePyBody e
+        else: e
+
 
 proc parsePyBody*(mparser; body: NimNode): NimNode =
   ## Rewrites doc-string to `CommentStmtNode` 
