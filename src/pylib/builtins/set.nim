@@ -22,17 +22,21 @@ func set*[H](iterable: Iterable[H]): PySet[H] =
     result.add i
 func set*[H](s: PySet[H]): PySet[H] = s
 func set*[H](s: HashSet[H]): PySet[H] = s
-func pyset*[T](iterable: Iterable[T]): PySet[T] =
+func pyset*[T](iterable: Iterable[T]): PySet[T]{.inline.} =
   set[T](iterable)
 template pyset*[H](): PySet[H] =
   bind set
   set[H]()
 template copy*[H](self: PySet[H]): PySet[H] = pyset(self)
 
+const SetLitBugMsg = "When used, Nim compiler(at least 2.0.0-2.1.2) will complain:\n" & """
+'Error: unhandled exception: ccgexprs.nim(1994, 9) `setType.kind == tySet`', 
+Consider use `pyset` instead of set literal."""
 template genBinSys(ret, op) =
-  func op*[H](self: PySet[H], s: system.set[H]): ret =
+  # XXX: see below
+  func op*[H](self: PySet[H], s: system.set[H]): ret{.error: SetLitBugMsg.} =
     op self, pyset(s)
-  func op*[H](s: system.set[H], self: PySet[H]): ret = op self, s
+  func op*[H](s: system.set[H], self: PySet[H]): ret{.error: SetLitBugMsg.} = op self, s
 template genBinSysBool(op) = genBinSys(bool, op)
   
 genBinSysBool `==`
