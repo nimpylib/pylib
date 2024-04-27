@@ -1,4 +1,5 @@
 
+import std/parseutils
 
 template int*(a: string): BiggestInt = parseBiggestInt(a)
 template int*(a: char): BiggestInt = parseBiggestInt($a)
