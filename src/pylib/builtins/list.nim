@@ -32,7 +32,7 @@ converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
 func `@`*[T](ls: PyList[T]): seq[T] = ls.data
 
 func newPyList[T](s: seq[T]): PyList[T] = result.data = s
-template newPyList[T](len=0): untyped = newPyList newSeq[T](len)
+func newPyList[T](len=0): PyList[T] = newPyList newSeq[T](len)
 
 iterator items*[T](self: PyList[T]): T =
   for i in self.data:
@@ -48,20 +48,24 @@ func `[]=`*[T](self: var PyList[T], idx: int, x: T) =
 func `[]`*[T](self: PyList[T], idx: int): T =
   system.`[]`(self.asSeq, normIdx(idx, self))
 
-type PyListItemIndex* = HSlice|BackwardsIndex
-func `[]=`*[T](self: var PyList[T], s: PyListItemIndex, x: openArray[T]) =
+func `[]=`*[T](self: var PyList[T], s: HSlice, x: openArray[T]) =
   system.`[]=`(self.asSeq, s, x)
-func `[]=`*[T](self: var PyList[T], s: PyListItemIndex, x: PyList[T]) =
+func `[]=`*[T](self: var PyList[T], s: HSlice, x: PyList[T]) =
   system.`[]=`(self.asSeq, s, x.asSeq)
 
+func `[]=`*[T](self: var PyList[T], s: BackwardsIndex, x: T) =
+  system.`[]=`(self.asSeq, s, x)
+
 proc list*[T](iter: Iterable[T]): PyList[T] # front decl
-func `[]=`*[T](self: var PyList[T], s: PyListItemIndex, x: Iterable[T]) =
+func `[]=`*[T](self: var PyList[T], s: HSlice, x: Iterable[T]) =
   self[s] = list(x)
 
 
-func `[]`*[T](self: PyList[T], s: PyListItemIndex): PyList[T] =
+func `[]`*[T](self: PyList[T], s: HSlice): PyList[T] =
   newPyList system.`[]`(self.asSeq, s)
-
+func `[]`*[T](self: PyList[T], s: BackwardsIndex): T =
+  system.`[]`(self.asSeq, s)
+  
 func `==`*[T](self: PyList[T], o: PyList[T]): bool = self.asSeq == o.asSeq
 func `==`*[T](self: PyList[T], o: seq[T]): bool = self.asSeq == o
 func `==`*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq == @o
