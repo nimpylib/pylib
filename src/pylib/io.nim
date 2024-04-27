@@ -408,10 +408,10 @@ proc truncate*(self: IOBase): int{.discardable.} =
     f.truncate()
     assert f.read() == ""
     f.close()
-  result = self.tell()
+  result = self.tell().int
   truncate self.fileno, result
 
-proc truncate*(self: IOBase, size: int64): int{.discardable.} =
+proc truncate*(self: IOBase, size: int64): int64{.discardable.} =
   truncate self.fileno, size
   size
 
