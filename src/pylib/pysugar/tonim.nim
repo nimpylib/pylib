@@ -5,6 +5,14 @@ macro tonim*(body): untyped =
   runnableExamples:
     var GLOBAL = 1
     tonim:
+      (a, b) = (1, 2)  # NOTE these parentheses cannot omitted, unlike Python
+      assert (a, b) == (1, 2)
+      (_, a) = (1, 2)
+      assert a == 2
+      (b, *_, a) = [1,2,3]
+      assert a == 3
+      # see doc of unpack in ./stmt/unpack.nim for details
+
       num = 8
       global GLOBAL
       GLOBAL = 3

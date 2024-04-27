@@ -2,10 +2,10 @@
 import std/macros
 
 import ./pysugar/[
-  pywith, tonim, class, pydef
+  pywith, tonim, class, pydef, unpack
 ]
 
-export pywith, tonim, class, pydef
+export pywith, tonim, class, pydef, unpack
 
 # nimv2 somehow has a bug
 # # lib.nim

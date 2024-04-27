@@ -22,7 +22,7 @@
 # ```
 
 import std/macros
-import ./[pyraise, frame, pydef]
+import ./[pyraise, frame, pydef, unpack]
 
 using mparser: var PyAsgnRewriter
 
@@ -53,16 +53,29 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     result.add statement
   of nnkAsgn:
     # variable assignment
+    template handleVar(varName, varValue: NimNode) =
+      if $varName in mparser:
+        result.add statement
+      else:
+        result.add newVarStmt(varName, varValue)
+        mparser.add $varName
+      
     let (varName, varValue) = (statement[0], statement[1])
-    if varName.kind != nnkIdent:  # varName may be `nnkDotExpr`. e.g.`a.b=1`
-      result.add statement
-    # if varName != nnkIdent, then $varName is an error.
-    # And, we just only care `ident`
-    elif $varName in mparser:
-      result.add statement
+    case varName.kind
+    of nnkIdent:  # varName may be `nnkDotExpr`. e.g.`a.b=1`
+      # if varName != nnkIdent, then $varName is an error.
+      # And, we just only care `ident`
+      handleVar varName, varValue
+    of nnkTupleConstr:
+      if varValue.kind == nnkTupleConstr:
+        for i, v in varName.pairs():
+          if v.eqIdent "_":
+            continue
+          handleVar v, varValue[i]
+      else:
+        unpackImplRec(data=varValue, symbols=varName, res=result, receiver=handleVar)
     else:
-      result.add newVarStmt(varName, varValue)
-      mparser.add $varName
+      result.add statement
   of nnkCommand:
     let preCmd = $statement[0]
     case preCmd
