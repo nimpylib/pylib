@@ -1,9 +1,25 @@
 import pylib
+from std/os import sleep  # python's `sleep` is in `time` module, however
+import pylib/Lib/tempfile # more python-stdlib in pylib/Lib...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
+
+# NOTE: from now on, the following is just valid Python3 code!
+# only add the following to make it Python:
+# import sys, platform
+# from timeit import timeit
+# from time import sleep
+# from tempfile import NamedTemporaryFile, TemporaryDirectory
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
-let python_like_range = range(0, -10, -2)
-print(list(python_like_range)) # [0, -2, -4, -6, -8]
+
+def show_range_list():
+  python_like_range = range(0, -10, -2)
+  print(list(python_like_range)) # [0, -2, -4, -6, -8]
+show_range_list()
+
+# Why using so many `def`s?
+# as in `def`, you can write Nim more Python-like
+# e.g. nondeclared assignment
 
 # func definition
 # typing is suppported and optional
@@ -21,10 +37,13 @@ for i in range(10):
 print("done!")
 
 # Python-like variable unpacking
-let data = list(range(3, 15, 2))
-data.unpack(first, second, *rest, last)
-assert (first + second + last) == (3 + 5 + 13)
-assert @rest == @[7, 9, 11]
+def show_unpack():
+  data = list(range(3, 15, 2))
+  (first, second, *rest, last) = data
+  assert (first + second + last) == (3 + 5 + 13)
+  assert list(rest) == list([7, 9, 11])
+
+show_unpack()
 
 if (a := 6) > 5:
   assert a == 6
@@ -35,7 +54,6 @@ if (b := 42.0) > 5.0:
 if (c := "hello") == "hello":
   assert c == "hello"
 
-print(capwords("hello world capitalized")) # "Hello World Capitalized"
 print("a".center(9)) # "    a    "
 
 print("" or "b") # "b"
@@ -47,35 +65,33 @@ print("Hello,", input("What is your name? "), endl="\n~\n")
 
 pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
-let integer_bytes = 2_313_354_324
-var bite, kilo, mega, giga, tera, peta, exa, zetta, yotta: int
-(kilo, bite) = divmod(integer_bytes, 1_024)
-(mega, kilo) = divmod(kilo, 1_024)
-(giga, mega) = divmod(mega, 1_024)
-(tera, giga) = divmod(giga, 1_024)
-(peta, tera) = divmod(tera, 1_024)
-(exa, peta)  = divmod(peta, 1_024)
-(zetta, exa) = divmod(exa,  1_024)
-(yotta, zetta) = divmod(zetta, 1_024)
+def show_divmod_and_unpack(integer_bytes):
+  (kilo, bite) = divmod(integer_bytes, 1_024)
+  (mega, kilo) = divmod(kilo, 1_024)
+  (giga, mega) = divmod(mega, 1_024)
+  (tera, giga) = divmod(giga, 1_024)
+  (peta, tera) = divmod(tera, 1_024)
+  (exa, peta)  = divmod(peta, 1_024)
+  (zetta, exa) = divmod(exa,  1_024)
+  (yotta, zetta) = divmod(zetta, 1_024)
+show_divmod_and_unpack(2_313_354_324)
 
 let arg = "hello"
 let anon = lambda: arg + " world"
 assert anon() == "hello world"
 
-print(json_loads("""{"key": "value"}""")) # {"key":"value"}
 
 print(sys.platform) # "linux"
 
 print(platform.processor) # "amd64"
 
-var truty: bool
-truty = all([True, True, False])
-print(truty) # false
+def allAny():
+  truty = all([True, True, False])
+  print(truty) # false
 
-truty = any([True, True, False])
-print(truty) # true
-
-from std/os import sleep  # python's `sleep` is in `time` module, however
+  truty = any([True, True, False])
+  print(truty) # true
+allAny()
 
 timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
   sleep(9)    # Repeats this code 100 times. Output is very informative.
@@ -84,31 +100,32 @@ timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
 
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement
-with open("some_file.txt", 'w') as file:
-  let _ = file.write("hello world!")
+def t_open():
+  with open("some_file.txt", 'w') as file:
+    _ = file.write("hello world!")
 
-with open("some_file.txt", 'r') as file:
+  with open("some_file.txt", 'r') as file:
     while True:
-      let s = file.readline()
+      s = file.readline()
       if s == "": break
       print(s)
 
-import pylib/Lib/tempfile
+t_open()
 
-with NamedTemporaryFile() as file:
-  let _ = file.write("test!")
+def show_tempfile():
+  with NamedTemporaryFile() as file:
+    _ = file.write("test!")
 
-with TemporaryDirectory() as name:
-  print(name)
+  with TemporaryDirectory() as name:
+    print(name)
 
-type Example = ref object
-  start: int
-  stop: int
-  step: int
+show_tempfile()
 
 class Example(object):  # Mimic simple Python "classes".
   """Example class with Python-ish Nim syntax!."""
-
+  start: int
+  stop: int
+  step: int
   def init(self, start, stop, step=1):
     self.start = start
     self.stop = stop
@@ -119,5 +136,6 @@ class Example(object):  # Mimic simple Python "classes".
     self.stop = argument
     return self.stop
 
+# Oop, the following is no longer Python....
 let e = newExample(5, 3)
 print(e.stopit(5))
