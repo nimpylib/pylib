@@ -13,9 +13,12 @@ type
   Collection*[T] = concept self of Sized, Container[T], Iterable[T]
   
   Sequence*[T] = concept self of Collection[T]
+    # NIM-BUG: if only a `self[int] is T`,
+    #  Nim will wrongly complain `'T' is declared but not used`
+    T
     self[int] is T
-  
   MutableSequence*[T] = concept self of Sequence[T]
+    T  # NIM-BUG: see above.
     self[int] = T
     self.delitem(int)  ## __delitem__
     self.insert(int, T)  ## insert item before index
