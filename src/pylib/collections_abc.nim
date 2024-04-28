@@ -1,11 +1,19 @@
 
+const SupportIteratorHit = (NimMajor, NimMinor, NimPatch) >= (2, 1, 2)
 
 type
   Iterable*[T] = concept self  ## Mimic Pythons Iterable. But not checks `iter`
     #for value in self: value is T 
     # Above may cause inner error when JS backend on older Nim
     T  # see below
-    typeof(self.items, typeOfIter) is T
+    when SupportIteratorHit:
+      iterator items(self): T
+    else:
+      #typeof(self.items(), typeOfIter) is T
+      when defined(js):
+        typeof(self.items(), typeOfIter) is T
+      else:
+        for value in self: value is T 
   Sized* = concept self
     len(self) is int
   
