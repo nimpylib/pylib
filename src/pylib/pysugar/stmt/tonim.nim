@@ -114,7 +114,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       var nStmt = newNimNode statement.kind
       for e in statement:
         nStmt.add:
-          if e.len != 0: mparser.parsePyBody e
+          if e.kind == nnkStmtList: mparser.parsePyBody e
           else: e
       result.add nStmt
 
