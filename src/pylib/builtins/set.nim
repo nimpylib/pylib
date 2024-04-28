@@ -71,14 +71,11 @@ template boolAliasBin(alias, old) =
 boolAliasBin issuperset, `>=`
 boolAliasBin issubset, `<=`
 
-template fold(op) =
+template fold(op){.dirty.} =
   # set.op(*others)
-  func op*[H; S: not PySet[H] and SomeSet[H]](
+  func op*[H; S: not PySet[H]](
     self: PySet[H], s: S): PySet[H] =
     op(self, pyset[H](s))
-  func op*[H; I: not SomeSet[H] and Iterable[H]](
-    self: PySet[H], iterable: I): PySet[H] =
-    op(self, pyset[H](iterable))
   func op*[H, S](self: PySet[H], s1: auto, s2: auto; x: varargs[S]): PySet[H] =
     result = op(self, s1)
     result = op(result, s2)
