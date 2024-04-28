@@ -93,16 +93,18 @@ macro dict*(kwargs: varargs[untyped]): PyDict =
     error "use emptyPyDict"  # TODO: support it
   of 1:
     let arg = kwargs[0]
-    if arg.kind == nnkExprEqExpr:
-      dictByKw kwargs
-    else:
-      newCall(PyDictProc, arg)
+    result =
+      if arg.kind == nnkExprEqExpr:
+        dictByKw kwargs
+      else:
+        newCall(PyDictProc, arg)
   else:
     let first = kwargs[0]
-    if first.kind == nnkExprEqExpr:
-      dictByKw kwargs
-    else:
-      dictByIterKw(first, kwargs[1..^1])
+    result =
+      if first.kind == nnkExprEqExpr:
+        dictByKw kwargs
+      else:
+        dictByIterKw(first, kwargs[1..^1])
 
 macro update*(self: PyDict, args: varargs[untyped]) =
   ## `d.update(iterable, **kw)` or
