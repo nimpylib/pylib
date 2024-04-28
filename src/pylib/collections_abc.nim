@@ -10,7 +10,7 @@ type
   Container*[T] = concept self
     contains(self, T) is bool
   
-  Collection*[T] = concept self of Sized, Container[T], Iterable[T]
+  Collection*[T] = Sized and Container[T] and Iterable[T]
   
   Sequence*[T] = concept self of Collection[T]
     # NIM-BUG: if only a `self[int] is T`,
