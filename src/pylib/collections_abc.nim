@@ -2,8 +2,10 @@
 
 type
   Iterable*[T] = concept self  ## Mimic Pythons Iterable. But not checks `iter`
-    for value in self:
-      value is T
+    #for value in self: value is T 
+    # Above may cause inner error when JS backend on older Nim
+    T  # see below
+    typeof(self.items, typeOfIter) is T
   Sized* = concept self
     len(self) is int
   
