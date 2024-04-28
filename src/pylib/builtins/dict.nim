@@ -14,9 +14,12 @@ type
   PyDict*[K, V] = OrderedTableRef[K, V]
 
 template newPyDictImpl[K, V](x: varargs): untyped =
+  ## zero or one arg
+  ## shall support `[]`, `{k:v}`, `@[(k, v),...]`
   newOrderedTable[K, V](x)
 
 func toPyDict*[K, V](x: openArray[(K, V)]): PyDict[K, V] =
+  # NOTE: in Nim, `{k:v, ...}` is of `array[(type(k), type(v))]`
   result = newPyDictImpl[K, V](x)
   
 func toPyDict*[K, V](x:
@@ -39,7 +42,9 @@ func copy*[K, V](self: PyDict[K, V]): PyDict[K, V] =
   result = newPyDictImpl[K, V](len(self))
   for k, v in self.items():
     result[k] = v
-  
+
+# as PyDict is of `ref` type, no need to use `var PyDict` for param type
+
 func setdefault*[K, V](self: PyDict[K, V], key: K, default = V.default) =
   ## .. warning:: `default` defaults to `V.default` instead of `None`
   if key in self:
@@ -62,7 +67,7 @@ func popitem*[K, V](self: PyDict[K, V]): (K, V) =
 
 func emptyPyDict*[K, V](): PyDict[K, V] = newPyDictImpl[K, V]([])
 
-template PyDictProc: NimNode = ident "toPyDict"
+template PyDictProc: NimNode = ident "toPyDict" # the proc must be exported
 
 # Impl end
 
@@ -86,6 +91,7 @@ proc dictByIterKw(iter: NimNode; kwargs: seq[NimNode]): NimNode =
   let rhs = newCall(PyDictProc, iter)
   result = infix(lhs, "|", rhs)
 
+# Why cannot...: func dict*[K, V](): PyDict[K, V] = emptyPyDict[K, V]()
 macro dict*(kwargs: varargs[untyped]): PyDict =
   case kwargs.len
   of 0:
