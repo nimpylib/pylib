@@ -16,17 +16,23 @@ type
   PySet*[H] = HashSet[H]
   SomeSet*[H] = HashSet[H] or OrderedSet[H] or system.set[H]
 
-func set*[H](): PySet[H] = initHashSet[H]()
-func set*[H](iterable: Iterable[H]): PySet[H] =
-  for i in iterable:
-    result.add i
-func set*[H](s: PySet[H]): PySet[H] = s
-func set*[H](s: HashSet[H]): PySet[H] = s
-func pyset*[T](iterable: Iterable[T]): PySet[T]{.inline.} =
-  set[T](iterable)
-template pyset*[H](): PySet[H] =
-  bind set
-  set[H]()
+macro genpysets(defs) =
+  let name = ident"pyset"
+  result = newStmtList()
+  for def in defs:
+    var nDef = def.copyNimTree()
+    nDef[0][^1] = name
+    result.add(def, nDef)
+
+genpysets:
+  func set*[H](): PySet[H] = initHashSet[H]()
+  func set*[H](s: PySet[H]): PySet[H] = s
+  func set*[H](s: HashSet[H]): PySet[H] = s
+  func set*[H](arr: openarray[H]): PySet[H] = arr.toHashSet
+  func set*[H](iterable: Iterable[H]): PySet[H] =
+    for i in iterable:
+      result.add i
+
 template copy*[H](self: PySet[H]): PySet[H] = pyset(self)
 
 const SetLitBugMsg = "When used, Nim compiler(at least 2.0.0-2.1.2) will complain:\n" & """
