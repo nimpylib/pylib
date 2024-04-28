@@ -91,7 +91,6 @@ macro dict*(kwargs: varargs[untyped]): PyDict =
   of 0:
     # Can't we get generic args?
     error "use emptyPyDict"  # TODO: support it
-    newEmptyNode()
   of 1:
     let arg = kwargs[0]
     if arg.kind == nnkExprEqExpr:
