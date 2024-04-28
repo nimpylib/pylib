@@ -69,7 +69,7 @@ template fold(op) =
   # set.op(*others)
   func op*[H; S: not PySet[H] and SomeSet[H]](
     self: PySet[H], s: S): PySet[H] =
-    op(self, pyset[H](iterable))
+    op(self, pyset[H](s))
   func op*[H; I: not SomeSet[H] and Iterable[H]](
     self: PySet[H], iterable: I): PySet[H] =
     op(self, pyset[H](iterable))
