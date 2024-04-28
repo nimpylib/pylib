@@ -110,11 +110,13 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   else:
     if statement.len == 0:
       result.add statement
-    var nStmt = newNimNode statement.kind
-    for i, e in statement.pairs():
-      nStmt.add:
-        if e.len != 0: mparser.parsePyBody e
-        else: e
+    else:
+      var nStmt = newNimNode statement.kind
+      for e in statement:
+        nStmt.add:
+          if e.len != 0: mparser.parsePyBody e
+          else: e
+      result.add nStmt
 
 
 proc parsePyBody*(mparser; body: NimNode): NimNode =
