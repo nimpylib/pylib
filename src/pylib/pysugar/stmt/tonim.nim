@@ -62,13 +62,12 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       
     let (varName, varValue) = (statement[0], statement[1])
     case varName.kind
-    of nnkIdent:  # varName may be `nnkDotExpr`. e.g.`a.b=1`
-      # if varName != nnkIdent, then $varName is an error.
-      # And, we just only care `ident`
+    of nnkIdent:  
       handleVar varName, varValue
     of nnkTupleConstr:
       unpackImplRec(data=varValue, symbols=varName, res=result, receiver=handleVar)
     else:
+      # varName may be `nnkDotExpr`. e.g.`a.b=1`
       result.add statement
   of nnkCommand:
     let preCmd = $statement[0]
