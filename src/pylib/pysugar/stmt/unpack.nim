@@ -41,13 +41,13 @@ template unpackImplRec*(data: NimNode, symbols: NimNode, res: var NimNode,
     nameIdent = data
   var valIdx = 0 # current data index, needed for handling *
   var backwards = false # we need to use ^ after we find an *
-  for i, val in symbols:
+  for i, sym in symbols:
     # _ usually means "we don't want that value"
-    if val.eqident "_":
+    if sym.eqIdent "_":
       discard  #  do not `continue`
     # Python-like * in tuple unpacking
-    elif val.kind == nnkPrefix and val[0].eqIdent "*":
-      let valName = val[1]
+    elif sym.kind == nnkPrefix and sym[0].eqIdent "*":
+      let valName = sym[1]
       # handle *_ (yes it's valid in Python too)
       let needGenerate = not valName.eqIdent"_"
       # get how much variables we have till the end (+1)
@@ -60,9 +60,9 @@ template unpackImplRec*(data: NimNode, symbols: NimNode, res: var NimNode,
           valName,
           nnkBracketExpr.newTree(
             nameIdent,
-            nnkInfix.newTree(
-              ident"..",
+            infix(
               newIntLitNode(valIdx),
+              "..",
               nnkPrefix.newTree(
                 ident"^",
                 newIntLitNode(ends)
@@ -73,10 +73,10 @@ template unpackImplRec*(data: NimNode, symbols: NimNode, res: var NimNode,
       # update the value index
       valIdx = ends
     else:
-      if not backwards:
-        receiver(val, quote do:`nameIdent`[`valIdx`])
-      else:
-        receiver(val, quote do:`nameIdent`[^`valIdx`])
+      let
+        valIdxNode = newLit valIdx
+        idxNode = if backwards: prefix(valIdxNode, "^") else: valIdxNode
+      receiver(sym, nnkBracketExpr.newTree(nameIdent, idxNode))
     # with backwards we decrement towards the end,
     # increment otherwise
     valIdx += (if backwards: -1 else: 1)
