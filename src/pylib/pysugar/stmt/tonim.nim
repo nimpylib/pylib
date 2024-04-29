@@ -55,7 +55,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     # variable assignment
     template handleVar(varName, varValue: NimNode) =
       if $varName in mparser:
-        result.add statement
+        result.add newAssignment(varName, varValue)
       else:
         result.add newVarStmt(varName, varValue)
         mparser.add $varName
