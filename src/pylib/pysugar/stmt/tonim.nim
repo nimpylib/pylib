@@ -67,13 +67,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       # And, we just only care `ident`
       handleVar varName, varValue
     of nnkTupleConstr:
-      if varValue.kind == nnkTupleConstr:
-        for i, v in varName.pairs():
-          if v.eqIdent "_":
-            continue
-          handleVar v, varValue[i]
-      else:
-        unpackImplRec(data=varValue, symbols=varName, res=result, receiver=handleVar)
+      unpackImplRec(data=varValue, symbols=varName, res=result, receiver=handleVar)
     else:
       result.add statement
   of nnkCommand:
