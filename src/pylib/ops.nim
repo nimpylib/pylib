@@ -7,6 +7,8 @@ template `**`*[T: SomeFloat](a, b: T): T = pow(a, b)
 template `**`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = pow(a, b)
 template `**`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = pow(B(a), b)
 
+template `**=`*(a: var SomeNumber, b: SomeNumber) = a = a**b
+
 # Comparasion operators. We only need 3 of them :<, <=, ==.
 # Other comparasion operators are just shortcuts to these
 template `<`*[A: SomeInteger, B: SomeFloat](a: A, b: B): bool = B(a) < b
@@ -22,6 +24,9 @@ template `<>`*[A: SomeInteger, B: SomeFloat](a: A, b: B): bool = B(a) != b # Pyt
 template `<>`*[A: SomeFloat, B: SomeInteger](a: A, b: B): bool = a != A(b) # Python 1.x and 2.x
 
 template `/`*(x: SomeInteger, y: SomeInteger): float = system.`/`(float(x), float(y))
+
+# Nim is static-typed, but `/=` will cause lhs convert from int to float
+# template `/=`*(x: var SomeInteger, y: SomeInteger)  
 
 type
   ArithmeticError* = object of CatchableError
@@ -43,6 +48,7 @@ func `%`*[T: SomeNumber](a, b: T): T =
 template `%`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = a % A(b)
 template `%`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = B(a) % b
 
+template `%=`*(self: var SomeNumber, x: SomeNumber) = self = self % x
 
 func `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): SomeNumber {.inline.} =
   ## Python-like floor division
@@ -53,6 +59,9 @@ func `//`*[A, B: SomeFloat | SomeInteger](a: A, b: B): SomeNumber {.inline.} =
     (a - a % b) div b
   else:
     (a.float - a % b) / b.float
+
+template `//=`*[A, B: SomeFloat | SomeInteger](a: var A, b: B)=
+  a = a//b
 
 func divmod*[T: SomeNumber](x, y: T): (T, T) = 
   ## differs from std/math divmod
