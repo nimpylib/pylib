@@ -9,6 +9,13 @@ template `**`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = pow(B(a), b)
 
 template `**=`*(a: var SomeNumber, b: SomeNumber) = a = a**b
 
+# Currently `shr` is also `arithm shr`, but it used to be `logic shr`
+template `>>`*[I: SomeInteger](a, b: I): I = ashr a, b
+template `<<`*[I: SomeInteger](a, b: I): I = a shl b
+
+template `>>=`*[I: SomeInteger](a, b: I) = a = a shr b
+template `<<=`*[I: SomeInteger](a, b: I) = a = a shl b
+
 # Comparasion operators. We only need 3 of them :<, <=, ==.
 # Other comparasion operators are just shortcuts to these
 template `<`*[A: SomeInteger, B: SomeFloat](a: A, b: B): bool = B(a) < b
