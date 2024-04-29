@@ -3,6 +3,7 @@ from std/os import sleep  # python's `sleep` is in `time` module, however
 import pylib/Lib/tempfile # more python-stdlib in pylib/Lib...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
+pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
 # NOTE: from now on, the following is just valid Python3 code!
 # only add the following to make it Python:
@@ -62,8 +63,6 @@ print("a" or "b") # "a"
 print(not "") # true
 
 print("Hello,", input("What is your name? "), endl="\n~\n")
-
-pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
 def show_divmod_and_unpack(integer_bytes):
   (kilo, bite) = divmod(integer_bytes, 1_024)
