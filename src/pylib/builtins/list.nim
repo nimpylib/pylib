@@ -3,12 +3,6 @@
 ## LIMIT: `slice` literal is not supported.
 ## `ls[1:3]` has to be rewritten as `ls[1..2]`
 
-
-# Currently, we use Nim's `seq` to minic list.
-# 
-# NOTE: Nim's `seq` is continuous, while CPython's `list` is linked.
-
-
 from std/algorithm import reverse, sort, SortOrder, sortedByIt, sorted
 
 from ./iters import enumerate
