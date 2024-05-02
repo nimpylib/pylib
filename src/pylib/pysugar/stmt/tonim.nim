@@ -25,13 +25,14 @@ import std/macros
 import ./[pyraise, frame, pydef, unpack]
 
 using mparser: var PyAsgnRewriter
+proc parsePyBody*(mparser; body: NimNode): NimNode  # front decl
+include ./class
+
 
 proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
   if n.kind in nnkStrLit..nnkTripleStrLit: 
     res.add newCommentStmtNode($n)
     return true
-
-proc parsePyBody*(mparser; body: NimNode): NimNode
 
 proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   ## Rewrites statement from Python-favor to Nim
@@ -90,6 +91,8 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     of "async":
       mparser.withStack:
         result.add asyncImpl(statement[1], statement[2], parser=mparser)
+    of "class":
+      result.add classImpl(statement[1], statement[2])
     else:
       var cmd = newNimNode nnkCommand
       for i in statement:
