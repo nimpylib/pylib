@@ -17,8 +17,8 @@ export sorted, reverse  # for openArray
 type
   PyList*[T] = object
     data: seq[T]
-  ## Currently is an alias of seq. shall be distinct type, as some routiues has different signature
-  ##  for example, `seq[T].insert(T, int)` and `list[T].insert(int, T)`
+  # shall be a distinct type of seq, as some routiues has different signature
+  #  for example, `seq[T].insert(T, int)` and `list[T].insert(int, T)`
 
 converter asSeq[T](self: PyList[T]): seq[T] = self.data
 converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
