@@ -1,4 +1,6 @@
-# to be included from ./tonim.nim  
+
+import std/macros
+import ./[frame, funcSignature, decorator, tonim]
 
 template emptyn: NimNode = newEmptyNode()
 
@@ -106,6 +108,59 @@ The AST map:
       result[i] = recReplaceSuperCall(result[i], defSupCls, 0)
     i.inc
 
+
+proc tryConsumeClsBltinDecorater(mparser: var PyAsgnRewriter,
+  procName: NimNode, args: openArray[NimNode], body: NimNode, pragmas: NimNode,
+  res: var NimNode
+): bool =
+  #[
+    @staticmethod
+    def f(...)   ->   proc f(_`symgen: typedesc[Cls],...)
+
+    @classmethod
+    def f(cls...) ->   proc f(cls: typedesc[Cls]...)
+  ]#
+  var
+    nArgs = @args
+    nPragmas = pragmas
+  template withType(procTyp) =
+    res = newProc(procName, nArgs, body, procType=procTyp, pragmas=nPragmas)
+  if mparser.decorators.len == 0:
+    withType(nnkMethodDef)
+    return false
+
+  template curClass: NimNode =
+    if mparser.classes.len == 0:
+      error "TypeError: invalid context. not in class", decor.name
+    mparser.classes[^1]
+   
+  let decor = mparser.decorators.pop()
+  template retFalse(procType=nnkMethodDef) =
+    withType(procType)
+    mparser.decorators.add decor  # add back
+    return false
+  template purgeBase =
+    if mparser.decorators.len != 0:
+      error "Currently `" & $decor.name & "` must be the nearest decorator of a method"
+    nPragmas = newNimNode nnkPragma
+    for pragma in pragmas:
+      if not pragma.eqIdent "base":
+        nPragmas.add pragma
+  template clsType: NimNode =
+    nnkBracketExpr.newTree(ident"typedesc", curClass())
+  case $decor.name
+  of "staticmethod":
+    purgeBase()
+    nArgs.insert(newIdentDefs(ident"_", clsType), 1)
+  of "classmethod":
+    purgeBase()
+    nArgs[1][1] = clsType
+  else:
+    retFalse()
+  withType(nnkProcDef)
+  return true
+
+
 proc classImpl*(obj, body: NimNode): NimNode = 
   ##[ minic Python's `class`.
 
@@ -143,7 +198,7 @@ For the latter one, as Nim doesn't allow override `SupCls`'s attr (lead to a com
 so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a`)
 (Technologically, it can be implemented via `std/macros` `owner`)
 ]##
-  
+  # TODO: support Python3.12's `class O[T: SubCls]:`
   # We accept "class Shape:" "class Shape():" or  "Class Shape(object):"
   var
     classId = obj
@@ -171,6 +226,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   template addAttr(name; typ=emptyn, defVal=emptyn) =
     typDefLs.add nnkIdentDefs.newTree(name, typ, defVal)
   var defs = newStmtList()
+  var parser = newPyAsgnRewriter()
   for def in body:
     var pragmas = defPragmas  # will be set as empty if `isConstruct` or not base
     case def.kind
@@ -179,7 +235,8 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       addAttr tup.name, tup.typ, tup.val
     of nnkAsgn:  #  a = 1
       addAttr def[0], emptyn, def[1]
-    of nnkCommand:  #  def a(b, c=1).
+    of nnkCommand:  # TODO: support async
+      #  def a(b, c=1).
       # Other stuff than defines: comments, etc
       if not def[0].eqIdent "def":
         result.add def
@@ -193,6 +250,8 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
         pragmas = emptyn
       # First argument is the return type of the procedure
       var args = tup.params
+      # push a new stack frame
+      parser.push()
       # Statements which will occur before proc body
       var beforeBody = newStmtList()
       if isConstructor:
@@ -204,23 +263,37 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
           new(self)
         beforeBody.add getAst(construct())
       else:
-        if args[1][0].eqIdent "self":
+        if args.len > 1 and args[1][0].eqIdent "self":
           args[1][1] = classId
       # Function body
-      var parser = newPyAsgnRewriter()
+      parser.classes.add classId
       var parsedbody = recReplaceSuperCall(parser.parsePyBody(def[2]), supCls)
       # If we're generating a constructor proc - we need to return self
       # after we've created it
       if isConstructor:
-        parsedbody.add parseExpr("return self")
+        parsedbody.add nnkReturnStmt.newTree ident"self"
       # Add statement which will occur before function body
       beforeBody.add parsedBody
+      parser.pop()
+
       # Finally create a procedure and add it to result!
-      defs.add newProc(procName, args, beforeBody, 
-        if isConstructor: nnkProcDef else: nnkMethodDef,
-        pragmas=pragmas)
+      var nDef: NimNode
+      if not parser.tryConsumeClsBltinDecorater(
+        procName, args, beforeBody, 
+        pragmas=pragmas, res=nDef
+      ):
+        nDef = parser.consumeDecorator(
+          newProc(procName, args, beforeBody, 
+            if isConstructor: nnkProcDef else: nnkMethodDef,
+            pragmas=pragmas)
+        )
+      defs.add nDef
+
     of nnkStrLit, nnkRStrLit, nnkTripleStrLit:
       result.add newCommentStmtNode $def
+    of nnkPrefix:
+      if not parser.tryHandleDecorator def:
+        result.add def
     else:
       result.add def  # AS-IS
   let ty = nnkRefTy.newTree nnkObjectTy.newTree(emptyn, supClsNode, typDefLs)
@@ -229,5 +302,6 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       when not declared `classId`:
         `typDef`
   result.add defs
+  discard parser.classes.pop()
   # Echo generated code
   # echo result.toStrLit

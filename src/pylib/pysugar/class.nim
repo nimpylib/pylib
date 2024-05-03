@@ -1,5 +1,5 @@
 
-import ./stmt/tonim
+import ./stmt/class
 
 macro class*(obj, body: untyped): untyped = 
   ## wrapper of `classImpl proc<./stmt/tonim.html>`_

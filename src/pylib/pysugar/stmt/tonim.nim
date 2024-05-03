@@ -22,12 +22,10 @@
 # ```
 
 import std/macros
-import ./[pyraise, frame, pydef, unpack]
+import ./[pyraise, frame, pydef, unpack, decorator]
 
 using mparser: var PyAsgnRewriter
 proc parsePyBody*(mparser; body: NimNode): NimNode  # front decl
-include ./class
-
 
 proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
   if n.kind in nnkStrLit..nnkTripleStrLit: 
@@ -86,13 +84,20 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
           "where name is used for globals is not supported"
       mparser.nonlocalAdd varName
     of "def":
+      var defRe: NimNode
       mparser.withStack:
-        result.add defImpl(statement[1], statement[2], parser=mparser)
+        defRe = defImpl(statement[1], statement[2], parser=mparser)
+      result.add mparser.consumeDecorator(defRe)
     of "async":
+      var defRe: NimNode
       mparser.withStack:
-        result.add asyncImpl(statement[1], statement[2], parser=mparser)
+        defRe = asyncImpl(statement[1], statement[2], parser=mparser)
+      result.add mparser.consumeDecorator(defRe)
     of "class":
-      result.add classImpl(statement[1], statement[2])
+      error "class in def is not supported yet"
+      # TODO: impl by define such class in global but mangling its name
+      # It has to be global as  class's def is implemented via `method`,
+      # which is only allowed at global scope 
     else:
       var cmd = newNimNode nnkCommand
       for i in statement:
@@ -103,6 +108,9 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       result.add cmd
   of nnkRaiseStmt:
     result.add rewriteRaise statement
+  of nnkPrefix:
+    if not mparser.tryHandleDecorator statement:
+      result.add statement
   else:
     if statement.len == 0:
       result.add statement

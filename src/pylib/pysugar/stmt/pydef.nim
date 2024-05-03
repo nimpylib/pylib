@@ -16,7 +16,8 @@ type
 
 proc defImpl*(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode
   ## if `signature` is of arrow expr (like f()->int), then def_restype is ignored
-proc asyncImpl*(defsign, body: NimNode, parser: var PyFuncBodyProcesser): NimNode
+proc asyncImpl*(defsign, body: NimNode, parser: var PyFuncBodyProcesser;
+  procType=nnkProcDef): NimNode
 
 proc defAux*(signature, body: NimNode,
             deftype = ident"untyped",
@@ -33,7 +34,8 @@ proc defAux*(signature, body: NimNode,
 proc defImpl(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode =
   defAux(signature, body, parser=parser, deftype=deftype, procType=procType, pragmas=pragmas)
 
-proc asyncImpl(defsign, body: NimNode; parser: var PyFuncBodyProcesser): NimNode =
+proc asyncImpl(defsign, body: NimNode; parser: var PyFuncBodyProcesser;
+  procType=nnkProcDef): NimNode =
   let 
     pre = defsign[0]
     signature = defsign[1]
@@ -41,4 +43,4 @@ proc asyncImpl(defsign, body: NimNode; parser: var PyFuncBodyProcesser): NimNode
   let
     apragma = newNimNode(nnkPragma).add(ident"async")
     restype = newNimNode(nnkBracketExpr).add(ident"Future", ident"void")
-  defImpl(signature, body, parser=parser, pragmas=apragma, deftype=restype)
+  defImpl(signature, body, parser=parser, pragmas=apragma, deftype=restype, procType=procType)
