@@ -108,23 +108,30 @@ The AST map:
       result[i] = recReplaceSuperCall(result[i], defSupCls, 0)
     i.inc
 
+func remove1[T](s: var seq[T], x: T) =
+  ## remove the first `x` found in `s`
+  var idx: int
+  block foundIdx:
+    for i, v in s:
+      if v == x:
+        idx = i
+        break foundIdx
+    return
+  s.delete idx
 
-proc tryConsumeClsBltinDecorater(mparser: var PyAsgnRewriter,
-  procName: NimNode, args: openArray[NimNode], body: NimNode, pragmas: NimNode,
-  res: var NimNode
+proc tryPreClsBltinDecorater(mparser: var PyAsgnRewriter,
+  args: var seq[NimNode], procType: var NimNodeKind,
+  pragmas: var seq[NimNode],
 ): bool =
   #[
     @staticmethod
-    def f(...)   ->   proc f(_`symgen: typedesc[Cls],...)
+    def f(...)   ->   def f(_`gensym: typedesc[Cls],...)
 
     @classmethod
-    def f(cls...) ->   proc f(cls: typedesc[Cls]...)
+    def f(cls...) ->   def f(cls: typedesc[Cls]...)
   ]#
-  var
-    nArgs = @args
-    nPragmas = pragmas
   template withType(procTyp) =
-    res = newProc(procName, nArgs, body, procType=procTyp, pragmas=nPragmas)
+    procType = procTyp
   if mparser.decorators.len == 0:
     withType(nnkMethodDef)
     return false
@@ -141,25 +148,45 @@ proc tryConsumeClsBltinDecorater(mparser: var PyAsgnRewriter,
     return false
   template purgeBase =
     if mparser.decorators.len != 0:
-      error "Currently `" & $decor.name & "` must be the nearest decorator of a method"
-    nPragmas = newNimNode nnkPragma
-    for pragma in pragmas:
-      if not pragma.eqIdent "base":
-        nPragmas.add pragma
+      # NIM-BUG:
+      #[
+```Nim
+type
+  O = object
+  Func = proc (t: typedesc[O]): int
+
+func as_is(f: Func): Func = return f 
+
+let f = block:
+  proc f(t: typedesc[O]): int = return 3
+  as_is(f)
+```
+will error as below.
+
+if change `as_is(f)` in `let f = block:...` to `f`,
+then you will find it compile but `O.f()` gives `0` instead of `3`
+]#
+      warning "There may be a error like: " & 
+        "`Error: cannot instantiate: '_`gensymXXX:type'`"
+    pragmas.remove1 ident"base"
   template clsType: NimNode =
     nnkBracketExpr.newTree(ident"typedesc", curClass())
+  
   case $decor.name
   of "staticmethod":
     purgeBase()
-    nArgs.insert(newIdentDefs(ident"_", clsType), 1)
+    args.insert(newIdentDefs(ident"_", clsType), 1)
   of "classmethod":
     purgeBase()
-    nArgs[1][1] = clsType
+    args[1][1] = clsType
   else:
     retFalse()
   withType(nnkProcDef)
   return true
 
+template mkPragma(pragmas: seq[NimNode]): NimNode =
+  if pragmas.len == 0: emptyn
+  else: nnkPragma.newNimNode.add pragmas
 
 proc classImpl*(obj, body: NimNode): NimNode = 
   ##[ minic Python's `class`.
@@ -204,7 +231,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     classId = obj
     supCls = ident"RootObj"
     supClsNode = nnkOfInherit.newTree supCls
-    defPragmas = nnkPragma.newTree ident"base"
+    defPragmas = @[ident"base"]
     
   if obj.kind != nnkIdent:  #  class O([SupCls])
     classId = obj[0]
@@ -214,7 +241,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       supCls = obj[1]
       if supCls.kind != nnkObjectTy: # not `class O(object)`
         supClsNode = nnkOfInherit.newTree supCls
-        defPragmas = emptyn
+        defPragmas.remove1 ident"base"
     elif supLen > 1:
       error "multi-inhert is not allowed in Nim, " &
         "i.e. only one super class is expected, got " & $supLen
@@ -247,7 +274,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       let isConstructor = procName.eqIdent "init"
       if isConstructor:
         procName = newIdentNode("new" & className)
-        pragmas = emptyn
+        pragmas = @[]
       # First argument is the return type of the procedure
       var args = tup.params
       # push a new stack frame
@@ -277,15 +304,14 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       parser.pop()
 
       # Finally create a procedure and add it to result!
-      var nDef: NimNode
-      if not parser.tryConsumeClsBltinDecorater(
-        procName, args, beforeBody, 
-        pragmas=pragmas, res=nDef
-      ):
-        nDef = parser.consumeDecorator(
+      var procType: NimNodeKind
+      discard parser.tryPreClsBltinDecorater(
+        args, procType, pragmas=pragmas
+      )
+      if isConstructor: procType = nnkProcDef
+      let nDef = parser.consumeDecorator(
           newProc(procName, args, beforeBody, 
-            if isConstructor: nnkProcDef else: nnkMethodDef,
-            pragmas=pragmas)
+            procType, pragmas=pragmas.mkPragma)
         )
       defs.add nDef
 

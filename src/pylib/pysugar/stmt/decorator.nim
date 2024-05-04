@@ -54,10 +54,12 @@ proc consumeDecorator*(mparser; procDef: NimNode): NimNode =
     return procDef
   var blkExpr = newStmtList()
   blkExpr.add procDef
-  var call = procDef.name
+  let procName = procDef.name
+  var call = procName
   while mparser.decorators.len != 0:
     let decor = mparser.decorators.pop()
     call = mparser.genByDecor(decor, call, procDef)
   blkExpr.add call
-  result = newBlockStmt blkExpr
+  let blk = newBlockStmt blkExpr
+  result = newLetStmt(procName, blk)
 
