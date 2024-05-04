@@ -11,7 +11,7 @@ type
   PyFuncBodyProcesser = concept var self  ## One implememted is 
                                           ## `PyAsgnRewriter` in ./frame
                                           ## while its parsePyBody is in ./tonim
-    parsePyBody(self, NimNode) is NimNode
+    parsePyBodyWithDoc(self, NimNode) is NimNode
 
 
 proc defImpl*(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode
@@ -28,7 +28,7 @@ proc defAux*(signature, body: NimNode,
   let
     name = tup.name
     params = tup.params
-  let nbody = parser.parsePyBody body
+  let nbody = parser.parsePyBodyWithDoc body
   newProc(name, params, nbody, procType, pragmas) 
 
 proc defImpl(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode =

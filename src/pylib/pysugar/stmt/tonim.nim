@@ -26,6 +26,7 @@ import ./[pyraise, frame, pydef, unpack, decorator]
 
 using mparser: var PyAsgnRewriter
 proc parsePyBody*(mparser; body: NimNode): NimNode  # front decl
+proc parsePyBodyWithDoc*(mparser; body: NimNode): NimNode  # front decl
 
 proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
   if n.kind in nnkStrLit..nnkTripleStrLit: 
@@ -34,9 +35,6 @@ proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
 
 proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   ## Rewrites statement from Python-favor to Nim
-  ## 
-  ## - rewrite `raise`
-  ## - assignment without declaration, with `global` statement
   ## 
   ## statement shall not be `nnkStmtList`
   result = newStmtList()
@@ -116,6 +114,14 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       result.add statement
     else:
       var nStmt = newNimNode statement.kind
+      template parseBodyOnlyLast(ele) =
+        var subStmt = newNimNode ele.kind
+        let last = ele.len - 1
+        for i in 0..<last:
+          subStmt.add ele[i]
+        subStmt.add mparser.parsePyBody e[last]
+        nStmt.add subStmt
+
       for e in statement:
         case e.kind
         # no need to specify `nnkWhileStmt`,
@@ -128,16 +134,28 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
 
 
 proc parsePyBody*(mparser; body: NimNode): NimNode =
-  ## Rewrites doc-string to `CommentStmtNode` 
-  ## and map each stmt with `parsePyStmt`.
+  result = newStmtList()
+  for ele in body:
+    result.add mparser.parsePyStmt ele
+
+proc parsePyBodyWithDoc*(mparser; body: NimNode): NimNode =
   result = newStmtList()
   let start =
     if result.tryHandleDocStr body[0]: 1
     else: 0
   for i in start..<body.len:
-    let ele = body[i]
-    result.add mparser.parsePyStmt ele
-    
+    result.add mparser.parsePyStmt body[i]
+
+proc parsePyBodyWithDoc*(mparser; body: NimNode, docNode: var NimNode): NimNode =
+  ## Rewrites doc-string to `CommentStmtNode` and assign to docNode (as nnkStmtList)
+  ## and map each stmt with `parsePyStmt`.
+  result = newStmtList()
+  docNode = newStmtList()
+  let start =
+    if docNode.tryHandleDocStr body[0]: 1
+    else: 0
+  for i in start..<body.len:
+    result.add mparser.parsePyStmt body[i]
 
 template parsePyBody*(body: NimNode): NimNode =
   var parser = newPyAsgnRewriter()

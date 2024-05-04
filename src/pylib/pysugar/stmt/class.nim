@@ -294,13 +294,16 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
           args[1][1] = classId
       # Function body
       parser.classes.add classId
-      var parsedbody = recReplaceSuperCall(parser.parsePyBody(def[2]), supCls)
+      var docNode: NimNode
+      var parsedbody = recReplaceSuperCall(parser.parsePyBodyWithDoc(def[2], docNode), supCls)
       # If we're generating a constructor proc - we need to return self
       # after we've created it
       if isConstructor:
         parsedbody.add nnkReturnStmt.newTree ident"self"
       # Add statement which will occur before function body
       beforeBody.add parsedBody
+      if docNode.len != 0:
+        beforeBody.insert(0, docNode)
       parser.pop()
 
       # Finally create a procedure and add it to result!
