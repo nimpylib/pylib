@@ -2,6 +2,22 @@ import std/[strutils, unicode]
 
 import ./strops
 
+template casefold*(a: StringLike): string =
+  ## Mimics Python str.casefold() -> str
+  unicode.toLower(a)
+
+func capitalize*(a: StringLike): string =
+  ## make the first character have upper case and the rest lower case.
+  ## 
+  ## while Nim's `unicode.capitalize` only make the first character upper-case.
+  let s = $a
+  if len(s) == 0:
+    return ""
+  var
+    rune: Rune
+    i = 0
+  fastRuneAt(s, i, rune, doInc = true)
+  result = $toUpper(rune) & toLower substr(s, i)
 
 func index*(a: string, b: StringLike, start = 0, last = -1): int =
   var last = if last == -1: a.len else: last
@@ -36,18 +52,15 @@ func isupper*(a: StringLike): bool = allRunes a, isUpper
 
 template isspace*(a: StringLike): bool = unicode.isSpace($a)
 
-template join*[T](sep: StringLike, a: openArray[T]): string =
-  ## Mimics Python join() -> string
-  a.join($sep)
-
-template casefold*(a: StringLike): string =
-  ## Mimics Python str.casefold() -> str
-  unicode.toLower(a)
-
 template center*(a: StringLike, width: Natural, fillchar = ' '): string =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
   let hWidth = width div 2
   repeat(fillchar, hWidth) & a & repeat(fillchar, hWidth)
+
+template join*[T](sep: StringLike, a: openArray[T]): string =
+  ## Mimics Python join() -> string
+  a.join($sep)
+
 
 iterator split*(a: StringLike, maxsplit = -1): string =
   ## with unicode whitespaces as sep.
@@ -70,16 +83,3 @@ iterator split*(a: StringLike,
   
 func split*(a: StringLike, sep: StringLike, maxsplit = -1): seq[string] =
   for i in strmeth.split(a, sep, maxsplit): result.add i
-
-func capitalize*(a: StringLike): string =
-  ## make the first character have upper case and the rest lower case.
-  ## 
-  ## while Nim's `unicode.capitalize` only make the first character upper-case.
-  let s = $a
-  if len(s) == 0:
-    return ""
-  var
-    rune: Rune
-    i = 0
-  fastRuneAt(s, i, rune, doInc = true)
-  result = $toUpper(rune) & toLower substr(s, i)
