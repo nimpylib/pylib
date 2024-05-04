@@ -32,3 +32,8 @@ test "String operations":
   check fr"""""" == ""
   check fr""" """ == " "
   check fr"hello {42}" & " world" == "hello 42 world"
+
+  check not "abc".endswith("bc", 0, 2)
+  check     "abc".endswith("bc", 0, 3)
+
+  check "abc".endswith(("1", "c"))

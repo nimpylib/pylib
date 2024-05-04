@@ -6,6 +6,9 @@ template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
 
+template lower*(a: StringLike): string = toLower $a
+template upper*(a: StringLike): string = toUpper $a
+
 func capitalize*(a: StringLike): string =
   ## make the first character have upper case and the rest lower case.
   ## 
@@ -18,6 +21,27 @@ func capitalize*(a: StringLike): string =
     i = 0
   fastRuneAt(s, i, rune, doInc = true)
   result = $toUpper(rune) & toLower substr(s, i)
+
+
+template seWith(seWith){.dirty.} =
+  export strutils.seWith
+  func sewith*(a: StringLike, suffix: char): bool =
+    a.len != 0 and a[^1] == suffix
+  func sewith*[Tup: tuple](a: StringLike, suffix: Tup): bool =
+    let s = $a
+    for _, suf in suffix.fieldPairs:
+      if s.sewith suf:
+        return true
+  func sewith*[Suf: StringLike | tuple](a: StringLike, suffix: Suf, start: int): bool =
+    let s = $a
+    s[start..^1].sewith(suffix)
+  func sewith*[Suf: StringLike | tuple](a: StringLike, suffix: Suf,
+      start, `end`: int): bool =
+    let s = $a
+    s[start..<`end`].sewith(suffix)
+
+seWith startsWith
+seWith endsWith
 
 func index*(a: string, b: StringLike, start = 0, last = -1): int =
   var last = if last == -1: a.len else: last
