@@ -23,7 +23,7 @@ when true:
         """Return the balance remaining after withdrawing *amount*
         dollars."""
         if amount > self.balance:
-            raise newException(ValueError, "Amount greater than available balance.")
+            raise ValueError("Amount greater than available balance.")
         self.balance -= amount
         return self.balance
 

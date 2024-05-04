@@ -117,9 +117,13 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     else:
       var nStmt = newNimNode statement.kind
       for e in statement:
-        nStmt.add:
-          if e.kind == nnkStmtList: mparser.parsePyBody e
-          else: e
+        case e.kind
+        # no need to specify `nnkWhileStmt`,
+        # as it's handled by branch of `of nnkSmtList` and `else`
+        of nnkStmtList: nStmt.add mparser.parsePyBody e
+        of nnkOfBranch, nnkElifBranch, nnkElse, nnkForStmt:
+          parseBodyOnlyLast e
+        else: nStmt.add e
       result.add nStmt
 
 
