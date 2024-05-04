@@ -14,6 +14,26 @@ func rindex*(a: string, b: StringLike, start = 0, last = 0): int =
   if result == -1:
     raise newException(ValueError, "substring not found")
 
+
+template isascii*(c: char): bool = ord(c) in 0..0x7F
+func isascii*(a: string): bool =
+  result = true
+  if a.len == 0: return
+  for c in a:
+    if not c.isascii():
+      return false
+
+export isalpha
+
+template allRunes(a, isWhat) =
+  result = true
+  for r in runes $a:
+    if not r.isWhat:
+      return false
+
+func islower*(a: StringLike): bool = allRunes a, isLower
+func isupper*(a: StringLike): bool = allRunes a, isUpper
+
 template isspace*(a: StringLike): bool = unicode.isSpace($a)
 
 template join*[T](sep: StringLike, a: openArray[T]): string =
