@@ -4,7 +4,7 @@ import std/strutils except strip
 
 import ./strimpl
 import ./strip
-export strip
+import ./errHandle
 
 template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
@@ -143,6 +143,18 @@ func replace*(a, sub, by: StringLike): PyStr =
 func join*[T](sep: StringLike, a: openArray[T]): PyStr =
   ## Mimics Python join() -> string
   a.join(str(sep))
+
+template partitionGen(name; find){.dirty.} =
+  func name*(a: StringLike, sep: StringLike): tuple[before, sep, after: PyStr] =
+    noEmptySep(sep)
+    let idx = a.find(sep)
+    if idx == -1:
+      result.before = a
+      return
+    result = (a[0..<idx], sep, a[idx+len(sep) .. ^1] )
+
+partitionGen partition, find
+partitionGen rpartition, rfind
 
 iterator split*(a: StringLike, maxsplit = -1): PyStr =
   ## with unicode whitespaces as sep.
