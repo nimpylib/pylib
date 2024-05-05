@@ -91,6 +91,25 @@ template center*(a: StringLike, width: Natural, fillchar = ' '): string =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
   center($a, width, fillChar)
 
+template ljust*(a: StringLike, width: int, fillchar = ' ' ): string =
+  alignLeft $a, width, fillchar
+template rjust*(a: StringLike, width: int, fillchar = ' ' ): string =
+  align $a, width, fillchar
+
+func removeprefix*(a: StringLike, suffix: StringLike): string =
+  result = $a
+  strutils.removePrefix result, suffix
+func removesuffix*(a: StringLike, suffix: StringLike): string =
+  result = $a
+  strutils.removeSuffix result, suffix
+
+func strip*(a: StringLike, chars: StringLike): string =
+  strutils.strip($a, chars=chars)
+func lstrip*(a: StringLike, chars: char): string =
+  strutils.strip($a, trailing=false, chars={chars})
+func rstrip*(a: StringLike, chars: char): string =
+  strutils.strip($a, leading=false, chars={chars})
+
 template join*[T](sep: StringLike, a: openArray[T]): string =
   ## Mimics Python join() -> string
   a.join($sep)
@@ -107,9 +126,6 @@ iterator split*(a: StringLike, maxsplit = -1): string =
   #for i in strutils.split($a): if i != "": yield i
   for i in unicode.split($a, maxsplit=maxsplit):
     if i != "": yield i
-
-func split*(a: StringLike, maxsplit = -1): seq[string] =
-  for i in strmeth.split(a, maxsplit): result.add i
 
 iterator split*(a: StringLike,
     sep: StringLike, maxsplit = -1): string{.inline.} =
