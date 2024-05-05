@@ -64,7 +64,7 @@ func `==`*(self, o: PySet): int = self.data == o.data
 func `<=`*(self, o: PySet): int = self.data <= o.data
 func `<`*(self, o: PySet): int = self.data < o.data
 func contains*[H](self: PySet[H], x: H): bool = self.data.contains x
-proc pop*[H](self: var PySet[H]): H = self.data.pop()
+proc pop*[H](self: var PySet[H]): H{.discardable.} = self.data.pop()
 iterator items*[H](self: PySet[H]): H =
   for i in self.data: yield i
 export sets.items
