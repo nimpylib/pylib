@@ -72,14 +72,16 @@ func isascii*(a: string): bool =
     if not c.isascii():
       return false
 
-export isalpha
+func isalpha*(c: char): bool = c.isAlphaAscii
+func isalpha*(a: StringLike): bool = unicode.isAlpha($a)
 
 template allRunes(a, isWhat) =
   result = true
   for r in runes $a:
     if not r.isWhat:
       return false
-
+func islower*(c: char): bool = c.isLowerAscii
+func isupper*(c: char): bool = c.isUpperAscii
 func islower*(a: StringLike): bool = allRunes a, isLower
 func isupper*(a: StringLike): bool = allRunes a, isUpper
 
