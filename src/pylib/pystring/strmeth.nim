@@ -78,8 +78,7 @@ template isspace*(a: StringLike): bool = unicode.isSpace($a)
 
 template center*(a: StringLike, width: Natural, fillchar = ' '): string =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
-  let hWidth = width div 2
-  repeat(fillchar, hWidth) & a & repeat(fillchar, hWidth)
+  center($a, width, fillChar)
 
 template join*[T](sep: StringLike, a: openArray[T]): string =
   ## Mimics Python join() -> string
