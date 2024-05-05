@@ -45,6 +45,13 @@ template seWith(seWith){.dirty.} =
 seWith startsWith
 seWith endsWith
 
+
+func find*(a: StringLike, b: StringLike, start = 0, last = -1): int =
+  strutils.find($a, b, start, last)
+
+func rfind*(a: StringLike, b: StringLike, start = 0, last = -1): int =
+  strutils.rfind($a, b, start, last)
+
 func index*(a: string, b: StringLike, start = 0, last = -1): int =
   var last = if last == -1: a.len else: last
   result = a.find(b, start, last)
