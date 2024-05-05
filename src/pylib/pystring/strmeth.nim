@@ -10,8 +10,8 @@ template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
 
-template lower*(a: StringLike): string = toLower $a
-template upper*(a: StringLike): string = toUpper $a
+func lower*(a: StringLike): string = toLower $a
+func upper*(a: StringLike): string = toUpper $a
 
 func capitalize*(a: StringLike): string =
   ## make the first character have upper case and the rest lower case.
@@ -116,18 +116,18 @@ func isupper*(c: char): bool = c.isUpperAscii
 func islower*(a: StringLike): bool = allRunes a, isLower
 func isupper*(a: StringLike): bool = allRunes a, isUpper
 
-template isspace*(a: StringLike): bool = unicode.isSpace($a)
+func isspace*(a: StringLike): bool = unicode.isSpace($a)
 
-template center*(a: PyStr|char, width: Natural, fillchar = ' '): PyStr =
+func center*(a: PyStr|char, width: Natural, fillchar = ' '): PyStr =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
   let
     hWidth = (width-len(a)) div 2
     half = fillchar.repeat(hWidth)
   half + a + half
 
-template ljust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
+func ljust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
   alignLeft $a, width, fillchar
-template rjust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
+func rjust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
   align $a, width, fillchar
 
 func removeprefix*(a: StringLike, suffix: StringLike): PyStr =
@@ -137,7 +137,7 @@ func removesuffix*(a: StringLike, suffix: StringLike): PyStr =
   result = $a
   strutils.removeSuffix result, suffix
 
-template join*[T](sep: StringLike, a: openArray[T]): PyStr =
+func join*[T](sep: StringLike, a: openArray[T]): PyStr =
   ## Mimics Python join() -> string
   a.join(str(sep))
 
