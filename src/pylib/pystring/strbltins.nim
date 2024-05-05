@@ -3,6 +3,9 @@ import std/strutils
 from std/unicode import runeAt, utf8, runeLen, Rune, `$`
 import ./strimpl
 
+func reversed*(s: PyStr): PyStr =
+  unicode.reversed s
+
 func chr*(a: SomeInteger): PyStr =
   if a.int notin 0..0x110000:
     raise newException(ValueError, "chr() arg not in range(0x110000)")
