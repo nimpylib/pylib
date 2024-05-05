@@ -1,4 +1,10 @@
 
+test "list shallow":
+  var ls = list([1,2,3])
+  var ls1 = ls
+  ls1[0] = 3
+  check ls[0] == 3
+
 test "list.sort":
   
   template chkSorted(x) =

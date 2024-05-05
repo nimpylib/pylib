@@ -15,7 +15,7 @@ export index, count
 export sorted, reverse  # for openArray
 
 type
-  PyList*[T] = object
+  PyList*[T] = ref object
     data: seq[T]
   # shall be a distinct type of seq, as some routiues has different signature
   #  for example, `seq[T].insert(T, int)` and `list[T].insert(int, T)`
@@ -25,8 +25,10 @@ converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
 
 func `@`*[T](ls: PyList[T]): seq[T] = ls.data
 
-func newPyList[T](s: seq[T]): PyList[T] = result.data = s
-func newPyList[T](len=0): PyList[T] = newPyList newSeq[T](len)
+proc newPyList[T](s: seq[T]): PyList[T] =
+  new result
+  result.data = s
+proc newPyList[T](len=0): PyList[T] = newPyList newSeq[T](len)
 
 iterator items*[T](self: PyList[T]): T =
   for i in self.data:
@@ -130,12 +132,14 @@ proc list*[T](iter: Iterable[T]): PyList[T] =
     for i, v in enumerate(iter):
       result[i] = v
   else:
+    result = newPyList[T]()
     for i in iter:
       result.append(i)
 
-func `$`*(ls: PyList): string =
+func `$`*[T](ls: PyList[T]): string =
   if len(ls) == 0: return "[]"
 
+  result = newPyList[T]()
   result.add "[" & $ls[0]
   for i in 1..<ls.len:
     result.add ", " & $ls[i]
