@@ -172,6 +172,8 @@ iterator split*(a: StringLike,
   noEmptySep sep
   for i in strutils.split($a, $sep, maxsplit): yield i
   
+func split*(a: StringLike, maxsplit = -1): seq[PyStr] =
+  for i in strmeth.split(a, maxsplit): result.add i
 func split*(a: StringLike, sep: StringLike, maxsplit = -1): seq[PyStr] =
   noEmptySep sep
   for i in strmeth.split(a, sep, maxsplit): result.add i
