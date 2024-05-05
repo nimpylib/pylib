@@ -2,5 +2,5 @@
 import ./private/trans_imp
 
 impExp pystring, 
-  strmeth, strbltins, strops, fstring
+  strimpl, strmeth, strbltins, strops, strprefix, fstring
 

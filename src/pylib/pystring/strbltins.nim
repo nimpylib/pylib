@@ -1,18 +1,15 @@
 
 import std/strutils
 from std/unicode import runeAt, utf8, runeLen, Rune, `$`
+import ./strimpl
 
-template str*(a: untyped): string = $a
-template unicode*(a: untyped): string = $a
-
-
-func chr*(a: SomeInteger): string =
+func chr*(a: SomeInteger): PyStr =
   if a.int notin 0..0x110000:
     raise newException(ValueError, "chr() arg not in range(0x110000)")
   result = $Rune(a)
 
 
-func ord1*(a: string): int =
+func ord1*(a: PyStr): int =
   runnableExamples:
     assert ord1("123") == ord("1")
   result = system.int(a.runeAt(0))
@@ -20,7 +17,7 @@ func ord1*(a: string): int =
 type
   TypeError* = object of CatchableError
 
-proc ord*(a: string): int =
+proc ord*(a: PyStr): int =
   runnableExamples:
     doAssert ord("δ") == 0x03b4
     when not defined(release):
@@ -28,7 +25,7 @@ proc ord*(a: string): int =
         discard ord("12")
 
   when not defined(release):
-    let ulen = a.runeLen
+    let ulen = a.len
     if ulen != 1:
       raise newException(TypeError, 
         "TypeError: ord() expected a character, but string of length " & $ulen & " found")
@@ -61,7 +58,7 @@ proc raw_ascii(us: string
     else:
       result.add r"\U" & ord1(s).toHex(8)
 
-proc ascii*(us:string): string=
+proc ascii*(us: string): string=
   ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
   ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
   ##   define singQuotedStr to get better performance but it'll be different from python's. See the `runnableExamples`
@@ -98,7 +95,10 @@ proc ascii*(us:string): string=
         '\'' & raw_ascii(us) & '\''
 
 
-template ascii*(c: char): string =
+func ascii*(a: PyStr): PyStr =
+  ascii a
+
+template ascii*(c: char): PyStr =
   ## we regard 'x' as a str (so as in python)
   runnableExamples:
     when defined(nimPreviewSlimSystem):
