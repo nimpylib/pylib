@@ -51,7 +51,7 @@ func index*(a: string, b: StringLike, start = 0, last = -1): int =
   if result == -1:
     raise newException(ValueError, "substring not found")
 
-func rindex*(a: string, b: StringLike, start = 0, last = 0): int =
+func rindex*(a: string, b: StringLike, start = 0, last = -1): int =
   result = a.rfind(b, start, last)
   if result == -1:
     raise newException(ValueError, "substring not found")
