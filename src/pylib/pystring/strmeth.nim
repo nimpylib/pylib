@@ -26,7 +26,7 @@ func capitalize*(a: StringLike): string =
 template seWith(seWith){.dirty.} =
   export strutils.seWith
   func sewith*(a: StringLike, suffix: char): bool =
-    a.len != 0 and a[^1] == suffix
+    seWith($a, suffix)
   func sewith*[Tup: tuple](a: StringLike, suffix: Tup): bool =
     let s = $a
     for _, suf in suffix.fieldPairs:
