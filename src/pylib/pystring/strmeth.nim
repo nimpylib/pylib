@@ -137,6 +137,9 @@ func removesuffix*(a: StringLike, suffix: StringLike): PyStr =
   result = $a
   strutils.removeSuffix result, suffix
 
+func replace*(a, sub, by: StringLike): PyStr =
+  strutils.replace($a, sub, by)
+
 func join*[T](sep: StringLike, a: openArray[T]): PyStr =
   ## Mimics Python join() -> string
   a.join(str(sep))
