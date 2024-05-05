@@ -170,7 +170,9 @@ iterator split*(a: StringLike, maxsplit = -1): PyStr =
 
 iterator split*(a: StringLike,
     sep: StringLike, maxsplit = -1): PyStr{.inline.} =
+  noEmptySep sep
   for i in strutils.split($a, $sep, maxsplit): yield i
   
 func split*(a: StringLike, sep: StringLike, maxsplit = -1): seq[PyStr] =
+  noEmptySep sep
   for i in strmeth.split(a, sep, maxsplit): result.add i
