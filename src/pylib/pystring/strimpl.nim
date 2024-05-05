@@ -41,7 +41,7 @@ func `[]`*(self; i: int): PyStr =
   str string(self).runeStrAtPos(if i < 0: len(self)+i else: i)
 
 func `[]`*(self; i: Slice[int]): PyStr =
-  let le = i.b - i.a
+  let le = i.b + 1 - i.a
   if le <= 0: str()
   else: str string(self).runeSubStr(i.a, le)
 func `[]`*(self; i: HSlice[int, BackwardsIndex]): PyStr =
