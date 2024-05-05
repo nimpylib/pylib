@@ -42,7 +42,7 @@ File "{info.filename}", line {info.line}
   if msg == errGenerated:
     error errMsg
   else:
-    echo errMsg
+    debugEcho errMsg
 
 proc handleOctChars(L: var Lexer, xi: var int) =
   ## parse at most 3 chars
