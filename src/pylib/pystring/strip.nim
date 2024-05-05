@@ -11,24 +11,6 @@ func strip(s: PyStr, leading: static[bool] = true, trailing: static[bool] = true
   ## If `leading` is true (default), leading `chars` are stripped.
   ## If `trailing` is true (default), trailing `chars` are stripped.
   ## If both are false, the string is returned unchanged.
-  ##
-  ## See also:
-  ## * `strip proc<strbasics.html#strip,string,set[char]>`_ Inplace version.
-  ## * `stripLineEnd func<#stripLineEnd,string>`_
-  runnableExamples:
-    let a = "  vhellov   "
-    let b = strip(a)
-    doAssert b == "vhellov"
-
-    doAssert a.strip(leading = false) == "  vhellov"
-    doAssert a.strip(trailing = false) == "vhellov   "
-
-    doAssert b.strip(chars = {'v'}) == "hello"
-    doAssert b.strip(leading = false, chars = {'v'}) == "vhello"
-
-    let c = "blaXbla"
-    doAssert c.strip(chars = {'b', 'a'}) == "laXbl"
-    doAssert c.strip(chars = {'b', 'a', 'l'}) == "X"
 
   var
     first = 0

@@ -43,7 +43,6 @@ template seWith(seWith){.dirty.} =
     substr(s, start).sewith(suffix)
   func sewith*[Suf: StringLike | tuple](a: StringLike, suffix: Suf,
       start, `end`: int): bool =
-    let s = $a
     substr($a, start, `end`-1).sewith(suffix)
 
 seWith startsWith
