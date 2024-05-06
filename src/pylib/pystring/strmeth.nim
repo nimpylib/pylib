@@ -1,10 +1,10 @@
 
 import std/[unicode]
-import std/strutils except strip
+import std/strutils except strip, split
 
 import ./strimpl
-import ./strip
-export strip
+import ./strip, ./split/split
+export strip, split
 import ./errHandle
 
 template `*`*(a: StringLike, i: int): PyStr =
@@ -173,26 +173,3 @@ template partitionGen(name; find){.dirty.} =
 
 partitionGen partition, find
 partitionGen rpartition, rfind
-
-iterator split*(a: StringLike, maxsplit = -1): PyStr =
-  ## with unicode whitespaces as sep.
-  ## 
-  ## treat runs of whitespaces as one sep (i.e.
-  ##   discard empty strings from result),
-  ## while Nim's `unicode.split(s)` doesn't
-
-  # the following line is a implementation that only respect ASCII whitespace
-  #for i in strutils.split($a): if i != "": yield i
-  for i in unicode.split($a, maxsplit=maxsplit):
-    if i != "": yield i
-
-iterator split*(a: StringLike,
-    sep: StringLike, maxsplit = -1): PyStr{.inline.} =
-  noEmptySep sep
-  for i in strutils.split($a, $sep, maxsplit): yield i
-  
-func split*(a: StringLike, maxsplit = -1): seq[PyStr] =
-  for i in strmeth.split(a, maxsplit): result.add i
-func split*(a: StringLike, sep: StringLike, maxsplit = -1): seq[PyStr] =
-  noEmptySep sep
-  for i in strmeth.split(a, sep, maxsplit): result.add i
