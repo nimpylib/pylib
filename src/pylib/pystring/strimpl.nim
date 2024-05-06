@@ -43,7 +43,9 @@ func `+=`*(mself; s: string) = mself.add s
 
 func len*(self): int = runeLen $self
 func len*(c: char): int = 1
-func byteLen*(self): int = system.len self  ## len of bytes
+func byteLen*(self): int = system.len self  ## EXT. len of bytes
+proc runeLenAt*(self; i: Natural): int{.borrow.} ## EXT. `i` is byte index
+proc substr*(self; start, last: int): PyStr{.borrow.} ## EXT. byte index
 func runeAtPos*(self; pos: int): Rune{.borrow.}
 func `[]`*(self; i: int): PyStr =
   str string(self).runeStrAtPos(if i < 0: len(self)+i else: i)
