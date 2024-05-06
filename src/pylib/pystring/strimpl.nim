@@ -23,6 +23,8 @@ converter toPyStr*(s: char): PyStr = str(s)
 converter toPyStr*(s: Rune): PyStr = str(s)
 
 func `==`*(self; o: PyStr): bool{.borrow.}
+func `==`*(self; o: string): bool{.borrow.}
+func `==`*(o: string; self): bool{.borrow.}
 func add(mself; s: string){.borrow.}
 func add(mself; s: char){.borrow.}
 
