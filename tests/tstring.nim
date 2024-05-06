@@ -37,3 +37,5 @@ test "String operations":
   check     "abc".endswith("bc", 0, 3)
 
   check "abc".endswith(("1", "c"))
+
+  check "123".count("") == 4
