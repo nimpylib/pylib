@@ -1,6 +1,7 @@
 
 
 import std/unicode
+from std/strutils import contains
 type
   PyStr* = distinct string
 
@@ -21,6 +22,11 @@ converter toNimStr*(self): string = $self
 converter toPyStr*(s: string): PyStr = str(s)
 converter toPyStr*(s: char): PyStr = str(s)
 converter toPyStr*(s: Rune): PyStr = str(s)
+
+# do not borrow contains(PyStr, char) here, as that'll make compile deadloop
+# this `contains` is handled by collections_abc.Sequence
+func contains*(s: PyStr; c: string): bool{.borrow.}
+func contains*(s: PyStr; c: PyStr): bool{.borrow.}
 
 func `==`*(self; o: PyStr): bool{.borrow.}
 func `==`*(self; o: string): bool{.borrow.}
