@@ -7,6 +7,13 @@ import ./strip
 export strip
 import ./errHandle
 
+template `*`*(a: StringLike, i: int): PyStr =
+  bind repeat
+  a.repeat(i)
+template `*`*(i: int, a: StringLike): PyStr =
+  bind `*`
+  a * i
+
 func count*(a: StringLike, sub: StringLike): int =
   if sub.len == 0: return str(a).len + 1
 

@@ -1,8 +1,6 @@
-import std/strutils
 
 import ./strimpl
 
-template `*`*(a: StringLike, b: int): string = a.repeat(b)
 
 
 # Python 1.x and 2.x
