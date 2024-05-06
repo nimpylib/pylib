@@ -137,14 +137,28 @@ proc list*[T](iter: Iterable[T]): PyList[T] =
     for i in iter:
       result.append(i)
 
-func `$`*[T](ls: PyList[T]): string =
+template repr(c: char): string = '\'' & c & '\''
+func strListImpl[T](ls: PyList[T],
+    strProc: proc (x: T): string{.noSideEffect.}): string =
   if len(ls) == 0: return "[]"
 
   result = newStringOfCap(2*len(ls))
-  result.add "[" & $ls[0]
+  result.add "[" & ls[0].strProc
   for i in 1..<ls.len:
-    result.add ", " & $ls[i]
+    result.add ", " & ls[i].strProc
   result.add ']'
+
+func reprBool(b: bool): string = (if b: "True" else: "False")
+func reprStr(s: string): string = s.repr
+func `$`*(ls: PyList[bool]): string =
+  ## use False, True like Python
+  strListImpl(ls, reprBool)  
+func `$`*(ls: PyList[string]): string = strListImpl(ls, reprStr)
+template `$`*[T](ls: PyList[T]): string =
+  ## mixin `func repr(T): string`
+  bind strListImpl
+  mixin repr
+  strListImpl(ls, repr)
 
 type
   SortKey[K] = object of RootObj
