@@ -7,6 +7,17 @@ import ./strip
 export strip
 import ./errHandle
 
+func count*(a: StringLike, sub: StringLike): int =
+  if sub.len == 0: return str(a).len + 1
+
+func count*(a: StringLike, sub: StringLike, start: int): int =
+  let subA = substr($a, start)
+  if sub.len == 0: return str(subA).len + 1
+  count($a, sub)
+
+func count*(a: StringLike, sub: StringLike, start=0, `end`: int): int =
+  count(substr($a, start, `end`-1), sub)
+
 template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
