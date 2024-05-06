@@ -4,6 +4,7 @@ import std/strutils except strip
 
 import ./strimpl
 import ./strip
+export strip
 import ./errHandle
 
 template casefold*(a: StringLike): string =
