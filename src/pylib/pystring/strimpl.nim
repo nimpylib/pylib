@@ -3,7 +3,7 @@
 import std/unicode
 from std/strutils import contains
 type
-  PyStr* = distinct string
+  PyStr* = distinct string  ## Python `str`, use `func str` to get an instance
 
 type StringLike* = string | char | PyStr
 
@@ -12,12 +12,13 @@ func str*(`object` = ""): PyStr =
 
 func str*(a: Rune): PyStr = str $a
 template str*[T](a: T): PyStr =
+  ## convert any object based on `$`
   mixin `$`
   str $a
 
 using self: PyStr
 using mself: var PyStr
-func `$`*(self): string{.borrow.}
+func `$`*(self): string{.borrow.}  ## to Nim string
 converter toNimStr*(self): string = $self
 converter toPyStr*(s: string): PyStr = str(s)
 converter toPyStr*(s: char): PyStr = str(s)
@@ -31,8 +32,8 @@ func contains*(s: PyStr; c: PyStr): bool{.borrow.}
 func `==`*(self; o: PyStr): bool{.borrow.}
 func `==`*(self; o: string): bool{.borrow.}
 func `==`*(o: string; self): bool{.borrow.}
-func add(mself; s: string){.borrow.}
-func add(mself; s: char){.borrow.}
+func add(mself; s: string){.borrow.} # inner use
+func add(mself; s: char){.borrow.}   # inner use
 
 func `+`*(self; s: PyStr): PyStr = PyStr(self.string & s.string)
 func `+`*(self; s: StringLike): PyStr = self + str(s)
@@ -42,15 +43,19 @@ func `+=`*(mself; s: char) = mself.add s
 func `+=`*(mself; s: string) = mself.add s
 
 func len*(self): int = runeLen $self
-func len*(c: char): int = 1
+func len*(c: char): int = 1  ## len('c'), always returns 1
 func byteLen*(self): int = system.len self  ## EXT. len of bytes
 proc runeLenAt*(self; i: Natural): int{.borrow.} ## EXT. `i` is byte index
 proc substr*(self; start, last: int): PyStr{.borrow.} ## EXT. byte index
 func runeAtPos*(self; pos: int): Rune{.borrow.}
 func `[]`*(self; i: int): PyStr =
+  runnableExamples:
+    assert str("你好")[1] == str("好")
   str string(self).runeStrAtPos(if i < 0: len(self)+i else: i)
 
 func `[]`*(self; i: Slice[int]): PyStr =
+  ## EXT.
+  ## `s[1..2]` means `s[1:3]`, and the latter is not valid Nim code
   let le = i.b + 1 - i.a
   if le <= 0: str()
   else: str string(self).runeSubStr(i.a, le)
@@ -62,6 +67,7 @@ iterator items*(self): PyStr =
     yield str r
 
 iterator runes*(self): Rune =
+  ## EXT.
   for r in self.string.runes:
     yield r
 
