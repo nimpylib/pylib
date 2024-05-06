@@ -107,9 +107,14 @@ proc newTemporaryFileCloser(file: IOBase, name: string, delete=True): TemporaryF
   result.close_called = false
 
 
-proc `=destroy`*(self: TemporaryFileCloser) =
+
+template destoryImpl =
   try: self.close()
   except Exception: discard
+when NimMajor == 1:
+  proc `=destroy`*(self: var TemporaryFileCloser) = destoryImpl
+else:
+  proc `=destroy`*(self: TemporaryFileCloser) = destoryImpl
 
 proc NamedTemporaryFile*(mode="w+b", buffering = -1, encoding=DefEncoding,
                        newline=DefNewLine, suffix=sNone, prefix=sNone,
@@ -174,5 +179,7 @@ proc close*(self: TemporaryDirectoryWrapper) =
   try: self.cleanup()
   except Exception: discard
 
-proc `=destroy`*(self: TemporaryDirectoryWrapper) =
-  self.close()
+when NimMajor == 1:
+  proc `=destroy`*(self: var TemporaryDirectoryWrapper) = self.close()
+else:
+  proc `=destroy`*(self: TemporaryDirectoryWrapper) = self.close()
