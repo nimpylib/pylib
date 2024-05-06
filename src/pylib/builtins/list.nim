@@ -139,7 +139,7 @@ proc list*[T](iter: Iterable[T]): PyList[T] =
 func `$`*[T](ls: PyList[T]): string =
   if len(ls) == 0: return "[]"
 
-  result = newPyList[T]()
+  result = newStringOfCap(2*len(ls))
   result.add "[" & $ls[0]
   for i in 1..<ls.len:
     result.add ", " & $ls[i]
