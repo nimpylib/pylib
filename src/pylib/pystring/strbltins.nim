@@ -34,9 +34,10 @@ proc ord*(a: PyStr): int =
         "TypeError: ord() expected a character, but string of length " & $ulen & " found")
   result = ord1 a
 
-proc raw_ascii(us: string
+proc rawReprImpl(us: string
   ,e1: static[bool] = false # if skip(not escape) `'`(single quotation mark)
   ,e2: static[bool] = false # if skip(not escape) `"`(double quotation mark)
+  ,escapeUnicode: static[bool] = false
 ): string =
   template add12(s: string) =
     let c = s[0]
@@ -56,10 +57,42 @@ proc raw_ascii(us: string
         let c = s[0]
         if c == '\e': result.add "\\x1b"
         else: add12 s
-    elif s.len<4:
-      result.add r"\u" & ord1(s).toHex(4).toLowerAscii
     else:
-      result.add r"\U" & ord1(s).toHex(8)
+      when escapeUnicode:
+        if s.len<4:
+          result.add r"\u" & ord1(s).toHex(4).toLowerAscii
+        else:
+          result.add r"\U" & ord1(s).toHex(8)
+      else:
+        result.add s
+
+proc raw_ascii(us: string
+  ,e1: static[bool] = false
+  ,e2: static[bool] = false
+): string =
+  us.rawReprImpl(e1, e1, escapeUnicode = true)
+
+proc raw_repr(us: string
+  ,e1: static[bool] = false
+  ,e2: static[bool] = false
+): string =
+  us.rawReprImpl(e1, e1, escapeUnicode = false)
+
+template implWith(us; rawImpl): untyped =
+  when defined(singQuotedStr):
+    '\'' & rawImpl(us) & '\''
+  else:
+    if '"' in us:
+      '\'' & rawImpl(us, e2 = true) & '\''
+    else:
+      if '\'' in us:
+        '"' & rawImpl(us, e1 = true) & '"'
+      else: # neither ' nor "
+        '\'' & rawImpl(us) & '\''
+
+func repr*(s: PyStr): PyStr =
+  ## not the same as Nim's repr for string
+  str implWith($s, raw_repr)
 
 proc ascii*(us: string): string=
   ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
@@ -85,18 +118,7 @@ proc ascii*(us: string): string=
     else:
       let rs2 = r"'\''"
     assert s2 == rs2
-
-  when defined(singQuotedStr):
-    '\'' & raw_ascii(us) & '\''
-  else:
-    if '"' in us:
-      '\'' & raw_ascii(us, e2 = true) & '\''
-    else:
-      if '\'' in us:
-        '"' & raw_ascii(us, e1 = true) & '"'
-      else: # neither ' nor "
-        '\'' & raw_ascii(us) & '\''
-
+  us.implWith raw_ascii
 
 func ascii*(a: PyStr): PyStr =
   ascii a
