@@ -25,10 +25,11 @@ converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
 
 func `@`*[T](ls: PyList[T]): seq[T] = ls.data
 
-proc newPyList[T](s: seq[T]): PyList[T] =
+proc newPyList*[T](s: seq[T]): PyList[T] =
   new result
   result.data = s
-proc newPyList[T](len=0): PyList[T] = newPyList newSeq[T](len)
+proc newPyList*[T](len=0): PyList[T] = newPyList newSeq[T](len)
+proc newPyListOfCap*[T](cap=0): PyList[T] = newPyList newSeqOfCap[T](cap)
 
 iterator items*[T](self: PyList[T]): T =
   for i in self.data:
