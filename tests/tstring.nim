@@ -7,7 +7,7 @@ test "String operations":
   check ' '.join(["hello", "world"]) == "hello world"
   check "\t\n ".isspace()
 
-  check "a\u2000 \u2000b".split() == @["a","b"] ## \u2000 is of Unicode spaces
+  check @("a\u2000 \u2000b".split()) == @[str("a"),str("b")] ## \u2000 is of Unicode spaces
   check capitalize("aBΔ") == "Abδ"
 
   check "a".center(9) == "    a    "
