@@ -11,10 +11,10 @@ template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
 
-func lower*(a: StringLike): string = toLower $a
-func upper*(a: StringLike): string = toUpper $a
+func lower*(a: StringLike): PyStr = toLower $a
+func upper*(a: StringLike): PyStr = toUpper $a
 
-func capitalize*(a: StringLike): string =
+func capitalize*(a: StringLike): PyStr =
   ## make the first character have upper case and the rest lower case.
   ## 
   ## while Nim's `unicode.capitalize` only make the first character upper-case.
@@ -25,7 +25,7 @@ func capitalize*(a: StringLike): string =
     rune: Rune
     i = 0
   fastRuneAt(s, i, rune, doInc = true)
-  result = $toUpper(rune) & toLower substr(s, i)
+  result = $toUpper(rune) + substr(s, i).lower()
 
 
 template seWith(seWith){.dirty.} =
