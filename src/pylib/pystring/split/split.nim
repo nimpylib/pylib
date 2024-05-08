@@ -16,17 +16,34 @@ iterator split*(a: PyStr, maxsplit = -1): PyStr =
   for i in split_whitespace.split_whitespace($a, maxsplit=maxsplit):
     yield i
 
-iterator split*(a: PyStr,
+iterator splitNoCheck(s: string, sep: char, maxsplit = -1): PyStr{.inline.} =
+  for i in strutils.split(s, sep, maxsplit): yield i
+iterator splitNoCheck(s: string, sep: string, maxsplit = -1): PyStr{.inline.} =
+  for i in strutils.split(s, sep, maxsplit): yield i
+iterator splitNoCheck(s: string, sep: PyStr, maxsplit = -1): PyStr{.inline.} =
+  for i in strutils.split(s, $sep, maxsplit): yield i
+
+iterator split*(a: StringLike,
     sep: StringLike, maxsplit = -1): PyStr{.inline.} =
   noEmptySep sep
-  for i in strutils.split($a, $sep, maxsplit): yield i
+  for i in splitNoCheck($a, sep, maxsplit): yield i
 
-template initRes = 
-  result = if maxsplit == -1: newPyList[PyStr]() else: newPyListOfCap[PyStr](maxsplit)
 proc split*(a: StringLike, maxsplit = -1): PyList[PyStr] =
   str(a).split_whitespace(maxsplit)
 
+# strutils.split func does not use any predicted capacity.
+
+template initRes(maxcount) = 
+  result = newPyListOfCap[PyStr](PREPARE_CAP maxcount)
+
+template byteLen(s: string): int = s.len
+template byteLen(c: char): int = 1
+
 func split*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
   noEmptySep sep
-  initRes
-  for i in split.split(a, sep, maxsplit): result.append i
+  # CPython uses unicode len, here using byte-len shall be fine.
+  let
+    str_len = a.byteLen
+    sep_len = sep.byteLen
+  initRes norm_maxsplit(maxsplit, str_len=str_len, sep_len=sep_len)
+  for i in splitNoCheck($a, sep, maxsplit): result.append i
