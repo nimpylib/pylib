@@ -117,7 +117,7 @@ func list*[T](): PyList[T] =
   newPyList[T]()
 
 func `*`*[T](n: Natural, ls: PyList[T]): PyList[T] =
-  for i in 0..n:
+  for _ in 1..n:
     result.extend ls
 
 template `*`*[T](ls: PyList[T], n: Natural): PyList[T] =
