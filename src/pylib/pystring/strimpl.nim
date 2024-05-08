@@ -12,9 +12,12 @@ func str*(`object` = ""): PyStr =
 
 func str*(a: Rune): PyStr = str $a
 template str*[T](a: T): PyStr =
-  ## convert any object based on `$`
-  mixin `$`
-  str $a
+  ## convert any object based on `repr`
+  ## 
+  ## This is alreadly a fallback,
+  ## used for types without `str` defined.
+  mixin repr
+  str repr a
 
 using self: PyStr
 using mself: var PyStr
