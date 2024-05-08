@@ -1,4 +1,4 @@
-test "String operations":
+test "str operations":
   check "x" * 5 == "xxxxx"
   check 'h' * 2 == "hh"
   check 'h' == "h"
@@ -7,11 +7,19 @@ test "String operations":
   check ' '.join(["hello", "world"]) == "hello world"
   check "\t\n ".isspace()
 
+test "str methods":
   checkpoint "split whitespace"
   template eqList(a, b) =
     check @a == @b
-  eqList "a\u2000 \u2000b".split(), [str("a"),str("b")] ## \u2000 is of Unicode spaces
-  eqList "1   2   3".split(maxsplit=1), [str("1"), str("2   3")]
+  eqList str("a\u2000 \u2000b").split(), [str("a"),str("b")] ## \u2000 is of Unicode spaces
+  eqList str("1   2   3").split(maxsplit=1), [str("1"), str("2   3")]
+
+  checkpoint "split with char sep"
+  eqList str("1 _2_   3").split('_'), [str"1 ", str"2", str"   3"]
+
+  checkpoint "split with str sep"
+  eqList "1 _2_   3".split("_ "), [str"1 _2", str"  3"]
+
   check capitalize("aBΔ") == "Abδ"
 
   check "a".center(9) == "    a    "
