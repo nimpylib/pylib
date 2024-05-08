@@ -25,6 +25,7 @@ proc ord*(a: PyStr): int =
     doAssert ord("δ") == 0x03b4
     when not defined(release):
       doAssertRaises TypeError:
+        # ord() expected a character, but string of length 2 found
         discard ord("12")
 
   when not defined(release):
@@ -92,12 +93,16 @@ template implWith(a; rawImpl): untyped =
 
 func repr*(s: PyStr): PyStr =
   ## not the same as Nim's repr for string
+  ## 
+  ## The same as `proc ascii`_ except for unicode chars being remained AS-IS.
   str implWith($s, raw_repr)
 
 proc ascii*(us: string): string=
   ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
   ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
-  ##   define singQuotedStr to get better performance but it'll be different from python's. See the `runnableExamples`
+  ## 
+  ## define `singQuotedStr` to get better performance
+  ## but it'll be different from python's. See the examples following:
   runnableExamples:
     when defined(nimPreviewSlimSystem):
       import std/assertions
