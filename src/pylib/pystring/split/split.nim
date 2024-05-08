@@ -6,7 +6,7 @@ import ./reimporter
 import ./split_whitespace
 
 
-iterator split*(a: PyStr, maxsplit = -1): PyStr =
+iterator split*(a: PyStr, sep = None, maxsplit = -1): PyStr =
   ## with unicode whitespaces as sep.
   ## 
   ## treat runs of whitespaces as one sep (i.e.
@@ -28,7 +28,7 @@ iterator split*(a: StringLike,
   noEmptySep sep
   for i in splitNoCheck($a, sep, maxsplit): yield i
 
-proc split*(a: StringLike, maxsplit = -1): PyList[PyStr] =
+proc split*(a: StringLike, sep = None, maxsplit = -1): PyList[PyStr] =
   str(a).split_whitespace(maxsplit)
 
 # strutils.split func does not use any predicted capacity.
