@@ -1,6 +1,10 @@
 
-include ./common
+import ./common
 import std/[strutils, unicode]
+import ./reimporter
+
+import ./split_whitespace
+
 
 iterator split*(a: PyStr, maxsplit = -1): PyStr =
   ## with unicode whitespaces as sep.
@@ -9,19 +13,20 @@ iterator split*(a: PyStr, maxsplit = -1): PyStr =
   ##   discard empty strings from result),
   ## while Nim's `unicode.split(s)` doesn't
   ##
-  ## .. warning:: Currently maxsplit may be wrongly treated
-  # the following line is a implementation that only respect ASCII whitespace
-  #for i in strutils.split($a): if i != "": yield i
-  for i in unicode.split($a, maxsplit=maxsplit):
-    if i.len != 0: yield i
+  for i in split_whitespace.split_whitespace($a, maxsplit=maxsplit):
+    yield i
 
 iterator split*(a: PyStr,
     sep: StringLike, maxsplit = -1): PyStr{.inline.} =
   noEmptySep sep
   for i in strutils.split($a, $sep, maxsplit): yield i
 
-func split*(a: StringLike, maxsplit = -1): seq[PyStr] =
-  for i in split.split(a, maxsplit): result.add i
-func split*(a: StringLike, sep: StringLike, maxsplit = -1): seq[PyStr] =
+template initRes = 
+  result = if maxsplit == -1: newPyList[PyStr]() else: newPyListOfCap[PyStr](maxsplit)
+proc split*(a: StringLike, maxsplit = -1): PyList[PyStr] =
+  str(a).split_whitespace(maxsplit)
+
+func split*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
   noEmptySep sep
-  for i in split.split(a, sep, maxsplit): result.add i
+  initRes
+  for i in split.split(a, sep, maxsplit): result.append i
