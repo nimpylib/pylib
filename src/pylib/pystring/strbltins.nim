@@ -70,13 +70,13 @@ proc raw_ascii(us: string
   ,e1: static[bool] = false
   ,e2: static[bool] = false
 ): string =
-  us.rawReprImpl(e1, e1, escapeUnicode = true)
+  us.rawReprImpl(e1, e2, escapeUnicode = true)
 
 proc raw_repr(us: string
   ,e1: static[bool] = false
   ,e2: static[bool] = false
 ): string =
-  us.rawReprImpl(e1, e1, escapeUnicode = false)
+  us.rawReprImpl(e1, e2, escapeUnicode = false)
 
 template implWith(us; rawImpl): untyped =
   when defined(singQuotedStr):
