@@ -97,6 +97,14 @@ func repr*(s: PyStr): PyStr =
   ## The same as `proc ascii`_ except for unicode chars being remained AS-IS.
   str implWith($s, raw_repr)
 
+func pyrepr*(s: StringLike): PyStr =
+  runnableExamples:
+    # NOTE: string literal's `repr` is `system.repr`, as following. 
+    assert repr("\"") == "\"\\\"\""   # string literal of "\""
+    # use pyrepr for any StringLike and returns a PyStr
+    assert pyrepr("\"") == "'\"'"
+  str implWith($s, raw_repr)
+
 proc ascii*(us: string): string=
   ##   nim's Escape Char feature can be enabled via `-d:useNimCharEsc`,
   ##     in which '\e' (i.e.'\x1B' in Nim) will be replaced by "\\e"
