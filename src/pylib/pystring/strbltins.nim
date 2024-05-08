@@ -39,8 +39,7 @@ proc rawReprImpl(us: string
   ,e2: static[bool] = false # if skip(not escape) `"`(double quotation mark)
   ,escapeUnicode: static[bool] = false
 ): string =
-  template add12(s: string) =
-    let c = s[0]
+  template add12(s: string, c: char) =
     when e1:
       if c == '\'':
         result.add '\''
@@ -52,11 +51,11 @@ proc rawReprImpl(us: string
     result.addEscapedChar c
   for s in us.utf8:
     if s.len == 1:  # is a ascii char
-      when defined(useNimCharEsc): add12 s
+      when defined(useNimCharEsc): s.add12 s[0]
       else:
         let c = s[0]
         if c == '\e': result.add "\\x1b"
-        else: add12 s
+        else: s.add12 c
     else:
       when escapeUnicode:
         if s.len<4:
@@ -78,7 +77,8 @@ proc raw_repr(us: string
 ): string =
   us.rawReprImpl(e1, e2, escapeUnicode = false)
 
-template implWith(us; rawImpl): untyped =
+template implWith(a; rawImpl): untyped =
+  let us = a  # if a is an expr, avoid `a` being evaluated multiply times 
   when defined(singQuotedStr):
     '\'' & rawImpl(us) & '\''
   else:
