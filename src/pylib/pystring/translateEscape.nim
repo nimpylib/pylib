@@ -31,7 +31,7 @@ proc newLexer(s: string): Lexer =
   result.buf = s
   result.bufLen = s.len
 
-proc lexMessage(L: Lexer, msg: TMsgKind, arg = "") =
+func lexMessage(L: Lexer, msg: TMsgKind, arg = "") =
   let info = L.lineInfo
   # when is multiline string, we cannot know where the position is,
   #  as Nim has been translated multiline as single-line.
@@ -44,7 +44,7 @@ File "{info.filename}", line {info.line}
   else:
     debugEcho errMsg
 
-proc handleOctChars(L: var Lexer, xi: var int) =
+func handleOctChars(L: var Lexer, xi: var int) =
   ## parse at most 3 chars
   for _ in 0..2:
     let c = L.buf[L.bufpos]
@@ -53,7 +53,7 @@ proc handleOctChars(L: var Lexer, xi: var int) =
     inc(L.bufpos)
     if L.bufpos == L.bufLen: break
 
-proc handleHexChar(L: var Lexer, xi: var int; position: int) =
+func handleHexChar(L: var Lexer, xi: var int; position: int) =
   template invalid() =
     lexMessage(L, errGenerated,
       "expected a hex digit, but found: " & L.buf[L.bufpos] &
@@ -85,7 +85,7 @@ const
   BACKSPACE = '\b'
   ESC = '\e'
 
-proc addUnicodeCodePoint(s: var string, i: int) =
+func addUnicodeCodePoint(s: var string, i: int) =
   let i = cast[uint](i)
   # inlined toUTF-8 to avoid unicode and strutils dependencies.
   let pos = s.len
@@ -123,7 +123,7 @@ proc addUnicodeCodePoint(s: var string, i: int) =
     s[pos+4] = chr(i shr 6 and ones(6) or 0b10_0000_00)
     s[pos+5] = chr(i and ones(6) or 0b10_0000_00)
 
-proc getEscapedChar(L: var Lexer, tok: var Token) =
+func getEscapedChar(L: var Lexer, tok: var Token) =
   inc(L.bufpos)               # skip '\'
   template uniOverErr(curVal: string) =
     lexMessage(L, errGenerated,
@@ -208,7 +208,7 @@ proc getEscapedChar(L: var Lexer, tok: var Token) =
     tok.literal.add(chr(xi))
   else: lexMessage(L, errGenerated, "invalid character constant")
 
-proc getString(L: var Lexer, tok: var Token) =
+func getString(L: var Lexer, tok: var Token) =
   var pos = L.bufpos
 
   while pos < L.bufLen:
@@ -222,10 +222,10 @@ proc getString(L: var Lexer, tok: var Token) =
       pos.inc
   L.bufpos = pos
 
-proc getString(L: var Lexer): Token =
+func getString(L: var Lexer): Token =
   L.getString result
 
-proc translateEscape*(pattern: string): string =
+func translateEscape*(pattern: string): string =
   ## like `translateEscapeWithErr` but without lineInfo error msg
   var L = newLexer pattern
   L.getString().literal
