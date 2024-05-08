@@ -39,7 +39,7 @@ template initRes(maxcount) =
 template byteLen(s: string): int = s.len
 template byteLen(c: char): int = 1
 
-func split*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
+proc split*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
   noEmptySep sep
   # CPython uses unicode len, here using byte-len shall be fine.
   let
