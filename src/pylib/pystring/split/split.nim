@@ -13,12 +13,10 @@ iterator split*(a: PyStr, sep = None, maxsplit = -1): PyStr =
   ##   discard empty strings from result),
   ## while Nim's `unicode.split(s)` doesn't
   ##
-  for i in split_whitespace.split_whitespace($a, maxsplit=maxsplit):
+  for i in split_whitespace.split_whitespace(a, maxsplit=maxsplit):
     yield i
 
-iterator splitNoCheck(s: string, sep: char, maxsplit = -1): PyStr{.inline.} =
-  for i in strutils.split(s, sep, maxsplit): yield i
-iterator splitNoCheck(s: string, sep: string, maxsplit = -1): PyStr{.inline.} =
+iterator splitNoCheck(s: string, sep: char|string, maxsplit = -1): PyStr{.inline.} =
   for i in strutils.split(s, sep, maxsplit): yield i
 iterator splitNoCheck(s: string, sep: PyStr, maxsplit = -1): PyStr{.inline.} =
   for i in strutils.split(s, $sep, maxsplit): yield i
