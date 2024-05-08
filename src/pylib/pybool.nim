@@ -26,7 +26,7 @@ converter bool*(arg: HasMoreThan): bool = arg > 0 or arg < 0
 converter bool*(arg: CanCompToNil): bool = arg != nil
 ]#
 
-converter toBool*[T](arg: T): bool =
+template toPyBool*[T](arg: T): bool =
   ## Converts argument to boolean, checking python-like truthiness.
   # If we have len proc for this object
   when compiles(arg.len):
@@ -45,7 +45,7 @@ converter toBool*[T](arg: T): bool =
     true
 
 proc bool*[T](arg: T): bool =
-  toBool(arg)
+  toPyBool(arg)
 
 func all*[T](iter: Iterable[T]): bool =
   ## Checks if all values in iterable are truthy
