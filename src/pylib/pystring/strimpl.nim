@@ -37,8 +37,9 @@ func `==`*(self; o: string): bool{.borrow.}
 func `==`*(o: string; self): bool{.borrow.}
 func add(mself; s: string){.borrow.} # inner use
 func add(mself; s: char){.borrow.}   # inner use
+func `&`(self; s: PyStr): string{.borrow.}  # inner use
 
-func `+`*(self; s: PyStr): PyStr = PyStr(self.string & s.string)
+func `+`*(self; s: PyStr): PyStr = PyStr(self & s)
 func `+`*(self; s: StringLike): PyStr = self + str(s)
 
 func `+=`*(mself; s: PyStr) = mself.add $s
