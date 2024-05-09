@@ -33,7 +33,7 @@ func `$`*(self): string =
   ## which is inherted from `object`,
   ## which will call `obj.__repr__` as fallback.
   ## This minics it.
-  $self
+  repr self
 
 # https://github.com/nim-lang/Nim/issues/8197
 #[
