@@ -136,16 +136,16 @@ func isupper*(a: StringLike): bool = allRunes a, isUpper
 
 func isspace*(a: StringLike): bool = unicode.isSpace($a)
 
-func center*(a: PyStr|char, width: Natural, fillchar = ' '): PyStr =
+func center*(a: StringLike, width: Natural, fillchar = ' '): PyStr =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
   let
     hWidth = (width-len(a)) div 2
     half = fillchar.repeat(hWidth)
   half + a + half
 
-func ljust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
+func ljust*(a: StringLike, width: int, fillchar = ' ' ): PyStr =
   alignLeft $a, width, fillchar
-func rjust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
+func rjust*(a: StringLike, width: int, fillchar = ' ' ): PyStr =
   align $a, width, fillchar
 
 func zfill*(c: char, width: int): PyStr =
