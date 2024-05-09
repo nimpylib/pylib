@@ -28,6 +28,6 @@ macro print*(data: varargs[untyped]): untyped =
       arguments.add(arg)
     else:
       # Add object and stringify it automatically
-      objects.add(newCall("$", arg))
+      objects.add(newCall("str", arg))
   result = quote do:
     `printProc`(`objects`, `arguments`)
