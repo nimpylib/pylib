@@ -91,13 +91,14 @@ template implWith(a; rawImpl): untyped =
       else: # neither ' nor "
         '\'' & rawImpl(us) & '\''
 
-func repr*(s: PyStr): PyStr =
-  ## not the same as Nim's repr for string
+func repr*(x: PyStr): string =
+  ## Overwites `system.repr` for `PyStr`
   ## 
   ## The same as `proc ascii`_ except for unicode chars being remained AS-IS.
-  str implWith($s, raw_repr)
+  implWith($x, raw_repr)
 
 func pyrepr*(s: StringLike): PyStr =
+  ## Shortcut for `str(repr(str(s)))`
   runnableExamples:
     # NOTE: string literal's `repr` is `system.repr`, as following. 
     assert repr("\"") == "\"\\\"\""   # string literal of "\""
