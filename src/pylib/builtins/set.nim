@@ -59,6 +59,7 @@ template copy*[H](self: PySet[H]): PySet[H] = pyset(self)
 
 func len*(self: PySet): int = self.data.len
 func `$`*(self: PySet): string = $self.data
+func repr*(self: Pyset): string = $self.data
 proc clear*(self: var PySet): int = self.data.clear()
 func `==`*(self, o: PySet): int = self.data == o.data
 func `<=`*(self, o: PySet): int = self.data <= o.data

@@ -34,6 +34,8 @@ macro exportTables(syms: varargs[untyped]) =
     result.add newDotExpr(ident"tables", sym)
 exportTables `$`, `len`, `[]`, `[]=`, `==`, clear, contains, keys, values
 
+func repr*[K, V](self: PyDict[K, V]): string = $self
+
 iterator items*[K, V](self: PyDict[K, V]): (K, V) =
   for t in self.pairs:
     yield t
