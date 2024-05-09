@@ -194,37 +194,45 @@ Uninstall with `nimble uninstall pylib`.
 
 # Supported features
 
-- [x] F-Strings `f"foo {variable} bar {1 + 2} baz"` and string functions
+- [x] F-Strings `f"foo {variable} bar {1 + 2} baz"`
+- [x] `str` `list` `dict` `set` with their methods
 - [x] Python-like variable unpacking
 - [x] Math with Float and Int mixed like Python.
 - [x] `import antigravity`
 - [x] `lambda:`
 - [x] `class` Python-like OOP with methods and DocStrings (without multi-inheritance)
+- [x] `@classmethod` and `@staticmethod`
 - [x] `with open(fn, [, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
 - [x] `super(...).method(...)`
+- [x] `global/nonlocal` (with some limits)
 - [x] `with tempfile.TemporaryDirectory():` Read, write, append, and `file.read()`.
 - [x] `with tempfile.NamedTemporaryFile() as file:` Read, write, append, and `file.read()`.
 - [x] `timeit()` with Nanoseconds precision
-- [x] `json.loads()` also can Pretty-Print
 - [x] `True` / `False`
 - [x] `pass` also can take and discard any arguments
+- [x] `del ls[idx]`
 - [x] `:=` Walrus Operator
-- [x] `{"a": 1} | {"b": 2}` Dict merge operator
-- [x] `|=` Dict merge operator
 - [x] `abs()`
 - [x] `all()`
 - [x] `any()`
 - [x] `ascii()`
 - [x] `bin()`
 - [x] `chr()`
+- [x] `complex()`
 - [x] `divmod()`
 - [x] `enumerate()`
 - [x] `filter()`
 - [x] `float()`
+- [ ] `format()`
+- [x] `getattr()`
+- [x] `hasattr()`
 - [x] `hex()`
+- [x] `id()`
 - [x] `input()`
 - [x] `int()`
-- [x] `iter()`
+- [x] `isinstance()`
+- [x] `issubclass()`
+- [ ] `iter()`
 - [x] `list()`
 - [x] `map()`
 - [x] `max()`
@@ -232,8 +240,15 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `oct()`
 - [x] `ord()`
 - [x] `open()` (though without close_fd, opener, errors)
+- [x] `pow(base, exp, mod=None)`
 - [x] `print("foo")` / `print "foo"` Python2 like
 - [x] `range()`
+- [x] `reversed(iterable)`
+- [x] `round()`
+- [x] `hasattr()`
+- [x] `set()`, also named `pyset()` to distingish with `system.set`
+- [ ] `slice()`
+- [x] `sorted(iterable)`
 - [x] `str()`
 - [x] `sum()`
 - [x] `!=` and Python1 `<>`
@@ -241,9 +256,7 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `unicode()` Python2 like
 - [x] `u"string here"` / `u'a'` Python2 like
 - [x] `b"string here"` / `b'a'` Python2 like
-- [x] `isinstance()`
-- [x] `issubclass()`
-- [x] `id()`
+- [x] `zip(iterable1, iterable2)`
 - More...
 
 
