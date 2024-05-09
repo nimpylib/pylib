@@ -25,6 +25,10 @@ converter asSeq[T](self: var PyList[T]): var seq[T] = self.data
 
 func `@`*[T](ls: PyList[T]): seq[T] = ls.data
 
+func repr*[T: set|string|openArray](self: PyList[T]): string =
+  system.repr self.data.toOpenArray(0, len(self)-1)
+# `repr` defined for other elements' type is in about L160
+
 proc newPyList*[T](s: seq[T]): PyList[T] =
   new result
   result.data = s
@@ -137,7 +141,6 @@ proc list*[T](iter: Iterable[T]): PyList[T] =
     for i in iter:
       result.append(i)
 
-template repr(c: char): string = '\'' & c & '\''
 func strListImpl[T](ls: PyList[T],
     strProc: proc (x: T): string{.noSideEffect.}): string =
   if len(ls) == 0: return "[]"
@@ -148,17 +151,34 @@ func strListImpl[T](ls: PyList[T],
     result.add ", " & ls[i].strProc
   result.add ']'
 
+# system.repr(c: char) returns $int(c)
+func reprChar(c: char): string = '\'' & c & '\''  
 func reprBool(b: bool): string = (if b: "True" else: "False")
-func reprStr(s: string): string = s.repr
-func `$`*(ls: PyList[bool]): string =
+func repr*(ls: PyList[bool]): string =
   ## use False, True like Python
-  strListImpl(ls, reprBool)  
-func `$`*(ls: PyList[string]): string = strListImpl(ls, reprStr)
-template `$`*[T](ls: PyList[T]): string =
-  ## mixin `func repr(T): string`
+  strListImpl(ls, reprBool)
+func repr*(ls: PyList[char]): string = strListImpl(ls, reprChar)
+# `repr` for elements is `set|string|openArray` is in about L30
+
+template reprImpl[T](ls: PyList[T]): string =
   bind strListImpl
   mixin repr
   strListImpl(ls, repr)
+
+template repr*[T](ls: PyList[T]): string =
+  ## mixin `func repr(T): string`
+  bind reprImpl
+  reprImpl ls
+
+template `$`*[T](ls: PyList[T]): string =
+  ## The same as `repr` for PyList
+  ## 
+  ## NOTE: CPython's `list`'s `__str__` is itself not defined,
+  ## which is inherted from `object`,
+  ## which will call `obj.__repr__` as fallback.
+  ## This minics it.
+  bind reprImpl
+  reprImpl ls
 
 type
   SortKey[K] = object of RootObj
