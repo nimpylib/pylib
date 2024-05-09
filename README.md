@@ -73,7 +73,7 @@ print("a".center(9)) # "    a    "
 print("" or "b") # "b"
 print("a" or "b") # "a"
 
-print(not "") # true
+print(not "") # True
 
 print("Hello,", input("What is your name? "), endl="\n~\n")
 
@@ -99,10 +99,10 @@ print(platform.processor) # "amd64"
 
 def allAny():
   truty = all([True, True, False])
-  print(truty) # false
+  print(truty) # False
 
   truty = any([True, True, False])
-  print(truty) # true
+  print(truty) # True
 allAny()
 
 timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
