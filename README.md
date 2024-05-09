@@ -251,7 +251,7 @@ Uninstall with `nimble uninstall pylib`.
 
 - https://nimble.directory/search?query=python
 - [Full py2nim transpiler](https://github.com/metacraft-labs/py2nim)
-
+- [Python Standard Library for Nim that calls your Python executable](https://github.com/juancarlospaco/cpython)
 
 ### Tests
 
