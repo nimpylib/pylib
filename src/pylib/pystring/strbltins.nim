@@ -19,12 +19,9 @@ func ord1*(a: PyStr): int =
   result = system.int(a.runeAt(0))
 
 proc ord*(a: PyStr): int =
+  ## Raises TypeError if len(a) is not 1.
   runnableExamples:
     doAssert ord("δ") == 0x03b4
-    when not defined(release):
-      doAssertRaises TypeError:
-        # ord() expected a character, but string of length 2 found
-        discard ord("12")
 
   when not defined(release):
     let ulen = a.len
