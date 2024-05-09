@@ -20,6 +20,9 @@ test "str methods":
   checkpoint "split with str sep"
   eqList "1 _2_   3".split("_ "), [str"1 _2", str"  3"]
 
+  checkpoint "rsplit"
+  eqList str("abc.list.txt").rsplit('.', 1), [str"abc.list", str"txt"]
+
   check capitalize("aBΔ") == "Abδ"
 
   check "a".center(9) == "    a    "

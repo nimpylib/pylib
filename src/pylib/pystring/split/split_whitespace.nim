@@ -6,22 +6,6 @@ import ./reimporter
 #  unicodeobject.c
 
 # stringlib/split.h split_whitespace L54
-func `suf--`(i: var int): int{.inline.} =
-  ## `i--` in C
-  result = i
-  i.dec
-
-const STRINGLIB_MUTABLE = false  # XXX: What's this?
-# in all of asciilib.h, ucs{1,2,4}lib.h, just define as `0`
-
-template ISSPACE(s, pos): bool =
-  ## Checks unicode space at unicode char's `pos`
-  s.runeAtPos(pos) in unicodeSpaces
-
-# unicodeobject.c split L9876
-template norm_maxsplit(maxsplit: int, len1): int =
-  if maxsplit < 0: (len1 - 1) div 2 + 1
-  else: maxsplit
 
 # split.h split* have param of `PyObject* str_obj, const STRINGLIB_CHAR* str`,
 # where `str` is unicode version of `str_obj`

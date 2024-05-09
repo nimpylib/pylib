@@ -1,10 +1,10 @@
 
-import std/[unicode]
-import std/strutils except strip, split
+import std/unicode except split
+import std/strutils except strip, split, rsplit
 
 import ./strimpl
-import ./strip, ./split/split
-export strip, split
+import ./strip, ./split/[split, rsplit]
+export strip, split, rsplit
 import ./errHandle
 import ./pyerr
 
