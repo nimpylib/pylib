@@ -75,7 +75,7 @@ template `==`*[T](o: seq[T], self: PyList[T]): bool = `==`(self, o)
 template `==`*[T](o: openArray[T], self: PyList[T]): bool = `==`(self, o)
 
 
-func reverse*(self: PyList) = reverse(self.asSeq)
+func reverse*(self: var PyList) = reverse(self.asSeq)
 
 func append*[T](self: var PyList[T], x: T) = self.asSeq.add x
 
