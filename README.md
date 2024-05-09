@@ -1,6 +1,12 @@
 # NimPylib
 
 [![Build status](https://github.com/litlighilit/nimpylib/workflows/Build/badge.svg)](https://github.com/litlighilit/nimpylib/actions)
+![](https://img.shields.io/github/languages/top/litlighilit/nimpylib?style=flat)
+![](https://img.shields.io/github/stars/litlighilit/nimpylib?style=flat "Star NimPylib on GitHub!")
+![](https://img.shields.io/github/languages/code-size/litlighilit/nimpylib?style=flat)
+[![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/issues)
+[![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/pulls)
+[![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/commits/)
 
 > originating from a fork of https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
 
