@@ -8,7 +8,7 @@
 [![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/pulls)
 [![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/commits/)
 
-> originating from a fork of https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021
+> Originating from a fork of https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021. This is no longer a simple fork with some simple improvement, but with great features.
 
 Nimpylib is a collection of Python-like operators/functions and libraries (<del>syntax sugar</del> no longer just syntax sugar).
 It can help you to translate your Python program to Nim,
