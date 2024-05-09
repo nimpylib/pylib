@@ -148,6 +148,33 @@ func ljust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
 func rjust*(a: PyStr|char, width: int, fillchar = ' ' ): PyStr =
   align $a, width, fillchar
 
+func zfill*(c: char, width: int): PyStr =
+  if 1 >= width:
+    return str(c)
+  # Now `width` is at least 2.
+  let zeroes = '0'.repeat(width-1)
+  if c == '+' or c == '-':
+    return str(c & zeroes)
+  result = str(zeroes & c)
+
+func zfill*(a: StringLike, width: int): PyStr =
+  let le = len(a)
+  var res = $a
+  if le >= width:
+    return str(res)
+  let fill = width - le
+  let zeroes = '0'.repeat(fill)
+  if le == 0:
+    return str(zeroes)
+
+  let first = res[0]
+  res = zeroes & res
+  if first == '+' or first == '-':
+    # move sign to beginning of string
+    res[fill] = '0'
+    res[0] = first
+  result = str(res)
+
 func removeprefix*(a: StringLike, suffix: StringLike): PyStr =
   result = $a
   strutils.removePrefix result, suffix
