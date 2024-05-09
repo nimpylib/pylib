@@ -26,6 +26,13 @@ pass str("This is a string.") # discard the string. Python doesn't allow this, h
 # from tempfile import NamedTemporaryFile, TemporaryDirectory
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
 
+class O:
+  @staticmethod
+  def f():
+    print("O.f")
+
+O.f()
+
 def show_range_list():
   python_like_range = range(0, -10, -2)
   print(list(python_like_range)) # [0, -2, -4, -6, -8]
