@@ -2,6 +2,7 @@
 import std/strutils
 from std/unicode import runeAt, utf8, runeLen, Rune, `$`
 import ./strimpl
+import ./pyerr
 
 func reversed*(s: PyStr): PyStr =
   unicode.reversed s
@@ -16,9 +17,6 @@ func ord1*(a: PyStr): int =
   runnableExamples:
     assert ord1("123") == ord("1")
   result = system.int(a.runeAt(0))
-
-type
-  TypeError* = object of CatchableError
 
 proc ord*(a: PyStr): int =
   runnableExamples:

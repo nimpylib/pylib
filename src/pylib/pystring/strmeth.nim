@@ -6,6 +6,7 @@ import ./strimpl
 import ./strip, ./split/split
 export strip, split
 import ./errHandle
+import ./pyerr
 
 template `*`*(a: StringLike, i: int): PyStr =
   bind repeat
@@ -136,17 +137,51 @@ func isupper*(a: StringLike): bool = allRunes a, isUpper
 
 func isspace*(a: StringLike): bool = unicode.isSpace($a)
 
-func center*(a: StringLike, width: Natural, fillchar = ' '): PyStr =
-  ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
+template retIfWider(a: char) =
+  if 1 >= width:
+    return str(a)
+template retIfWider(a: StringLike) =
+  if len(a) >= width:
+    return str(a)
+
+template centerImpl(a, width, fillchar) =
   let
     hWidth = (width-len(a)) div 2
     half = fillchar.repeat(hWidth)
-  half + a + half
+  result = half + a + half
+
+func center*(a: StringLike, width: int, fillchar = ' '): PyStr =
+  ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
+  retIfWider a
+  centerImpl a, width, fillchar
 
 func ljust*(a: StringLike, width: int, fillchar = ' ' ): PyStr =
   alignLeft $a, width, fillchar
 func rjust*(a: StringLike, width: int, fillchar = ' ' ): PyStr =
   align $a, width, fillchar
+
+template chkLen(a): int = 
+  ## 1. returns if wider; 2. raises if not 1 len; 3. length as result
+  retIfWider a
+  let le = len(fillchar)
+  if le != 1:
+    raise newException(TypeError, 
+      "The fill character must be exactly one character long")
+  le
+
+func center*(a: StringLike, width: int, fillchar: PyStr): PyStr =
+  discard chkLen a
+  centerImpl(a, width, fillchar[0])
+
+func ljust*(a: StringLike, width: int, fillchar: PyStr): PyStr =
+  let le = chkLen a
+  let fills = (width - le) * fillchar
+  result = a + fills
+  
+func rjust*(a: StringLike, width: int, fillchar: PyStr ): PyStr =
+  let le = chkLen a
+  let fills = (width - le) * fillchar
+  result = fills + a
 
 func zfill*(c: char, width: int): PyStr =
   if 1 >= width:
