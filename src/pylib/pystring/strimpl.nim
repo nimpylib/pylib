@@ -7,15 +7,21 @@ type
 
 type StringLike* = string | char | PyStr
 
-func str*(`object` = ""): PyStr =
-  PyStr(`object`)
-
+func str*(self: PyStr): PyStr = self  ## copy
+func str*(`object` = ""): PyStr = PyStr(`object`)
 func str*(a: Rune): PyStr = str $a
+func str*(c: char): PyStr = str $c
+
+template str*[O: object](o: O): PyStr =
+  '<' & $O & " object at " & $o.addr & '>'
 template str*[T](a: T): PyStr =
   ## convert any object based on `repr`
   ## 
   ## This is alreadly a fallback,
   ## used for types without `str` defined.
+  ## 
+  ## In Python, if a object's type has no `__str__`,
+  ## then it falls to use `__repr__`
   mixin repr
   str repr a
 
