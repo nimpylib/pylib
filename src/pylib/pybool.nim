@@ -9,8 +9,12 @@ const
   False* = PyBool false ## False
 
 using self, opyb: PyBool
+template genBin(op){.dirty.} =
+  func op*(self; opyb): PyBool{.borrow.}
+  func op*(self; b: bool): PyBool{.borrow.}
+  func op*(b: bool, self): PyBool{.borrow.}
+genBin `==`
 func `is`*(self; opyb): PyBool{.borrow.}
-func `==`*(self; opyb): PyBool{.borrow.}
 func `and`*(self; opyb): PyBool{.borrow.}
 func `or`*(self; opyb): PyBool{.borrow.}
 func `xor`*(self; opyb): PyBool{.borrow.}
