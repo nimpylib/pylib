@@ -5,6 +5,9 @@ import ./reimporter
 
 import ./split_whitespace
 
+import ./splitlinesIter
+export splitlinesIter
+
 
 iterator split*(a: PyStr, sep = None, maxsplit = -1): PyStr =
   ## with unicode whitespaces as sep.
@@ -45,3 +48,17 @@ proc split*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
     sep_len = sep.byteLen
   initRes norm_maxsplit(maxsplit, str_len=str_len, sep_len=sep_len)
   for i in splitNoCheck($a, sep, maxsplit): result.append i
+
+proc splitlines*(self: PyStr, keepends=false): PyList[PyStr] =
+
+  #[ From split.h splitlines L340
+    /* This does not use the preallocated list because splitlines is
+       usually run with hundreds of newlines.  The overhead of
+       switching between PyList_SET_ITEM and append causes about a
+       2-3% slowdown for that common case.  A smarter implementation
+       could move the if check out, so the SET_ITEMs are done first
+       and the appends only done when the prealloc buffer is full.
+       That's too much work for little gain.*/]#
+  result = newPyList[PyStr]()
+  for i in splitlinesIter.splitlines(self, keepends=keepends):
+    result.append i

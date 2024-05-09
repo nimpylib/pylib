@@ -23,6 +23,10 @@ test "str methods":
   checkpoint "rsplit"
   eqList str("abc.list.txt").rsplit('.', 1), [str"abc.list", str"txt"]
 
+  checkpoint "splitlines"
+  eqList str("1\u20282").splitlines(), [str"1", str"2"]
+  eqList str("1\u20282").splitlines(keepends=True), [str("1\u2028"), str"2"]
+
   check capitalize("aBΔ") == "Abδ"
 
   check "a".center(9) == "    a    "
