@@ -153,10 +153,6 @@ func strListImpl[T](ls: PyList[T],
 
 # system.repr(c: char) returns $int(c)
 func reprChar(c: char): string = '\'' & c & '\''  
-func reprBool(b: bool): string = (if b: "True" else: "False")
-func repr*(ls: PyList[bool]): string =
-  ## use False, True like Python
-  strListImpl(ls, reprBool)
 func repr*(ls: PyList[char]): string = strListImpl(ls, reprChar)
 # `repr` for elements is `set|string|openArray` is in about L30
 
