@@ -145,5 +145,5 @@ template ascii*(a: untyped): string =
     when defined(nimPreviewSlimSystem):
       import std/assertions
     assert ascii(6) == "6"
-  raw_ascii($a)
+  ascii(repr(a))
 
