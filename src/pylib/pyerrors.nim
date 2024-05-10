@@ -1,5 +1,6 @@
 
 from std/os import OSErrorCode
+import ./builtins/reprImpl
 export OSErrorCode
 type
   FileNotFoundError* = object of OSError
@@ -22,4 +23,4 @@ else:
 
 func raiseFileNotFoundError*(fp: string) =
     raise newException(FileNotFoundError,
-        "No such file or directory: "&fp)
+        "No such file or directory: " & fp.pyreprImpl)
