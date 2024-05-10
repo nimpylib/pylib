@@ -6,7 +6,7 @@ import ./strimpl
 import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ./errHandle
-import ./pyerr
+import ../pyerrors
 
 template `*`*(a: StringLike, i: int): PyStr =
   bind repeat

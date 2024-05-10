@@ -2,7 +2,7 @@
 import std/strutils
 from std/unicode import runeAt, utf8, runeLen, Rune, `$`
 import ./strimpl
-import ./pyerr
+from ../pyerrors import TypeError
 
 func reversed*(s: PyStr): PyStr =
   unicode.reversed s

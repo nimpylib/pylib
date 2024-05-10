@@ -3,6 +3,7 @@ from std/os import OSErrorCode
 export OSErrorCode
 type
   FileNotFoundError* = object of OSError
+  TypeError* = object of CatchableError
 
 # some error is still defined in ./io.nim
 # as they're currently only used there.
