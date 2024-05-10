@@ -79,6 +79,8 @@ func reverse*(self: var PyList) = reverse(self.asSeq)
 
 func append*[T](self: var PyList[T], x: T) = self.asSeq.add x
 
+func pop*[T](self: var PyList[T]): T{.discardable.} = self.asSeq.pop()
+
 func extend*[T](self: var PyList[T], ls: openArray[T]) =
   self.asSeq.add ls
 
