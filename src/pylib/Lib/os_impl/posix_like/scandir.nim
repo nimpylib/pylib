@@ -52,10 +52,10 @@ iterator scandir*(): DirEntry[OsPathDefType]{.closure.} =
   for de in scandir(OsPathDefType('.')):
     yield de
 
-func scandir*[T: PathLike](path: T): ScandirIterator[T] =
+proc scandir*[T: PathLike](path: T): ScandirIterator[T] =
   new result
   result.iter = iterator(): DirEntry[T] =
     for de in scandir(path): yield de
 
-func scandir*(): ScandirIterator[OsPathDefType] =
+proc scandir*(): ScandirIterator[OsPathDefType] =
   scandir(OsPathDefType('.'))
