@@ -14,7 +14,7 @@ import pylib/private/trans_imp
 
 impExp pylib,
   noneType, pybool, builtins,
-  numTypes, radixCvt, ops,
+  numTypes, ops,
   pystring, 
   pysugar
 
