@@ -6,6 +6,15 @@ const DWin = defined(windows)
 
 type Time64 = int64
 
+#[ XXX: extact from CPython-3.13-alpha/Modules/posix L1829
+  /* The CRT of Windows has a number of flaws wrt. its stat() implementation:
+   - time stamps are restricted to second resolution
+   - file modification times suffer from forth-and-back conversions between
+     UTC and local time
+   Therefore, we implement our own stat, based on the Win32 API directly.
+*/
+TODO: impl our own stat... Get rid of `_wstat`
+]#
 when DWin:
   when defined(nimPreviewSlimSystem):
     import std/widestrs
@@ -75,7 +84,8 @@ macro to_result(s: Stat): stat_result =
 
 proc stat*(path: CanIOOpenT): stat_result =
   ## .. warning:: Under Windows, it's just a wrapper over `_wstat`,
-  ##   so this differs from Python's `os.stat` either in prototype and some items of result.
+  ##   so this differs from Python's `os.stat` either in prototype
+  ##   (the `follow_symlinks` param is not supported) and some items of result.
   ##   For details, see https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stat-functions
   runnableExamples:
     let s = stat(".")
