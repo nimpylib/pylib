@@ -1,9 +1,9 @@
 
 import ../../[io_abc, pyerrors]
-import ../../pystring/strImpl
+import ../../pystring/strimpl
 import ../../builtins/reprImpl
 
-export io_abc, pyerrors, strImpl, reprImpl
+export io_abc, pyerrors, strimpl, reprImpl
 
 template AltPathType*(T): untyped =
   when T is char: PyStr else: T
