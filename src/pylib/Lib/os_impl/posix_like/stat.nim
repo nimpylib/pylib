@@ -94,5 +94,5 @@ proc stat*(path: CanIOOpenT): stat_result =
       else:
         stat(cstring path.fspath, st)
   if ret != 0.cint:
-    raiseErrno("stat " & $path)
+    raiseErrno($path)
   result = to_result st

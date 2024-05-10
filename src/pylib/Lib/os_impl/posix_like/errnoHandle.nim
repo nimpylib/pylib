@@ -1,4 +1,5 @@
 
+import ../common
 
 var errno*{.importc, header: "<errno.h>".}: cint
 proc strerror(code: cint): cstring{.importc, header: "<string.h>".}
@@ -17,4 +18,6 @@ proc newErrnoErr*(additionalInfo = ""): owned(ref OSError) =
     result.msg = "unknown OS error"
 
 proc raiseErrno*(additionalInfo = "") =
+  if errno.OSErrorCode.isNotFound:
+    raiseFileNotFoundError(fp=additionalInfo)
   raise newErrnoErr(additionalInfo)

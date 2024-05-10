@@ -32,6 +32,9 @@ from std/terminal import isatty
 import ./io_abc  # PathLike
 export io_abc except `$`
 
+import ./pyerrors
+export FileNotFoundError
+
 import ./Lib/os_impl/posix_like/truncate
 
 # TODO: move to `ops.nim` and export
@@ -91,7 +94,6 @@ type
 type
   LookupError* = object of CatchableError
   FileExistsError* = object of OSError
-  FileNotFoundError* = object of OSError
   UnsupportedOperation* = object of OSError # and ValueError
 
 
@@ -553,17 +555,6 @@ template genOpenInfo(result; file; mode: string,
   isBinary = binary
   resMode = nmode
 
-when defined(windows):
-  let enoent = 2
-  let ERROR_PATH_NOT_FOUND = 3
-  proc isNotFound(err: OSErrorCode): bool = 
-    let i = err.int
-    i == enoent or i == ERROR_PATH_NOT_FOUND
-else:
-  let ENOENT{.importc, header: "<errno.h>".}: cint
-  let enoent = ENOENT.int
-  proc isNotFound(err: OSErrorCode): bool = err.int == enoent
-
 proc c_setvbuf(f: File, buf: pointer, mode: cint, size: csize_t): cint {.
   importc: "setvbuf", header: "<stdio.h>".}
 let
@@ -707,8 +698,7 @@ proc open*[OpenT: CanIOOpenT](
     let err = osLastError()
     let fn = when file is PathLike: $file else: "fd: " & $file
     if isNotFound err:
-      raise newException(FileNotFoundError,
-        "No such file or directory: "&fn)
+      raiseFileNotFoundError(fn)
     else:
       raiseOSError(err, "[Errno " & $int(err) & "] " & "can't open "&fn)
   

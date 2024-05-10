@@ -1,4 +1,4 @@
 
-import ../../io_abc
+import ../../[io_abc, pyerrors]
 
-export io_abc
+export io_abc, pyerrors
