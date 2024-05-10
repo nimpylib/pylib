@@ -15,6 +15,9 @@ type
 func close*(scandirIter: ScandirIterator) = discard
 using self: DirEntry
 
+func repr*(self): string =
+  "<DirEntry " & self.name.pyreprImpl & '>'
+
 template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
   func is_x*(self): bool = 
     ## follow_symlinks is True on default.
