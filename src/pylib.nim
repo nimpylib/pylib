@@ -13,7 +13,7 @@ when not defined(js):
 import pylib/private/trans_imp
 
 impExp pylib,
-  noneType, pybool, builtins, collections_abc,
+  noneType, pybool, builtins,
   numTypes, radixCvt, ops,
   pystring, 
   pysugar
