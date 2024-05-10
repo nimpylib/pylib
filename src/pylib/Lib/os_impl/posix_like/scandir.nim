@@ -38,17 +38,24 @@ func stat*(self): stat_result =
   new self.stat_res
   self.stat_res[] = result
 
-iterator scandir*[T: PathLike](path: T = "."): DirEntry[T]{.closure.} =
-  let spath = $path
+iterator scandir*[T: PathLike](path: T): DirEntry[T]{.closure.} =
+  let spath = path.fspath
   if not dirExists spath:
     raiseFileNotFoundError(spath)
   let dir = new string
   dir[] = string path
   for t in walkDir(spath, relative=true):
-    let de = DirEntry(name: t.path, dir: dir, kind: t.kind)
+    let de = DirEntry[AltPathType(T)](name: AltPathType(T)(t.path), dir: dir, kind: t.kind)
     yield de
 
-func scandir*[T: PathLike](path: T = "."): ScandirIterator[T] =
+iterator scandir*(): DirEntry[OsPathDefType]{.closure.} =
+  for de in scandir(OsPathDefType('.')):
+    yield de
+
+func scandir*[T: PathLike](path: T): ScandirIterator[T] =
   new result
   result.iter = iterator(): DirEntry[T] =
     for de in scandir(path): yield de
+
+func scandir*(): ScandirIterator[OsPathDefType] =
+  scandir(OsPathDefType('.'))
