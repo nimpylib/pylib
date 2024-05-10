@@ -30,7 +30,7 @@ import std/[
 from std/terminal import isatty
 
 import ./io_abc  # PathLike
-export io_abc
+export io_abc except `$`
 
 import ./Lib/os_impl/posix_like/truncate
 
