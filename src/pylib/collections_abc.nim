@@ -69,10 +69,10 @@ func extend*[T](ms: MutableSequence[T], it: Iterable[T]) =
   for i in it:
     ms.append(i)
 
-func pop*[T](ms: MutableSequence[T]): T =
-  let last = ms.len-1
-  result = ms[last]
-  ms.delitem(last)
+func pop*[T](ms: MutableSequence[T], index = -1): T =
+  let idx = if index < 0: ms.len + index else: index
+  result = ms[idx]
+  ms.delitem(idx)
 
 func remove*[T](ms: MutableSequence[T], x: T) =
   for i in 0..<ms.len:

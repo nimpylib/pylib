@@ -80,6 +80,11 @@ func reverse*(self: var PyList) = reverse(self.asSeq)
 func append*[T](self: var PyList[T], x: T) = self.asSeq.add x
 
 func pop*[T](self: var PyList[T]): T{.discardable.} = self.asSeq.pop()
+func pop*[T](self: var PyList[T], index: int): T{.discardable.} =
+  ## `index` can be negative to index backwards.
+  let idx = if index < 0: self.len + index else: index
+  result = self.asSeq[idx]
+  self.asSeq.delete(idx)
 
 func extend*[T](self: var PyList[T], ls: openArray[T]) =
   self.asSeq.add ls
