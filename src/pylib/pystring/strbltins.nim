@@ -49,8 +49,6 @@ func repr*(x: PyStr): string =
 
 func ascii*(us: string): PyStr =
   runnableExamples:
-    when defined(nimPreviewSlimSystem):
-      import std/assertions
     assert ascii("𐀀") == r"'\U00010000'"
     assert ascii("đ") == r"'\u0111'"
     assert ascii("和") == r"'\u548c'"
@@ -76,16 +74,15 @@ func ascii*(us: PyStr): PyStr =
 template ascii*(c: char): PyStr =
   ## we regard 'x' as a str (so as in python)
   runnableExamples:
-    when defined(nimPreviewSlimSystem):
-      import std/assertions
     assert ascii('c') == "'c'"
   bind pyasciiImpl, str, pyreprImpl
   str pyasciiImpl(pyreprImpl($c))
 
 template ascii*(a: untyped): PyStr =
+  ## As repr(), return a string containing a printable representation
+  ## of an object, but escape the non-ASCII characters in the string returned
+  ##  by repr() using \x, \u, or \U escapes
   runnableExamples:
-    when defined(nimPreviewSlimSystem):
-      import std/assertions
     assert ascii(6) == "6"
   bind pyasciiImpl, str
   str pyasciiImpl(repr(a))
