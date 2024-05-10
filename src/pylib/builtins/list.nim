@@ -141,30 +141,28 @@ proc list*[T](iter: Iterable[T]): PyList[T] =
     for i in iter:
       result.append(i)
 
-func strListImpl[T](ls: PyList[T],
-    strProc: proc (x: T): string{.noSideEffect.}): string =
-  if len(ls) == 0: return "[]"
-
-  result = newStringOfCap(2*len(ls))
-  result.add "[" & ls[0].strProc
-  for i in 1..<ls.len:
-    result.add ", " & ls[i].strProc
-  result.add ']'
+template strListImpl[T](ls: PyList[T],
+    strProc #[ :Callable[[T] string] ]#): string =
+  if len(ls) == 0: "[]"
+  else:
+    var result: string
+    result = newStringOfCap(2 + 2*len(ls))
+    result.add "[" & ls[0].strProc
+    for i in 1..<ls.len:
+      result.add ", " & ls[i].strProc
+    result.add ']'
+    result
 
 # system.repr(c: char) returns $int(c)
 func reprChar(c: char): string = '\'' & c & '\''  
 func repr*(ls: PyList[char]): string = strListImpl(ls, reprChar)
 # `repr` for elements is `set|string|openArray` is in about L30
 
-template reprImpl[T](ls: PyList[T]): string =
+template repr*[T](ls: PyList[T]): string =
+  ## mixin `func repr(T): string`
   bind strListImpl
   mixin repr
   strListImpl(ls, repr)
-
-template repr*[T](ls: PyList[T]): string =
-  ## mixin `func repr(T): string`
-  bind reprImpl
-  reprImpl ls
 
 template `$`*[T](ls: PyList[T]): string =
   ## The same as `repr` for PyList
@@ -173,8 +171,9 @@ template `$`*[T](ls: PyList[T]): string =
   ## which is inherted from `object`,
   ## which will call `obj.__repr__` as fallback.
   ## This minics it.
-  bind reprImpl
-  reprImpl ls
+  bind strListImpl
+  mixin repr
+  strListImpl(ls, repr)
 
 type
   SortKey[K] = object of RootObj
