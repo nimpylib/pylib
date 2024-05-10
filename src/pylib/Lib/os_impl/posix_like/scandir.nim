@@ -6,7 +6,7 @@ import ./stat
 type
   ScandirIterator[T] = ref object
     iter: iterator(): DirEntry[T]
-  DirEntry*[T] = object
+  DirEntry*[T] = ref object
     name*: T
     dir: ref string  # over one `scandir`, the dir is just the same
     kind: PathComponent
@@ -28,8 +28,12 @@ gen_is_x is_dir, pcDir, pcLinkToDir
 
 
 func stat*(self): stat_result =
+  if self.stat_res != nil:
+    return self.stat_res[]
   let path = joinPath(self.dir[], self.name)
-  stat(path)
+  result = stat(path)
+  new self.stat_res
+  self.stat_res[] = result
 
 iterator scandir*[T: PathLike](path: T = "."): DirEntry[T]{.closure.} =
   let spath = $path
