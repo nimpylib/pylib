@@ -12,6 +12,7 @@ type
     kind: PathComponent
     stat_res: ref stat_result
 
+func close*(scandirIter: ScandirIterator) = discard
 using self: DirEntry
 
 template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
