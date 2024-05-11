@@ -5,8 +5,7 @@ import std/strutils except strip, split, rsplit
 import ./strimpl
 import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
-import ./errHandle
-import ../pyerrors
+import ../stringlib/meth
 
 template `*`*(a: StringLike, i: int): PyStr =
   bind repeat
@@ -15,26 +14,23 @@ template `*`*(i: int, a: StringLike): PyStr =
   bind `*`
   a * i
 
-func count*(a: StringLike, sub: StringLike): int =
-  if sub.len == 0: return str(a).len + 1
-  count($a, sub)
+func count*(a: PyStr, sub: PyStr): int =
+  meth.count(a, sub)
 
-func count*(a: StringLike, sub: StringLike, start: int): int =
-  let subA = substr($a, start)
-  if sub.len == 0: return str(subA).len + 1
-  count($a, sub)
+func count*(a: PyStr, sub: PyStr, start: int): int =
+  meth.count(a, sub, start)
 
-func count*(a: StringLike, sub: StringLike, start=0, `end`: int): int =
-  count(substr($a, start, `end`-1), sub)
+func count*(a: PyStr, sub: PyStr, start=0, `end`: int): int =
+  meth.count(a, sub, start, `end`)
 
 template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
 
-func lower*(a: StringLike): PyStr = toLower $a
-func upper*(a: StringLike): PyStr = toUpper $a
+func lower*(a: PyStr): PyStr = toLower $a
+func upper*(a: PyStr): PyStr = toUpper $a
 
-func capitalize*(a: StringLike): PyStr =
+func capitalize*(a: PyStr): PyStr =
   ## make the first character have upper case and the rest lower case.
   ## 
   ## while Nim's `unicode.capitalize` only make the first character upper-case.
@@ -48,73 +44,49 @@ func capitalize*(a: StringLike): PyStr =
   result = $toUpper(rune) + substr(s, i).lower()
 
 
+export strutils.startsWith, strutils.endsWith
+
 template seWith(seWith){.dirty.} =
-  export strutils.seWith
-  template sewith*(a: StringLike, suffix: char): bool =
-    seWith($a, suffix)
-  template sewith*(a: char, suffix: string): bool =
-    suffix.len == 1 and a == suffix[0]
-  func sewith*[Tup: tuple](a: StringLike, suffix: Tup): bool =
-    let s = $a
-    for _, suf in suffix.fieldPairs:
-      if s.sewith suf:
-        return true
-  func sewith*[Suf: StringLike | tuple](a: StringLike, suffix: Suf, start: int): bool =
-    let s = $a
-    substr(s, start).sewith(suffix)
-  func sewith*[Suf: StringLike | tuple](a: StringLike, suffix: Suf,
+  func sewith*(a: PyStr, suffix: char): bool =
+    meth.seWith(a, suffix)
+  func sewith*(a: char, suffix: PyStr): bool =
+    meth.seWith(a, suffix)
+  func sewith*[Tup: tuple](a: PyStr, suffix: Tup): bool =
+    meth.seWith(a, suffix)
+  func sewith*[Suf: PyStr | tuple](a: PyStr, suffix: Suf, start: int): bool =
+    meth.seWith(a, suffix, start)
+  func sewith*[Suf: PyStr | tuple](a: PyStr, suffix: Suf,
       start, `end`: int): bool =
-    substr($a, start, `end`-1).sewith(suffix)
+    meth.seWith(a, suffix, start, `end`)
 
 seWith startsWith
 seWith endsWith
 
+func find*(a: PyStr, b: PyStr, start = 0, `end` = len(a)): int =
+  if b.len == 1:
+    meth.find1(a, b, start)
+  else:
+    meth.find(a, b, start)
 
-func find*(a: StringLike, b: StringLike, start = 0): int =
-  var i = start
-  for s in str(a):
-    if s == b: return i
-    i.inc
-  return -1
+func rfind*(a: PyStr, b: PyStr, start = 0, `end` = len(a)): int =
+  if b.len == 1:
+    meth.rfind1(a, b, start)
+  else:
+    meth.rfind(a, b, start)
 
-func find*(a: StringLike, b: StringLike, start = 0, `end`: int): int =
-  var i = start
-  let last = `end` - 1
-  for s in str(a):
-    if i == last: break
-    if s == b: return i
-    i.inc
-  return -1
+func index*(a, b: PyStr, start = 0, `end` = len(a)): int =
+  if b.len == 1:
+    meth.index1(a, b, start)
+  else:
+    meth.index(a, b, start)
 
-func rfind*(a: StringLike, b: StringLike, start = 0, `end`: int): int =
-  let sa = str(a)
-  for i in countdown(`end`, start):
-    if sa[i] == b: return i
-  return -1
-
-func rfind*(a: StringLike, b: StringLike, start = 0): int =
-  let sa = str(a)
-  sa.rfind(b, start, len(sa))
-
-func index*(a, b: StringLike, start = 0, last = -1): int =
-  result = a.find(b, start, last)
-  if result == -1:
-    raise newException(ValueError, "substring not found")
-
-func rindex*(a, b: StringLike, start = 0, last = -1): int =
-  result = a.rfind(b, start, last)
-  if result == -1:
-    raise newException(ValueError, "substring not found")
+func rindex*(a, b: PyStr, start = 0, `end` = len(a)): int =
+  if b.len == 1:
+    meth.rindex1(a, b, start)
+  else:
+    meth.rindex(a, b, start)
 
 const AsciiOrdRange = 0..0x7F
-func isascii*(c: char): bool = ord(c) in AsciiOrdRange
-func isascii*(a: string): bool =
-  result = true
-  if a.len == 0: return
-  for c in a:
-    if not c.isascii():
-      return false
-
 func isascii*(a: Rune): bool = ord(a) in AsciiOrdRange
 func isascii*(a: PyStr): bool =
   result = true
@@ -123,116 +95,55 @@ func isascii*(a: PyStr): bool =
     if not r.isascii():
       return false
 
-func isalpha*(c: char): bool = c.isAlphaAscii
-func isalpha*(a: StringLike): bool = unicode.isAlpha($a)
+func isalpha*(a: PyStr): bool = unicode.isAlpha($a)
 
 template allRunes(a, isWhat) =
   result = true
   for r in runes $a:
     if not r.isWhat:
       return false
-func islower*(c: char): bool = c.isLowerAscii
-func isupper*(c: char): bool = c.isUpperAscii
-func islower*(a: StringLike): bool = allRunes a, isLower
-func isupper*(a: StringLike): bool = allRunes a, isUpper
 
-func isspace*(a: StringLike): bool = unicode.isSpace($a)
+func islower*(a: PyStr): bool = allRunes a, isLower
+func isupper*(a: PyStr): bool = allRunes a, isUpper
 
-template retIfWider(a: char) =
-  if 1 >= width:
-    return str(a)
-template retIfWider(a: StringLike) =
-  if len(a) >= width:
-    return str(a)
+func isspace*(a: PyStr): bool = unicode.isSpace($a)
 
-template centerImpl(a, width, fillchar) =
-  let
-    hWidth = (width-len(a)) div 2
-    half = fillchar.repeat(hWidth)
-  result = half + a + half
-
-func center*(a: StringLike, width: int, fillchar = ' '): PyStr =
+func center*(a: PyStr, width: int, fillchar = ' '): PyStr =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str
-  retIfWider a
-  centerImpl a, width, fillchar
+  meth.center(a, width, fillchar)
 
-func ljust*(a: StringLike, width: int, fillchar = ' ' ): PyStr =
-  alignLeft $a, width, fillchar
-func rjust*(a: StringLike, width: int, fillchar = ' ' ): PyStr =
-  align $a, width, fillchar
+func ljust*(a: PyStr, width: int, fillchar = ' ' ): PyStr =
+  meth.ljust a, width, fillchar
+func rjust*(a: PyStr, width: int, fillchar = ' ' ): PyStr =
+  meth.rjust a, width, fillchar
 
-template chkLen(a): int = 
-  ## 1. returns if wider; 2. raises if not 1 len; 3. length as result
-  retIfWider a
-  let le = len(fillchar)
-  if le != 1:
-    raise newException(TypeError, 
-      "The fill character must be exactly one character long")
-  le
+func center*(a: PyStr, width: int, fillchar: PyStr): PyStr =
+  meth.center(a, width, fillchar)
 
-func center*(a: StringLike, width: int, fillchar: PyStr): PyStr =
-  discard chkLen a
-  centerImpl(a, width, fillchar[0])
-
-func ljust*(a: StringLike, width: int, fillchar: PyStr): PyStr =
-  let le = chkLen a
-  let fills = (width - le) * fillchar
-  result = a + fills
+func ljust*(a: PyStr, width: int, fillchar: PyStr): PyStr =
+  meth.ljust(a, width, fillchar)
   
-func rjust*(a: StringLike, width: int, fillchar: PyStr ): PyStr =
-  let le = chkLen a
-  let fills = (width - le) * fillchar
-  result = fills + a
+func rjust*(a: PyStr, width: int, fillchar: PyStr ): PyStr =
+  meth.rjust(a, width, fillchar)
 
-func zfill*(c: char, width: int): PyStr =
-  if 1 >= width:
-    return str(c)
-  # Now `width` is at least 2.
-  let zeroes = '0'.repeat(width-1)
-  if c == '+' or c == '-':
-    return str(c & zeroes)
-  result = str(zeroes & c)
+func zfill*(a: PyStr, width: int): PyStr =
+  str meth.zfill($a, width)
 
-func zfill*(a: StringLike, width: int): PyStr =
-  let le = len(a)
-  var res = $a
-  if le >= width:
-    return str(res)
-  let fill = width - le
-  let zeroes = '0'.repeat(fill)
-  if le == 0:
-    return str(zeroes)
+func removeprefix*(a: PyStr, suffix: PyStr): PyStr =
+  meth.removeprefix(a, suffix)
+func removesuffix*(a: PyStr, suffix: PyStr): PyStr =
+  meth.removesuffix(a, suffix)
 
-  let first = res[0]
-  res = zeroes & res
-  if first == '+' or first == '-':
-    # move sign to beginning of string
-    res[fill] = '0'
-    res[0] = first
-  result = str(res)
+func replace*(a: PyStr, sub, by: PyStr|char): PyStr =
+  meth.replace(a, sub, by)
 
-func removeprefix*(a: StringLike, suffix: StringLike): PyStr =
-  result = $a
-  strutils.removePrefix result, suffix
-func removesuffix*(a: StringLike, suffix: StringLike): PyStr =
-  result = $a
-  strutils.removeSuffix result, suffix
-
-func replace*(a, sub, by: StringLike): PyStr =
-  strutils.replace($a, sub, by)
-
-func join*[T](sep: StringLike, a: openArray[T]): PyStr =
+func join*[T](sep: PyStr, a: openArray[T]): PyStr =
   ## Mimics Python join() -> string
-  a.join(str(sep))
+  meth.join(sep, a)
 
-template partitionGen(name; find){.dirty.} =
-  func name*(a: StringLike, sep: StringLike): tuple[before, sep, after: PyStr] =
-    noEmptySep(sep)
-    let idx = a.find(sep)
-    if idx == -1:
-      result.before = a
-      return
-    result = (a[0..<idx], sep, a[idx+len(sep) .. ^1] )
+func partition*(a: PyStr, sep: PyStr): tuple[before, sep, after: PyStr] =
+  meth.partition(a, sep)
 
-partitionGen partition, find
-partitionGen rpartition, rfind
+func rpartition*(a: PyStr, sep: PyStr): tuple[before, sep, after: PyStr] =
+  meth.rpartition(a, sep)
+

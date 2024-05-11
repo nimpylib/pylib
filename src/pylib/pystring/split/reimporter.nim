@@ -1,10 +1,8 @@
 
 
-import ../errHandle
-import ../consts
-import ../../builtins/list
-import ../../noneType
-
-
-export errHandle, list, consts, noneType
+import ../../stringlib/split/[
+  split_whitespace, rsplit_whitespace, splitlinesIter]
+import ../../stringlib/split/reimporter as nrep
+export errHandle, nrep, noneType
+export split_whitespace, rsplit_whitespace, splitlinesIter
 
