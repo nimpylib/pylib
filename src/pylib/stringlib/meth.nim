@@ -117,6 +117,7 @@ func isascii*(s: string): bool =
     if not c.isascii(): return false
 
 template isspaceImpl(c: char): bool = c in Whitespace
+template isdigitImpl(c: char): bool = strutils.isDigit(c) # just alias
 
 template all(a: string, isX){.dirty.} =
   if a.len == 0: return
@@ -131,6 +132,8 @@ template wrap2(isX, wrap){.dirty.} =
 
 wrap2 isalpha, isAlphaAscii
 wrap2 isspace, isspaceImpl
+wrap2 isdigit, isdigitImpl
+wrap2 isalnum, isAlphaNumeric
 wrap2 islower, isLowerAscii
 wrap2 isupper, isUpperAscii
 
