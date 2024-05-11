@@ -117,12 +117,12 @@ func sorted*[T](self: PyList[T], reverse=false): PyList[T] =
   ## sorted(list, reverse=False)
   newPyList self.asSeq.sorted(order=rev2ord(reverse))
 
-func list*[T](x: openArray[T]): PyList[T] = newPyList @x
+proc list*[T](x: openArray[T]): PyList[T] = newPyList @x
 # Impl end
 
 # the following does nothing with how PyList is implemented.
 
-func list*[T](): PyList[T] =
+proc list*[T](): PyList[T] =
   runnableExamples:
     assert len(list[int]()) == 0
   newPyList[T]()
