@@ -109,7 +109,13 @@ func rindex*[S; T](a: S, b: T, start = 0): int =
 
 const AsciiOrdRange = 0..0x7F
 
-template isasciiImpl(c: char): bool = ord(c) in AsciiOrdRange
+func isascii*(c: char): bool = ord(c) in AsciiOrdRange
+func isascii*(s: string): bool =
+  result = true
+  if s.len == 0: return
+  for c in s:
+    if not c.isascii(): return false
+
 template isspaceImpl(c: char): bool = c in Whitespace
 
 template all(a: string, isX){.dirty.} =
@@ -123,7 +129,6 @@ template wrap2(isX, wrap){.dirty.} =
   func isX*(c: char): bool = c.wrap
   func isX*(s: string): bool = all(s, wrap)
 
-wrap2 isascii, isasciiImpl
 wrap2 isalpha, isAlphaAscii
 wrap2 isspace, isspaceImpl
 wrap2 islower, isLowerAscii
