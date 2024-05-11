@@ -10,7 +10,7 @@
 from std/strformat import fmt
 import std/macros 
 import ./strimpl
-import ./translateEscape
+import ../translateEscape
 
 template genFR(sym){.dirty.} =
   macro sym*(pattern: static[string]): PyStr = quote do: f`pattern`

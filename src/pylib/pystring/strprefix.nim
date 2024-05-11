@@ -1,6 +1,6 @@
 
 import ./strimpl
-import ./translateEscape
+import ../translateEscape
 
 func u*(s: static[string]): PyStr =
   const ns = translateEscape s
