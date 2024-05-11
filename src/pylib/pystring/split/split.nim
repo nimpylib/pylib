@@ -1,6 +1,6 @@
 
 import ./common
-import std/[strutils, unicode]
+import std/strutils
 import ./reimporter
 
 import ./split_whitespace
