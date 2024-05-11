@@ -2,6 +2,7 @@
 import ./bytesimpl
 import ../translateEscape
 
+func b*(c: static[char]): PyBytes = pybytes c
 func b*(s: static[string]): PyBytes =
   ## XXX: Currently
   ## `\Uxxxxxxxx` and `\uxxxx` 
