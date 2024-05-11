@@ -18,7 +18,7 @@ template pybytes*[T](x: T): PyBytes =
 using self: PyBytes
 using mself: var PyBytes
 func `$`*(self): string{.borrow.}  ## to Nim string
-func fspath*(self): string = $self  ## make a PathLike
+func fspath*(self): PyBytes = self  ## make a PathLike
 converter toNimString*(self): string = $self
 
 # contains(PyBytes, int|PyButes): bool is in bytesmeth
