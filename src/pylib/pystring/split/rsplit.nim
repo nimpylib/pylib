@@ -23,8 +23,8 @@ iterator rsplitNoCheck(s: string, sep: PyStr, maxsplit = -1): PyStr{.inline.} =
   ## in reversed order
   for i in strutils.rsplit(s, $sep, maxsplit): yield i
 
-proc rsplit*(a: StringLike, sep = None, maxsplit = -1): PyList[PyStr] =
-  str(a).rsplit_whitespace(maxsplit)
+proc rsplit*(a: PyStr, sep = None, maxsplit = -1): PyList[PyStr] =
+  a.rsplit_whitespace(maxsplit)
 
 # strutils.rsplit func does not use any predicted capacity.
 
@@ -34,7 +34,7 @@ template initRes(maxcount) =
 template byteLen(s: string): int = s.len
 template byteLen(c: char): int = 1
 
-proc rsplit*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
+proc rsplit*(a: PyStr, sep: StringLike, maxsplit = -1): PyList[PyStr] =
   noEmptySep sep
   # CPython uses unicode len, here using byte-len shall be fine.
   let

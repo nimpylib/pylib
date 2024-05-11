@@ -24,13 +24,13 @@ iterator splitNoCheck(s: string, sep: char|string, maxsplit = -1): PyStr{.inline
 iterator splitNoCheck(s: string, sep: PyStr, maxsplit = -1): PyStr{.inline.} =
   for i in strutils.split(s, $sep, maxsplit): yield i
 
-iterator split*(a: StringLike,
+iterator split*(a: PyStr,
     sep: StringLike, maxsplit = -1): PyStr{.inline.} =
   noEmptySep sep
   for i in splitNoCheck($a, sep, maxsplit): yield i
 
-proc split*(a: StringLike, sep = None, maxsplit = -1): PyList[PyStr] =
-  str(a).split_whitespace(maxsplit)
+proc split*(a: PyStr, sep = None, maxsplit = -1): PyList[PyStr] =
+  a.split_whitespace(maxsplit)
 
 # strutils.split func does not use any predicted capacity.
 
@@ -40,7 +40,7 @@ template initRes(maxcount) =
 template byteLen(s: string): int = s.len
 template byteLen(c: char): int = 1
 
-proc split*(a: StringLike, sep: StringLike, maxsplit = -1): PyList[PyStr] =
+proc split*(a: PyStr, sep: StringLike, maxsplit = -1): PyList[PyStr] =
   noEmptySep sep
   # CPython uses unicode len, here using byte-len shall be fine.
   let
