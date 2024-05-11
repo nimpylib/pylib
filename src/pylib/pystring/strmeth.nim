@@ -17,6 +17,7 @@ template `*`*(i: int, a: StringLike): PyStr =
 
 func count*(a: StringLike, sub: StringLike): int =
   if sub.len == 0: return str(a).len + 1
+  count($a, sub)
 
 func count*(a: StringLike, sub: StringLike, start: int): int =
   let subA = substr($a, start)
