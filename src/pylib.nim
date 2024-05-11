@@ -15,7 +15,7 @@ import pylib/private/trans_imp
 impExp pylib,
   noneType, pybool, builtins,
   numTypes, ops,
-  pystring, 
+  pystring, pybytes,
   pysugar
 
 when not defined(pylibNoLenient):

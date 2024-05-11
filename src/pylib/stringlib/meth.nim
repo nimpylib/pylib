@@ -141,6 +141,10 @@ template retIfWider[S](a: S) =
   if len(a) >= width:
     return a
 
+template `*`(c: char, i: int): string =
+  bind repeat
+  c.repeat i
+  
 template centerImpl(a, width, fillchar) =
   let
     hWidth = (width-len(a)) div 2

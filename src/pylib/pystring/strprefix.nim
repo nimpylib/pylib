@@ -7,5 +7,3 @@ func u*(s: static[string]): PyStr =
   str(ns)
 
 func u*(a: static char): PyStr = str(a)
-template b*(a: static string): string = a
-template b*(a: static char): string = $a
