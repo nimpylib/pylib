@@ -47,8 +47,8 @@ when not defined(js):
   import pylib/Lib/tempfile
   test "tempfile":
     var tname = ""
-    const cont = "content"
-    with NamedTemporaryFile() as f:
+    const cont = b"content"
+    with NamedTemporaryFile() as f:  # open in binary mode by default
       tname = f.name
       f.write(cont)
       f.flush()
