@@ -12,6 +12,9 @@ type
     kind: PathComponent
     stat_res: ref stat_result
 
+func path*[T](self: DirEntry[T]): T =
+  mapPathLike[T] joinPath(self.dir[], self.name)
+
 func close*(scandirIter: ScandirIterator) = discard
 using self: DirEntry
 
