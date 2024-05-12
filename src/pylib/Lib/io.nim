@@ -340,7 +340,7 @@ proc readImpl(self: TextIOBase, size: int): string =
   Iencode
 proc read*(self: TextIOBase, size: int): PyStr = str self.readImpl(size)
 
-proc write*(self: IOBase, s: string): int{.discardable.} =
+proc write(self: IOBase, s: string): int{.discardable.} =
   self.file.write s
   s.len
 
