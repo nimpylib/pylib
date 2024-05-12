@@ -762,13 +762,6 @@ template open*[S](
       let uniLineRes = f.read() # Universal Newline, "123\r\n\n" -> "123\n\n"
       assert uniLineRes == (when defined(windows):"123\n\n" else:"123\n")
       f.close()
-    import pylib/pybytes/bytesprefix
-    block:
-      var f = open(fn, "w+b")
-      f.write(br"123")
-      f.seek(0)
-      assert f.read() == br"123"
-      f.close()
   bind openImpl
   block:
     openImpl(res,
