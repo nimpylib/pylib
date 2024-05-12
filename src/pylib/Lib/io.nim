@@ -66,10 +66,6 @@ type
   FileExistsError* = object of OSError
   UnsupportedOperation* = object of OSError # and ValueError
 
-template unsupported(cls: IOBase, name) =
-  ## """Internal: raise an OSError exception for unsupported operations."""
-  raise newException(UnsupportedOperation, "$#.$#() not supported" % [$cls, name.astToStr()])
-
 converter toUnderFile(f: IOBase): File = f.file
 
 proc flush*(f: IOBase) = f.flushFile()
@@ -412,8 +408,9 @@ template base_close() =
   self.closed = true
   self.file.close()
   
-method close*(self: var IOBase){.base.} = base_close()
-method close*(self: var TextIOBase) =
+method close*(self: IOBase){.base.} = base_close()
+method close*(self: RawIOBase) = base_close()
+method close*(self: TextIOWrapper) =
   #procCall close IOBase(self)
   base_close()
   self.iEncCvt.close()
@@ -456,12 +453,85 @@ proc isatty(p: CanIOOpenT): bool =
       result = f.isatty()
       f.close()
 
-template genOpenInfo(result; file; mode: static string, 
+proc norm_buffering(file: CanIOOpenT, buffering: var int): bool =
+  ## returns line_buffering
+  var line_buffering = False  # not used yet here
+  if buffering == 1 or buffering < 0 and file.isatty():
+      buffering = -1
+      line_buffering = True
+  if buffering < 0:
+      buffering = DEFAULT_BUFFER_SIZE
+      try:
+          #bs = os.fstat(raw.fileno()).st_blksize
+          let bs = getBlkSize file
+          if bs > 1: buffering = bs
+      except OSError: discard
+  if buffering < 0: raise_ValueError("invalid buffering size")
+  result = line_buffering
+
+# patch
+# nim's implementation assumed iconv_open returns NULL on failure,
+#  which is `(iconv_t) -1` in fact.
+proc encodings_open(
+    destEncoding = "UTF-8"; srcEncoding = "CP1252";
+    errors=DefErrors  # XXX: just ignored
+  ): EncodingConverter =
+  when defined(windows):
+    encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
+  else:
+    let cvt = encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
+    if cvt == cast[EncodingConverter](-1):
+      raise newException(EncodingError,
+        "cannot create encoding converter from " &
+        srcEncoding & " to " & destEncoding)
+    cvt
+
+proc initTextIO(encoding, errors, smode, newline: string): TextIOWrapper =
+    var enc = encoding
+    if enc == DefEncoding: enc = LocaleEncoding
+    if enc == LocaleEncoding: enc = getPreferredEncoding()
+
+    var iEncCvt, oEncCvt: EncodingConverter
+    try:
+      iEncCvt = encodings_open(
+        destEncoding = "UTF-8",
+        srcEncoding = enc,
+        errors = errors
+      )
+      oEncCvt = encodings_open(
+        destEncoding = enc,
+        srcEncoding = "UTF-8",
+        errors = errors
+      )
+    except EncodingError:
+      raise newException(LookupError, "unknown encoding: " & encoding)
+  
+    var res = TextIOWrapper(
+        errors: errors,
+        encErrors: parseErrors errors,
+        iEncCvt: iEncCvt,
+        oEncCvt: oEncCvt,
+        encoding: encoding,
+        mode: smode,
+    )
+    res.initNewLineMode(newline)
+    result = res
+
+template genOpenInfo(result: untyped; file; mode: static string, 
   buffering: var int,
   encoding,
-  errors: string,
-  isBinary: var bool, resMode: var FileMode
-) = 
+  errors,
+  newline: string,
+  resMode: var FileMode
+) =
+  ## returns is binary
+  bind toSet, raise_ValueError, repr, warnings, warn,
+    True, False, DeprecationWarning, RuntimeWarning,
+    initTextIO,
+    TextIOBase, TextIOWrapper, 
+    RawIOBase, BufferedIOBase, BufferedReader, BufferedWriter, BufferedRandom,
+    DefErrors, DefEncoding, norm_buffering,
+    FileMode, PathLike, fileExists
   const
     modes = mode.toSet
     allSet = toSet("axrwb+tU")
@@ -503,18 +573,7 @@ template genOpenInfo(result; file; mode: static string,
                     "mode, the default buffer size will be used",
                     RuntimeWarning, 2)
   # raw = FileIO( ... )
-  var line_buffering = False  # not used yet here
-  if buffering == 1 or buffering < 0 and file.isatty():
-      buffering = -1
-      line_buffering = True
-  if buffering < 0:
-      buffering = DEFAULT_BUFFER_SIZE
-      try:
-          #bs = os.fstat(raw.fileno()).st_blksize
-          let bs = getBlkSize file
-          if bs > 1: buffering = bs
-      except OSError: discard
-  if buffering < 0: raise_ValueError("invalid buffering size")
+  let _ = file.norm_buffering(buffering)  # line_buffering is not used yet
   when not binary:
     if buffering == 0:
         raise_ValueError("can't have unbuffered text I/O")
@@ -524,6 +583,8 @@ template genOpenInfo(result; file; mode: static string,
     if buffering == 0:
       result = FileIO()
     else:
+      result = FileIO() # XXX: currently it's FileIO but is buffered in fact
+      #[
       when updating:
         result = BufferedRandom()
       elif creating or writing or appending:
@@ -532,8 +593,10 @@ template genOpenInfo(result; file; mode: static string,
         result = BufferedReader()
       else:
         raise_ValueError("unknown mode: $#" % mode.repr)
+      ]#
   else:
-      var result = TextIOWrapper() # discard # will be TextIOWrapper( ...line_buffering)
+    var result = initTextIO(encoding, errors, mode, newline)
+    # TextIOWrapper( ...line_buffering)
 
   let nmode =
     when updating: FileMode.fmReadWrite
@@ -546,7 +609,6 @@ template genOpenInfo(result; file; mode: static string,
     elif writing: FileMode.fmWrite
     elif appending: FileMode.fmAppend
     else: doAssert false;FileMode.fmRead  # impossible
-  isBinary = binary
   resMode = nmode
 
 proc c_setvbuf(f: File, buf: pointer, mode: cint, size: csize_t): cint {.
@@ -590,53 +652,46 @@ proc openNoNonInhertFlag(f: var File, filehandle: FileHandle,
   f = c_fdopen(filehandle, fop)
   result = f != nil
 
-# patch
-# nim's implementation assumed iconv_open returns NULL on failure,
-#  which is `(iconv_t) -1` in fact.
-proc encodings_open(
-    destEncoding = "UTF-8"; srcEncoding = "CP1252";
-    errors=DefErrors  # XXX: just ignored
-  ): EncodingConverter =
-  when defined(windows):
-    encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
-  else:
-    let cvt = encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
-    if cvt == cast[EncodingConverter](-1):
-      raise newException(EncodingError,
-        "cannot create encoding converter from " &
-        srcEncoding & " to " & destEncoding)
-    cvt
+proc raiseOsOrFileNotFoundError*[T: int|string](file: T) =
+    let err = osLastError()
+    let fn = when file is PathLike: $file else: "fd: " & $file
+    if isNotFound err:
+      raiseFileNotFoundError(fn)
+    else:
+      raiseOSError(err, "[Errno " & $err & "] " & "can't open "&fn)
 
+proc initBufAsPy*(nfile: var File, buf: int) =
+  ## init buffering as Python's
+  var (bfMode, bfSize) =
+    if buf == 1: (IOLBF, 0)
+    elif buf > 0 and buf.uint <= high(uint):
+      (IOFBF, buf)
+    elif buf == 0:
+      (IONBF, 0)
+    else: doAssert false;(typeof(IOFBF)(0), 0)
+  discard c_setvbuf(nfile, nil, bfMode, cast[csize_t](bfSize))
 
-template openImpl{.dirty.} =
+proc setFile[I: IOBase](res: var I, nfile: File) =
+  res.file = nfile
+
+template openImpl(result: untyped;
+  file, mode1;
+  buffering: int,
+  encoding1,
+  errors1,
+  newline1: typed
+  #,closefd=True, opener
+) =
+  bind genOpenInfo, initTextIO,
+    FileMode, FileHandle,
+    openNoNonInhertFlag, setFile
+    
   var buf = buffering
   var
     nmode: FileMode
-    binary = false
-  let smode = $mode
-  genOpenInfo(result, file, mode = smode, buffering=buf,
-      encoding=encoding, errors=errors, isBinary=binary, resMode=nmode)
-  
-  var iEncCvt, oEncCvt: EncodingConverter
-  if not binary:
-
-    var enc = encoding
-    if enc == DefEncoding: enc = LocaleEncoding
-    if enc == LocaleEncoding: enc = getPreferredEncoding()
-
-    try:
-      iEncCvt = encodings_open(
-        destEncoding = "UTF-8",
-        srcEncoding = enc,
-        errors = errors
-      )
-      oEncCvt = encodings_open(
-        destEncoding = enc,
-        srcEncoding = "UTF-8",
-        errors = errors
-      )
-    except EncodingError:
-      raise newException(LookupError, "unknown encoding: " & encoding)
+  const smode = $mode1
+  genOpenInfo(result, file, smode, buf,
+      encoding = encoding1, errors=errors1, newline=newline1, resMode=nmode)
   
   var nfile: File
   when file is int: 
@@ -646,36 +701,10 @@ template openImpl{.dirty.} =
   # Nim/Python:
   #  The file handle associated with the resulting File is not inheritable.
   if not succ:
-    let err = osLastError()
-    let fn = when file is PathLike: $file else: "fd: " & $file
-    if isNotFound err:
-      raiseFileNotFoundError(fn)
-    else:
-      raiseOSError(err, "[Errno " & $int(err) & "] " & "can't open "&fn)
+    file.raiseOsOrFileNotFoundError()
+  nfile.initBufAsPy(buf)
   
-  var (bfMode, bfSize) =
-    if buf == 1: (IOLBF, 0)
-    elif buf > 0 and buf.uint <= high(uint):
-      (IOFBF, buf)
-    elif buf == 0:
-      (IONBF, 0)
-    else: doAssert false;(typeof(IOFBF)(0), 0)
-  discard c_setvbuf(nfile, nil, bfMode, cast[csize_t](bfSize))
-  
-  
-  if not binary:
-    # if binary, result's init is in `genOpenInfo`
-    var res = TextIOWrapper(
-        errors: errors,
-        encErrors: parseErrors errors,
-        iEncCvt: iEncCvt,
-        oEncCvt: oEncCvt,
-        encoding: encoding,
-        mode: smode,
-    )
-    res.initNewLineMode(newline)
-    result = res
-  result.file = nfile
+  setFile result, nfile
 
 template open*(
   file: int, mode: static[string|char] = "r",
@@ -684,7 +713,16 @@ template open*(
   errors: string = DefErrors,  # in Python, the default None/invalid string means "strict"
   newline: string|char = DefNewLine,
   #closefd=True, opener
-): IOBase = openImpl
+): untyped =
+  bind openImpl
+  block:
+    openImpl(res,
+      file, mode,
+      buffering,
+      encoding, 
+      errors,
+      newline)
+    res
 
 template open*[S](
   file: PathLike[S], mode: static[string|char] = "r",
@@ -693,7 +731,7 @@ template open*[S](
   errors: string = DefErrors,  # in Python, the default None/invalid string means "strict"
   newline: string|char = DefNewLine,
   #closefd=True, opener
-): IOBase = 
+): untyped =
   ## WARN:
   ## 
   ## - `line buffering` is not support for Win32
@@ -730,4 +768,13 @@ template open*[S](
       f.seek(0)
       assert f.read() == "123"
       f.close()
-  openImpl()
+  bind openImpl
+  block:
+    openImpl(res,
+      file, mode,
+      buffering,
+      encoding, 
+      errors,
+      newline)
+    res
+

@@ -4,8 +4,7 @@ import std/random
 import std/options
 
 when defined(js): {.error: "pylib tempfile not support JS currently".}
-import ../io
-export io
+import ./io
 
 const
   True = true
@@ -38,7 +37,7 @@ iterator items(self: var RandomNameSequence, times: int): string =
 
 const templ = "tmp"  # Py's `tempfile.template`
 
-proc mktemp*(dir: string, suffix="", prefix=templ, checker=fileExists): string =
+proc mktemp*(suffix="", prefix=templ, dir = "", checker=fileExists): string =
   ## User-callable function to return a unique temporary file/dir name.  The
   ##  file/dir is not created.
   for name in name_sequence.items(times=TMP_MAX):
@@ -65,20 +64,20 @@ proc sanitize_params(prefix, suffix, dir: SOption): tuple[prefix, suffix, dir: s
   result.dir = dir.get getTempDir()
 
 type
-  TemporaryFileCloser* = object
-    file*: IOBase
+  TemporaryFileCloser*[IO: IOBase] = ref object
+    file*: IO
     name*: string
     delete, close_called: bool
   
-  TemporaryFileWrapper* = object
-    closer: TemporaryFileCloser
+  TemporaryFileWrapper*[IO] = object
+    closer: TemporaryFileCloser[IO]
 
 template name*(self: TemporaryFileWrapper): string = self.closer.name
 
 import std/macros
 macro gen(opName: untyped): untyped =
   quote do:
-    template `opName`*(self: TemporaryFileWrapper,
+    template `opName`*[IO](self: TemporaryFileWrapper[IO],
     args: varargs[typed]): untyped = unpackVarargs self.closer.file.`opName`, args
 
 gen write
@@ -88,7 +87,7 @@ gen readline
 gen seek
 gen tell
 
-proc close*(self: TemporaryFileCloser, unlink=os.removeFile) =
+proc close*[IO](self: TemporaryFileCloser[IO], unlink=os.removeFile) =
     try:
         var f = self.file
         f.close()
@@ -100,25 +99,21 @@ proc close*(t: TemporaryFileWrapper) =
   t.closer.close()
 
 
-proc newTemporaryFileCloser(file: IOBase, name: string, delete=True): TemporaryFileCloser =
+proc newTemporaryFileCloser[IO](file: IO, name: string, delete=True): TemporaryFileCloser[IO] =
+  new result
   result.file = file
   result.name = name
   result.delete = delete
   result.close_called = false
 
 
+proc newTemporaryFileWrapper[IO](closer: TemporaryFileCloser[IO]): TemporaryFileWrapper[IO] =
+  result.closer = closer
 
-template destoryImpl =
-  try: self.close()
-  except Exception: discard
-when NimMajor == 1:
-  proc `=destroy`*(self: var TemporaryFileCloser) = destoryImpl
-else:
-  proc `=destroy`*(self: TemporaryFileCloser) = destoryImpl
-
-proc NamedTemporaryFile*(mode="w+b", buffering = -1, encoding=DefEncoding,
-                       newline=DefNewLine, suffix=sNone, prefix=sNone,
-                       dir=sNone, delete=True, errors=DefErrors): TemporaryFileWrapper =
+template NamedTemporaryFile*(mode: static[string|char] = "w+b", buffering = -1,
+    encoding=DefEncoding,
+    newline=DefNewLine, suffix=sNone, prefix=sNone,
+    dir=sNone, delete=True, errors=DefErrors): TemporaryFileWrapper =
   runnableExamples:
     var tempf = NamedTemporaryFile()
     let msg = "test"
@@ -132,15 +127,16 @@ proc NamedTemporaryFile*(mode="w+b", buffering = -1, encoding=DefEncoding,
     assert fileExists tempf.name
     tempf.close()
     assert not fileExists tempf.name
-
+  bind TemporaryFileWrapper, newTemporaryFileWrapper, open, sNone, sanitize_params, mktemp
   let
     tup = sanitize_params(prefix, suffix, dir)
-    name = mktemp(suffix=tup.suffix, prefix=tup.prefix, dir=tup.dir)
+    name = mktemp(tup[1], tup[0], tup[2])
 
-  var file = io.open(name, mode, buffering=buffering,
-                        newline=newline, encoding=encoding, errors=errors)
-  var closer = newTemporaryFileCloser(file, name, delete)
-  result.closer = closer
+  var file = open(name, mode, buffering,
+        encoding, errors, newline)
+  var closer = newTemporaryFileCloser[typeof(file)](file, name, delete)
+  var result = newTemporaryFileWrapper closer
+  result
 
 
 type TemporaryDirectoryWrapper* = object

@@ -22,4 +22,6 @@ but Nim's `iterator lines` does not
 
 import ./Lib/io
 
-export io.open, io.close, io.read, io.readline, io.write, io.truncate
+export io.open, io.close, io.seek, io.read, io.readline, io.write, io.truncate
+export io.LookupError
+export io.raiseOsOrFileNotFoundError, io.initBufAsPy
