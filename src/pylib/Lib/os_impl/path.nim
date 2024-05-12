@@ -51,7 +51,7 @@ func join*[T](a, b: PathLike[T]): T =
   result = mapPathLike[T] joinPath(a.fspath, b.fspath)
 
 # XXX: Cannot be easily impl as varargs[PathLike]
-func join*[T](a, b: PathLike[T], ps: varargs[PathLike[T]]): T =
+func join*[T](a, b, c: PathLike[T], ps: varargs[PathLike[T]]): T =
   ## ..warning:: NIM-BUG: Currently this variant may fail to compile with
   ## `Error: type mismatch`
   result = mapPathLike[T] joinPath(a.fspath, b.fspath)
