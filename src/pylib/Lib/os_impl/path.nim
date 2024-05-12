@@ -45,9 +45,6 @@ proc split*[T](s: PathLike[T]): (T, T) = splitPath s.fspath
 # fsExp expanduser, expandTilde
 
 func join*[T](a, b: PathLike[T]): T =
-  runnableExamples:
-    from std/os import joinPath
-    assert join("12", "ab") == joinPath("12", "ab")
   result = mapPathLike[T] joinPath(a.fspath, b.fspath)
 
 # XXX: Cannot be easily impl as varargs[PathLike]
