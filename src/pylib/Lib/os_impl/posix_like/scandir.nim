@@ -8,23 +8,18 @@ type
     iter: iterator(): DirEntry[T]
   DirEntry*[T] = ref object
     name*: T
-    dir: ref string  # over one `scandir`, the dir is just the same
+    path*: T
     kind: PathComponent
     stat_res: ref stat_result
-
-func path*[T](self: DirEntry[T]): T =
-  mapPathLike[T] joinPath(self.dir[], self.name)
 
 func close*(scandirIter: ScandirIterator) = discard
 using self: DirEntry
 
-proc newDirEntry[T](name: string, dir: ref string, kind: PathComponent
+proc newDirEntry[T](name: string, dir: string, kind: PathComponent
 ): DirEntry[T] =
   new result
-  result.name =
-    when T is PyStr: str(name)
-    else: bytes(name)
-  result.dir = dir
+  result.name = mapPathLike[T] name
+  result.path = mapPathLike[T] joinPath(dir, name)
   result.kind = kind
 
 func repr*(self): string =
@@ -54,10 +49,8 @@ iterator scandir*[T](path: PathLike[T]): DirEntry[T]{.closure.} =
   let spath = $path
   if not dirExists spath:
     raiseFileNotFoundError(spath)
-  let dir = new string
-  dir[] = spath
   for t in walkDir(spath, relative=true):
-    let de = newDirEntry[T](name = t.path, dir = dir, kind = t.kind)
+    let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
     yield de
 
 iterator scandir*(): DirEntry[PyStr]{.closure.} =
