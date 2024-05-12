@@ -115,7 +115,7 @@ template NamedTemporaryFile*(mode: static[string|char] = "w+b", buffering = -1,
     newline=DefNewLine, suffix=sNone, prefix=sNone,
     dir=sNone, delete=True, errors=DefErrors): TemporaryFileWrapper =
   runnableExamples:
-    var tempf = NamedTemporaryFile()
+    var tempf = NamedTemporaryFile("w+t")
     let msg = "test"
     tempf.write(msg)
     tempf.flush()
