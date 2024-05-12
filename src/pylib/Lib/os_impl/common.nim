@@ -1,11 +1,7 @@
 
 import ../../[io_abc, pyerrors]
-import ../../pystring/strimpl
-import ../../builtins/reprImpl
+import ../../pystring/[strimpl, strbltins]
+import ../../pybytes/[bytesimpl, bytesbltins]
 
-export io_abc, pyerrors, strimpl, reprImpl
+export io_abc, pyerrors, strimpl, strbltins.repr, bytesimpl, bytesbltins.repr
 
-template AltPathType*(T): untyped =
-  when T is char: PyStr else: T
-
-type OsPathDefType* = PyStr

@@ -10,9 +10,15 @@ export consts
 # XXX: why cannot as s: PathLike
 template templfExp(nam, nimProc, resType){.dirty.} =
   func nam*(s: PathLike): resType = nimProc s.fspath
-
 template templpExp(nam, nimProc, resType){.dirty.} =
   proc nam*(s: PathLike): resType = nimProc s.fspath
+
+template templfExpRetT(nam, nimProc){.dirty.} =
+  func nam*[T](s: PathLike[T]): T = 
+    s.mapPathLike nimProc
+template templpExpRetT(nam, nimProc){.dirty.} =
+  proc nam*[T](s: PathLike[T]): T = 
+    s.mapPathLike nimProc
 
 template fbExp(nam, nimProc) =
   templfExp(nam, nimProc, bool)
@@ -20,9 +26,9 @@ template pbExp(nam, nimProc){.dirty.} =
   templpExp(nam, nimProc, bool)
 
 template fsExp(nam, nimProc){.dirty.} =
-  templfExp(nam, nimProc, string)
+  templfExpRetT(nam, nimProc)
 template psExp(nam, nimProc){.dirty.} =
-  templpExp(nam, nimProc, string)
+  templpExpRetT(nam, nimProc)
 
 fbExp isabs, isAbsolute
 pbExp isfile, fileExists
@@ -34,16 +40,21 @@ psExp abspath, absolutePath
 
 func samefile*(a, b: PathLike): bool = samefile(a.fspath, b.fspath)
 
-proc split*(s: PathLike): (string, string) = splitPath s.fspath
+proc split*[T](s: PathLike[T]): (T, T) = splitPath s.fspath
 
 # fsExp expanduser, expandTilde
 
-func join*(a: PathLike, v: varargs[PathLike]): string =
+func join*[T](a, b: PathLike[T]): T =
   runnableExamples:
     from std/os import joinPath
     assert join("12", "ab") == joinPath("12", "ab")
-  result = a.fspath
-  for p in v:
-    result = joinPath(result, p.fspath)
-  # XXX: Cannot be easily impl as varargs[PathLike]
+  result = mapPathLike[T] joinPath(a.fspath, b.fspath)
 
+# XXX: Cannot be easily impl as varargs[PathLike]
+func join*[T](a, b: PathLike[T], ps: varargs[PathLike[T]]): T =
+  ## ..warning:: NIM-BUG: Currently this variant may fail to compile with
+  ## `Error: type mismatch`
+  result = mapPathLike[T] joinPath(a.fspath, b.fspath)
+  for p in ps:
+    result = mapPathLike[T] joinPath(result, p.fspath)
+  

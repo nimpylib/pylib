@@ -15,8 +15,17 @@ type
 func close*(scandirIter: ScandirIterator) = discard
 using self: DirEntry
 
+proc newDirEntry[T](name: string, dir: ref string, kind: PathComponent
+): DirEntry[T] =
+  new result
+  result.name =
+    when T is PyStr: str(name)
+    else: bytes(name)
+  result.dir = dir
+  result.kind = kind
+
 func repr*(self): string =
-  "<DirEntry " & self.name.pyreprImpl & '>'
+  "<DirEntry " & self.name.repr & '>'
 
 template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
   func is_x*(self): bool = 
@@ -38,24 +47,24 @@ func stat*(self): stat_result =
   new self.stat_res
   self.stat_res[] = result
 
-iterator scandir*[T: PathLike](path: T): DirEntry[T]{.closure.} =
-  let spath = path.fspath
+iterator scandir*[T](path: PathLike[T]): DirEntry[T]{.closure.} =
+  let spath = $path
   if not dirExists spath:
     raiseFileNotFoundError(spath)
   let dir = new string
-  dir[] = string path
+  dir[] = spath
   for t in walkDir(spath, relative=true):
-    let de = DirEntry[AltPathType(T)](name: AltPathType(T)(t.path), dir: dir, kind: t.kind)
+    let de = newDirEntry[T](name = t.path, dir = dir, kind = t.kind)
     yield de
 
-iterator scandir*(): DirEntry[OsPathDefType]{.closure.} =
-  for de in scandir(OsPathDefType('.')):
+iterator scandir*(): DirEntry[PyStr]{.closure.} =
+  for de in scandir[PyStr](str('.')):
     yield de
 
-proc scandir*[T: PathLike](path: T): ScandirIterator[T] =
+proc scandir*[T](path: PathLike[T]): ScandirIterator[T] =
   new result
   result.iter = iterator(): DirEntry[T] =
-    for de in scandir(path): yield de
+    for de in scandir[T](path): yield de
 
-proc scandir*(): ScandirIterator[OsPathDefType] =
-  scandir(OsPathDefType('.'))
+proc scandir*(): ScandirIterator[PyStr] =
+  scandir[PyStr](str('.'))

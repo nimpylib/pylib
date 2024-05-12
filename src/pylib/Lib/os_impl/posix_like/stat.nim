@@ -82,18 +82,7 @@ macro to_result(s: Stat): stat_result =
     result.add newColonExpr(k, newDotExpr(s, k))
     #  `k`: `s`.`k`
 
-proc stat*(path: CanIOOpenT): stat_result =
-  ## .. warning:: Under Windows, it's just a wrapper over `_wstat`,
-  ##   so this differs from Python's `os.stat` either in prototype
-  ##   (the `follow_symlinks` param is not supported) and some items of result.
-  ##   For details, see https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stat-functions
-  runnableExamples:
-    let s = stat(".")
-    when defined(windows):
-      # _stat's result: st_gid, st_uid is always zero.
-      template zero(x) = assert x.int == 0
-      zero s.st_gid
-      zero s.st_uid
+template statImpl{.dirty.} =
   var st: Stat
   let ret =
     when path is int:
@@ -106,3 +95,18 @@ proc stat*(path: CanIOOpenT): stat_result =
   if ret != 0.cint:
     raiseErrno($path)
   result = to_result st
+
+proc stat*(path: int): stat_result = statImpl
+proc stat*[T](path: PathLike[T]): stat_result =
+  ## .. warning:: Under Windows, it's just a wrapper over `_wstat`,
+  ##   so this differs from Python's `os.stat` either in prototype
+  ##   (the `follow_symlinks` param is not supported) and some items of result.
+  ##   For details, see https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stat-functions
+  runnableExamples:
+    let s = stat(".")
+    when defined(windows):
+      # _stat's result: st_gid, st_uid is always zero.
+      template zero(x) = assert x.int == 0
+      zero s.st_gid
+      zero s.st_uid
+  statImpl()
