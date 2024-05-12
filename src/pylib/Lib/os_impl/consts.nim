@@ -1,14 +1,14 @@
 
 import std/os
-
 import std/macros
+import ./common
 
 macro expLower(sym) =
   var s = sym.strVal
   s[0] = char(s[0].int - 32)
   let toId = ident s
   quote do:
-    let `sym`* = $`toId`
+    let `sym`* = str `toId`
 
 expLower curdir 
 expLower pardir 
@@ -17,20 +17,20 @@ expLower pathsep
 expLower altsep
 
 let
-  linesep* = "\p"
-  sep* = $DirSep
+  linesep* = str("\p")
+  sep* = str DirSep
 
 when defined(windows):
   const
-    name* = "nt"
-    devnull* = "nul"
-    defpath* = ".;C:\\bin"
+    name* = str "nt"
+    devnull* = str "nul"
+    defpath* = str ".;C:\\bin"
     
 else:
   const
-    name* = "posix"
-    devnull* = "/dev/null"
-    defpath* = "/bin:/usr/bin"
+    name* = str "posix"
+    devnull* = str "/dev/null"
+    defpath* = str "/bin:/usr/bin"
 
 const DW = defined(windows)
 
