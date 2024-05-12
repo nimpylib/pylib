@@ -263,11 +263,14 @@ template t_readlineTill(res; cond: bool, till: sNL_t = only1nl('\n')): NL_t =
 proc readlineTill(self: IOBase, res: var string, cond: bool, till: sNL_t = only1nl('\n')): NL_t = 
   t_readlineTill res, cond, till
 
-method readline*(self: IOBase): string{.base.} =
+template readlineImpl(self: RawIOBase; cond): untyped{.dirty.} =
   ## The line terminator is always bytes '\n' for binary files
-  result.add self.readlineTill(result, true)
-method readline*(self: IOBase, size: Natural): string{.base.} =
-  result.add t_readlineTill(result, result.len<size)
+  var res: string
+  res.add self.readlineTill(res, cond)
+  res
+proc readline*(self: RawIOBase): PyBytes = bytes readlineImpl(self, true)
+proc readline*(self: RawIOBase, size: Natural): PyBytes =
+  bytes readlineImpl(self, res.len<size)
 
 template readlineWithTill(Till) =
   template addTill(nl) = result.add Till(nl)
@@ -281,7 +284,7 @@ template readlineWithTill(Till) =
   of nlCarriageReturn: addTill ['\r', '\n']
   Iencode
 
-method readline*(self: TextIOBase): string =
+proc readlineImpl(self: TextIOBase): string =
   ## Python's readline
   runnableExamples:
     import std/strutils
@@ -311,33 +314,43 @@ method readline*(self: TextIOBase): string =
   # But we just cannot, as Python's `readline()` for `newline=None` even treat '\r' as newline,
   #  while Nim's readline (innerly calling `fgets` of C) doesn't
   
-method readline*(self: TextIOBase, size: Natural): string =
+proc readlineImpl(self: TextIOBase, size: Natural): string =
   template Till(nl): untyped = t_readlineTill(result, result.len<size, nl)
   readlineWithTill Till
 
-method read*(self: IOBase): string{.base.} = self.file.readAll
-method read*(self: IOBase, size: int): string{.base.} = 
+proc readline*(self: TextIOBase): PyStr = str self.readlineImpl()
+proc readline*(self: TextIOBase, size: Natural): PyStr =
+  result = str self.readlineImpl(size)
+
+proc read*(self: RawIOBase): PyBytes = bytes self.file.readAll
+proc readImpl(self: RawIOBase, size: int): string = 
   discard self.file.readChars(toOpenArray(result, 0, size-1))
+proc read*(self: RawIOBase, size: int): PyBytes = bytes self.readImpl(size) 
 
 # TODO: re-impl using `_get_decoded_chars` (like Python)
-method read*(self: TextIOBase): string =
+proc readImpl(self: TextIOBase): string =
   while true:
-    let s = self.readline()
+    let s = self.readlineImpl()
     if s == "": break
     result.add s
   Iencode
-method read*(self: TextIOBase, size: int): string = 
+proc read*(self: TextIOBase): PyStr = str self.readImpl()
+
+proc readImpl(self: TextIOBase, size: int): string = 
   while true:
     let s = self.readline(size)
     if s == "": break
     result.add s
   Iencode
+proc read*(self: TextIOBase, size: int): PyStr = str self.readImpl(size)
 
-method write*(self: IOBase, s: string): int{.base, discardable.} =
+proc write*(self: IOBase, s: string): int{.discardable.} =
   self.file.write s
   s.len
 
-method write*(self: TextIOBase, s: string): int{.discardable.} =
+proc write*(self: RawIOBase, s: PyBytes): int{.discardable.} =
+  write(IOBase(self), $s)
+proc write*(self: TextIOBase, s: PyStr): int{.discardable.} =
   ## Writes the `s` to the stream and return the number of characters written
   ## 
   ## The following is from Python's doc of `open`: 
@@ -363,7 +376,7 @@ method write*(self: TextIOBase, s: string): int{.discardable.} =
   
   proc cvtRet(oriStr: string): int = 
     let resS = self.oEncCvt.convert(oriStr)
-    discard procCall write(IOBase(self), resS)
+    discard write(IOBase(self), resS)
     resS.runeLen
   proc retSubs(toNewLine: string): int = cvtRet(s.replace("\n", toNewLine))
   case self.newline
