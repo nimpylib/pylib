@@ -120,7 +120,7 @@ t_open()
 
 def show_tempfile():
   with NamedTemporaryFile() as file:
-    _ = file.write("test!")
+    _ = file.write(b"test!")  # in binary mode
 
   with TemporaryDirectory() as name:
     print(name)
