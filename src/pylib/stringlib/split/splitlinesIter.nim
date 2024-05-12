@@ -16,7 +16,7 @@ import ./common
 # L336
 
 iterator splitlines*[S](self: S, keepends = false): S =
-  ## mixin IS_CAR_NL, IS_LINEBREAK, [Slice], [int], len
+  ## mixin IS_CAR_NL, IS_LINEBREAK, `[Slice]`, `[int]`, len
   template SPLIT_ADD(s, i, j) = yield s[i..<j]
   let str_len = len(self)
   var i, j = 0
