@@ -1,11 +1,11 @@
 
+import ../pystring/strimpl
 
-
-proc input*(prompt = ""): string =
+proc input*(prompt = str("")): PyStr =
   ## Python-like ``input()`` procedure.
   when defined(js):
     var jsResStr: cstring
-    let jsPs = prompt.cstring
+    let jsPs = $(prompt).cstring
     when not defined(nodejs):  # browesr or deno
       asm "`jsResStr` = prompt(`jsPs`);"
     else:
@@ -43,8 +43,8 @@ proc input*(prompt = ""): string =
     });
     }
     """]#
-    result = $jsResStr
+    result = str $jsResStr
   else:
     if prompt.len > 0:
-      stdout.write(prompt)
-    stdin.readLine()
+      stdout.write($prompt)
+    result = str stdin.readLine()
