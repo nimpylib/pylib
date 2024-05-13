@@ -1,6 +1,6 @@
 
 from std/os import OSErrorCode
-import ./builtins/reprImpl
+import ./io_abc
 export OSErrorCode
 type
   FileNotFoundError* = object of OSError
@@ -23,6 +23,7 @@ when not defined(js):
 else:
   proc isNotFound*(err: OSErrorCode): bool{.error: "not implement for JS backend".}
 
-func raiseFileNotFoundError*(fp: string) =
+func raiseFileNotFoundError*(fp: PathLike) =
     raise newException(FileNotFoundError,
-        "No such file or directory: " & fp.pyreprImpl)
+        "No such file or directory: " & fp.pathrepr)
+
