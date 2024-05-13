@@ -4,6 +4,7 @@ import ./io_abc
 export OSErrorCode
 type
   FileNotFoundError* = object of OSError
+  FileExistsError* = object of OSError
   TypeError* = object of CatchableError
 
 # some error is still defined in ./io.nim
@@ -27,3 +28,7 @@ func raiseFileNotFoundError*(fp: PathLike) =
     raise newException(FileNotFoundError,
         "No such file or directory: " & fp.pathrepr)
 
+func raiseFileExistsError*(fp: PathLike) =
+    raise newException(FileExistsError,
+        " file or directory exists: " & fp.pathrepr)
+    # XXX: not the same as Py's...
