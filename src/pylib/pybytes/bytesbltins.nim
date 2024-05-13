@@ -21,5 +21,5 @@ func repr*(x: PyBytes): string =
   ## Overwites `system.repr` for `PyBytes`
   ## 
   ## minics Python's
-  'b' & pyreprImpl $x
+  pyreprbImpl $x
 

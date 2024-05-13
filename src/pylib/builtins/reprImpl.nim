@@ -48,3 +48,6 @@ func pyreprImpl*(s: string): string =
     # use pyrepr for any StringLike and returns a PyStr
     assert pyreprImpl("\"") == "'\"'"
   implWith(s, raw_repr)
+
+func pyreprbImpl*(s: string): string =
+  'b' & s.pyreprImpl
