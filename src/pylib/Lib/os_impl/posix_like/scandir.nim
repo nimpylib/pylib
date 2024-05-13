@@ -52,15 +52,20 @@ func stat*(self): stat_result =
   new self.stat_res
   self.stat_res[] = result
 
-iterator scandir*[T](path: PathLike[T]): DirEntry[T]{.closure.} =
+template scandirImpl{.dirty.} =
+  # NOTE: this variant is referred by ../walkImpl
   let spath = $path
   if not dirExists spath:
     raiseFileNotFoundError(path)
   for t in walkDir(spath, relative=true):
     let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
     yield de
+iterator scandir*[T](path: PathLike[T]): DirEntry[T] = scandirImpl
+iterator scandirIter*[T](path: T): DirEntry[T]{.closure.} =
+  ## used by os.walk
+  scandirImpl 
 
-iterator scandir*(): DirEntry[PyStr]{.closure.} =
+iterator scandir*(): DirEntry[PyStr] =
   for de in scandir[PyStr](str('.')):
     yield de
 
