@@ -7,10 +7,10 @@ import ./common
 
 
 proc getcwd*(): string = getCurrentDir()
-proc chdir*(s: PathLike) = setCurrentDir fspath s
+proc chdir*(s: PathLike) = setCurrentDir $s
 
-proc mkdir*(d: PathLike) = createDir fspath d
-proc rmdir*(d: PathLike) = removeDir fspath d
+proc mkdir*(d: PathLike) = createDir $d
+proc rmdir*(d: PathLike) = removeDir $d
 
 
 
