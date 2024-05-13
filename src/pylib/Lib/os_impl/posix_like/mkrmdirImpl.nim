@@ -43,6 +43,9 @@ proc rawRemoveDir*(dp: PathLike) {.noWeirdTarget.} =
       else:
         raiseOSError(osLastError(), dir)
 
+when not weirdTarget and not defined(windows):
+  proc mkdir(s: string, mode: int) =
+    mkdir(s.cstring, mode.Mode)
 # from nim-2.1.2 lib/std/private/osdirs.nim#L364
 # but raise FileNotFoundError and FileExistsError when shall and change param
 proc rawCreateDir*(dp: PathLike, mode=0o777) {.noWeirdTarget.} =
