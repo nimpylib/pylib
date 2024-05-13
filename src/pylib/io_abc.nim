@@ -1,6 +1,7 @@
 
 import ./pystring/strimpl
 import ./pybytes/bytesimpl
+import ./builtins/reprImpl
 
 func fspath*(s: string): PyStr = str s
 func fspath*(c: char): PyStr = str c
@@ -30,3 +31,5 @@ proc `$`*(p: CanIOOpenT): string =
   when p is int: "fd: " & $int(p)
   else: $p
 
+func pathrepr*(p: PathLike[PyBytes]): string = p.pyreprbImpl
+func pathrepr*(p: PathLike[PyStr]): string = p.pyreprImpl

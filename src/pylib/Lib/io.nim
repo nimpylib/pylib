@@ -652,13 +652,19 @@ proc openNoNonInhertFlag(f: var File, filehandle: FileHandle,
   f = c_fdopen(filehandle, fop)
   result = f != nil
 
-proc raiseOsOrFileNotFoundError*[T: int|string](file: T) =
+proc raiseOsOrFileNotFoundError*(file: int) =
     let err = osLastError()
-    let fn = when file is PathLike: $file else: "fd: " & $file
+    let fn = "fd: " & $file
+    raiseOSError(err,
+      "[Errno " & $err & "] " & "can't open " & fn)
+
+proc raiseOsOrFileNotFoundError*[T](file: PathLike[T]) =
+    let err = osLastError()
     if isNotFound err:
-      raiseFileNotFoundError(fn)
+      raiseFileNotFoundError(file)
     else:
-      raiseOSError(err, "[Errno " & $err & "] " & "can't open "&fn)
+      raiseOSError(err,
+        "[Errno " & $err & "] " & "can't open " & file.pathrepr)
 
 proc initBufAsPy*(nfile: var File, buf: int) =
   ## init buffering as Python's
