@@ -13,6 +13,10 @@ type
     stat_res: ref stat_result
 
 func close*(scandirIter: ScandirIterator) = discard
+iterator items*[T](scandirIter: ScandirIterator[T]): DirEntry[T] =
+  for i in scandirIter.iter:
+    yield i
+
 using self: DirEntry
 
 proc newDirEntry[T](name: string, dir: string, kind: PathComponent
