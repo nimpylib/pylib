@@ -6,7 +6,7 @@
 import std/os
 export os
 
-import ./os_impl/[consts, posix_like, subp, utils, path]
-export consts, posix_like, subp, utils, path
+import ./os_impl/[consts, posix_like, subp, utils, path, walkImpl]
+export consts, posix_like, subp, utils, path, walkImpl
 
 
