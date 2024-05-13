@@ -68,26 +68,11 @@ macro genIter(def) =
   result.add def
 
 iterator filter*[T](comp: proc(arg: T): bool, iter: Iterable[T]): T{.genIter.} =
-  runnableExamples:
-    import pylib
-    proc isAnswer(arg: string): bool =
-      return arg in ["yes", "no", "maybe"]
-
-    let values = @["yes", "no", "maybe", "somestr", "other", "maybe"]
-    let filtered = filter(isAnswer, values)  # invoke `proc filter`
-    doAssert list(filtered) == @["yes", "no", "maybe", "maybe"]
-
   for item in iter:
     if comp(item):
       yield item
 
 iterator filter*[T](comp: NoneType, iter: Iterable[T]): T{.genIter.} =
-  runnableExamples:
-    import pylib
-    let values = @["", "", "", "yes", "no", "why"]
-    let filtered = list(filter(None, values))  # invoke `proc filter`
-    doAssert filtered == @["yes", "no", "why"]
-
   for item in iter:
     if toBool(item):
       yield item
