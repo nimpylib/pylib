@@ -48,7 +48,7 @@ func stat*(self): stat_result =
 iterator scandir*[T](path: PathLike[T]): DirEntry[T]{.closure.} =
   let spath = $path
   if not dirExists spath:
-    raiseFileNotFoundError(spath)
+    raiseFileNotFoundError(path)
   for t in walkDir(spath, relative=true):
     let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
     yield de
