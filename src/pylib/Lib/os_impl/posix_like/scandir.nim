@@ -34,12 +34,15 @@ template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
     ## follow_symlinks is True on default.
     self.kind == pcX or self.kind == pcLinkToX
   func is_x*(self; follow_symlinks: bool): bool =
+    ## result is cached. Python's is cached too.
     result = self.kind == pcX
     if follow_symlinks:
       return result or self.kind == pcLinkToX
 gen_is_x is_file, pcFile, pcLinkToFile
 gen_is_x is_dir, pcDir, pcLinkToDir
-
+func is_symlink*(self): bool = 
+  ## ..warning:: this may differ Python's
+  self.kind == pcLinkToDir or self.kind == pcLinkToFile
 
 func stat*(self): stat_result =
   if self.stat_res != nil:
