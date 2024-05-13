@@ -33,6 +33,7 @@ template psExp(nam, nimProc){.dirty.} =
 fbExp isabs, isAbsolute
 pbExp isfile, fileExists
 pbExp isdir, dirExists
+pbExp islink, symlinkExists
 
 fsExp dirname, parentDir
 
