@@ -10,8 +10,6 @@ proc getcwd*(): PyStr = str getCurrentDir()
 proc getcwdb*(): PyBytes = bytes getCurrentDir()
 proc chdir*(s: PathLike) = setCurrentDir $s
 
-proc mkdir*(d: PathLike) = createDir $d
-proc rmdir*(d: PathLike) = removeDir $d
 
 
 

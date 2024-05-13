@@ -37,6 +37,16 @@ when not defined(js):
     f.close()
     check res == s
 
+    const invalidDir = "No one will name such a dir"
+    checkpoint "rmdir"
+    expect FileNotFoundError:
+      os.rmdir(invalidDir)
+
+    checkpoint "mkdir"
+    expect FileNotFoundError:
+      # parent dir is not found
+      os.mkdir(invalidDir + os.sep + "non-file")
+
   test "os.path":
     ## only test if os.path is correctly export
     let s = os.path.dirname("1/2")
