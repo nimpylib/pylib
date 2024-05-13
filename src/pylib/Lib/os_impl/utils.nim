@@ -6,7 +6,8 @@ import std/os
 import ./common
 
 
-proc getcwd*(): string = getCurrentDir()
+proc getcwd*(): PyStr = str getCurrentDir()
+proc getcwdb*(): PyBytes = bytes getCurrentDir()
 proc chdir*(s: PathLike) = setCurrentDir $s
 
 proc mkdir*(d: PathLike) = createDir $d
