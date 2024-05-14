@@ -38,6 +38,10 @@ pbExp islink, symlinkExists
 fsExp dirname, parentDir
 
 psExp abspath, absolutePath
+psExp normpath, normalizedPath
+
+func relpath*[T](p: PathLike[T], start=curdir): T =
+  mapPathLike[T] relativePath($p, $start)
 
 func samefile*(a, b: PathLike): bool = samefile(a.fspath, b.fspath)
 
