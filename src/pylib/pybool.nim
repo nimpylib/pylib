@@ -15,11 +15,17 @@ template genBin(op){.dirty.} =
   func op*(b: bool, self): PyBool{.borrow.}
 genBin `==`
 func `is`*(self; opyb): PyBool{.borrow.}
+func `xor`*(self; opyb): PyBool{.borrow.}  ## EXT
+func `not`*(self): PyBool{.borrow.}
 func `and`*(self; opyb): PyBool{.borrow.}
 func `or`*(self; opyb): PyBool{.borrow.}
-func `xor`*(self; opyb): PyBool{.borrow.}
-func `not`*(self): PyBool{.borrow.}
 
+converter pybool*[T](x: T): PyBool # forward decl
+func `not`*[T: not PyBool and not bool](nself: T): PyBool = not nself.pybool
+func `and`*[T: not PyBool and not bool](nself, npyb: T): T =
+  if nself.pybool: npyb else: nself
+func `or` *[T: not PyBool and not bool](nself, npyb: T): T =
+  if nself.pybool: nself else: npyb
 
 func repr*(self): string =
   ## Returns "True" or "False"

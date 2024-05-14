@@ -82,6 +82,11 @@ iterator runes*(self): Rune =
   for r in self.string.runes:
     yield r
 
+template `and`*(a, b: PyStr): PyStr =
+  ## Mimics Python str and str -> str.
+  ## Returns `a` if `a` is not empty, otherwise b (even if it's empty)
+  if a.byteLen > 0: b else: a
+
 template `or`*(a, b: PyStr): PyStr =
   ## Mimics Python str or str -> str.
   ## Returns `a` if `a` is not empty, otherwise b (even if it's empty)
