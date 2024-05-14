@@ -10,6 +10,8 @@ export OSErrorCode
 type
   FileNotFoundError* = object of OSError
   FileExistsError* = object of OSError
+  NotADirectoryError* = object of OSError
+  IsADirectoryError* = object of OSError
   TypeError* = object of CatchableError
 
 # some error is still defined in ./io.nim
