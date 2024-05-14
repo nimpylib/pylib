@@ -20,7 +20,7 @@ proc mkdir*(p: PathLike) =
   var exists: bool
   try: exists = existsOrCreateDir $p
   except OSError as e:
-    if e.errorCode.isNoEnt: raiseFileNotFoundError p
+    if e.errorCode.isNoEnt: p.raiseFileNotFoundError(e.errCode.OSErrorCode)
     else: raise
   if exists: raiseFileExistsError p
 ]#

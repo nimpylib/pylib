@@ -18,6 +18,7 @@ proc newErrnoErr*(additionalInfo = ""): owned(ref OSError) =
     result.msg = "unknown OS error"
 
 proc raiseErrno*(additionalInfo = "") =
-  if errno.OSErrorCode.isNotFound:
-    raiseFileNotFoundError(fp=additionalInfo)
+  let oserr = errno.OSErrorCode
+  if oserr.isNotFound:
+    raiseFileNotFoundError(additionalInfo, oserr)
   raise newErrnoErr(additionalInfo)
