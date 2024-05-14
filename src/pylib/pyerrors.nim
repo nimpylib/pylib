@@ -1,4 +1,9 @@
 
+when defined(windows):
+  import std/winlean
+else:
+  import std/posix
+
 from std/os import OSErrorCode
 import ./io_abc
 export OSErrorCode
@@ -12,13 +17,10 @@ type
 
 when not defined(js):
   when defined(windows):
-    let enoent = 2
-    let ERROR_PATH_NOT_FOUND = 3
     proc isNotFound*(err: OSErrorCode): bool = 
       let i = err.int
-      i == enoent or i == ERROR_PATH_NOT_FOUND
+      i == ERROR_FILE_NOT_FOUND or i == ERROR_PATH_NOT_FOUND
   else:
-    let ENOENT{.importc, header: "<errno.h>".}: cint
     let enoent = ENOENT.int
     proc isNotFound*(err: OSErrorCode): bool = err.int == enoent
 else:
