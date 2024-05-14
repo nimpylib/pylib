@@ -1,24 +1,10 @@
 
 import ../common
-
-const weirdTarget = defined(nimscript) or defined(js)
-
-when weirdTarget:
-  discard
-elif defined(windows):
-  import std/[winlean]
-elif defined(posix):
-  import std/[posix]
-
+include ./ncommon
 
 when defined(windows) and not weirdTarget:
   template wrapUnary*(varname, winApiProc, arg: untyped) =
     var varname = winApiProc(newWideCString(arg))
-
-when weirdTarget:
-  {.pragma: noWeirdTarget, error: "this proc is not available on the NimScript/js target".}
-else:
-  {.pragma: noWeirdTarget.}
 
 # from nim-2.1.2 lib/std/private/osdirs.nim#L329
 # but raise FileNotFoundError when shall and change param
