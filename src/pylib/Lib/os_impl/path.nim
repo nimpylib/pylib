@@ -41,7 +41,10 @@ psExp abspath, absolutePath
 
 func samefile*(a, b: PathLike): bool = samefile(a.fspath, b.fspath)
 
-proc split*[T](s: PathLike[T]): (T, T) = splitPath s.fspath
+proc split*[T](s: PathLike[T]): (T, T) =
+  let t = splitPath s.fspath
+  result[0] = mapPathLike[T] t[0]
+  result[1] = mapPathLike[T] t[1]
 
 # fsExp expanduser, expandTilde
 
