@@ -1,7 +1,7 @@
 ## posixmodule, also mimic posix api for Windows
 
 import ./posix_like/[
-  fdopen, open_close, truncate, stat, scandirImpl, mkrmdir
+  fdopen, open_close, truncate, stat, scandirImpl, mkrmdir, unlink
 ]
 
-export fdopen, open_close, truncate, stat, scandirImpl.scandir, mkrmdir
+export fdopen, open_close, truncate, stat, scandirImpl.scandir, mkrmdir, unlink
