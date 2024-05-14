@@ -659,12 +659,7 @@ proc raiseOsOrFileNotFoundError*(file: int) =
       "[Errno " & $err & "] " & "can't open " & fn)
 
 proc raiseOsOrFileNotFoundError*[T](file: PathLike[T]) =
-    let err = osLastError()
-    if isNotFound err:
-      raiseFileNotFoundError(file)
-    else:
-      raiseOSError(err,
-        "[Errno " & $err & "] " & "can't open " & file.pathrepr)
+  file.raiseExcWithPath()
 
 proc initBufAsPy*(nfile: var File, buf: int) =
   ## init buffering as Python's

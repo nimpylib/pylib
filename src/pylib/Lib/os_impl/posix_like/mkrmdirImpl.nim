@@ -12,22 +12,11 @@ proc rawRemoveDir*(dp: PathLike) {.noWeirdTarget.} =
   let dir = $dp
   when defined(windows):
     wrapUnary(res, removeDirectoryW, dir)
-    let lastError = osLastError()
     if res == 0'i32:
-      case lastError.int32
-      of 2'i32, 3'i32:
-        raiseFileNotFoundError dp
-      of 18'i32:
-        discard  # (See L334) why slience ERROR_NO_MORE_FILES?
-        # Is ever this error possible when `removeDirectory`?
-      else:
-        raiseOSError(lastError, dir)
+      dp.raiseExcWithPath()
   else:
-    if rmdir(dir) != 0'i32: 
-      if errno == ENOENT: 
-        raiseFileNotFoundError dp
-      else:
-        raiseOSError(osLastError(), dir)
+    if rmdir(dir) != 0'i32:
+      dp.raiseExcWithPath()
 
 when not weirdTarget and not defined(windows):
   proc mkdir(s: string, mode: int): int32 =
@@ -44,31 +33,14 @@ proc rawCreateDir*(dp: PathLike, mode=0o777) {.noWeirdTarget.} =
   when defined(solaris):
     let res = mkdir(dir, mode)
     if res != 0'i32:
-      if errno in {EEXIST, ENOSYS}:
-        raiseFileExistsError dp
-      elif errno == ENOENT:
-        raiseFileNotFoundError dp
-      else:
-        raiseOSError(osLastError(), dir)
+      dp.raiseExcWithPath()
   elif defined(haiku) or defined(posix):
     let res = mkdir(dir, mode)
     if res != 0'i32:
-      if errno == EEXIST:
-        raiseFileExistsError dp
-      elif errno == ENOENT:
-        raiseFileNotFoundError dp
-      else:
-        # when haiku, may raise EROFS
-        raiseOSError(osLastError(), dir)
+      dp.raiseExcWithPath()
   else:
     # TODO: consider mode as Python does.
     wrapUnary(res, createDirectoryW, dir)
 
     if res == 0'i32:  # res is in fact of `BOOL`
-      case getLastError()
-      of 183'i32: # ERROR_ALREADY_EXISTS
-        raiseFileExistsError dp
-      of 2'i32, 3'i32:
-        raiseFileNotFoundError dp
-      else:
-        raiseOSError(osLastError(), dir)
+      dp.raiseExcWithPath()
