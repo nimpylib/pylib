@@ -55,11 +55,14 @@ func stat*(self): stat_result =
 template scandirImpl{.dirty.} =
   # NOTE: this variant is referred by ../walkImpl
   let spath = $path
-  if not dirExists spath:
-    raiseFileNotFoundError(path)
-  for t in walkDir(spath, relative=true):
-    let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
-    yield de
+  try:
+    for t in walkDir(spath, relative=true, checkDir=true):
+      let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
+      yield de
+  except OSError as e:
+    let oserr = e.errorCode.OSErrorCode
+    path.raiseExcWithPath(oserr)
+
 iterator scandir*[T](path: PathLike[T]): DirEntry[T] = scandirImpl
 iterator scandirIter*[T](path: T): DirEntry[T]{.closure.} =
   ## used by os.walk
