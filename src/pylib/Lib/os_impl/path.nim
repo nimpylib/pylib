@@ -1,5 +1,5 @@
 
-import std/os
+import std/os as nos
 
 import ./common
 export common
@@ -41,10 +41,25 @@ psExp abspath, absolutePath
 
 func samefile*(a, b: PathLike): bool = samefile(a.fspath, b.fspath)
 
-proc split*[T](s: PathLike[T]): (T, T) =
-  let t = splitPath s.fspath
+template split2Via(p, fn) =
+  let t = fn $p
   result[0] = mapPathLike[T] t[0]
   result[1] = mapPathLike[T] t[1]
+
+func split*[T](p: PathLike[T]): (T, T) = p.split2Via nos.splitPath
+func splitdrive*[T](p: PathLike[T]): (T, T) = p.split2Via nos.splitDrive
+# Nim's os.splitDrive is adapted from Python's alreadly.
+
+func splitext*[T](p: PathLike[T]): (T, T) =
+  let t = p.fspath
+  let s = $t
+  let idx = s.searchExtPos(s)
+  if idx == -1:
+    return (t, mapPathLike[T](""))
+  result = (
+    mapPathLike[T](s[0..<idx]),
+    mapPathLike[T](s[idx..^1])
+  )
 
 # fsExp expanduser, expandTilde
 
