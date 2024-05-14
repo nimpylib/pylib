@@ -37,6 +37,8 @@ pbExp islink, symlinkExists
 
 fsExp dirname, parentDir
 
+fsExp basename, extractFilename  # instead of lastPathPart
+
 psExp abspath, absolutePath
 psExp normpath, normalizedPath
 
