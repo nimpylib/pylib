@@ -88,12 +88,12 @@ template errMap(oserr: OSErrorCode, rErr) =
   else:
     raiseOSError(oserr)
 
-func raiseExcWithPath*(p: PathLike, errCode: OSErrorCode) =
+proc raiseExcWithPath*(p: PathLike, errCode: OSErrorCode){.sideEffect.} =
   ## raises OSError or its one of SubError type
   template rErr(exc) =
     p.raiseExcWithPath(exc, errCode)
   errMap errCode, rErr
 
-func raiseExcWithPath*(p: PathLike) =
+proc raiseExcWithPath*(p: PathLike){.sideEffect.} =
   let oserr = osLastError()
   p.raiseExcWithPath(oserr)
