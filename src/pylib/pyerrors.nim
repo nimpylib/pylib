@@ -63,16 +63,27 @@ func raiseFileNotFoundError*(fp: PathLike, err: OSErrorCode) =
   ## lead to FileNotFoundError, at pass `err` to distinguish them
   fp.raiseExcWithPath(FileNotFoundError, err)
 
-when defined(windows):
-  const
-    ErrExist = ERROR_FILE_EXISTS
-    ErrNoent = {ERROR_PATH_NOT_FOUND, ERROR_FILE_NOT_FOUND}
-    ErrIsdir = ERROR_DIRECTORY_NOT_SUPPORTED
+when weirdTarget:
+  {.pragma: noWeirdTarget, error: "this proc is not available on the NimScript/js target".}
 else:
-  const
-    ErrExist = EEXIST
-    ErrNoent = ENOENT
-    ErrIsdir = EISDIR
+  {.pragma: noWeirdTarget.}
+when weirdTarget:
+    const
+      NON_ERR_CODE = -1  # no errCode shall match this
+      ErrExist = NON_ERR_CODE
+      ErrNoent = NON_ERR_CODE
+      ErrIsdir = NON_ERR_CODE
+else:
+  when defined(windows):
+    const
+      ErrExist = ERROR_FILE_EXISTS
+      ErrNoent = {ERROR_PATH_NOT_FOUND, ERROR_FILE_NOT_FOUND}
+      ErrIsdir = ERROR_DIRECTORY_NOT_SUPPORTED
+  else:
+    const
+      ErrExist = EEXIST
+      ErrNoent = ENOENT
+      ErrIsdir = EISDIR
 
 func raiseFileExistsError*(fp: PathLike) =
     fp.raiseExcWithPath(FileExistsError, ErrExist.OSErrorCode)
