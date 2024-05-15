@@ -1,10 +1,9 @@
 
-import std/os
 import ./unlinkImpl
 
 template unlinkBody(p) =
   if not unlinkImpl(p):
-    raiseOSError(osLastError(), $p)
+    p.raiseExcWithPath()
 
 func unlink*[T](p: PathLike[T]) = unlinkBody p
 

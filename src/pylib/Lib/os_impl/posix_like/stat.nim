@@ -1,6 +1,5 @@
 
 import ../common
-import ./errnoHandle
 
 const DWin = defined(windows)
 
@@ -93,7 +92,10 @@ template statImpl{.dirty.} =
       else:
         stat(cstring path.fspath, st)
   if ret != 0.cint:
-    raiseErrno($path)
+    when path is int:
+      raiseErrno($path)
+    else:
+      path.raiseErrnoWithPath()
   result = to_result st
 
 proc stat*(path: int): stat_result = statImpl

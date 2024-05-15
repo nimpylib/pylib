@@ -4,8 +4,7 @@ import std/os
 import ../common
 import ../consts
 
-import ./errnoHandle
-
+let errno{.importc, header: "<errno.h>".}: cint
 let EINTR{.importc, header: "<errno.h>".}: cint
 
 when defined(windows):
@@ -56,7 +55,7 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
       fd < 0 and errno == EINTR
     ): break
   if fd < 0:
-    raiseErrno("can't open " & spath)
+    path.raiseErrnoWithPath()
   result = fd
 
 

@@ -25,15 +25,11 @@ proc unlinkImpl*[T](p: PathLike[T],
     let f = newWideCString(file)
     if deleteFile(f) != 0:  ## returns TRUE
       return true
-    let err = getLastError()
-    if err == ERROR_FILE_NOT_FOUND or err == ERROR_PATH_NOT_FOUND:
-      p.raiseFileNotFoundError err.OSErrorCode
     when winIgnoreRO:
+      let err = getLastError()
       if err == ERROR_ACCESS_DENIED and
           setFileAttributes(f, FILE_ATTRIBUTE_NORMAL) != 0 and
           deleteFile(f) != 0:
         return true # success
   else:
     if unlink(file) == 0'i32: return true  # success
-    if errno == ENOENT:
-      p.raiseFileNotFoundError(errno.OSErrorCode)

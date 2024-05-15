@@ -20,7 +20,8 @@ type
 # some error is still defined in ./io.nim
 # as they're currently only used there.
 
-when not defined(js):
+const weirdTarget = defined(nimscript) or defined(js)
+when not weirdTarget:
   when defined(windows):
     proc isNotFound*(err: OSErrorCode): bool = 
       let i = err.int
@@ -32,9 +33,9 @@ when not defined(js):
 else:
   proc isNotFound*(err: OSErrorCode): bool{.error: "not implement for JS backend".}
 
-func osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string =
+template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode, osErrorMsgCb): string =
   ## always suffixed with a `\n`
-  var msg = osErrorMsg(err)
+  var msg = osErrorMsgCb(err)
   if msg == "":
     msg = "unknown OS error"
   let noNL = msg.len > 0 and msg[^1] != '\n'
@@ -43,6 +44,13 @@ func osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string =
     msg.add ": "
   msg.add fp.pathrepr & '\n'
   msg
+
+template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string =
+  bind osErrorMsgWithPath, osErrorMsg
+  osErrorMsgWithPath(fp, err, osErrorMsg)
+
+func newOSErrorWithMsg(err: OSErrorCode, msg: string): owned(ref OSError) =
+  (ref OSError)(errorCode: err.int32, msg: msg)
 
 func raiseExcWithPath*(fp: PathLike, exc: typedesc, err: OSErrorCode) =
   raise newException(exc, fp.osErrorMsgWithPath(err))
@@ -88,7 +96,7 @@ else:
 func raiseFileExistsError*(fp: PathLike) =
     fp.raiseExcWithPath(FileExistsError, ErrExist.OSErrorCode)
 
-template errMap(oserr: OSErrorCode, rErr) =
+template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
   case oserr.int
   of ErrExist:
     rErr FileExistsError
@@ -97,7 +105,7 @@ template errMap(oserr: OSErrorCode, rErr) =
   of ErrIsdir:
     rErr IsADirectoryError
   else:
-    raiseOSError(oserr)
+    raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
 
 proc raiseExcWithPath*(p: PathLike, errCode: OSErrorCode){.sideEffect.} =
   ## raises OSError or its one of SubError type
@@ -108,3 +116,39 @@ proc raiseExcWithPath*(p: PathLike, errCode: OSErrorCode){.sideEffect.} =
 proc raiseExcWithPath*(p: PathLike){.sideEffect.} =
   let oserr = osLastError()
   p.raiseExcWithPath(oserr)
+
+when defined(windows):
+  # std/posix has defined `errno`
+  var errno{.importc, header: "<errno.h>".}: cint
+
+when not weirdTarget:
+  proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
+
+  func errnoMsgOSErr(errnoCode: OSErrorCode): string = $c_strerror(errnoCode.cint)
+
+  func errnoMsg*(errnoCode: cint): string = $c_strerror(errnoCode)
+
+  proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
+    result = (ref OSError)(errorCode: errnoCode.int32, msg: errnoMsg(errno))
+    if additionalInfo.len > 0:
+      if result.msg.len > 0 and result.msg[^1] != '\n': result.msg.add '\n'
+      result.msg.add "Additional info: "
+      result.msg.add additionalInfo
+        # don't add trailing `.` etc, which negatively impacts "jump to file" in IDEs.
+    if result.msg == "":
+      result.msg = "unknown OS error"
+
+  proc newErrnoErr(additionalInfo = ""): owned(ref OSError) =
+    newErrnoErr(errno, additionalInfo)
+
+  proc raiseErrno*(additionalInfo = "") =
+    ## may raise OSError only
+    raise newErrnoErr(additionalInfo)
+
+  proc raiseErrnoWithPath*[T](p: PathLike[T]) =
+    ## raises OSError or its SubError.
+    ## refer to errno even under Windows.
+    let errCode = errno.OSErrorCode
+    template rErr(exc) =
+      p.raiseExcWithPath(exc, errCode)
+    errMap errCode, rErr, errnoMsgOSErr
