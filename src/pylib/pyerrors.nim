@@ -38,11 +38,10 @@ template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode, osErrorMsgCb): stri
   var msg = osErrorMsgCb(err)
   if msg == "":
     msg = "unknown OS error"
-  let noNL = msg.len > 0 and msg[^1] != '\n'
-  if not noNL:
+  if msg.len > 0 and msg[^1] != '\n':
     msg.setLen msg.len - 1
     msg.add ": "
-  msg.add fp.pathrepr & '\n'
+  msg.add fp.pathrepr
   msg
 
 template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string =
