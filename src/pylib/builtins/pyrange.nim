@@ -1,4 +1,6 @@
 
+import ./private/mathutils
+
 type
   PyRange*[T] = ref object ## Python-like range object
     start*, stop*: T  ## `start`, `stop`, `step` are exported since Python 3.3
