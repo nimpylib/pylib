@@ -78,6 +78,8 @@ template `==`*[T](o: openArray[T], self: PyList[T]): bool = `==`(self, o)
 func reverse*(self: var PyList) = reverse(self.asSeq)
 
 func append*[T](self: var PyList[T], x: T) = self.asSeq.add x
+func `+=`*[T](self: var PyList[T], ls: openArray[T]) = self.asSeq.add ls
+func `+=`*[T](self: var PyList[T], ls: PyList[T]) = self += ls.asSeq
 
 func pop*[T](self: var PyList[T]): T{.discardable.} = self.asSeq.pop()
 func pop*[T](self: var PyList[T], index: int): T{.discardable.} =
