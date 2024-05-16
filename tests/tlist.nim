@@ -40,4 +40,17 @@ test "list methods":
   del ls[0]
   check len(ls) == 6
 
+  when not defined(js):
+    block:
+      checkpoint "to check slice as index"
+      var ls = list([1,2,3,4])
+      check ls[slice(2)] == [1, 2]
+      ls[slice(0, 3, 2)] = [5,1]
+      check ls == [5,2,1,4]
+
+      expect ValueError:
+        ls[slice(0, 3, 2)] = [1]
+      expect ValueError:
+        ls[slice(0, 2, 2)] = range(4)
+      
 

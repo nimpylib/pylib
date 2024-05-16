@@ -247,7 +247,7 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `round()`
 - [x] `hasattr()`
 - [x] `set()`, also named `pyset()` to distingish with `system.set`
-- [ ] `slice()`
+- [x] `slice()`
 - [x] `sorted(iterable)`
 - [x] `str()`
 - [x] `sum()`

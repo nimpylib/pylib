@@ -6,6 +6,8 @@
 from std/algorithm import reverse, sort, SortOrder, sortedByIt, sorted
 
 from ./iters import enumerate
+import ./private/mathutils
+import ./[pyslice, pyrange]
 import ../collections_abc
 
 export index, count
@@ -59,13 +61,37 @@ func `[]=`*[T](self: var PyList[T], s: BackwardsIndex, x: T) =
 proc list*[T](iter: Iterable[T]): PyList[T] # front decl
 func `[]=`*[T](self: var PyList[T], s: HSlice, x: Iterable[T]) =
   self[s] = list(x)
-
+func `[]=`*[T](self: var PyList[T], s: PySlice, x: Sequence[T]) =
+  if s.step == 1:
+    self[s.toNimSlice] = x
+    return
+  let sliceLen = rangeLen(s.start, s.stop, s.step)
+  if x.len != sliceLen:
+    raise newException(ValueError,
+      "attempt to assign sequence of size " & $x.len &
+      " to extended slice of size " & $sliceLen)
+  var ord = 0
+  for i in pyrange.range(s.start, s.stop, s.step):
+    self[i] = x[ord]
+    ord.inc
+func `[]=`*[T](self: var PyList[T], s: PySlice,
+    x: not Sequence[T] and Iterable[T]) =
+  var sequ: seq[T]
+  for i in x: sequ.add i
+  self[s] = sequ
 
 func `[]`*[T](self: PyList[T], s: HSlice): PyList[T] =
   newPyList system.`[]`(self.asSeq, s)
 func `[]`*[T](self: PyList[T], s: BackwardsIndex): T =
   system.`[]`(self.asSeq, s)
-  
+# PySlice1 is handled by: converter -> Slice
+func `[]`*[T](self: PyList[T], s: PySlice): PyList[T] =
+  if s.step == 1:
+    return self[s.toNimSlice]
+  result = newPyList[T]()
+  for i in pyrange.range(s.start, s.stop, s.step):
+    result.append self[i]
+
 func `==`*[T](self: PyList[T], o: PyList[T]): bool = self.asSeq == o.asSeq
 func `==`*[T](self: PyList[T], o: seq[T]): bool = self.asSeq == o
 func `==`*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq == @o
