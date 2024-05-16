@@ -84,7 +84,8 @@ when weirdTarget:
 else:
   when defined(windows):
     const
-      ErrExist = ERROR_FILE_EXISTS
+      ERROR_ALREADY_EXISTS = 183
+      ErrExist = {ERROR_FILE_EXISTS, ERROR_ALREADY_EXISTS}
       ErrNoent = {ERROR_PATH_NOT_FOUND, ERROR_FILE_NOT_FOUND}
       ErrIsdir = ERROR_DIRECTORY_NOT_SUPPORTED
   else:
