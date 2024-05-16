@@ -29,11 +29,10 @@ func repr*[T: set|string|openArray](self: PyList[T]): string =
   system.repr self.data.toOpenArray(0, len(self)-1)
 # `repr` defined for other elements' type is in about L160
 
-proc newPyList*[T](s: seq[T]): PyList[T] =
-  new result
-  result.data = s
-proc newPyList*[T](len=0): PyList[T] = newPyList newSeq[T](len)
-proc newPyListOfCap*[T](cap=0): PyList[T] = newPyList newSeqOfCap[T](cap)
+func newPyList*[T](s: seq[T]): PyList[T] =
+  result = PyList[T](data: s)
+func newPyList*[T](len=0): PyList[T] = newPyList newSeq[T](len)
+func newPyListOfCap*[T](cap=0): PyList[T] = newPyList newSeqOfCap[T](cap)
 
 iterator items*[T](self: PyList[T]): T =
   for i in self.data:
@@ -122,12 +121,12 @@ func sorted*[T](self: PyList[T], reverse=false): PyList[T] =
 func `+`*[T](self: PyList[T], x: openArray[T]): PyList[T] =
   list(self.asSeq & x)
 
-proc list*[T](x: openArray[T]): PyList[T] = newPyList @x
+func list*[T](x: openArray[T]): PyList[T] = newPyList @x
 # Impl end
 
 # the following does nothing with how PyList is implemented.
 
-proc list*[T](): PyList[T] =
+func list*[T](): PyList[T] =
   runnableExamples:
     assert len(list[int]()) == 0
   newPyList[T]()
