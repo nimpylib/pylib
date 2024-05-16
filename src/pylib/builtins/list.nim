@@ -119,6 +119,9 @@ func sorted*[T](self: PyList[T], reverse=false): PyList[T] =
   ## sorted(list, reverse=False)
   newPyList self.asSeq.sorted(order=rev2ord(reverse))
 
+func `+`*[T](self: PyList[T], x: openArray[T]): PyList[T] =
+  list(self.asSeq & x)
+
 proc list*[T](x: openArray[T]): PyList[T] = newPyList @x
 # Impl end
 
