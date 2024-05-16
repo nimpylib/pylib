@@ -1,4 +1,3 @@
-import std/[strutils, math]
 
 type
   PyRange*[T] = ref object ## Python-like range object
@@ -6,19 +5,19 @@ type
     step*, len: int
 
 func `$`*[T](rng: PyRange[T]): string =
-  if rng.step != 1:
-    "range($1, $2, $3)".format(rng.start, rng.stop, rng.step)
-  else:
-    "range($1, $2)".format(rng.start, rng.stop)
+  const sep = ", "
+  if rng.step == 1: "range(" & $rng.start & sep & $rng.stop & ')'
+  else: "range(" & $rng.start & sep & $rng.stop & sep & $rng.step & ')'
 
-func range*[T: SomeInteger](start, stop: T, step: int): PyRange[T] =
-  ## Creates new range object with given *start* and *stop* of any integer type
-  ## and *step* of int
+func repr*[T](rng: PyRange[T]): string = $rng
+
+func range*[T: SomeInteger](start, stop, step: T): PyRange[T] =
+  ## Creates new range object with given *start*, *stop* and *step* of any integer type
   if unlikely(step == 0):
     raise newException(ValueError, "range() arg 3 must not be zero!")
-  result = PyRange(start: start, stop: stop, step: step)
-  result.len = int(math.ceil((stop - start) / step))
-  if result.len < 0: result.len = 0
+  result = PyRange[T](start: start, stop: stop, step: step,
+    len: rangeLen(start, stop, step)
+  )
 
 template range*[T: SomeInteger](start, stop: T): PyRange[T] =
   ## Shortcut for range(start, stop, 1)
