@@ -33,7 +33,7 @@ from std/terminal import isatty
 import ../io_abc  # PathLike
 export io_abc except `$`
 
-import ../pyerrors
+import ../pyerrors/oserr
 export FileNotFoundError
 
 import ./os_impl/posix_like/truncate
@@ -63,7 +63,6 @@ type
 
 type
   LookupError* = object of CatchableError
-  FileExistsError* = object of OSError
   UnsupportedOperation* = object of OSError # and ValueError
 
 converter toUnderFile(f: IOBase): File = f.file
@@ -424,7 +423,6 @@ const
   LocaleEncoding* = "locale"
 
 template raise_ValueError(s) = raise newException(ValueError, s)
-template raise_FileExistsError(s) = raise newException(FileExistsError, s)
 
 proc toSet(s: string): set[char] =
   for c in s: result.incl c
