@@ -2,7 +2,7 @@
 import std/strutils except strip, split, rsplit
 
 import ./errHandle
-import ../pyerrors
+import ../pyerrors/simperr
 
 
 template norm_idx(i, s): int =
