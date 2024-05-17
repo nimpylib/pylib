@@ -1,8 +1,5 @@
 
-when NimMajor > 1:
-  import std/cmdline
-else:
-  import std/os
+import std/os
 
 when defined(nimPreviewSlimSystem):
   import std/assertions
@@ -84,3 +81,23 @@ else:
         assert orig_argv[1][^5..^1] == ".nims"
         orig_argv[1..^1]
   else: list(orig_argv)
+
+template executable*: string =
+  ## .. note:: when nimscript, this is path of `Nim`;
+  ## otherwise, it's the path of current app/exe.
+  when defined(nimscript):
+    getCurrentCompilerExe()
+  else:
+    getAppFilename()
+
+template getsizeof*(x): int =
+  mixin sizeof
+  sizeof(x)
+
+template getsizeof*(x; default: int): int =
+  ## may be used when `sizeof(x)` is a compile-error
+  ## e.g. `func sizeof(x: O): int{.error.}` for `O`
+  mixin sizeof
+  when compiles(sizeof(x)): sizeof(x)
+  else: default
+
