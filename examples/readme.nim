@@ -1,5 +1,6 @@
 import pylib
 from std/os import sleep  # python's `sleep` is in `time` module, however
+from pylib/Lib/sys import nil  # like python's `import sys`
 import pylib/Lib/tempfile # more python-stdlib in pylib/Lib...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
@@ -7,7 +8,7 @@ pass str("This is a string.") # discard the string. Python doesn't allow this, h
 
 # NOTE: from now on, the following is just valid Python3 code!
 # only add the following to make it Python:
-# import sys, platform
+# import platform
 # from timeit import timeit
 # from time import sleep
 # from tempfile import NamedTemporaryFile, TemporaryDirectory
