@@ -1,9 +1,16 @@
-version       = "0.9.0"
+srcDir        = "src"
+when dirExists "src":  # when installing
+  assert srcDir == "src"
+  import "./src/pylib/version" as libver
+  # `import as` to avoid compile error against `version = Version`
+else:  # after installed
+  import "pylib/version" as libver
+
+version       = Version
 author        = "Danil Yarantsev (Yardanico), Juan Carlos (juancarlospaco), lit (litlighilit)"
 description   = "Nim library with python-like functions and operators"
 license       = "MIT"
 skipDirs      = @["examples"]
-srcDir        = "src"
 
 requires "nim >= 1.6.0"  # ensure `pydef.nim`c's runnableExamples works
 
