@@ -57,27 +57,30 @@ const
   version* = str asVersion(version_info)
   hexversion* = version_info.toHexversion
 
-  ## From http://devdocs.io/python~3.7/library/sys
   platform* = str hostOS
   maxsize* = high(BiggestInt)
-  byteorder* = str $cpuEndian
+  byteorder* = str(if cpuEndian == littleEndian: "little" else: "big")
   copyright* = str "MIT"
   #api_version* = NimVersion
 
 let
   argn = paramCount()
   argc = argn + 1
-var orig_argv* = newPyListOfCap[PyStr](argc)
-for i in 0..argn:
-  orig_argv.append str paramStr i
+var
+  orig_argv* = newPyListOfCap[PyStr](argc)
+  argv*: PyList[PyStr]
 
-when defined(nimscript):
-  var argv* = orig_argv[1..^1]
-  if argn > 0:
-    # here argv is orig_argv[1:]
-    if orig_argv[1] == "e":
-      argv.delitem 0
-    else:
-      assert argv[0][^5..^1] == ".nims"
+when not declared(paramStr):
+  ## under shared lib in POSIX, paramStr is not available
+  argv = newPyList[PyStr]()
 else:
-  var argv* = list(orig_argv)
+  for i in 0..argn:
+    orig_argv.append str paramStr i
+  argv = when defined(nimscript):
+    if argn > 0:
+      if orig_argv[1] == "e":
+        orig_argv[2..^1]
+      else:
+        assert orig_argv[1][^5..^1] == ".nims"
+        orig_argv[1..^1]
+  else: list(orig_argv)
