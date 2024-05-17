@@ -89,11 +89,20 @@ const
   version* = str asVersion(version_info)
   hexversion* = version_info.toHexversion
 
-  platform* = str hostOS
   maxsize* = high(BiggestInt)
   byteorder* = str(if cpuEndian == littleEndian: "little" else: "big")
   copyright* = str "MIT"
   #api_version* = NimVersion
+
+const platform* =
+  when defined(windows): "win32"  # hostOS is windows 
+  elif defined(macosx): "darwin"  # hostOS is macosx
+  else: hostOS
+)
+  ## .. warning:: Other than "win32" and "darwin", 
+  ## the value may be more precise than Python's, there is a diff-list:
+  ## freebsd, solaris, haiku, netbsd for these OSes,
+  ## and standalone for bare system.
 
 let
   argn = paramCount()
