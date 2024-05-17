@@ -94,14 +94,13 @@ const
   copyright* = str "MIT"
   #api_version* = NimVersion
 
-const platform* =
+const platform* = str(
   when defined(windows): "win32"  # hostOS is windows 
   elif defined(macosx): "darwin"  # hostOS is macosx
   else: hostOS
 )
-  ## .. warning:: Other than "win32" and "darwin", 
-  ## the value may be more precise than Python's, there is a diff-list:
-  ## freebsd, solaris, haiku, netbsd for these OSes,
+  ## .. warning:: the value may be more precise than Python's, there is a diff-list:
+  ## freebsd, solaris, aix, haiku, netbsd for these OSes,
   ## and standalone for bare system.
 
 let
@@ -126,13 +125,13 @@ else:
         orig_argv[1..^1]
   else: list(orig_argv)
 
-template executable*: string =
+template executable*: PyStr =
   ## .. note:: when nimscript, this is path of `Nim`;
   ## otherwise, it's the path of current app/exe.
   when defined(nimscript):
-    getCurrentCompilerExe()
+    str getCurrentCompilerExe()
   else:
-    getAppFilename()
+    str getAppFilename()
 
 template getsizeof*(x): int =
   mixin sizeof
