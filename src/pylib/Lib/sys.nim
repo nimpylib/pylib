@@ -1,9 +1,17 @@
 
+when NimMajor > 1:
+  import std/cmdline
+else:
+  import std/os
+
+when defined(nimPreviewSlimSystem):
+  import std/assertions
 
 import ../version as libversion
 import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
+export list, strimpl
 
 func int2hex(x: int): int =
   ## 10 -> 0x10
@@ -56,3 +64,20 @@ const
   copyright* = str "MIT"
   #api_version* = NimVersion
 
+let
+  argn = paramCount()
+  argc = argn + 1
+var orig_argv* = newPyListOfCap[PyStr](argc)
+for i in 0..argn:
+  orig_argv.append str paramStr i
+
+when defined(nimscript):
+  var argv* = orig_argv[1..^1]
+  if argn > 0:
+    # here argv is orig_argv[1:]
+    if orig_argv[1] == "e":
+      argv.delitem 0
+    else:
+      assert argv[0][^5..^1] == ".nims"
+else:
+  var argv* = list(orig_argv)
