@@ -1,6 +1,6 @@
 
 import std/os
-
+import std/fenv
 when defined(nimPreviewSlimSystem):
   import std/assertions
 
@@ -18,6 +18,32 @@ func exit*[T](obj: T) =
   ## .. warning:: this does not raise SystemExit,
   ## which differs Python's
   exit(str(obj))
+
+type FT = float
+const
+  float_info* = (
+    max: maximumPositiveValue FT,
+    max_exp: maxExponent FT,
+    max_10_exp: max10Exponent FT,
+    min: minimumPositiveValue FT,
+    min_exp: minExponent FT,
+    min_10_exp: min10Exponent FT,
+    dig: digits FT,
+    mant_dig: mantissaDigits FT,
+    epsilon: epsilon FT,
+    radix: fpRadix,
+    #rounds: 1
+  )  ## float_info.rounds is defined as a `getter`, see `rounds`_
+
+when not defined(nimscript):
+  let fiRound = fegetround().int
+  template rounds*(fi: typeof(float_info)): int =
+    ## not available when nimscript
+    bind fiRound
+    fiRound
+else:
+  template rounds*(fi: typeof(float_info)): int =
+    {.error: "not available for nimscript/compile-time".}
 
 func int2hex(x: int): int =
   ## 10 -> 0x10
