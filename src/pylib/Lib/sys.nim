@@ -10,6 +10,15 @@ import ../noneType
 import ../pystring/strimpl
 export list, strimpl
 
+
+proc exit*(s: PyStr) = quit($s)
+func exit*(c: int) = quit(c)
+func exit*(x: NoneType) = quit(0)
+func exit*[T](obj: T) =
+  ## .. warning:: this does not raise SystemExit,
+  ## which differs Python's
+  exit(str(obj))
+
 func int2hex(x: int): int =
   ## 10 -> 0x10
   ## and assert 0 <= x < 100
