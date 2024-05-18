@@ -332,9 +332,12 @@ proc read*(self: TextIOWrapper): PyStr =
   result = self.readImpl()
   Iencode
 
+# XXX: very slowish
 proc readImpl(self: NoEncTextIOWrapper, size: int): string = 
-  while true:
-    let s = self.readline(size)
+  var left = size
+  while left > 0:
+    let s = self.readline(left)
+    left.dec s.len
     if s == "": break
     result.add s
 
