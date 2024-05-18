@@ -37,6 +37,8 @@ import ../pyerrors/oserr
 export FileNotFoundError
 
 import ./os_impl/posix_like/truncate
+import ./ncodec
+export DefErrors, LookupError
 import ../pystring/[strimpl, strbltins]
 import ../pybytes/[bytesimpl, bytesbltins]
 
@@ -57,12 +59,10 @@ type
 
 type
   IOBase* = ref object of RootObj
-    # tried using `ref object` here, but lead to some compile-err
     closed*: bool
     file: File # Python does not have this field, but we can use, as here's Nim
 
 type
-  LookupError* = object of CatchableError
   UnsupportedOperation* = object of OSError # and ValueError
 
 converter toUnderFile(f: IOBase): File = f.file
@@ -76,33 +76,23 @@ func isatty*(f: IOBase): bool = f.isatty()
 proc fileno*(f: IOBase): int = int getFileHandle f
 const DEFAULT_BUFFER_SIZE = 8192
 
-# XXX: not take effect yet
-type EncErrors*{.pure.} = enum
-  strict  ## - raise a ValueError error (or a subclass)
-  ignore  ## - ignore the character and continue with the next
-  replace ##[  - replace with a suitable replacement character;
-             Python will use the official U+FFFD REPLACEMENT
-             CHARACTER for the builtin Unicode codecs on
-             decoding and "?" on encoding.]##
-  surrogateescape   ## - replace with private code points U+DCnn.
-  xmlcharrefreplace ## - Replace with the appropriate XML
-                      ##   character reference (only for encoding).
-  backslashreplace  ## - Replace with backslashed escape sequences.
-  namereplace       ## - Replace with \N{...} escape sequences
-                      ##   (only for encoding).
+type
+  NoEncTextIOBase* = ref object of IOBase
+    ## no encoding conversion is performed on underlying file.
+    ## used for those stream whose encoding is alreadly utf-8
+    newline: NewlineType
+  NoEncTextIOWrapper* = ref object of NoEncTextIOBase
+    name*: PyStr
+    mode*: PyStr
+
+  TextIOWrapper* = ref object of NoEncTextIOWrapper
+    encErrors: EncErrors  ## do not use string, so is always valid
+    codec: NCodecInfo
+  
+func encoding*(s: TextIOWrapper): PyStr = s.codec.name
+func errors*(s: TextIOWrapper): PyStr = s.codec.errors
 
 type
-  TextIOBase* = ref object of IOBase
-    encoding*: string
-    errors*: string 
-    encErrors: EncErrors  ## do not use string, so is always valid
-    iEncCvt, oEncCvt: EncodingConverter
-    newline: NewlineType
-
-  TextIOWrapper* = ref object of TextIOBase
-    name*: string
-    mode*: string
-  
   RawIOBase* = ref object of IOBase
   FileIO* = ref object of RawIOBase
 
@@ -121,7 +111,7 @@ proc parseNewLineType(nl: string): NewLineType =
   else:  # err like Python
     raise newException(ValueError, "illegal newline value: " & nl)
 
-proc initNewLineMode(self: var TextIOWrapper, newline: string) =
+proc initNewLineMode(self: NoEncTextIOBase, newline: string) =
   self.newline = parseNewLineType newline
 
 template Raise(exc; msg): untyped =
@@ -130,9 +120,9 @@ template Raise(exc; msg): untyped =
 method seek*(f: IOBase, cookie: int64, whence=SEEK_SET): int64{.base, discardable.} =
   f.setFilePos(cookie, FileSeekPos(whence))
   result = f.getFilePos()
-method seek*(self: TextIOBase, cookie: int64, whence=SEEK_SET): int64{.discardable.} =
+method seek*(self: TextIOWrapper, cookie: int64, whence=SEEK_SET): int64{.discardable.} =
   runnableExamples:
-    var f = open("tempfiletest",'w')
+    var f = open("tempfiletest", 'w')
     doAssertRaises UnsupportedOperation:
       f.seek(1, SEEK_CUR)
     f.close()
@@ -199,8 +189,8 @@ template warn(warn: typeof(warnings), message: string, category: Warning = UserW
     file = pos.filename
   stderr.write formatwarning(message, category, file, lineno)
 
-template Iencode = 
-  result = self.iEncCvt.convert result
+template Iencode =
+  result = self.codec.decode(result).data
 
 const NoneChar = '\0'  # means None
 type
@@ -221,7 +211,7 @@ template t_readlineTill(res; cond: bool, till: sNL_t = only1nl('\n')): NL_t =
   var nlRes: NL_t
   try:
     while cond:
-      nlRes[0] = self.file.readChar()
+      nlRes[0] = self.readChar()
       when till == AllNL:
         if nlRes[0] == '\n':
           nlRes = only1nl '\n'
@@ -277,9 +267,28 @@ template readlineWithTill(Till) =
   of nlCarriage: addTill only1nl '\r'
   of nlReturn: addTill only1nl '\n'
   of nlCarriageReturn: addTill ['\r', '\n']
-  Iencode
 
-proc readlineImpl(self: TextIOBase): string =
+proc readlineImpl(self: NoEncTextIOWrapper): string =
+  template Till(nl): untyped = self.readlineTill(result, true, nl)
+  readlineWithTill Till
+  #[case self.newline: of nlUniversal:
+    if self.file.readLine(result): if not self.file.endOfFile: result.add '\n']#
+  # If coding as above, we have to check EOF, as the line above only returns false when reading at EOF
+  # But we just cannot, as Python's `readline()` for `newline=None` even treat '\r' as newline,
+  #  while Nim's readline (innerly calling `fgets` of C) doesn't
+  
+proc readlineImpl(self: NoEncTextIOWrapper, size: int): string =
+  template Till(nl): untyped = t_readlineTill(result, result.len<size, nl)
+  readlineWithTill Till
+
+proc readline*(self: NoEncTextIOWrapper): PyStr =
+  str self.readlineImpl()
+proc readline*(self: NoEncTextIOWrapper, size: int): PyStr =
+  ## ..warning:: size is currently in bytes, not in characters
+  # XXX: see above
+  result = str self.readlineImpl(size)
+
+proc readline*(self: TextIOWrapper): PyStr =
   ## Python's readline
   runnableExamples:
     import std/strutils
@@ -300,22 +309,11 @@ proc readlineImpl(self: TextIOBase): string =
     check "abc\r", "\n123\n-\r", "_", newline="\r"
     check "abc\r\n", "123\n", "-\r_", newline="\n"
     check "abc\r\n", "123\n-\r_", newline="\r\n"
-
-  template Till(nl): untyped = self.readlineTill(result, true, nl)
-  readlineWithTill Till
-  #[case self.newline: of nlUniversal:
-    if self.file.readLine(result): if not self.file.endOfFile: result.add '\n']#
-  # If coding as above, we have to check EOF, as the line above only returns false when reading at EOF
-  # But we just cannot, as Python's `readline()` for `newline=None` even treat '\r' as newline,
-  #  while Nim's readline (innerly calling `fgets` of C) doesn't
-  
-proc readlineImpl(self: TextIOBase, size: Natural): string =
-  template Till(nl): untyped = t_readlineTill(result, result.len<size, nl)
-  readlineWithTill Till
-
-proc readline*(self: TextIOBase): PyStr = str self.readlineImpl()
-proc readline*(self: TextIOBase, size: Natural): PyStr =
-  result = str self.readlineImpl(size)
+  result = self.readlineImpl()
+  Iencode
+proc readline*(self: TextIOWrapper, size: Natural): PyStr =
+  result = self.readlineImpl(size)
+  Iencode
 
 proc read*(self: RawIOBase): PyBytes = bytes self.file.readAll
 proc readImpl(self: RawIOBase, size: int): string = 
@@ -323,21 +321,29 @@ proc readImpl(self: RawIOBase, size: int): string =
 proc read*(self: RawIOBase, size: int): PyBytes = bytes self.readImpl(size) 
 
 # TODO: re-impl using `_get_decoded_chars` (like Python)
-proc readImpl(self: TextIOBase): string =
+proc readImpl(self: NoEncTextIOWrapper): string =
   while true:
     let s = self.readlineImpl()
     if s == "": break
     result.add s
-  Iencode
-proc read*(self: TextIOBase): PyStr = str self.readImpl()
 
-proc readImpl(self: TextIOBase, size: int): string = 
+proc read*(self: NoEncTextIOWrapper): PyStr = str self.readImpl()
+proc read*(self: TextIOWrapper): PyStr =
+  result = self.readImpl()
+  Iencode
+
+proc readImpl(self: NoEncTextIOWrapper, size: int): string = 
   while true:
     let s = self.readline(size)
     if s == "": break
     result.add s
+
+proc read*(self: NoEncTextIOWrapper, size: int): PyStr =
+  result = self.readImpl(size)
+
+proc read*(self: TextIOWrapper, size: int): PyStr =
+  result = self.readImpl(size)
   Iencode
-proc read*(self: TextIOBase, size: int): PyStr = str self.readImpl(size)
 
 proc write(self: IOBase, s: string): int{.discardable.} =
   self.file.write s
@@ -345,7 +351,24 @@ proc write(self: IOBase, s: string): int{.discardable.} =
 
 proc write*(self: RawIOBase, s: PyBytes): int{.discardable.} =
   write(IOBase(self), $s)
-proc write*(self: TextIOBase, s: PyStr): int{.discardable.} =
+
+proc writeImpl(self: NoEncTextIOWrapper, s: string, cvtRet: proc(s: string): int): int{.discardable.} =
+  proc retSubs(toNewLine: string): int = cvtRet(s.replace("\n", toNewLine))
+  case self.newline
+  of nlUniversalAsIs, nlReturn:
+    # no translation takes place.
+    cvtRet s
+  of nlUniversal: retSubs "\p"
+  of nlCarriage: retSubs "\r"
+  of nlCarriageReturn: retSubs "\r\n"
+
+proc write*(self: NoEncTextIOWrapper, s: PyStr): int{.discardable.} =
+  proc cvtRet(oriStr: string): int =
+    discard write(IOBase(self), s)
+    s.len
+  writeImpl(self, s, cvtRet)
+
+proc write*(self: TextIOWrapper, s: PyStr): int{.discardable.} =
   ## Writes the `s` to the stream and return the number of characters written
   ## 
   ## The following is from Python's doc of `open`: 
@@ -369,18 +392,11 @@ proc write*(self: TextIOBase, s: PyStr): int{.discardable.} =
     checkW "1\n2", "1\r2", newline="\r"
     checkW "我", "我", encoding="utf-8", writeLen=1
   
-  proc cvtRet(oriStr: string): int = 
-    let resS = self.oEncCvt.convert(oriStr)
-    discard write(IOBase(self), resS)
-    resS.runeLen
-  proc retSubs(toNewLine: string): int = cvtRet(s.replace("\n", toNewLine))
-  case self.newline
-  of nlUniversalAsIs, nlReturn:
-    # no translation takes place.
-    cvtRet s
-  of nlUniversal: retSubs "\p"
-  of nlCarriage: retSubs "\r"
-  of nlCarriageReturn: retSubs "\r\n"
+  proc cvtRet(oriStr: string): int =
+    let t = self.codec.encode(oriStr)
+    discard write(IOBase(self), t.data)
+    t.len
+  writeImpl(self, s, cvtRet)
 
 proc truncate*(self: IOBase): int{.discardable.} =
   runnableExamples:
@@ -412,14 +428,12 @@ method close*(self: RawIOBase) = base_close()
 method close*(self: TextIOWrapper) =
   #procCall close IOBase(self)
   base_close()
-  self.iEncCvt.close()
-  self.oEncCvt.close()
+  self.codec.close()
 
 proc parseErrors(s: string): EncErrors = parseEnum[EncErrors](s, EncErrors.strict)
 proc getPreferredEncoding(): string = getCurrentEncoding(true)  ## concrete ANSI when on Windows
 const
   DefEncoding* = ""
-  DefErrors* = "strict"
   LocaleEncoding* = "locale"
 
 template raise_ValueError(s) = raise newException(ValueError, s)
@@ -467,53 +481,25 @@ proc norm_buffering(file: CanIOOpenT, buffering: var int): bool =
   if buffering < 0: raise_ValueError("invalid buffering size")
   result = line_buffering
 
-# patch
-# nim's implementation assumed iconv_open returns NULL on failure,
-#  which is `(iconv_t) -1` in fact.
-proc encodings_open(
-    destEncoding = "UTF-8"; srcEncoding = "CP1252";
-    errors=DefErrors  # XXX: just ignored
-  ): EncodingConverter =
-  when defined(windows):
-    encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
-  else:
-    let cvt = encodings.open(destEncoding=destEncoding, srcEncoding=srcEncoding)
-    if cvt == cast[EncodingConverter](-1):
-      raise newException(EncodingError,
-        "cannot create encoding converter from " &
-        srcEncoding & " to " & destEncoding)
-    cvt
+proc `file=`[I: IOBase](self: var I, file: File) = self.file = file  # EXT.
+
+proc newNoEncTextIO*(file: File, name: string,
+    newline=DefNewLine): NoEncTextIOWrapper =
+  result = NoEncTextIOWrapper(name: name, file: file)
+  result.initNewLineMode(newline)
 
 proc initTextIO(encoding, errors, smode, newline: string): TextIOWrapper =
     var enc = encoding
     if enc == DefEncoding: enc = LocaleEncoding
     if enc == LocaleEncoding: enc = getPreferredEncoding()
 
-    var iEncCvt, oEncCvt: EncodingConverter
-    try:
-      iEncCvt = encodings_open(
-        destEncoding = "UTF-8",
-        srcEncoding = enc,
-        errors = errors
-      )
-      oEncCvt = encodings_open(
-        destEncoding = enc,
-        srcEncoding = "UTF-8",
-        errors = errors
-      )
-    except EncodingError:
-      raise newException(LookupError, "unknown encoding: " & encoding)
-  
-    var res = TextIOWrapper(
-        errors: errors,
-        encErrors: parseErrors errors,
-        iEncCvt: iEncCvt,
-        oEncCvt: oEncCvt,
-        encoding: encoding,
-        mode: smode,
+    let ncodec = initNCodecInfo(enc, errors)
+    result = TextIOWrapper(
+      encErrors: parseErrors errors,
+      codec: ncodec,
+      mode: smode
     )
-    res.initNewLineMode(newline)
-    result = res
+    result.initNewLineMode(newline)
 
 template genOpenInfo(result: untyped; file; mode: static string, 
   buffering: var int,
@@ -526,7 +512,7 @@ template genOpenInfo(result: untyped; file; mode: static string,
   bind toSet, raise_ValueError, repr, warnings, warn,
     True, False, DeprecationWarning, RuntimeWarning,
     initTextIO,
-    TextIOBase, TextIOWrapper, 
+    TextIOWrapper, 
     RawIOBase, BufferedIOBase, BufferedReader, BufferedWriter, BufferedRandom,
     DefErrors, DefEncoding, norm_buffering,
     FileMode, PathLike, fileExists
@@ -670,9 +656,6 @@ proc initBufAsPy*(nfile: var File, buf: int) =
     else: doAssert false;(typeof(IOFBF)(0), 0)
   discard c_setvbuf(nfile, nil, bfMode, cast[csize_t](bfSize))
 
-proc setFile[I: IOBase](res: var I, nfile: File) =
-  res.file = nfile
-
 template openImpl(result: untyped;
   file, mode1;
   buffering: int,
@@ -683,7 +666,7 @@ template openImpl(result: untyped;
 ) =
   bind genOpenInfo, initTextIO,
     FileMode, FileHandle,
-    openNoNonInhertFlag, setFile
+    openNoNonInhertFlag, `file=`
     
   var buf = buffering
   var
@@ -703,7 +686,7 @@ template openImpl(result: untyped;
     file.raiseOsOrFileNotFoundError()
   nfile.initBufAsPy(buf)
   
-  setFile result, nfile
+  `file=` result, nfile  # cannot write as .file= 
 
 template open*(
   file: int, mode: static[string|char] = "r",
