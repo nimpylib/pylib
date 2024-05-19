@@ -10,6 +10,22 @@ import ../noneType
 import ../pystring/strimpl
 export list, strimpl
 
+when not defined(pylibSysNoStdio):
+  import ./io
+  export io.read, io.readline, io.write, io.fileno, io.isatty
+
+  template wrap(ioe): untyped =
+    var ioe* = newNoEncTextIO(
+      name = '<' & astToStr(ioe) & '>',
+      file = system.ioe, newline=DefNewLine)
+  # XXX: NIM-BUG: under Windows, system.stdin.readChar for non-ASCII is buggy,
+  # returns a random char for one unicode.
+  wrap stdin
+  wrap stdout
+  wrap stderr
+  stdin.mode = "r"
+  stdout.mode = "w"
+  stderr.mode = "w"
 
 proc exit*(s: PyStr) = quit($s)
 func exit*(c: int) = quit(c)
