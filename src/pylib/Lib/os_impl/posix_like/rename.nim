@@ -15,9 +15,6 @@ else:
   proc internal_rename[T](src, dst: PathLike[T], is_replace: static[bool]): bool =
     result = c_rename(cstring $src, cstring $dst) == 0.cint
 
-template raiseExcWithPath2(src, dst: PathLike) =
-  raiseExcWithPath($src & " -> " & $dst)
-
 proc rename*[T](src, dst: PathLike[T]) =
   if not internal_rename(src, dst, false):
     raiseExcWithPath2(src, dst)

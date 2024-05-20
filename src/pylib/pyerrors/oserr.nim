@@ -116,6 +116,14 @@ proc raiseExcWithPath*(p: PathLike){.sideEffect.} =
   let oserr = osLastError()
   p.raiseExcWithPath(oserr)
 
+func pathsAsOne*[T](a, b: PathLike[T], sep = " -> "): string =
+  ## used when there are two pathes that needs to be reported in error message.
+  ## called by `raiseExcWithPath2`_
+  a.pathrepr & sep & b.pathrepr
+
+proc raiseExcWithPath2*(src, dst: PathLike) =
+  pathsAsOne(src, dst).raiseExcWithPath()
+
 template tryOsOp*(p: PathLike, body) =
   bind raiseExcWithPath
   try: body

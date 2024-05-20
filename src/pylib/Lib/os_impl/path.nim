@@ -63,7 +63,8 @@ func getsize*[T](filename: PathLike[T]): int =
   finally:
     f.close()  # syncio.close will do nothing if File is nil
 
-func samefile*(a, b: PathLike): bool = samefile(a.fspath, b.fspath)
+func samefile*(a, b: PathLike): bool =
+  tryOsOp(pathsAsOne(a, b)): result = samefile(a.fspath, b.fspath)
 
 template split2Via(p, fn) =
   let t = fn $p
