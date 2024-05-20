@@ -18,6 +18,8 @@ proc get_terminal_size*(fallback=(80, 24)): terminal_size =
     result.lines = fallback[1]
 
 import std/os
+when defined(posix):
+  import std/posix
 import ../pyerrors/oserr
 import ../io_abc
 
