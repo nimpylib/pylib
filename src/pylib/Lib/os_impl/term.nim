@@ -7,7 +7,7 @@ template fileno(f: File): int = int getFileHandle f
 template STDOUT_FILENO: int = fileno(stdout)
 type terminal_size* = tuple[columns, lines: int]  ## a namedtuple 
                                                   ## instead of a class
-func get_terminal_size*(fd=STDOUT_FILENO): terminal_size =
+proc get_terminal_size*(fd=STDOUT_FILENO): terminal_size =
   ## minics Python's os.get_terminal_size.
   ## 
   ## but if you are using Nim's stdlib,
