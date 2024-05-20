@@ -116,6 +116,12 @@ proc raiseExcWithPath*(p: PathLike){.sideEffect.} =
   let oserr = osLastError()
   p.raiseExcWithPath(oserr)
 
+template tryOsOp*(p: PathLike, body) =
+  bind raiseExcWithPath
+  try: body
+  except OSError as e:
+    p.raiseExcWithPath(e.errorCode.OSErrorCode)
+
 when defined(windows):
   # std/posix has defined `errno`
   var errno{.importc, header: "<errno.h>".}: cint

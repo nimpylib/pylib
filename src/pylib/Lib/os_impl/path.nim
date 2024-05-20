@@ -1,5 +1,6 @@
 
 import std/os as nos
+import std/times as ntimes
 
 import ./common
 export common
@@ -7,7 +8,6 @@ export common
 import ./consts
 export consts
 
-# XXX: why cannot as s: PathLike
 template templfExp(nam, nimProc, resType){.dirty.} =
   func nam*(s: PathLike): resType = nimProc s.fspath
 template templpExp(nam, nimProc, resType){.dirty.} =
@@ -44,6 +44,24 @@ psExp normpath, normalizedPath
 
 func relpath*[T](p: PathLike[T], start=curdir): T =
   mapPathLike[T] relativePath($p, $start)
+
+template expFRetTAsF(nam, nimProc){.dirty.} =
+  ## returns Time as float
+  proc nam*[T](p: PathLike[T]): float =
+    p.tryOsOp: result = nimProc($p).toUnixFloat
+expFRetTAsF getctime, getCreationTime
+expFRetTAsF getmtime, getLastModificationTime
+expFRetTAsF getatime, getLastAccessTime
+
+func getsize*[T](filename: PathLike[T]): int =
+  var f: File = nil
+  try:
+    f = system.open($filename)
+    result = getFileSize(f)
+  except OSError as e:
+    filename.raiseExcWithPath(e.errorCode.OSErrorCode)
+  finally:
+    f.close()  # syncio.close will do nothing if File is nil
 
 func samefile*(a, b: PathLike): bool = samefile(a.fspath, b.fspath)
 
