@@ -5,6 +5,7 @@ when defined(nimPreviewSlimSystem):
   import std/assertions
 
 import ../version as libversion
+import ./private/platformInfo
 import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
@@ -111,14 +112,8 @@ const
   copyright* = str "MIT"
   #api_version* = NimVersion
 
-const platform* = str(
-  when defined(windows): "win32"  # hostOS is windows 
-  elif defined(macosx): "darwin"  # hostOS is macosx
-  else: hostOS
-)
-  ## .. warning:: the value may be more precise than Python's, there is a diff-list:
-  ## freebsd, solaris, aix, haiku, netbsd for these OSes,
-  ## and standalone for bare system.
+const platform* = str `sys.platform`
+
 let
   argn = paramCount()
   argc = argn + 1
