@@ -62,3 +62,7 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
 proc close*(fd: int) =
   if c_close(fd.cint) == -1.cint:
     raiseErrno("close fd: " & $fd)
+
+proc closerange*(fd_low, fd_high: int) =
+  for fd in fd_low..<fd_high:
+    discard c_close(fd.cint)
