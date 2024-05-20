@@ -2,9 +2,9 @@
 
 import ./posix_like/[
   fdopen, open_close, truncate, stat, scandirImpl, mkrmdir, unlink,
-  rename
+  rename, isatty
 ]
 
 export
   fdopen, open_close, truncate, stat, scandirImpl.scandir, mkrmdir, unlink,
-  rename
+  rename, isatty

@@ -37,6 +37,7 @@ import ../pyerrors/oserr
 export FileNotFoundError
 
 import ./os_impl/posix_like/truncate
+import ./os_impl/posix_like/isatty
 import ./ncodec
 export DefErrors, LookupError
 import ../pystring/[strimpl, strbltins]
@@ -452,16 +453,9 @@ template getBlkSize(p: PathLike): int =
 
 template getBlkSize(fd: int): int = 0  # TODO: use fstat instead!
 
-when defined(posix):
-  proc isatty(fildes: cint): cint {.
-    importc: "isatty", header: "<unistd.h>".}
-else:
-  proc isatty(fildes: cint): cint {.
-    importc: "_isatty", header: "<io.h>".}
-
 proc isatty(p: CanIOOpenT): bool =
   when p is int:
-    result = bool p.cint.isatty()
+    result = p.isatty()
   else:
     var f: File
     if f.open($p, fmRead):
