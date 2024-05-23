@@ -1,6 +1,7 @@
 import pylib
 from std/os import sleep  # python's `sleep` is in `time` module, however
-from pylib/Lib/sys import nil  # like python's `import sys`
+from pylib/Lib/platform import nil  # like python's `import sys`
+from pylib/Lib/sys import nil  # like python's `import platform`
 import pylib/Lib/tempfile # more python-stdlib in pylib/Lib...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
@@ -90,7 +91,7 @@ assert anon() == "hello world"
 
 print(sys.platform) # "linux"
 
-print(platform.processor) # "amd64"
+print(platform.machine) # "amd64"
 
 def allAny():
   truty = all([True, True, False])
