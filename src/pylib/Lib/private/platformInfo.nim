@@ -9,13 +9,18 @@ func capitalizeAscii1(s: string): string =
   if c in 'a'..'z': c.unchkUpperAscii & s.substr(1)
   else: s
 
-const `platform.system`* = hostOS.capitalizeAscii1
+const Solaris = defined(solaris)
+
+const `platform.system`* =
+  when Solaris: "SunOS"
+  else: hostOS.capitalizeAscii1
 
 const `sys.platform`* =
   when defined(windows): "win32"  # hostOS is windows 
   elif defined(macosx): "darwin"  # hostOS is macosx
+  elif Solaris:         "sunos5"  # hostOS is solaris
   else: hostOS
   ## .. warning:: the value may be more precise than Python's, there is a diff-list:
-  ## freebsd, solaris, haiku, netbsd for these OSes,
+  ## freebsd, haiku, netbsd for these OSes,
   ## and standalone for bare system.
 
