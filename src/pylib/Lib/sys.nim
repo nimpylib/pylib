@@ -160,4 +160,4 @@ proc getdefaultencoding*(): PyStr =
   ## Return the current default encoding used by the Unicode implementation.
   ## 
   ## Always "utf-8" in Nim
-  str Utf8
+  str "utf-8"
