@@ -155,3 +155,9 @@ template getsizeof*(x; default: int): int =
   when compiles(sizeof(x)): sizeof(x)
   else: default
 
+
+proc getdefaultencoding*(): PyStr =
+  ## Return the current default encoding used by the Unicode implementation.
+  ## 
+  ## Always "utf-8" in Nim
+  str Utf8
