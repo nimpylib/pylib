@@ -5,11 +5,39 @@ when defined(nimPreviewSlimSystem):
   import std/assertions
 
 import ../version as libversion
-import ./private/platformInfo
 import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
 export list, strimpl
+
+# CPython-3.13.0's sys.platform is getten from Python/getplatform.c Py_GetPlatform,
+# which returns PLATFORM macro,
+# which is defined in Makefile.pre.in L1808 as "$(MACHDEP)"
+# and MACHDEP is defined in configure.ac L313
+
+when not defined(windows):
+  import ./private/platformInfo
+  proc major_ver(): string{.compileTime.} =
+    uname_ver().split('.', 1)[0]
+
+const platform* =
+  when defined(windows): "win32"  # hostOS is windows
+  elif defined(macosx): "darwin"  # hostOS is macosx
+  elif defined(linux): "linux"
+  else:
+    when Solaris:
+      # Only solaris (SunOS 5) is supported by Nim, as of Nim 2.1.1,
+      # and SunOS's dev team in Oracle had been disbanded years ago
+      # Thus SunOS's version would never excceed 5 ...
+      "sunos5"  # hostOS is solaris
+    elif hostOS == "standalone":
+      hostOS
+    else:
+      # XXX: haiku, netbsd  ok ?
+      hostOS & major_ver()
+  ## .. note:: the value is standalone for bare system
+  ## and haiku/netbsd appended with major version instead of "unknown".
+  ## In short, this won't be "unknown" as Python does.
 
 when not defined(js):
   when not defined(pylibSysNoStdio):
