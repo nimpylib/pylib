@@ -1,6 +1,7 @@
 
 
 import std/os
+import ../common
 when defined(windows):
   import std/winlean
   type
@@ -137,78 +138,77 @@ when defined(windows):
   const
     IO_REPARSE_TAG_SYMLINK = ULONG 0xA000000C
     IO_REPARSE_TAG_MOUNT_POINT = ULONG 0xA0000003
-import ../common
-# _Py_MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
-const REPARSE_BUFSIZE = 16 * 1024
+  # _Py_MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
 
-proc readlinkWinImpl(path: string): string =
-  ## returns utf-8 encoded path
-  # ref posixmodule.c L10129
+  const REPARSE_BUFSIZE = 16 * 1024
+  proc readlinkWinImpl(path: string): string =
+    ## returns utf-8 encoded path
+    # ref posixmodule.c L10129
 
-  let wstr = newWideCString path
-  var
-    n_bytes_returned: DWORD
-    io_result: WINBOOL
-    target_buffer: pointer
-  when compileOption("threads"):
-    target_buffer = allocShared(REPARSE_BUFSIZE)
-    defer: target_buffer.deallocShared()
-  else:
-    target_buffer = alloc(REPARSE_BUFSIZE)
-    defer: target_buffer.dealloc()
-  # In CPython's impl, target_buffer is on the stack...
-  # So no need to deallocate manually.
-  # But if we do so in Nim, we have to use a lot `addr` as
-  # in C, array converts to pointer implicitly, but not in Nim.
+    let wstr = newWideCString path
+    var
+      n_bytes_returned: DWORD
+      io_result: WINBOOL
+      target_buffer: pointer
+    when compileOption("threads"):
+      target_buffer = allocShared(REPARSE_BUFSIZE)
+      defer: target_buffer.deallocShared()
+    else:
+      target_buffer = alloc(REPARSE_BUFSIZE)
+      defer: target_buffer.dealloc()
+    # In CPython's impl, target_buffer is on the stack...
+    # So no need to deallocate manually.
+    # But if we do so in Nim, we have to use a lot `addr` as
+    # in C, array converts to pointer implicitly, but not in Nim.
 
-  var rdb = cast[Py_PREPARSE_DATA_BUFFER](target_buffer)
-  let reparse_point_handle = createFileW( wstr,
-        0, 0, nil,
-        OPEN_EXISTING,
-        FILE_FLAG_OPEN_REPARSE_POINT or FILE_FLAG_BACKUP_SEMANTICS,
-        0)
-  if (reparse_point_handle != INVALID_HANDLE_VALUE):
-    io_result = deviceIoControl(reparse_point_handle,
-            FSCTL_GET_REPARSE_POINT,
-            nil, 0, # in buffer
-            target_buffer, REPARSE_BUFSIZE,
-            addr n_bytes_returned,
-            nil # we're not using OVERLAPPED_IO
-    )
-    discard closeHandle(reparse_point_handle)
-  if io_result == WINBOOL(0):
-    raiseOSError(osLastError())
+    var rdb = cast[Py_PREPARSE_DATA_BUFFER](target_buffer)
+    let reparse_point_handle = createFileW( wstr,
+          0, 0, nil,
+          OPEN_EXISTING,
+          FILE_FLAG_OPEN_REPARSE_POINT or FILE_FLAG_BACKUP_SEMANTICS,
+          0)
+    if (reparse_point_handle != INVALID_HANDLE_VALUE):
+      io_result = deviceIoControl(reparse_point_handle,
+              FSCTL_GET_REPARSE_POINT,
+              nil, 0, # in buffer
+              target_buffer, REPARSE_BUFSIZE,
+              addr n_bytes_returned,
+              nil # we're not using OVERLAPPED_IO
+      )
+      discard closeHandle(reparse_point_handle)
+    if io_result == WINBOOL(0):
+      raiseOSError(osLastError())
 
-  var
-    name: ptr wchar_t = nil
-    nameLen: Py_ssize_t = 0
-  template add_char_ptr(a, b): ptr wchar_t =
-    cast[ptr wchar_t](
-      cast[int](a) + cast[int](b)
-    )
+    var
+      name: ptr wchar_t = nil
+      nameLen: Py_ssize_t = 0
+    template add_char_ptr(a, b): ptr wchar_t =
+      cast[ptr wchar_t](
+        cast[int](a) + cast[int](b)
+      )
 
-  template rdbAs(union): untyped = rdb.inner_c_union.union
-  template calLen(nameLength: USHORT): untyped =
-    Py_ssize_t(nameLength) div Py_ssize_t sizeof((wchar_t))
-  template extractName(rbuf) =
-    name = add_char_ptr(rbuf.PathBuffer,
-                        rbuf.SubstituteNameOffset)
-    nameLen = calLen rbuf.SubstituteNameLength
-  case rdb.ReparseTag
-  of IO_REPARSE_TAG_SYMLINK:
-    template rbuf: untyped = rdbAs SymbolicLinkReparseBuffer
-    rbuf.extractName()
-  of IO_REPARSE_TAG_MOUNT_POINT:
-    template rbuf: untyped = rdbAs MountPointReparseBuffer
-    rbuf.extractName()
-  else:
-    raise newException(ValueError, "not a symbolic link")
-  if name != nil:
-    if nameLen > 4 and name.startsWith(cstring"\\??\\", 4):
-      ##  Our buffer is mutable, so this is okay
-      name[1] = wchar_t('\\')
-    result = $(name, nameLen)
-  return result
+    template rdbAs(union): untyped = rdb.inner_c_union.union
+    template calLen(nameLength: USHORT): untyped =
+      Py_ssize_t(nameLength) div Py_ssize_t sizeof((wchar_t))
+    template extractName(rbuf) =
+      name = add_char_ptr(rbuf.PathBuffer,
+                          rbuf.SubstituteNameOffset)
+      nameLen = calLen rbuf.SubstituteNameLength
+    case rdb.ReparseTag
+    of IO_REPARSE_TAG_SYMLINK:
+      template rbuf: untyped = rdbAs SymbolicLinkReparseBuffer
+      rbuf.extractName()
+    of IO_REPARSE_TAG_MOUNT_POINT:
+      template rbuf: untyped = rdbAs MountPointReparseBuffer
+      rbuf.extractName()
+    else:
+      raise newException(ValueError, "not a symbolic link")
+    if name != nil:
+      if nameLen > 4 and name.startsWith(cstring"\\??\\", 4):
+        ##  Our buffer is mutable, so this is okay
+        name[1] = wchar_t('\\')
+      result = $(name, nameLen)
+    return result
 
 
 proc readlinkImpl(path: string): string =
