@@ -276,13 +276,12 @@ when defined(windows):
     
     if ret == 0:
       result = true
-      #raiseOSError(osLastError(), $(src, dest))
 else:
   proc c_symlink(target, linkpath: cstring): cint{.importc: "symlink", header: "<unistd.h>".}
   proc c_symlinkat(target, newdirfd: cint, linkpath: cstring): cint{.importc: "symlinkat", header: "<unistd.h>".}
   proc os_symlink_impl(src, dst: string, target_is_directory: bool = false): bool =
-    if c_symlink(src.cstring, dest.cstring) != 0:
-      raiseExcWithPath2(src, dst)
+    if c_symlink(src.cstring, dst.cstring) != 0:
+      result = true
   proc symlink*[T](src, dst: PathLike[T], target_is_directory = false, dir_fd: int) =
     ## target_is_directory is ignored.
     if c_symlinkat(src.cstring, dir_fd.cint, dst.cstring) != 0:
