@@ -227,11 +227,72 @@ proc readlink*[T](path: PathLike[T]): T =
     # XXX: may be other errors?
     raise
 
-proc symlink*[T](src, dst: PathLike[T]) =
-  ## .. warning:: this is currently a wrapper of std/os createSymlink, 
-  ## whose behave may be not the same as CPython's posixmodule.c os_symlink_impl
-  pathsAsOne(src, dst).tryOsOp:
-    createSymlink($src, $dst)
+when defined(windows):
+  proc check_dir(src_resolved: string): bool =
+    # do not use dirExists(), as it follows symlink
+    # but GetFileAttributesW doesn't
+    let src_resolvedW = newWideCString src_resolved
+
+    let res = getFileAttributesW(src_resolvedW)
+    result = res == FILE_ATTRIBUTE_DIRECTORY
+
+  var windows_has_symlink_unprivileged_flag = true
+  # Assumed true, set to false if detected to not be available.
+  proc os_symlink_impl(src, dst: string, target_is_directory: bool = false): bool =
+    ## returns if error ocurrs
+    const
+      SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE = 2
+      ERROR_INVALID_PARAMETER = 87
+    var flags: int32 = 0
+    if windows_has_symlink_unprivileged_flag:
+      flags = flags or SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
+    
+    let
+      dest_parent = parentDir dst
+      src_resolved = joinPath(dest_parent, src)
+    var wSrc = newWideCString(src)
+    var wDst = newWideCString(dst)
+    if target_is_directory or check_dir(src_resolved):
+      flags = flags or SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
+    
+    # allows anyone with developer mode on to create a link
+    var ret = createSymbolicLinkW(wDst, wSrc, flags)
+    if windows_has_symlink_unprivileged_flag and ret == 0 and
+        getLastError() == ERROR_INVALID_PARAMETER:
+      #[This error might be caused by
+        SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE not being supported.
+        Try again, and update windows_has_symlink_unprivileged_flag if we
+        are successful this time.
+
+        NOTE: There is a risk of a race condition here if there are other
+        conditions than the flag causing ERROR_INVALID_PARAMETER, and
+        another process (or thread) changes that condition in between our
+        calls to CreateSymbolicLink.]#
+      flags = flags and not SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
+      ret = createSymbolicLinkW(wDst, wSrc, flags)
+
+      if ret != 0 or ERROR_INVALID_PARAMETER != getLastError():
+        windows_has_symlink_unprivileged_flag = false
+    
+    if ret == 0:
+      result = true
+      #raiseOSError(osLastError(), $(src, dest))
+else:
+  proc c_symlink(target, linkpath: cstring): cint{.importc: "symlink", header: "<unistd.h>".}
+  proc c_symlinkat(target, newdirfd: cint, linkpath: cstring): cint{.importc: "symlinkat", header: "<unistd.h>".}
+  proc os_symlink_impl(src, dst: string, target_is_directory{.used.}: bool = false): bool =
+    if c_symlink(src.cstring, dest.cstring) != 0:
+      raiseExcWithPath2(src, dst)
+  proc symlink*[T](src, dst: PathLike[T], target_is_directory{.used.} = false, dir_fd: int) =
+    ## target_is_directory is ignored.
+    if c_symlinkat(src.cstring, dir_fd.cint, dst.cstring) != 0:
+      raiseExcWithPath2(src, dst)
+
+proc symlink*[T](src, dst: PathLike[T], target_is_directory = false) =
+  # std/os createSymlink on Windows will raise OSError if 
+  # SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE is not supported yet
+  if os_symlink_impl($src, $dst, target_is_directory):
+    raiseExcWithPath2(src, dst)
 
 proc link*[T](src, dst: PathLike[T]) =
   pathsAsOne(src, dst).tryOsOp:
