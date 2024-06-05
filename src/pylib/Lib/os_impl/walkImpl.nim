@@ -13,7 +13,7 @@ type
   # We use distinct to hook `repr`
   WalkRes*[T] = distinct WalkTup[T]
 converter toTup*[T](self: WalkRes[T]): WalkTup[T] =
-  ## converts to tuple[T, list[T], list[T]]
+  ## converts to `tuple[T, list[T], list[T]]`
   WalkTup[T](self)
 template `[]`*[T](self: WalkRes[T], i: static int): untyped =
   bind WalkTup
@@ -23,7 +23,7 @@ template `[]`*[T](self: WalkRes[T], i: static int): untyped =
   (WalkTup[T](self))[idx]
 const sep = ", "
 template repr*[T](self: WalkRes[T]): string =
-  ## returns (xx, [xx], [xx]) as Python's
+  ## returns `(xx, [xx], [xx])` as Python's
   bind sep
   var result = "("
   result.add self[0].repr & sep
