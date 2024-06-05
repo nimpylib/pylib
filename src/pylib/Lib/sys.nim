@@ -16,8 +16,9 @@ export list, strimpl
 # and MACHDEP is defined in configure.ac L313
 
 when not defined(windows):
+  from std/strutils import split
   import ./private/platformInfo
-  proc major_ver(): string{.compileTime.} =
+  proc major_ver(): string{.compileTime, used.} =
     uname_ver().split('.', 1)[0]
 
 const platform* =
@@ -139,8 +140,6 @@ const
   byteorder* = str(if cpuEndian == littleEndian: "little" else: "big")
   copyright* = str "MIT"
   #api_version* = NimVersion
-
-const platform* = str `sys.platform`
 
 let
   argn = paramCount()
