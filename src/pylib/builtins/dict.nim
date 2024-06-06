@@ -34,8 +34,32 @@ proc getOrDefault[A, B](t: PyDict[A, B], key: A): B =
   t.toNimTable.getOrDefault key
 
 using self: PyDict
-func repr*(self): string = $self.toNimTable # TODO: fit(py) as PyList does
-proc `$`*(self): string = repr self
+
+template strIterImpl(view, strProc;
+    start, stop): string =
+  let le = view.len
+  var result = newStringOfCap(2+3*le)
+  result.add start
+  var i = 0
+  for v in view:
+    if i == le - 1:
+      result.add v.strProc
+      break
+    result.add v.strProc & ", "
+  result.add stop
+
+template strByView(k): string =
+  mixin repr
+  k.repr & ": " & view[k].repr
+
+template repr*(self: PyDict): string =
+  bind strIterImpl
+  mixin repr
+  strIterImpl self, strByView, '{', '}'
+
+template `$`*(self: PyDict): string =
+  bind repr
+  repr self
 
 proc len*(self): int =
   ## dict.__len__
@@ -56,20 +80,14 @@ func contains*[K, V](t: PyDictItemView[K, V], x: (K, V)): bool =
   if x[0] in t.mapping:
     return x[1] == t.mapping[x[0]]
 
-func viewDollar(view: SomePyDictView, prefix: string): string =
-  result = prefix & "(["
-  let le = view.len
-  var i = 0
-  for v in view:
-    if i == le - 1:
-      result.add v.repr
-      break
-    result.add v.repr & ", "
-  result.add "])"
-
 template genRepr(typ, prefix) =
-  func repr*(view: typ): string = viewDollar view, prefix
-  func `$`*(view: typ): string = repr view
+  template repr*(view: typ): string =
+    bind strIterImpl
+    mixin repr
+    strIterImpl view, repr, prefix & "([", "])"
+  template `$`*(view: typ): string =
+    bind repr
+    repr view
 
 genRepr PyDictKeyView,   "dict_keys"
 genRepr PyDictValueView, "dict_values"
