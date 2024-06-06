@@ -101,6 +101,10 @@ func popitem*[K, V](self: PyDict[K, V]): (K, V) =
   result[0] = self.keys()()
   discard self.pop(result[0], result[1])
 
+proc delitem*[K, V](self: PyDict[K, V], k: K) =
+  ## pysugar expect such a proc to hook `del d[k]`
+  self.toNimTable.del k
+
 func emptyPyDict*[K, V](): PyDict[K, V] = newPyDictImpl[K, V]([])
 
 template PyDictProc: NimNode = ident "toPyDict" # the proc must be exported
