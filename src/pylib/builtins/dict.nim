@@ -12,6 +12,17 @@ type
 
 type
   PyDict*[K, V] = distinct OrderedTableRef[K, V]
+  PyDictView* = object of RootObj ## .. warning:: currently `mapping` attr
+                                  ## is dict itself, i.e. modifiable
+  PyDictKeyView*[T] = object of PyDictView
+    mapping*: PyDict[T, auto]
+  PyDictValueView*[T] = object of PyDictView
+    mapping*: PyDict[auto, T]
+  PyDictItemView*[K, V] = object of PyDictView
+    mapping*: PyDict[K, V]
+  SomeSinglePyDictView*[T] = PyDictValueView[T]|PyDictKeyView[T]
+  SomePyDictView* = PyDictKeyView | PyDictValueView | PyDictItemView
+
 
 template toNimTable(self: PyDict): OrderedTableRef = OrderedTableRef(self)
 proc contains*[A, B](t: PyDict[A, B], key: A): bool = contains(t.toNimTable, key)
@@ -23,7 +34,8 @@ proc getOrDefault[A, B](t: PyDict[A, B], key: A): B =
   t.toNimTable.getOrDefault key
 
 using self: PyDict
-proc `$`*(self): string = $self.toNimTable
+func repr*(self): string = $self.toNimTable # TODO: fit(py) as PyList does
+proc `$`*(self): string = repr self
 
 proc len*(self): int =
   ## dict.__len__
@@ -33,7 +45,36 @@ proc `==`*[A, B](self, other: PyDict[A, B]): bool = self.toNimTable == other.toN
 
 proc clear*(self) = self.toNimTable.clear
 
-# clear, keys, values
+proc len*(view: SomePyDictView): int = view.mapping.len
+template iter*(view: SomePyDictView): untyped = view.mapping.iter
+template items*(view: SomePyDictView): untyped = view.iter
+func contains*[T](t: PyDictKeyView[T], x: T): bool = contains(t.mapping, x)
+func contains*[T](t: PyDictValueView[T], x: T): bool = 
+  for k in t.mapping:
+    if t.mapping[k] == x: return true
+func contains*[K, V](t: PyDictItemView[K, V], x: (K, V)): bool = 
+  if x[0] in t.mapping:
+    return x[1] == t.mapping[x[0]]
+
+func viewDollar(view: SomePyDictView, prefix: string): string =
+  result = prefix & "(["
+  let le = view.len
+  var i = 0
+  for v in view:
+    if i == le - 1:
+      result.add v.repr
+      break
+    result.add v.repr & ", "
+  result.add "])"
+
+template genRepr(typ, prefix) =
+  func repr*(view: typ): string = viewDollar view, prefix
+  func `$`*(view: typ): string = repr view
+
+genRepr PyDictKeyView,   "dict_keys"
+genRepr PyDictValueView, "dict_values"
+genRepr PyDictItemView,  "dict_items"
+
 
 iterator keys*[K, V](self: PyDict[K ,V]): K =
   for i in self.toNimTable: yield i
@@ -57,6 +98,10 @@ iterator values*[K, V](self: PyDict[K ,V]): V =
 iterator items*[K, V](self: PyDict[K ,V]): (K, V) =
   for i in self.toNimTable.pairs: yield i
 
+func keys*[K, V](self: PyDict[K ,V]): PyDictKeyView[K] = result.mapping = self
+func values*[K, V](self: PyDict[K ,V]): PyDictValueView[V] = result.mapping = self
+func items*[K, V](self: PyDict[K ,V]): PyDictItemView[K, V] = result.mapping = self
+
 template newPyDictImpl[K, V](x: varargs): untyped =
   ## zero or one arg
   ## shall support `[]`, `{k:v}`, `@[(k, v),...]`
@@ -71,8 +116,6 @@ func toPyDict*[K, V](x:
   result = newPyDictImpl[K, V]()
   for k, v in x:
     result[k] = v
-
-func repr*[K, V](self: PyDict[K, V]): string = $self
 
 func copy*[K, V](self: PyDict[K, V]): PyDict[K, V] =
   result = newPyDictImpl[K, V](len(self))
