@@ -7,6 +7,8 @@ import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
 
+# str.format is in ./format
+
 template `*`*(a: StringLike, i: int): PyStr =
   bind repeat
   a.repeat(i)

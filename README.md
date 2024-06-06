@@ -225,7 +225,7 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `enumerate()`
 - [x] `filter()`
 - [x] `float()`
-- [ ] `format()`
+- [x] `format()`
 - [x] `getattr()`
 - [x] `hasattr()`
 - [x] `hex()`
