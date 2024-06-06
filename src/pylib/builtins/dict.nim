@@ -11,12 +11,56 @@ type
 # Impl begin
 
 type
-  PyDict*[K, V] = OrderedTableRef[K, V]
+  PyDict*[K, V] = distinct OrderedTableRef[K, V]
+
+template toNimTable(self: PyDict): OrderedTableRef = OrderedTableRef(self)
+proc contains*[A, B](t: PyDict[A, B], key: A): bool = contains(t.toNimTable, key)
+proc `[]`*[A, B](t: var PyDict[A, B], key: A) = `[]`(t.toNimTable, key)
+proc `[]=`*[A, B](t: var PyDict[A, B], key: A, val: sink B) =
+  `[]=`(t.toNimTable, key, val)
+proc getOrDefault[A, B](t: PyDict[A, B], key: A): B =
+  ## inner. used to impl get(key, default)
+  t.toNimTable.getOrDefault key
+
+using self: PyDict
+proc `$`*(self): string = $self.toNimTable
+
+proc len*(self): int =
+  ## dict.__len__
+  self.toNimTable.len
+
+proc `==`*[A, B](self, other: PyDict[A, B]): bool = self.toNimTable == other.toNimTable
+
+proc clear*(self) = self.toNimTable.clear
+
+# clear, keys, values
+
+iterator keys*[K, V](self: PyDict[K ,V]): K =
+  for i in self.toNimTable: yield i
+
+iterator iter*[K, V](self: PyDict[K ,V]): K =
+  ## .. warning:: Nim's for stmt calls `items` implicitly, instead of iter
+  ## so beware to always write `iter` for dict in for loop
+  runnableExamples:
+    let d = dict(a=1)
+    for i in iter(d):
+      assert i == "a"
+    for i in d:
+      assert i == ("a", 1)
+  
+  for i in self.keys: yield i
+
+
+iterator values*[K, V](self: PyDict[K ,V]): V =
+  for i in self.toNimTable.values: yield i
+
+iterator items*[K, V](self: PyDict[K ,V]): (K, V) =
+  for i in self.toNimTable.pairs: yield i
 
 template newPyDictImpl[K, V](x: varargs): untyped =
   ## zero or one arg
   ## shall support `[]`, `{k:v}`, `@[(k, v),...]`
-  newOrderedTable[K, V](x)
+  PyDict newOrderedTable[K, V](x)
 
 func toPyDict*[K, V](x: openArray[(K, V)]): PyDict[K, V] =
   # NOTE: in Nim, `{k:v, ...}` is of `array[(type(k), type(v))]`
@@ -28,17 +72,7 @@ func toPyDict*[K, V](x:
   for k, v in x:
     result[k] = v
 
-macro exportTables(syms: varargs[untyped]) =
-  result = newNimNode nnkExportStmt
-  for sym in syms:
-    result.add newDotExpr(ident"tables", sym)
-exportTables `$`, `len`, `[]`, `[]=`, `==`, clear, contains, keys, values
-
 func repr*[K, V](self: PyDict[K, V]): string = $self
-
-iterator items*[K, V](self: PyDict[K, V]): (K, V) =
-  for t in self.pairs:
-    yield t
 
 func copy*[K, V](self: PyDict[K, V]): PyDict[K, V] =
   result = newPyDictImpl[K, V](len(self))
