@@ -18,22 +18,29 @@ type
     len(self) is int
   
   Container*[T] = concept self
+    # NIM-BUG: if only a `contains(self, T) is bool`,
+    #  Nim will wrongly complain `'T' is declared but not used`
+    T
     contains(self, T) is bool
   
   Collection*[T] = Sized and Container[T] and Iterable[T]
   
   Sequence*[T] = concept self of Collection[T]
-    # NIM-BUG: if only a `self[int] is T`,
-    #  Nim will wrongly complain `'T' is declared but not used`
-    T
+    T  # NIM-BUG: see above.
     self[int] is T
   MutableSequence*[T] = concept self of Sequence[T]
     T  # NIM-BUG: see above.
     self[int] = T
     self.delitem(int)  ## __delitem__
     self.insert(int, T)  ## insert item before index
+  
+  Mapping*[K, V] = concept self of Collection[K]
+    K  # NIM-BUG: see above.
+    V
+    self[K] is V
 
-func contains*[T](s: Sequence[T], x: T): bool =
+
+func contains*[T](s: Container[T], x: T): bool =
   for i in s:
     if x == i: return true
 
@@ -78,3 +85,26 @@ func remove*[T](ms: MutableSequence[T], x: T) =
   for i in 0..<ms.len:
     if ms[i] == x:
       ms.delitem(i)
+
+template keys*[K, V](m: Mapping[K, V]): untyped = system.items(m)
+
+iterator values*[K, V](m: Mapping[K, V]): V =
+  for k in m.keys(): yield m[k]
+iterator items*[K, V](m: Mapping[K, V]): (K, V) =
+  for k in m.keys(): yield (k, m[k])
+
+func contains*[K, V](m: Mapping[K, V], k: K): bool =
+  for i in m.keys():
+    if k == i: return true
+
+func get*[K, V](m: Mapping[K ,V], key: K): V = m[key]
+func get*[K, V](m: Mapping[K ,V], key: K, default: V): V =
+  if key in m: m[key]
+  else:default
+
+func `==`*[K, V](a, b: Mapping[K, V]): bool =
+  if len(a) != len(b): return false
+  for k, v in a.items():
+    if b[k] != v:
+      return false
+  return true
