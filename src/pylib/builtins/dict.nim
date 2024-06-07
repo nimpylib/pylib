@@ -188,9 +188,9 @@ proc dictByKw(kwargs: NimNode): NimNode =
   result = newCall(PyDictProc, arr)
 
 proc dictByIterKw(iter: NimNode; kwargs: seq[NimNode]): NimNode =
+  let lhs = newCall(PyDictProc, iter)
   let arr = parseKeyValues kwargs
-  let lhs = newCall(PyDictProc, arr)
-  let rhs = newCall(PyDictProc, iter)
+  let rhs = newCall(PyDictProc, arr)
   result = infix(lhs, "|", rhs)
 
 # Why cannot...: func dict*[K, V](): PyDict[K, V] = emptyPyDict[K, V]()
