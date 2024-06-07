@@ -57,7 +57,7 @@ func append*[T](ms: MutableSequence[T], x: T) =
   ms.insert(ms.len, x)
 
 func clear*(ms: MutableSequence) = 
-  for i in 0..ms.len:
+  for i in 0..<ms.len:
     ms.delitem(i)
     
 func reverse*(ms: MutableSequence) =
