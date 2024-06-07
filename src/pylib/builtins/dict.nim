@@ -26,8 +26,8 @@ type
 
 template toNimTable(self: PyDict): OrderedTableRef = OrderedTableRef(self)
 proc contains*[A, B](t: PyDict[A, B], key: A): bool = contains(t.toNimTable, key)
-proc `[]`*[A, B](t: var PyDict[A, B], key: A) = `[]`(t.toNimTable, key)
-proc `[]=`*[A, B](t: var PyDict[A, B], key: A, val: sink B) =
+proc `[]`*[A, B](t: PyDict[A, B], key: A): B = `[]`(t.toNimTable, key)
+proc `[]=`*[A, B](t: PyDict[A, B], key: A, val: sink B) =
   `[]=`(t.toNimTable, key, val)
 proc getOrDefault[A, B](t: PyDict[A, B], key: A): B =
   ## inner. used to impl get(key, default)
@@ -41,21 +41,22 @@ template strIterImpl(view, strProc;
   var result = newStringOfCap(2+3*le)
   result.add start
   var i = 0
-  for v in view:
+  for k in view:
     if i == le - 1:
-      result.add v.strProc
+      result.add k.strProc
       break
-    result.add v.strProc & ", "
+    result.add k.strProc & ", "
+    i.inc
   result.add stop
 
-template strByView(k): string =
+template strBySelf(k): string =
   mixin repr
-  k.repr & ": " & view[k].repr
+  k.repr & ": " & self[k].repr
 
 template repr*(self: PyDict): string =
   bind strIterImpl
   mixin repr
-  strIterImpl self, strByView, '{', '}'
+  strIterImpl self, strBySelf, '{', '}'
 
 template `$`*(self: PyDict): string =
   bind repr
@@ -123,6 +124,7 @@ func items*[K, V](self: PyDict[K ,V]): PyDictItemView[K, V] = result.mapping = s
 template newPyDictImpl[K, V](x: varargs): untyped =
   ## zero or one arg
   ## shall support `[]`, `{k:v}`, `@[(k, v),...]`
+  bind newOrderedTable
   PyDict newOrderedTable[K, V](x)
 
 func toPyDict*[K, V](x: openArray[(K, V)]): PyDict[K, V] =
@@ -213,27 +215,28 @@ macro dict*(kwargs: varargs[untyped]): PyDict =
       else:
         dictByIterKw(first, kwargs[1..^1])
 
-macro update*(self: PyDict, args: varargs[untyped]) =
-  ## `d.update(iterable, **kw)` or
-  ## `d.update(**kw)`
-  if args.len == 0:  # `d.update()`
+macro update*(self: PyDict, kws: varargs[untyped]) =
+  ## `d.update(**kws)`
+  if kws.len == 0:  # `d.update()`
     return newEmptyNode()
   template setKV(kv): NimNode =
-    newCall("[]=", self, newLit $kv[0], kv[1])
-  let first = args[0]
-  let kw1st = first.kind == nnkExprEqExpr
-  let kwStart = if kw1st: 0 else: 1
-  if not kw1st:
-    # first shall be iterable
-    result = quote do:
-      for t in `first`:
-        `self`[t[0]] = t[1]
-  else:
-    result = newStmtList()
-    for kw in args[kwStart..^1]:
-      expectKind kw, nnkExprEqExpr
-      result.add setKV kw
+    newCall(bindSym"[]=", self, newLit $kv[0], kv[1])
+  result = newStmtList()
+  for kw in kws:
+    expectKind kw, nnkExprEqExpr
+    result.add setKV kw
 
+macro update*(self: PyDict, iterable: Iterable, kws: varargs[untyped]) =
+  ## `d.update(iterable, **kws)`
+  result = newStmtList()
+  result.add quote do:
+    for t in `iterable`:
+      `self`[t[0]] = t[1]
+  result.add newCall(
+    bindSym("update"), self, kws
+  )
+
+  
 func `|`*[A, B: TableLike](a: A, b: B): A =
   ## Python-like merge dict operator `print({"a":1} | {"b":2})`,
   ## a new dict is created from `a` and `b`, keys in the second 
