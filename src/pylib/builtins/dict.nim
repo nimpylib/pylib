@@ -215,27 +215,25 @@ macro dict*(kwargs: varargs[untyped]): PyDict =
       else:
         dictByIterKw(first, kwargs[1..^1])
 
+# if using overload, [("a", 1), ...] will be not supported
+#macro update*(self: PyDict, iterable: Iterable, kws: varargs[untyped]) =
 macro update*(self: PyDict, kws: varargs[untyped]) =
   ## `d.update(**kws)`
+  ## `d.update(iterable, **kws)`
   if kws.len == 0:  # `d.update()`
     return newEmptyNode()
-  template setKV(kv): NimNode =
-    newCall(bindSym"[]=", self, newLit $kv[0], kv[1])
   result = newStmtList()
-  for kw in kws:
-    expectKind kw, nnkExprEqExpr
-    result.add setKV kw
-
-macro update*(self: PyDict, iterable: Iterable, kws: varargs[untyped]) =
-  ## `d.update(iterable, **kws)`
-  result = newStmtList()
-  result.add quote do:
-    for t in `iterable`:
-      `self`[t[0]] = t[1]
-  result.add newCall(
-    bindSym("update"), self, kws
-  )
-
+  let first = kws[0]
+  let is1stIter = first.kind != nnkExprEqExpr
+  var startKw = 0
+  let setitem = bindSym"[]="
+  if is1stIter:
+    result.add quote do:
+      for t in `first`:
+        `setitem` `self`, t[0], t[1]
+    startKw = 1
+  for kv in kws[startKw..^1]:
+    result.add newCall(setitem, self, newLit $kv[0], kv[1])
   
 func `|`*[A, B: TableLike](a: A, b: B): A =
   ## Python-like merge dict operator `print({"a":1} | {"b":2})`,
