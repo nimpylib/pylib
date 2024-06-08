@@ -38,17 +38,20 @@ func capwords*(a: StringLike, sep: StringLike): PyStr =
     result += ssep
 
 type Template* = distinct string  ##[
-  .. hint:: Currently inhert `Template` is not supported.
-
-  .. warning:: Currently in `substitute`,
+  .. hint:: Currently inheriting `Template` is not supported.
+  (In Python, you can custom formatting via
+  defining subclass of `Template` and overwrite some attributes).
 
   .. warning:: Currently `substitute` is implemented via `%` in std/strutils,
-  which will causes two different behaviors from Python's Template:
-    1. the variables are compared with `cmpIgnoreStyle`,
-   whereas in Python they are just compared 'ignorecase' by default.
-    2. digit or `#` following the dollar (e.g. `$1`) is allowed,
-     and will be substituted by variable at such position,
-     whereas in Python such will cause `ValueError`.
+    in which there are two different behaviors from Python's `Template`:
+      1. the variables are compared with `cmpIgnoreStyle`,
+        whereas in Python they are compared in
+        'ignorecase' flag by default.
+      2. digit or `#` following the dollar (e.g. `$1`) is allowed,
+        and will be substituted by variable at such position,
+        whereas in Python such will cause `ValueError`.
+      3. for unknown key, `substitute` raises `ValueError`
+        instead of `KeyError` currently.
   ]##
 
 func substitute*(templ: Template): PyStr = str templ
