@@ -7,6 +7,13 @@ test "str operations":
   check ' '.join(["hello", "world"]) == "hello world"
   check "\t\n ".isspace()
 
+test "str index":
+  let mixedStr = str("aδ_Δ")
+  check mixedStr[-1] == str("Δ")
+  check mixedStr[1] == str("δ")
+  check mixedStr[2] == str("_")
+
+
 test "str methods":
   checkpoint "split whitespace"
   template eqList(a, b) =
@@ -58,3 +65,67 @@ test "str methods":
   check "abc".endswith(("1", "c"))
 
   check "123".count("") == 4
+
+test "str.maketrans&translate":
+  let self = (1,)  # just a placeholder
+  template checkequalnofix(s: typeof(self), res, self: PyStr, args: varargs[untyped]) =
+    check self.translate(args) == res
+  template assertEqual(s: typeof(self), a, b) =
+    check a == b
+  
+  # copied from CPython/Lib/test/test_str.py StrTest.test_maketrans_translate
+  # with a little modification.
+
+  # NOTE: some of the following tests takes the feature of untyped params,
+  # parsing dict literal with mixin value of NoneType, str, int
+
+  # these work with plain translate()
+  self.checkequalnofix("bbbc", "abababc", PyStr.maketrans {'a': None})
+  self.checkequalnofix("iiix", "abababc", 
+                      PyStr.maketrans {'a': None, 'b': 'i', 'c': "x"})
+  self.checkequalnofix("c", "abababc", 
+                      PyStr.maketrans {'a': None, 'b': ""})
+  
+  self.checkequalnofix("xyyx", "xzx", 
+                        PyStr.maketrans {'z': "yy"})
+
+  self.checkequalnofix("a<i>a<i>a<i>c", "abababc", 
+                      PyStr.maketrans {"b": "<i>"})
+  let tbl = PyStr.maketrans({"a": None, "b": "<i>"})
+  self.checkequalnofix("<i><i><i>c", "abababc",  tbl)
+  # test alternative way of calling maketrans()
+  let tbl2 = PyStr.maketrans("abc", "xyz", "d")
+  self.checkequalnofix("xyzzy", "abdcdcbdddd",  tbl2)
+
+  # various tests switching from ASCII to latin1 or the opposite;
+  # same length, remove a letter, or replace with a longer string.
+  self.assertEqual("[a]".translate(PyStr.maketrans("a", "X")),
+                    "[X]")
+  self.assertEqual("[a]".translate(PyStr.maketrans({"a": "X"})),
+                    "[X]")
+  self.assertEqual("[a]".translate(PyStr.maketrans({"a": None})),
+                    "[]")
+  self.assertEqual("[a]".translate(PyStr.maketrans({"a": "XXX"})),
+                    "[XXX]")
+  self.assertEqual("[a]".translate(PyStr.maketrans({"a": "\xe9"})),
+                    "[\xe9]")
+  self.assertEqual("axb".translate(PyStr.maketrans({"a": None, "b": "123"})),
+                    "x123")
+  self.assertEqual("axb".translate(PyStr.maketrans({"a": None, "b": "\xe9"})),
+                    "x\xe9")
+
+  # test non-ASCII (don't take the fast-path)
+  self.assertEqual("[a]".translate(PyStr.maketrans({"a": "<\xe9>"})),
+                    "[<\xe9>]")
+  self.assertEqual("[\xe9]".translate(PyStr.maketrans({"\xe9": "a"})),
+                    "[a]")
+  self.assertEqual("[\xe9]".translate(PyStr.maketrans({"\xe9": None})),
+                    "[]")
+  self.assertEqual("[\xe9]".translate(PyStr.maketrans({"\xe9": "123"})),
+                    "[123]")
+  self.assertEqual("[a\u03b1]".translate(PyStr.maketrans({"a": "<\u20ac>"})),
+                    "[<\u20ac>\u03b1]")
+
+  # CPython's test here uses `\xe9`, which is of Extended ASCII,
+  # and is in fact not UTF-8, (its UTF-8 binary reperentation is `\xxc3\xa9`)
+  # so I use `\u03b1` instead.
