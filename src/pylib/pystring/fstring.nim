@@ -13,7 +13,7 @@ import ./strimpl
 import ../translateEscape
 
 template genFR(sym){.dirty.} =
-  macro sym*(pattern: static[string]): PyStr = quote do: f`pattern`
+  macro sym*(pattern: static[string]): PyStr = quote do: fmt`pattern`
 
 genFR fr 
 genFR Fr 
