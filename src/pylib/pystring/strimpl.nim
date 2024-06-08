@@ -59,10 +59,28 @@ func byteLen*(self): int = system.len self  ## EXT. len of bytes
 proc runeLenAt*(self; i: Natural): int{.borrow.} ## EXT. `i` is byte index
 proc substr*(self; start, last: int): PyStr{.borrow.} ## EXT. byte index
 func runeAtPos*(self; pos: int): Rune{.borrow.}
+
+func strBackIndex(s: string, pos: int): string{.inline.} =
+  ## pos: Positive
+  let (o, _) = s.runeReverseOffset(pos)
+  if o < 0:
+    raise newException(IndexDefect, "string index out of range")
+  let last = o + s.runeLenAt(o)
+  result = str s[o ..< last]
+
 func `[]`*(self; i: int): PyStr =
   runnableExamples:
     assert str("你好")[1] == str("好")
-  str string(self).runeStrAtPos(if i < 0: len(self)+i else: i)
+  ## str.__getitem__(int)
+  ## 
+  ## `i` may be negative to index from backward.
+  ## 
+  # a simplest but not very effective impl:
+  #str string(self).runeStrAtPos(if i < 0: len(self)+i else: i)
+  if i < 0:
+    result = str string(self).strBackIndex(-i)
+  else:
+    result = str string(self).runeStrAtPos(i)
 
 func `[]`*(self; i: Slice[int]): PyStr =
   ## EXT.
