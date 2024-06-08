@@ -228,6 +228,7 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `format()`
 - [x] `getattr()`
 - [x] `hasattr()`
+- [x] `hash()`
 - [x] `hex()`
 - [x] `id()`
 - [x] `input()`
