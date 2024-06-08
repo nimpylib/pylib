@@ -7,20 +7,31 @@
 ##  where the escaped literals in string will be interpreted.
 ## 
 
+runnableExamples:
+  assert fr"\n" == "\\n"
+  assert f"\n" == "\n"
+
+  let s = "asd"
+
+  assert f"[{s}]" == "[asd]"
+  assert not compiles(fr s)
+
 from std/strformat import fmt
 import std/macros 
 import ./strimpl
 import ../translateEscape
 
 template genFR(sym){.dirty.} =
-  macro sym*(pattern: static[string]): PyStr = quote do: fmt`pattern`
+  macro sym*(pattern: string{lit}): PyStr =
+    let fmtNoEscape = bindSym"fmt"
+    result = nnkCallStrLit.newTree(fmtNoEscape, pattern)
 
 genFR fr 
 genFR Fr 
 genFR rf 
 genFR Rf
 
-template f*(s: static[string]): PyStr =
+template f*(s: string{lit}): PyStr =
   ## Python F-String.
   ## 
   ## *Not* the same as Nim's fmt"xxx"
@@ -43,6 +54,10 @@ template f*(s: static[string]): PyStr =
   ## ```Nim
   ## assert "" == """
   ## """
+  ## 
+  ## ## Unicode Names
+  ## `\N{name}` is not supported yet.
+  ## 
   ## ```
   runnableExamples:
     assert f"\n" == "\n"
@@ -54,5 +69,5 @@ template f*(s: static[string]): PyStr =
 
     assert f"""\t123
 """ == "\t123\n"  # even if the source code's newline is crlf.
-  bind fmt
+  bind fmt, translateEscapeWithErr
   fmt translateEscapeWithErr s
