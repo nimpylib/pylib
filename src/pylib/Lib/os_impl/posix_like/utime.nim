@@ -33,7 +33,7 @@ elif defined(posix):
   func stoTime(s_ns: float): Timeval =
     let
       s_int = BiggestInt s_ns
-      us = (s_ns - s_int) * 1e6
+      us = (s_ns - s_int.float) * 1e6
     initTimeval(s_int, us)
   func nstoTime(ns: int): Timeval =
     let tot_us = ns div 1000
