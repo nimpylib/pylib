@@ -66,10 +66,8 @@ when not weirdTarget:
   else:
     proc utimeAux(file: string, timevals: tuple[aTimeval, mTimeval: posix.Timeval], follow_symlinks=true): bool =
       # [last access, last modification]
-      if utimes(file, 
-          when NimMajor > 1: timevals.addr
-          else: timevals.unsafeAddr
-      ) != 0:
+      var arr = [timevals[0], timevals[1]]
+      if utimes(file, arr.addr) != 0:
         return true
 
 macro mapTup(tup: tuple, mapper): tuple =
