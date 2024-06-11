@@ -29,7 +29,9 @@ using self: PyStr
 using mself: var PyStr
 func `$`*(self): string{.borrow.}  ## to Nim string
 func fspath*(self): PyStr = self  ## make a PathLike
-converter toNimStr*(self): string = $self
+func toNimStr*(self): string{.deprecated: 
+  "use toNimString instead. will be removed since 0.10".} = $self
+converter toNimString*(self): string = $self
 converter toPyStr*(s: string): PyStr = str(s)
 converter toPyStr*(s: char): PyStr = str(s)
 converter toPyStr*(s: Rune): PyStr = str(s)
