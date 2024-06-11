@@ -14,6 +14,9 @@ type
         typeof(self.items(), typeOfIter) is T
       else:
         for value in self: value is T 
+  Iterator*[T] = concept self of Iterable[T]
+    T
+    self.next is T
   Sized* = concept self
     len(self) is int
   

@@ -235,11 +235,12 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `int()`
 - [x] `isinstance()`
 - [x] `issubclass()`
-- [ ] `iter()`
+- [x] `iter()`
 - [x] `list()`
 - [x] `map()`
 - [x] `max()`
 - [x] `min()`
+- [x] `next()`
 - [x] `oct()`
 - [x] `ord()`
 - [x] `open()` (though without close_fd, opener, errors)

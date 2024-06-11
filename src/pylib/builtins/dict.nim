@@ -1,7 +1,8 @@
 
 import std/tables
 import std/macros
-from ../collections_abc import Iterable
+import ../collections_abc
+import ../builtins/iter_next
 
 # Impl begin
 type
@@ -114,6 +115,9 @@ iterator iter*[K, V](self: PyDict[K ,V]): K =
   
   for i in self.keys(): yield i
 
+func iter*[K, V](self: PyDict[K, V]): PyIterator[K] =
+  newPyIterator[K](iterator (): K =
+    for k in self.keys(): yield k)
 
 iterator values*[K, V](self: PyDict[K ,V]): V =
   for i in self.toNimTable.values(): yield i
