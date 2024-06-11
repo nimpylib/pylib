@@ -1,4 +1,6 @@
 
+import ../collections_abc
+
 type
   PyBytes* = distinct string
 
@@ -8,6 +10,28 @@ func bytes*(s: string): PyBytes = PyBytes s  ## XXX: Currently no
 
 func bytes*(c: char): PyBytes = PyBytes $c
 
+func bytes*(nLen: int): PyBytes =
+  ## null bytes of length `nLen` (a.k.a. `b'\0'*nLen`)
+  var s = newString(nLen)
+  PyBytes $s
+
+using self: PyBytes
+using mself: var PyBytes
+
+func bytes*(x: Iterable[int]): PyBytes =
+  for i in x:
+    result.add char(i)
+
+func bytes*(x: Iterable[char]): PyBytes =
+  ## EXT. as Python has no `char` type.
+  for c in x:
+    result.add c
+
+func add(mself; s: string){.borrow.} # inner use
+func add(mself; s: char){.borrow.}   # inner use
+
+func bytes*(self): PyBytes = self  ## copy
+
 func bytes*(a: openArray[char]): PyBytes =
   PyBytes $a
 
@@ -15,8 +39,6 @@ template pybytes*[T](x: T): PyBytes =
   mixin bytes
   bytes(x)
 
-using self: PyBytes
-using mself: var PyBytes
 func `$`*(self): string{.borrow.}  ## to Nim string
 func fspath*(self): PyBytes = self  ## make a PathLike
 converter toNimString*(self): string = $self
@@ -25,8 +47,6 @@ converter toNimString*(self): string = $self
 
 func `==`*(self; o: PyBytes): bool{.borrow.}
 
-func add(mself; s: string){.borrow.} # inner use
-func add(mself; s: char){.borrow.}   # inner use
 func `&`(self; o: PyBytes): PyBytes{.borrow.}
 func `&`(self; o: string): PyBytes{.borrow.}
 func `&`(self; o: char): PyBytes{.borrow.}
