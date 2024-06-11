@@ -212,7 +212,7 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `timeit()` with Nanoseconds precision
 - [x] `True` / `False`
 - [x] `pass` also can take and discard any arguments
-- [x] `del ls[idx]`
+- [x] `del foo[x]`
 - [x] `:=` Walrus Operator
 - [x] `abs()`
 - [x] `all()`
