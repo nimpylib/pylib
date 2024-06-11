@@ -7,6 +7,7 @@ import pylib
 when defined(js):
   const jsExclude = """
 iters
+iter_next
 io
 """.strip(leading=false, chars={'\n'}).splitLines()
 
