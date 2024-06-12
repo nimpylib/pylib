@@ -73,38 +73,63 @@ when weirdTarget:
   {.pragma: noWeirdTarget, error: "this proc is not available on the NimScript/js target".}
 else:
   {.pragma: noWeirdTarget.}
+
+const CONST_E = not defined(windows) and compiles(static(EEXIST))
+# in posix_other_const.nim, E* is declared as `var`
+
 when weirdTarget:
-    const
-      NON_ERR_CODE = -1  # no errCode shall match this
-      ErrExist = NON_ERR_CODE
-      ErrNoent = NON_ERR_CODE
-      ErrIsdir = NON_ERR_CODE
+  const
+    NON_ERR_CODE = -1  # no errCode shall match this
+    ErrExist = NON_ERR_CODE
+    ErrNoent = NON_ERR_CODE
+    ErrIsdir = NON_ERR_CODE
 else:
+
   when defined(windows):
     const
       ERROR_ALREADY_EXISTS = 183
       ErrExist = {ERROR_FILE_EXISTS, ERROR_ALREADY_EXISTS}
       ErrNoent = {ERROR_PATH_NOT_FOUND, ERROR_FILE_NOT_FOUND}
       ErrIsdir = ERROR_DIRECTORY_NOT_SUPPORTED
-  else:
+  elif CONST_E:
     const
       ErrExist = EEXIST
       ErrNoent = ENOENT
       ErrIsdir = EISDIR
+  else:
+     let
+      ErrExist = EEXIST
+      ErrNoent = ENOENT
+      ErrIsdir = EISDIR
+
 
 func raiseFileExistsError*(fp: PathLike) =
     fp.raiseExcWithPath(FileExistsError, ErrExist.OSErrorCode)
 
-template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
-  case oserr.int
-  of ErrExist:
-    rErr FileExistsError
-  of ErrNoent:
-    rErr FileNotFoundError
-  of ErrIsdir:
-    rErr IsADirectoryError
-  else:
-    raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
+# symbol used in case stmt's `of` branch must be constants
+when CONST_E:
+  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
+    case oserr.int
+    of ErrExist:
+      rErr FileExistsError
+    of ErrNoent:
+      rErr FileNotFoundError
+    of ErrIsdir:
+      rErr IsADirectoryError
+    else:
+      raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
+else:
+  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
+    let ierr = oserr.int
+    if ierr == ErrExist:
+      rErr FileExistsError
+    elif ierr == ErrNoent:
+      rErr FileNotFoundError
+    elif ierr == ErrIsdir:
+      rErr IsADirectoryError
+    else:
+      raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
+    
 
 proc raiseExcWithPath*(p: PathLike, errCode: OSErrorCode){.sideEffect.} =
   ## raises OSError or its one of SubError type
