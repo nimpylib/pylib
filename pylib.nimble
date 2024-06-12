@@ -1,5 +1,5 @@
 srcDir        = "src"
-when dirExists "src":  # when installing
+when fileExists("./src/pylib/version.nim"):  # when installing
   assert srcDir == "src"
   import "./src/pylib/version" as libver
   # `import as` to avoid compile error against `version = Version`
