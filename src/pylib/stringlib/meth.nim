@@ -151,6 +151,47 @@ template allAlpha*(a, isWhat, isNotWhat: typed, iter, firstItemGetter) =
       notRes = false
   result = not notRes
 
+template istitleImpl*(a, isupper, islower: typed, iter, firstItemGetter) =
+  let le = len(a)
+  if le == 1:
+    let c = a.firstItemGetter
+    if c.isupper: return true
+    return false
+  if le == 0: return false
+
+  var cased, previous_cased: bool
+
+  for ch in a.iter:
+    if ch.isupper:
+      if previous_cased:
+        return false
+      previous_cased = true
+      cased = true
+    elif ch.islower:
+      if not previous_cased:
+        return false
+      previous_cased = true
+      cased = true
+    else:
+      previous_cased = false
+  result = cased
+
+template titleImpl*(result; s, isupper, islower, upper, lower, iter, adder) =
+  var previous_is_cased: bool
+  for c in s.iter:
+    var nc: typeof(c)
+    if islower(c):
+      if not previous_is_cased:
+        nc = upper(c)
+      previous_is_cased = true
+    elif isupper(c):
+      if previous_is_cased:
+        nc = lower(c)
+      previous_is_cased = true
+    else:
+      previous_is_cased = false
+    result.adder nc
+
 template retIfWider[S](a: S) =
   if len(a) >= width:
     return a

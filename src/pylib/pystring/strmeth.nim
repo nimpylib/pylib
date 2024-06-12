@@ -32,6 +32,9 @@ template casefold*(a: StringLike): string =
 func lower*(a: PyStr): PyStr = toLower $a
 func upper*(a: PyStr): PyStr = toUpper $a
 
+func title*(a: PyStr): PyStr =
+  result.titleImpl a, isUpper, isLower, toUpper, toLower, runes, `+=`
+
 func capitalize*(a: PyStr): PyStr =
   ## make the first character have upper case and the rest lower case.
   ## 
@@ -104,6 +107,8 @@ template strAllAlpha(s: PyStr, isWhat, notWhat): untyped =
   s.allAlpha isWhat, notWhat, runes, firstChar
 func islower*(a: PyStr): bool = a.strAllAlpha isLower, isUpper
 func isupper*(a: PyStr): bool = a.strAllAlpha isUpper, isLower
+func istitle*(a: PyStr): bool =
+  a.istitleImpl isUpper, isLower, runes, firstChar
 
 func isspace*(a: PyStr): bool = unicode.isSpace($a)
 

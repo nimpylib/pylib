@@ -38,6 +38,9 @@ template casefold*(a: PyBytes): PyBytes =
   
 func lower*(a: PyBytes): PyBytes = pybytes toLowerAscii $a
 func upper*(a: PyBytes): PyBytes = pybytes toUpperAscii $a
+func title*(a: PyBytes): PyBytes =
+  result.titleImpl a, isUpperAscii, isLowerAscii,
+      toUpperAscii, toLowerAscii, chars, `+=`
 
 func capitalize*(a: PyBytes): PyBytes =
   ## make the first character have upper case and the rest lower case.
@@ -102,6 +105,8 @@ template bytesAllAlpha(s: PyBytes, isWhat, notWhat): untyped =
   s.allAlpha isWhat, notWhat, chars, firstChar
 func islower*(a: PyBytes): bool = a.bytesAllAlpha isLowerAscii, isUpperAscii
 func isupper*(a: PyBytes): bool = a.bytesAllAlpha isUpperAscii, isLowerAscii
+func istitle*(a: PyBytes): bool =
+  a.istitleImpl isUpperAscii, isLowerAscii, chars, firstChar
 
 func center*(a: PyBytes, width: int, fillchar = ' '): PyBytes =
   ## Mimics Python bytes.center(width: int, fillchar = b" ") -> bytes

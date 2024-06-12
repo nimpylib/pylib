@@ -34,6 +34,8 @@ test "str methods":
   eqList str("1\u20282").splitlines(), [str"1", str"2"]
   eqList str("1\u20282").splitlines(keepends=True), [str("1\u2028"), str"2"]
 
+  check "Hi U".istitle()
+
   check "HELLO WORLD".isupper()
   check not "c A".isupper()
   check "hello ".islower()
