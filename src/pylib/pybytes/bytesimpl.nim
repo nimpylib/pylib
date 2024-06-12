@@ -18,6 +18,9 @@ func bytes*(nLen: int): PyBytes =
 using self: PyBytes
 using mself: var PyBytes
 
+func add(mself; s: string){.borrow.} # inner use
+func add(mself; s: char){.borrow.}   # inner use
+
 func bytes*(x: Iterable[int]): PyBytes =
   for i in x:
     result.add char(i)
@@ -26,9 +29,6 @@ func bytes*(x: Iterable[char]): PyBytes =
   ## EXT. as Python has no `char` type.
   for c in x:
     result.add c
-
-func add(mself; s: string){.borrow.} # inner use
-func add(mself; s: char){.borrow.}   # inner use
 
 func bytes*(self): PyBytes = self  ## copy
 
