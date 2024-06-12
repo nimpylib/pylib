@@ -74,7 +74,7 @@ when weirdTarget:
 else:
   {.pragma: noWeirdTarget.}
 
-const CONST_E = not defined(windows) and compiles(static(EEXIST))
+const CONST_E = defined(windows) or compiles(static(EEXIST))
 # in posix_other_const.nim, E* is declared as `var`
 
 when weirdTarget:
