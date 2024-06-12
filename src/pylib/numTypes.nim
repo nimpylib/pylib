@@ -11,10 +11,14 @@ template int*(a: char): Int =
   parseInt($a)
 template int*(a: bool): Int = (if a: 1 else: 0)
 
-template long*(a: string): BiggestInt = parseBiggestInt(a)
-template long*(a: char): BiggestInt = parseBiggestInt($a)
-template long*[T: SomeNumber](a: T): BiggestInt = BiggestInt(a)
-template long*(a: bool): int = BiggestInt(if a: 1 else: 0)
+{.pragma: unsupLong, deprecated:
+  """long(a.k.a. PyLong) is not supported, 
+currently it's just a alias of BiggestInt (e.g. int64 on 64bit system)""".}
+
+template long*(a: string): BiggestInt{.unsupLong.} = parseBiggestInt(a)
+template long*(a: char): BiggestInt{.unsupLong.} = parseBiggestInt($a)
+template long*[T: SomeNumber](a: T): BiggestInt{.unsupLong.} = BiggestInt(a)
+template long*(a: bool): int{.unsupLong.} = BiggestInt(if a: 1 else: 0)
 
 template float*(a: string): BiggestFloat =
   bind parseFloat
