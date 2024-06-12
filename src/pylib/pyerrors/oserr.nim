@@ -73,15 +73,17 @@ when weirdTarget:
   {.pragma: noWeirdTarget, error: "this proc is not available on the NimScript/js target".}
 else:
   {.pragma: noWeirdTarget.}
+
+const CONST_E = not defined(windows) and compiles(static(EEXIST))
+# in posix_other_const.nim, E* is declared as `var`
+
 when weirdTarget:
-    const
-      NON_ERR_CODE = -1  # no errCode shall match this
-      ErrExist = NON_ERR_CODE
-      ErrNoent = NON_ERR_CODE
-      ErrIsdir = NON_ERR_CODE
+  const
+    NON_ERR_CODE = -1  # no errCode shall match this
+    ErrExist = NON_ERR_CODE
+    ErrNoent = NON_ERR_CODE
+    ErrIsdir = NON_ERR_CODE
 else:
-  const CONST_E = not defined(windows) and compiles(static(EEXIST))
-  # in posix_other_const.nim, E* is declared as `var`
 
   when defined(windows):
     const
