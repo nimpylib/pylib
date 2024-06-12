@@ -2,4 +2,5 @@
 import ./private/trans_imp
 
 impExp pyerrors,
-  oserr, simperr
+  oserr, simperr,
+  rterr
