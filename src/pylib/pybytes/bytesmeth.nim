@@ -96,8 +96,12 @@ template W(isX) =
 W isascii
 W isspace
 W isalpha
-W islower
-W isupper
+
+template firstChar(s: PyBytes): char = s.getChar 0
+template bytesAllAlpha(s: PyBytes, isWhat, notWhat): untyped =
+  s.allAlpha isWhat, notWhat, chars, firstChar
+func islower*(a: PyBytes): bool = a.bytesAllAlpha isLowerAscii, isUpperAscii
+func isupper*(a: PyBytes): bool = a.bytesAllAlpha isUpperAscii, isLowerAscii
 
 func center*(a: PyBytes, width: int, fillchar = ' '): PyBytes =
   ## Mimics Python bytes.center(width: int, fillchar = b" ") -> bytes

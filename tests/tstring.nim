@@ -34,12 +34,15 @@ test "str methods":
   eqList str("1\u20282").splitlines(), [str"1", str"2"]
   eqList str("1\u20282").splitlines(keepends=True), [str("1\u2028"), str"2"]
 
+  check "HELLO WORLD".isupper()
+  check not "c A".isupper()
+  check "hello ".islower()
+
   check capitalize("aBΔ") == "Abδ"
+  check "HELLO WORLD".casefold() == "hello world"
 
   check "a".center(9) == "    a    "
   check "a".center(1) == "a"
-
-  check "HELLO WORLD".casefold == "hello world"
 
   check " ".join([1, 2, 3, 4, 5, 6, 7, 8, 9]) == "1 2 3 4 5 6 7 8 9"
   check " ".join(['a', 'b', 'c', 'd', 'e']) == "a b c d e"

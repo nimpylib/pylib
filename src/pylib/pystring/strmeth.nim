@@ -99,14 +99,11 @@ func isascii*(a: PyStr): bool =
 
 func isalpha*(a: PyStr): bool = unicode.isAlpha($a)
 
-template allRunes(a, isWhat) =
-  result = true
-  for r in runes $a:
-    if not r.isWhat:
-      return false
-
-func islower*(a: PyStr): bool = allRunes a, isLower
-func isupper*(a: PyStr): bool = allRunes a, isUpper
+template firstChar(s: PyStr): Rune = s.runeAt 0
+template strAllAlpha(s: PyStr, isWhat, notWhat): untyped =
+  s.allAlpha isWhat, notWhat, runes, firstChar
+func islower*(a: PyStr): bool = a.strAllAlpha isLower, isUpper
+func isupper*(a: PyStr): bool = a.strAllAlpha isUpper, isLower
 
 func isspace*(a: PyStr): bool = unicode.isSpace($a)
 

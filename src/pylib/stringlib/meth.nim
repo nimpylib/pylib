@@ -134,8 +134,22 @@ wrap2 isalpha, isAlphaAscii
 wrap2 isspace, isspaceImpl
 wrap2 isdigit, isdigitImpl
 wrap2 isalnum, isAlphaNumeric
-wrap2 islower, isLowerAscii
-wrap2 isupper, isUpperAscii
+
+template allAlpha*(a, isWhat, isNotWhat: typed, iter, firstItemGetter) =
+  ## used as func body.
+  ## e.g.
+  ## func isupper(self: PyBytes): bool =
+  ##   self.allAlpha(isUpperAscii, isLowerAscii, items, `[0]`)
+  let le = len(a)
+  if le == 1: return isWhat(a.firstItemGetter)
+  if le == 0: return false
+  var notRes = true
+  for r in a.iter:
+    if r.isNotWhat:
+      return false
+    elif notRes and r.isWhat:
+      notRes = false
+  result = not notRes
 
 template retIfWider[S](a: S) =
   if len(a) >= width:
