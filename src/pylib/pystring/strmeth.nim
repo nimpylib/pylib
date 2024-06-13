@@ -4,7 +4,7 @@ import std/strutils except strip, split, rsplit
 import std/tables
 
 import ./strimpl
-export ./strimpl  # for runnableExamples
+export strimpl  # for runnableExamples
 import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
