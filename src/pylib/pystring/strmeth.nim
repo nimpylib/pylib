@@ -32,11 +32,52 @@ template casefold*(a: StringLike): string =
 func lower*(a: PyStr): PyStr = toLower $a
 func upper*(a: PyStr): PyStr = toUpper $a
 
+func isCased(r: Rune): bool =
+  ## Unicode standard 5.0 introduce `isCased`
+  r.isLower or r.isUpper or r.isTitle
+
+type RuneImpl = int32
+proc py_toTitle(r: Rune): Rune =
+  ## unicode.toTitle only respect those whose
+  ## titlecase differs uppercase.
+  ## e.g.
+  ##  not respect ascii
+  var c = RuneImpl(r)
+  if c <= RuneImpl high char:
+    return cast[char](c).toUpperAscii.Rune
+  result = r.toTitle()
+  if result == r:
+    # Nim's toTitle only convert those whose titlecase differs uppercase.
+    return r.toUpper()
+    ## when it comes to Ligatures,
+    ##  toUpper() will do what `title()` in Python does
+    ##  for example, `'ῃ'.upper()` gives `'HI'` in Python (length becomes 2)
+    ##  but Nim's `toUpper`'s result is always of 1 length, and
+    ##  `"ῃ".runeAt(0).toUpper` gives `ῌ`, a.k.a. `'ῃ'.title()` in Python. 
+
 func title*(a: PyStr): PyStr =
-  result.titleImpl a, isUpper, isLower, toUpper, toLower, runes, `+=`
+  ## str.title()
+  ## 
+  ## not the same as `title proc` in std/unicode, see example.
+  runnableExamples:
+    let s = "ǉ"  # \u01c9
+    let u = str(s)
+    assert u.title() == "ǈ"  # \u01c8
+    import std/unicode
+    assert unicode.title(s) == "Ǉ"  # \u01c7
+  # currently titleImpl is ok for ascii only.
+  #result.titleImpl a, isUpper, isLower, toUpper, toLower, runes, `+=`
+  var previous_is_cased = false
+  var res = newStringOfCap a.byteLen
+  for ch in a.runes:
+    res.add:
+      if previous_is_cased: ch.toLower
+      else: ch.py_toTitle
+    previous_is_cased = ch.isCased
+  result = str res
 
 func capitalize*(a: PyStr): PyStr =
-  ## make the first character have upper case and the rest lower case.
+  ## make the first character have title case and the rest lower case.
   ## 
   ## while Nim's `unicode.capitalize` only make the first character upper-case.
   let s = $a
@@ -46,7 +87,7 @@ func capitalize*(a: PyStr): PyStr =
     rune: Rune
     i = 0
   fastRuneAt(s, i, rune, doInc = true)
-  result = $toUpper(rune) + substr(s, i).lower()
+  result = $py_toTitle(rune) + substr(s, i).lower()
 
 
 export strutils.startsWith, strutils.endsWith

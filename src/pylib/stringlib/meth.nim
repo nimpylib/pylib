@@ -176,22 +176,6 @@ template istitleImpl*(a, isupper, islower: typed, iter, firstItemGetter) =
       previous_cased = false
   result = cased
 
-template titleImpl*(result; s, isupper, islower, upper, lower, iter, adder) =
-  var previous_is_cased: bool
-  for c in s.iter:
-    var nc: typeof(c)
-    if islower(c):
-      if not previous_is_cased:
-        nc = upper(c)
-      previous_is_cased = true
-    elif isupper(c):
-      if previous_is_cased:
-        nc = lower(c)
-      previous_is_cased = true
-    else:
-      previous_is_cased = false
-    result.adder nc
-
 template retIfWider[S](a: S) =
   if len(a) >= width:
     return a

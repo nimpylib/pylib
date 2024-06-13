@@ -38,6 +38,23 @@ template casefold*(a: PyBytes): PyBytes =
   
 func lower*(a: PyBytes): PyBytes = pybytes toLowerAscii $a
 func upper*(a: PyBytes): PyBytes = pybytes toUpperAscii $a
+
+template titleImpl(result; s, isupper, islower, upper, lower, iter, adder) =
+  var previous_is_cased = false
+  for c in s.iter:
+    var nc: typeof(c)
+    if islower(c):
+      if not previous_is_cased:
+        nc = upper(c)
+      previous_is_cased = true
+    elif isupper(c):
+      if previous_is_cased:
+        nc = lower(c)
+      previous_is_cased = true
+    else:
+      previous_is_cased = false
+    result.adder nc
+
 func title*(a: PyBytes): PyBytes =
   result.titleImpl a, isUpperAscii, isLowerAscii,
       toUpperAscii, toLowerAscii, chars, `+=`

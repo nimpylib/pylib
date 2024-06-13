@@ -40,6 +40,13 @@ test "str methods":
   check not "c A".isupper()
   check "hello ".islower()
 
+  block:
+    let u = str("ǉ") # \u01c9
+    check u.title() == "ǈ"  # \u01c8
+  
+  check str("ῃ").title() == "ῌ" # \u1fcc
+  check str("aNd What").title() == "And What"
+
   check capitalize("aBΔ") == "Abδ"
   check "HELLO WORLD".casefold() == "hello world"
 
