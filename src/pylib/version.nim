@@ -13,9 +13,9 @@ const
   ReleaseLevel* = "alpha"
   Serial* = 0
 
-  PyMajor* = 3
-  PyMinor* = 10
-  PyPatch* = 3
+  PyMajor*{.intdefine.} = 3
+  PyMinor*{.intdefine.} = 10
+  PyPatch*{.intdefine.} = 3
   PyReleaseLevel* = "final"
   PySerial* = 0
 
