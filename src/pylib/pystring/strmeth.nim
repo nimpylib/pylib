@@ -7,6 +7,7 @@ import ./strimpl
 import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
+import ../version
 include ./unicase/toUpperMapper
 
 const OneUpperToMoreTable = toTable OneUpperToMoreTableLit
@@ -118,7 +119,9 @@ func title*(a: PyStr): PyStr =
   result = str res
 
 func capitalize*(a: PyStr): PyStr =
-  ## make the first character have title case and the rest lower case.
+  ## make the first character have title/upper case and the rest lower case.
+  ## 
+  ## changed when Python 3.8: the first character will have title case.
   ## 
   ## while Nim's `unicode.capitalize` only make the first character upper-case.
   let s = $a
@@ -128,7 +131,11 @@ func capitalize*(a: PyStr): PyStr =
     rune: Rune
     i = 0
   fastRuneAt(s, i, rune, doInc = true)
-  result = $py_toTitle(rune) + substr(s, i).lower()
+  let first = when (PyMajor, PyMinor) < (3,8):
+    py_toUpper(rune)
+  else:
+    py_toTitle(rune)
+  result = $first + substr(s, i).lower()
 
 
 export strutils.startsWith, strutils.endsWith
