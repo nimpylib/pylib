@@ -1,11 +1,15 @@
 
 import std/unicode except split
 import std/strutils except strip, split, rsplit
+import std/tables
 
 import ./strimpl
 import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
+include ./unicase/toUpperMapper
+
+const OneUpperToMoreTable = toTable OneUpperToMoreTableLit
 
 # str.format is in ./format
 
@@ -29,8 +33,45 @@ template casefold*(a: StringLike): string =
   ## Mimics Python str.casefold() -> str
   unicode.toLower(a)
 
-func lower*(a: PyStr): PyStr = toLower $a
-func upper*(a: PyStr): PyStr = toUpper $a
+func py_toLower(s: string): string =
+  result = newStringOfCap s.len
+  for ch in s.runes:
+    if ch == Rune(304):
+      result.add "i\u0307"
+      continue
+    result.add toLower ch
+
+func py_toUpper(s: string): string =
+  result = newStringOfCap s.len
+  for ch in s.runes:
+    let s = OneUpperToMoreTable.getOrDefault ch.int32
+    if s.len == 0:
+      result.add ch.toUpper
+    else:
+      result.add s
+
+func lower*(a: PyStr): PyStr =
+  ## str.lower
+  ## 
+  ## not the same as Nim's `unicode.toLower`, see examples
+  runnableExamples:
+    import std/unicode
+    let dotI = Rune 0x0130  # İ  (LATIN CAPITAL LETTER I WITH DOT ABOVE)
+    assert str(dotI).lower() == "i\u0307"  ## i̇ (\u0207 is a upper dot)
+    assert dotI.toLower() == Rune('i')
+  str py_toLower $a
+func upper*(a: PyStr): PyStr =
+  ## str.upper
+  ## 
+  ## not the same as Nim's `unicode.toUpper`, see examples
+  runnableExamples:
+    import std/unicode
+    let a = "ᾷ"
+    # GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
+    assert str(a).upper() == "Α͂Ι"  # 3 chars
+    assert a.toUpper() == a   # Nim just maps it as-is.
+    # There is more examples... (101 characters in total)
+  str py_toUpper $a
 
 func isCased(r: Rune): bool =
   ## Unicode standard 5.0 introduce `isCased`
