@@ -11,3 +11,7 @@ test "bytes meth":
     ls = b"asd\r\nfdfg".splitlines()
     assert ls == [b"asd", b"fdfg"]
   t_splitlines()
+
+  let btab = PyBytes.maketrans(b"bc", b"23")
+
+  check b"HbOa".translate(btab, b"a") == b"H2O"

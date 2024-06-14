@@ -70,6 +70,9 @@ proc substr*(self; start, last: int): PyBytes{.borrow.} ## EXT. byte index
 proc substr*(self; start: int): PyBytes{.borrow.} ## EXT. byte index
 
 func getChar*(self; i: int): char = cast[string](self)[i]  ## EXT.
+func contains(a: PyBytes, o: char): bool{.borrow.}  ## for hasChar only.
+func hasChar*(a: PyBytes, o: char): bool = o in a  ## EXT.  'c' in b"asc" is allowed
+# other versions of contains is in ./bytesmeth
 
 func `[]`*(self; i: int): int =
   let c = self.getChar(if i < 0: len(self) + i else: i)
