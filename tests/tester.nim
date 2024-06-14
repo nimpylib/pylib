@@ -9,7 +9,10 @@ when defined(js):
 iters
 iter_next
 io
+set
 """.strip(leading=false, chars={'\n'}).splitLines()
+
+# XXX: pyset just error on JS due to Nim-bug
 
 import std/unittest
 
