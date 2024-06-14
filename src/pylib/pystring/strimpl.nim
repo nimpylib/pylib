@@ -36,8 +36,7 @@ converter toPyStr*(s: string): PyStr = str(s)
 converter toPyStr*(s: char): PyStr = str(s)
 converter toPyStr*(s: Rune): PyStr = str(s)
 
-# do not borrow contains(PyStr, char) here, as that'll make compile deadloop
-# this `contains` is handled by collections_abc.Sequence
+func contains*(s: PyStr, c: char): bool{.borrow.}
 func contains*(s: PyStr; c: string): bool{.borrow.}
 func contains*(s: PyStr; c: PyStr): bool{.borrow.}
 
@@ -70,6 +69,7 @@ func strBackIndex(s: string, pos: int): string{.inline.} =
   let last = o + s.runeLenAt(o)
   result = str s[o ..< last]
 
+func getChar*(self; i: Natural): char = (string(self))[i]  ## EXT. get char by byte index.
 func `[]`*(self; i: int): PyStr =
   runnableExamples:
     assert str("你好")[1] == str("好")
@@ -96,6 +96,10 @@ func `[]`*(self; i: HSlice[int, BackwardsIndex]): PyStr =
 iterator items*(self): PyStr =
   for r in self.runes:
     yield str r
+
+iterator chars*(self): char =
+  ## EXT.
+  for c in string(self): yield c
 
 iterator runes*(self): Rune =
   ## EXT.
