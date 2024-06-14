@@ -9,9 +9,38 @@ import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
 import ../version
-include ./unicase/toUpperMapper
+include ./unicase/[
+  toUpperMapper, casefoldMapper
+]
 
-const OneUpperToMoreTable = toTable OneUpperToMoreTableLit
+const
+  OneUpperToMoreTable = toTable OneUpperToMoreTableLit
+
+type
+  RuneI = int32
+  CasefoldInnerTab[K, V] = Table[K, V]
+  CasefoldTableT = object
+    common: CasefoldInnerTab[RuneI, RuneI]
+    full: CasefoldInnerTab[RuneI, string]
+
+const CasefoldTable = CasefoldTableT(
+  common: toTable CommonMapper,
+  full: toTable FullMapper
+)
+
+func addCasefold(res: var string, k: Rune) =
+  template tab: untyped = CasefoldTable
+  template add(s: var string, ri: RuneI) =
+    s.add Rune ri
+  let runeI = RuneI k
+  template addIfIn(table) =
+    let val = table.getOrDefault runeI
+    if val != default typeof val:
+      res.add val
+      return
+  addIfIn tab.common
+  addIfIn tab.full
+  res.add k
 
 # str.format is in ./format
 
@@ -31,9 +60,18 @@ func count*(a: PyStr, sub: PyStr, start: int): int =
 func count*(a: PyStr, sub: PyStr, start=0, `end`: int): int =
   meth.count(a, sub, start, `end`)
 
-template casefold*(a: StringLike): string =
+func casefoldImpl(s: string): string =
   ## Mimics Python str.casefold() -> str
-  unicode.toLower(a)
+  for ch in s.runes:
+    result.addCasefold ch
+
+func casefold*(a: PyStr): PyStr =
+  ## str.casefold()
+  ##
+  ## `str.lower()` is used for most characters, but, for example,
+  ## Cherokee letters is casefolded to their uppercase counterparts,
+  ## and some will be converted to their normal case, e.g. "ß" -> "ss"
+  str casefoldImpl $a
 
 func py_toLower(s: string): string =
   result = newStringOfCap s.len
