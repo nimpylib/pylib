@@ -1,5 +1,6 @@
 
-import std/strutils
+import std/strutils except strip
+import std/unicode
 import ./pyerrors/rterr
 import ./pystring/strimpl
 import ./pybytes/bytesimpl
@@ -7,9 +8,13 @@ import ./pybytes/bytesimpl
 
 type Int* = system.int  ## alias of system.int
 
-template int*(a: string): Int =
-  bind parseInt
-  parseInt(a)
+template prep(a: PyStr|PyBytes): string =
+  bind strip
+  strip $a
+
+template int*(a: PyStr|PyBytes): Int =
+  bind parseInt, prep
+  parseInt(a.prep)
 template int*(a: char): Int =
   bind parseInt
   parseInt($a)
@@ -49,8 +54,8 @@ func parseIntWithBase(x: string, base: int): int =
 
 template int*(x: PyStr|PyBytes; base: int): Int =
   ## allowed base
-  bind parseIntWithBase
-  parseIntWithBase($x, base)
+  bind parseIntWithBase, prep
+  parseIntWithBase(x.prep, base)
 
 {.pragma: unsupLong, deprecated:
   """long(a.k.a. PyLong) is not supported, 
@@ -61,7 +66,7 @@ template long*(a: char): BiggestInt{.unsupLong.} = parseBiggestInt($a)
 template long*[T: SomeNumber](a: T): BiggestInt{.unsupLong.} = BiggestInt(a)
 template long*(a: bool): int{.unsupLong.} = BiggestInt(if a: 1 else: 0)
 
-template float*(a: string): BiggestFloat =
-  bind parseFloat
-  parseFloat(a)
+template float*(a: PyStr|PyBytes): BiggestFloat =
+  bind parseFloat, prep
+  parseFloat(a.prep)
 template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
