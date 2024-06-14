@@ -43,9 +43,11 @@ type
     self[K] is V
 
 
-func contains*[T](s: Container[T], x: T): bool =
-  for i in s:
-    if x == i: return true
+when not defined(js) or (NimMajor, NimMinor, NimPatch) > (2, 1, 0):
+  # NIM-BUG
+  func contains*[T](s: Container[T], x: T): bool =
+    for i in s:
+      if x == i: return true
 
 #func reversed*[S: Sequence](s: S): Iterable
 
