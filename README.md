@@ -197,7 +197,7 @@ Uninstall with `nimble uninstall pylib`.
 # Supported features
 
 - [x] F-Strings `f"foo {variable} bar {1 + 2} baz"`
-- [x] `str` `list` `dict` `set` with their methods
+- [x] `str` `bytes` `bytearray` `list` `dict` `set` with their methods
 - [x] Python-like variable unpacking
 - [x] Math with Float and Int mixed like Python.
 - [x] `import antigravity`
@@ -274,29 +274,54 @@ Uninstall with `nimble uninstall pylib`.
 
 ```console
 $ nimble test
-[OK] Range-like Nim procedure
+[OK] getattr/set/has
+[OK] bytes
+[OK] bytes meth
+[OK] complex
+[OK] decorator
+[OK] custom decorator
+[OK] dict
+[OK] rewrite in `def`
 [OK] Floor division
-[OK] tonim macro
-[OK] String operations
-[OK] Modulo operations
-[OK] unpack macro
+[OK] io & with
+[OK] bltin iters
+[OK] iters as iterable
 [OK] Python-like types
 [OK] divmod
 [OK] pass
 [OK] lambda
 [OK] walrus operator
-2024-03-28T22:39:46+08:00 TimeIt: 9 Repetitions on 0 nanoseconds, CPU Time 0.0.
+2024-06-14T21:31:43+08:00 TimeIt: 9 Repetitions on 1 millisecond, 14 microseconds, and 700 nanoseconds, CPU Time 0.0.
 [OK] timeit
 [OK] hex()
 [OK] chr()
 [OK] oct()
 [OK] ord()
 [OK] bin()
-[OK] filter()
+[OK] Range-like Nim procedure
+[OK] tonim macro
+[OK] unpack macro
 [OK] With statement
-[OK] io & with
-[OK] tempfile
+[OK] list shallow
+[OK] list.sort
+[OK] list methods
+[OK] str.format
 [OK] random
+[OK] Lib/string
+[OK] Lib/math
+[OK] os
+[OK] os.path
+[OK] tempfile
+[OK] iter/next
+[OK] int(x[, base])
+[OK] float(str)
+[OK] Modulo operations
+[OK] str operations
+[OK] str index
+[OK] str methods
+[OK] str.maketrans&translate
+[OK] set
+[OK] bytearray
 ```
 
 <!-- too small to show now
