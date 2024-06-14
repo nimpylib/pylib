@@ -2,15 +2,15 @@
 import ./bytesimpl
 import ../translateEscape
 
-func b*(c: static[char]): PyBytes = pybytes c
-func b*(s: static[string]): PyBytes =
+func b*(c: char{lit}): PyBytes = pybytes c
+func b*(s: static[string]{lit}): PyBytes =
   ## XXX: Currently
   ## `\Uxxxxxxxx` and `\uxxxx` 
   ## is supported as an extension.
   const ns = translateEscape s
   pybytes ns
 
-func br*(s: static[string]): PyBytes =
+func br*(s: string{lit}): PyBytes =
   pybytes s
 
 template rawB(pre){.dirty.} =
