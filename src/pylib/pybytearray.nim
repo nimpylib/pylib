@@ -24,7 +24,14 @@ converter toPyBytes*(self): PyBytes = bytes self.data
 # then all non-inplace method are dispatched to PyBytes
 
 func `*=`*(mself; n: int) =
-  mself.data = mself.data.repeat n
+  ## bytearray.__imul__
+  ##
+  ## Python: if n < 1: self.clear()
+  if n < 1:
+    mself.data.setLen 0
+    return
+  if n == 1: return
+  mself.data.add mself.data.repeat n-1
 
 
 # End impl
