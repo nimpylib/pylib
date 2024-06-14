@@ -23,17 +23,6 @@ template asNim(self: PyByteArray): string =
 converter toPyBytes*(self): PyBytes = bytes self.data
 # then all non-inplace method are dispatched to PyBytes
 
-func `*=`*(mself; n: int) =
-  ## bytearray.__imul__
-  ##
-  ## Python: if n < 1: self.clear()
-  if n < 1:
-    mself.data.setLen 0
-    return
-  if n == 1: return
-  mself.data.add mself.data.repeat n-1
-
-
 # End impl
 
 template wrapCmp(op){.dirty.} =
@@ -142,6 +131,16 @@ func delitem*(mself; i: int) =
   mself.asNim.delete idx..idx
 
 func clear*(mself) = mself.asNim.setLen 0
+
+func `*=`*(mself; n: int) =
+  ## bytearray.__imul__
+  ##
+  ## Python: if n < 1: self.clear()
+  if n < 1:
+    mself.clear()
+    return
+  if n == 1: return
+  mself += bytes mself.data.repeat n-1
 
 func getCharRef(mself; i: int): var char = mself.asNim[i]
 
