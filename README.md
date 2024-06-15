@@ -9,11 +9,15 @@
 [![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/pulls)
 [![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/commits/)
 
-> Originating from a fork of [Yardanico/nimpylib](https://github.com/Yardanico/nimpylib), which is announced to be not maintained since 2021 and is 404 since 2024. This is no longer a simple fork with some simple improvement, but with great features.
+> Originating from a fork of [Yardanico/nimpylib](https://github.com/Yardanico/nimpylib), which was not maintained since 2021 and is 404 since 2024. This is no longer a simple fork with some improvement, but with great features.
 
 Nimpylib is a collection of Python-like operators/functions and libraries (<del>syntax sugar</del> no longer just syntax sugar).
 It can help you to translate your Python program to Nim,
 and gain a better view into different behaviors between Python and Nim.
+
+---
+
+[Read Doc](https://nimpylib.github.io/pylib/)
 
 # Usage
 
