@@ -1,0 +1,2 @@
+nimTitle	trans_imp	_._/private/trans_imp.html	module src/pylib/private/trans_imp		0
+nim	impExp	_._/private/trans_imp.html#impExp.m,,varargs[untyped]	macro impExp(pre; mods: varargs[untyped])		4

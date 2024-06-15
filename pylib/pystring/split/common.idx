@@ -1,0 +1,2 @@
+nimTitle	common	pylib/pystring/split/common.html	module src/pylib/pystring/split/common		0
+nim	ISSPACE	pylib/pystring/split/common.html#ISSPACE,PyStr,int	proc ISSPACE(s: PyStr; pos: int): bool		9

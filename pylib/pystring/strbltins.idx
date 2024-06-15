@@ -1,0 +1,16 @@
+nimTitle	strbltins	pylib/pystring/strbltins.html	module src/pylib/pystring/strbltins		0
+nim	reversed	pylib/pystring/strbltins.html#reversed,PyStr	proc reversed(s: PyStr): PyStr		8
+nim	chr	pylib/pystring/strbltins.html#chr,SomeInteger	proc chr(a: SomeInteger): PyStr		11
+nim	ord1	pylib/pystring/strbltins.html#ord1,PyStr	proc ord1(a: PyStr): int		17
+nim	ord	pylib/pystring/strbltins.html#ord,PyStr	proc ord(a: PyStr): int		22
+nim	pyrepr	pylib/pystring/strbltins.html#pyrepr,StringLike	proc pyrepr(s: StringLike): PyStr		34
+nim	repr	pylib/pystring/strbltins.html#repr,PyStr	proc repr(x: PyStr): string		43
+nim	ascii	pylib/pystring/strbltins.html#ascii,string	proc ascii(us: string): PyStr		50
+nim	ascii	pylib/pystring/strbltins.html#ascii,PyStr	proc ascii(us: PyStr): PyStr		71
+nim	ascii	pylib/pystring/strbltins.html#ascii.t,char	template ascii(c: char): PyStr		74
+nim	ascii	pylib/pystring/strbltins.html#ascii.t,untyped	template ascii(a: untyped): PyStr		81
+nim	oct	pylib/pystring/strbltins.html#oct,SomeInteger	proc oct(a`gensym3: SomeInteger): PyStr		119
+nim	bin	pylib/pystring/strbltins.html#bin,SomeInteger	proc bin(a`gensym6: SomeInteger): PyStr		120
+nim	hex	pylib/pystring/strbltins.html#hex,SomeInteger	proc hex(a`gensym9: SomeInteger): PyStr		121
+nimgrp	ascii	pylib/pystring/strbltins.html#ascii-procs-all	proc		50
+nimgrp	ascii	pylib/pystring/strbltins.html#ascii-templates-all	template		74

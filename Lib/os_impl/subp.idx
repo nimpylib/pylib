@@ -1,0 +1,2 @@
+nimTitle	subp	os_impl/subp.html	module src/pylib/Lib/os_impl/subp		0
+nim	system	os_impl/subp.html#system,string	proc system(cmd: string): int		6

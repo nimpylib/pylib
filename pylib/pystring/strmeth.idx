@@ -1,0 +1,53 @@
+nimTitle	strmeth	pylib/pystring/strmeth.html	module src/pylib/pystring/strmeth		0
+nim	`*`	pylib/pystring/strmeth.html#*.t,StringLike,int	template `*`(a: StringLike; i: int): PyStr		47
+nim	`*`	pylib/pystring/strmeth.html#*.t,int,StringLike	template `*`(i: int; a: StringLike): PyStr		50
+nim	count	pylib/pystring/strmeth.html#count,PyStr,PyStr	proc count(a: PyStr; sub: PyStr): int		54
+nim	count	pylib/pystring/strmeth.html#count,PyStr,PyStr,int	proc count(a: PyStr; sub: PyStr; start: int): int		57
+nim	count	pylib/pystring/strmeth.html#count,PyStr,PyStr,int,int	proc count(a: PyStr; sub: PyStr; start = 0; end: int): int		60
+nim	casefold	pylib/pystring/strmeth.html#casefold,PyStr	proc casefold(a: PyStr): PyStr		68
+nim	lower	pylib/pystring/strmeth.html#lower,PyStr	proc lower(a: PyStr): PyStr		93
+nim	upper	pylib/pystring/strmeth.html#upper,PyStr	proc upper(a: PyStr): PyStr		103
+nim	title	pylib/pystring/strmeth.html#title,PyStr	proc title(a: PyStr): PyStr		139
+nim	capitalize	pylib/pystring/strmeth.html#capitalize,PyStr	proc capitalize(a: PyStr): PyStr		160
+nim	startsWith	pylib/pystring/strmeth.html#startsWith,PyStr,char	proc startsWith(a: PyStr; suffix: char): bool		183
+nim	startsWith	pylib/pystring/strmeth.html#startsWith,char,PyStr	proc startsWith(a: char; suffix: PyStr): bool		185
+nim	startsWith	pylib/pystring/strmeth.html#startsWith,PyStr,Tup	proc startsWith[Tup: tuple](a: PyStr; suffix: Tup): bool		187
+nim	startsWith	pylib/pystring/strmeth.html#startsWith,PyStr,Suf,int	proc startsWith[Suf: PyStr | tuple](a: PyStr; suffix: Suf; start: int): bool		189
+nim	startsWith	pylib/pystring/strmeth.html#startsWith,PyStr,Suf,int,int	proc startsWith[Suf: PyStr | tuple](a: PyStr; suffix: Suf; start, end: int): bool		195
+nim	endsWith	pylib/pystring/strmeth.html#endsWith,PyStr,char	proc endsWith(a: PyStr; suffix: char): bool		183
+nim	endsWith	pylib/pystring/strmeth.html#endsWith,char,PyStr	proc endsWith(a: char; suffix: PyStr): bool		185
+nim	endsWith	pylib/pystring/strmeth.html#endsWith,PyStr,Tup	proc endsWith[Tup: tuple](a: PyStr; suffix: Tup): bool		187
+nim	endsWith	pylib/pystring/strmeth.html#endsWith,PyStr,Suf,int	proc endsWith[Suf: PyStr | tuple](a: PyStr; suffix: Suf; start: int): bool		189
+nim	endsWith	pylib/pystring/strmeth.html#endsWith,PyStr,Suf,int,int	proc endsWith[Suf: PyStr | tuple](a: PyStr; suffix: Suf; start, end: int): bool		196
+nim	find	pylib/pystring/strmeth.html#find,PyStr,PyStr,int	proc find(a: PyStr; b: PyStr; start = 0; end = len(a)): int		198
+nim	rfind	pylib/pystring/strmeth.html#rfind,PyStr,PyStr,int	proc rfind(a: PyStr; b: PyStr; start = 0; end = len(a)): int		204
+nim	index	pylib/pystring/strmeth.html#index,PyStr,PyStr,int	proc index(a, b: PyStr; start = 0; end = len(a)): int		210
+nim	rindex	pylib/pystring/strmeth.html#rindex,PyStr,PyStr,int	proc rindex(a, b: PyStr; start = 0; end = len(a)): int		216
+nim	isascii	pylib/pystring/strmeth.html#isascii,Rune	proc isascii(a: Rune): bool		223
+nim	isascii	pylib/pystring/strmeth.html#isascii,PyStr	proc isascii(a: PyStr): bool		224
+nim	isalpha	pylib/pystring/strmeth.html#isalpha,PyStr	proc isalpha(a: PyStr): bool		231
+nim	islower	pylib/pystring/strmeth.html#islower,PyStr	proc islower(a: PyStr): bool		236
+nim	isupper	pylib/pystring/strmeth.html#isupper,PyStr	proc isupper(a: PyStr): bool		237
+nim	istitle	pylib/pystring/strmeth.html#istitle,PyStr	proc istitle(a: PyStr): bool		238
+nim	isspace	pylib/pystring/strmeth.html#isspace,PyStr	proc isspace(a: PyStr): bool		241
+nim	center	pylib/pystring/strmeth.html#center,PyStr,int,char	proc center(a: PyStr; width: int; fillchar = ' '): PyStr		243
+nim	ljust	pylib/pystring/strmeth.html#ljust,PyStr,int,char	proc ljust(a: PyStr; width: int; fillchar = ' '): PyStr		247
+nim	rjust	pylib/pystring/strmeth.html#rjust,PyStr,int,char	proc rjust(a: PyStr; width: int; fillchar = ' '): PyStr		249
+nim	center	pylib/pystring/strmeth.html#center,PyStr,int,PyStr	proc center(a: PyStr; width: int; fillchar: PyStr): PyStr		252
+nim	ljust	pylib/pystring/strmeth.html#ljust,PyStr,int,PyStr	proc ljust(a: PyStr; width: int; fillchar: PyStr): PyStr		255
+nim	rjust	pylib/pystring/strmeth.html#rjust,PyStr,int,PyStr	proc rjust(a: PyStr; width: int; fillchar: PyStr): PyStr		258
+nim	zfill	pylib/pystring/strmeth.html#zfill,PyStr,int	proc zfill(a: PyStr; width: int): PyStr		261
+nim	removeprefix	pylib/pystring/strmeth.html#removeprefix,PyStr,PyStr	proc removeprefix(a: PyStr; suffix: PyStr): PyStr		264
+nim	removesuffix	pylib/pystring/strmeth.html#removesuffix,PyStr,PyStr	proc removesuffix(a: PyStr; suffix: PyStr): PyStr		266
+nim	replace	pylib/pystring/strmeth.html#replace,PyStr,,	proc replace(a: PyStr; sub, by: PyStr | char): PyStr		269
+nim	join	pylib/pystring/strmeth.html#join,PyStr,openArray[T]	proc join[T](sep: PyStr; a: openArray[T]): PyStr		272
+nim	partition	pylib/pystring/strmeth.html#partition,PyStr,PyStr	proc partition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		276
+nim	rpartition	pylib/pystring/strmeth.html#rpartition,PyStr,PyStr	proc rpartition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		279
+nimgrp	ljust	pylib/pystring/strmeth.html#ljust-procs-all	proc		247
+nimgrp	startswith	pylib/pystring/strmeth.html#startsWith-procs-all	proc		195
+nimgrp	center	pylib/pystring/strmeth.html#center-procs-all	proc		243
+nimgrp	rjust	pylib/pystring/strmeth.html#rjust-procs-all	proc		249
+nimgrp	isascii	pylib/pystring/strmeth.html#isascii-procs-all	proc		223
+nimgrp	count	pylib/pystring/strmeth.html#count-procs-all	proc		54
+nimgrp	endswith	pylib/pystring/strmeth.html#endsWith-procs-all	proc		196
+nimgrp	*	pylib/pystring/strmeth.html#*-templates-all	template		47

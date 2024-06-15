@@ -1,0 +1,2 @@
+nimTitle	common	pylib/pybytes/split/common.html	module src/pylib/pybytes/split/common		0
+nim	ISSPACE	pylib/pybytes/split/common.html#ISSPACE,PyBytes,int	proc ISSPACE(s: PyBytes; pos: int): bool		12

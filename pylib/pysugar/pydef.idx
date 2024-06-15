@@ -1,0 +1,4 @@
+nimTitle	pydef	pylib/pysugar/pydef.html	module src/pylib/pysugar/pydef		0
+nim	define	pylib/pysugar/pydef.html#define.m,,	macro define(signature, body): untyped		41
+nim	def	pylib/pysugar/pydef.html#def.m,,	macro def(signature, body): untyped		52
+nim	async	pylib/pysugar/pydef.html#async.m,,	macro async(defsign, body): untyped		76

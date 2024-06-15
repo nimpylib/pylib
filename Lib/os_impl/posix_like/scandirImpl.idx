@@ -1,0 +1,20 @@
+nimTitle	scandirImpl	os_impl/posix_like/scandirImpl.html	module src/pylib/Lib/os_impl/posix_like/scandirImpl		0
+nim	DirEntry	os_impl/posix_like/scandirImpl.html#DirEntry	type DirEntry		9
+nim	close	os_impl/posix_like/scandirImpl.html#close,ScandirIterator	proc close(scandirIter: ScandirIterator)		15
+nim	items	os_impl/posix_like/scandirImpl.html#items.i,ScandirIterator[T]	iterator items[T](scandirIter: ScandirIterator[T]): DirEntry[T]		16
+nim	repr	os_impl/posix_like/scandirImpl.html#repr	proc repr(self: DirEntry): string		29
+nim	is_file	os_impl/posix_like/scandirImpl.html#is_file	proc is_file(self: DirEntry): bool		33
+nim	is_file	os_impl/posix_like/scandirImpl.html#is_file,,bool	proc is_file(self: DirEntry; follow_symlinks: bool): bool		41
+nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir	proc is_dir(self: DirEntry): bool		33
+nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir,,bool	proc is_dir(self: DirEntry; follow_symlinks: bool): bool		42
+nim	is_symlink	os_impl/posix_like/scandirImpl.html#is_symlink	proc is_symlink(self: DirEntry): bool		43
+nim	stat	os_impl/posix_like/scandirImpl.html#stat	proc stat(self: DirEntry): stat_result		47
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i,PathLike[T]	iterator scandir[T](path: PathLike[T]): DirEntry[T]		66
+nim	scandirIter	os_impl/posix_like/scandirImpl.html#scandirIter.i,T	iterator scandirIter[T](path: T): DirEntry[T]		67
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i	iterator scandir(): DirEntry[PyStr]		71
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir,PathLike[T]	proc scandir[T](path: PathLike[T]): ScandirIterator[T]		75
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir	proc scandir(): ScandirIterator[PyStr]		80
+nimgrp	isdir	os_impl/posix_like/scandirImpl.html#is_dir-procs-all	proc		42
+nimgrp	isfile	os_impl/posix_like/scandirImpl.html#is_file-procs-all	proc		41
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		75
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-iterators-all	iterator		66

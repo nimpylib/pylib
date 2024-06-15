@@ -1,0 +1,7 @@
+nimTitle	mkrmdir	os_impl/posix_like/mkrmdir.html	module src/pylib/Lib/os_impl/posix_like/mkrmdir		0
+nim	mkdir	os_impl/posix_like/mkrmdir.html#mkdir,PathLike,int,int	proc mkdir(p: PathLike; mode = 0o000000000777; dir_fd: int)		6
+nim	rmdir	os_impl/posix_like/mkrmdir.html#rmdir,PathLike,int	proc rmdir(p: PathLike; dir_fd: int)		7
+nim	rmdir	os_impl/posix_like/mkrmdir.html#rmdir,PathLike	proc rmdir(path: PathLike)		9
+nim	mkdir	os_impl/posix_like/mkrmdir.html#mkdir,PathLike,int	proc mkdir(p: PathLike; mode = 0o000000000777)		10
+nimgrp	mkdir	os_impl/posix_like/mkrmdir.html#mkdir-procs-all	proc		6
+nimgrp	rmdir	os_impl/posix_like/mkrmdir.html#rmdir-procs-all	proc		7

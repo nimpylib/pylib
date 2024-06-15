@@ -1,0 +1,8 @@
+nimTitle	bytesprefix	pylib/pybytes/bytesprefix.html	module src/pylib/pybytes/bytesprefix		0
+nim	b	pylib/pybytes/bytesprefix.html#b	proc b(c: char{lit}): PyBytes		5
+nim	b	pylib/pybytes/bytesprefix.html#b_2	proc b(s: static[string]{lit}): PyBytes		6
+nim	br	pylib/pybytes/bytesprefix.html#br	proc br(s: string{lit}): PyBytes		13
+nim	rb	pylib/pybytes/bytesprefix.html#rb.t	template rb(s): PyBytes		21
+nim	Rb	pylib/pybytes/bytesprefix.html#Rb.t_2	template Rb(s): PyBytes		22
+nim	Br	pylib/pybytes/bytesprefix.html#Br.t	template Br(s): PyBytes		23
+nimgrp	b	pylib/pybytes/bytesprefix.html#b-procs-all	proc		5

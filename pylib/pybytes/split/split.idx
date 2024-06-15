@@ -1,0 +1,8 @@
+nimTitle	split	pylib/pybytes/split/split.html	module src/pylib/pybytes/split/split		0
+nim	split	pylib/pybytes/split/split.html#split.i,PyBytes,int	iterator split(a: PyBytes; sep = None; maxsplit = -1): PyBytes		12
+nim	split	pylib/pybytes/split/split.html#split.i,PyBytes,,int	iterator split(a: PyBytes; sep: PyBytes | char; maxsplit = -1): PyBytes		27
+nim	split	pylib/pybytes/split/split.html#split,PyBytes,int	proc split(a: PyBytes; sep = None; maxsplit = -1): PyList[PyBytes]		32
+nim	split	pylib/pybytes/split/split.html#split,PyBytes,,int	proc split(a: PyBytes; sep: PyBytes | char; maxsplit = -1): PyList[PyBytes]		43
+nim	splitlines	pylib/pybytes/split/split.html#splitlines,PyBytes	proc splitlines(self: PyBytes; keepends = false): PyList[PyBytes]		52
+nimgrp	split	pylib/pybytes/split/split.html#split-procs-all	proc		32
+nimgrp	split	pylib/pybytes/split/split.html#split-iterators-all	iterator		12

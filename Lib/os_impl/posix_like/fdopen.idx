@@ -1,0 +1,2 @@
+nimTitle	fdopen	os_impl/posix_like/fdopen.html	module src/pylib/Lib/os_impl/posix_like/fdopen		0
+nim	fdopen	os_impl/posix_like/fdopen.html#fdopen.t,Positive,varargs[untyped]	template fdopen(fd: Positive; x: varargs[untyped]): untyped		14

@@ -1,0 +1,2 @@
+nimTitle	funcSignature	pylib/pysugar/stmt/funcSignature.html	module src/pylib/pysugar/stmt/funcSignature		0
+nim	parseSignature	pylib/pysugar/stmt/funcSignature.html#parseSignature,NimNode	proc parseSignature(signature: NimNode; deftype = ident"untyped"): tuple[\n    name: NimNode, params: seq[NimNode]]		48

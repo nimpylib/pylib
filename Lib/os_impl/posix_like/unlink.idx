@@ -1,0 +1,3 @@
+nimTitle	unlink	os_impl/posix_like/unlink.html	module src/pylib/Lib/os_impl/posix_like/unlink		0
+nim	unlink	os_impl/posix_like/unlink.html#unlink,PathLike[T]	proc unlink[T](p: PathLike[T])		8
+nim	remove	os_impl/posix_like/unlink.html#remove,PathLike[T]	proc remove[T](p: PathLike[T])		10

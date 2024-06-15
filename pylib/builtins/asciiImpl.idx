@@ -1,0 +1,2 @@
+nimTitle	asciiImpl	pylib/builtins/asciiImpl.html	module src/pylib/builtins/asciiImpl		0
+nim	pyasciiImpl	pylib/builtins/asciiImpl.html#pyasciiImpl,string	proc pyasciiImpl(us: string): string		10

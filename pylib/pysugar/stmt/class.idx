@@ -1,0 +1,6 @@
+nimTitle	class	pylib/pysugar/stmt/class.html	module src/pylib/pysugar/stmt/class		0
+nim	recReplaceSuperCall	pylib/pysugar/stmt/class.html#recReplaceSuperCall,NimNode,NimNode,int	proc recReplaceSuperCall(n: NimNode; defSupCls: NimNode; start = 0): NimNode		55
+nim	classImpl	pylib/pysugar/stmt/class.html#classImpl,NimNode,NimNode	proc classImpl(obj, body: NimNode): NimNode		191
+heading	NOTE:	pylib/pysugar/stmt/class.html#notecolon	  <em>NOTE</em>:		0
+heading	Method Overwrite	pylib/pysugar/stmt/class.html#notecolon-method-overwrite	   Method Overwrite		0
+heading	nimsuper function	pylib/pysugar/stmt/class.html#notecolon-nimsuper-function	   <tt class="docutils literal"><span class="pre"><span class="Identifier">super</span></span></tt> function		0

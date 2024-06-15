@@ -1,0 +1,5 @@
+nimTitle	ncodec	pylib/Lib/ncodec.html	module src/pylib/Lib/ncodec		0
+nim	EncErrors	pylib/Lib/ncodec.html#EncErrors	enum EncErrors		10
+nim	NCodecInfo	pylib/Lib/ncodec.html#NCodecInfo	object NCodecInfo		28
+nim	DefErrors	pylib/Lib/ncodec.html#DefErrors	const DefErrors		35
+nim	initNCodecInfo	pylib/Lib/ncodec.html#initNCodecInfo,string	proc initNCodecInfo(encoding: string; errors = DefErrors): NCodecInfo		56

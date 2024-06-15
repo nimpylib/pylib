@@ -1,0 +1,4 @@
+nimTitle	mathfunc	pylib/builtins/mathfunc.html	module src/pylib/builtins/mathfunc		0
+nim	pow	pylib/builtins/mathfunc.html#pow,float,float,float	proc pow(base, exp, modulo: float): int		8
+nim	pow	pylib/builtins/mathfunc.html#pow,int,Natural	proc pow(base: int; exp: Natural): int		12
+nimgrp	pow	pylib/builtins/mathfunc.html#pow-procs-all	proc		8

@@ -1,0 +1,3 @@
+nimTitle	oopFuncs	pylib/builtins/oopFuncs.html	module src/pylib/builtins/oopFuncs		0
+nim	isinstance	pylib/builtins/oopFuncs.html#isinstance.t,,	template isinstance(obj, class_or_tuple): bool		15
+nim	issubclass	pylib/builtins/oopFuncs.html#issubclass.t,,	template issubclass(obj, class_or_tuple): bool		22

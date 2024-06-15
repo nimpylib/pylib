@@ -1,0 +1,2 @@
+nimTitle	listdirx	os_impl/listdirx.html	module src/pylib/Lib/os_impl/listdirx		0
+nim	listdir	os_impl/listdirx.html#listdir,PathLike[T]	proc listdir[T](p: PathLike[T] = "."): PyList[T]		6

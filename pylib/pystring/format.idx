@@ -1,0 +1,4 @@
+nimTitle	format	pylib/pystring/format.html	module src/pylib/pystring/format		0
+nim	format	pylib/pystring/format.html#format.t,T,PyStr	template format[T](value: T; format_spec: PyStr = ""): PyStr		6
+nim	format	pylib/pystring/format.html#format.t,PyStr,varargs[untyped]	template format(s: PyStr; argKw: varargs[untyped]): PyStr		10
+nimgrp	format	pylib/pystring/format.html#format-templates-all	template		6

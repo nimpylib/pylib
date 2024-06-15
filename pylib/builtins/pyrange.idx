@@ -1,0 +1,16 @@
+nimTitle	pyrange	pylib/builtins/pyrange.html	module src/pylib/builtins/pyrange		0
+nim	PyRange	pylib/builtins/pyrange.html#PyRange	type PyRange		5
+nim	`$`	pylib/builtins/pyrange.html#$,PyRange[T]	proc `$`[T](rng: PyRange[T]): string		9
+nim	repr	pylib/builtins/pyrange.html#repr,PyRange[T]	proc repr[T](rng: PyRange[T]): string		14
+nim	range	pylib/builtins/pyrange.html#range,T,T,T	proc range[T: SomeInteger](start, stop, step: T): PyRange[T]		16
+nim	range	pylib/builtins/pyrange.html#range.t,T,T	template range[T: SomeInteger](start, stop: T): PyRange[T]		24
+nim	range	pylib/builtins/pyrange.html#range.t,T	template range[T: SomeInteger](stop: T): PyRange[T]		29
+nim	len	pylib/builtins/pyrange.html#len.t,PyRange[T]	template len[T](rng: PyRange[T]): int		34
+nim	items	pylib/builtins/pyrange.html#items.i,PyRange[T]	iterator items[T](rng: PyRange[T]): T		37
+nim	contains	pylib/builtins/pyrange.html#contains,PyRange[T],T	proc contains[T](x: PyRange[T]; y: T): bool		49
+nim	`[]`	pylib/builtins/pyrange.html#[],PyRange[T],Natural	proc `[]`[T](x: PyRange[T]; y: Natural): T		58
+nim	min	pylib/builtins/pyrange.html#min,PyRange[T]	proc min[T](x: PyRange[T]): T		63
+nim	max	pylib/builtins/pyrange.html#max,PyRange[T]	proc max[T](x: PyRange[T]): T		69
+nim	count	pylib/builtins/pyrange.html#count,PyRange[T],T	proc count[T](r: PyRange[T]; x: T): int		75
+nim	index	pylib/builtins/pyrange.html#index,PyRange[T],T	proc index[T](r: PyRange[T]; x: T): int		78
+nimgrp	range	pylib/builtins/pyrange.html#range-templates-all	template		24

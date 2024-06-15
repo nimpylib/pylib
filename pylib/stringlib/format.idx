@@ -1,0 +1,3 @@
+nimTitle	format	pylib/stringlib/format.html	module src/pylib/stringlib/format		0
+nim	pyformatImplAux	pylib/stringlib/format.html#pyformatImplAux,string,seq[NimNode],Kw	proc pyformatImplAux(s: string; args: seq[NimNode]; kw: Kw): NimNode		43
+nim	pyformat	pylib/stringlib/format.html#pyformat.m,static[string],varargs[untyped]	macro pyformat(s: static[string]; argKw: varargs[untyped]): string		132

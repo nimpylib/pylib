@@ -1,0 +1,7 @@
+nimTitle	hex	pylib/pybytes/hex.html	module src/pylib/pybytes/hex		0
+nim	hex	pylib/pybytes/hex.html#hex	proc hex(self: PyBytes): PyStr		31
+nim	hex	pylib/pybytes/hex.html#hex,,char	proc hex(self: PyBytes; sep: char): PyStr		37
+nim	hex	pylib/pybytes/hex.html#hex,,	proc hex(self: PyBytes; sep: PyStr | PyBytes): PyStr		43
+nim	hex	pylib/pybytes/hex.html#hex,,,int	proc hex(self: PyBytes; sep: char | PyStr | PyBytes; bytes_per_sep: int): PyStr		47
+nim	fromhex	pylib/pybytes/hex.html#fromhex,typedesc[PyBytes],PyStr	proc fromhex(_: typedesc[PyBytes]; s: PyStr): PyBytes		59
+nimgrp	hex	pylib/pybytes/hex.html#hex-procs-all	proc		31

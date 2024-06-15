@@ -1,0 +1,8 @@
+nimTitle	split	pylib/pystring/split/split.html	module src/pylib/pystring/split/split		0
+nim	split	pylib/pystring/split/split.html#split.i,PyStr,int	iterator split(a: PyStr; sep = None; maxsplit = -1): PyStr		12
+nim	split	pylib/pystring/split/split.html#split.i,PyStr,StringLike,int	iterator split(a: PyStr; sep: StringLike; maxsplit = -1): PyStr		27
+nim	split	pylib/pystring/split/split.html#split,PyStr,int	proc split(a: PyStr; sep = None; maxsplit = -1): PyList[PyStr]		32
+nim	split	pylib/pystring/split/split.html#split,PyStr,StringLike,int	proc split(a: PyStr; sep: StringLike; maxsplit = -1): PyList[PyStr]		43
+nim	splitlines	pylib/pystring/split/split.html#splitlines,PyStr	proc splitlines(self: PyStr; keepends = false): PyList[PyStr]		52
+nimgrp	split	pylib/pystring/split/split.html#split-procs-all	proc		32
+nimgrp	split	pylib/pystring/split/split.html#split-iterators-all	iterator		12

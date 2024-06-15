@@ -1,0 +1,3 @@
+nimTitle	rterr	pylib/pyerrors/rterr.html	module src/pylib/pyerrors/rterr		0
+nim	RuntimeError	pylib/pyerrors/rterr.html#RuntimeError	object RuntimeError		3
+nim	NotImplementedError	pylib/pyerrors/rterr.html#NotImplementedError	object NotImplementedError		4

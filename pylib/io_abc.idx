@@ -1,0 +1,15 @@
+nimTitle	io_abc	pylib/io_abc.html	module src/pylib/io_abc		0
+nim	fspath	pylib/io_abc.html#fspath,string	proc fspath(s: string): PyStr		6
+nim	fspath	pylib/io_abc.html#fspath,char	proc fspath(c: char): PyStr		7
+nim	PathLike	pylib/io_abc.html#PathLike	type PathLike		11
+nim	CanIOOpenT	pylib/io_abc.html#CanIOOpenT	type CanIOOpenT		14
+nim	mapPathLike	pylib/io_abc.html#mapPathLike.t,PathLike[T],	template mapPathLike[T](s: PathLike[T]; nimProc): T		17
+nim	mapPathLike	pylib/io_abc.html#mapPathLike.t	template mapPathLike[T](nexpr): T		20
+nim	`$`	pylib/io_abc.html#$,PathLike	proc `$`(p: PathLike): string		25
+nim	`$`	pylib/io_abc.html#$,CanIOOpenT	proc `$`(p: CanIOOpenT): string		29
+nim	pathrepr	pylib/io_abc.html#pathrepr,PathLike[PyBytes]	proc pathrepr(p: PathLike[PyBytes]): string		34
+nim	pathrepr	pylib/io_abc.html#pathrepr,PathLike[PyStr]	proc pathrepr(p: PathLike[PyStr]): string		35
+nimgrp	$	pylib/io_abc.html#$-procs-all	proc		25
+nimgrp	pathrepr	pylib/io_abc.html#pathrepr-procs-all	proc		34
+nimgrp	fspath	pylib/io_abc.html#fspath-procs-all	proc		6
+nimgrp	mappathlike	pylib/io_abc.html#mapPathLike-templates-all	template		17

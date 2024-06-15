@@ -1,0 +1,53 @@
+nimTitle	strimpl	pylib/pystring/strimpl.html	module src/pylib/pystring/strimpl		0
+nim	PyStr	pylib/pystring/strimpl.html#PyStr	type PyStr		6
+nim	StringLike	pylib/pystring/strimpl.html#StringLike	type StringLike		8
+nim	str	pylib/pystring/strimpl.html#str,PyStr	proc str(self: PyStr): PyStr		10
+nim	str	pylib/pystring/strimpl.html#str,string	proc str(object = ""): PyStr		11
+nim	str	pylib/pystring/strimpl.html#str,Rune	proc str(a: Rune): PyStr		12
+nim	str	pylib/pystring/strimpl.html#str,char	proc str(c: char): PyStr		13
+nim	str	pylib/pystring/strimpl.html#str.t,O	template str[O: object](o: O): PyStr		15
+nim	str	pylib/pystring/strimpl.html#str.t,T	template str[T](a: T): PyStr		17
+nim	`$`	pylib/pystring/strimpl.html#$	proc `$`(self: PyStr): string		30
+nim	fspath	pylib/pystring/strimpl.html#fspath	proc fspath(self: PyStr): PyStr		31
+nim	toNimStr	pylib/pystring/strimpl.html#toNimStr	proc toNimStr(self: PyStr): string		32
+nim	toNimString	pylib/pystring/strimpl.html#toNimString.c	converter toNimString(self: PyStr): string		34
+nim	toPyStr	pylib/pystring/strimpl.html#toPyStr.c,string	converter toPyStr(s: string): PyStr		35
+nim	toPyStr	pylib/pystring/strimpl.html#toPyStr.c,char	converter toPyStr(s: char): PyStr		36
+nim	toPyStr	pylib/pystring/strimpl.html#toPyStr.c,Rune	converter toPyStr(s: Rune): PyStr		37
+nim	contains	pylib/pystring/strimpl.html#contains,PyStr,char	proc contains(s: PyStr; c: char): bool		39
+nim	contains	pylib/pystring/strimpl.html#contains,PyStr,string	proc contains(s: PyStr; c: string): bool		40
+nim	contains	pylib/pystring/strimpl.html#contains,PyStr,PyStr	proc contains(s: PyStr; c: PyStr): bool		41
+nim	`==`	pylib/pystring/strimpl.html#==,,PyStr	proc `==`(self: PyStr; o: PyStr): bool		43
+nim	`==`	pylib/pystring/strimpl.html#==,,string	proc `==`(self: PyStr; o: string): bool		44
+nim	`==`	pylib/pystring/strimpl.html#==,string,	proc `==`(o: string; self: PyStr): bool		45
+nim	`+`	pylib/pystring/strimpl.html#+,,PyStr	proc `+`(self: PyStr; s: PyStr): PyStr		50
+nim	`+`	pylib/pystring/strimpl.html#+,,StringLike	proc `+`(self: PyStr; s: StringLike): PyStr		51
+nim	`+=`	pylib/pystring/strimpl.html#+=,,PyStr	proc `+=`(mself; s: PyStr)		53
+nim	`+=`	pylib/pystring/strimpl.html#+=,,char	proc `+=`(mself; s: char)		54
+nim	`+=`	pylib/pystring/strimpl.html#+=,,string	proc `+=`(mself; s: string)		55
+nim	len	pylib/pystring/strimpl.html#len	proc len(self: PyStr): int		57
+nim	len	pylib/pystring/strimpl.html#len,char	proc len(c: char): int		58
+nim	byteLen	pylib/pystring/strimpl.html#byteLen	proc byteLen(self: PyStr): int		59
+nim	runeLenAt	pylib/pystring/strimpl.html#runeLenAt,,Natural	proc runeLenAt(self: PyStr; i: Natural): int		60
+nim	substr	pylib/pystring/strimpl.html#substr,,int,int	proc substr(self: PyStr; start, last: int): PyStr		61
+nim	runeAtPos	pylib/pystring/strimpl.html#runeAtPos,,int	proc runeAtPos(self: PyStr; pos: int): Rune		62
+nim	getChar	pylib/pystring/strimpl.html#getChar,,Natural	proc getChar(self: PyStr; i: Natural): char		72
+nim	`[]`	pylib/pystring/strimpl.html#[],,int	proc `[]`(self: PyStr; i: int): PyStr		73
+nim	`[]`	pylib/pystring/strimpl.html#[],,Slice[int]	proc `[]`(self: PyStr; i: Slice[int]): PyStr		87
+nim	`[]`	pylib/pystring/strimpl.html#[],,HSlice[int,BackwardsIndex]	proc `[]`(self: PyStr; i: HSlice[int, BackwardsIndex]): PyStr		93
+nim	items	pylib/pystring/strimpl.html#items.i	iterator items(self: PyStr): PyStr		96
+nim	chars	pylib/pystring/strimpl.html#chars.i	iterator chars(self: PyStr): char		100
+nim	runes	pylib/pystring/strimpl.html#runes.i	iterator runes(self: PyStr): Rune		104
+nim	`and`	pylib/pystring/strimpl.html#and.t,PyStr,PyStr	template `and`(a, b: PyStr): PyStr		109
+nim	`or`	pylib/pystring/strimpl.html#or.t,PyStr,PyStr	template `or`(a, b: PyStr): PyStr		114
+nim	`not`	pylib/pystring/strimpl.html#not.t,PyStr	template `not`(s: PyStr): bool		119
+nimgrp	contains	pylib/pystring/strimpl.html#contains-procs-all	proc		39
+nimgrp	+=	pylib/pystring/strimpl.html#+=-procs-all	proc		53
+nimgrp	len	pylib/pystring/strimpl.html#len-procs-all	proc		57
+nimgrp	str	pylib/pystring/strimpl.html#str-procs-all	proc		10
+nimgrp	==	pylib/pystring/strimpl.html#==-procs-all	proc		43
+nimgrp	+	pylib/pystring/strimpl.html#+-procs-all	proc		50
+nimgrp	[]	pylib/pystring/strimpl.html#[]-procs-all	proc		73
+nimgrp	topystr	pylib/pystring/strimpl.html#toPyStr-converters-all	converter		35
+nimgrp	str	pylib/pystring/strimpl.html#str-templates-all	template		15
+heading	Mimics Python not str -> bool.	pylib/pystring/strimpl.html#mimics-python-not-str-minusgt-booldot	 Mimics Python not str -&gt; bool.		0

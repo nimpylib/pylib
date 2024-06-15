@@ -1,0 +1,24 @@
+nimTitle	oserr	pylib/pyerrors/oserr.html	module src/pylib/pyerrors/oserr		0
+nim	FileNotFoundError	pylib/pyerrors/oserr.html#FileNotFoundError	object FileNotFoundError		14
+nim	FileExistsError	pylib/pyerrors/oserr.html#FileExistsError	object FileExistsError		15
+nim	NotADirectoryError	pylib/pyerrors/oserr.html#NotADirectoryError	object NotADirectoryError		16
+nim	IsADirectoryError	pylib/pyerrors/oserr.html#IsADirectoryError	object IsADirectoryError		17
+nim	isNotFound	pylib/pyerrors/oserr.html#isNotFound,OSErrorCode	proc isNotFound(err: OSErrorCode): bool		31
+nim	osErrorMsgWithPath	pylib/pyerrors/oserr.html#osErrorMsgWithPath.t,PathLike,OSErrorCode,	template osErrorMsgWithPath(fp: PathLike; err: OSErrorCode; osErrorMsgCb): string		35
+nim	osErrorMsgWithPath	pylib/pyerrors/oserr.html#osErrorMsgWithPath.t,PathLike,OSErrorCode	template osErrorMsgWithPath(fp: PathLike; err: OSErrorCode): string		46
+nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike,typedesc,OSErrorCode	proc raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode)		53
+nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike,typedesc,OSErrorCode,string	proc raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;\n                 additionalInfo: string)		56
+nim	raiseFileNotFoundError	pylib/pyerrors/oserr.html#raiseFileNotFoundError,PathLike	proc raiseFileNotFoundError(fp: PathLike)		62
+nim	raiseFileNotFoundError	pylib/pyerrors/oserr.html#raiseFileNotFoundError,PathLike,OSErrorCode	proc raiseFileNotFoundError(fp: PathLike; err: OSErrorCode)		67
+nim	raiseFileExistsError	pylib/pyerrors/oserr.html#raiseFileExistsError,PathLike	proc raiseFileExistsError(fp: PathLike)		106
+nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike,OSErrorCode	proc raiseExcWithPath(p: PathLike; errCode: OSErrorCode)		134
+nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike	proc raiseExcWithPath(p: PathLike)		140
+nim	pathsAsOne	pylib/pyerrors/oserr.html#pathsAsOne,PathLike[T],PathLike[T],string	proc pathsAsOne[T](a, b: PathLike[T]; sep = " -> "): string		144
+nim	raiseExcWithPath2	pylib/pyerrors/oserr.html#raiseExcWithPath2,PathLike,PathLike	proc raiseExcWithPath2(src, dst: PathLike)		149
+nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,	template tryOsOp(p: PathLike; body)		152
+nim	errnoMsg	pylib/pyerrors/oserr.html#errnoMsg,cint	proc errnoMsg(errnoCode: cint): string		167
+nim	raiseErrno	pylib/pyerrors/oserr.html#raiseErrno,string	proc raiseErrno(additionalInfo = "")		182
+nim	raiseErrnoWithPath	pylib/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T])		186
+nimgrp	raisefilenotfounderror	pylib/pyerrors/oserr.html#raiseFileNotFoundError-procs-all	proc		62
+nimgrp	raiseexcwithpath	pylib/pyerrors/oserr.html#raiseExcWithPath-procs-all	proc		53
+nimgrp	oserrormsgwithpath	pylib/pyerrors/oserr.html#osErrorMsgWithPath-templates-all	template		35

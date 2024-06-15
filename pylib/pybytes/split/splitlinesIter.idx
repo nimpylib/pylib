@@ -1,0 +1,2 @@
+nimTitle	splitlinesIter	pylib/pybytes/split/splitlinesIter.html	module src/pylib/pybytes/split/splitlinesIter		0
+nim	splitlines	pylib/pybytes/split/splitlinesIter.html#splitlines.i,PyBytes	iterator splitlines(self: PyBytes; keepends = false): PyBytes		17

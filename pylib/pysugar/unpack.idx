@@ -1,0 +1,2 @@
+nimTitle	unpack	pylib/pysugar/unpack.html	module src/pylib/pysugar/unpack		0
+nim	unpack	pylib/pysugar/unpack.html#unpack.m,untyped,varargs[untyped]	macro unpack(data: untyped; values: varargs[untyped]): untyped		4

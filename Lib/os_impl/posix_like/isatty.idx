@@ -1,0 +1,2 @@
+nimTitle	isatty	os_impl/posix_like/isatty.html	module src/pylib/Lib/os_impl/posix_like/isatty		0
+nim	isatty	os_impl/posix_like/isatty.html#isatty,int	proc isatty(fd: int): bool		11

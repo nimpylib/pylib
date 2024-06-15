@@ -1,0 +1,5 @@
+nimTitle	rsplit	pylib/pybytes/split/rsplit.html	module src/pylib/pybytes/split/rsplit		0
+nim	rsplit	pylib/pybytes/split/rsplit.html#rsplit.i,PyBytes,int	iterator rsplit(a: PyBytes; sep = None; maxsplit = -1): PyBytes		9
+nim	rsplit	pylib/pybytes/split/rsplit.html#rsplit,PyBytes,int	proc rsplit(a: PyBytes; sep = None; maxsplit = -1): PyList[PyBytes]		26
+nim	rsplit	pylib/pybytes/split/rsplit.html#rsplit,PyBytes,,int	proc rsplit(a: PyBytes; sep: PyBytes | char; maxsplit = -1): PyList[PyBytes]		37
+nimgrp	rsplit	pylib/pybytes/split/rsplit.html#rsplit-procs-all	proc		26

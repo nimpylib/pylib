@@ -1,0 +1,3 @@
+nimTitle	mathutils	pylib/builtins/private/mathutils.html	module src/pylib/builtins/private/mathutils		0
+nim	iPosCeil	pylib/builtins/private/mathutils.html#iPosCeil,float	proc iPosCeil[I: SomeInteger](x: float): I		2
+nim	rangeLen	pylib/builtins/private/mathutils.html#rangeLen,I,I,I	proc rangeLen[I](start, stop, step: I): I		9

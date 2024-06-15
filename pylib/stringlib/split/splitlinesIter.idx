@@ -1,0 +1,2 @@
+nimTitle	splitlinesIter	pylib/stringlib/split/splitlinesIter.html	module src/pylib/stringlib/split/splitlinesIter		0
+nim	splitlines	pylib/stringlib/split/splitlinesIter.html#splitlines.i,S	iterator splitlines[S](self: S; keepends = false): S		18

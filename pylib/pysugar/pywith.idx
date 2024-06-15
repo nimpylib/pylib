@@ -1,0 +1,2 @@
+nimTitle	pywith	pylib/pysugar/pywith.html	module src/pylib/pysugar/pywith		0
+nim	with	pylib/pysugar/pywith.html#with.m,varargs[untyped]	macro with(args: varargs[untyped]): untyped		17

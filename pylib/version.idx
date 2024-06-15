@@ -1,0 +1,15 @@
+nimTitle	version	pylib/version.html	module src/pylib/version		0
+nim	asVersion	pylib/version.html#asVersion.t	template asVersion(v: tuple): string		3
+nim	asVersion	pylib/version.html#asVersion.t,int,int,int	template asVersion(major, minor, patch: int): string		4
+nim	Major	pylib/version.html#Major	const Major		8
+nim	Minor	pylib/version.html#Minor	const Minor		9
+nim	Patch	pylib/version.html#Patch	const Patch		10
+nim	Version	pylib/version.html#Version	const Version		11
+nim	ReleaseLevel	pylib/version.html#ReleaseLevel	const ReleaseLevel		13
+nim	Serial	pylib/version.html#Serial	const Serial		14
+nim	PyMajor	pylib/version.html#PyMajor	const PyMajor		16
+nim	PyMinor	pylib/version.html#PyMinor	const PyMinor		17
+nim	PyPatch	pylib/version.html#PyPatch	const PyPatch		18
+nim	PyReleaseLevel	pylib/version.html#PyReleaseLevel	const PyReleaseLevel		19
+nim	PySerial	pylib/version.html#PySerial	const PySerial		20
+nimgrp	asversion	pylib/version.html#asVersion-templates-all	template		3

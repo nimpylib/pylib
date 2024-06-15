@@ -1,0 +1,14 @@
+nimTitle	walkImpl	os_impl/walkImpl.html	module src/pylib/Lib/os_impl/walkImpl		0
+nim	OnErrorCb	os_impl/walkImpl.html#OnErrorCb	type OnErrorCb		9
+nim	WalkRes	os_impl/walkImpl.html#WalkRes	type WalkRes		14
+nim	toTup	os_impl/walkImpl.html#toTup.c,WalkRes[T]	converter toTup[T](self: WalkRes[T]): WalkTup[T]		15
+nim	`[]`	os_impl/walkImpl.html#[].t,WalkRes[T],staticint	template `[]`[T](self: WalkRes[T]; i: static int): untyped		18
+nim	repr	os_impl/walkImpl.html#repr.t,WalkRes[T]	template repr[T](self: WalkRes[T]): string		25
+nim	`$`	os_impl/walkImpl.html#$.t,WalkRes[T]	template `$`[T](self: WalkRes[T]): string		33
+nim	shallIgnore	os_impl/walkImpl.html#shallIgnore	const shallIgnore		40
+nim	walk	os_impl/walkImpl.html#walk.i,PathLike[T]	iterator walk[T](top: PathLike[T]; topdown = True; onerror = shallIgnore;\n        followlinks = False): WalkRes[T]		65
+nim	walk	os_impl/walkImpl.html#walk.i,PathLike[T]_2	iterator walk[T](top: PathLike[T]; topdown = True; onerror = None; followlinks = False): WalkRes[\n    T]		156
+nim	walk	os_impl/walkImpl.html#walk,PathLike[T]	proc walk[T](top: PathLike[T]; topdown = True; onerror = shallIgnore;\n        followlinks = False): WalkIterator[T]		163
+nim	walk	os_impl/walkImpl.html#walk,PathLike[T]_2	proc walk[T](top: PathLike[T]; topdown = True; onerror = None; followlinks = False): WalkIterator[\n    T]		168
+nimgrp	walk	os_impl/walkImpl.html#walk-procs-all	proc		163
+nimgrp	walk	os_impl/walkImpl.html#walk-iterators-all	iterator		65

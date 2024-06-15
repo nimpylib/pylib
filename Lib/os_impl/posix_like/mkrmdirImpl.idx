@@ -1,0 +1,3 @@
+nimTitle	mkrmdirImpl	os_impl/posix_like/mkrmdirImpl.html	module src/pylib/Lib/os_impl/posix_like/mkrmdirImpl		0
+nim	rawRemoveDir	os_impl/posix_like/mkrmdirImpl.html#rawRemoveDir,PathLike	proc rawRemoveDir(dp: PathLike)		11
+nim	rawCreateDir	os_impl/posix_like/mkrmdirImpl.html#rawCreateDir,PathLike,int	proc rawCreateDir(dp: PathLike; mode = 0o000000000777)		26

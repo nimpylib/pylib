@@ -1,0 +1,62 @@
+nimTitle	list	_._/builtins/list.html	module src/pylib/builtins/list		0
+nim	PyList	_._/builtins/list.html#PyList	type PyList		20
+nim	`@`	_._/builtins/list.html#@,PyList[T]	proc `@`[T](ls: PyList[T]): seq[T]		28
+nim	repr	_._/builtins/list.html#repr,PyList[T: set or string or openArray]	proc repr[T: set | string | openArray](self: PyList[T]): string		30
+nim	newPyList	_._/builtins/list.html#newPyList,seq[T]	proc newPyList[T](s: seq[T]): PyList[T]		34
+nim	newPyList	_._/builtins/list.html#newPyList,int	proc newPyList[T](len = 0): PyList[T]		36
+nim	newPyListOfCap	_._/builtins/list.html#newPyListOfCap,int	proc newPyListOfCap[T](cap = 0): PyList[T]		37
+nim	items	_._/builtins/list.html#items.i,PyList[T]	iterator items[T](self: PyList[T]): T		39
+nim	len	_._/builtins/list.html#len.t,PyList	template len(self: PyList): int		43
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],int,T	proc `[]=`[T](self: var PyList[T]; idx: int; x: T)		48
+nim	`[]`	_._/builtins/list.html#[],PyList[T],int	proc `[]`[T](self: PyList[T]; idx: int): T		50
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],HSlice,openArray[T]	proc `[]=`[T](self: var PyList[T]; s: HSlice; x: openArray[T])		53
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],HSlice,PyList[T]	proc `[]=`[T](self: var PyList[T]; s: HSlice; x: PyList[T])		55
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],BackwardsIndex,T	proc `[]=`[T](self: var PyList[T]; s: BackwardsIndex; x: T)		58
+nim	list	_._/builtins/list.html#list,Iterable[T]	proc list[T](iter: Iterable[T]): PyList[T]		61
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],HSlice,Iterable[T]	proc `[]=`[T](self: var PyList[T]; s: HSlice; x: Iterable[T])		62
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],PySlice,Sequence[T]	proc `[]=`[T](self: var PyList[T]; s: PySlice; x: Sequence[T])		64
+nim	`[]=`	_._/builtins/list.html#[]=,PyList[T],PySlice,	proc `[]=`[T](self: var PyList[T]; s: PySlice; x: not Sequence[T] and Iterable[T])		77
+nim	`[]`	_._/builtins/list.html#[],PyList[T],HSlice	proc `[]`[T](self: PyList[T]; s: HSlice): PyList[T]		83
+nim	`[]`	_._/builtins/list.html#[],PyList[T],BackwardsIndex	proc `[]`[T](self: PyList[T]; s: BackwardsIndex): T		85
+nim	`[]`	_._/builtins/list.html#[],PyList[T],PySlice	proc `[]`[T](self: PyList[T]; s: PySlice): PyList[T]		88
+nim	`==`	_._/builtins/list.html#==,PyList[T],PyList[T]	proc `==`[T](self: PyList[T]; o: PyList[T]): bool		95
+nim	`==`	_._/builtins/list.html#==,PyList[T],seq[T]	proc `==`[T](self: PyList[T]; o: seq[T]): bool		96
+nim	`==`	_._/builtins/list.html#==,PyList[T],openArray[T]	proc `==`[T](self: PyList[T]; o: openArray[T]): bool		97
+nim	`==`	_._/builtins/list.html#==.t,seq[T],PyList[T]	template `==`[T](o: seq[T]; self: PyList[T]): bool		99
+nim	`==`	_._/builtins/list.html#==.t,openArray[T],PyList[T]	template `==`[T](o: openArray[T]; self: PyList[T]): bool		100
+nim	reverse	_._/builtins/list.html#reverse,PyList	proc reverse(self: var PyList)		103
+nim	append	_._/builtins/list.html#append,PyList[T],T	proc append[T](self: var PyList[T]; x: T)		105
+nim	`+=`	_._/builtins/list.html#+=,PyList[T],openArray[T]	proc `+=`[T](self: var PyList[T]; ls: openArray[T])		106
+nim	`+=`	_._/builtins/list.html#+=,PyList[T],PyList[T]	proc `+=`[T](self: var PyList[T]; ls: PyList[T])		107
+nim	pop	_._/builtins/list.html#pop,PyList[T]	proc pop[T](self: var PyList[T]): T		109
+nim	pop	_._/builtins/list.html#pop,PyList[T],int	proc pop[T](self: var PyList[T]; index: int): T		110
+nim	extend	_._/builtins/list.html#extend,PyList[T],openArray[T]	proc extend[T](self: var PyList[T]; ls: openArray[T])		116
+nim	extend	_._/builtins/list.html#extend.t,PyList[T],Iterable[T]	template extend[T](self: var PyList[T]; ls: Iterable[T])		119
+nim	insert	_._/builtins/list.html#insert,PyList[T],int,T	proc insert[T](self: var PyList[T]; idx: int; x: T)		123
+nim	delitem	_._/builtins/list.html#delitem,PyList,int	proc delitem(self: var PyList; idx: int)		129
+nim	clear	_._/builtins/list.html#clear,PyList	proc clear(self: var PyList)		132
+nim	sort	_._/builtins/list.html#sort,PyList[T]	proc sort[T](self: var PyList[T]; reverse = false)		139
+nim	sorted	_._/builtins/list.html#sorted,PyList[T]	proc sorted[T](self: PyList[T]; reverse = false): PyList[T]		143
+nim	`+`	_._/builtins/list.html#+,PyList[T],openArray[T]	proc `+`[T](self: PyList[T]; x: openArray[T]): PyList[T]		147
+nim	list	_._/builtins/list.html#list,openArray[T]	proc list[T](x: openArray[T]): PyList[T]		150
+nim	list	_._/builtins/list.html#list	proc list[T](): PyList[T]		155
+nim	`*`	_._/builtins/list.html#*,Natural,PyList[T]	proc `*`[T](n: Natural; ls: PyList[T]): PyList[T]		160
+nim	`*`	_._/builtins/list.html#*.t,PyList[T],Natural	template `*`[T](ls: PyList[T]; n: Natural): PyList[T]		164
+nim	`+`	_._/builtins/list.html#+.t,PyList[T],PyList[T]	template `+`[T](self: var PyList[T]; x: PyList[T]): PyList[T]		167
+nim	repr	_._/builtins/list.html#repr,PyList[char]	proc repr(ls: PyList[char]): string		195
+nim	repr	_._/builtins/list.html#repr.t,PyList[T]	template repr[T](ls: PyList[T]): string		198
+nim	`$`	_._/builtins/list.html#$.t,PyList[T]	template `$`[T](ls: PyList[T]): string		204
+nim	sort	_._/builtins/list.html#sort,PyList[T],proc(T)	proc sort[T, K](self: var PyList[T]; key: proc (x: T): K; reverse = false)		275
+nim	sorted	_._/builtins/list.html#sorted,Sequence[T],proc(T)	proc sorted[T, K](x: Sequence[T]; key: proc (x: T): K; reverse = false): PyList[T]		280
+nim	sorted	_._/builtins/list.html#sorted,,proc(T)	proc sorted[T, K](x: not Sequence[T] and Iterable[T]; key: proc (x: T): K;\n             reverse = false): PyList[T]		285
+nimgrp	+=	_._/builtins/list.html#+=-procs-all	proc		106
+nimgrp	newpylist	_._/builtins/list.html#newPyList-procs-all	proc		34
+nimgrp	repr	_._/builtins/list.html#repr-procs-all	proc		30
+nimgrp	[]=	_._/builtins/list.html#[]=-procs-all	proc		48
+nimgrp	sorted	_._/builtins/list.html#sorted-procs-all	proc		143
+nimgrp	sort	_._/builtins/list.html#sort-procs-all	proc		139
+nimgrp	list	_._/builtins/list.html#list-procs-all	proc		61
+nimgrp	==	_._/builtins/list.html#==-procs-all	proc		95
+nimgrp	[]	_._/builtins/list.html#[]-procs-all	proc		50
+nimgrp	pop	_._/builtins/list.html#pop-procs-all	proc		109
+nimgrp	==	_._/builtins/list.html#==-templates-all	template		99

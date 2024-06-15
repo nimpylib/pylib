@@ -1,0 +1,4 @@
+nimTitle	bytesbltins	_._/pybytes/bytesbltins.html	module src/pylib/pybytes/bytesbltins		0
+nim	reversed	_._/pybytes/bytesbltins.html#reversed,PyBytes	proc reversed(s: PyBytes): PyBytes		7
+nim	ord	_._/pybytes/bytesbltins.html#ord,PyBytes	proc ord(a: PyBytes): int		10
+nim	repr	_._/pybytes/bytesbltins.html#repr,PyBytes	proc repr(x: PyBytes): string		20

@@ -1,0 +1,82 @@
+nimTitle	meth	pylib/stringlib/meth.html	module src/pylib/stringlib/meth		0
+nim	count	pylib/stringlib/meth.html#count,S,S	proc count[S](a: S; sub: S): int		12
+nim	count	pylib/stringlib/meth.html#count,S,S,int	proc count[S](a: S; sub: S; start: int): int		16
+nim	count	pylib/stringlib/meth.html#count,S,S,int,int	proc count[S](a: S; sub: S; start = 0; end: int): int		21
+nim	startsWith	pylib/stringlib/meth.html#startsWith.t,S,char	template startsWith[S](a: S; suffix: char): bool		26
+nim	startsWith	pylib/stringlib/meth.html#startsWith.t,char,S	template startsWith[S](a: char; suffix: S): bool		28
+nim	startsWith	pylib/stringlib/meth.html#startsWith,S,Tup	proc startsWith[S; Tup: tuple](a: S; suffix: Tup): bool		30
+nim	startsWith	pylib/stringlib/meth.html#startsWith,S,Suf,int	proc startsWith[S; Suf: S | tuple](a: S; suffix: Suf; start: int): bool		35
+nim	startsWith	pylib/stringlib/meth.html#startsWith,S,Suf,int,int	proc startsWith[S; Suf: S | tuple](a: S; suffix: Suf; start, end: int): bool		42
+nim	endsWith	pylib/stringlib/meth.html#endsWith.t,S,char	template endsWith[S](a: S; suffix: char): bool		26
+nim	endsWith	pylib/stringlib/meth.html#endsWith.t,char,S	template endsWith[S](a: char; suffix: S): bool		28
+nim	endsWith	pylib/stringlib/meth.html#endsWith,S,Tup	proc endsWith[S; Tup: tuple](a: S; suffix: Tup): bool		30
+nim	endsWith	pylib/stringlib/meth.html#endsWith,S,Suf,int	proc endsWith[S; Suf: S | tuple](a: S; suffix: Suf; start: int): bool		35
+nim	endsWith	pylib/stringlib/meth.html#endsWith,S,Suf,int,int	proc endsWith[S; Suf: S | tuple](a: S; suffix: Suf; start, end: int): bool		43
+nim	find1	pylib/stringlib/meth.html#find1,S,T,int	proc find1[S; T](a: S; b: T; start = 0): int		46
+nim	find1	pylib/stringlib/meth.html#find1,S,T,int,int	proc find1[S; T](a: S; b: T; start = 0; end: int): int		54
+nim	rfind1	pylib/stringlib/meth.html#rfind1,S,T,int,int	proc rfind1[S; T](a: S; b: T; start = 0; end: int): int		64
+nim	rfind1	pylib/stringlib/meth.html#rfind1,S,T,int	proc rfind1[S; T](a: S; b: T; start = 0): int		68
+nim	find	pylib/stringlib/meth.html#find,S,T,int	proc find[S; T](a: S; b: T; start = 0): int		72
+nim	find	pylib/stringlib/meth.html#find,S,T,int,int	proc find[S; T](a: S; b: T; start = 0; end: int): int		80
+nim	rfind	pylib/stringlib/meth.html#rfind,S,T,int	proc rfind[S; T](a: S; b: T; start = 0): int		72
+nim	rfind	pylib/stringlib/meth.html#rfind,S,T,int,int	proc rfind[S; T](a: S; b: T; start = 0; end: int): int		81
+nim	index1	pylib/stringlib/meth.html#index1,S,T,int,int	proc index1[S; T](a: S; b: T; start = 0; end: int): int		86
+nim	index1	pylib/stringlib/meth.html#index1,S,T,int	proc index1[S; T](a: S; b: T; start = 0): int		89
+nim	index	pylib/stringlib/meth.html#index,S,T,int,int	proc index[S; T](a: S; b: T; start = 0; end: int): int		91
+nim	index	pylib/stringlib/meth.html#index,S,T,int	proc index[S; T](a: S; b: T; start = 0): int		94
+nim	rindex1	pylib/stringlib/meth.html#rindex1,S,T,int,int	proc rindex1[S; T](a: S; b: T; start = 0; end: int): int		97
+nim	rindex1	pylib/stringlib/meth.html#rindex1,S,T,int	proc rindex1[S; T](a: S; b: T; start = 0): int		100
+nim	rindex	pylib/stringlib/meth.html#rindex,S,T,int,int	proc rindex[S; T](a: S; b: T; start = 0; end: int): int		103
+nim	rindex	pylib/stringlib/meth.html#rindex,S,T,int	proc rindex[S; T](a: S; b: T; start = 0): int		106
+nim	isascii	pylib/stringlib/meth.html#isascii,char	proc isascii(c: char): bool		112
+nim	isascii	pylib/stringlib/meth.html#isascii,string	proc isascii(s: string): bool		113
+nim	isalpha	pylib/stringlib/meth.html#isalpha,char	proc isalpha(c: char): bool		130
+nim	isalpha	pylib/stringlib/meth.html#isalpha,string	proc isalpha(s: string): bool		133
+nim	isspace	pylib/stringlib/meth.html#isspace,char	proc isspace(c: char): bool		130
+nim	isspace	pylib/stringlib/meth.html#isspace,string	proc isspace(s: string): bool		134
+nim	isdigit	pylib/stringlib/meth.html#isdigit,char	proc isdigit(c: char): bool		130
+nim	isdigit	pylib/stringlib/meth.html#isdigit,string	proc isdigit(s: string): bool		135
+nim	isalnum	pylib/stringlib/meth.html#isalnum,char	proc isalnum(c: char): bool		130
+nim	isalnum	pylib/stringlib/meth.html#isalnum,string	proc isalnum(s: string): bool		136
+nim	allAlpha	pylib/stringlib/meth.html#allAlpha.t,typed,typed,typed,,	template allAlpha(a, isWhat, isNotWhat: typed; iter, firstItemGetter)		138
+nim	istitleImpl	pylib/stringlib/meth.html#istitleImpl.t,typed,typed,typed,,	template istitleImpl(a, isupper, islower: typed; iter, firstItemGetter)		154
+nim	center	pylib/stringlib/meth.html#center,S,int,char	proc center[S](a: S; width: int; fillchar = ' '): S		193
+nim	ljust	pylib/stringlib/meth.html#ljust,string,int,char	proc ljust(a: string; width: int; fillchar = ' '): string		198
+nim	rjust	pylib/stringlib/meth.html#rjust,string,int,char	proc rjust(a: string; width: int; fillchar = ' '): string		200
+nim	center	pylib/stringlib/meth.html#center,S,int,S	proc center[S](a: S; width: int; fillchar: S = " "): S		212
+nim	ljust	pylib/stringlib/meth.html#ljust,S,int,S	proc ljust[S](a: S; width: int; fillchar: S = " "): S		216
+nim	rjust	pylib/stringlib/meth.html#rjust,S,int,S	proc rjust[S](a: S; width: int; fillchar: S = " "): S		221
+nim	zfill	pylib/stringlib/meth.html#zfill,char,int	proc zfill(c: char; width: int): string		226
+nim	zfill	pylib/stringlib/meth.html#zfill,string,int	proc zfill(a: string; width: int): string		235
+nim	removeprefix	pylib/stringlib/meth.html#removeprefix,S,S	proc removeprefix[S](a: S; suffix: S): S		253
+nim	removesuffix	pylib/stringlib/meth.html#removesuffix,S,S	proc removesuffix[S](a: S; suffix: S): S		257
+nim	replace	pylib/stringlib/meth.html#replace,S,char,char	proc replace[S](a: S; sub, by: char): S		262
+nim	replace	pylib/stringlib/meth.html#replace,S,S,S	proc replace[S](a: S; sub, by: S): S		264
+nim	join	pylib/stringlib/meth.html#join,char,openArray[T]	proc join[T](sep: char; a: openArray[T]): string		267
+nim	join	pylib/stringlib/meth.html#join,S,openArray[T]	proc join[T, S](sep: S; a: openArray[T]): S		270
+nim	partition	pylib/stringlib/meth.html#partition,S,S	proc partition[S](a: S; sep: S): tuple[before, sep, after: S]		283
+nim	rpartition	pylib/stringlib/meth.html#rpartition,S,S	proc rpartition[S](a: S; sep: S): tuple[before, sep, after: S]		284
+nimgrp	isalnum	pylib/stringlib/meth.html#isalnum-procs-all	proc		136
+nimgrp	replace	pylib/stringlib/meth.html#replace-procs-all	proc		262
+nimgrp	rfind1	pylib/stringlib/meth.html#rfind1-procs-all	proc		64
+nimgrp	rfind	pylib/stringlib/meth.html#rfind-procs-all	proc		81
+nimgrp	ljust	pylib/stringlib/meth.html#ljust-procs-all	proc		198
+nimgrp	startswith	pylib/stringlib/meth.html#startsWith-procs-all	proc		42
+nimgrp	center	pylib/stringlib/meth.html#center-procs-all	proc		193
+nimgrp	rjust	pylib/stringlib/meth.html#rjust-procs-all	proc		200
+nimgrp	join	pylib/stringlib/meth.html#join-procs-all	proc		267
+nimgrp	index1	pylib/stringlib/meth.html#index1-procs-all	proc		86
+nimgrp	isascii	pylib/stringlib/meth.html#isascii-procs-all	proc		112
+nimgrp	isalpha	pylib/stringlib/meth.html#isalpha-procs-all	proc		133
+nimgrp	count	pylib/stringlib/meth.html#count-procs-all	proc		12
+nimgrp	rindex1	pylib/stringlib/meth.html#rindex1-procs-all	proc		97
+nimgrp	zfill	pylib/stringlib/meth.html#zfill-procs-all	proc		226
+nimgrp	isspace	pylib/stringlib/meth.html#isspace-procs-all	proc		134
+nimgrp	endswith	pylib/stringlib/meth.html#endsWith-procs-all	proc		43
+nimgrp	find1	pylib/stringlib/meth.html#find1-procs-all	proc		46
+nimgrp	index	pylib/stringlib/meth.html#index-procs-all	proc		91
+nimgrp	rindex	pylib/stringlib/meth.html#rindex-procs-all	proc		103
+nimgrp	find	pylib/stringlib/meth.html#find-procs-all	proc		80
+nimgrp	isdigit	pylib/stringlib/meth.html#isdigit-procs-all	proc		135
+nimgrp	startswith	pylib/stringlib/meth.html#startsWith-templates-all	template		42
+nimgrp	endswith	pylib/stringlib/meth.html#endsWith-templates-all	template		43

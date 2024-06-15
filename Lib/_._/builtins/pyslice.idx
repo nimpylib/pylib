@@ -1,0 +1,13 @@
+nimTitle	pyslice	_._/builtins/pyslice.html	module src/pylib/builtins/pyslice		0
+nim	PySlice1	_._/builtins/pyslice.html#PySlice1	type PySlice1		4
+nim	PySlice	_._/builtins/pyslice.html#PySlice	type PySlice		7
+nim	`==`	_._/builtins/pyslice.html#==,PySlice,PySlice	proc `==`(self: PySlice; o: PySlice): bool		10
+nim	`<`	_._/builtins/pyslice.html#<,PySlice,PySlice	proc `<`(self`gensym3: PySlice; o`gensym3: PySlice): bool		19
+nim	`<=`	_._/builtins/pyslice.html#<=,PySlice,PySlice	proc `<=`(self`gensym6: PySlice; o`gensym6: PySlice): bool		20
+nim	slice	_._/builtins/pyslice.html#slice,int,int	proc slice(start, stop: int): PySlice1		23
+nim	slice	_._/builtins/pyslice.html#slice,int,int,int	proc slice(start, stop: int; step: int): PySlice		26
+nim	slice	_._/builtins/pyslice.html#slice,int	proc slice(stop: int): PySlice1		29
+nim	toNimSlice	_._/builtins/pyslice.html#toNimSlice.c,PySlice1	converter toNimSlice(s: PySlice1): Slice[int]		31
+nim	repr	_._/builtins/pyslice.html#repr,PySlice	proc repr(self: PySlice): string		35
+nim	indices	_._/builtins/pyslice.html#indices,PySlice,int	proc indices(self: PySlice; length: int): (int, int, int)		70
+nimgrp	slice	_._/builtins/pyslice.html#slice-procs-all	proc		23

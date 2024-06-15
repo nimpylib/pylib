@@ -1,0 +1,5 @@
+nimTitle	io	_._/io.html	module src/pylib/io		0
+heading	different from Python	_._/io.html#different-from-python	  different from Python		0
+heading	open	_._/io.html#different-from-python-open	   open		0
+heading	seek	_._/io.html#different-from-python-seek	   seek		0
+heading	iter over file	_._/io.html#different-from-python-iter-over-file	   iter over file		0

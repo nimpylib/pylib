@@ -1,0 +1,3 @@
+nimTitle	formats	pylib/stringlib/formats.html	module src/pylib/stringlib/formats		0
+nim	format	pylib/stringlib/formats.html#format.t,T,string	template format[T](value: T; format_spec: string = ""): string		4
+nim	format	pylib/stringlib/formats.html#format,char,string	proc format(value: char; format_spec: string = ""): string		11

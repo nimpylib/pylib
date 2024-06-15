@@ -1,0 +1,15 @@
+nimTitle	numTypes	pylib/numTypes.html	module src/pylib/numTypes		0
+nim	Int	pylib/numTypes.html#Int	type Int		9
+nim	int	pylib/numTypes.html#int.t	template int(a: PyStr | PyBytes): Int		15
+nim	int	pylib/numTypes.html#int.t,char	template int(a: char): Int		18
+nim	int	pylib/numTypes.html#int.t,bool	template int(a: bool): Int		21
+nim	int	pylib/numTypes.html#int.t,,int	template int(x: PyStr | PyBytes; base: int): Int		55
+nim	long	pylib/numTypes.html#long.t,string	template long(a: string): BiggestInt		64
+nim	long	pylib/numTypes.html#long.t,char	template long(a: char): BiggestInt		65
+nim	long	pylib/numTypes.html#long.t,T	template long[T: SomeNumber](a: T): BiggestInt		66
+nim	long	pylib/numTypes.html#long.t,bool	template long(a: bool): int		67
+nim	float	pylib/numTypes.html#float.t	template float(a: PyStr | PyBytes): BiggestFloat		69
+nim	float	pylib/numTypes.html#float.t,bool	template float(a: bool): BiggestFloat		72
+nimgrp	int	pylib/numTypes.html#int-templates-all	template		15
+nimgrp	float	pylib/numTypes.html#float-templates-all	template		69
+nimgrp	long	pylib/numTypes.html#long-templates-all	template		64

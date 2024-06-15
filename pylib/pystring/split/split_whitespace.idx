@@ -1,0 +1,3 @@
+nimTitle	split_whitespace	pylib/pystring/split/split_whitespace.html	module src/pylib/pystring/split/split_whitespace		0
+nim	split_whitespace	pylib/pystring/split/split_whitespace.html#split_whitespace.i,PyStr,int	iterator split_whitespace(pystr: PyStr; maxsplit = -1): PyStr		5
+nim	split_whitespace	pylib/pystring/split/split_whitespace.html#split_whitespace,PyStr,int	proc split_whitespace(pystr: PyStr; maxsplit = -1): PyList[PyStr]		9

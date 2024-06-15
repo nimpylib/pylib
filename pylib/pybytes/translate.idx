@@ -1,0 +1,6 @@
+nimTitle	translate	pylib/pybytes/translate.html	module src/pylib/pybytes/translate		0
+nim	maketrans	pylib/pybytes/translate.html#maketrans,typedesc[PyBytes],PyBytes,PyBytes	proc maketrans(_: typedesc[PyBytes]; frm, to: PyBytes): PyBytes		6
+nim	translate	pylib/pybytes/translate.html#translate,PyBytes,PyBytes	proc translate(self, table: PyBytes): PyBytes		31
+nim	translate	pylib/pybytes/translate.html#translate,PyBytes,PyBytes,PyBytes	proc translate(self, table, delete: PyBytes): PyBytes		39
+nim	translate	pylib/pybytes/translate.html#translate,,NoneType,PyBytes	proc translate(self: PyBytes; table: NoneType; delete: PyBytes): PyBytes		47
+nimgrp	translate	pylib/pybytes/translate.html#translate-procs-all	proc		31

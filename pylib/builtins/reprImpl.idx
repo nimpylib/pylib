@@ -1,0 +1,3 @@
+nimTitle	reprImpl	pylib/builtins/reprImpl.html	module src/pylib/builtins/reprImpl		0
+nim	pyreprImpl	pylib/builtins/reprImpl.html#pyreprImpl,string	proc pyreprImpl(s: string): string		38
+nim	pyreprbImpl	pylib/builtins/reprImpl.html#pyreprbImpl,string	proc pyreprbImpl(s: string): string		52

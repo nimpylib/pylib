@@ -1,0 +1,4 @@
+nimTitle	pydef	pylib/pysugar/stmt/pydef.html	module src/pylib/pysugar/stmt/pydef		0
+nim	defImpl	pylib/pysugar/stmt/pydef.html#defImpl,NimNode,NimNode,PyFuncBodyProcesser	proc defImpl(signature, body: NimNode; parser: var PyFuncBodyProcesser;\n        pragmas = emptyn; deftype = ident"auto"; procType = nnkProcDef): NimNode		17
+nim	asyncImpl	pylib/pysugar/stmt/pydef.html#asyncImpl,NimNode,NimNode,PyFuncBodyProcesser	proc asyncImpl(defsign, body: NimNode; parser: var PyFuncBodyProcesser;\n          procType = nnkProcDef): NimNode		19
+nim	defAux	pylib/pysugar/stmt/pydef.html#defAux,NimNode,NimNode,PyFuncBodyProcesser	proc defAux(signature, body: NimNode; deftype = ident"untyped";\n       parser: var PyFuncBodyProcesser; procType = nnkTemplateDef;\n       pragmas = emptyn): NimNode		22

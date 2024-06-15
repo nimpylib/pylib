@@ -1,0 +1,2 @@
+nimTitle	modPow	pylib/builtins/modPow.html	module src/pylib/builtins/modPow		0
+nim	pow	pylib/builtins/modPow.html#pow,int,int,int	proc pow(base, exp, modulo: int): int		140

@@ -1,0 +1,4 @@
+nimTitle	unpack	pylib/pysugar/stmt/unpack.html	module src/pylib/pysugar/stmt/unpack		0
+nim	unpackWithLenImpl	pylib/pysugar/stmt/unpack.html#unpackWithLenImpl,NimNode,Positive	proc unpackWithLenImpl(data: NimNode; len2unpack: Positive): NimNode		11
+nim	unpackImplRec	pylib/pysugar/stmt/unpack.html#unpackImplRec.t,NimNode,NimNode,NimNode,	template unpackImplRec(data: NimNode; symbols: NimNode; res: var NimNode; receiver)		29
+nim	unpackImpl	pylib/pysugar/stmt/unpack.html#unpackImpl,NimNode,NimNode	proc unpackImpl(data: NimNode; symbols: NimNode): NimNode		85

@@ -1,0 +1,2 @@
+nimTitle	rsplit_whitespace	pylib/pybytes/split/rsplit_whitespace.html	module src/pylib/pybytes/split/rsplit_whitespace		0
+nim	rsplit_whitespace	pylib/pybytes/split/rsplit_whitespace.html#rsplit_whitespace,PyBytes,int	proc rsplit_whitespace(pystr: PyBytes; maxsplit = -1): PyList[PyBytes]		5

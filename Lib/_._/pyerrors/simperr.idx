@@ -1,0 +1,3 @@
+nimTitle	simperr	_._/pyerrors/simperr.html	module src/pylib/pyerrors/simperr		0
+nim	TypeError	_._/pyerrors/simperr.html#TypeError	object TypeError		3
+nim	SystemExit	_._/pyerrors/simperr.html#SystemExit	object SystemExit		4

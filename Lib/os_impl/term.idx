@@ -1,0 +1,3 @@
+nimTitle	term	os_impl/term.html	module src/pylib/Lib/os_impl/term		0
+nim	terminal_size	os_impl/term.html#terminal_size	tuple terminal_size		8
+nim	get_terminal_size	os_impl/term.html#get_terminal_size	proc get_terminal_size(fd = STDOUT_FILENO): terminal_size		10

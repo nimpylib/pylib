@@ -1,0 +1,3 @@
+nimTitle	rename	os_impl/posix_like/rename.html	module src/pylib/Lib/os_impl/posix_like/rename		0
+nim	rename	os_impl/posix_like/rename.html#rename,PathLike[T],PathLike[T]	proc rename[T](src, dst: PathLike[T])		18
+nim	replace	os_impl/posix_like/rename.html#replace,PathLike[T],PathLike[T]	proc replace[T](src, dst: PathLike[T])		22
