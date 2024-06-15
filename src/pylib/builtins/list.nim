@@ -164,6 +164,10 @@ func `*`*[T](n: Natural, ls: PyList[T]): PyList[T] =
 template `*`*[T](ls: PyList[T], n: Natural): PyList[T] =
   ls * n
 
+func `*=`*[T](self: var PyList[T], n: int) =
+  if n < 1: self.clear()
+  self.extend self * (n-1)
+
 template `+`*[T](self: var PyList[T], x: PyList[T]): PyList[T] =
   self.extend x
 
