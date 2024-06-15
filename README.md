@@ -180,16 +180,17 @@ Have more Macros or Templates for Python-like syntax, send [Pull Request](https:
 
 # Installation
 
-To install nimpylib, you can simply run
+To install nimpylib, for sure, you can run
 ```shell
 nimble install https://github.com/nimpylib/pylib
 ```
-or
-```shell
-git clone https://github.com/nimpylib/pylib
-cd nimpylib
-nimble install
-```
+
+Also, if your nimble `package.json` is not very out-of-date,
+(refresh-ed from official source after 2024/06/15,
+see [wiki-hisory](https://github.com/nimpylib/pylib/wiki/History#the-newer-package-url) for details),
+simple run `nimble install pylib` and you get it!
+
+Otherwise, simply first run `nimble refresh` will refresh your `package.json`
 
 Uninstall with `nimble uninstall pylib`.
 
