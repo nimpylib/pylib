@@ -1,0 +1,36 @@
+name: docs
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches:
+      - master
+env:
+  nim-version: 'stable'
+  deploy-dir: .gh-pages
+  lib-deploy-dir: .gh-pages/Lib
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache nimble
+      id: cache-nimble
+      uses: actions/cache@v2
+      with:
+          path: ~/.nimble
+          key: ${{ runner.os }}-nimble
+    - uses: jiro4989/setup-nim-action@v1
+      with:
+        nim-version: ${{ env.nim-version }}
+    - name: genDoc
+      run: nimble testDoc --index:on --project --git.url:https://github.com/${{ github.repository }} --git.commit:master  --outdir:${{ env.deploy-dir }}
+    - name: genLibDoc
+      run: nimble testLibDoc --outdir:${{ env.lib-deploy-dir }}
+    - name: "Copy to index.html"
+      run: cp ${{ env.deploy-dir }}/${{ github.event.repository.name }}.html ${{ env.deploy-dir }}/index.html
+    - name: Deploy documents
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ env.deploy-dir }}

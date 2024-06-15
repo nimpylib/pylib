@@ -21,19 +21,44 @@ task testC, "Test C":
   exec "nim r --experimental:strictFuncs --mm:orc tests/tester"
 
 import std/os
-task testDoc, "Test doc-gen and runnableExamples":
-  var arg = "pylib.nim"
+func getArgs(taskName: string): seq[string] =
+  ## cmdargs: 1 2 3 4 5 -> 1 4 3 2 5
+  var rargs: seq[string]
   let argn = paramCount()
-  if argn > 1:
-    let a1 = paramStr argn-1
-    if a1 == "e" or a1 == "testDoc":
-      arg = paramStr argn
-  exec "nim doc --project --outdir:docs " & srcDir / arg
+  for i in countdown(argn, 0):
+    let arg = paramStr i
+    if arg == taskName:
+      break
+    rargs.add arg
+  if rargs.len > 1:
+    swap rargs[^1], rargs[0] # the file must be the last, others' order don't matter
+  return rargs
 
-task testLibDoc, "Test doc-gen and runnableExamples":
+func getSArg(taskName: string): string = quoteShellCommand getArgs taskName
+
+func getHandledArg(taskName: string, def_arg: string): string =
+  ## the last param can be an arg, if given,
+  ##
+  ## def_arg is used when the last is not arg or is "ALL"
+  var args = getArgs taskName
+  if args.len == 0:
+    return
+  let lastArg = args[^1]
+  if lastArg[0] == '-': args.add def_arg
+  elif lastArg == "ALL": args[^1] = def_arg
+  # else, the last shall be a nim file
+  result = quoteShellCommand args
+
+task testDoc, "cmdargs: if the last is arg: " & 
+    "ALL: gen for all(default); else: a nim file":
+  let def_arg = srcDir / "pylib.nim"
+  let sargs = getHandledArg("testDoc", def_arg)
+  exec "nim doc --project --outdir:docs " & sargs
+
+task testLibDoc, "Test doc-gen and runnableExamples, can pass several args":
   let libDir = srcDir / "pylib/Lib"
-  #for f in walkFiles libDir/"*.nim":  # walkFiles not support nims
   let nimSuf = ".nim"
+  let args = getSArg "testLibDoc"
   for t in walkDir libDir:
     if t.kind in {pcDir, pcLinkToDir}: continue
     let fp = t.path
@@ -41,13 +66,19 @@ task testLibDoc, "Test doc-gen and runnableExamples":
     if fp.endsWith nimSuf:
       if (fp[0..(fp.len - nimSuf.len-1)] & "_impl").dirExists:
         cmd.add " --project"
-      exec cmd & " --outdir:docs/Lib " & fp
-  
-task test, "Runs the test suite":
+      exec cmd & " --outdir:docs/Lib " & args & ' ' & fp
+
+task testDocAll, "Test doc and Lib's doc":
+  testDocTask()
+  testLibDocTask()
+
+task testBackends, "Test C, Js, ..":
   # Test C
   testCTask()
   # Test JS
   testJsTask()
+
+task test, "Runs the test suite":
+  testBackendsTask()
   # Test all runnableExamples
-  testDocTask()
-  testLibDocTask()
+  testDocAllTask()
