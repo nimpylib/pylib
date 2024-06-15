@@ -3,11 +3,11 @@
 [![C Test](https://github.com/nimpylib/pylib/workflows/testC/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/testC.yml)
 [![JS Test](https://github.com/nimpylib/pylib/workflows/testJs/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/testJs.yml)
 [![Docs](https://github.com/nimpylib/pylib/workflows/docs/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/docs.yml)
-![](https://img.shields.io/github/stars/litlighilit/nimpylib?style=flat "Star NimPylib on GitHub!")
 ![](https://img.shields.io/github/languages/code-size/litlighilit/nimpylib?style=flat)
-[![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/issues)
-[![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/pulls)
 [![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/commits/)
+<!--![](https://img.shields.io/github/stars/litlighilit/nimpylib?style=flat "Star NimPylib on GitHub!")
+[![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/issues)
+[![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/pulls)-->
 
 > Originating from a fork of [Yardanico/nimpylib](https://github.com/Yardanico/nimpylib), which was not maintained since 2021 and is 404 since 2024. This is no longer a simple fork with some improvement, but with great features.
 
@@ -328,9 +328,3 @@ $ nimble test
 [OK] set
 [OK] bytearray
 ```
-
-<!-- too small to show now
-#### Stats
-
-![Star nimpylib on GitHub]( "Star NimPylib on GitHub!")
--->
