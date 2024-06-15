@@ -1,15 +1,15 @@
 # NimPylib
 
-[![C Test](https://github.com/litlighilit/nimpylib/workflows/testC/badge.svg)](https://github.com/litlighilit/nimpylib/actions/https://github.com/nimpylib/pylib/actions/workflows/testC.yml)
-[![JS Test](https://github.com/litlighilit/nimpylib/workflows/testJs/badge.svg)](https://github.com/litlighilit/nimpylib/actions/https://github.com/nimpylib/pylib/actions/workflows/testJs.yml)
-[![Docs](https://github.com/litlighilit/nimpylib/workflows/docs/badge.svg)](https://github.com/litlighilit/nimpylib/actions/https://github.com/nimpylib/pylib/actions/workflows/docs.yml)
+[![C Test](https://github.com/nimpylib/pylib/workflows/testC/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/testC.yml)
+[![JS Test](https://github.com/nimpylib/pylib/workflows/testJs/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/testJs.yml)
+[![Docs](https://github.com/nimpylib/pylib/workflows/docs/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/docs.yml)
 ![](https://img.shields.io/github/stars/litlighilit/nimpylib?style=flat "Star NimPylib on GitHub!")
 ![](https://img.shields.io/github/languages/code-size/litlighilit/nimpylib?style=flat)
-[![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/issues)
-[![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/pulls)
-[![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/commits/)
+[![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/issues)
+[![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/pulls)
+[![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/commits/)
 
-> Originating from a fork of https://github.com/Yardanico/nimpylib, which is announced to be not maintained since 2021. This is no longer a simple fork with some simple improvement, but with great features.
+> Originating from a fork of [Yardanico/nimpylib](https://github.com/Yardanico/nimpylib), which is announced to be not maintained since 2021 and is 404 since 2024. This is no longer a simple fork with some simple improvement, but with great features.
 
 Nimpylib is a collection of Python-like operators/functions and libraries (<del>syntax sugar</del> no longer just syntax sugar).
 It can help you to translate your Python program to Nim,
@@ -171,18 +171,18 @@ print(e.stopit(5))
 
 Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
 
-Check the [Examples folder](https://github.com/litlighilit/nimpylib/tree/master/examples) for more examples.
-Have more Macros or Templates for Python-like syntax, send [Pull Request](https://github.com/litlighilit/nimpylib/pulls).
+Check the [Examples folder](https://github.com/nimpylib/pylib/tree/master/examples) for more examples.
+Have more Macros or Templates for Python-like syntax, send [Pull Request](https://github.com/nimpylib/pylib/pulls).
 
 # Installation
 
 To install nimpylib, you can simply run
 ```shell
-nimble install https://github.com/litlighilit/nimpylib
+nimble install https://github.com/nimpylib/pylib
 ```
 or
 ```shell
-git clone https://github.com/litlighilit/nimpylib
+git clone https://github.com/nimpylib/pylib
 cd nimpylib
 nimble install
 ```
