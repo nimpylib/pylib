@@ -1,4 +1,4 @@
-name: testJS
+name: testJs
 on: [push, pull_request]
 env:
   nim-version: 'stable'

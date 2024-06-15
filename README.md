@@ -1,7 +1,8 @@
 # NimPylib
 
-[![Build status](https://github.com/litlighilit/nimpylib/workflows/Build/badge.svg)](https://github.com/litlighilit/nimpylib/actions)
-![](https://img.shields.io/github/languages/top/litlighilit/nimpylib?style=flat)
+[![C Test](https://github.com/litlighilit/nimpylib/workflows/testC/badge.svg)](https://github.com/litlighilit/nimpylib/actions/https://github.com/nimpylib/pylib/actions/workflows/testC.yml)
+[![JS Test](https://github.com/litlighilit/nimpylib/workflows/testJs/badge.svg)](https://github.com/litlighilit/nimpylib/actions/https://github.com/nimpylib/pylib/actions/workflows/testJs.yml)
+[![Docs](https://github.com/litlighilit/nimpylib/workflows/docs/badge.svg)](https://github.com/litlighilit/nimpylib/actions/https://github.com/nimpylib/pylib/actions/workflows/docs.yml)
 ![](https://img.shields.io/github/stars/litlighilit/nimpylib?style=flat "Star NimPylib on GitHub!")
 ![](https://img.shields.io/github/languages/code-size/litlighilit/nimpylib?style=flat)
 [![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/litlighilit/nimpylib/issues)
