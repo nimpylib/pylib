@@ -71,23 +71,23 @@ func from_float*(typ: typedesc[PyFraction], flt: float): PyFraction =
 func Fraction*(numerator = 0, denominator = 1): PyFraction =
   toPyFraction initRational(num=numerator, den=denominator)
 
-func parseIntFraction*(res: var Rational[int], str: string): bool =
-  let nstr = str.strip()
+func parseIntFraction(res: var Rational[int], str: string): bool =
   let idx = str.find '/'
   if idx == -1: return false
-  res.num = parseInt nstr[0..<idx]
-  res.den = parseInt nstr[(idx+1)..^1]
+  res.num = parseInt str[0..<idx]
+  res.den = parseInt str[(idx+1)..^1]
   res.reduce()
   result = true
 
 func Fraction*(str: string): PyFraction =
+  let nstr = str.strip()
   var ra: Rational[int]
   if ra.parseIntFraction str:
     toPyFraction ra
   elif '.' notin str:
-    Fraction str.strip().parseInt
+    Fraction nstr.parseInt
   else:
-    Fraction str.parseFloat
+    Fraction nstr.parseFloat
 
 wrapBinary `//`, floorDiv, FractionInt
 
