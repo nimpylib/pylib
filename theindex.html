@@ -339,6 +339,8 @@
 <dt><a name="%60%40%60" href="#%60%40%60"><span>`@`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="list: proc `@`[T](ls: PyList[T]): seq[T]" href="pylib/builtins/list.html#%40%2CPyList%5BT%5D">list: proc `@`[T](ls: PyList[T]): seq[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="bytesimpl: proc `@`(self: PyBytes): seq[char]" href="pylib/pybytes/bytesimpl.html#%40%2CPyBytes">bytesimpl: proc `@`(self: PyBytes): seq[char]</a></li>
           </ul></dd>
 <dt><a name="%60%5B%5D%3D%60" href="#%60%5B%5D%3D%60"><span>`[]=`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -502,6 +504,10 @@
           <li><a class="reference external"
           data-doc-search-tag="strbltins: template ascii(a: untyped): PyStr" href="pylib/pystring/strbltins.html#ascii.t%2Cuntyped">strbltins: template ascii(a: untyped): PyStr</a></li>
           </ul></dd>
+<dt><a name="as_integer_ratio" href="#as_integer_ratio"><span>as_integer_ratio:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="numTypes: template as_integer_ratio(self: NimInt): (NimInt, NimInt)" href="pylib/numTypes.html#as_integer_ratio.t%2CNimInt">numTypes: template as_integer_ratio(self: NimInt): (NimInt, NimInt)</a></li>
+          </ul></dd>
 <dt><a name="asVersion" href="#asVersion"><span>asVersion:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="version: template asVersion(v: tuple): string" href="pylib/version.html#asVersion.t">version: template asVersion(v: tuple): string</a></li>
@@ -527,6 +533,10 @@
 <dt><a name="bin" href="#bin"><span>bin:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="strbltins: proc bin(a`gensym6: SomeInteger): PyStr" href="pylib/pystring/strbltins.html#bin%2CSomeInteger">strbltins: proc bin(a`gensym6: SomeInteger): PyStr</a></li>
+          </ul></dd>
+<dt><a name="bit_length" href="#bit_length"><span>bit_length:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="numTypes: template bit_length(self: NimInt): NimInt" href="pylib/numTypes.html#bit_length.t%2CNimInt">numTypes: template bit_length(self: NimInt): NimInt</a></li>
           </ul></dd>
 <dt><a name="bool" href="#bool"><span>bool:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -588,7 +598,9 @@
           <li><a class="reference external"
           data-doc-search-tag="bytesimpl: proc bytes(x: Iterable[int]): PyBytes" href="pylib/pybytes/bytesimpl.html#bytes%2CIterable%5Bint%5D">bytesimpl: proc bytes(x: Iterable[int]): PyBytes</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="bytesimpl: proc bytes(a: openArray[char]): PyBytes" href="pylib/pybytes/bytesimpl.html#bytes%2CopenArray%5Bchar%5D">bytesimpl: proc bytes(a: openArray[char]): PyBytes</a></li>
+          data-doc-search-tag="bytesimpl: proc bytes(s: openArray[char]): PyBytes" href="pylib/pybytes/bytesimpl.html#bytes%2CopenArray%5Bchar%5D">bytesimpl: proc bytes(s: openArray[char]): PyBytes</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="bytesimpl: proc bytes(a: openArray[char]): PyBytes" href="pylib/pybytes/bytesimpl.html#bytes%2CopenArray%5Bchar%5D_2">bytesimpl: proc bytes(a: openArray[char]): PyBytes</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bytesimpl: proc bytes(s: string): PyBytes" href="pylib/pybytes/bytesimpl.html#bytes%2Cstring">bytesimpl: proc bytes(s: string): PyBytes</a></li>
           <li><a class="reference external"
@@ -687,6 +699,8 @@
 <dt><a name="conjugate" href="#conjugate"><span>conjugate:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="complex: proc conjugate[T](z: PyComplex[T]): PyComplex[T]" href="pylib/builtins/complex.html#conjugate%2CPyComplex%5BT%5D">complex: proc conjugate[T](z: PyComplex[T]): PyComplex[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="numTypes: template conjugate(self: NimInt): NimInt" href="pylib/numTypes.html#conjugate.t%2CNimInt">numTypes: template conjugate(self: NimInt): NimInt</a></li>
           </ul></dd>
 <dt><a name="consumeDecorator" href="#consumeDecorator"><span>consumeDecorator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1150,19 +1164,15 @@
           <li><a class="reference external"
           data-doc-search-tag="pybytearray: proc insert(mself: PyByteArray; i: int; val: int)" href="pylib/pybytearray.html#insert%2C%2Cint%2Cint">pybytearray: proc insert(mself: PyByteArray; i: int; val: int)</a></li>
           </ul></dd>
-<dt><a name="Int" href="#Int"><span>Int:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="numTypes: type Int" href="pylib/numTypes.html#Int">numTypes: type Int</a></li>
-          </ul></dd>
 <dt><a name="int" href="#int"><span>int:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="numTypes: template int(a: PyStr | PyBytes): Int" href="pylib/numTypes.html#int.t">numTypes: template int(a: PyStr | PyBytes): Int</a></li>
+          data-doc-search-tag="numTypes: template int(a: PyStr | PyBytes): NimInt" href="pylib/numTypes.html#int.t">numTypes: template int(a: PyStr | PyBytes): NimInt</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="numTypes: template int(x: PyStr | PyBytes; base: int): Int" href="pylib/numTypes.html#int.t%2C%2Cint">numTypes: template int(x: PyStr | PyBytes; base: int): Int</a></li>
+          data-doc-search-tag="numTypes: template int(x: PyStr | PyBytes; base: int): NimInt" href="pylib/numTypes.html#int.t%2C%2Cint">numTypes: template int(x: PyStr | PyBytes; base: int): NimInt</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="numTypes: template int(a: bool): Int" href="pylib/numTypes.html#int.t%2Cbool">numTypes: template int(a: bool): Int</a></li>
+          data-doc-search-tag="numTypes: template int(a: bool): NimInt" href="pylib/numTypes.html#int.t%2Cbool">numTypes: template int(a: bool): NimInt</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="numTypes: template int(a: char): Int" href="pylib/numTypes.html#int.t%2Cchar">numTypes: template int(a: char): Int</a></li>
+          data-doc-search-tag="numTypes: template int(a: char): NimInt" href="pylib/numTypes.html#int.t%2Cchar">numTypes: template int(a: char): NimInt</a></li>
           </ul></dd>
 <dt><a name="intersection" href="#intersection"><span>intersection:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1404,7 +1414,9 @@
           <li><a class="reference external"
           data-doc-search-tag="list: proc list[T](iter: Iterable[T]): PyList[T]" href="pylib/builtins/list.html#list%2CIterable%5BT%5D">list: proc list[T](iter: Iterable[T]): PyList[T]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="list: proc list[T](x: openArray[T]): PyList[T]" href="pylib/builtins/list.html#list%2CopenArray%5BT%5D">list: proc list[T](x: openArray[T]): PyList[T]</a></li>
+          data-doc-search-tag="list: proc list[T](a: openArray[T]): PyList[T]" href="pylib/builtins/list.html#list%2CopenArray%5BT%5D">list: proc list[T](a: openArray[T]): PyList[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list: proc list[T](x: seq[T]): PyList[T]" href="pylib/builtins/list.html#list%2Cseq%5BT%5D">list: proc list[T](x: seq[T]): PyList[T]</a></li>
           </ul></dd>
 <dt><a name="ljust" href="#ljust"><span>ljust:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1500,6 +1512,10 @@
 <li><a class="reference external"
           data-doc-search-tag="version: const Minor" href="pylib/version.html#Minor">version: const Minor</a></li>
           </ul></dd>
+<dt><a name="mitems" href="#mitems"><span>mitems:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="list: iterator mitems[T](self: PyList[T]): var T" href="pylib/builtins/list.html#mitems.i%2CPyList%5BT%5D">list: iterator mitems[T](self: PyList[T]): var T</a></li>
+          </ul></dd>
 <dt><a name="MutableSequence" href="#MutableSequence"><span>MutableSequence:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="collections_abc: type MutableSequence" href="pylib/collections_abc.html#MutableSequence">collections_abc: type MutableSequence</a></li>
@@ -1540,6 +1556,8 @@
 <li><a class="reference external"
           data-doc-search-tag="list: proc newPyList[T](len = 0): PyList[T]" href="pylib/builtins/list.html#newPyList%2Cint">list: proc newPyList[T](len = 0): PyList[T]</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="list: proc newPyList[T](a: openArray[T]): PyList[T]" href="pylib/builtins/list.html#newPyList%2CopenArray%5BT%5D">list: proc newPyList[T](a: openArray[T]): PyList[T]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="list: proc newPyList[T](s: seq[T]): PyList[T]" href="pylib/builtins/list.html#newPyList%2Cseq%5BT%5D">list: proc newPyList[T](s: seq[T]): PyList[T]</a></li>
           </ul></dd>
 <dt><a name="newPyListOfCap" href="#newPyListOfCap"><span>newPyListOfCap:</span></a></dt><dd><ul class="simple">
@@ -1549,6 +1567,14 @@
 <dt><a name="next" href="#next"><span>next:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="iter_next: proc next[T](self: PyIterator[T]): T" href="pylib/builtins/iter_next.html#next%2CPyIterator%5BT%5D">iter_next: proc next[T](self: PyIterator[T]): T</a></li>
+          </ul></dd>
+<dt><a name="NimInt" href="#NimInt"><span>NimInt:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="numTypes: type NimInt" href="pylib/numTypes.html#NimInt">numTypes: type NimInt</a></li>
+          </ul></dd>
+<dt><a name="nimint" href="#nimint"><span>nimint:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="numTypes: template nimint(a): NimInt" href="pylib/numTypes.html#nimint.t">numTypes: template nimint(a): NimInt</a></li>
           </ul></dd>
 <dt><a name="noEmptySep" href="#noEmptySep"><span>noEmptySep:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2276,6 +2302,10 @@
 <li><a class="reference external"
           data-doc-search-tag="dict: proc setdefault[K, V](self: PyDict[K, V]; key: K; default = V.default)" href="pylib/builtins/dict.html#setdefault%2CPyDict%5BK%2CV%5D%2CK">dict: proc setdefault[K, V](self: PyDict[K, V]; key: K; default = V.default)</a></li>
           </ul></dd>
+<dt><a name="setLen" href="#setLen"><span>setLen:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="list: proc setLen(self: PyList; len: Natural)" href="pylib/builtins/list.html#setLen%2CPyList%2CNatural">list: proc setLen(self: PyList; len: Natural)</a></li>
+          </ul></dd>
 <dt><a name="Sized" href="#Sized"><span>Sized:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="collections_abc: type Sized" href="pylib/collections_abc.html#Sized">collections_abc: type Sized</a></li>
@@ -2479,6 +2509,10 @@
 <dt><a name="toBool" href="#toBool"><span>toBool:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="pybool: template toBool[T](arg: T): bool" href="pylib/pybool.html#toBool.t%2CT">pybool: template toBool[T](arg: T): bool</a></li>
+          </ul></dd>
+<dt><a name="to_bytes" href="#to_bytes"><span>to_bytes:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="numTypes: proc to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes" href="pylib/numTypes.html#to_bytes%2C%2Cint%2CPyStr">numTypes: proc to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes</a></li>
           </ul></dd>
 <dt><a name="tonim" href="#tonim"><span>tonim:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2700,7 +2734,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-15 15:49:23 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-16 14:46:02 UTC</small>
       </div>
     </div>
   </div>

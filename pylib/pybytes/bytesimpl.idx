@@ -2,41 +2,43 @@ nimTitle	bytesimpl	pylib/pybytes/bytesimpl.html	module src/pylib/pybytes/bytesim
 nim	PyBytes	pylib/pybytes/bytesimpl.html#PyBytes	type PyBytes		5
 nim	bytes	pylib/pybytes/bytesimpl.html#bytes	proc bytes(): PyBytes		7
 nim	bytes	pylib/pybytes/bytesimpl.html#bytes,string	proc bytes(s: string): PyBytes		8
-nim	bytes	pylib/pybytes/bytesimpl.html#bytes,char	proc bytes(c: char): PyBytes		11
-nim	bytes	pylib/pybytes/bytesimpl.html#bytes,int	proc bytes(nLen: int): PyBytes		13
-nim	bytes	pylib/pybytes/bytesimpl.html#bytes,Iterable[int]	proc bytes(x: Iterable[int]): PyBytes		24
-nim	bytes	pylib/pybytes/bytesimpl.html#bytes,Iterable[char]	proc bytes(x: Iterable[char]): PyBytes		28
-nim	bytes	pylib/pybytes/bytesimpl.html#bytes_2	proc bytes(self: PyBytes): PyBytes		33
-nim	bytes	pylib/pybytes/bytesimpl.html#bytes,openArray[char]	proc bytes(a: openArray[char]): PyBytes		35
-nim	pybytes	pylib/pybytes/bytesimpl.html#pybytes.t,T	template pybytes[T](x: T): PyBytes		38
-nim	`$`	pylib/pybytes/bytesimpl.html#$	proc `$`(self: PyBytes): string		42
-nim	fspath	pylib/pybytes/bytesimpl.html#fspath	proc fspath(self: PyBytes): PyBytes		43
-nim	toNimString	pylib/pybytes/bytesimpl.html#toNimString.c	converter toNimString(self: PyBytes): string		44
-nim	`==`	pylib/pybytes/bytesimpl.html#==,,PyBytes	proc `==`(self: PyBytes; o: PyBytes): bool		48
-nim	`+`	pylib/pybytes/bytesimpl.html#+,,PyBytes	proc `+`(self: PyBytes; o: PyBytes): PyBytes		54
-nim	`+`	pylib/pybytes/bytesimpl.html#+,,string	proc `+`(self: PyBytes; o: string): PyBytes		55
-nim	`+`	pylib/pybytes/bytesimpl.html#+,,char	proc `+`(self: PyBytes; o: char): PyBytes		56
-nim	`+`	pylib/pybytes/bytesimpl.html#+,string,	proc `+`(o: string; self: PyBytes): PyBytes		58
-nim	`+`	pylib/pybytes/bytesimpl.html#+,char,	proc `+`(o: char; self: PyBytes): PyBytes		59
-nim	`+=`	pylib/pybytes/bytesimpl.html#+=,,PyBytes	proc `+=`(mself; s: PyBytes)		61
-nim	`+=`	pylib/pybytes/bytesimpl.html#+=,,char	proc `+=`(mself; s: char)		62
-nim	`+=`	pylib/pybytes/bytesimpl.html#+=,,string	proc `+=`(mself; s: string)		63
-nim	len	pylib/pybytes/bytesimpl.html#len	proc len(self: PyBytes): int		66
-nim	byteLen	pylib/pybytes/bytesimpl.html#byteLen	proc byteLen(self: PyBytes): int		67
-nim	substr	pylib/pybytes/bytesimpl.html#substr,,int,int	proc substr(self: PyBytes; start, last: int): PyBytes		69
-nim	substr	pylib/pybytes/bytesimpl.html#substr,,int	proc substr(self: PyBytes; start: int): PyBytes		70
-nim	getChar	pylib/pybytes/bytesimpl.html#getChar,,int	proc getChar(self: PyBytes; i: int): char		72
-nim	hasChar	pylib/pybytes/bytesimpl.html#hasChar,PyBytes,char	proc hasChar(a: PyBytes; o: char): bool		74
-nim	`[]`	pylib/pybytes/bytesimpl.html#[],,int	proc `[]`(self: PyBytes; i: int): int		77
-nim	`[]`	pylib/pybytes/bytesimpl.html#[],,Slice[int]	proc `[]`(self: PyBytes; i: Slice[int]): PyBytes		81
-nim	`[]`	pylib/pybytes/bytesimpl.html#[],,HSlice[int,BackwardsIndex]	proc `[]`(self: PyBytes; i: HSlice[int, BackwardsIndex]): PyBytes		87
-nim	chars	pylib/pybytes/bytesimpl.html#chars.i	iterator chars(self: PyBytes): char		90
-nim	items	pylib/pybytes/bytesimpl.html#items.i	iterator items(self: PyBytes): int		95
-nim	`or`	pylib/pybytes/bytesimpl.html#or.t,PyBytes,PyBytes	template `or`(a, b: PyBytes): PyBytes		99
-nim	`not`	pylib/pybytes/bytesimpl.html#not.t,PyBytes	template `not`(s: PyBytes): bool		104
-nimgrp	+=	pylib/pybytes/bytesimpl.html#+=-procs-all	proc		61
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes,openArray[char]	proc bytes(s: openArray[char]): PyBytes		11
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes,char	proc bytes(c: char): PyBytes		20
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes,int	proc bytes(nLen: int): PyBytes		22
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes,Iterable[int]	proc bytes(x: Iterable[int]): PyBytes		33
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes,Iterable[char]	proc bytes(x: Iterable[char]): PyBytes		37
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes_2	proc bytes(self: PyBytes): PyBytes		42
+nim	bytes	pylib/pybytes/bytesimpl.html#bytes,openArray[char]_2	proc bytes(a: openArray[char]): PyBytes		44
+nim	pybytes	pylib/pybytes/bytesimpl.html#pybytes.t,T	template pybytes[T](x: T): PyBytes		47
+nim	`$`	pylib/pybytes/bytesimpl.html#$	proc `$`(self: PyBytes): string		51
+nim	fspath	pylib/pybytes/bytesimpl.html#fspath	proc fspath(self: PyBytes): PyBytes		52
+nim	toNimString	pylib/pybytes/bytesimpl.html#toNimString.c	converter toNimString(self: PyBytes): string		53
+nim	`==`	pylib/pybytes/bytesimpl.html#==,,PyBytes	proc `==`(self: PyBytes; o: PyBytes): bool		57
+nim	`+`	pylib/pybytes/bytesimpl.html#+,,PyBytes	proc `+`(self: PyBytes; o: PyBytes): PyBytes		63
+nim	`+`	pylib/pybytes/bytesimpl.html#+,,string	proc `+`(self: PyBytes; o: string): PyBytes		64
+nim	`+`	pylib/pybytes/bytesimpl.html#+,,char	proc `+`(self: PyBytes; o: char): PyBytes		65
+nim	`+`	pylib/pybytes/bytesimpl.html#+,string,	proc `+`(o: string; self: PyBytes): PyBytes		67
+nim	`+`	pylib/pybytes/bytesimpl.html#+,char,	proc `+`(o: char; self: PyBytes): PyBytes		68
+nim	`+=`	pylib/pybytes/bytesimpl.html#+=,,PyBytes	proc `+=`(mself; s: PyBytes)		70
+nim	`+=`	pylib/pybytes/bytesimpl.html#+=,,char	proc `+=`(mself; s: char)		71
+nim	`+=`	pylib/pybytes/bytesimpl.html#+=,,string	proc `+=`(mself; s: string)		72
+nim	len	pylib/pybytes/bytesimpl.html#len	proc len(self: PyBytes): int		75
+nim	byteLen	pylib/pybytes/bytesimpl.html#byteLen	proc byteLen(self: PyBytes): int		76
+nim	substr	pylib/pybytes/bytesimpl.html#substr,,int,int	proc substr(self: PyBytes; start, last: int): PyBytes		78
+nim	substr	pylib/pybytes/bytesimpl.html#substr,,int	proc substr(self: PyBytes; start: int): PyBytes		79
+nim	getChar	pylib/pybytes/bytesimpl.html#getChar,,int	proc getChar(self: PyBytes; i: int): char		81
+nim	hasChar	pylib/pybytes/bytesimpl.html#hasChar,PyBytes,char	proc hasChar(a: PyBytes; o: char): bool		83
+nim	`[]`	pylib/pybytes/bytesimpl.html#[],,int	proc `[]`(self: PyBytes; i: int): int		86
+nim	`[]`	pylib/pybytes/bytesimpl.html#[],,Slice[int]	proc `[]`(self: PyBytes; i: Slice[int]): PyBytes		90
+nim	`[]`	pylib/pybytes/bytesimpl.html#[],,HSlice[int,BackwardsIndex]	proc `[]`(self: PyBytes; i: HSlice[int, BackwardsIndex]): PyBytes		96
+nim	chars	pylib/pybytes/bytesimpl.html#chars.i	iterator chars(self: PyBytes): char		99
+nim	items	pylib/pybytes/bytesimpl.html#items.i	iterator items(self: PyBytes): int		104
+nim	`@`	pylib/pybytes/bytesimpl.html#@,PyBytes	proc `@`(self: PyBytes): seq[char]		108
+nim	`or`	pylib/pybytes/bytesimpl.html#or.t,PyBytes,PyBytes	template `or`(a, b: PyBytes): PyBytes		122
+nim	`not`	pylib/pybytes/bytesimpl.html#not.t,PyBytes	template `not`(s: PyBytes): bool		127
+nimgrp	+=	pylib/pybytes/bytesimpl.html#+=-procs-all	proc		70
 nimgrp	bytes	pylib/pybytes/bytesimpl.html#bytes-procs-all	proc		7
-nimgrp	substr	pylib/pybytes/bytesimpl.html#substr-procs-all	proc		69
-nimgrp	+	pylib/pybytes/bytesimpl.html#+-procs-all	proc		54
-nimgrp	[]	pylib/pybytes/bytesimpl.html#[]-procs-all	proc		77
+nimgrp	substr	pylib/pybytes/bytesimpl.html#substr-procs-all	proc		78
+nimgrp	+	pylib/pybytes/bytesimpl.html#+-procs-all	proc		63
+nimgrp	[]	pylib/pybytes/bytesimpl.html#[]-procs-all	proc		86
 heading	Mimics Python not str -> bool.	pylib/pybytes/bytesimpl.html#mimics-python-not-str-minusgt-booldot	 Mimics Python not str -&gt; bool.		0

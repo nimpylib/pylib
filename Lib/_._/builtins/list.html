@@ -129,12 +129,14 @@
 </ul>
 <ul class="simple nested-toc-section">list
   <li><a class="reference" href="#list" title="list[T](): PyList[T]">list[T](): PyList[T]</a></li>
+<li><a class="reference" href="#list%2CopenArray%5BT%5D" title="list[T](a: openArray[T]): PyList[T]">list[T](a: openArray[T]): PyList[T]</a></li>
 <li><a class="reference" href="#list%2CIterable%5BT%5D" title="list[T](iter: Iterable[T]): PyList[T]">list[T](iter: Iterable[T]): PyList[T]</a></li>
-<li><a class="reference" href="#list%2CopenArray%5BT%5D" title="list[T](x: openArray[T]): PyList[T]">list[T](x: openArray[T]): PyList[T]</a></li>
+<li><a class="reference" href="#list%2Cseq%5BT%5D" title="list[T](x: seq[T]): PyList[T]">list[T](x: seq[T]): PyList[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">newPyList
-  <li><a class="reference" href="#newPyList%2Cint" title="newPyList[T](len = 0): PyList[T]">newPyList[T](len = 0): PyList[T]</a></li>
+  <li><a class="reference" href="#newPyList%2CopenArray%5BT%5D" title="newPyList[T](a: openArray[T]): PyList[T]">newPyList[T](a: openArray[T]): PyList[T]</a></li>
+<li><a class="reference" href="#newPyList%2Cint" title="newPyList[T](len = 0): PyList[T]">newPyList[T](len = 0): PyList[T]</a></li>
 <li><a class="reference" href="#newPyList%2Cseq%5BT%5D" title="newPyList[T](s: seq[T]): PyList[T]">newPyList[T](s: seq[T]): PyList[T]</a></li>
 
 </ul>
@@ -154,6 +156,10 @@
 </ul>
 <ul class="simple nested-toc-section">reverse
   <li><a class="reference" href="#reverse%2CPyList" title="reverse(self: var PyList)">reverse(self: var PyList)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">setLen
+  <li><a class="reference" href="#setLen%2CPyList%2CNatural" title="setLen(self: PyList; len: Natural)">setLen(self: PyList; len: Natural)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">sort
@@ -179,6 +185,10 @@
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">items
   <li><a class="reference" href="#items.i%2CPyList%5BT%5D" title="items[T](self: PyList[T]): T">items[T](self: PyList[T]): T</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">mitems
+  <li><a class="reference" href="#mitems.i%2CPyList%5BT%5D" title="mitems[T](self: PyList[T]): var T">mitems[T](self: PyList[T]): var T</a></li>
 
 </ul>
 
@@ -511,6 +521,14 @@
     
   </dd>
 </div>
+<div id="list,openArray[T]">
+  <dt><pre><span class="Keyword">func</span> <a href="#list%2CopenArray%5BT%5D"><span class="Identifier">list</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
 <div id="list,Iterable[T]">
   <dt><pre><span class="Keyword">proc</span> <a href="#list%2CIterable%5BT%5D"><span class="Identifier">list</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iter</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
@@ -519,8 +537,8 @@
     
   </dd>
 </div>
-<div id="list,openArray[T]">
-  <dt><pre><span class="Keyword">func</span> <a href="#list%2CopenArray%5BT%5D"><span class="Identifier">list</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="list,seq[T]">
+  <dt><pre><span class="Keyword">func</span> <a href="#list%2Cseq%5BT%5D"><span class="Identifier">list</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
@@ -530,7 +548,15 @@
 
 </div>
 <div id="newPyList-procs-all">
-  <div id="newPyList,int">
+  <div id="newPyList,openArray[T]">
+  <dt><pre><span class="Keyword">func</span> <a href="#newPyList%2CopenArray%5BT%5D"><span class="Identifier">newPyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="newPyList,int">
   <dt><pre><span class="Keyword">func</span> <a href="#newPyList%2Cint"><span class="Identifier">newPyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">len</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
@@ -608,6 +634,17 @@
 </div>
 
 </div>
+<div id="setLen-procs-all">
+  <div id="setLen,PyList,Natural">
+  <dt><pre><span class="Keyword">func</span> <a href="#setLen%2CPyList%2CNatural"><span class="Identifier">setLen</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">;</span> <span class="Identifier">len</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    EXT. unstable. only works for simple types
+    
+  </dd>
+</div>
+
+</div>
 <div id="sort-procs-all">
   <div id="sort,PyList[T],proc(T)">
   <dt><pre><span class="Keyword">proc</span> <a href="#sort%2CPyList%5BT%5D%2Cproc%28T%29"><span class="Identifier">sort</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">K</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">reverse</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span></pre></dt>
@@ -668,6 +705,17 @@
   <dd>
     
     
+    
+  </dd>
+</div>
+
+</div>
+<div id="mitems-iterators-all">
+  <div id="mitems.i,PyList[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#mitems.i%2CPyList%5BT%5D"><span class="Identifier">mitems</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    EXT.
     
   </dd>
 </div>
@@ -782,7 +830,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-15 15:49:40 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-16 14:46:21 UTC</small>
       </div>
     </div>
   </div>

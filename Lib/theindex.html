@@ -129,6 +129,8 @@
 <dt><a name="%60%40%60" href="#%60%40%60"><span>`@`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="list: proc `@`[T](ls: PyList[T]): seq[T]" href="_._/builtins/list.html#%40%2CPyList%5BT%5D">list: proc `@`[T](ls: PyList[T]): seq[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="bytesimpl: proc `@`(self: PyBytes): seq[char]" href="_._/pybytes/bytesimpl.html#%40%2CPyBytes">bytesimpl: proc `@`(self: PyBytes): seq[char]</a></li>
           </ul></dd>
 <dt><a name="%60%5B%5D%3D%60" href="#%60%5B%5D%3D%60"><span>`[]=`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -294,7 +296,9 @@
           <li><a class="reference external"
           data-doc-search-tag="bytesimpl: proc bytes(x: Iterable[int]): PyBytes" href="_._/pybytes/bytesimpl.html#bytes%2CIterable%5Bint%5D">bytesimpl: proc bytes(x: Iterable[int]): PyBytes</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="bytesimpl: proc bytes(a: openArray[char]): PyBytes" href="_._/pybytes/bytesimpl.html#bytes%2CopenArray%5Bchar%5D">bytesimpl: proc bytes(a: openArray[char]): PyBytes</a></li>
+          data-doc-search-tag="bytesimpl: proc bytes(s: openArray[char]): PyBytes" href="_._/pybytes/bytesimpl.html#bytes%2CopenArray%5Bchar%5D">bytesimpl: proc bytes(s: openArray[char]): PyBytes</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="bytesimpl: proc bytes(a: openArray[char]): PyBytes" href="_._/pybytes/bytesimpl.html#bytes%2CopenArray%5Bchar%5D_2">bytesimpl: proc bytes(a: openArray[char]): PyBytes</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bytesimpl: proc bytes(s: string): PyBytes" href="_._/pybytes/bytesimpl.html#bytes%2Cstring">bytesimpl: proc bytes(s: string): PyBytes</a></li>
           <li><a class="reference external"
@@ -690,7 +694,9 @@
           <li><a class="reference external"
           data-doc-search-tag="list: proc list[T](iter: Iterable[T]): PyList[T]" href="_._/builtins/list.html#list%2CIterable%5BT%5D">list: proc list[T](iter: Iterable[T]): PyList[T]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="list: proc list[T](x: openArray[T]): PyList[T]" href="_._/builtins/list.html#list%2CopenArray%5BT%5D">list: proc list[T](x: openArray[T]): PyList[T]</a></li>
+          data-doc-search-tag="list: proc list[T](a: openArray[T]): PyList[T]" href="_._/builtins/list.html#list%2CopenArray%5BT%5D">list: proc list[T](a: openArray[T]): PyList[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list: proc list[T](x: seq[T]): PyList[T]" href="_._/builtins/list.html#list%2Cseq%5BT%5D">list: proc list[T](x: seq[T]): PyList[T]</a></li>
           </ul></dd>
 <dt><a name="listdir" href="#listdir"><span>listdir:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -736,6 +742,10 @@
 <li><a class="reference external"
           data-doc-search-tag="pyrange: proc min[T](x: PyRange[T]): T" href="_._/builtins/pyrange.html#min%2CPyRange%5BT%5D">pyrange: proc min[T](x: PyRange[T]): T</a></li>
           </ul></dd>
+<dt><a name="mitems" href="#mitems"><span>mitems:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="list: iterator mitems[T](self: PyList[T]): var T" href="_._/builtins/list.html#mitems.i%2CPyList%5BT%5D">list: iterator mitems[T](self: PyList[T]): var T</a></li>
+          </ul></dd>
 <dt><a name="mkdir" href="#mkdir"><span>mkdir:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="mkrmdir: proc mkdir(p: PathLike; mode = 0o000000000777)" href="os_impl/posix_like/mkrmdir.html#mkdir%2CPathLike%2Cint">mkrmdir: proc mkdir(p: PathLike; mode = 0o000000000777)</a></li>
@@ -761,6 +771,8 @@
 <dt><a name="newPyList" href="#newPyList"><span>newPyList:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="list: proc newPyList[T](len = 0): PyList[T]" href="_._/builtins/list.html#newPyList%2Cint">list: proc newPyList[T](len = 0): PyList[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list: proc newPyList[T](a: openArray[T]): PyList[T]" href="_._/builtins/list.html#newPyList%2CopenArray%5BT%5D">list: proc newPyList[T](a: openArray[T]): PyList[T]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list: proc newPyList[T](s: seq[T]): PyList[T]" href="_._/builtins/list.html#newPyList%2Cseq%5BT%5D">list: proc newPyList[T](s: seq[T]): PyList[T]</a></li>
           </ul></dd>
@@ -1174,6 +1186,10 @@
 <li><a class="reference external"
           data-doc-search-tag="collections_abc: type Sequence" href="_._/collections_abc.html#Sequence">collections_abc: type Sequence</a></li>
           </ul></dd>
+<dt><a name="setLen" href="#setLen"><span>setLen:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="list: proc setLen(self: PyList; len: Natural)" href="_._/builtins/list.html#setLen%2CPyList%2CNatural">list: proc setLen(self: PyList; len: Natural)</a></li>
+          </ul></dd>
 <dt><a name="shallIgnore" href="#shallIgnore"><span>shallIgnore:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="walkImpl: const shallIgnore" href="os_impl/walkImpl.html#shallIgnore">walkImpl: const shallIgnore</a></li>
@@ -1424,7 +1440,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-15 15:49:40 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-16 14:46:21 UTC</small>
       </div>
     </div>
   </div>
