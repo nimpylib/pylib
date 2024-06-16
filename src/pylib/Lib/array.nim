@@ -14,10 +14,10 @@ type
 iterator mitems*[T](arr: var PyArray[T]): var T =
   ## EXT.
   runnableExamples:
-    var arr = array('i', [1.cint,2])
+    var arr = array('i', [1, 2])
     for i in arr.mitems:
       i *= 2
-    assert arr == array('i', [2.cint,4])
+    assert arr == array('i', [2, 4])
   for i in PyList[T](arr).mitems(): yield i
 
 func setLen*[T](arr: var PyArray[T], n: int) = PyList[T](arr).setLen n  # EXT.
@@ -140,8 +140,13 @@ proc arrayTypeParse(typecode: char): NimNode =
 
 macro array*(typecode: static[char]): PyArray = arrayTypeParse typecode
 
-#proc parseArrInitLit(lit: NimNode, typeStr: string): NimNode =
-#  if lit.kind != nnkBracket: return lit
+proc parseArrInitLit(lit: NimNode, typeStr: string): NimNode =
+  if lit.kind != nnkBracket: return lit
+  let typeId = ident typeStr
+  result = nnkBracket.newTree:
+    newCall(typeId, lit[0])
+  for i in 1..<lit.len:
+    result.add lit[i]
 
 macro array*(typecode: static[char], initializer: typed): PyArray =
   ## bytes or bytearray, a Unicode string, or iterable over elements of the appropriate type.
@@ -152,8 +157,7 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
     a.append(3)
     assert a.len == 1 and a[0] == 3
   let typeStr = getType typecode
-  typecode.arrayTypeParse(typeStr).add initializer  #.parseArrInitLit(typeStr)
-
+  typecode.arrayTypeParse(typeStr).add initializer.parseArrInitLit(typeStr)
 
 # `tolist(var PyArray): PyList` doesn't be called impilitly when array's self-modifiaction
 # methods are called
