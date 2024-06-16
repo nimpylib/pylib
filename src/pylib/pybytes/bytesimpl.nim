@@ -109,7 +109,11 @@ func `@`*(self: PyBytes): seq[char] =
   ## EXT.
   ## 
   ## Python has no concept of seq (though has list)
-  result = newSeqUninit[char] self.len
+  when declared(newSeqUninit):
+    # only newer Nim declares it.
+    result = newSeqUninit[char] self.len
+  else:
+    result = newSeq[char] self.len
   var i = 0
   for c in self.chars:
     result[i] = c
