@@ -8,6 +8,15 @@ func bytes*(): PyBytes = PyBytes ""
 func bytes*(s: string): PyBytes = PyBytes s  ## XXX: Currently no 
                                              ## `encode` and `errors` params
 
+func bytes*(s: openArray[char]): PyBytes =
+  ## EXT.
+  ## 
+  ## Python has no concept of openArray
+  var res = newString s.len
+  for i, c in s:
+    res[i] = c
+  bytes res
+
 func bytes*(c: char): PyBytes = PyBytes $c
 
 func bytes*(nLen: int): PyBytes =
@@ -95,6 +104,16 @@ iterator chars*(self): char =
 iterator items*(self): int =
   for c in self.string:
     yield cast[int](c)
+
+func `@`*(self: PyBytes): seq[char] =
+  ## EXT.
+  ## 
+  ## Python has no concept of seq (though has list)
+  result = newSeqUninit[char] self.len
+  var i = 0
+  for c in self.chars:
+    result[i] = c
+    i.inc
 
 template `or`*(a, b: PyBytes): PyBytes =
   ## Mimics Python str or str -> str.
