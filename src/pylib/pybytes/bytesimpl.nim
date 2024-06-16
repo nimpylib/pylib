@@ -41,9 +41,6 @@ func bytes*(x: Iterable[char]): PyBytes =
 
 func bytes*(self): PyBytes = self  ## copy
 
-func bytes*(a: openArray[char]): PyBytes =
-  PyBytes $a
-
 template pybytes*[T](x: T): PyBytes =
   mixin bytes
   bytes(x)
