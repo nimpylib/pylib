@@ -6,7 +6,7 @@ import ../pybytes/bytesimpl
 import ../pybytearray
 
 import std/[macros, strutils, tables]
-
+import std/endians
 
 type
   PyArray*[T] = distinct PyList[T]
@@ -91,8 +91,9 @@ const OriginTable = {
   # float and double are signed only
 }
 
+const TypeTableSize = 2*OriginTable.len + 2
 func initTypeTable(): Table[char, string]{.compiletime.} =
-  result = initTable[char, string](2*OriginTable.len + 2)
+  result = initTable[char, string] TypeTableSize
   result['b'] = "cschar"; result['B'] = "cuchar"
   result['f'] = "cfloat"; result['d'] = "cdouble"
   for (k, v) in OriginTable:
@@ -158,6 +159,68 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
     assert a.len == 1 and a[0] == 3
   let typeStr = getType typecode
   typecode.arrayTypeParse(typeStr).add initializer.parseArrInitLit(typeStr)
+
+
+
+func initSizeTable(): Table[string, int] =
+  result = initTable[string, int] TypeTableSize
+  result["cschar"] = sizeof cchar
+  template genS(typ) =
+    let
+      cbase = astToStr(typ)
+      base = cbase[1..^1]
+      ubase = "cu" & base
+    result[ cbase ] = sizeof typ
+    result[ ubase ] = sizeof typ
+  genS cchar
+  genS cshort
+  genS cint
+  genS clong
+  genS clonglong
+  genS cfloat
+  genS cdouble
+const SizeTable = initSizeTable()
+
+template getBitSize(typeStr: string): int =
+  let res = SizeTable.getOrDefault(typeStr, -1) * BitPerByte
+  assert res > 0, "unknown type " & typeStr
+  res
+
+template getBitSizeStr(typ): string = $getBitSize($typ)
+
+const BitPerByte = 8
+
+# calls e.g. swapEndian64
+template swapProcForT(T: NimNode): NimNode =
+  ident "swapEndian" & getBitSizeStr(T)
+
+template swapByte[C: SomeChar](_: C) = discard  # do nothing
+
+when NimMajor == 1:
+  template getAddr(x): untyped = x.unsafeAddr
+else:
+  template getAddr(x): untyped = x.addr
+
+macro genSwapByte() =
+  template mapper(typ; _): NimNode{.dirty.} =
+    let procId = swapProcForT typ
+    quote do:
+      when not compiles( (var temp:`typ`; temp.swapByte()) ):
+        template swapByte(x: var `typ`) =
+          var tmp: typeof(x)
+          `procId`(tmp.getAddr, x.getAddr)
+          x = tmp
+  genWithTypeCode mapper
+genSwapByte()
+
+func byteswap*[T](arr: var PyArray[T]) =
+  runnableExamples:
+    var arr = newPyArray[cshort]([1.cshort, 2])
+    arr.byteswap()
+    assert arr[0] == 256, $arr[0]  # int from \x01\x00
+    assert arr[1] == 512, $arr[1]
+  for x in arr.mitems():
+    swapByte x
 
 # `tolist(var PyArray): PyList` doesn't be called impilitly when array's self-modifiaction
 # methods are called
