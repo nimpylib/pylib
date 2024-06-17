@@ -154,6 +154,9 @@ func removesuffix*(a: PyBytes, suffix: PyBytes): PyBytes =
 func replace*(a: PyBytes, sub, by: PyBytes|char): PyBytes =
   meth.replace(a, sub, by)
 
+func expandtabs*(a: PyBytes, tabsize=8): PyBytes =
+  bytes expandtabsImpl(a, tabsize, a.len, chars)
+
 func join*[T](sep: PyBytes, a: openArray[T]): PyBytes =
   ## Mimics Python join() -> bytes
   meth.join(sep, a)

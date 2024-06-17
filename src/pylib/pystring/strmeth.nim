@@ -269,6 +269,9 @@ func removesuffix*(a: PyStr, suffix: PyStr): PyStr =
 func replace*(a: PyStr, sub, by: PyStr|char): PyStr =
   meth.replace(a, sub, by)
 
+func expandtabs*(a: PyStr, tabsize=8): PyStr =
+  str expandtabsImpl(a, tabsize, a.byteLen, runes)
+
 func join*[T](sep: PyStr, a: openArray[T]): PyStr =
   ## Mimics Python join() -> string
   meth.join(sep, a)

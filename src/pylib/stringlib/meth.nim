@@ -264,6 +264,51 @@ func replace*[S](a: S, sub, by: char): S =
 func replace*[S](a: S, sub, by: S): S =
   S strutils.replace($a, $sub, $by)
 
+template expandtabsAux[S](a: S, tabsize#[: is a Positive]#;
+  strByteLen: int;  iter;
+): string =
+  # modified from CPython's Objects/unicodeobject.c unicode_expandtabs_impl
+  # with some refinement:
+  # 
+  # 1. here `tabsize` is assumed to be Positive,
+  #  get rid of making comparing within loop, that's what CPython does:
+  #  two `if (tabsize > 0)` in two for loop.
+  # 2. by using Nim's string, we use the strategy of
+  #  dynamically memory allocation, so no need to
+  #  firstly perform one loop to just count the length of the result.
+  # 3. we use case-branch instead of if-branch within the loop.
+  mixin add
+  var column = 0
+  var res = newStringOfCap(strByteLen)
+  for c in a.iter:
+    type C = typeof(c)
+    case c
+    of C('\r'), C('\n'):
+      res.add c
+      column = 0
+    of C('\t'):
+      let incr = (tabsize - column mod tabsize)
+      column.inc incr
+      if incr > 0:
+        res.add C(' ') * incr
+    else:
+      res.add c
+      column.inc
+  res
+
+template removeAll[S](a: S, toRM: char; strByteLen: int; iter): string =
+  var result = newStringOfCap strByteLen
+  for c in a.iter:
+    if c != typeof(c)(toRM):
+      result.add c
+  result
+
+template expandtabsImpl*[S](a: S, tabsize: int;
+  strByteLen: int;  iter;
+): string =
+  if tabsize > 0: expandtabsAux(a, tabsize, strByteLen, iter)
+  else: removeAll(a, '\t', strByteLen, iter)
+
 func join*[T](sep: char, a: openArray[T]): string =
   a.join(sep)
 
