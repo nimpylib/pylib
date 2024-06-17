@@ -24,7 +24,7 @@ and gain a better view into different behaviors between Python and Nim.
 
 ```nim
 import pylib
-from std/os import sleep  # python's `sleep` is in `time` module, however
+from pylib/Lib/time import sleep
 from pylib/Lib/sys import nil  # like python's `import sys`
 from pylib/Lib/platform import nil  # like python's `import sys`
 import pylib/Lib/tempfile # more python-stdlib in pylib/Lib...
