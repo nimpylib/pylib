@@ -54,8 +54,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#cschar" title="cschar {.importc: &quot;signed char&quot;.} = char">cschar</a></li>
-<li><a class="reference" href="#PyArray" title="PyArray[T] = distinct PyList[T]">PyArray</a></li>
+      <li><a class="reference" href="#PyArray" title="PyArray[T] = distinct PyList[T]">PyArray</a></li>
 <li><a class="reference" href="#SomeChar" title="SomeChar = char | cschar | cuchar">SomeChar</a></li>
 
     </ul>
@@ -91,7 +90,8 @@
 
 </ul>
 <ul class="simple nested-toc-section">frombytes
-  <li><a class="reference" href="#frombytes%2CPyArray%5BSomeChar%5D%2CBytesLike" title="frombytes(arr: var PyArray[SomeChar]; buffer: BytesLike)">frombytes(arr: var PyArray[SomeChar]; buffer: BytesLike)</a></li>
+  <li><a class="reference" href="#frombytes%2CPyArray%5BC%3A%20SomeChar%5D%2CBytesLike" title="frombytes[C: SomeChar](arr: var PyArray[C]; buffer: BytesLike)">frombytes[C: SomeChar](arr: var PyArray[C]; buffer: BytesLike)</a></li>
+<li><a class="reference" href="#frombytes%2CPyArray%5BT%3A%20not%20SomeChar%5D%2CBytesLike" title="frombytes[T: not SomeChar](arr: var PyArray[T]; buffer: BytesLike)">frombytes[T: not SomeChar](arr: var PyArray[T]; buffer: BytesLike)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">fromfile
@@ -100,6 +100,10 @@
 </ul>
 <ul class="simple nested-toc-section">fromlist
   <li><a class="reference" href="#fromlist%2CPyArray%5BT%5D%2CPyList%5BT%5D" title="fromlist[T](arr: var PyArray[T]; ls: PyList[T])">fromlist[T](arr: var PyArray[T]; ls: PyList[T])</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">getPtr
+  <li><a class="reference" href="#getPtr%2CPyArray%5BT%5D%2C" title="getPtr[T](arr: var PyArray[T]; i: Natural | Natural): ptr T">getPtr[T](arr: var PyArray[T]; i: Natural | Natural): ptr T</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">newPyArray
@@ -116,6 +120,7 @@
 </ul>
 <ul class="simple nested-toc-section">tobytes
   <li><a class="reference" href="#tobytes%2CPyArray%5BSomeChar%5D" title="tobytes(arr: PyArray[SomeChar]): PyBytes">tobytes(arr: PyArray[SomeChar]): PyBytes</a></li>
+<li><a class="reference" href="#tobytes%2CPyArray%5BT%3A%20not%20SomeChar%5D" title="tobytes[T: not SomeChar](arr: PyArray[T]): PyBytes">tobytes[T: not SomeChar](arr: PyArray[T]): PyBytes</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">tofile
@@ -230,12 +235,13 @@
 <li><a class="reference" href="#typecode.t_5" title="typecode(_: PyArray[cfloat]): char">typecode(_: PyArray[cfloat]): char</a></li>
 <li><a class="reference" href="#typecode.t_7" title="typecode(_: PyArray[cint]): char">typecode(_: PyArray[cint]): char</a></li>
 <li><a class="reference" href="#typecode.t_9" title="typecode(_: PyArray[clong]): char">typecode(_: PyArray[clong]): char</a></li>
-<li><a class="reference" href="#typecode.t_11" title="typecode(_: PyArray[clonglong]): char">typecode(_: PyArray[clonglong]): char</a></li>
+<li><a class="reference" href="#typecode.t_12" title="typecode(_: PyArray[clonglong]): char">typecode(_: PyArray[clonglong]): char</a></li>
+<li><a class="reference" href="#typecode.t_10" title="typecode(_: PyArray[cschar]): char">typecode(_: PyArray[cschar]): char</a></li>
 <li><a class="reference" href="#typecode.t_2" title="typecode(_: PyArray[cshort]): char">typecode(_: PyArray[cshort]): char</a></li>
 <li><a class="reference" href="#typecode.t_4" title="typecode(_: PyArray[cuchar]): char">typecode(_: PyArray[cuchar]): char</a></li>
 <li><a class="reference" href="#typecode.t_8" title="typecode(_: PyArray[cuint]): char">typecode(_: PyArray[cuint]): char</a></li>
 <li><a class="reference" href="#typecode.t" title="typecode(_: PyArray[culong]): char">typecode(_: PyArray[culong]): char</a></li>
-<li><a class="reference" href="#typecode.t_10" title="typecode(_: PyArray[culonglong]): char">typecode(_: PyArray[culonglong]): char</a></li>
+<li><a class="reference" href="#typecode.t_11" title="typecode(_: PyArray[culonglong]): char">typecode(_: PyArray[culonglong]): char</a></li>
 <li><a class="reference" href="#typecode.t_6" title="typecode(_: PyArray[cushort]): char">typecode(_: PyArray[cushort]): char</a></li>
 
 </ul>
@@ -251,10 +257,14 @@
 
   </div>
   <div class="nine columns" id="content">
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
     <div id="tocRoot"></div>
     
-    <p class="module-desc"></p>
+    <p class="module-desc">array<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
+considering unicode array is deprecated since Python3.3, and will be removed in Python4, it's not implemented.</div>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
@@ -264,28 +274,24 @@
 <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="cschar">
-  <dt><pre><a href="array.html#cschar"><span class="Identifier">cschar</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;signed char&quot;</span>.} <span class="Other">=</span> <span class="Identifier">char</span></pre></dt>
-  <dd>
-    
-    
-    
-  </dd>
-</div>
-<div id="PyArray">
+    <div id="PyArray">
   <dt><pre><a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">distinct</span> <a href="list.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="SomeChar">
-  <dt><pre><a href="array.html#SomeChar"><span class="Identifier">SomeChar</span></a> <span class="Other">=</span> <span class="Identifier">char</span> <span class="Operator">|</span> <a href="array.html#cschar"><span class="Identifier">cschar</span></a> <span class="Operator">|</span> <span class="Identifier">cuchar</span></pre></dt>
+  <dt><pre><a href="array.html#SomeChar"><span class="Identifier">SomeChar</span></a> <span class="Other">=</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">cschar</span> <span class="Operator">|</span> <span class="Identifier">cuchar</span></pre></dt>
   <dd>
     
-    
-    
+    In C, <tt class="docutils literal"><span class="pre"><span class="Identifier">char</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">unsigned</span> <span class="Identifier">char</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">signed</span> <span class="Identifier">char</span></span></tt> are three distinct types, that's, <tt class="docutils literal"><span class="pre"><span class="Identifier">char</span></span></tt> is either signed or unsigned, which is implementation-dependent, unlike other integer types, e.g. int is alias of <tt class="docutils literal"><span class="pre"><span class="Identifier">signed</span> <span class="Identifier">int</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -299,7 +305,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L141" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L141" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -314,7 +322,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -325,7 +335,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L47" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L47" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -336,7 +348,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L185" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L185" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -346,24 +360,51 @@
   <dt><pre><span class="Keyword">func</span> <a href="#byteswap%2CPyArray%5BT%5D"><span class="Identifier">byteswap</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
   <dd>
     
-    
+    <p>array.byteswap</p>
+<p>Currently only compilable for <tt class="docutils literal"><span class="pre"><span class="Identifier">c_</span><span class="Operator">*</span></span></tt> types, a.k.a. not for Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">int</span><span class="Operator">*</span></span></tt>, e.g. <tt class="docutils literal"><span class="pre"><span class="Identifier">int16</span></span></tt></p>
+<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
+trial of using this method on <tt class="docutils literal"><span class="pre"><span class="Identifier">PyArray</span><span class="Punctuation">[</span><span class="Identifier">int</span><span class="Operator">*</span><span class="Punctuation">]</span></span></tt> may lead to compile-error of C compiler.</div>
+
 <p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">var</span> <span class="Identifier">arr</span> <span class="Operator">=</span> <span class="Identifier">newPyArray</span><span class="Punctuation">[</span><span class="Identifier">cshort</span><span class="Punctuation">]</span><span class="Punctuation">(</span><span class="Punctuation">[</span><span class="FloatNumber">1.</span><span class="Identifier">cshort</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Punctuation">)</span>
-<span class="Identifier">arr</span><span class="Operator">.</span><span class="Identifier">byteswap</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">256</span><span class="Punctuation">,</span> <span class="Operator">$</span><span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span>  <span class="Comment"># int from \x01\x00</span>
-<span class="Identifier">assert</span> <span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">512</span><span class="Punctuation">,</span> <span class="Operator">$</span><span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span></pre>
-    
+<pre class="listing"><span class="Keyword">when</span> <span class="Identifier">sizeof</span><span class="Punctuation">(</span><span class="Identifier">cshort</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span><span class="Punctuation">:</span>
+  <span class="Keyword">var</span> <span class="Identifier">arr</span> <span class="Operator">=</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'h'</span><span class="Punctuation">,</span> <span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Punctuation">)</span>
+  <span class="Identifier">arr</span><span class="Operator">.</span><span class="Identifier">byteswap</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+  <span class="Identifier">assert</span> <span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">256</span><span class="Punctuation">,</span> <span class="Operator">$</span><span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span>  <span class="Comment"># int from \x01\x00</span>
+  <span class="Identifier">assert</span> <span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">512</span><span class="Punctuation">,</span> <span class="Operator">$</span><span class="Identifier">arr</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L304" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L304" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
 </div>
 <div id="frombytes-procs-all">
-  <div id="frombytes,PyArray[SomeChar],BytesLike">
-  <dt><pre><span class="Keyword">func</span> <a href="#frombytes%2CPyArray%5BSomeChar%5D%2CBytesLike"><span class="Identifier">frombytes</span></a><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><a href="array.html#SomeChar"><span class="Identifier">SomeChar</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">buffer</span><span class="Other">:</span> <a href="pybytearray.html#BytesLike"><span class="Identifier">BytesLike</span></a><span class="Other">)</span></pre></dt>
+  <div id="frombytes,PyArray[C: SomeChar],BytesLike">
+  <dt><pre><span class="Keyword">func</span> <a href="#frombytes%2CPyArray%5BC%3A%20SomeChar%5D%2CBytesLike"><span class="Identifier">frombytes</span></a><span class="Other">[</span><span class="Identifier">C</span><span class="Other">:</span> <a href="array.html#SomeChar"><span class="Identifier">SomeChar</span></a><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">C</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">buffer</span><span class="Other">:</span> <a href="pybytearray.html#BytesLike"><span class="Identifier">BytesLike</span></a><span class="Other">)</span></pre></dt>
   <dd>
     
+    append byte from <tt class="docutils literal"><span class="pre"><span class="Identifier">buffer</span></span></tt> to <tt class="docutils literal"><span class="pre"><span class="Identifier">arr</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="frombytes,PyArray[T: not SomeChar],BytesLike">
+  <dt><pre><span class="Keyword">func</span> <a href="#frombytes%2CPyArray%5BT%3A%20not%20SomeChar%5D%2CBytesLike"><span class="Identifier">frombytes</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Keyword">not</span> <a href="array.html#SomeChar"><span class="Identifier">SomeChar</span></a><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">buffer</span><span class="Other">:</span> <a href="pybytearray.html#BytesLike"><span class="Identifier">BytesLike</span></a><span class="Other">)</span></pre></dt>
+  <dd>
     
-    
+    append byte from <tt class="docutils literal"><span class="pre"><span class="Identifier">buffer</span></span></tt> to <tt class="docutils literal"><span class="pre"><span class="Identifier">arr</span></span></tt>
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">when</span> <span class="Identifier">sizeof</span><span class="Punctuation">(</span><span class="Identifier">cshort</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span><span class="Punctuation">:</span>
+  <span class="Keyword">var</span> <span class="Identifier">h</span> <span class="Operator">=</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'h'</span><span class="Punctuation">,</span> <span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Punctuation">)</span>
+  <span class="Identifier">h</span><span class="Operator">.</span><span class="Identifier">frombytes</span><span class="Punctuation">(</span><span class="Identifier">bytes</span><span class="Punctuation">(</span><span class="StringLit">&quot;</span><span class="EscapeSequence">\x05</span><span class="EscapeSequence">\x00</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
+  <span class="Keyword">when</span> <span class="Identifier">cpuEndian</span> <span class="Operator">==</span> <span class="Identifier">littleEndian</span><span class="Punctuation">:</span>
+    <span class="Identifier">assert</span> <span class="Identifier">h</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">5</span>
+  <span class="Keyword">else</span><span class="Punctuation">:</span>
+    <span class="Identifier">assert</span> <span class="Identifier">h</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">1280</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -373,8 +414,10 @@
   <dt><pre><span class="Keyword">func</span> <a href="#fromfile%2CPyArray%5BT%5D%2CFile%2Cint"><span class="Identifier">fromfile</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">f</span><span class="Other">:</span> <span class="Identifier">File</span><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span></pre></dt>
   <dd>
     
-    
-    
+    Currrently only for Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">File</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L129" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L129" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -385,7 +428,22 @@
   <dd>
     
     
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="getPtr-procs-all">
+  <div id="getPtr,PyArray[T],">
+  <dt><pre><span class="Keyword">func</span> <a href="#getPtr%2CPyArray%5BT%5D%2C"><span class="Identifier">getPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">Natural</span> <span class="Operator">|</span> <span class="Identifier">Natural</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
     
+    EXT. unstable.
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L95" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L95" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -396,7 +454,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -406,8 +466,10 @@
   <dt><pre><span class="Keyword">func</span> <a href="#repr%2CPyArray%5BT%5D"><span class="Identifier">repr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
-    
-    
+    alias for <tt class="docutils literal"><span class="pre"><span class="Operator">$</span><span class="Identifier">arr</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -418,7 +480,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -429,7 +493,19 @@
   <dd>
     
     
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L89" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L89" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="tobytes,PyArray[T: not SomeChar]">
+  <dt><pre><span class="Keyword">func</span> <a href="#tobytes%2CPyArray%5BT%3A%20not%20SomeChar%5D"><span class="Identifier">tobytes</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Keyword">not</span> <a href="array.html#SomeChar"><span class="Identifier">SomeChar</span></a><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a></pre></dt>
+  <dd>
     
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L120" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L120" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -439,8 +515,10 @@
   <dt><pre><span class="Keyword">func</span> <a href="#tofile%2CPyArray%5BT%5D%2CFile"><span class="Identifier">tofile</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">f</span><span class="Other">:</span> <span class="Identifier">File</span><span class="Other">)</span></pre></dt>
   <dd>
     
-    
-    
+    Currrently only for Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">File</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -451,7 +529,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="tolist,PyArray[T]_2">
@@ -459,7 +539,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L45" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L45" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -481,7 +563,9 @@
 <span class="Keyword">for</span> <span class="Identifier">i</span> <span class="Keyword">in</span> <span class="Identifier">arr</span><span class="Operator">.</span><span class="Identifier">mitems</span><span class="Punctuation">:</span>
   <span class="Identifier">i</span> <span class="Operator">*=</span> <span class="DecNumber">2</span>
 <span class="Identifier">assert</span> <span class="Identifier">arr</span> <span class="Operator">==</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'i'</span><span class="Punctuation">,</span> <span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">,</span> <span class="DecNumber">4</span><span class="Punctuation">]</span><span class="Punctuation">)</span></pre>
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -498,21 +582,30 @@
   <dd>
     
     
-    
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">var</span> <span class="Identifier">a</span> <span class="Operator">=</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'i'</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">typecode</span> <span class="Operator">==</span> <span class="CharLit">'i'</span>
+<span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">0</span>
+<span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">append</span><span class="Punctuation">(</span><span class="DecNumber">3</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">len</span> <span class="Operator">==</span> <span class="DecNumber">1</span> <span class="Keyword">and</span> <span class="Identifier">a</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">3</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L201" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L201" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="array.m,static[char],typed">
   <dt><pre><span class="Keyword">macro</span> <a href="#array.m%2Cstatic%5Bchar%5D%2Ctyped"><span class="Identifier">array</span></a><span class="Other">(</span><span class="Identifier">typecode</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">char</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">initializer</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a></pre></dt>
   <dd>
     
-    bytes or bytearray, a Unicode string, or iterable over elements of the appropriate type.
+    <p>bytes or bytearray, a Unicode string, or iterable over elements of the appropriate type.</p>
+<p><tt class="docutils literal"><span class="pre"><span class="Identifier">initializer</span></span></tt> can be a bracket stmt, no need to manually add type convert, see examples</p>
+
 <p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">var</span> <span class="Identifier">a</span> <span class="Operator">=</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'i'</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">typecode</span> <span class="Operator">==</span> <span class="CharLit">'i'</span>
-<span class="Identifier">assert</span> <span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">len</span> <span class="Operator">==</span> <span class="DecNumber">0</span>
-<span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">append</span><span class="Punctuation">(</span><span class="DecNumber">3</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">len</span> <span class="Operator">==</span> <span class="DecNumber">1</span> <span class="Keyword">and</span> <span class="Identifier">a</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">3</span></pre>
-    
+<pre class="listing"><span class="Identifier">assert</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'i'</span><span class="Punctuation">,</span> <span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">c_int</span><span class="Punctuation">(</span><span class="DecNumber">2</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">array</span><span class="Punctuation">(</span><span class="CharLit">'b'</span><span class="Punctuation">,</span> <span class="Identifier">bytes</span><span class="Punctuation">(</span><span class="StringLit">&quot;123&quot;</span><span class="Punctuation">)</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">c_schar</span><span class="Punctuation">(</span><span class="CharLit">'3'</span><span class="Punctuation">)</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L221" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L221" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -529,7 +622,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L385" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L385" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -540,7 +635,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L384" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L384" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -551,7 +648,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L378" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L378" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -562,7 +661,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L382" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L382" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -573,7 +674,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L388" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L388" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -584,7 +687,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L379" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L379" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -595,7 +700,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L383" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L383" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -606,7 +713,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L389" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L389" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -617,7 +726,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L390" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L390" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -628,7 +739,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L380" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L380" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -639,7 +752,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -650,7 +765,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L377" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L377" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -660,8 +777,13 @@
   <dt><pre><span class="Keyword">template</span> <a href="#newPyArray.t"><span class="Identifier">newPyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">)</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
-    
-    
+    unlike <a class="reference internal nimdoc" title="macro array (2 overloads)" href="#array-macros-all">array</a>, when <tt class="docutils literal"><span class="pre"><span class="Identifier">x</span></span></tt> is a literal, type conversion is always needed.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">discard</span> <span class="Identifier">newPyArray</span><span class="Punctuation">[</span><span class="Identifier">cint</span><span class="Punctuation">]</span><span class="Punctuation">(</span><span class="Punctuation">[</span><span class="FloatNumber">1.</span><span class="Identifier">cint</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Punctuation">)</span>
+<span class="Comment"># or write: array('i', [1, 2])</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -672,7 +794,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L392" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L392" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="pop.t,PyArray[T],int">
@@ -680,7 +804,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L393" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L393" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -691,7 +817,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L391" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L391" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -702,7 +830,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L394" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L394" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -713,7 +843,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_5">
@@ -721,7 +853,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_7">
@@ -729,7 +863,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_9">
@@ -737,15 +873,29 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
-<div id="typecode.t_11">
-  <dt><pre><span class="Keyword">template</span> <a href="#typecode.t_11"><span class="Identifier">typecode</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">clonglong</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">char</span></pre></dt>
+<div id="typecode.t_12">
+  <dt><pre><span class="Keyword">template</span> <a href="#typecode.t_12"><span class="Identifier">typecode</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">clonglong</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">char</span></pre></dt>
   <dd>
     
     
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L183" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L183" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="typecode.t_10">
+  <dt><pre><span class="Keyword">template</span> <a href="#typecode.t_10"><span class="Identifier">typecode</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">cschar</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">char</span></pre></dt>
+  <dd>
     
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_2">
@@ -753,7 +903,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_4">
@@ -761,7 +913,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_8">
@@ -769,7 +923,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t">
@@ -777,15 +933,19 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
-<div id="typecode.t_10">
-  <dt><pre><span class="Keyword">template</span> <a href="#typecode.t_10"><span class="Identifier">typecode</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">culonglong</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">char</span></pre></dt>
+<div id="typecode.t_11">
+  <dt><pre><span class="Keyword">template</span> <a href="#typecode.t_11"><span class="Identifier">typecode</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="array.html#PyArray"><span class="Identifier">PyArray</span></a><span class="Other">[</span><span class="Identifier">culonglong</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">char</span></pre></dt>
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 <div id="typecode.t_6">
@@ -793,7 +953,9 @@
   <dd>
     
     
-    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/array.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
   </dd>
 </div>
 
@@ -804,7 +966,7 @@
 <div class="section" id="19">
   <h1><a class="toc-backref" href="#19">Exports</a></h1>
   <dl class="item">
-    <a href="list.html#[]=,PyList[T],HSlice,PyList[T]"><span class="Identifier">[]=</span></a>, <a href="list.html#repr.t,PyList[T]"><span class="Identifier">repr</span></a>, <a href="list.html#sorted,PyList[T]"><span class="Identifier">sorted</span></a>, <a href="list.html#[]=,PyList[T],HSlice,openArray[T]"><span class="Identifier">[]=</span></a>, <a href="list.html#list,Iterable[T]"><span class="Identifier">list</span></a>, <a href="list.html#==.t,openArray[T],PyList[T]"><span class="Identifier">==</span></a>, <a href="list.html#==,PyList[T],PyList[T]"><span class="Identifier">==</span></a>, <a href="list.html#+,PyList[T],openArray[T]"><span class="Identifier">+</span></a>, <a href="pyrange.html#count,PyRange[T],T"><span class="Identifier">count</span></a>, <a href="list.html#repr,PyList[T: set or string or openArray]"><span class="Identifier">repr</span></a>, <a href="list.html#sorted,,proc(T)"><span class="Identifier">sorted</span></a>, <a href="list.html#PyList"><span class="Identifier">PyList</span></a>, <a href="list.html#sort,PyList[T],proc(T)"><span class="Identifier">sort</span></a>, <a href="list.html#sorted,Sequence[T],proc(T)"><span class="Identifier">sorted</span></a>, <a href="list.html#$.t,PyList[T]"><span class="Identifier">$</span></a>, <a href="list.html#[],PyList[T],HSlice"><span class="Identifier">[]</span></a>, <a href="list.html#newPyListOfCap,int"><span class="Identifier">newPyListOfCap</span></a>, <a href="list.html#+=,PyList[T],openArray[T]"><span class="Identifier">+=</span></a>, <a href="collections_abc.html#index,Sequence[T],T,int,int"><span class="Identifier">index</span></a>, <a href="list.html#clear,PyList"><span class="Identifier">clear</span></a>, <a href="list.html#[],PyList[T],int"><span class="Identifier">[]</span></a>, <a href="list.html#==.t,seq[T],PyList[T]"><span class="Identifier">==</span></a>, <a href="list.html#append,PyList[T],T"><span class="Identifier">append</span></a>, <a href="list.html#newPyList,openArray[T]"><span class="Identifier">newPyList</span></a>, <a href="list.html#pop,PyList[T],int"><span class="Identifier">pop</span></a>, <a href="list.html#[]=,PyList[T],PySlice,"><span class="Identifier">[]=</span></a>, <a href="list.html#sort,PyList[T]"><span class="Identifier">sort</span></a>, <a href="list.html#+=,PyList[T],PyList[T]"><span class="Identifier">+=</span></a>, <a href="list.html#pop,PyList[T]"><span class="Identifier">pop</span></a>, <a href="list.html#extend,PyList[T],openArray[T]"><span class="Identifier">extend</span></a>, <a href="list.html#[]=,PyList[T],HSlice,Iterable[T]"><span class="Identifier">[]=</span></a>, <a href="list.html#setLen,PyList,Natural"><span class="Identifier">setLen</span></a>, <a href="list.html#list,seq[T]"><span class="Identifier">list</span></a>, <a href="list.html#[]=,PyList[T],BackwardsIndex,T"><span class="Identifier">[]=</span></a>, <a href="pyrange.html#index,PyRange[T],T"><span class="Identifier">index</span></a>, <a href="list.html#items.i,PyList[T]"><span class="Identifier">items</span></a>, <a href="collections_abc.html#count,Sequence[T],T"><span class="Identifier">count</span></a>, <a href="collections_abc.html#reverse,MutableSequence"><span class="Identifier">reverse</span></a>, <a href="list.html#extend.t,PyList[T],Iterable[T]"><span class="Identifier">extend</span></a>, <a href="list.html#==,PyList[T],openArray[T]"><span class="Identifier">==</span></a>, <a href="list.html#newPyList,int"><span class="Identifier">newPyList</span></a>, <a href="list.html#*=,PyList[T],int"><span class="Identifier">*=</span></a>, <a href="list.html#[]=,PyList[T],PySlice,Sequence[T]"><span class="Identifier">[]=</span></a>, <a href="list.html#newPyList,seq[T]"><span class="Identifier">newPyList</span></a>, <a href="list.html#[]=,PyList[T],int,T"><span class="Identifier">[]=</span></a>, <a href="list.html#len.t,PyList"><span class="Identifier">len</span></a>, <a href="list.html#mitems.i,PyList[T]"><span class="Identifier">mitems</span></a>, <a href="list.html#+.t,PyList[T],PyList[T]"><span class="Identifier">+</span></a>, <a href="list.html#*,Natural,PyList[T]"><span class="Identifier">*</span></a>, <a href="list.html#insert,PyList[T],int,T"><span class="Identifier">insert</span></a>, <a href="list.html#==,PyList[T],seq[T]"><span class="Identifier">==</span></a>, <a href="list.html#@,PyList[T]"><span class="Identifier">@</span></a>, <a href="list.html#list"><span class="Identifier">list</span></a>, <a href="list.html#delitem,PyList,int"><span class="Identifier">delitem</span></a>, <a href="list.html#reverse,PyList"><span class="Identifier">reverse</span></a>, <a href="list.html#repr,PyList[char]"><span class="Identifier">repr</span></a>, <a href="list.html#*.t,PyList[T],Natural"><span class="Identifier">*</span></a>, <a href="list.html#[],PyList[T],PySlice"><span class="Identifier">[]</span></a>, <a href="list.html#list,openArray[T]"><span class="Identifier">list</span></a>, <a href="list.html#[],PyList[T],BackwardsIndex"><span class="Identifier">[]</span></a>
+    <a href="bytesimpl.html#not.t,PyBytes"><span class="Identifier">not</span></a>, <a href="bytesimpl.html#[],,HSlice[int,BackwardsIndex]"><span class="Identifier">[]</span></a>, <a href="bytesimpl.html#or.t,PyBytes,PyBytes"><span class="Identifier">or</span></a>, <a href="bytesimpl.html#substr,,int,int"><span class="Identifier">substr</span></a>, <a href="bytesimpl.html#+=,,string"><span class="Identifier">+=</span></a>, <a href="bytesimpl.html#byteLen"><span class="Identifier">byteLen</span></a>, <a href="bytesimpl.html#pybytes.t,T"><span class="Identifier">pybytes</span></a>, <a href="bytesimpl.html#==,,PyBytes"><span class="Identifier">==</span></a>, <a href="bytesimpl.html#toNimString.c"><span class="Identifier">toNimString</span></a>, <a href="bytesimpl.html#+,,char"><span class="Identifier">+</span></a>, <a href="bytesimpl.html#[],,int"><span class="Identifier">[]</span></a>, <a href="bytesimpl.html#bytes,openArray[char]"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#@,PyBytes"><span class="Identifier">@</span></a>, <a href="bytesimpl.html#chars.i"><span class="Identifier">chars</span></a>, <a href="bytesimpl.html#len"><span class="Identifier">len</span></a>, <a href="bytesimpl.html#getChar,,Natural"><span class="Identifier">getChar</span></a>, <a href="bytesimpl.html#$"><span class="Identifier">$</span></a>, <a href="bytesimpl.html#bytes"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#bytes,char"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#+,,string"><span class="Identifier">+</span></a>, <a href="bytesimpl.html#+=,,char"><span class="Identifier">+=</span></a>, <a href="bytesimpl.html#bytes,string"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#bytes,Iterable[int]"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#hasChar,PyBytes,char"><span class="Identifier">hasChar</span></a>, <a href="bytesimpl.html#bytes,Iterable[char]"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#+,,PyBytes"><span class="Identifier">+</span></a>, <a href="bytesimpl.html#+,string,"><span class="Identifier">+</span></a>, <a href="bytesimpl.html#items.i"><span class="Identifier">items</span></a>, <a href="bytesimpl.html#[],,Slice[int]"><span class="Identifier">[]</span></a>, <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a>, <a href="bytesimpl.html#+,char,"><span class="Identifier">+</span></a>, <a href="bytesimpl.html#substr,,int"><span class="Identifier">substr</span></a>, <a href="bytesimpl.html#fspath"><span class="Identifier">fspath</span></a>, <a href="bytesimpl.html#+=,,PyBytes"><span class="Identifier">+=</span></a>, <a href="bytesimpl.html#bytes_2"><span class="Identifier">bytes</span></a>, <a href="bytesimpl.html#getCharPtr,,"><span class="Identifier">getCharPtr</span></a>, <a href="bytesimpl.html#bytes,int"><span class="Identifier">bytes</span></a>
   </dl>
 </div>
 
@@ -814,7 +976,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-16 14:50:33 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-17 04:26:32 UTC</small>
       </div>
     </div>
   </div>
