@@ -60,7 +60,6 @@ when declared(cuchar):
   static: assert cuchar.high.uint8 == uint8.high
 else:
   type cuchar*{.importc:"unsigned char".} = char  ## unsigned char
-type cschar*{.importc:"signed char".} = char  ## signed char
 
 type SomeChar* = char|cschar|cuchar  ## In C, `char`, `unsigned char`, `signed char`
                                      ## are three distinct types,
