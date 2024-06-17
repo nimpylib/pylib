@@ -25,6 +25,10 @@ template itemsize*[T](arr: PyArray[T]): int = sizeof(T)
 
 func newPyArray*[T](): PyArray[T] = PyArray[T] list[T]()
 template newPyArray*[T](x): PyArray[T] =
+  ## unlike `array`_, when `x` is a literal, type conversion is always needed.
+  runnableExamples:
+    discard newPyArray[cint]([1.cint, 2])
+    # or write: array('i', [1, 2])
   bind list
   PyArray[T] list[T](x)
 
@@ -45,22 +49,31 @@ func `$`*[T](arr: PyArray[T]): string =
     result.add $PyList[T](arr)
   result.add ')'
 
-func repr*[T](arr: PyArray[T]): string = $arr  # no need to perform any quote
+# no need to perform any quote, as there're only integers,
+# so repr can just the same as `__str__`
+func repr*[T](arr: PyArray[T]): string = $arr ## alias for `$arr`
 
 # ISO-C declare `sizeof(char)` is always 1, but not necessarily 8-bit.
 when declared(cuchar):
+  # cuchar is deprecated long before, may it be removed?
   {.push warning[deprecated]: off.}
   static: assert cuchar.high.uint8 == uint8.high
 else:
-  type cuchar*{.importc:"unsigned char".} = char
-type cschar*{.importc:"signed char".} = char
+  type cuchar*{.importc:"unsigned char".} = char  ## unsigned char
+type cschar*{.importc:"signed char".} = char  ## signed char
 
-type SomeChar* = char|cschar|cuchar
+type SomeChar* = char|cschar|cuchar  ## In C, `char`, `unsigned char`, `signed char`
+                                     ## are three distinct types,
+                                     ## that's, `char` is either signed or unsigned,
+                                     ## which is implementation-dependent,
+                                     ## unlike other integer types,
+                                     ## e.g. int is alias of `signed int`
 when declared(cuchar): {.pop.}
 
 static: assert char is cchar
 
 func frombytes*(arr: var PyArray[SomeChar], buffer: BytesLike) =
+  ## append byte from `buffer` to `arr`
   let alen = arr.len
   arr.setLen alen + buffer.len
   var i = alen
@@ -140,7 +153,14 @@ proc arrayTypeParse(typecode: char, typeStr: string): NimNode =
 proc arrayTypeParse(typecode: char): NimNode =
   arrayTypeParse typecode, getType typecode
 
-macro array*(typecode: static[char]): PyArray = arrayTypeParse typecode
+macro array*(typecode: static[char]): PyArray =
+  runnableExamples:
+    var a = array('i')
+    assert a.typecode == 'i'
+    assert len(a) == 0
+    a.append(3)
+    assert a.len == 1 and a[0] == 3
+  arrayTypeParse typecode
 
 proc parseArrInitLit(lit: NimNode, typeStr: string): NimNode =
   if lit.kind != nnkBracket: return lit
@@ -151,13 +171,14 @@ proc parseArrInitLit(lit: NimNode, typeStr: string): NimNode =
     result.add lit[i]
 
 macro array*(typecode: static[char], initializer: typed): PyArray =
-  ## bytes or bytearray, a Unicode string, or iterable over elements of the appropriate type.
+  ## bytes or bytearray, a Unicode string,
+  ## or iterable over elements of the appropriate type.
+  ## 
+  ## `initializer` can be a bracket stmt, no need to manually add type convert,
+  ## see examples
   runnableExamples:
-    var a = array('i')
-    assert a.typecode == 'i'
-    assert a.len == 0
-    a.append(3)
-    assert a.len == 1 and a[0] == 3
+    assert array('i', [1, 2])[1] == c_int(2)
+
   let typeStr = getType typecode
   typecode.arrayTypeParse(typeStr).add initializer.parseArrInitLit(typeStr)
 
@@ -215,11 +236,19 @@ macro genSwapByte() =
 genSwapByte()
 
 func byteswap*[T](arr: var PyArray[T]) =
+  ## array.byteswap
+  ## 
+  ## Currently only compilable for `c_*` types,
+  ## a.k.a. not for Nim's `int*`, e.g. `int16`
+  ## 
+  ## .. hint:: trial of using this method on `PyArray[int*]` may lead to
+  ##  compile-error of C compiler.
   runnableExamples:
-    var arr = newPyArray[cshort]([1.cshort, 2])
-    arr.byteswap()
-    assert arr[0] == 256, $arr[0]  # int from \x01\x00
-    assert arr[1] == 512, $arr[1]
+    when sizeof(cshort) == 2:
+      var arr = array('h', [1, 2])
+      arr.byteswap()
+      assert arr[0] == 256, $arr[0]  # int from \x01\x00
+      assert arr[1] == 512, $arr[1]
   for x in arr.mitems():
     swapByte x
 
