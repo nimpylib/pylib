@@ -27,6 +27,12 @@ func bytes*(nLen: int): PyBytes =
 using self: PyBytes
 using mself: var PyBytes
 
+func getCharPtr*(self; i: Natural|BackwardsIndex): ptr char =
+  ## EXT.
+  ## unstable. 
+  ## used by Lib/array `frombytes` and `tobytes`
+  string(self)[i].addr
+
 func add(mself; s: string){.borrow.} # inner use
 func add(mself; s: char){.borrow.}   # inner use
 
@@ -75,7 +81,7 @@ func byteLen*(self): int = system.len self  ## EXT. the same as len(self)
 proc substr*(self; start, last: int): PyBytes{.borrow.} ## EXT. byte index
 proc substr*(self; start: int): PyBytes{.borrow.} ## EXT. byte index
 
-func getChar*(self; i: int): char = cast[string](self)[i]  ## EXT.
+func getChar*(self; i: Natural): char = cast[string](self)[i]  ## EXT.
 func contains(a: PyBytes, o: char): bool{.borrow.}  ## for hasChar only.
 func hasChar*(a: PyBytes, o: char): bool = o in a  ## EXT.  'c' in b"asc" is allowed
 # other versions of contains is in ./bytesmeth

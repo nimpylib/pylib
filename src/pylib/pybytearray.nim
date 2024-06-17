@@ -23,6 +23,12 @@ template asNim(self: PyByteArray): string =
 converter toPyBytes*(self): PyBytes = bytes self.data
 # then all non-inplace method are dispatched to PyBytes
 
+func getCharPtr*(self; i: Natural|Natural): ptr char =
+  ## EXT.
+  ## unstable. 
+  ## used by Lib/array `frombytes` and `tobytes`.
+  self.data[i].addr
+
 # End impl
 
 template wrapCmp(op){.dirty.} =

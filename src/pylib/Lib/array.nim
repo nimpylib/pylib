@@ -1,8 +1,14 @@
+## array
+## 
+## .. hint:: considering unicode array is deprecated since Python3.3,
+##   and will be removed in Python4,
+##   it's not implemented.
 
 import ../builtins/list
 
 import ../pybytes/bytesimpl
 import ../pybytearray
+export bytesimpl
 
 import std/[macros, strutils, tables]
 import std/endians
@@ -71,24 +77,64 @@ when declared(cuchar): {.pop.}
 
 static: assert char is cchar
 
-func frombytes*(arr: var PyArray[SomeChar], buffer: BytesLike) =
+func frombytes*[C: SomeChar](arr: var PyArray[C], buffer: BytesLike) =
   ## append byte from `buffer` to `arr`
   let alen = arr.len
   arr.setLen alen + buffer.len
   var i = alen
   for c in buffer.chars:
-    arr[i] = c
+    arr[i] = C(c)
     i.inc
 
 func tobytes*(arr: PyArray[SomeChar]): PyBytes = bytes @arr
 
+template getAddr(x): ptr =
+  when NimMajor == 1: x.unsafeAddr
+  else: x.addr
+
+func getPtr*[T](arr: var PyArray[T]; i: Natural|Natural): ptr T =
+  ## EXT.
+  ## unstable.
+  PyList[T](arr).getPtr i
+
+func frombytes*[T: not SomeChar](arr: var PyArray[T], buffer: BytesLike) =
+  ## append byte from `buffer` to `arr`
+  runnableExamples:
+    when sizeof(cshort) == 2:
+      var h = array('h', [1, 2])
+      h.frombytes(bytes("\x05\x00"))
+      when cpuEndian == littleEndian:
+        assert h[2] == 5
+      else:
+        assert h[2] == 1280
+
+  let bLen = buffer.len
+  if bLen mod arr.itemsize != 0:
+    raise newException(ValueError, "bytes length not a multiple of item size")
+  let aLen = arr.len
+  let aMoreLen = bLen div arr.itemsize
+  arr.setLen aLen + aMoreLen
+  for i in 0..<aMoreLen:
+    copyMem(arr.getPtr aLen+i, buffer.getCharPtr(i*arr.itemsize), arr.itemsize)
+
+func tobytes*[T: not SomeChar](arr: PyArray[T]): PyBytes =
+  let
+    aLen = arr.len
+    bLen = aLen * arr.itemsize
+  var ba = bytearray bLen
+  for i in 0..<aLen:
+    copyMem(ba.getCharPtr(i * arr.itemsize), arr.getPtr i, arr.itemsize)
+  bytes ba
+
 func fromfile*[T](arr: var PyArray[T], f: File, n: int) =
+  ## Currrently only for Nim's `File`
   for _ in 1..n:
     var item: T
     f.readBuffer(item.addr, arr.itemsize)
     arr.append item
 
 func tofile*[T](arr: var PyArray[T], f: File) =
+  ## Currrently only for Nim's `File`
   for x in arr:
     f.writeBuffer(x.addr, arr.itemsize)
 
@@ -169,6 +215,9 @@ proc parseArrInitLit(lit: NimNode, typeStr: string): NimNode =
   for i in 1..<lit.len:
     result.add lit[i]
 
+func isByteLike(node: NimNode): bool =
+  node == bindSym"PyBytes" or node == bindSym"PyByteArray"
+
 macro array*(typecode: static[char], initializer: typed): PyArray =
   ## bytes or bytearray, a Unicode string,
   ## or iterable over elements of the appropriate type.
@@ -177,11 +226,34 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
   ## see examples
   runnableExamples:
     assert array('i', [1, 2])[1] == c_int(2)
+    assert array('b', bytes("123"))[2] == c_schar('3')
 
-  let typeStr = getType typecode
-  typecode.arrayTypeParse(typeStr).add initializer.parseArrInitLit(typeStr)
-
-
+  let
+    typeStr = getType typecode
+    baseInitCall = typecode.arrayTypeParse(typeStr)
+  let
+    typ = initializer.getTypeInst
+    # not use getType, which returns concrete impl
+  if typ.typeKind == ntyArray:
+    result = baseInitCall.add initializer.parseArrInitLit(typeStr)
+    return
+  result = newStmtList()
+  let res = genSym(nskVar, "arrayNewRes")
+  result.add newVarStmt(
+    res,
+    baseInitCall
+  )
+  let meth = if typ.isByteLike:
+    bindSym"frombytes"
+  else:
+    bindSym"extend"
+  result.add newCall(
+    newDotExpr(
+      res,
+      meth
+    ), initializer
+  )
+  result.add res
 
 func initSizeTable(): Table[string, int] =
   result = initTable[string, int] TypeTableSize
@@ -216,11 +288,6 @@ template swapProcForT(T: NimNode): NimNode =
   ident "swapEndian" & getBitSizeStr(T)
 
 template swapByte[C: SomeChar](_: C) = discard  # do nothing
-
-when NimMajor == 1:
-  template getAddr(x): untyped = x.unsafeAddr
-else:
-  template getAddr(x): untyped = x.addr
 
 macro genSwapByte() =
   template mapper(typ; _): NimNode{.dirty.} =

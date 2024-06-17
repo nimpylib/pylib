@@ -52,6 +52,15 @@ iterator mitems*[T](self: PyList[T]): var T =
   for i in self.data.mitems:
     yield i
 
+func getPtr*[T](self: var PyList[T], i: Natural|BackwardsIndex): ptr T =
+  ## EXT.
+  ## unstable.
+  ## used by Lib/array `frombytes` and `tobytes`.
+  when NimMajor == 1:
+    self.data[i].unsafeAddr
+  else:
+    self.data[i].addr
+
 template len*(self: PyList): int = system.len(asSeq self)
 
 template normIdx(idx, ls): untyped =
