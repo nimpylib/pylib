@@ -1,6 +1,7 @@
 
 import std/strutils except strip, split, rsplit
 
+import ./replaceWithCount
 import ./errHandle
 import ../pyerrors/simperr
 
@@ -263,6 +264,14 @@ func replace*[S](a: S, sub, by: char): S =
   S strutils.replace($a, sub, by)
 func replace*[S](a: S, sub, by: S): S =
   S strutils.replace($a, $sub, $by)
+
+func replace*[S](a: S, sub, by: char, count: int): S =
+  if count < 0: a.replace(sub, by)
+  else: replaceWithCount.replace($a, sub, by, count)
+
+func replace*[S](a: S, sub, by: S, count: int): S =
+  if count < 0: a.replace(sub, by)
+  else: replaceWithCount.replace($a, $sub, $by, count)
 
 template expandtabsAux[S](a: S, tabsize#[: is a Positive]#;
   strByteLen: int;  iter;

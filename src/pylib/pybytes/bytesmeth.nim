@@ -154,6 +154,12 @@ func removesuffix*(a: PyBytes, suffix: PyBytes): PyBytes =
 func replace*(a: PyBytes, sub, by: PyBytes|char): PyBytes =
   meth.replace(a, sub, by)
 
+func replace*(a: PyBytes, sub, by: PyBytes|char, count: int): PyBytes =
+  ## bytes.replace(sub, by, count = -1)'
+  ##
+  ## count may be negative or zero.
+  meth.replace(a, sub, by, count)
+
 func expandtabs*(a: PyBytes, tabsize=8): PyBytes =
   bytes expandtabsImpl(a, tabsize, a.len, chars)
 

@@ -269,6 +269,12 @@ func removesuffix*(a: PyStr, suffix: PyStr): PyStr =
 func replace*(a: PyStr, sub, by: PyStr|char): PyStr =
   meth.replace(a, sub, by)
 
+func replace*(a: PyStr, sub, by: PyStr|char, count: int): PyStr =
+  ## str.replace(sub, by, count = -1)
+  ##
+  ## count may be negative or zero.
+  meth.replace(a, sub, by, count)
+
 func expandtabs*(a: PyStr, tabsize=8): PyStr =
   str expandtabsImpl(a, tabsize, a.byteLen, runes)
 
