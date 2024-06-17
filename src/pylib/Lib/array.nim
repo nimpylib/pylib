@@ -1,6 +1,5 @@
 
-import ../builtins/list as listlib
-export listlib
+import ../builtins/list
 
 import ../pybytes/bytesimpl
 import ../pybytearray
@@ -25,7 +24,9 @@ func setLen*[T](arr: var PyArray[T], n: int) = PyList[T](arr).setLen n  # EXT.
 template itemsize*[T](arr: PyArray[T]): int = sizeof(T)
 
 func newPyArray*[T](): PyArray[T] = PyArray[T] list[T]()
-template newPyArray*[T](x): PyArray[T] = PyArray[T] list[T](x)
+template newPyArray*[T](x): PyArray[T] =
+  bind list
+  PyArray[T] list[T](x)
 
 func fromlist*[T](arr: var PyArray[T], ls: PyList[T]) =
   arr.extend ls
@@ -247,7 +248,9 @@ proc wrapMethImpl(sym: NimNode; paramColonExprs: openArray[NimNode], resType=Emp
     let (param, typ) = (colonExpr[0], colonExpr[1])
     procParams.add newIdentDefs(param, typ)
     wrappedCall.add param
-  let body = wrappedCall
+  let body = newStmtList().add(
+    nnkBindStmt.newTree(sym),
+    wrappedCall)
   let
     pragmas = newEmptyNode()
     generics = nnkGenericParams.newTree(
