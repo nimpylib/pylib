@@ -2,10 +2,8 @@ when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
 import std/[
-  strutils, tables, times, os,
+  strutils, times  # only used for timeit
 ]
-
-export tables
 
 when not defined(js):
   import pylib/io
