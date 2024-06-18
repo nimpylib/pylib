@@ -79,27 +79,18 @@ template isUtcZone(st: struct_time): bool =
   ## zone is only local or utc
   st.tm_gmtoff == 0
 
-template initStructTime(
-    year,
-    mon,
-    mday,
-    hour,
-    min,
-    sec,
-    wday,
-    yday,
-    isdst
-): struct_time =
-  struct_time(
-    tm_year: year,
-    tm_mon:  mon,
-    tm_mday: mday,
-    tm_hour: hour,
-    tm_min:  min,
-    tm_sec:  sec,
-    tm_wday: wday,
-    tm_yday: yday,
-    tm_isdst:isdst,
+converter toTuple*(st: struct_time): struct_time_tuple =
+  ## XXX: `tuple` is Nim's keyword, so no symbol can be named `tuple`
+  (
+    st.tm_year,
+    st.tm_mon,
+    st.tm_mday,
+    st.tm_hour,
+    st.tm_min,
+    st.tm_sec,
+    st.tm_wday,
+    st.tm_yday,
+    st.tm_isdst,
   )
 
 template initStructTime(
