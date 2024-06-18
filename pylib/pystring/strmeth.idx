@@ -40,9 +40,12 @@ nim	zfill	pylib/pystring/strmeth.html#zfill,PyStr,int	proc zfill(a: PyStr; width
 nim	removeprefix	pylib/pystring/strmeth.html#removeprefix,PyStr,PyStr	proc removeprefix(a: PyStr; suffix: PyStr): PyStr		264
 nim	removesuffix	pylib/pystring/strmeth.html#removesuffix,PyStr,PyStr	proc removesuffix(a: PyStr; suffix: PyStr): PyStr		266
 nim	replace	pylib/pystring/strmeth.html#replace,PyStr,,	proc replace(a: PyStr; sub, by: PyStr | char): PyStr		269
-nim	join	pylib/pystring/strmeth.html#join,PyStr,openArray[T]	proc join[T](sep: PyStr; a: openArray[T]): PyStr		272
-nim	partition	pylib/pystring/strmeth.html#partition,PyStr,PyStr	proc partition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		276
-nim	rpartition	pylib/pystring/strmeth.html#rpartition,PyStr,PyStr	proc rpartition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		279
+nim	replace	pylib/pystring/strmeth.html#replace,PyStr,,,int	proc replace(a: PyStr; sub, by: PyStr | char; count: int): PyStr		272
+nim	expandtabs	pylib/pystring/strmeth.html#expandtabs,PyStr,int	proc expandtabs(a: PyStr; tabsize = 8): PyStr		278
+nim	join	pylib/pystring/strmeth.html#join,PyStr,openArray[T]	proc join[T](sep: PyStr; a: openArray[T]): PyStr		281
+nim	partition	pylib/pystring/strmeth.html#partition,PyStr,PyStr	proc partition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		285
+nim	rpartition	pylib/pystring/strmeth.html#rpartition,PyStr,PyStr	proc rpartition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		288
+nimgrp	replace	pylib/pystring/strmeth.html#replace-procs-all	proc		269
 nimgrp	ljust	pylib/pystring/strmeth.html#ljust-procs-all	proc		247
 nimgrp	startswith	pylib/pystring/strmeth.html#startsWith-procs-all	proc		195
 nimgrp	center	pylib/pystring/strmeth.html#center-procs-all	proc		243

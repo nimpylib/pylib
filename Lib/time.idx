@@ -1,0 +1,15 @@
+nimTitle	time	time.html	module src/pylib/Lib/time		0
+nim	time	time.html#time	proc time(): float		31
+nim	time_ns	time.html#time_ns	proc time_ns(): int		34
+nim	process_time	time.html#process_time	proc process_time(): float		40
+nim	gmtime	time.html#gmtime,int64	proc gmtime(secs: int64): struct_time		42
+nim	localtime	time.html#localtime,int64	proc localtime(secs: int64): struct_time		47
+nim	gmtime	time.html#gmtime,float	proc gmtime(secs: float): struct_time		52
+nim	localtime	time.html#localtime,float	proc localtime(secs: float): struct_time		57
+nim	gmtime	time.html#gmtime	proc gmtime(): struct_time		62
+nim	localtime	time.html#localtime	proc localtime(): struct_time		63
+nim	mktime	time.html#mktime,struct_time	proc mktime(t: struct_time): float		65
+nimgrp	gmtime	time.html#gmtime-procs-all	proc		42
+nimgrp	localtime	time.html#localtime-procs-all	proc		47
+heading	py diff	time.html#py-diff	  py diff		0
+heading	Some note about implement details the different between std/times and Python's times	time.html#some-note-about-implement-details-the-different-between-stdslashtimes-and-python-s-times	  Some note about implement details the different between std/times and Python's times		0

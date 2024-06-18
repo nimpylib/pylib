@@ -85,6 +85,10 @@
 <li><a class="reference" href="#endsWith%2CPyBytes%2CTup" title="endsWith[Tup: tuple](a: PyBytes; suffix: Tup): bool">endsWith[Tup: tuple](a: PyBytes; suffix: Tup): bool</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">expandtabs
+  <li><a class="reference" href="#expandtabs%2CPyBytes%2Cint" title="expandtabs(a: PyBytes; tabsize = 8): PyBytes">expandtabs(a: PyBytes; tabsize = 8): PyBytes</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">find
   <li><a class="reference" href="#find%2CPyBytes%2Cint%2Cint" title="find(a: PyBytes; b: int; start = 0; end = len(a)): int">find(a: PyBytes; b: int; start = 0; end = len(a)): int</a></li>
 <li><a class="reference" href="#find%2CPyBytes%2CPyBytes%2Cint" title="find(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int">find(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int</a></li>
@@ -146,6 +150,7 @@
 </ul>
 <ul class="simple nested-toc-section">replace
   <li><a class="reference" href="#replace%2CPyBytes%2C%2C" title="replace(a: PyBytes; sub, by: PyBytes | char): PyBytes">replace(a: PyBytes; sub, by: PyBytes | char): PyBytes</a></li>
+<li><a class="reference" href="#replace%2CPyBytes%2C%2C%2Cint" title="replace(a: PyBytes; sub, by: PyBytes | char; count: int): PyBytes">replace(a: PyBytes; sub, by: PyBytes | char; count: int): PyBytes</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">rfind
@@ -416,6 +421,20 @@
 </div>
 
 </div>
+<div id="expandtabs-procs-all">
+  <div id="expandtabs,PyBytes,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#expandtabs%2CPyBytes%2Cint"><span class="Identifier">expandtabs</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">;</span> <span class="Identifier">tabsize</span> <span class="Other">=</span> <span class="DecNumber">8</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L163" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L163" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="find-procs-all">
   <div id="find,PyBytes,int,int">
   <dt><pre><span class="Keyword">func</span> <a href="#find%2CPyBytes%2Cint%2Cint"><span class="Identifier">find</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">end</span> <span class="Other">=</span> <span class="Identifier">len</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
@@ -550,8 +569,8 @@
   <dd>
     
     Mimics Python join() -&gt; bytes
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L157" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L157" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L166" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L166" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -602,8 +621,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L161" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L161" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L170" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L170" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -645,6 +664,18 @@
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L154" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L154" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="replace,PyBytes,,,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#replace%2CPyBytes%2C%2C%2Cint"><span class="Identifier">replace</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">;</span> <span class="Identifier">sub</span><span class="Other">,</span> <span class="Identifier">by</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> <span class="Operator">|</span> <span class="Identifier">char</span><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a></pre></dt>
+  <dd>
+    
+    <p>bytes.replace(sub, by, count = -1)'</p>
+<p>count may be negative or zero.</p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L157" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L157" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -732,8 +763,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L164" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L164" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytes/bytesmeth.nim#L173" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytes/bytesmeth.nim#L173" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -891,7 +922,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-17 04:26:20 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-18 14:14:33 UTC</small>
       </div>
     </div>
   </div>

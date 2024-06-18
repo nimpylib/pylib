@@ -1,0 +1,3 @@
+nimTitle	asctimeImpl	time_impl/asctimeImpl.html	module src/pylib/Lib/time_impl/asctimeImpl		0
+nim	asctimeImpl	time_impl/asctimeImpl.html#asctimeImpl.t,string,DateTime	template asctimeImpl(result: string; dt: DateTime)		5
+nim	asctime	time_impl/asctimeImpl.html#asctime,DateTime	proc asctime(dt: DateTime): string		12

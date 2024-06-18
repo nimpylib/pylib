@@ -1,0 +1,6 @@
+nimTitle	timeit	pylib/Lib/timeit.html	module src/pylib/Lib/timeit		0
+nim	timeit	pylib/Lib/timeit.html#timeit.t,int,untyped	template timeit(repetitions: int; statements: untyped)		12
+nim	timeit	pylib/Lib/timeit.html#timeit.t,,,int	template timeit(stmt; setup; number = 1000000): float		35
+nim	timeit	pylib/Lib/timeit.html#timeit.t,,int	template timeit(stmt; number = 1000000): float		53
+nim	timeit	pylib/Lib/timeit.html#timeit.t,int	template timeit(number = 1000000): float		60
+nimgrp	timeit	pylib/Lib/timeit.html#timeit-templates-all	template		12

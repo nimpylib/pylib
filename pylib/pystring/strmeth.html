@@ -81,6 +81,10 @@
 <li><a class="reference" href="#endsWith%2CPyStr%2CTup" title="endsWith[Tup: tuple](a: PyStr; suffix: Tup): bool">endsWith[Tup: tuple](a: PyStr; suffix: Tup): bool</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">expandtabs
+  <li><a class="reference" href="#expandtabs%2CPyStr%2Cint" title="expandtabs(a: PyStr; tabsize = 8): PyStr">expandtabs(a: PyStr; tabsize = 8): PyStr</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">find
   <li><a class="reference" href="#find%2CPyStr%2CPyStr%2Cint" title="find(a: PyStr; b: PyStr; start = 0; end = len(a)): int">find(a: PyStr; b: PyStr; start = 0; end = len(a)): int</a></li>
 
@@ -141,6 +145,7 @@
 </ul>
 <ul class="simple nested-toc-section">replace
   <li><a class="reference" href="#replace%2CPyStr%2C%2C" title="replace(a: PyStr; sub, by: PyStr | char): PyStr">replace(a: PyStr; sub, by: PyStr | char): PyStr</a></li>
+<li><a class="reference" href="#replace%2CPyStr%2C%2C%2Cint" title="replace(a: PyStr; sub, by: PyStr | char; count: int): PyStr">replace(a: PyStr; sub, by: PyStr | char; count: int): PyStr</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">rfind
@@ -364,6 +369,20 @@
 </div>
 
 </div>
+<div id="expandtabs-procs-all">
+  <div id="expandtabs,PyStr,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#expandtabs%2CPyStr%2Cint"><span class="Identifier">expandtabs</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">;</span> <span class="Identifier">tabsize</span> <span class="Other">=</span> <span class="DecNumber">8</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L278" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L278" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="find-procs-all">
   <div id="find,PyStr,PyStr,int">
   <dt><pre><span class="Keyword">func</span> <a href="#find%2CPyStr%2CPyStr%2Cint"><span class="Identifier">find</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">end</span> <span class="Other">=</span> <span class="Identifier">len</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
@@ -486,8 +505,8 @@
   <dd>
     
     Mimics Python join() -&gt; string
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L272" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L272" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L281" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L281" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -545,8 +564,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L276" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L276" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L285" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L285" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -588,6 +607,18 @@
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L269" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L269" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="replace,PyStr,,,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#replace%2CPyStr%2C%2C%2Cint"><span class="Identifier">replace</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">;</span> <span class="Identifier">sub</span><span class="Other">,</span> <span class="Identifier">by</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> <span class="Operator">|</span> <span class="Identifier">char</span><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dd>
+    
+    <p>str.replace(sub, by, count = -1)</p>
+<p>count may be negative or zero.</p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L272" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L272" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -653,8 +684,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L279" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L279" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pystring/strmeth.nim#L288" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pystring/strmeth.nim#L288" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -816,7 +847,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-17 04:26:19 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-18 14:14:31 UTC</small>
       </div>
     </div>
   </div>

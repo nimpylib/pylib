@@ -1,2 +1,5 @@
 nimTitle	pylib	pylib.html	module src/pylib		0
-nim	timeit	pylib.html#timeit.t,int,untyped	template timeit(repetitions: int; statements: untyped): untyped		26
+nim	timeit	pylib.html#timeit.t,int,untyped	template timeit(repetitions: int; statements: untyped): untyped		23
+heading	Nim Pylib	pylib.html#nim-pylib	 Nim Pylib		0
+heading	import pylib	pylib.html#nim-pylib-import-pylib	  import pylib		0
+heading	import Python-like stdlib	pylib.html#nim-pylib-import-pythonminuslike-stdlib	  import Python-like stdlib		0

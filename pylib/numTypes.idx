@@ -3,18 +3,19 @@ nim	NimInt	pylib/numTypes.html#NimInt	type NimInt		11
 nim	int	pylib/numTypes.html#int.t	template int(a: PyStr | PyBytes): NimInt		19
 nim	int	pylib/numTypes.html#int.t,char	template int(a: char): NimInt		22
 nim	int	pylib/numTypes.html#int.t,bool	template int(a: bool): NimInt		25
-nim	nimint	pylib/numTypes.html#nimint.t	template nimint(a): NimInt		27
-nim	int	pylib/numTypes.html#int.t,,int	template int(x: PyStr | PyBytes; base: int): NimInt		63
-nim	long	pylib/numTypes.html#long.t,string	template long(a: string): BiggestInt		72
-nim	long	pylib/numTypes.html#long.t,char	template long(a: char): BiggestInt		73
-nim	long	pylib/numTypes.html#long.t,T	template long[T: SomeNumber](a: T): BiggestInt		74
-nim	long	pylib/numTypes.html#long.t,bool	template long(a: bool): int		75
-nim	float	pylib/numTypes.html#float.t	template float(a: PyStr | PyBytes): BiggestFloat		77
-nim	float	pylib/numTypes.html#float.t,bool	template float(a: bool): BiggestFloat		80
-nim	as_integer_ratio	pylib/numTypes.html#as_integer_ratio.t,NimInt	template as_integer_ratio(self: NimInt): (NimInt, NimInt)		85
-nim	bit_length	pylib/numTypes.html#bit_length.t,NimInt	template bit_length(self: NimInt): NimInt		88
-nim	conjugate	pylib/numTypes.html#conjugate.t,NimInt	template conjugate(self: NimInt): NimInt		92
-nim	to_bytes	pylib/numTypes.html#to_bytes,,int,PyStr	proc to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes		117
+nim	int	pylib/numTypes.html#int.t,float	template int(f: float): NimInt		26
+nim	nimint	pylib/numTypes.html#nimint.t	template nimint(a): NimInt		28
+nim	int	pylib/numTypes.html#int.t,,int	template int(x: PyStr | PyBytes; base: int): NimInt		64
+nim	long	pylib/numTypes.html#long.t,string	template long(a: string): BiggestInt		73
+nim	long	pylib/numTypes.html#long.t,char	template long(a: char): BiggestInt		74
+nim	long	pylib/numTypes.html#long.t,T	template long[T: SomeNumber](a: T): BiggestInt		75
+nim	long	pylib/numTypes.html#long.t,bool	template long(a: bool): int		76
+nim	float	pylib/numTypes.html#float.t	template float(a: PyStr | PyBytes): BiggestFloat		78
+nim	float	pylib/numTypes.html#float.t,bool	template float(a: bool): BiggestFloat		81
+nim	as_integer_ratio	pylib/numTypes.html#as_integer_ratio.t,NimInt	template as_integer_ratio(self: NimInt): (NimInt, NimInt)		86
+nim	bit_length	pylib/numTypes.html#bit_length.t,NimInt	template bit_length(self: NimInt): NimInt		89
+nim	conjugate	pylib/numTypes.html#conjugate.t,NimInt	template conjugate(self: NimInt): NimInt		93
+nim	to_bytes	pylib/numTypes.html#to_bytes,,int,PyStr	proc to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes		118
 nimgrp	int	pylib/numTypes.html#int-templates-all	template		19
-nimgrp	float	pylib/numTypes.html#float-templates-all	template		77
-nimgrp	long	pylib/numTypes.html#long-templates-all	template		72
+nimgrp	float	pylib/numTypes.html#float-templates-all	template		78
+nimgrp	long	pylib/numTypes.html#long-templates-all	template		73

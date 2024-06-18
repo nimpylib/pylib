@@ -1,0 +1,5 @@
+nimTitle	types	time_impl/types.html	module src/pylib/Lib/time_impl/types		0
+nim	struct_time_tuple	time_impl/types.html#struct_time_tuple	tuple struct_time_tuple		5
+nim	struct_time	time_impl/types.html#struct_time	type struct_time		16
+nim	isUtcZone	time_impl/types.html#isUtcZone.t,struct_time	template isUtcZone(st: struct_time): bool		29
+nim	initStructTime	time_impl/types.html#initStructTime.t,,,,,,,,,,,	template initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time		33

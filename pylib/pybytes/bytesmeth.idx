@@ -48,10 +48,13 @@ nim	zfill	pylib/pybytes/bytesmeth.html#zfill,PyBytes,int	proc zfill(a: PyBytes; 
 nim	removeprefix	pylib/pybytes/bytesmeth.html#removeprefix,PyBytes,PyBytes	proc removeprefix(a: PyBytes; suffix: PyBytes): PyBytes		149
 nim	removesuffix	pylib/pybytes/bytesmeth.html#removesuffix,PyBytes,PyBytes	proc removesuffix(a: PyBytes; suffix: PyBytes): PyBytes		151
 nim	replace	pylib/pybytes/bytesmeth.html#replace,PyBytes,,	proc replace(a: PyBytes; sub, by: PyBytes | char): PyBytes		154
-nim	join	pylib/pybytes/bytesmeth.html#join,PyBytes,openArray[T]	proc join[T](sep: PyBytes; a: openArray[T]): PyBytes		157
-nim	partition	pylib/pybytes/bytesmeth.html#partition,PyBytes,PyBytes	proc partition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		161
-nim	rpartition	pylib/pybytes/bytesmeth.html#rpartition,PyBytes,PyBytes	proc rpartition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		164
+nim	replace	pylib/pybytes/bytesmeth.html#replace,PyBytes,,,int	proc replace(a: PyBytes; sub, by: PyBytes | char; count: int): PyBytes		157
+nim	expandtabs	pylib/pybytes/bytesmeth.html#expandtabs,PyBytes,int	proc expandtabs(a: PyBytes; tabsize = 8): PyBytes		163
+nim	join	pylib/pybytes/bytesmeth.html#join,PyBytes,openArray[T]	proc join[T](sep: PyBytes; a: openArray[T]): PyBytes		166
+nim	partition	pylib/pybytes/bytesmeth.html#partition,PyBytes,PyBytes	proc partition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		170
+nim	rpartition	pylib/pybytes/bytesmeth.html#rpartition,PyBytes,PyBytes	proc rpartition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		173
 nimgrp	contains	pylib/pybytes/bytesmeth.html#contains-procs-all	proc		110
+nimgrp	replace	pylib/pybytes/bytesmeth.html#replace-procs-all	proc		154
 nimgrp	rfind	pylib/pybytes/bytesmeth.html#rfind-procs-all	proc		88
 nimgrp	ljust	pylib/pybytes/bytesmeth.html#ljust-procs-all	proc		132
 nimgrp	startswith	pylib/pybytes/bytesmeth.html#startsWith-procs-all	proc		82
