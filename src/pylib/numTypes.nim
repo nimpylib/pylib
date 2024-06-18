@@ -23,6 +23,7 @@ template int*(a: char): NimInt =
   bind parseInt
   parseInt($a)
 template int*(a: bool): NimInt = (if a: 1 else: 0)
+template int*(f: float): NimInt = system.int(f)
 
 template nimint*(a): NimInt =
   bind int
