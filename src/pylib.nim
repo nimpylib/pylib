@@ -1,3 +1,4 @@
+## .. include:: ../doc/pylib.md
 when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
