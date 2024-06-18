@@ -1,6 +1,9 @@
-
-
 ##[
+# time
+
+.. hint:: ctime and
+  asctime are not implemented yet,
+  considering they are deprecated.
 
 ## py diff
 
@@ -15,9 +18,6 @@ std/times DateTime's utcOffset is opposed to struct_time.tm_gmtoff
 e.g.  in the east, DateTime.utcOffset is negative.
 
 ]##
-
-# status: not tested yet; not completed
-
 
 import std/times
 import ./time_impl/[
