@@ -27,7 +27,9 @@ import pylib
 from pylib/Lib/time import sleep
 from pylib/Lib/sys import nil  # like python's `import sys`
 from pylib/Lib/platform import nil  # like python's `import sys`
-import pylib/Lib/tempfile # more python-stdlib in pylib/Lib...
+import pylib/Lib/tempfile
+# like python's `import tempfile; from tempfile import *`
+# more python-stdlib in pylib/Lib/...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
 pass str("This is a string.") # discard the string. Python doesn't allow this, however
@@ -126,10 +128,10 @@ def allAny():
   print(truty) # True
 allAny()
 
-timeit(100):  # Python-like timeit.timeit("code_to_benchmark", number=int)
-  sleep(9)    # Repeats this code 100 times. Output is very informative.
-
-# 2020-06-17T21:59:09+03:00 TimeIt: 100 Repetitions on 927 milliseconds, 704 microseconds, and 816 nanoseconds, CPU Time 0.0007382400000000003.
+sleep(9)
+# sleep around 9 milsecs.
+# note Nim's os.sleep's unit is milsec,
+# while Python's time.sleep's is second.
 
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement
