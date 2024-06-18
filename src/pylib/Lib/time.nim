@@ -34,9 +34,10 @@ proc time*(): float =
 proc time_ns*(): int =
   let t = getTime()
   result = t.nanosecond
-  result += t.toUnix * 1_000_000_000
+  result += typeof(result)(t.toUnix) * 1_000_000_000
 
-proc process_time*(): float = cpuTime()
+when not defined(js):
+  proc process_time*(): float = cpuTime()
 
 proc gmtime*(secs: int64): struct_time =
   let t = fromUnix secs
