@@ -3,8 +3,13 @@
 # status: not tested yet; not finished
 
 import std/os as nos
-proc sleep*(s: int) =
-  nos.sleep 1000 * s
+template sleep*(s: int) =
+  bind sleep
+  sleep(milsecs=1000 * s)  # param name based overload
+template sleep*(s: float) =
+  bind sleep
+  sleep(milsecs=int(1000 * s))
+
 
 #when defined(posix): import std/posix
 
