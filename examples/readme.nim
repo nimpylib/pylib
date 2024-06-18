@@ -1,4 +1,5 @@
 import pylib
+from pylib/Lib/timeit import timeit
 from pylib/Lib/time import sleep
 from pylib/Lib/platform import nil  # like python's `import sys`
 from pylib/Lib/sys import nil  # like python's `import platform`
@@ -12,6 +13,7 @@ pass str("This is a string.") # discard the string. Python doesn't allow this, h
 # NOTE: from now on, the following is just valid Python3 code!
 # only add the following to make it Python:
 # import platform
+# from timeit import timeit
 # from time import sleep
 # from tempfile import NamedTemporaryFile, TemporaryDirectory
 print( f"{9.0} Hello {42} World {1 + 2}" ) # Python-like string interpolation
@@ -102,10 +104,13 @@ def allAny():
   print(truty) # True
 allAny()
 
-sleep(0.009)
-# sleep around 9 milsecs.
-# note Nim's os.sleep's unit is milsec,
-# while Python's time.sleep's is second.
+def a_little_sleep():
+  "sleep around 0.001 milsecs."
+  # note Nim's os.sleep's unit is milsec,
+  # while Python's time.sleep's is second.
+  sleep(0.001)
+
+assert timeit(a_little_sleep, number=1000) > 1.0
 
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement

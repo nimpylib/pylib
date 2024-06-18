@@ -2,9 +2,7 @@
 when defined(nimHasStrictFuncs):
   {.experimental: "strictFuncs".}
 
-import std/[
-  strutils, times  # only used for timeit
-]
+import pylib/Lib/timeit
 
 when not defined(js):
   import pylib/io
@@ -22,18 +20,11 @@ when not defined(pylibNoLenient):
   import std/lenientops
   export lenientops
 
-template timeit*(repetitions: int, statements: untyped): untyped{.decprecated:
+template timeit*(repetitions: int, statements: untyped): untyped{.deprecated:
     "will be removed from main pylib since 0.10, import it from `pylib/Lib` instead".} =
   ## EXT.
   ## 
   ## Mimics Pythons ``timeit.timeit()``, output shows more information than Pythons.
-  bind times.`$`
-  template cpuTimeImpl(): untyped =
-    when defined(js): now() else: cpuTime()
-  let
-    started = now()
-    cpuStarted = cpuTimeImpl()
-  for i in 1 .. repetitions:
+  bind timeit
+  timeit(repetitions):
     statements
-  echo "$1 TimeIt: $2 Repetitions on $3, CPU Time $4.".format(
-    $now(), repetitions, $(now() - started), $(cpuTimeImpl() - cpuStarted))

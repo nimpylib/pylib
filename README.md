@@ -24,6 +24,7 @@ and gain a better view into different behaviors between Python and Nim.
 
 ```nim
 import pylib
+from pylib/Lib/timeit import timeit
 from pylib/Lib/time import sleep
 from pylib/Lib/sys import nil  # like python's `import sys`
 from pylib/Lib/platform import nil  # like python's `import sys`
@@ -128,10 +129,13 @@ def allAny():
   print(truty) # True
 allAny()
 
-sleep(9)
-# sleep around 9 milsecs.
-# note Nim's os.sleep's unit is milsec,
-# while Python's time.sleep's is second.
+def a_little_sleep():
+  "sleep around 0.001 milsecs."
+  # note Nim's os.sleep's unit is milsec,
+  # while Python's time.sleep's is second.
+  sleep(0.001)
+
+assert timeit(a_little_sleep, number=1000) > 1.0
 
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement
