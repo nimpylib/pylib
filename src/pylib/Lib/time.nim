@@ -21,11 +21,12 @@ e.g.  in the east, DateTime.utcOffset is negative.
 
 import std/times
 import ./time_impl/[
-  types, converters, sleep_impl
+  types, converters, sleep_impl, strfptime
 ]
 export sleep
 export types except isUtcZone
 export toTuple
+export strfptime
 
 proc time*(): float =
   epochTime() # getTime().toUnixFloat()
