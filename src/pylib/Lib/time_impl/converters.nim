@@ -3,6 +3,22 @@ import ./types
 import ./private/macro_utils
 import std/times
 
+template wrapTuple*(sym, tupType){.dirty.} =
+  ## wrap a func `sym(struct_time)`
+  ## to accept `tupType` too.
+  bind asgSeqToObj, initStructTime
+  func sym*(tup: tupType): typeof(sym(initStructTime())) =
+    var st = initStructTime()
+    asgSeqToObj(tup, st)
+    sym st
+
+template wrapTuple*(sym){.dirty.} =
+  ## wrap a func `sym(struct_time)`
+  ## to accept `struct_time_tuple*`, too.
+  wrapTuple sym, struct_time_tuple
+  wrapTuple sym, struct_time_tuple10
+  wrapTuple sym, struct_time_tuple11
+
 template gen_init(tupType) =
   func struct_time*(tup: tupType): struct_time =
     result = initStructTime()

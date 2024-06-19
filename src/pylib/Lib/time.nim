@@ -1,72 +1,36 @@
-##[
-# time
+##[ time
 
-.. hint:: ctime and
-  asctime are not implemented yet,
-  considering they are deprecated.
-
-## py diff
-
-Currently,
-`tm_name` is either "LOCAL" or "Etc/UTC", due to std/times only returning those two.
-
-
+See `n_time modeule<n_time.html>` for details about implementation
 ]##
 
-#[
-## impl note
-Some note about implement details the different between std/times and Python's times
+import ./n_time
+import ../pystring/strimpl
 
-std/times DateTime's utcOffset is opposed to struct_time.tm_gmtoff
-e.g.  in the east, DateTime.utcOffset is negative.
-]#
-
-import std/times
-import ./time_impl/[
-  types, converters, sleep_impl, strfptime
-]
-export sleep
-export types except isUtcZone
+export sleep, measures
+export types except isUtcZone, initStructTime
 export toTuple
-export strfptime
+export struct_time_funcs
 
-proc time*(): float =
-  epochTime() # getTime().toUnixFloat()
+const DefaultTimeFormat* = str DefaultTimeFormat
 
-proc time_ns*(): int =
-  let t = getTime()
-  result = t.nanosecond
-  result += typeof(result)(t.toUnix) * 1_000_000_000
+proc asctime*(): PyStr = str n_time.asctime()
 
-when not defined(js):
-  proc process_time*(): float =
-    ## not available for JS backend, currently.
-    cpuTime()
+template wrap1(f, arg): PyStr =
+  str n_time.f(arg)
 
-proc gmtime*(secs: int64): struct_time =
-  let t = fromUnix secs
-  let dt = t.utc()
-  dtToStructTime(dt, result)
+func asctime*(t: Some_struct_time): PyStr =
+  wrap1 asctime, t
 
-proc localtime*(secs: int64): struct_time =
-  let t = fromUnix secs
-  let dt = t.local()
-  dtToStructTime(dt, result)
+proc ctime*(): PyStr = str ctime()
+proc ctime*(secs: float|int64): PyStr =
+  wrap1 ctime, secs
 
-proc gmtime*(secs: float): struct_time =
-  let t = fromUnixFloat secs
-  let dt = t.utc()
-  dtToStructTime(dt, result)
+func strftime*(format: PyStr, st: Some_struct_time): PyStr =
+  str n_time.strftime($format, st)
 
-proc localtime*(secs: float): struct_time =
-  let t = fromUnixFloat secs
-  let dt = t.local()
-  dtToStructTime(dt, result)
+proc strftime*(format: PyStr): PyStr =
+  strftime format, localtime()
 
-proc gmtime*(): struct_time = dtToStructTime(now().inZone(utc()), result)
-proc localtime*(): struct_time = dtToStructTime(now(), result)
+proc strptime*(s: PyStr; format = DefaultTimeFormat): struct_time =
+  n_time.strptime($s, $format)
 
-func mktime*(t: struct_time): float =
-  var dt: DateTime
-  structTimeToDt(t, dt)
-  dt.toTime().toUnixFloat()

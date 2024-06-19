@@ -22,6 +22,10 @@ declTupleWithNFieldsFrom(struct_time_tuple, struct_time, STRUCT_TM_ITEMS)
 declTupleWithNFieldsFrom(struct_time_tuple10, struct_time, STRUCT_TM_ITEMS+1)
 declTupleWithNFieldsFrom(struct_time_tuple11, struct_time, STRUCT_TM_ITEMS+2)
 
+type
+  Some_struct_time_tuple* = struct_time_tuple | struct_time_tuple10 | struct_time_tuple11
+  Some_struct_time* = struct_time | Some_struct_time_tuple
+
 template isUtcZone*(st: struct_time): bool =
   ## zone is only local or utc
   st.tm_gmtoff == 0

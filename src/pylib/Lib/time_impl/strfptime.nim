@@ -4,16 +4,17 @@ import ./[
   types, converters, nstrpftime
 ]
 
-#import ../../pystring/strimpl
-
 func strftime*(format: string, st: struct_time): string =
   var dt: DateTime
   structTimeToDt st, dt
   strftime format, dt
 
 func strftime*[S](format: S, st: struct_time): S =
-  ## for `S` is `PyStr`
+  ## EXT.
   S(strftime($format, st))
+
+func strftime*(format: string, st: Some_struct_time_tuple): string =
+  strftime format, struct_time st
 
 proc strptime*(s: string, f: string): struct_time =
   ## .. include:: ./doc/nstrptimeDiff.rst
