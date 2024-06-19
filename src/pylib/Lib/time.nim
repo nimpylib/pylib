@@ -1,6 +1,6 @@
 ##[ time
 
-See `n_time modeule<n_time.html>` for details about implementation
+See `n_time modeule<n_time.html>`_ for details about implementation
 ]##
 
 import ./n_time
@@ -19,6 +19,8 @@ template wrap1(f, arg): PyStr =
   str n_time.f(arg)
 
 func asctime*(t: Some_struct_time): PyStr =
+  runnableExamples:
+    assert asctime(gmtime(0)) == "Thu Jan  1 00:00:00 1970"
   wrap1 asctime, t
 
 proc ctime*(): PyStr = str ctime()
