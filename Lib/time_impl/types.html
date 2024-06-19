@@ -48,10 +48,16 @@
     </div>
     <ul class="simple simple-toc" id="toc-list">
   <li>
+  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
+</li>
+<li>
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#struct_time" title="struct_time = ref object
+      <li><a class="reference" href="#Some_struct_time" title="Some_struct_time = struct_time | Some_struct_time_tuple">Some_struct_time</a></li>
+<li><a class="reference" href="#Some_struct_time_tuple" title="Some_struct_time_tuple = struct_time_tuple | struct_time_tuple10 |
+    struct_time_tuple11">Some_struct_time_tuple</a></li>
+<li><a class="reference" href="#struct_time" title="struct_time = ref object
   tm_year*: int
   tm_mon*: range[1 .. 12]
   tm_mday*: MonthdayRange
@@ -59,15 +65,25 @@
   tm_min*: MinuteRange
   tm_sec*: range[0 .. 61]
   tm_wday*: range[0 .. 6]
-  tm_yday*: range[0 .. 366]
+  tm_yday*: range[1 .. 366]
   tm_isdst*: int
   tm_zone*: string           ## .. warning:: curently is only &quot;LOCAL&quot; or &quot;Etc/UTC&quot;
   tm_gmtoff*: int">struct_time</a></li>
 <li><a class="reference" href="#struct_time_tuple" title="struct_time_tuple = tuple[tm_year: int, tm_mon: range[1 .. 12],
-                          tm_mday: MonthdayRange, tm_hour: HourRange,
-                          tm_min: MinuteRange, tm_sec: range[0 .. 61],
-                          tm_wday: range[0 .. 6], tm_yday: range[0 .. 366],
+                          tm_mday: range[1 .. 31], tm_hour: range[0 .. 23],
+                          tm_min: range[0 .. 59], tm_sec: range[0 .. 61],
+                          tm_wday: range[0 .. 6], tm_yday: range[1 .. 366],
                           tm_isdst: int]">struct_time_tuple</a></li>
+<li><a class="reference" href="#struct_time_tuple10" title="struct_time_tuple10 = tuple[tm_year: int, tm_mon: range[1 .. 12],
+                            tm_mday: range[1 .. 31], tm_hour: range[0 .. 23],
+                            tm_min: range[0 .. 59], tm_sec: range[0 .. 61],
+                            tm_wday: range[0 .. 6], tm_yday: range[1 .. 366],
+                            tm_isdst: int, tm_zone: string]">struct_time_tuple10</a></li>
+<li><a class="reference" href="#struct_time_tuple11" title="struct_time_tuple11 = tuple[tm_year: int, tm_mon: range[1 .. 12],
+                            tm_mday: range[1 .. 31], tm_hour: range[0 .. 23],
+                            tm_min: range[0 .. 59], tm_sec: range[0 .. 61],
+                            tm_wday: range[0 .. 6], tm_yday: range[1 .. 366],
+                            tm_isdst: int, tm_zone: string, tm_gmtoff: int]">struct_time_tuple11</a></li>
 
     </ul>
   </details>
@@ -77,7 +93,8 @@
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">initStructTime
-  <li><a class="reference" href="#initStructTime.t%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C" title="initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time">initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time</a></li>
+  <li><a class="reference" href="#initStructTime.t" title="initStructTime(): struct_time">initStructTime(): struct_time</a></li>
+<li><a class="reference" href="#initStructTime.t%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C" title="initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time">initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">isUtcZone
@@ -99,10 +116,37 @@
     <div id="tocRoot"></div>
     
     <p class="module-desc"></p>
-    <div class="section" id="7">
+    <div class="section" id="6">
+  <h1><a class="toc-backref" href="#6">Imports</a></h1>
+  <dl class="item">
+    <a class="reference external" href="private/macro_utils.html">private/macro_utils</a>
+  </dl>
+</div>
+<div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="struct_time">
+    <div id="Some_struct_time">
+  <dt><pre><a href="types.html#Some_struct_time"><span class="Identifier">Some_struct_time</span></a> <span class="Other">=</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a> <span class="Operator">|</span> <a href="types.html#Some_struct_time_tuple"><span class="Identifier">Some_struct_time_tuple</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="Some_struct_time_tuple">
+  <dt><pre><a href="types.html#Some_struct_time_tuple"><span class="Identifier">Some_struct_time_tuple</span></a> <span class="Other">=</span> <a href="types.html#struct_time_tuple"><span class="Identifier">struct_time_tuple</span></a> <span class="Operator">|</span> <a href="types.html#struct_time_tuple10"><span class="Identifier">struct_time_tuple10</span></a> <span class="Operator">|</span>
+    <a href="types.html#struct_time_tuple11"><span class="Identifier">struct_time_tuple11</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="struct_time">
   <dt><pre><a href="types.html#struct_time"><span class="Identifier">struct_time</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
   <span class="Identifier">tm_year</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int</span>
   <span class="Identifier">tm_mon</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">12</span><span class="Other">]</span>
@@ -111,7 +155,7 @@
   <span class="Identifier">tm_min</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">MinuteRange</span>
   <span class="Identifier">tm_sec</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">61</span><span class="Other">]</span>
   <span class="Identifier">tm_wday</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">6</span><span class="Other">]</span>
-  <span class="Identifier">tm_yday</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">366</span><span class="Other">]</span>
+  <span class="Identifier">tm_yday</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">366</span><span class="Other">]</span>
   <span class="Identifier">tm_isdst</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int</span>
   <span class="Identifier">tm_zone</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">string</span>           <span class="Comment">## .. warning:: curently is only &quot;LOCAL&quot; or &quot;Etc/UTC&quot;</span>
   <span class="Identifier">tm_gmtoff</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int</span>
@@ -119,22 +163,50 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="struct_time_tuple">
   <dt><pre><a href="types.html#struct_time_tuple"><span class="Identifier">struct_time_tuple</span></a> <span class="Other">=</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">tm_year</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">tm_mon</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">12</span><span class="Other">]</span><span class="Other">,</span>
-                          <span class="Identifier">tm_mday</span><span class="Other">:</span> <span class="Identifier">MonthdayRange</span><span class="Other">,</span> <span class="Identifier">tm_hour</span><span class="Other">:</span> <span class="Identifier">HourRange</span><span class="Other">,</span>
-                          <span class="Identifier">tm_min</span><span class="Other">:</span> <span class="Identifier">MinuteRange</span><span class="Other">,</span> <span class="Identifier">tm_sec</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">61</span><span class="Other">]</span><span class="Other">,</span>
-                          <span class="Identifier">tm_wday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">6</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_yday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">366</span><span class="Other">]</span><span class="Other">,</span>
+                          <span class="Identifier">tm_mday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">31</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_hour</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">23</span><span class="Other">]</span><span class="Other">,</span>
+                          <span class="Identifier">tm_min</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">59</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_sec</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">61</span><span class="Other">]</span><span class="Other">,</span>
+                          <span class="Identifier">tm_wday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">6</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_yday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">366</span><span class="Other">]</span><span class="Other">,</span>
                           <span class="Identifier">tm_isdst</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="struct_time_tuple10">
+  <dt><pre><a href="types.html#struct_time_tuple10"><span class="Identifier">struct_time_tuple10</span></a> <span class="Other">=</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">tm_year</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">tm_mon</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">12</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_mday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">31</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_hour</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">23</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_min</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">59</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_sec</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">61</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_wday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">6</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_yday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">366</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_isdst</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">tm_zone</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="struct_time_tuple11">
+  <dt><pre><a href="types.html#struct_time_tuple11"><span class="Identifier">struct_time_tuple11</span></a> <span class="Other">=</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">tm_year</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">tm_mon</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">12</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_mday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">31</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_hour</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">23</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_min</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">59</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_sec</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">61</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_wday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">6</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tm_yday</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">366</span><span class="Other">]</span><span class="Other">,</span>
+                            <span class="Identifier">tm_isdst</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">tm_zone</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">tm_gmtoff</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -145,14 +217,24 @@
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
     <div id="initStructTime-templates-all">
-  <div id="initStructTime.t,,,,,,,,,,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#initStructTime.t%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C"><span class="Identifier">initStructTime</span></a><span class="Other">(</span><span class="Identifier">year</span><span class="Other">,</span> <span class="Identifier">mon</span><span class="Other">,</span> <span class="Identifier">mday</span><span class="Other">,</span> <span class="Identifier">hour</span><span class="Other">,</span> <span class="Identifier">min</span><span class="Other">,</span> <span class="Identifier">sec</span><span class="Other">,</span> <span class="Identifier">wday</span><span class="Other">,</span> <span class="Identifier">yday</span><span class="Other">,</span> <span class="Identifier">isdst</span><span class="Other">,</span>
-                        <span class="Identifier">zone</span><span class="Other">,</span> <span class="Identifier">gmtoff</span><span class="Other">)</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a></pre></dt>
+  <div id="initStructTime.t">
+  <dt><pre><span class="Keyword">template</span> <a href="#initStructTime.t"><span class="Identifier">initStructTime</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a></pre></dt>
   <dd>
     
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="initStructTime.t,,,,,,,,,,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#initStructTime.t%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C"><span class="Identifier">initStructTime</span></a><span class="Other">(</span><span class="Identifier">year</span><span class="Other">,</span> <span class="Identifier">mon</span><span class="Other">,</span> <span class="Identifier">mday</span><span class="Other">,</span> <span class="Identifier">hour</span><span class="Other">,</span> <span class="Identifier">min</span><span class="Other">,</span> <span class="Identifier">sec</span><span class="Other">,</span> <span class="Identifier">wday</span><span class="Other">,</span> <span class="Identifier">yday</span><span class="Other">,</span> <span class="Identifier">isdst</span><span class="Other">,</span>
+                        <span class="Identifier">zone</span><span class="Other">,</span> <span class="Identifier">gmtoff</span><span class="Other">)</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -181,7 +263,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-18 14:14:42 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-19 14:46:28 UTC</small>
       </div>
     </div>
   </div>

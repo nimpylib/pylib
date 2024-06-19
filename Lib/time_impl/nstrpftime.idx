@@ -1,3 +1,4 @@
 nimTitle	nstrpftime	time_impl/nstrpftime.html	module src/pylib/Lib/time_impl/nstrpftime		0
-nim	strftime	time_impl/nstrpftime.html#strftime,string,DateTime	proc strftime(format: string; dt: DateTime): string		52
-nim	strptime	time_impl/nstrpftime.html#strptime,DateTime,string,string	proc strptime(dt: var DateTime; s: string; format: string)		81
+nim	NotImplDirectives	time_impl/nstrpftime.html#NotImplDirectives	const NotImplDirectives		5
+nim	strftime	time_impl/nstrpftime.html#strftime,string,DateTime	proc strftime(format: string; dt: DateTime): string		91
+nim	strptime	time_impl/nstrpftime.html#strptime,DateTime,string,string	proc strptime(dt: var DateTime; s: string; format_with_sp_asis: string)		114

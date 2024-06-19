@@ -1,0 +1,4 @@
+nimTitle	measures	time_impl/measures.html	module src/pylib/Lib/time_impl/measures		0
+nim	time	time_impl/measures.html#time	proc time(): float		4
+nim	time_ns	time_impl/measures.html#time_ns	proc time_ns(): int		7
+nim	process_time	time_impl/measures.html#process_time	proc process_time(): float		13

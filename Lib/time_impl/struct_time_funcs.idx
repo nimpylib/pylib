@@ -1,0 +1,12 @@
+nimTitle	struct_time_funcs	time_impl/struct_time_funcs.html	module src/pylib/Lib/time_impl/struct_time_funcs		0
+nim	gmtime	time_impl/struct_time_funcs.html#gmtime	proc gmtime(): struct_time		8
+nim	localtime	time_impl/struct_time_funcs.html#localtime	proc localtime(): struct_time		9
+nim	gmtime	time_impl/struct_time_funcs.html#gmtime,int64	proc gmtime(secs: int64): struct_time		11
+nim	localtime	time_impl/struct_time_funcs.html#localtime,int64	proc localtime(secs: int64): struct_time		16
+nim	gmtime	time_impl/struct_time_funcs.html#gmtime,float	proc gmtime(secs: float): struct_time		21
+nim	localtime	time_impl/struct_time_funcs.html#localtime,float	proc localtime(secs: float): struct_time		26
+nim	mktime	time_impl/struct_time_funcs.html#mktime,struct_time	proc mktime(t: struct_time): float		32
+nim	mktime	time_impl/struct_time_funcs.html#mktime,struct_time_tuple	proc mktime(tup: struct_time_tuple): typeof(mktime do:\n  bind struct_time\n  struct_time(tm_year: 1900, tm_mon: 1, tm_mday: 1, tm_yday: 1, tm_isdst: -1))		37
+nimgrp	gmtime	time_impl/struct_time_funcs.html#gmtime-procs-all	proc		8
+nimgrp	localtime	time_impl/struct_time_funcs.html#localtime-procs-all	proc		9
+nimgrp	mktime	time_impl/struct_time_funcs.html#mktime-procs-all	proc		32

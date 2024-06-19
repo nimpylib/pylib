@@ -1,5 +1,11 @@
 nimTitle	types	time_impl/types.html	module src/pylib/Lib/time_impl/types		0
-nim	struct_time_tuple	time_impl/types.html#struct_time_tuple	tuple struct_time_tuple		5
-nim	struct_time	time_impl/types.html#struct_time	type struct_time		16
+nim	struct_time	time_impl/types.html#struct_time	type struct_time		6
+nim	struct_time_tuple	time_impl/types.html#struct_time_tuple	tuple struct_time_tuple		6
+nim	struct_time_tuple10	time_impl/types.html#struct_time_tuple10	tuple struct_time_tuple10		6
+nim	struct_time_tuple11	time_impl/types.html#struct_time_tuple11	tuple struct_time_tuple11		6
+nim	Some_struct_time_tuple	time_impl/types.html#Some_struct_time_tuple	type Some_struct_time_tuple		26
+nim	Some_struct_time	time_impl/types.html#Some_struct_time	type Some_struct_time		27
 nim	isUtcZone	time_impl/types.html#isUtcZone.t,struct_time	template isUtcZone(st: struct_time): bool		29
-nim	initStructTime	time_impl/types.html#initStructTime.t,,,,,,,,,,,	template initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time		33
+nim	initStructTime	time_impl/types.html#initStructTime.t	template initStructTime(): struct_time		33
+nim	initStructTime	time_impl/types.html#initStructTime.t,,,,,,,,,,,	template initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time		41
+nimgrp	initstructtime	time_impl/types.html#initStructTime-templates-all	template		33

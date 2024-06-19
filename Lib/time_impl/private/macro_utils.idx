@@ -1,0 +1,3 @@
+nimTitle	macro_utils	time_impl/private/macro_utils.html	module src/pylib/Lib/time_impl/private/macro_utils		0
+nim	asgSeqToObj	time_impl/private/macro_utils.html#asgSeqToObj.m,typed,typed	macro asgSeqToObj(tup, obj: typed)		17
+nim	declTupleWithNFieldsFrom	time_impl/private/macro_utils.html#declTupleWithNFieldsFrom.m,untyped,typedesc,static[int],static[bool]	macro declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];\n                         exported: static[bool] = true)		57

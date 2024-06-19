@@ -1,4 +1,11 @@
 nimTitle	converters	time_impl/converters.html	module src/pylib/Lib/time_impl/converters		0
-nim	toTuple	time_impl/converters.html#toTuple.c,struct_time	converter toTuple(st: struct_time): struct_time_tuple		5
-nim	dtToStructTime	time_impl/converters.html#dtToStructTime,DateTime,struct_time	proc dtToStructTime(dt: DateTime; res: var struct_time)		19
-nim	structTimeToDt	time_impl/converters.html#structTimeToDt,struct_time,DateTime	proc structTimeToDt(st: struct_time; res: var DateTime)		34
+nim	wrapTuple	time_impl/converters.html#wrapTuple.t,,	template wrapTuple(sym, tupType)		6
+nim	wrapTuple	time_impl/converters.html#wrapTuple.t	template wrapTuple(sym)		15
+nim	struct_time	time_impl/converters.html#struct_time,struct_time_tuple	proc struct_time(tup`gensym0: struct_time_tuple): struct_time		27
+nim	struct_time	time_impl/converters.html#struct_time,struct_time_tuple10	proc struct_time(tup`gensym2: struct_time_tuple10): struct_time		28
+nim	struct_time	time_impl/converters.html#struct_time,struct_time_tuple11	proc struct_time(tup`gensym4: struct_time_tuple11): struct_time		29
+nim	toTuple	time_impl/converters.html#toTuple.c,struct_time	converter toTuple(st: struct_time): struct_time_tuple		31
+nim	dtToStructTime	time_impl/converters.html#dtToStructTime,DateTime,struct_time	proc dtToStructTime(dt: DateTime; res: var struct_time)		45
+nim	structTimeToDt	time_impl/converters.html#structTimeToDt,struct_time,DateTime	proc structTimeToDt(st: struct_time; res: var DateTime)		60
+nimgrp	structtime	time_impl/converters.html#struct_time-procs-all	proc		23
+nimgrp	wraptuple	time_impl/converters.html#wrapTuple-templates-all	template		6

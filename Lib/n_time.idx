@@ -1,0 +1,15 @@
+nimTitle	n_time	n_time.html	module src/pylib/Lib/n_time		0
+nim	DefaultTimeFormat	n_time.html#DefaultTimeFormat	const DefaultTimeFormat		39
+nim	asctime	n_time.html#asctime	proc asctime(): string		41
+nim	asctime	n_time.html#asctime,struct_time	proc asctime(t: struct_time): string		42
+nim	asctime	n_time.html#asctime,struct_time_tuple	proc asctime(tup: struct_time_tuple): typeof(asctime do:\n  bind struct_time\n  struct_time(tm_year: 1900, tm_mon: 1, tm_mday: 1, tm_yday: 1, tm_isdst: -1))		18
+nim	asctime	n_time.html#asctime,struct_time_tuple10	proc asctime(tup: struct_time_tuple10): typeof(asctime do:\n  bind struct_time\n  struct_time(tm_year: 1900, tm_mon: 1, tm_mday: 1, tm_yday: 1, tm_isdst: -1))		19
+nim	asctime	n_time.html#asctime,struct_time_tuple11	proc asctime(tup: struct_time_tuple11): typeof(asctime do:\n  bind struct_time\n  struct_time(tm_year: 1900, tm_mon: 1, tm_mday: 1, tm_yday: 1, tm_isdst: -1))		50
+nim	ctime	n_time.html#ctime	proc ctime(): string		52
+nim	ctime	n_time.html#ctime_2	proc ctime(secs: float | int64): string		54
+nim	strftime	n_time.html#strftime,string	proc strftime(format: string): string		57
+nim	strptime	n_time.html#strptime,string	proc strptime(s: string): struct_time		60
+nimgrp	ctime	n_time.html#ctime-procs-all	proc		52
+nimgrp	asctime	n_time.html#asctime-procs-all	proc		41
+heading	time for Nim	n_time.html#time-for-nim	 time for Nim		0
+heading	py diff	n_time.html#time-for-nim-py-diff	  py diff		0
