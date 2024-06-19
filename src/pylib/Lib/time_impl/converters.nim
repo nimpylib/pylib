@@ -1,6 +1,16 @@
 
 import ./types
+import ./private/macro_utils
 import std/times
+
+template gen_init(tupType) =
+  func struct_time*(tup: tupType): struct_time =
+    result = initStructTime()
+    asgSeqToObj(tup, result)
+
+gen_init struct_time_tuple
+gen_init struct_time_tuple10
+gen_init struct_time_tuple11
 
 converter toTuple*(st: struct_time): struct_time_tuple =
   ## XXX: `tuple` is Nim's keyword, so no symbol can be named `tuple`
