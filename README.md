@@ -16,7 +16,7 @@ and gain a better view into different behaviors between Python and Nim.
 
 ---
 
-[Read Doc](https://nimpylib.github.io/pylib/)
+[Read Docs](https://nimpylib.github.io/pylib/)
 |
 [Wiki about History](https://github.com/nimpylib/pylib/wiki/History)
 
@@ -26,7 +26,7 @@ Thanks to Nim supporting multiply backends, pylib currently officially supports
 to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not tested.
 
 [^JS]: Some of features is not available for JS backend, which are listed
-[here](tests/skipJs.txt)
+[here](https://github/com/nimpylib/pylib/blob/master/tests/skipJs.txt)
 
 # Usage
 
@@ -292,9 +292,11 @@ Uninstall with `nimble uninstall pylib`.
 
 ### Other Python-like modules
 
-- https://nimble.directory/search?query=python
-- [Full py2nim transpiler](https://github.com/metacraft-labs/py2nim)
-- [Python Standard Library for Nim that calls your Python executable](https://github.com/juancarlospaco/cpython)
+- [serach in nimble](https://nimble.directory/search?query=python)
+- [metacraft-labs/py2nim](https://github.com/metacraft-labs/py2nim): py2nim transpiler in Nim.
+- [py2many/py2many](https://github.com/py2many/py2many): py2nim transpiler in Python.
+- [juancarlospaco/cpython](https://github.com/juancarlospaco/cpython): invoke Python Standard Library API in Nim.
+- [yglukhov/nimpy](https://github.com/yglukhov/nimpy): Python bridge in Nim.
 
 ### Tests
 
