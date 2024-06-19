@@ -195,17 +195,22 @@ Have more Macros or Templates for Python-like syntax, send [Pull Request](https:
 
 # Installation
 
-To install nimpylib, for sure, you can run
+```shell
+nimble install pylib
+```
+
+> If the installing is stuck with: 
+`Downloading https://github.com/Yardanico/nimpylib using git`
+Please note your nimble package.json is outdated, and that old URL is 404 now [^oldUrl].
+Run `nimble refresh` to fetch a newer `package.json`
+
+Of course, a workaround is to install with full URL:
+
 ```shell
 nimble install https://github.com/nimpylib/pylib
 ```
 
-Also, if your nimble `package.json` is not very out-of-date,
-(refresh-ed from official source after 2024/06/15,
-see [wiki-history](https://github.com/nimpylib/pylib/wiki/History#the-newer-package-url) for details),
-simple run `nimble install pylib` and you get it!
-
-Otherwise, simply first run `nimble refresh` will refresh your `package.json`
+[^oldUrl]: see [wiki-history](https://github.com/nimpylib/pylib/wiki/History#the-newer-package-url) for details
 
 Uninstall with `nimble uninstall pylib`.
 
