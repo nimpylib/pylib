@@ -11,6 +11,6 @@ test "getattr/set/has":
 
   check 3 == getattr(o, "b", 3)
 
-  check aVal == hasattr(o, "a")
+  check aVal == getattr(o, "a")
 
   check not hasattr(o, "b")
