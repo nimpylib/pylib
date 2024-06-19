@@ -96,27 +96,26 @@ test "Lib/time":
   checkpoint "strftime"
   # the followings as can be run by Python just with one predefinition:
   # def check(b): assert b
+  def chkEq(st, fmt, res): check(strftime(fmt, st) == res)
+
   def t_strfptime_date():
     st = strptime("1-6+2024", "%d-%m+%Y")
-    def chkEq(fmt, res): check(strftime(fmt, st) == res)
-    chkEq("in %Y", "in 2024")
-    chkEq("on %b.%d", "on Jun.01")
+    chkEq(st, "in %Y", "in 2024")
+    chkEq(st, "on %b.%d", "on Jun.01")
   t_strfptime_date()
 
   def t_strfptime_time():
     st = strptime("2:<25:<06", "%S:<%M:<%H")
-    def chkEq(fmt, res): check(strftime(fmt, st) == res)
-    chkEq("at %H o'clock", "at 06 o'clock")
-    chkEq("with %S seconds", "with 02 seconds")
-    chkEq("minutes: %M", "minutes: 25")
+    chkEq(st, "at %H o'clock", "at 06 o'clock")
+    chkEq(st, "with %S seconds", "with 02 seconds")
+    chkEq(st, "minutes: %M", "minutes: 25")
   t_strfptime_time()
 
   def t_misc():
     "check date and time, as well as '%%'"
     st = strptime("12:%:2  5$", "%m:%%:%d  %H$")
-    def chkEq(fmt, res): check(strftime(fmt, st) == res)
-    chkEq("%m %% %d", "12 % 02")
-    chkEq("%H hours", "05 hours")
-    chkEq("%M", "00")
+    chkEq(st, "%m %% %d", "12 % 02")
+    chkEq(st, "%H hours", "05 hours")
+    chkEq(st, "%M", "00")
   t_misc()
 
