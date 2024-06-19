@@ -1,3 +1,4 @@
+## .. include:: ./doc/nstrfptime.rst
 import std/strutils
 import std/times
 
@@ -88,7 +89,6 @@ template cStyle(cstr: string;
 
 
 func strftime*(format: string, dt: DateTime): string =
-  ## escape C style to a string that can be accepted by std/time
   result = newStringOfCap format.len
   template handleSnippet(s, start, stop) =
     result.add s[start..<stop]
@@ -112,6 +112,6 @@ proc translate2Nim(cstr: string): string =
   cStyle cstr, handleSnippet, doWith, handlePercent, forParse=true
 
 proc strptime*(dt: var DateTime, s: string, format_with_sp_asis: string) =
-  ## .. include:: ./nstrptimeDiff.rst
+  ## .. include:: ./doc/nstrptimeDiff.rst
   let nformat = translate2Nim(format_with_sp_asis)
   dt = parse(s, nformat)

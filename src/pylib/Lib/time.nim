@@ -10,14 +10,16 @@
 Currently,
 `tm_name` is either "LOCAL" or "Etc/UTC", due to std/times only returning those two.
 
-## Some note about implement details the different between std/times and Python's times
 
-------
+]##
+
+#[
+## impl note
+Some note about implement details the different between std/times and Python's times
 
 std/times DateTime's utcOffset is opposed to struct_time.tm_gmtoff
 e.g.  in the east, DateTime.utcOffset is negative.
-
-]##
+]#
 
 import std/times
 import ./time_impl/[
@@ -37,7 +39,9 @@ proc time_ns*(): int =
   result += typeof(result)(t.toUnix) * 1_000_000_000
 
 when not defined(js):
-  proc process_time*(): float = cpuTime()
+  proc process_time*(): float =
+    ## not available for JS backend, currently.
+    cpuTime()
 
 proc gmtime*(secs: int64): struct_time =
   let t = fromUnix secs

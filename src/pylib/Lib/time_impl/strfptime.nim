@@ -1,6 +1,4 @@
-## this is the only module in time_impl that interact with ../../pylib
-## 
-## as strftime shall returns a `PyStr`
+## .. include:: ./doc/nstrfptime.rst
 import std/times
 import ./[
   types, converters, nstrpftime
@@ -18,6 +16,7 @@ func strftime*[S](format: S, st: struct_time): S =
   S(strftime($format, st))
 
 proc strptime*(s: string, f: string): struct_time =
+  ## .. include:: ./doc/nstrptimeDiff.rst
   var dt: DateTime
   dt.strptime(s, f)
   dtToStructTime dt, result
