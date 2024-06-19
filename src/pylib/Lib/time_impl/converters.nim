@@ -25,7 +25,7 @@ func dtToStructTime*(dt: DateTime, res: var struct_time) =
     dt.minute,
     dt.second,
     dt.weekday.int,
-    dt.yearday,
+    dt.yearday + 1,
     dt.isDst.int,
     dt.timezone.name,
     -dt.utcOffset

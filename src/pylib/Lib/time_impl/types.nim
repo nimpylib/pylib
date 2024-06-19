@@ -10,7 +10,7 @@ type
     tm_min: MinuteRange
     tm_sec: range[0 .. 61]  # SecondRange is range[0 .. 60]
     tm_wday: range[0 .. 6]
-    tm_yday: range[0 .. 366]  # YeardayRange is range[0 .. 365]
+    tm_yday: range[1 .. 366]  # YeardayRange is range[0 .. 365]
     tm_isdst: int
   
   struct_time* = ref object
@@ -21,7 +21,7 @@ type
     tm_min*: MinuteRange
     tm_sec*: range[0 .. 61]  # SecondRange is range[0 .. 60]
     tm_wday*: range[0 .. 6]
-    tm_yday*: range[0 .. 366]  # YeardayRange is range[0 .. 365]
+    tm_yday*: range[1 .. 366]  # YeardayRange is range[0 .. 365]
     tm_isdst*: int
     tm_zone*: string  ## .. warning:: curently is only "LOCAL" or "Etc/UTC"
     tm_gmtoff*: int
