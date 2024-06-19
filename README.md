@@ -20,6 +20,14 @@ and gain a better view into different behaviors between Python and Nim.
 |
 [Wiki about History](https://github.com/nimpylib/pylib/wiki/History)
 
+## Backends
+
+Thanks to Nim supporting multiply backends, pylib currently officially supports
+to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not tested.
+
+[^JS]: Some of features is not available for JS backend, which are listed
+[here](tests/skipJs.txt)
+
 # Usage
 
 ```nim
@@ -194,7 +202,7 @@ nimble install https://github.com/nimpylib/pylib
 
 Also, if your nimble `package.json` is not very out-of-date,
 (refresh-ed from official source after 2024/06/15,
-see [wiki-hisory](https://github.com/nimpylib/pylib/wiki/History#the-newer-package-url) for details),
+see [wiki-history](https://github.com/nimpylib/pylib/wiki/History#the-newer-package-url) for details),
 simple run `nimble install pylib` and you get it!
 
 Otherwise, simply first run `nimble refresh` will refresh your `package.json`

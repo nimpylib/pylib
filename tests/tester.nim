@@ -5,12 +5,7 @@ from std/strutils import splitLines, strip, endsWith
 import pylib
 
 when defined(js):
-  const jsExclude = """
-iters
-iter_next
-io
-set
-""".strip(leading=false, chars={'\n'}).splitLines()
+  const jsExclude = slurp("./skipJs.txt").strip(chars={'\n'}).splitLines()
 
 # XXX: pyset just error on JS due to Nim-bug
 
