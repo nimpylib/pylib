@@ -13,7 +13,10 @@ test "Modulo operations":
   ]
 
   checkpoint "Evenly divisible numbers from 0 to 9"
-  var compare = newSeq[string]()
+  var compare = newSeq[system.string]()
+  # XXX: For several months, I just cannot figure out 
+  # why this string has to be prefixed.
+  # Or you will get "Error: expression 'string' has no type (or is ambiguous)"
   for i in range(0, 10):
     var line = $i & ":"
 
