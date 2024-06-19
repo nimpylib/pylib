@@ -1,6 +1,4 @@
 ## .. include:: ../doc/pylib.md
-when defined(nimHasStrictFuncs):
-  {.experimental: "strictFuncs".}
 
 import pylib/Lib/timeit
 

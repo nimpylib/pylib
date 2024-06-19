@@ -15,10 +15,10 @@ skipDirs      = @["examples"]
 requires "nim >= 1.6.0"  # ensure `pydef.nim`c's runnableExamples works
 
 task testJs, "Test JS":
-  exec "nim js -r -d:nodejs --experimental:strictFuncs tests/tester"
+  exec "nim js -r -d:nodejs tests/tester"
 
 task testC, "Test C":
-  exec "nim r --experimental:strictFuncs --mm:orc tests/tester"
+  exec "nim r --mm:orc tests/tester"
 
 import std/os
 func getArgs(taskName: string): seq[string] =
