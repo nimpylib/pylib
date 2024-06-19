@@ -15,17 +15,15 @@ const DefaultTimeFormat* = str DefaultTimeFormat
 
 proc asctime*(): PyStr = str n_time.asctime()
 
-template wrap1(f, arg): PyStr =
-  str n_time.f(arg)
 
 func asctime*(t: Some_struct_time): PyStr =
   runnableExamples:
     assert asctime(gmtime(0)) == "Thu Jan  1 00:00:00 1970"
-  wrap1 asctime, t
+  str n_time.asctime t
 
 proc ctime*(): PyStr = str ctime()
 proc ctime*(secs: float|int64): PyStr =
-  wrap1 ctime, secs
+  str n_time.ctime secs
 
 func strftime*(format: PyStr, st: Some_struct_time): PyStr =
   str n_time.strftime($format, st)
