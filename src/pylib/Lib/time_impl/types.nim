@@ -78,3 +78,13 @@ func repr*(st: struct_time): string =
   result.add "time.struct_time("
   result.addFields(st, STRUCT_TM_ITEMS)
   result.add ")"
+
+
+template genCmp(cmpOp){.dirty.} =
+  func cmpOp*(a, b: struct_time): bool =
+    ## compares based on fields.
+    cmpOnFields a, b, cmpOp
+
+genCmp `==`
+genCmp `<=`
+genCmp `<`

@@ -89,9 +89,9 @@ macro declTupleWithNFieldsFrom*(name: untyped; Cls: typedesc; n: static[int], ex
   ))
 
 
-macro addFields*(res: string, obj: typed, n: static[int] = -1) =
+macro addFields*(res: string, obj: typed, noMoreThan: static[int] = int.high) =
   ## `obj` is of `object` or `ref object`.
-  ## when `obj` is of `object` and `n` is not given, it's roughly equal to:
+  ## when `obj` is of `object` and `noMoreThan` is not given, it's roughly equal to:
   ## 
   ## ```Nim
   ## let startLen = res.len
@@ -116,7 +116,55 @@ macro addFields*(res: string, obj: typed, n: static[int] = -1) =
 
   let firstK = attrs[0]
   addAttrItem firstK
-  let le = if n < 0: attrs.len else: n
+  let le = min(attrs.len, noMoreThan)
   for i in 1..<le:
     addStrNode newLit ", "
     addAttrItem attrs[i]
+
+type
+  CmpStragy* = enum
+    csEq
+    csLhs
+    csRhs
+
+func getEqAttrList(a, b: NimNode): NimNode =
+  ## error if a, b attrList is not length equal
+  result = a.getAttrList
+  if result.len != b.getAttrList.len:
+    error "not length equal"
+
+proc cmpOnFieldsImpl(a, b: NimNode; cs: CmpStragy = csEq,
+    cmpOp=ident"=="): NimNode =
+  result = newLit true
+  let attrs = case cs
+    of csLhs: a.getAttrList
+    of csRhs: b.getAttrList
+    of csEq: getEqAttrList(a, b)
+  for attr in attrs:
+    let
+      aVal = newDotExpr(a, attr)
+      bVal = newDotExpr(b, attr)
+    let eq = newNimNode(nnkInfix).add(cmpOp, aVal, bVal)
+    result = infix(result, "and", eq)
+
+macro mixinCmpOnFields*(
+    lhs, rhs: typed;
+    cmpOp; cmpStragy: static[CmpStragy] = csEq): bool =
+  ## cmpOnFields but `a` `b` can be of different types.
+  ## 
+  ## e.g. a is tuple and b is object; or a, b are different objects.
+  ## 
+  ## The order matters, if not `checkEqLen`, compare stops once all fields
+  ## of `lhs` is compared. a.k.a. `len(lhs) <= len(rhs)` shall be always true,
+  ## where `len` means the number of the fields.
+  ## 
+  cmpOnFieldsImpl lhs, lhs, cmpStragy, cmpOp
+
+macro cmpOnFields*[T](a, b: T;
+    cmpOp): bool =
+  ## mainly for checking if ref objects are equal on fields
+  ## 
+  ## when for object/tuple, roughly equal to: a == b
+  ## 
+  ## but system.`==` for ref just compare the address.
+  cmpOnFieldsImpl a, b, csLhs, cmpOp
