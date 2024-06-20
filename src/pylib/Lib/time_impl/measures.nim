@@ -1,5 +1,6 @@
 
 import std/times
+import std/monotimes
 
 proc time*(): float =
   epochTime() # getTime().toUnixFloat()
@@ -15,3 +16,13 @@ when not defined(js):
   proc process_time*(): float =
     ## not available for JS backend, currently.
     cpuTime()
+
+func monotonic_ns*(): int64 =
+  getMonoTime().ticks()
+
+func monotonic*(): float =
+  monotonic_ns() / ns_per_s
+
+func perf_counter*(): float = monotonic()
+func perf_counter_ns*(): int64 = monotonic_ns()
+  
