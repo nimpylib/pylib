@@ -1,12 +1,12 @@
 nimTitle	time	time.html	module src/pylib/Lib/time		0
-nim	DefaultTimeFormat	time.html#DefaultTimeFormat	const DefaultTimeFormat		14
-nim	asctime	time.html#asctime	proc asctime(): PyStr		16
-nim	asctime	time.html#asctime,Some_struct_time	proc asctime(t: Some_struct_time): PyStr		19
-nim	ctime	time.html#ctime	proc ctime(): PyStr		24
-nim	ctime	time.html#ctime_2	proc ctime(secs: float | int64): PyStr		25
-nim	strftime	time.html#strftime,PyStr,Some_struct_time	proc strftime(format: PyStr; st: Some_struct_time): PyStr		28
-nim	strftime	time.html#strftime,PyStr	proc strftime(format: PyStr): PyStr		31
-nim	strptime	time.html#strptime,PyStr	proc strptime(s: PyStr; format = DefaultTimeFormat): struct_time		34
-nimgrp	ctime	time.html#ctime-procs-all	proc		24
-nimgrp	strftime	time.html#strftime-procs-all	proc		28
-nimgrp	asctime	time.html#asctime-procs-all	proc		16
+nim	DefaultTimeFormat	time.html#DefaultTimeFormat	const DefaultTimeFormat		17
+nim	asctime	time.html#asctime	proc asctime(): PyStr		19
+nim	asctime	time.html#asctime,Some_struct_time	proc asctime(t: Some_struct_time): PyStr		22
+nim	ctime	time.html#ctime	proc ctime(): PyStr		27
+nim	ctime	time.html#ctime_2	proc ctime(secs: float | int64): PyStr		28
+nim	strftime	time.html#strftime,PyStr,Some_struct_time	proc strftime(format: PyStr; st: Some_struct_time): PyStr		31
+nim	strftime	time.html#strftime,PyStr	proc strftime(format: PyStr): PyStr		34
+nim	strptime	time.html#strptime,PyStr	proc strptime(s: PyStr; format = DefaultTimeFormat): struct_time		38
+nimgrp	ctime	time.html#ctime-procs-all	proc		27
+nimgrp	strftime	time.html#strftime-procs-all	proc		31
+nimgrp	asctime	time.html#asctime-procs-all	proc		19

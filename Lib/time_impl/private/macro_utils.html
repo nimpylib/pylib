@@ -49,16 +49,38 @@
     <ul class="simple simple-toc" id="toc-list">
   <li>
   <details open>
+    <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
+    <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#CmpStragy" title="CmpStragy = enum
+  csEq, csLhs, csRhs">CmpStragy</a></li>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
     <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">asgSeqToObj
+      <ul class="simple nested-toc-section">addFields
+  <li><a class="reference" href="#addFields.m%2Cstring%2Ctyped%2Cstatic%5Bint%5D" title="addFields(res: string; obj: typed; noMoreThan: static[int] = int.high)">addFields(res: string; obj: typed; noMoreThan: static[int] = int.high)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">asgSeqToObj
   <li><a class="reference" href="#asgSeqToObj.m%2Ctyped%2Ctyped" title="asgSeqToObj(tup, obj: typed)">asgSeqToObj(tup, obj: typed)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">cmpOnFields
+  <li><a class="reference" href="#cmpOnFields.m%2CT%2CT%2C" title="cmpOnFields[T](a, b: T; cmpOp): bool">cmpOnFields[T](a, b: T; cmpOp): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">declTupleWithNFieldsFrom
   <li><a class="reference" href="#declTupleWithNFieldsFrom.m%2Cuntyped%2Ctypedesc%2Cstatic%5Bint%5D%2Cstatic%5Bbool%5D" title="declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];
                          exported: static[bool] = true)">declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];
                          exported: static[bool] = true)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">mixinCmpOnFields
+  <li><a class="reference" href="#mixinCmpOnFields.m%2Ctyped%2Ctyped%2C%2Cstatic%5BCmpStragy%5D" title="mixinCmpOnFields(lhs, rhs: typed; cmpOp; cmpStragy: static[CmpStragy] = csEq): bool">mixinCmpOnFields(lhs, rhs: typed; cmpOp; cmpStragy: static[CmpStragy] = csEq): bool</a></li>
 
 </ul>
 
@@ -76,17 +98,69 @@
     <div id="tocRoot"></div>
     
     <p class="module-desc"></p>
-    <div class="section" id="17">
+    <div class="section" id="7">
+  <h1><a class="toc-backref" href="#7">Types</a></h1>
+  <dl class="item">
+    <div id="CmpStragy">
+  <dt><pre><a href="macro_utils.html#CmpStragy"><span class="Identifier">CmpStragy</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">csEq</span><span class="Other">,</span> <span class="Identifier">csLhs</span><span class="Other">,</span> <span class="Identifier">csRhs</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L125" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L125" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+  </dl>
+</div>
+<div class="section" id="17">
   <h1><a class="toc-backref" href="#17">Macros</a></h1>
   <dl class="item">
-    <div id="asgSeqToObj-macros-all">
+    <div id="addFields-macros-all">
+  <div id="addFields.m,string,typed,static[int]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#addFields.m%2Cstring%2Ctyped%2Cstatic%5Bint%5D"><span class="Identifier">addFields</span></a><span class="Other">(</span><span class="Identifier">res</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">;</span> <span class="Identifier">noMoreThan</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">int</span><span class="Other">.</span><span class="Identifier">high</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    <p><tt class="docutils literal"><span class="pre"><span class="Identifier">obj</span></span></tt> is of <tt class="docutils literal"><span class="pre"><span class="Keyword">object</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Keyword">ref</span> <span class="Keyword">object</span></span></tt>. when <tt class="docutils literal"><span class="pre"><span class="Identifier">obj</span></span></tt> is of <tt class="docutils literal"><span class="pre"><span class="Keyword">object</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">noMoreThan</span></span></tt> is not given, it's roughly equal to:</p>
+<p><pre class="listing">
+<span class="Keyword">let</span> <span class="Identifier">startLen</span> <span class="Operator">=</span> <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">len</span>
+<span class="Keyword">for</span> <span class="Identifier">k</span><span class="Punctuation">,</span> <span class="Identifier">v</span> <span class="Keyword">in</span> <span class="Identifier">o</span><span class="Operator">.</span><span class="Identifier">fieldPairs</span><span class="Punctuation">:</span>
+  <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">addSep</span><span class="Punctuation">(</span><span class="Identifier">sep</span><span class="Operator">=</span><span class="StringLit">&quot;, &quot;</span><span class="Punctuation">,</span> <span class="Identifier">startLen</span> <span class="Operator">=</span> <span class="Identifier">startLen</span><span class="Punctuation">)</span>
+  <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">add</span> <span class="Identifier">k</span> <span class="Operator">&amp;</span> <span class="CharLit">'='</span> <span class="Operator">&amp;</span> <span class="Identifier">repr</span> <span class="Identifier">v</span></pre></p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L92" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L92" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="asgSeqToObj-macros-all">
   <div id="asgSeqToObj.m,typed,typed">
   <dt><pre><span class="Keyword">macro</span> <a href="#asgSeqToObj.m%2Ctyped%2Ctyped"><span class="Identifier">asgSeqToObj</span></a><span class="Other">(</span><span class="Identifier">tup</span><span class="Other">,</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span></pre></dt>
   <dd>
     
+    <tt class="docutils literal"><span class="pre"><span class="Identifier">obj</span></span></tt> can be of <tt class="docutils literal"><span class="pre"><span class="Keyword">ref</span> <span class="Keyword">object</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Keyword">object</span></span></tt> Retionale: there is fields/fieldPairs iterator in std/system, but for tuple/object only, not for ref object.
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="cmpOnFields-macros-all">
+  <div id="cmpOnFields.m,T,T,">
+  <dt><pre><span class="Keyword">macro</span> <a href="#cmpOnFields.m%2CT%2CT%2C"><span class="Identifier">cmpOnFields</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">cmpOp</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <p>mainly for checking if ref objects are equal on fields</p>
+<p>when for object/tuple, roughly equal to: a == b</p>
+<p>but system.<tt class="docutils literal"><span class="pre"><span class="Operator">==</span></span></tt> for ref just compare the address.</p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L163" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L163" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -99,8 +173,25 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="mixinCmpOnFields-macros-all">
+  <div id="mixinCmpOnFields.m,typed,typed,,static[CmpStragy]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#mixinCmpOnFields.m%2Ctyped%2Ctyped%2C%2Cstatic%5BCmpStragy%5D"><span class="Identifier">mixinCmpOnFields</span></a><span class="Other">(</span><span class="Identifier">lhs</span><span class="Other">,</span> <span class="Identifier">rhs</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">;</span> <span class="Identifier">cmpOp</span><span class="Other">;</span>
+                       <span class="Identifier">cmpStragy</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><a href="macro_utils.html#CmpStragy"><span class="Identifier">CmpStragy</span></a><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">csEq</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    <p>cmpOnFields but <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span></span></tt> <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> can be of different types.</p>
+<p>e.g. a is tuple and b is object; or a, b are different objects.</p>
+<p>The order matters, if not <tt class="docutils literal"><span class="pre"><span class="Identifier">checkEqLen</span></span></tt>, compare stops once all fields of <tt class="docutils literal"><span class="pre"><span class="Identifier">lhs</span></span></tt> is compared. a.k.a. <tt class="docutils literal"><span class="pre"><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">lhs</span><span class="Punctuation">)</span> <span class="Operator">&lt;=</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">rhs</span><span class="Punctuation">)</span></span></tt> shall be always true, where <tt class="docutils literal"><span class="pre"><span class="Identifier">len</span></span></tt> means the number of the fields. </p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L150" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L150" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -116,7 +207,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-19 14:46:28 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-20 16:12:59 UTC</small>
       </div>
     </div>
   </div>

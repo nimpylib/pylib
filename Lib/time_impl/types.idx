@@ -8,4 +8,8 @@ nim	Some_struct_time	time_impl/types.html#Some_struct_time	type Some_struct_time
 nim	isUtcZone	time_impl/types.html#isUtcZone.t,struct_time	template isUtcZone(st: struct_time): bool		29
 nim	initStructTime	time_impl/types.html#initStructTime.t	template initStructTime(): struct_time		33
 nim	initStructTime	time_impl/types.html#initStructTime.t,,,,,,,,,,,	template initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time		41
+nim	repr	time_impl/types.html#repr,struct_time	proc repr(st: struct_time): string		69
+nim	`==`	time_impl/types.html#==,struct_time,struct_time	proc `==`(a, b: struct_time): bool		88
+nim	`<=`	time_impl/types.html#<=,struct_time,struct_time	proc `<=`(a, b: struct_time): bool		89
+nim	`<`	time_impl/types.html#<,struct_time,struct_time	proc `<`(a, b: struct_time): bool		90
 nimgrp	initstructtime	time_impl/types.html#initStructTime-templates-all	template		33

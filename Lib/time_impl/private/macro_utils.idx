@@ -1,3 +1,10 @@
 nimTitle	macro_utils	time_impl/private/macro_utils.html	module src/pylib/Lib/time_impl/private/macro_utils		0
-nim	asgSeqToObj	time_impl/private/macro_utils.html#asgSeqToObj.m,typed,typed	macro asgSeqToObj(tup, obj: typed)		17
-nim	declTupleWithNFieldsFrom	time_impl/private/macro_utils.html#declTupleWithNFieldsFrom.m,untyped,typedesc,static[int],static[bool]	macro declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];\n                         exported: static[bool] = true)		57
+nim	asgSeqToObj	time_impl/private/macro_utils.html#asgSeqToObj.m,typed,typed	macro asgSeqToObj(tup, obj: typed)		26
+nim	declTupleWithNFieldsFrom	time_impl/private/macro_utils.html#declTupleWithNFieldsFrom.m,untyped,typedesc,static[int],static[bool]	macro declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];\n                         exported: static[bool] = true)		72
+nim	addFields	time_impl/private/macro_utils.html#addFields.m,string,typed,static[int]	macro addFields(res: string; obj: typed; noMoreThan: static[int] = int.high)		92
+nim	csEq	time_impl/private/macro_utils.html#csEq	CmpStragy.csEq		125
+nim	csLhs	time_impl/private/macro_utils.html#csLhs	CmpStragy.csLhs		125
+nim	csRhs	time_impl/private/macro_utils.html#csRhs	CmpStragy.csRhs		125
+nim	CmpStragy	time_impl/private/macro_utils.html#CmpStragy	enum CmpStragy		125
+nim	mixinCmpOnFields	time_impl/private/macro_utils.html#mixinCmpOnFields.m,typed,typed,,static[CmpStragy]	macro mixinCmpOnFields(lhs, rhs: typed; cmpOp; cmpStragy: static[CmpStragy] = csEq): bool		150
+nim	cmpOnFields	time_impl/private/macro_utils.html#cmpOnFields.m,T,T,	macro cmpOnFields[T](a, b: T; cmpOp): bool		163

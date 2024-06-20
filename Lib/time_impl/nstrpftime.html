@@ -48,10 +48,16 @@
     </div>
     <ul class="simple simple-toc" id="toc-list">
   <li>
+  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
+</li>
+<li>
   <details open>
     <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#NotImplDirectives" title="NotImplDirectives = {'j', 'w', 'y', 'U', 'Z'}">NotImplDirectives</a></li>
+      <li><a class="reference" href="#docTable" title="docTable = (module: &quot;.. warning:: A few of the format directives for `strftime`/`strptime` are not supported,\r\n  and using them causes `AssertDefect`. They are listed in\r\n  `nstrfptime.NotImplDirectives&lt;time_impl/nstrpftime.html#NotImplDirectives&gt;`_&quot;, api: (data: [
+    (0, &quot;&quot;, &quot;&quot;), (0, &quot;&quot;, &quot;&quot;), (0, &quot;&quot;, &quot;&quot;), (505641947, &quot;strptime&quot;, &quot;.. warning:: In current implementation,\r\n  whitespace in format string means itself AS-IS, unlike C or Python,\r\n  where any whitespace means a serial of any whitespaces. If really\r\n  wanting the behavior of C\'s, consider use `std/strscan`.\r\n\r\n.. warning:: Current `strptime`\r\n  is just locale-unaware, when it comes to \r\n  \&quot;the locale\'s format\&quot;, like `\&quot;%x\&quot;`, it always uses the format of\r\n  `\&quot;C\&quot; locale`, no matter what the locale is. a.k.a. Changing\r\n  locale via C\'s api in `&lt;locale.h&gt;` doesn\'t affect this function.\r\n&quot;),
+    (0, &quot;&quot;, &quot;&quot;), (0, &quot;&quot;, &quot;&quot;), (0, &quot;&quot;, &quot;&quot;), (0, &quot;&quot;, &quot;&quot;)], counter: 1))">docTable</a></li>
+<li><a class="reference" href="#NotImplDirectives" title="NotImplDirectives = {'j', 'w', 'y', 'U', 'Z'}">NotImplDirectives</a></li>
 
     </ul>
   </details>
@@ -72,6 +78,9 @@
     </ul>
   </details>
 </li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
+</li>
 
 </ul>
 
@@ -84,19 +93,43 @@
     
     <p class="module-desc"><p>strftime, strptime</p>
 <p>platform independent implementation.</p>
-<div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
-A few of the format directives are not supported, and using them causes <tt class="docutils literal"><span class="pre"><span class="Identifier">AssertDefect</span></span></tt>. They are listed in <a class="reference external" href="nstrpftime.html#NotImplDirectives">NotImplDirectives</a></div>
 </p>
-    <div class="section" id="10">
+    <div class="section" id="6">
+  <h1><a class="toc-backref" href="#6">Imports</a></h1>
+  <dl class="item">
+    <a class="reference external" href="private/doc_utils.html">private/doc_utils</a>
+  </dl>
+</div>
+<div class="section" id="10">
   <h1><a class="toc-backref" href="#10">Consts</a></h1>
   <dl class="item">
-    <div id="NotImplDirectives">
+    <div id="docTable">
+  <dt><pre><a href="nstrpftime.html#docTable"><span class="Identifier">docTable</span></a> <span class="Other">=</span> <span class="Other">(</span><span class="Identifier">module</span><span class="Other">:</span> <span class="StringLit">&quot;.. warning:: A few of the format directives for `strftime`/`strptime` are not supported,\r\n  and using them causes `AssertDefect`. They are listed in\r\n  `nstrfptime.NotImplDirectives&lt;time_impl/nstrpftime.html#NotImplDirectives&gt;`_&quot;</span><span class="Other">,</span> <span class="Identifier">api</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">505641947</span><span class="Other">,</span> <span class="StringLit">&quot;strptime&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;.. warning:: In current implementation,\r\n  whitespace in format string means itself AS-IS, unlike C or Python,\r\n  where any whitespace means a serial of any whitespaces. If really\r\n  wanting the behavior of C\'s, consider use `std/strscan`.\r\n\r\n.. warning:: Current `strptime`\r\n  is just locale-unaware, when it comes to \r\n  \&quot;the locale\'s format\&quot;, like `\&quot;%x\&quot;`, it always uses the format of\r\n  `\&quot;C\&quot; locale`, no matter what the locale is. a.k.a. Changing\r\n  locale via C\'s api in `&lt;locale.h&gt;` doesn\'t affect this function.\r\n&quot;</span><span class="Other">)</span><span class="Other">,</span>
+    <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">counter</span><span class="Other">:</span> <span class="DecNumber">1</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    used to transport doc string to outer module.
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="NotImplDirectives">
   <dt><pre><a href="nstrpftime.html#NotImplDirectives"><span class="Identifier">NotImplDirectives</span></a> <span class="Other">=</span> <span class="Other">{</span><span class="CharLit">'j'</span><span class="Other">,</span> <span class="CharLit">'w'</span><span class="Other">,</span> <span class="CharLit">'y'</span><span class="Other">,</span> <span class="CharLit">'U'</span><span class="Other">,</span> <span class="CharLit">'Z'</span><span class="Other">}</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <p>Here are their concrete meanings in Python, as well as some notes about why they cannot be directly mapped to Nim's DateTime.format/parse.</p>
+<p>The direct alternative value when formatting in Nim, if any, is introduced by <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;-</span></span></tt>:</p>
+<ul class="simple"><li>j: Day of the year as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">001</span><span class="Punctuation">,</span><span class="DecNumber">366</span><span class="Punctuation">]</span></span></tt>. &lt;- DateTime.yearday + 1</li>
+<li>w: Weekday <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">(</span><span class="Identifier">Sunday</span><span class="Punctuation">)</span><span class="Punctuation">,</span><span class="DecNumber">6</span><span class="Punctuation">]</span></span></tt>. &lt;- (DateTime.weekday.int + 1) mod 7</li>
+<li>y: Year without century as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">00</span><span class="Punctuation">,</span><span class="DecNumber">99</span><span class="Punctuation">]</span></span></tt>. &lt;- DateTime.format&quot;yy&quot; When parsing, C/Python's %y use 20th or 21th centry depending on the value of %y Nim's yy use the current century</li>
+<li>U: Week number of the year (Sunday as the first day of the week) as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">00</span><span class="Punctuation">,</span><span class="DecNumber">53</span><span class="Punctuation">]</span></span></tt>. All days in a new year preceding the first Sunday are considered to be in week 0. Nim's V or VV is of range <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">53</span><span class="Punctuation">]</span></span></tt> (times.IsoWeekRange, get via DateTime.getIsoWeekAndYear) and use Monday as the first day of a week. (Nim's is iso-week, Python's is not)</li>
+<li>Z: Time zone name (no characters if no time zone exists). Deprecated. Impossible to implement without interacting with C lib. Any way, it's deprecated.</li>
+</ul>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -113,8 +146,8 @@ A few of the format directives are not supported, and using them causes <tt clas
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L91" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L91" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L109" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L109" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -132,14 +165,20 @@ In current implementation, whitespace in format string means itself AS-IS, unlik
 <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
 Current <tt class="docutils literal"><span class="pre"><span class="Identifier">strptime</span></span></tt> is just locale-unaware, when it comes to &quot;the locale's format&quot;, like <tt class="docutils literal"><span class="pre"><span class="StringLit">&quot;%x&quot;</span></span></tt>, it always uses the format of <tt class="docutils literal"><span class="pre"><span class="StringLit">&quot;C&quot;</span> <span class="Identifier">locale</span></span></tt>, no matter what the locale is. a.k.a. Changing locale via C's api in <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;</span><span class="Identifier">locale</span><span class="Operator">.</span><span class="Identifier">h</span><span class="Operator">&gt;</span></span></tt> doesn't affect this function.</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L114" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L114" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrpftime.nim#L133" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrpftime.nim#L133" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
+  </dl>
+</div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="private/doc_utils.html#fetchDoc.m,staticDocTable"><span class="Identifier">fetchDoc</span></a>, <a href="private/doc_utils.html#fetchDoc.m,staticDocTable,"><span class="Identifier">fetchDoc</span></a>
   </dl>
 </div>
 
@@ -149,7 +188,7 @@ Current <tt class="docutils literal"><span class="pre"><span class="Identifier">
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-19 14:46:28 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-20 16:13:00 UTC</small>
       </div>
     </div>
   </div>
