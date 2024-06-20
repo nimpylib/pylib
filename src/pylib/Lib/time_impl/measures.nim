@@ -17,10 +17,10 @@ when not defined(js):
     ## not available for JS backend, currently.
     cpuTime()
 
-func monotonic_ns*(): int64 =
+proc monotonic_ns*(): int64 =
   getMonoTime().ticks()
 
-func monotonic*(): float =
+proc monotonic*(): float =
   when defined(js):
     monotonic_ns().float / ns_per_s
     # see Nim#23746
@@ -29,6 +29,6 @@ func monotonic*(): float =
   else:
     monotonic_ns() / ns_per_s
 
-func perf_counter*(): float = monotonic()
-func perf_counter_ns*(): int64 = monotonic_ns()
-  
+proc perf_counter*(): float = monotonic()
+proc perf_counter_ns*(): int64 = monotonic_ns()
+
