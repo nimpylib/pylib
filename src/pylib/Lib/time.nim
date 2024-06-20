@@ -1,9 +1,12 @@
 ##[ time
 
-See `n_time modeule<n_time.html>`_ for details about implementation
-]##
+Currently the implementation is `n_time module<n_time.html>`_ .
+The following is its doc:
 
+]##
 import ./n_time
+fetchDoc(docTable)
+
 import ../pystring/strimpl
 
 export sleep, measures
@@ -25,12 +28,13 @@ proc ctime*(): PyStr = str ctime()
 proc ctime*(secs: float|int64): PyStr =
   str n_time.ctime secs
 
-func strftime*(format: PyStr, st: Some_struct_time): PyStr =
+func strftime*(format: PyStr, st: Some_struct_time): PyStr{.fetchDoc(docTable).} =
   str n_time.strftime($format, st)
 
-proc strftime*(format: PyStr): PyStr =
+proc strftime*(format: PyStr): PyStr{.fetchDoc(docTable).} =
   strftime format, localtime()
 
-proc strptime*(s: PyStr; format = DefaultTimeFormat): struct_time =
+proc strptime*(s: PyStr; format = DefaultTimeFormat): struct_time
+    {.fetchDoc(docTable).} =
   n_time.strptime($s, $format)
 

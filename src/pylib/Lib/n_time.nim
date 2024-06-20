@@ -28,6 +28,9 @@ import ./time_impl/[
   struct_time_funcs,
   sleep_impl, measures
 ]
+fetchDoc(docTable)
+export fetchDoc, docTable
+
 export sleep, measures
 export types except isUtcZone, initStructTime
 export toTuple
@@ -54,9 +57,10 @@ proc ctime*(): string = asctime now()
 proc ctime*(secs: float|int64): string =
   asctime localtime secs
 
-proc strftime*(format: string): string =
+proc strftime*(format: string): string{.fetchDoc(docTable).} =
   strftime(format, localtime())
 
-proc strptime*(s: string): struct_time = strptime(s, DefaultTimeFormat)
+proc strptime*(s: string): struct_time{.fetchDoc(docTable).} =
+  strptime(s, DefaultTimeFormat)
 
 

@@ -1,25 +1,42 @@
-## .. include:: ./doc/nstrfptime.rst
+## strftime, strptime
+## 
+## platform independent implementation.
+import ./private/doc_utils
+
+const docTable* = initDocTable(
+  slurp"./doc/nstrfptime.rst", {
+  "strptime": slurp"./doc/nstrptime.rst"
+})  ## used to transport doc string to outer module.
+
+export fetchDoc
+
 import std/strutils
 import std/times
 
-const NotImplDirectives* = {
-   'j' # Day of the year as a decimal number [001,366]. <- DateTime.yearday + 1
-  ,'w' # Weekday [0(Sunday),6]. <- (DateTime.weekday.int + 1) mod 7
-  ,'y' # Year without century as a decimal number [00,99]. <- "yy"
-       # When parsing, C/Python's %y use 20th or 21th centry
-       # depending on the value of %y
-       # Nim's yy use the current century
-  ,'U' # Week number of the year (Sunday as the first day of the week) <- ?
-       # as a decimal number [00,53].
-       # All days in a new year preceding the first Sunday are considered
-       # to be in week 0.
-       # Nim's V or VV seems to be of range [1,53]
-       # and use Monday as the first day of a week.
-       #(Nim's is iso-week, donno if Python's is)
-  ,'Z' # Time zone name (no characters if no time zone exists). Deprecated.
-       # Impossible to implement without interacting with C lib.
-       # Any way, it's deprecated.
-}
+const NotImplDirectives* = {'j','w','y','U','Z'      
+} ## Here are their concrete meanings in Python,
+  ## as well as some notes about why they cannot be directly mapped to
+  ## Nim's DateTime.format/parse.
+  ## 
+  ## The direct alternative value when formatting in Nim,
+  ## if any, is introduced by `<-`:
+  ##
+  ## - j: Day of the year as a decimal number `[001,366]`. <- DateTime.yearday + 1
+  ## - w: Weekday `[0(Sunday),6]`. <- (DateTime.weekday.int + 1) mod 7
+  ## - y: Year without century as a decimal number `[00,99]`. <- DateTime.format"yy"
+  ##   When parsing, C/Python's %y use 20th or 21th centry
+  ##   depending on the value of %y
+  ##   Nim's yy use the current century
+  ## - U: Week number of the year (Sunday as the first day of the week)
+  ##   as a decimal number `[00,53]`.
+  ##   All days in a new year preceding the first Sunday are considered
+  ##   to be in week 0.
+  ##   Nim's V or VV is of range `[1,53]` (times.IsoWeekRange, get via DateTime.getIsoWeekAndYear)
+  ##   and use Monday as the first day of a week.
+  ##   (Nim's is iso-week, Python's is not)
+  ## - Z: Time zone name (no characters if no time zone exists). Deprecated.
+  ##   Impossible to implement without interacting with C lib.
+  ##   Any way, it's deprecated.
 
 func notImplErr(c: char) =
   var msg = "not implement format directives: %" & c
@@ -88,7 +105,8 @@ template cStyle(cstr: string;
     i.inc
 
 
-func strftime*(format: string, dt: DateTime): string =
+func strftime*(format: string, dt: DateTime): string
+    {.fetchDoc(docTable).} =
   result = newStringOfCap format.len
   template handleSnippet(s, start, stop) =
     result.add s[start..<stop]
@@ -111,7 +129,7 @@ proc translate2Nim(cstr: string): string =
   template handlePercent = result.add "'%'"
   cStyle cstr, handleSnippet, doWith, handlePercent, forParse=true
 
-proc strptime*(dt: var DateTime, s: string, format_with_sp_asis: string) =
-  ## .. include:: ./doc/nstrptimeDiff.rst
+proc strptime*(dt: var DateTime, s: string, format_with_sp_asis: string)
+    {.fetchDoc(docTable).} =
   let nformat = translate2Nim(format_with_sp_asis)
   dt = parse(s, nformat)
