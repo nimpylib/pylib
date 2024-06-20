@@ -5,15 +5,23 @@ import std/strutils
 
 const BetterTypeMismatchErrMsg = true
 
-func extractClsObj(obj: NimNode): NimNode =
-  ## extract `object` type from `object` or `ref object` instance.
-  let base = obj.getType
+func extractObjectType(objOrType: NimNode): NimNode =
+  ## extract `object` type from `object` or `ref object` or a instance.
+  let base = objOrType.getType
   result = if base.typeKind == ntyRef: base[1].getType
            else: base
+  if result.typeKind != ntyObject:
+    error "not a object/ref object, cannot extract from a " & $result.typeKind,
+      objOrType
 
-template getAttrList(typ: NimNode): NimNode =
+template getAttrListFromType(typ: NimNode): NimNode =
+  ## returns a argList of nnkSym
   expectKind typ[2], nnkRecList
   typ[2]
+
+template getAttrList(objOrType: NimNode): NimNode =
+  ## returns a argList of nnkSym
+  objOrType.extractObjectType.getAttrListFromType
 
 macro asgSeqToObj*(tup, obj: typed) =
   ## `obj` can be of `ref object` or `object`
@@ -27,16 +35,14 @@ macro asgSeqToObj*(tup, obj: typed) =
   else:
     tupId = tup
   
-  let typ = extractClsObj obj
-  
   let tupType = tup.getTypeImpl
   
   when BetterTypeMismatchErrMsg:
     let namedTuple = tupType.kind == nnkTupleTy
   
   let
+    attrs = obj.getAttrList
     tupLen = tupType.len
-    attrs = typ.getAttrList
     aLen = attrs.len
   if tupLen > aLen:
     error $obj & " takes an at most $#-sequence ($#-sequence given)"
@@ -58,13 +64,15 @@ macro asgSeqToObj*(tup, obj: typed) =
       nnkBracketExpr.newTree(tupId, newLit i)
     )
 
+func getTypeFromTypeDescNode(n: NimNode): NimNode =
+  if n.typeKind != ntyTypeDesc:
+    error "not a typedesc", n
+  n.getType[1]
+
 macro declTupleWithNFieldsFrom*(name: untyped; Cls: typedesc; n: static[int], exported: static[bool] = true) =
-  let typedescNode = Cls.getType
-  
   let
-    typ = typedescNode[1]
-    clsType = typ.extractClsObj
-    attrs = clsType.getAttrList
+    typ = Cls.getTypeFromTypeDescNode
+    attrs = typ.getAttrList
   
   var tupleAttrs = newNimNode nnkTupleTy
   for i in 0..<n:
@@ -91,20 +99,15 @@ macro addFields*(res: string, obj: typed, n: static[int] = -1) =
   ##   res.addSep(sep=", ", startLen = startLen)
   ##   res.add k & '=' & repr v
   ## ```
-  let typeNode = obj.getType
   
-  let
-    objectTypeNode = typeNode.extractClsObj
-    clsType = objectTypeNode.getTypeImpl
-    attrs = clsType.getAttrList
+  let attrs = obj.getAttrList
   
   result = newStmtList()
   
   template addStrNode(item) =
     result.add newCall(
       "add", res, item)
-  template addWithAttrItem(attrItem) =
-    let attr = attrItem[0]
+  template addAttrItem(attr) =
     let item = newLit($attr & '=')
     addStrNode item
     addStrNode newCall("repr",
@@ -112,8 +115,8 @@ macro addFields*(res: string, obj: typed, n: static[int] = -1) =
     )
 
   let firstK = attrs[0]
-  addWithAttrItem firstK
+  addAttrItem firstK
   let le = if n < 0: attrs.len else: n
   for i in 1..<le:
     addStrNode newLit ", "
-    addWithAttrItem attrs[i]
+    addAttrItem attrs[i]
