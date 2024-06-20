@@ -21,7 +21,13 @@ func monotonic_ns*(): int64 =
   getMonoTime().ticks()
 
 func monotonic*(): float =
-  monotonic_ns() / ns_per_s
+  when defined(js):
+    monotonic_ns().float / ns_per_s
+    # see Nim#23746
+    # JS only: without `.float`, compile fail
+    # JS failed to compile `int64/int64`
+  else:
+    monotonic_ns() / ns_per_s
 
 func perf_counter*(): float = monotonic()
 func perf_counter_ns*(): int64 = monotonic_ns()
