@@ -65,3 +65,16 @@ template initStructTime*(
     tm_zone:  zone,
     tm_gmtoff:gmtoff
   )
+
+func repr*(st: struct_time): string =
+  ## struct_time.__repr__
+  ## 
+  ## returns string starting with `"time.struct_time"`
+  ## with 9 fields.
+  # len "time.struct_time()": 18
+  # fields' names: 61; equal signs: 9; ", ": 16; fields' value: <=20
+  # sum up to 124
+  result = newStringOfCap 124
+  result.add "time.struct_time("
+  result.addFields(st, STRUCT_TM_ITEMS)
+  result.add ")"

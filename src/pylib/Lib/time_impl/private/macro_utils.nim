@@ -5,7 +5,8 @@ import std/strutils
 
 const BetterTypeMismatchErrMsg = true
 
-func extractClsObj(obj: NimNode) :NimNode =
+func extractClsObj(obj: NimNode): NimNode =
+  ## extract `object` type from `object` or `ref object` instance.
   let base = obj.getType
   result = if base.typeKind == ntyRef: base[1].getType
            else: base
@@ -15,6 +16,9 @@ template getAttrList(typ: NimNode): NimNode =
   typ[2]
 
 macro asgSeqToObj*(tup, obj: typed) =
+  ## `obj` can be of `ref object` or `object`
+  ## Retionale: there is fields/fieldPairs iterator in std/system,
+  ## but for tuple/object only, not for ref object.
   result = newStmtList()
   var tupId: NimNode
   if tup.kind != nnkSym:
@@ -76,3 +80,40 @@ macro declTupleWithNFieldsFrom*(name: untyped; Cls: typedesc; n: static[int], ex
     tupleAttrs
   ))
 
+
+macro addFields*(res: string, obj: typed, n: static[int] = -1) =
+  ## `obj` is of `object` or `ref object`.
+  ## when `obj` is of `object` and `n` is not given, it's roughly equal to:
+  ## 
+  ## ```Nim
+  ## let startLen = res.len
+  ## for k, v in o.fieldPairs:
+  ##   res.addSep(sep=", ", startLen = startLen)
+  ##   res.add k & '=' & repr v
+  ## ```
+  let typeNode = obj.getType
+  
+  let
+    objectTypeNode = typeNode.extractClsObj
+    clsType = objectTypeNode.getTypeImpl
+    attrs = clsType.getAttrList
+  
+  result = newStmtList()
+  
+  template addStrNode(item) =
+    result.add newCall(
+      "add", res, item)
+  template addWithAttrItem(attrItem) =
+    let attr = attrItem[0]
+    let item = newLit($attr & '=')
+    addStrNode item
+    addStrNode newCall("repr",
+      newDotExpr(obj, attr)
+    )
+
+  let firstK = attrs[0]
+  addWithAttrItem firstK
+  let le = if n < 0: attrs.len else: n
+  for i in 1..<le:
+    addStrNode newLit ", "
+    addWithAttrItem attrs[i]
