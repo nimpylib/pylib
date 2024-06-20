@@ -26,7 +26,7 @@ Thanks to Nim supporting multiply backends, pylib currently officially supports
 to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not tested.
 
 [^JS]: Some of features is not available for JS backend, which are listed
-[here](https://github/com/nimpylib/pylib/blob/master/tests/skipJs.txt)
+[here](https://github.com/nimpylib/pylib/blob/master/tests/skipJs.txt)
 
 # Usage
 
