@@ -4,10 +4,12 @@ import std/times
 proc time*(): float =
   epochTime() # getTime().toUnixFloat()
 
-proc time_ns*(): int =
+const ns_per_s = 1_000_000_000
+proc time_ns*(): int64 =
   let t = getTime()
-  result = t.nanosecond
-  result += typeof(result)(t.toUnix) * 1_000_000_000
+  type R = typeof(result)
+  result = R t.nanosecond
+  result += R(t.toUnix) * ns_per_s
 
 when not defined(js):
   proc process_time*(): float =
