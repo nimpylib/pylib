@@ -81,7 +81,9 @@ template float*(a: PyStr|PyBytes): BiggestFloat =
 template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
 
 using self: NimInt
+template newInt(): NimInt = NimInt(0)
 template getSize(self: NimInt): int = sizeof(NimInt) # sizeof cannot be overloaded
+template fitLen(_: var NimInt, nbyte: int): bool = nbyte <= sizeof(NimInt)
 
 template as_integer_ratio*(self: NimInt): (NimInt, NimInt) =
   (self, 1)
@@ -114,6 +116,53 @@ proc transInOrder(outBuf: var openArray[char], inBuf: openArray[char], endiannes
     handleTargetOrder hi_tot - i  # read from higher order.
   else:
     handleTargetOrder i
+
+template highByte(b: PyBytes): uint8 =
+  uint8:
+    when BigEndian: b[0]
+    else: b[^1]
+
+template signbitSet(b: uint8): bool =
+  (b and 0b1000_0000'u8) == 0b1000_0000'u8
+
+func lowestN_set0_and_rest_setP1[I](totByteLen: static[int], nByte: int): I =
+  assert sizeof(I) == totByteLen
+  block:
+    var arr: array[totByteLen, int8]  # init with 0
+    template P1range: untyped =
+      when BigEndian: 0..<(totByteLen-nByte)
+      else: nByte..<totByteLen
+    for i in P1range:
+      arr[i] = -1
+    cast[I](arr)
+
+proc from_bytes(res: var NimInt, bytes: PyBytes, byteorder: Endianness, signed=false) =
+  ## `bytes` is alreadly in cpuEndian order
+  if not res.fitLen bytes.len:
+    raise newException(OverflowDefect, "Currently NimInt cannot hold so many bytes")
+
+  const totByteLen = getSize(res)
+
+  var holder: array[totByteLen, char]  # Nim init things with zero by default
+  let bytesArr = @bytes
+  transInOrder holder, bytesArr, byteorder, length=bytes.len, totLen=totByteLen
+  res = cast[NimInt](holder)
+  if signed:
+    let bLen = bytes.len
+    if bytes.highByte().signbitSet():
+      #let byteToFill = totByteLen - bLen
+      #res = res shl (byteToFill * 8)
+      res = res or lowestN_set0_and_rest_setP1[NimInt](totByteLen, bLen)
+      #debugecho "byte: ", res.toBin(64)
+
+  if not signed and res < 0:
+    raise newException(OverflowDefect, 
+      "signed=false now, but this value has caused overflow")
+
+proc from_bytes*(_: typedesc[NimInt], bytes: PyBytes, byteorder: PyStr, signed=false): NimInt =
+  let endianness = parseByteOrder $byteorder
+  result = newInt()
+  result.from_bytes(bytes, endianness, signed)
 
 proc to_bytes*(self; length: int, byteorder: PyStr, signed=false): PyBytes =
   if length < 0:
