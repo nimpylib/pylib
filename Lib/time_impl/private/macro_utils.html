@@ -69,6 +69,10 @@
   <li><a class="reference" href="#asgSeqToObj.m%2Ctyped%2Ctyped" title="asgSeqToObj(tup, obj: typed)">asgSeqToObj(tup, obj: typed)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">cmpOnField
+  <li><a class="reference" href="#cmpOnField.m%2Ctyped%2Ctyped" title="cmpOnField(a, b: typed): int">cmpOnField(a, b: typed): int</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">declTupleWithNFieldsFrom
   <li><a class="reference" href="#declTupleWithNFieldsFrom.m%2Cuntyped%2Ctypedesc%2Cstatic%5Bint%5D%2Cstatic%5Bbool%5D" title="declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];
                          exported: static[bool] = true)">declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];
@@ -107,8 +111,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L146" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L146" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L170" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L170" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -130,8 +134,8 @@
   <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">addSep</span><span class="Punctuation">(</span><span class="Identifier">sep</span><span class="Operator">=</span><span class="StringLit">&quot;, &quot;</span><span class="Punctuation">,</span> <span class="Identifier">startLen</span> <span class="Operator">=</span> <span class="Identifier">startLen</span><span class="Punctuation">)</span>
   <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">add</span> <span class="Identifier">k</span> <span class="Operator">&amp;</span> <span class="CharLit">'='</span> <span class="Operator">&amp;</span> <span class="Identifier">repr</span> <span class="Identifier">v</span></pre></p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L113" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L113" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L137" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L137" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -143,8 +147,21 @@
   <dd>
     
     <tt class="docutils literal"><span class="pre"><span class="Identifier">obj</span></span></tt> can be of <tt class="docutils literal"><span class="pre"><span class="Keyword">ref</span> <span class="Keyword">object</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Keyword">object</span></span></tt> Retionale: there is fields/fieldPairs iterator in std/system, but for tuple/object only, not for ref object.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L47" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L47" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L71" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L71" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="cmpOnField-macros-all">
+  <div id="cmpOnField.m,typed,typed">
+  <dt><pre><span class="Keyword">macro</span> <a href="#cmpOnField.m%2Ctyped%2Ctyped"><span class="Identifier">cmpOnField</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L257" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L257" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -157,8 +174,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L93" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L93" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L117" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L117" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -171,11 +188,10 @@
   <dd>
     
     <p>cmpOnFields but <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span></span></tt> <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> can be of different types.</p>
-<p>e.g. a is tuple and b is object; or a, b are different objects.</p>
-<p>The order matters, if not <tt class="docutils literal"><span class="pre"><span class="Identifier">checkEqLen</span></span></tt>, compare stops once all fields of <tt class="docutils literal"><span class="pre"><span class="Identifier">lhs</span></span></tt> is compared. a.k.a. <tt class="docutils literal"><span class="pre"><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">lhs</span><span class="Punctuation">)</span> <span class="Operator">&lt;=</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">rhs</span><span class="Punctuation">)</span></span></tt> shall be always true, where <tt class="docutils literal"><span class="pre"><span class="Identifier">len</span></span></tt> means the number of the fields. </p>
+<p>e.g. a is tuple and b is object; or a, b are different objects. </p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L182" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L182" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L206" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L206" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -190,8 +206,8 @@
 <p>when for object/tuple and cmpOp is <tt class="docutils literal"><span class="pre"><span class="Operator">==</span></span></tt>, roughly equal to: a == b</p>
 <p>but system.<tt class="docutils literal"><span class="pre"><span class="Operator">==</span></span></tt> for ref just compare the address.</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L195" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L195" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/private/macro_utils.nim#L215" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/private/macro_utils.nim#L215" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -207,7 +223,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-21 04:04:16 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-21 11:52:10 UTC</small>
       </div>
     </div>
   </div>

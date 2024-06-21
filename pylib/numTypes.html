@@ -63,7 +63,11 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">to_bytes
+      <ul class="simple nested-toc-section">from_bytes
+  <li><a class="reference" href="#from_bytes%2Ctypedesc%5BNimInt%5D%2CPyBytes%2CPyStr" title="from_bytes(_: typedesc[NimInt]; bytes: PyBytes; byteorder: PyStr; signed = false): NimInt">from_bytes(_: typedesc[NimInt]; bytes: PyBytes; byteorder: PyStr; signed = false): NimInt</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">to_bytes
   <li><a class="reference" href="#to_bytes%2C%2Cint%2CPyStr" title="to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes">to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes</a></li>
 
 </ul>
@@ -155,15 +159,29 @@ currently it&apos;s just a alias of BiggestInt (e.g. int64 on 64bit system)
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="to_bytes-procs-all">
+    <div id="from_bytes-procs-all">
+  <div id="from_bytes,typedesc[NimInt],PyBytes,PyStr">
+  <dt><pre><span class="Keyword">proc</span> <a href="#from_bytes%2Ctypedesc%5BNimInt%5D%2CPyBytes%2CPyStr"><span class="Identifier">from_bytes</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="numTypes.html#NimInt"><span class="Identifier">NimInt</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">bytes</span><span class="Other">:</span> <a href="pybytes/bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">;</span> <span class="Identifier">byteorder</span><span class="Other">:</span> <a href="pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">;</span>
+                <span class="Identifier">signed</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="numTypes.html#NimInt"><span class="Identifier">NimInt</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L162" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L162" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="to_bytes-procs-all">
   <div id="to_bytes,,int,PyStr">
   <dt><pre><span class="Keyword">proc</span> <a href="#to_bytes%2C%2Cint%2CPyStr"><span class="Identifier">to_bytes</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="numTypes.html#NimInt"><span class="Identifier">NimInt</span></a><span class="Other">;</span> <span class="Identifier">length</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">byteorder</span><span class="Other">:</span> <a href="pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">;</span> <span class="Identifier">signed</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="pybytes/bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L118" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L118" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L167" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L167" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -181,8 +199,8 @@ currently it&apos;s just a alias of BiggestInt (e.g. int64 on 64bit system)
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L86" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L86" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L88" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L88" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -194,8 +212,8 @@ currently it&apos;s just a alias of BiggestInt (e.g. int64 on 64bit system)
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L89" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L89" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L91" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L91" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -207,8 +225,8 @@ currently it&apos;s just a alias of BiggestInt (e.g. int64 on 64bit system)
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L93" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L93" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes.nim#L95" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes.nim#L95" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -376,7 +394,7 @@ currently it&apos;s just a alias of BiggestInt (e.g. int64 on 64bit system)
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-21 04:04:03 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-21 11:51:57 UTC</small>
       </div>
     </div>
   </div>

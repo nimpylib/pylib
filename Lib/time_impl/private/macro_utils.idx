@@ -1,11 +1,12 @@
 nimTitle	macro_utils	time_impl/private/macro_utils.html	module src/pylib/Lib/time_impl/private/macro_utils		0
-nim	asgSeqToObj	time_impl/private/macro_utils.html#asgSeqToObj.m,typed,typed	macro asgSeqToObj(tup, obj: typed)		47
-nim	declTupleWithNFieldsFrom	time_impl/private/macro_utils.html#declTupleWithNFieldsFrom.m,untyped,typedesc,static[int],static[bool]	macro declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];\n                         exported: static[bool] = true)		93
-nim	addFields	time_impl/private/macro_utils.html#addFields.m,string,typed,static[int]	macro addFields(res: string; obj: typed; noMoreThan: static[int] = int.high)		113
-nim	csEq	time_impl/private/macro_utils.html#csEq	CmpStragy.csEq		146
-nim	csLhs	time_impl/private/macro_utils.html#csLhs	CmpStragy.csLhs		146
-nim	csRhs	time_impl/private/macro_utils.html#csRhs	CmpStragy.csRhs		146
-nim	csShorter	time_impl/private/macro_utils.html#csShorter	CmpStragy.csShorter		146
-nim	CmpStragy	time_impl/private/macro_utils.html#CmpStragy	enum CmpStragy		146
-nim	mixinOrderOnFields	time_impl/private/macro_utils.html#mixinOrderOnFields.m,typed,typed,,static[CmpStragy]	macro mixinOrderOnFields(lhs, rhs: typed; cmpOp; cmpStragy: static[CmpStragy] = csEq): bool		182
-nim	orderOnFields	time_impl/private/macro_utils.html#orderOnFields.m,T,T,	macro orderOnFields[T](a, b: T; cmpOp): bool		195
+nim	asgSeqToObj	time_impl/private/macro_utils.html#asgSeqToObj.m,typed,typed	macro asgSeqToObj(tup, obj: typed)		71
+nim	declTupleWithNFieldsFrom	time_impl/private/macro_utils.html#declTupleWithNFieldsFrom.m,untyped,typedesc,static[int],static[bool]	macro declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];\n                         exported: static[bool] = true)		117
+nim	addFields	time_impl/private/macro_utils.html#addFields.m,string,typed,static[int]	macro addFields(res: string; obj: typed; noMoreThan: static[int] = int.high)		137
+nim	csEq	time_impl/private/macro_utils.html#csEq	CmpStragy.csEq		170
+nim	csLhs	time_impl/private/macro_utils.html#csLhs	CmpStragy.csLhs		170
+nim	csRhs	time_impl/private/macro_utils.html#csRhs	CmpStragy.csRhs		170
+nim	csShorter	time_impl/private/macro_utils.html#csShorter	CmpStragy.csShorter		170
+nim	CmpStragy	time_impl/private/macro_utils.html#CmpStragy	enum CmpStragy		170
+nim	mixinOrderOnFields	time_impl/private/macro_utils.html#mixinOrderOnFields.m,typed,typed,,static[CmpStragy]	macro mixinOrderOnFields(lhs, rhs: typed; cmpOp; cmpStragy: static[CmpStragy] = csEq): bool		206
+nim	orderOnFields	time_impl/private/macro_utils.html#orderOnFields.m,T,T,	macro orderOnFields[T](a, b: T; cmpOp): bool		215
+nim	cmpOnField	time_impl/private/macro_utils.html#cmpOnField.m,typed,typed	macro cmpOnField(a, b: typed): int		257

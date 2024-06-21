@@ -96,18 +96,24 @@
   <li><a class="reference" href="#%3C%2Cstruct_time%2Cstruct_time" title="`&lt;`(a, b: struct_time): bool">`&lt;`(a, b: struct_time): bool</a></li>
 <li><a class="reference" href="#%3C%2Cstruct_time%2Cstruct_time_tuple11" title="`&lt;`(a: struct_time; b: struct_time_tuple11): bool">`&lt;`(a: struct_time; b: struct_time_tuple11): bool</a></li>
 <li><a class="reference" href="#%3C%2Cstruct_time_tuple11%2Cstruct_time" title="`&lt;`(a: struct_time_tuple11; b: struct_time): bool">`&lt;`(a: struct_time_tuple11; b: struct_time): bool</a></li>
+<li><a class="reference" href="#%3C%2C%2C" title="`&lt;`(st: struct_time; t: tuple): bool">`&lt;`(st: struct_time; t: tuple): bool</a></li>
+<li><a class="reference" href="#%3C%2C%2C_2" title="`&lt;`(t: tuple; st: struct_time): bool">`&lt;`(t: tuple; st: struct_time): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section"><=
   <li><a class="reference" href="#%3C%3D%2Cstruct_time%2Cstruct_time" title="`&lt;=`(a, b: struct_time): bool">`&lt;=`(a, b: struct_time): bool</a></li>
 <li><a class="reference" href="#%3C%3D%2Cstruct_time%2Cstruct_time_tuple11" title="`&lt;=`(a: struct_time; b: struct_time_tuple11): bool">`&lt;=`(a: struct_time; b: struct_time_tuple11): bool</a></li>
 <li><a class="reference" href="#%3C%3D%2Cstruct_time_tuple11%2Cstruct_time" title="`&lt;=`(a: struct_time_tuple11; b: struct_time): bool">`&lt;=`(a: struct_time_tuple11; b: struct_time): bool</a></li>
+<li><a class="reference" href="#%3C%3D%2C%2C" title="`&lt;=`(st: struct_time; t: tuple): bool">`&lt;=`(st: struct_time; t: tuple): bool</a></li>
+<li><a class="reference" href="#%3C%3D%2C%2C_2" title="`&lt;=`(t: tuple; st: struct_time): bool">`&lt;=`(t: tuple; st: struct_time): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">==
   <li><a class="reference" href="#%3D%3D%2Cstruct_time%2Cstruct_time" title="`==`(a, b: struct_time): bool">`==`(a, b: struct_time): bool</a></li>
 <li><a class="reference" href="#%3D%3D%2Cstruct_time%2Cstruct_time_tuple11" title="`==`(a: struct_time; b: struct_time_tuple11): bool">`==`(a: struct_time; b: struct_time_tuple11): bool</a></li>
 <li><a class="reference" href="#%3D%3D%2Cstruct_time_tuple11%2Cstruct_time" title="`==`(a: struct_time_tuple11; b: struct_time): bool">`==`(a: struct_time_tuple11; b: struct_time): bool</a></li>
+<li><a class="reference" href="#%3D%3D%2C%2C" title="`==`(st: struct_time; t: tuple): bool">`==`(st: struct_time; t: tuple): bool</a></li>
+<li><a class="reference" href="#%3D%3D%2C%2C_2" title="`==`(t: tuple; st: struct_time): bool">`==`(t: tuple; st: struct_time): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">repr
@@ -279,6 +285,26 @@
 
   </dd>
 </div>
+<div id="<,,">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%2C%2C"><span class="Identifier">`&lt;`</span></a><span class="Other">(</span><span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="<,,_2">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%2C%2C_2"><span class="Identifier">`&lt;`</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">;</span> <span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L110" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L110" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 
 </div>
 <div id="&lt;=-procs-all">
@@ -314,6 +340,26 @@
 
   </dd>
 </div>
+<div id="<=,,">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%3D%2C%2C"><span class="Identifier">`&lt;=`</span></a><span class="Other">(</span><span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="<=,,_2">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%3D%2C%2C_2"><span class="Identifier">`&lt;=`</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">;</span> <span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L111" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L111" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 
 </div>
 <div id="==-procs-all">
@@ -346,6 +392,26 @@
     compares based on fields.
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L94" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L94" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==,,">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3D%3D%2C%2C"><span class="Identifier">`==`</span></a><span class="Other">(</span><span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==,,_2">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3D%3D%2C%2C_2"><span class="Identifier">`==`</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">;</span> <span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/types.nim#L101" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/types.nim#L101" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -419,7 +485,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-21 04:04:16 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-21 11:52:10 UTC</small>
       </div>
     </div>
   </div>
