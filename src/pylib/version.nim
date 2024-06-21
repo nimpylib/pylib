@@ -7,7 +7,7 @@ template asVersion*(major, minor, patch: int): string =
 const
   Major* = 0
   Minor* = 9
-  Patch* = 0
+  Patch* = 1
   Version* = asVersion(Major, Minor, Patch)
 
   ReleaseLevel* = "alpha"
