@@ -5,19 +5,40 @@ import std/strutils
 
 const BetterTypeMismatchErrMsg = true
 
+func expectObjectType(n: NimNode) =
+  if n.typeKind != ntyObject:
+    error "not a object/ref object, cannot extract from a " & $n.typeKind
+
 func extractObjectType(objOrType: NimNode): NimNode =
   ## extract `object` type from `object` or `ref object` or a instance.
+  ## 
+  ## if giving a tuple, returns its typeImpl.
   let base = objOrType.getType
-  result = if base.typeKind == ntyRef: base[1].getType
-           else: base
-  if result.typeKind != ntyObject:
-    error "not a object/ref object, cannot extract from a " & $result.typeKind,
-      objOrType
+  case base.typeKind
+  of ntyRef:
+    result = base[1].getType
+    result.expectObjectType
+  of ntyObject:
+    result = base
+  of ntyTuple:
+    result = base.getTypeImpl
+  else:
+    base.expectObjectType
 
-template getAttrListFromType(typ: NimNode): NimNode =
-  ## returns a argList of nnkSym
-  expectKind typ[2], nnkRecList
-  typ[2]
+func getAttrListFromType(typ: NimNode): NimNode =
+  ## returns a nnkRecList of nnkSym
+  if typ[2].kind == nnkRecList:
+    return typ[2]
+  elif typ.kind == nnkTupleTy:
+    # tuple[...]
+    if typ[0].kind != nnkIdentDefs:
+      error "only named tuple is accepted", typ
+    result = nnkRecList.newNimNode
+    for defs in typ:
+      result.add defs[0]
+      # e.g. defs: IdentDefs Sym "tm_year" Sym "int" Empty
+    return
+  error "expected a object type or tuple type, got " & $typ.kind, typ
 
 template getAttrList(objOrType: NimNode): NimNode =
   ## returns a argList of nnkSym
@@ -126,20 +147,31 @@ type
     csEq
     csLhs
     csRhs
+    csShorter  ## stop on the shorter one.
 
 func getEqAttrList(a, b: NimNode): NimNode =
   ## error if a, b attrList is not length equal
   result = a.getAttrList
   if result.len != b.getAttrList.len:
     error "not length equal"
+func getShorterAttrList(a, b: NimNode): (NimNode, int) =
+  result[0] = a.getAttrList
+  let bAttrs = b.getAttrList
+  result[1] = result[0].len - bAttrs.len
+  if result[1] > 0:
+    result[0] = bAttrs
 
-proc cmpOnFieldsImpl(a, b: NimNode; cs: CmpStragy = csEq,
+func attrList(a, b: NimNode, stragy: CmpStragy): NimNode = 
+  case stragy
+  of csLhs: a.getAttrList
+  of csRhs: b.getAttrList
+  of csEq: getEqAttrList(a, b)
+  of csShorter: getShorterAttrList(a, b)[0]
+
+proc orderOnFieldsImpl(a, b: NimNode; cs: CmpStragy = csEq,
     cmpOp=ident"=="): NimNode =
+  let attrs = attrList(a, b, cs)
   result = newLit true
-  let attrs = case cs
-    of csLhs: a.getAttrList
-    of csRhs: b.getAttrList
-    of csEq: getEqAttrList(a, b)
   for attr in attrs:
     let
       aVal = newDotExpr(a, attr)
@@ -147,7 +179,7 @@ proc cmpOnFieldsImpl(a, b: NimNode; cs: CmpStragy = csEq,
     let eq = newNimNode(nnkInfix).add(cmpOp, aVal, bVal)
     result = infix(result, "and", eq)
 
-macro mixinCmpOnFields*(
+macro mixinOrderOnFields*(
     lhs, rhs: typed;
     cmpOp; cmpStragy: static[CmpStragy] = csEq): bool =
   ## cmpOnFields but `a` `b` can be of different types.
@@ -158,13 +190,13 @@ macro mixinCmpOnFields*(
   ## of `lhs` is compared. a.k.a. `len(lhs) <= len(rhs)` shall be always true,
   ## where `len` means the number of the fields.
   ## 
-  cmpOnFieldsImpl lhs, lhs, cmpStragy, cmpOp
+  orderOnFieldsImpl lhs, rhs, cmpStragy, cmpOp
 
-macro cmpOnFields*[T](a, b: T;
+macro orderOnFields*[T](a, b: T;
     cmpOp): bool =
   ## mainly for checking if ref objects are equal on fields
   ## 
-  ## when for object/tuple, roughly equal to: a == b
+  ## when for object/tuple and cmpOp is `==`, roughly equal to: a == b
   ## 
   ## but system.`==` for ref just compare the address.
-  cmpOnFieldsImpl a, b, csLhs, cmpOp
+  orderOnFieldsImpl a, b, csLhs, cmpOp
