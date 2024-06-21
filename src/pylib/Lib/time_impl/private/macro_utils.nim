@@ -3,46 +3,70 @@
 import std/macros
 import std/strutils
 
-const BetterTypeMismatchErrMsg = true
 
 func expectObjectType(n: NimNode) =
   if n.typeKind != ntyObject:
     error "not a object/ref object, cannot extract from a " & $n.typeKind
 
-func extractObjectType(objOrType: NimNode): NimNode =
-  ## extract `object` type from `object` or `ref object` or a instance.
-  ## 
-  ## if giving a tuple, returns its typeImpl.
-  let base = objOrType.getType
-  case base.typeKind
+type
+  AttrList = object
+    typ: NimTypeKind
+    master: NimNode
+    data: NimNode
+
+func recListFromObjectType(objTyp: NimNode): NimNode =
+  result = objTyp[2]
+  expectKind result, nnkRecList
+
+func newAttrList(obj: NimNode): AttrList =
+  let base = obj.getType
+  let typ = base.typeKind
+  result = AttrList(master: obj, typ: typ)
+  case typ
   of ntyRef:
-    result = base[1].getType
-    result.expectObjectType
+    let obj = base[1].getType
+    obj.expectObjectType
+    result.data = recListFromObjectType obj    
+    result.typ = ntyObject
   of ntyObject:
-    result = base
+    result.data = recListFromObjectType obj    
   of ntyTuple:
-    result = base.getTypeImpl
+    result.data = base.getTypeImpl
   else:
-    base.expectObjectType
+    doAssert false, "not tuple or ref object or object"
 
-func getAttrListFromType(typ: NimNode): NimNode =
-  ## returns a nnkRecList of nnkSym
-  if typ[2].kind == nnkRecList:
-    return typ[2]
-  elif typ.kind == nnkTupleTy:
-    # tuple[...]
-    if typ[0].kind != nnkIdentDefs:
-      error "only named tuple is accepted", typ
-    result = nnkRecList.newNimNode
-    for defs in typ:
-      result.add defs[0]
-      # e.g. defs: IdentDefs Sym "tm_year" Sym "int" Empty
-    return
-  error "expected a object type or tuple type, got " & $typ.kind, typ
+using attrs: AttrList
+func len(attrs): int = attrs.data.len
 
-template getAttrList(objOrType: NimNode): NimNode =
+iterator items(attrs): NimNode =
+  case attrs.typ
+  of ntyObject:
+    for i in attrs.data:
+      yield newDotExpr(attrs.master, i)
+  of ntyTuple:
+    for i in 0..<attrs.len:
+      yield nnkBracketExpr.newTree(attrs.master, newLit i)
+  else: doAssert false; yield newEmptyNode()
+
+func `[]`(attrs; i: int): NimNode =
+  case attrs.typ
+  of ntyObject:
+    newDotExpr(attrs.master, attrs.data[i])
+  of ntyTuple:
+    nnkBracketExpr.newTree(attrs.master, newLit i)
+  else: doAssert false; newEmptyNode()
+
+func getName(attrs; i: int): NimNode =
+  assert attrs.typ == ntyObject
+  result = attrs.data[i]
+
+func getAttrSym(attrs; i: int): NimNode =
+  assert attrs.typ == ntyObject
+  result = attrs.data[i]
+
+template getAttrList(objOrType: NimNode): untyped =
   ## returns a argList of nnkSym
-  objOrType.extractObjectType.getAttrListFromType
+  objOrType.newAttrList
 
 macro asgSeqToObj*(tup, obj: typed) =
   ## `obj` can be of `ref object` or `object`
@@ -58,9 +82,6 @@ macro asgSeqToObj*(tup, obj: typed) =
   
   let tupType = tup.getTypeImpl
   
-  when BetterTypeMismatchErrMsg:
-    let namedTuple = tupType.kind == nnkTupleTy
-  
   let
     attrs = obj.getAttrList
     tupLen = tupType.len
@@ -68,10 +89,13 @@ macro asgSeqToObj*(tup, obj: typed) =
   if tupLen > aLen:
     error $obj & " takes an at most $#-sequence ($#-sequence given)"
       .format(aLen, tupLen)
+  #const BetterTypeMismatchErrMsg = true
+  when false: #BetterTypeMismatchErrMsg:
+    let namedTuple = tupType.kind == nnkTupleTy
   for i in 0..<tupLen:
-    let k = attrs[i]
+    let k = attrs.getName i
     
-    when BetterTypeMismatchErrMsg:
+    when false: #BetterTypeMismatchErrMsg:
       let tupItem = tupType[i]
       let tupItemType =
         if namedTuple: tupItem[1]
@@ -97,7 +121,7 @@ macro declTupleWithNFieldsFrom*(name: untyped; Cls: typedesc; n: static[int], ex
   
   var tupleAttrs = newNimNode nnkTupleTy
   for i in 0..<n:
-    let k = attrs[i]
+    let k = attrs.getAttrSym i
     tupleAttrs.add newIdentDefs(
       k, k.getTypeImpl
     )
@@ -135,12 +159,12 @@ macro addFields*(res: string, obj: typed, noMoreThan: static[int] = int.high) =
       newDotExpr(obj, attr)
     )
 
-  let firstK = attrs[0]
+  let firstK = attrs.getName 0
   addAttrItem firstK
   let le = min(attrs.len, noMoreThan)
   for i in 1..<le:
     addStrNode newLit ", "
-    addAttrItem attrs[i]
+    addAttrItem attrs.getName i
 
 type
   CmpStragy* = enum
@@ -149,19 +173,19 @@ type
     csRhs
     csShorter  ## stop on the shorter one.
 
-func getEqAttrList(a, b: NimNode): NimNode =
+func getEqAttrList(a, b: NimNode): AttrList =
   ## error if a, b attrList is not length equal
   result = a.getAttrList
   if result.len != b.getAttrList.len:
     error "not length equal"
-func getShorterAttrList(a, b: NimNode): (NimNode, int) =
+func getShorterAttrList(a, b: NimNode): (AttrList, int) =
   result[0] = a.getAttrList
   let bAttrs = b.getAttrList
   result[1] = result[0].len - bAttrs.len
   if result[1] > 0:
     result[0] = bAttrs
 
-func attrList(a, b: NimNode, stragy: CmpStragy): NimNode = 
+func attrList(a, b: NimNode, stragy: CmpStragy): AttrList = 
   case stragy
   of csLhs: a.getAttrList
   of csRhs: b.getAttrList
@@ -174,8 +198,8 @@ proc orderOnFieldsImpl(a, b: NimNode; cs: CmpStragy = csEq,
   result = newLit true
   for attr in attrs:
     let
-      aVal = newDotExpr(a, attr)
-      bVal = newDotExpr(b, attr)
+      aVal = attr
+      bVal = newDotExpr(b, attr[1])
     let eq = newNimNode(nnkInfix).add(cmpOp, aVal, bVal)
     result = infix(result, "and", eq)
 
@@ -185,10 +209,6 @@ macro mixinOrderOnFields*(
   ## cmpOnFields but `a` `b` can be of different types.
   ## 
   ## e.g. a is tuple and b is object; or a, b are different objects.
-  ## 
-  ## The order matters, if not `checkEqLen`, compare stops once all fields
-  ## of `lhs` is compared. a.k.a. `len(lhs) <= len(rhs)` shall be always true,
-  ## where `len` means the number of the fields.
   ## 
   orderOnFieldsImpl lhs, rhs, cmpStragy, cmpOp
 
@@ -200,3 +220,39 @@ macro orderOnFields*[T](a, b: T;
   ## 
   ## but system.`==` for ref just compare the address.
   orderOnFieldsImpl a, b, csLhs, cmpOp
+
+proc cmpOnFieldsImpl(a, b: NimNode; cmpOp=ident"cmp"): NimNode =
+  let
+    aAttr = a.getAttrList
+    bAttr = b.getAttrList
+    aLen = aAttr.len
+    bLen = bAttr.len
+    lenDiff = aLen - bLen
+    minLen = if lenDiff > 0: bLen else: aLen
+  result = newStmtList()
+  let res = genSym(nskVar, "cmpRes")
+  result.add newVarStmt(res, newLit 0)
+  let blkLab = genSym(nskLabel, "blkLab")
+  var blkBody = newStmtList()
+  let brkBlk = nnkBreakStmt.newTree blkLab
+  for i in 0..<minLen:
+    let
+      aVal = aAttr[i]
+      bVal = bAttr[i]
+    blkBody.add(
+      newAssignment(res, newCall(cmpOp, aVal, bVal)))
+    blkBody.add(
+      quote do:
+        if `res` == 0: `brkBlk`
+    )
+  result.add newBlockStmt(blkLab, blkBody)
+  let lenDiffNode = newLit lenDiff
+
+  let resExpr = quote do:
+    if `res` == 0: `lenDiffNode`
+    else: `res`
+
+  result.add resExpr
+
+macro cmpOnField*(a, b: typed): int =
+  cmpOnFieldsImpl(a, b)

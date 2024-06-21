@@ -89,9 +89,23 @@ template genOrder(cmpOp){.dirty.} =
     mixinOrderOnFields a, b, cmpOp, cmpStragy=csLhs
   func cmpOp*(a: struct_time_tuple11, b: struct_time): bool =
     ## compares based on fields.
-    mixinOrderOnFields a, b, cmpOp, cmpStragy=csLhs
+    mixinOrderOnFields a, b, cmpOp, cmpStragy=csRhs
 
 genOrder `==`
 genOrder `<=`
 genOrder `<`
 
+using st: struct_time
+
+func `==`*(st; t: tuple): bool{.inline.} = false
+func `==`*(t: tuple; st): bool{.inline.} = false
+
+func cmp(st; t: tuple): int = cmpOnField st, t
+func cmp(t: tuple; st): int = -cmp(st, t)
+
+template genOrderOnCmp(cmpOp){.dirty.} =
+  func cmpOp*(st; t: tuple): bool = cmpOp cmp(st, t), 0
+  func cmpOp*(t: tuple; st): bool = cmpOp cmp(t, st), 0
+
+genOrderOnCmp `<`
+genOrderOnCmp `<=`
