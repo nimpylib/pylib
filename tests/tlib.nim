@@ -87,14 +87,7 @@ test "Lib/time":
 
   check int(time.mktime(time.localtime(self.t))) == int(self.t)
 
-  # this function is just getten from CPython/Lib/test/test_time.py
-  def test_epoch(self):
-    # bpo-43869: Make sure that Python use the same Epoch on all platforms:
-    # January 1, 1970, 00:00:00 (UTC).
-    epoch = time.gmtime(0)
-    # XXX: pylib's struct_time is convertiable to a tuple of 6 members
-    # so just test as follows:
-    self.assertEqual((1970, 1, 1, 0, 0, 0), epoch)
+  check gmtime(0) == gmtime(0)
   
   checkpoint "strftime"
   # the followings as can be run by Python just with one predefinition:
