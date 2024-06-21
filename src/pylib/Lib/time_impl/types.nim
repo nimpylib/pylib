@@ -80,11 +80,18 @@ func repr*(st: struct_time): string =
   result.add ")"
 
 
-template genCmp(cmpOp){.dirty.} =
+template genOrder(cmpOp){.dirty.} =
   func cmpOp*(a, b: struct_time): bool =
     ## compares based on fields.
-    cmpOnFields a, b, cmpOp
+    orderOnFields a, b, cmpOp
+  func cmpOp*(a: struct_time, b: struct_time_tuple11): bool =
+    ## compares based on fields.
+    mixinOrderOnFields a, b, cmpOp, cmpStragy=csLhs
+  func cmpOp*(a: struct_time_tuple11, b: struct_time): bool =
+    ## compares based on fields.
+    mixinOrderOnFields a, b, cmpOp, cmpStragy=csLhs
 
-genCmp `==`
-genCmp `<=`
-genCmp `<`
+genOrder `==`
+genOrder `<=`
+genOrder `<`
+
