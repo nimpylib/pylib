@@ -1,4 +1,4 @@
 nimTitle	sleep_impl	time_impl/sleep_impl.html	module src/pylib/Lib/time_impl/sleep_impl		0
-nim	sleep	time_impl/sleep_impl.html#sleep.t,int	template sleep(s: int)		26
-nim	sleep	time_impl/sleep_impl.html#sleep.t,float	template sleep(s: float)		31
-nimgrp	sleep	time_impl/sleep_impl.html#sleep-templates-all	template		26
+nim	sleep	time_impl/sleep_impl.html#sleep.t,int	template sleep(s: int)		25
+nim	sleep	time_impl/sleep_impl.html#sleep.t,float	template sleep(s: float)		30
+nimgrp	sleep	time_impl/sleep_impl.html#sleep-templates-all	template		25
