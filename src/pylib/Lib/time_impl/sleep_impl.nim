@@ -21,7 +21,6 @@ else:
   do {
     currentTime = new Date().getTime();
   } while (currentTime - start < `milsecs`);
-}
     """.}
 template sleep*(s: int) =
   ## raises ValueError if s < 0

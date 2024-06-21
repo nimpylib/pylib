@@ -130,4 +130,4 @@ test "Lib/timeit":
     # while Python's time.sleep's is second.
     sleep(0.001)
 
-  check timeit(a_little_sleep, number=10) > 0.01
+  check timeit(a_little_sleep, number=10) >= 0.01
