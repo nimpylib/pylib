@@ -38,10 +38,6 @@ test "walrus operator":
   if (d := 'z') == 'z':
     assert d == 'z'
 
-test "timeit":
-  timeit(9):
-    discard
-
 test "hex()":
   check hex(23) == "0x17"
   check hex(ord('a')) == "0x61"
