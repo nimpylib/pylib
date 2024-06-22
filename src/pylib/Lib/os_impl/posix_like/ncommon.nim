@@ -9,9 +9,3 @@ elif defined(windows):
   import std/winlean
 elif defined(posix):
   import std/posix
-
-when weirdTarget:
-  {.pragma: noWeirdTarget, error: "this proc is not available on the NimScript/js target".}
-else:
-  {.pragma: noWeirdTarget.}
-

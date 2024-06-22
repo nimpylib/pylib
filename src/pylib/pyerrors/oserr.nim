@@ -9,6 +9,7 @@ when NimMajor > 1:
 else:
   import std/os
 import ../io_abc
+import ../private/backendMark
 export OSErrorCode
 type
   FileNotFoundError* = object of OSError
@@ -69,10 +70,9 @@ func raiseFileNotFoundError*(fp: PathLike, err: OSErrorCode) =
   ## lead to FileNotFoundError, at pass `err` to distinguish them
   fp.raiseExcWithPath(FileNotFoundError, err)
 
-when weirdTarget:
-  {.pragma: noWeirdTarget, error: "this proc is not available on the NimScript/js target".}
-else:
-  {.pragma: noWeirdTarget.}
+template noWeirdTarget*(def) =
+  bind noWeirdBackend
+  noWeirdBackend(def)
 
 const CONST_E = defined(windows) or compiles(static(EEXIST))
 # in posix_other_const.nim, E* is declared as `var`
