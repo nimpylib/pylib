@@ -21,6 +21,9 @@ task testC, "Test C":
   exec "nim r --mm:orc tests/tester"
 
 import std/os
+let
+  libDir = srcDir / "pylib/Lib"
+
 func getArgs(taskName: string): seq[string] =
   ## cmdargs: 1 2 3 4 5 -> 1 4 3 2 5
   var rargs: seq[string]
@@ -36,17 +39,23 @@ func getArgs(taskName: string): seq[string] =
 
 func getSArg(taskName: string): string = quoteShellCommand getArgs taskName
 
-func getHandledArg(taskName: string, def_arg: string): string =
-  ## the last param can be an arg, if given,
-  ##
-  ## def_arg is used when the last is not arg or is "ALL"
-  var args = getArgs taskName
+func handledArgs(args: var seq[string], def_arg: string) =
+  ## makes args: @[option..., arg/"ALL"]
   if args.len == 0:
+    args.add def_arg
     return
   let lastArg = args[^1]
   if lastArg[0] == '-': args.add def_arg
   elif lastArg == "ALL": args[^1] = def_arg
   # else, the last shall be a nim file
+
+func getHandledArg(taskName: string, def_arg: string): string =
+  ## the last param can be an arg, if given,
+  ##
+  ## def_arg is set as the last element when the last is not arg or is "ALL",
+  ## if no arg, then sets def_arg as the only.
+  var args = getArgs taskName
+  args.handledArgs def_arg
   result = quoteShellCommand args
 
 task testDoc, "cmdargs: if the last is arg: " & 
@@ -55,18 +64,29 @@ task testDoc, "cmdargs: if the last is arg: " &
   let sargs = getHandledArg("testDoc", def_arg)
   exec "nim doc --project --outdir:docs " & sargs
 
+
+const nimSuf = ".nim"
+
+proc testLib(fp: string, sargs: string) =
+  var cmd = "nim doc"
+  if fp.endsWith nimSuf:
+    if (fp[0..(fp.len - nimSuf.len-1)] & "_impl").dirExists:
+      cmd.add " --project"
+    exec cmd & " --outdir:docs/Lib " & sargs & ' ' & fp
+
 task testLibDoc, "Test doc-gen and runnableExamples, can pass several args":
-  let libDir = srcDir / "pylib/Lib"
-  let nimSuf = ".nim"
-  let args = getSArg "testLibDoc"
-  for t in walkDir libDir:
-    if t.kind in {pcDir, pcLinkToDir}: continue
-    let fp = t.path
-    var cmd = "nim doc"
-    if fp.endsWith nimSuf:
-      if (fp[0..(fp.len - nimSuf.len-1)] & "_impl").dirExists:
-        cmd.add " --project"
-      exec cmd & " --outdir:docs/Lib " & args & ' ' & fp
+  var args = getArgs "testLibDoc"
+  let def = "ALL"
+  args.handledArgs def
+  let fpOrDef = args.pop()
+  let sargs = quoteShellCommand args
+  if fpOrDef == def:
+    for t in walkDir libDir:
+      if t.kind in {pcDir, pcLinkToDir}: continue
+      let fp = t.path
+      testLib fp, sargs
+  else:
+    testLib fpOrDef, sargs
 
 task testDocAll, "Test doc and Lib's doc":
   testDocTask()
