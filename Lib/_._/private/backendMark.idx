@@ -1,0 +1,7 @@
+nimTitle	backendMark	_._/private/backendMark.html	module src/pylib/private/backendMark		0
+nim	CompileBackend	_._/private/backendMark.html#CompileBackend	enum CompileBackend		5
+nim	noJsBackend	_._/private/backendMark.html#noJsBackend.t	template noJsBackend(def)		71
+nim	noNimsBackend	_._/private/backendMark.html#noNimsBackend.t	template noNimsBackend(def)		75
+nim	noBackends	_._/private/backendMark.html#noBackends.t,untyped,	template noBackends(backends: untyped; def)		102
+nim	noWeirdBackend	_._/private/backendMark.html#noWeirdBackend.t	template noWeirdBackend(def)		107
+nim	noBackend	_._/private/backendMark.html#noBackend.t,untyped,	template noBackend(backends: untyped; def)		117
