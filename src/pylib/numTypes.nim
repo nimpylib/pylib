@@ -7,6 +7,8 @@ import ./pyerrors/rterr
 import ./pystring/strimpl
 import ./pybytes/bytesimpl
 
+import ./private/backendMark
+
 
 type NimInt* = system.int  ## alias of system.int
 
@@ -126,6 +128,9 @@ template signbitSet(b: uint8): bool =
   (b and 0b1000_0000'u8) == 0b1000_0000'u8
 
 func lowestN_set0_and_rest_setP1[I](totByteLen: static[int], nByte: int): I =
+  ## let the byte containing the sign bit is the highest.
+  ## 0-fill the lowset `nByte` byte and
+  ## 1-fill(all bit as 1) the rest (usually including sign bit).
   assert sizeof(I) == totByteLen
   block:
     var arr: array[totByteLen, int8]  # init with 0
@@ -137,7 +142,6 @@ func lowestN_set0_and_rest_setP1[I](totByteLen: static[int], nByte: int): I =
     cast[I](arr)
 
 proc from_bytes(res: var NimInt, bytes: PyBytes, byteorder: Endianness, signed=false) =
-  ## `bytes` is alreadly in cpuEndian order
   if not res.fitLen bytes.len:
     raise newException(OverflowDefect, "Currently NimInt cannot hold so many bytes")
 
@@ -150,8 +154,6 @@ proc from_bytes(res: var NimInt, bytes: PyBytes, byteorder: Endianness, signed=f
   if signed:
     let bLen = bytes.len
     if bytes.highByte().signbitSet():
-      #let byteToFill = totByteLen - bLen
-      #res = res shl (byteToFill * 8)
       res = res or lowestN_set0_and_rest_setP1[NimInt](totByteLen, bLen)
       #debugecho "byte: ", res.toBin(64)
 
@@ -159,12 +161,14 @@ proc from_bytes(res: var NimInt, bytes: PyBytes, byteorder: Endianness, signed=f
     raise newException(OverflowDefect, 
       "signed=false now, but this value has caused overflow")
 
-proc from_bytes*(_: typedesc[NimInt], bytes: PyBytes, byteorder: PyStr, signed=false): NimInt =
+proc from_bytes*(_: typedesc[NimInt], bytes: PyBytes, byteorder: PyStr, signed=false): NimInt
+    {.noWeirdBackend.} =
   let endianness = parseByteOrder $byteorder
   result = newInt()
   result.from_bytes(bytes, endianness, signed)
 
-proc to_bytes*(self; length: int, byteorder: PyStr, signed=false): PyBytes =
+proc to_bytes*(self; length: int, byteorder: PyStr, signed=false): PyBytes
+    {.noWeirdBackend.} =
   if length < 0:
     raise newException(ValueError, "length argument must be non-negative")
   if not signed and self < 0:
