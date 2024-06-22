@@ -1,5 +1,7 @@
 # Nim Pylib
 
+> Just write Python code in Nim!
+
 ## import pylib
 The mostly suggested style is
 ```Nim
@@ -13,7 +15,7 @@ import pylib
 ```
 
 ## import Python-like stdlib
-Cheatsheet for alternative between pylib and Python
+Cheatsheet for rough alternative between pylib and Python
 
 | Nim pylib                        | Python                               |
 | --------------------------       | --------------------------           |
@@ -23,6 +25,8 @@ Cheatsheet for alternative between pylib and Python
 
 ---
 
+Wondering how many libs are available in NimPylib?
+
 Here are the
-[Lib Docs](Lib/) for Libs available in nimpylib.
+[Lib Docs](Lib/).
 
