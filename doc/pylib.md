@@ -21,3 +21,8 @@ Cheatsheet for alternative between pylib and Python
 | `import pylib/Lib/LIB`           | `from LIB import *`                  |
 | `from pylib/Lib/LIB import XXX`  | `import LIB; from LIB import XXX`    |
 
+---
+
+Here are the
+[Lib Docs](Lib/) for Libs available in nimpylib.
+
