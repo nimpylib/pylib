@@ -34,7 +34,7 @@ expM floor
 
 expM copysign
 
-template aliasFF(fn, nimfn) =
+template aliasFF(fn, nimfn){.dirty.} =
   func fn*[F: SomeFloat](x: F): F = nimfn(x)
 
 aliasFF fabs, abs  # system.abs, limited for float only

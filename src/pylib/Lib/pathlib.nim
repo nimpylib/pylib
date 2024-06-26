@@ -21,16 +21,17 @@ macro wrapStr(aString: untyped, strings: untyped; excludes: untyped) =
   let nlib = ident "n_pathlib"
   result = newStmtList()
   var exp = nnkExportExceptStmt.newTree nlib
+  let argName = ident"self" 
   for a in aString:
     exp.add a
     result.add quote do:
-      func `a`*(self: types.Path): PyStr = str `nlib`.`a` self
+      func `a`*(`argName`: types.Path): PyStr = str `nlib`.`a` `argName`
   for a in strings:
     exp.add a
     result.add quote do:
-      func `a`*(self: types.Path): PyList[PyStr] =
+      func `a`*(`argName`: types.Path): PyList[PyStr] =
         result = newPyList[PyStr]()
-        for i in `nlib`.`a` self:
+        for i in `nlib`.`a` `argName`:
           result.append str i
   for i in excludes: exp.add i
   result.add exp

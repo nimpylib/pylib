@@ -1,3 +1,6 @@
+## Lib/cmath
+## 
+## complex math library for [Python's complex](../builtins/complex.html) 
 
 import ../builtins/complex
 
@@ -13,7 +16,7 @@ const nanj*: PyComplex[float64] = complex(0.0, nan)
 const infj*: PyComplex[float64] = complex(0.0, inf)
 
 
-template expCC(sym) =
+template expCC(sym){.dirty.} =
   template sym*(z: PyComplex): PyComplex =
     bind toNimComplex, pycomplex, sym
     sym(z.toNimComplex).pycomplex
@@ -36,7 +39,7 @@ func isclose*(a,b: Complex, rel_tol=1e-09, abs_tol=0.0): bool =
 func log*(z: PyComplex): PyComplex = ln(z)  ## ln(z)
 func log*(z: PyComplex, base: SomeNumber|PyComplex): PyComplex = (ln(z) / ln(base)).pycomplex
 
-template expAs(sym, alias) =
+template expAs(sym, alias){.dirty.} =
   template alias*(x: PyComplex): untyped =
     bind pycomplex
     sym(x).pycomplex
@@ -48,7 +51,7 @@ expAs arccosh, acosh
 expAs arcsinh, asinh
 expAs arctanh, atanh
 
-template both(fn) =
+template both(fn){.dirty.} =
   func fn*(z: PyComplex): bool = z.re.fn and z.im.fn
 
 both isfinite
