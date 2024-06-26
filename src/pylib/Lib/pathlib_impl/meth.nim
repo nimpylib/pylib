@@ -60,3 +60,21 @@ proc read_nstring*(self): string =
 proc write_nstring*(self, s: string) =
   ## EXT.
   writeFile $self, s
+
+
+iterator iterdir*(self): Path =
+  for i in walkDir($self, relative=true, checkDir=true):
+    yield self / Path(i.path)
+
+type IterDirGenerator = ref object
+    iter: iterator(): Path
+proc iterdir*(self): IterDirGenerator =
+  result = IterDirGenerator(iter: iterator (): Path =
+    for i in self.iterdir():
+      yield i
+  )
+
+proc mkdirParentsExistsOk*(self) =
+  ## EXT.  equal to `path.mkdir(parents=True, exists_ok=True)`
+  createDir $self
+
