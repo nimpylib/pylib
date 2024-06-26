@@ -1,0 +1,13 @@
+nimTitle	segments	pathlib_impl/segments.html	module src/pylib/Lib/pathlib_impl/segments		0
+nim	parts	pathlib_impl/segments.html#parts.i	iterator parts(self: Path): string		17
+nim	parts	pathlib_impl/segments.html#parts	proc parts(self: Path): seq[string]		21
+nim	parent	pathlib_impl/segments.html#parent	proc parent(self: Path): Path		26
+nim	parents	pathlib_impl/segments.html#parents.i	iterator parents(self: Path): Path		29
+nim	parents	pathlib_impl/segments.html#parents	proc parents(self: Path): seq[Path]		33
+nim	name	pathlib_impl/segments.html#name	proc name(self: Path): string		38
+nim	with_name	pathlib_impl/segments.html#with_name,,string	proc with_name(self: Path; name: string): Path		42
+nim	suffix	pathlib_impl/segments.html#suffix	proc suffix(self: Path): string		54
+nim	with_suffix	pathlib_impl/segments.html#with_suffix,,string	proc with_suffix(self: Path; suffix: string): Path		58
+nim	suffixes	pathlib_impl/segments.html#suffixes.i	iterator suffixes(self: Path): string		66
+nim	suffixes	pathlib_impl/segments.html#suffixes	proc suffixes(self: Path): seq[string]		69
+nim	stem	pathlib_impl/segments.html#stem	proc stem(self: Path): string		72

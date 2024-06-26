@@ -1,0 +1,24 @@
+nimTitle	meth	pathlib_impl/meth.html	module src/pylib/Lib/pathlib_impl/meth		0
+nim	is_relative_to	pathlib_impl/meth.html#is_relative_to,,string	proc is_relative_to(self: Path; other: string): bool		9
+nim	is_relative_to	pathlib_impl/meth.html#is_relative_to,,Path	proc is_relative_to(self: Path; other: Path): bool		12
+nim	relative_to	pathlib_impl/meth.html#relative_to,,	proc relative_to(self: Path; other: string | Path): Path		14
+nim	absolute	pathlib_impl/meth.html#absolute	proc absolute(self: Path): Path		17
+nim	is_file	pathlib_impl/meth.html#is_file	proc is_file(self: Path): bool		22
+nim	is_dir	pathlib_impl/meth.html#is_dir	proc is_dir(self: Path): bool		23
+nim	is_symlink	pathlib_impl/meth.html#is_symlink	proc is_symlink(self: Path): bool		24
+nim	is_absolute	pathlib_impl/meth.html#is_absolute	proc is_absolute(self: Path): bool		26
+nim	as_posix	pathlib_impl/meth.html#as_posix	proc as_posix(self: Path): Path		28
+nim	samefile	pathlib_impl/meth.html#samefile,,	proc samefile(self: Path; other_path: string | Path): bool		38
+nim	`/`	pathlib_impl/meth.html#/,string,Path	proc `/`(head: string; tail: Path): Path		41
+nim	`/`	pathlib_impl/meth.html#/,Path,string	proc `/`(head: Path; tail: string): Path		42
+nim	joinpath	pathlib_impl/meth.html#joinpath,,varargs[P]	proc joinpath[P: string | Path](self: Path; pathsegments: varargs[P]): Path		44
+nim	cwd	pathlib_impl/meth.html#cwd,typedesc[Path]	proc cwd(_: typedesc[Path]): Path		49
+nim	home	pathlib_impl/meth.html#home,typedesc[Path]	proc home(_: typedesc[Path]): Path		50
+nim	open	pathlib_impl/meth.html#open,,FileMode	proc open(self: Path; mode: FileMode): File		52
+nim	read_nstring	pathlib_impl/meth.html#read_nstring	proc read_nstring(self: Path): string		56
+nim	write_nstring	pathlib_impl/meth.html#write_nstring,string,string	proc write_nstring(self, s: string)		60
+nim	iterdir	pathlib_impl/meth.html#iterdir.i	iterator iterdir(self: Path): Path		65
+nim	iterdir	pathlib_impl/meth.html#iterdir	proc iterdir(self: Path): IterDirGenerator		71
+nim	mkdirParentsExistsOk	pathlib_impl/meth.html#mkdirParentsExistsOk	proc mkdirParentsExistsOk(self: Path)		77
+nimgrp	isrelativeto	pathlib_impl/meth.html#is_relative_to-procs-all	proc		9
+nimgrp	/	pathlib_impl/meth.html#/-procs-all	proc		41

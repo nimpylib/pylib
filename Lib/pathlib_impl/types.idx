@@ -1,0 +1,6 @@
+nimTitle	types	pathlib_impl/types.html	module src/pylib/Lib/pathlib_impl/types		0
+nim	Path	pathlib_impl/types.html#Path	type Path		11
+nim	`==`	pathlib_impl/types.html#==,Path,Path	proc `==`(head, tail: Path): bool		12
+nim	hash	pathlib_impl/types.html#hash,Path	proc hash(self: Path): int		17
+nim	`/`	pathlib_impl/types.html#/,Path,Path	proc `/`(head, tail: Path): Path		23
+nim	`$`	pathlib_impl/types.html#$,Path	proc `$`(p: Path): string		25
