@@ -45,3 +45,18 @@ func joinpath*[P: string|Path](self; pathsegments: varargs[P]): Path =
   result = self
   for i in pathsegments:
     result = result / i
+
+proc cwd*(_: typedesc[Path]): Path = Path getCurrentDir()
+proc home*(_: typedesc[Path]): Path = Path getHomeDir()
+
+proc open*(self; mode: FileMode): File =
+  ## EXT.
+  open($self, mode)
+
+proc read_nstring*(self): string =
+  ## EXT.
+  readFile $self
+
+proc write_nstring*(self, s: string) =
+  ## EXT.
+  writeFile $self, s

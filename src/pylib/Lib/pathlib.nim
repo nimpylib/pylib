@@ -1,6 +1,10 @@
 
 import std/macros
 
+import ./[
+  os, io
+]
+
 import ../io_abc
 import ../pystring/strimpl
 #[ TODO:
@@ -50,4 +54,25 @@ func joinpath*[P: PathLike](self; pathsegments: varargs[P]): Path =
   result = self
   for i in pathsegments:
     result = result / i
+
+template open*(self: Path, mode: StringLike = "r",
+    buffering = -1,
+    encoding=DefEncoding, errors=DefErrors, newline=DefNewLine): untyped =
+  bind open
+  open($self, mode, buffering, encoding, errors, newline)
+
+
+proc read_text*(self; encoding=DefEncoding, errors=DefErrors): PyStr =
+  var f = open($self, encoding=encoding, errors=errors)
+  defer: f.close()
+  result = f.read()
+
+proc write_text*(self; data: PyStr, encoding=DefEncoding, errors=DefErrors
+    ): int{.discardable.} =
+  var f = open($self, encoding=encoding, errors=errors)
+  defer: f.close()
+  result = f.write(data)
+
+proc read_bytes*(self): PyBytes = bytes readFile $self
+proc write_bytes*(self; b: PyBytes) = writeFile $self, $b
 
