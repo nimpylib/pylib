@@ -2,7 +2,7 @@
 import std/times
 import std/macros
 from std/math import floorDiv, floorMod, splitDecimal, round
-import ./types
+import ./decl
 
 using self: timedelta
 
@@ -42,7 +42,7 @@ func timedelta*(days: int64, seconds=0'i64, microseconds=0'i64,
     eq(td(seconds=1), td(milliseconds=1000))
     eq(td(milliseconds=1), td(microseconds=1000))
 
-  types.timedelta initDuration(
+  decl.timedelta initDuration(
     days=days, seconds=seconds,
     microseconds=microseconds, milliseconds=milliseconds,
     minutes=minutes, hours=hours,
@@ -53,7 +53,7 @@ type
   IntS = int  ## int for sofar
   FactorT = int64
 func fromMicroseconds(us: IntS): timedelta =
-  types.timedelta initDuration(microseconds=us)
+  decl.timedelta initDuration(microseconds=us)
 
 type FI* = float|int64
 func accum(

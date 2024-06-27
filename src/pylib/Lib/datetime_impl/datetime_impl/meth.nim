@@ -1,7 +1,7 @@
 
 import std/macros
 import std/times
-import ./types
+import ./decl
 
 macro getRangeStr(typ: typedesc): string =
   let tNode = typ.getType[1]
@@ -39,6 +39,9 @@ proc datetime*(year, month, day: int,
   hour=0, minute=0, second=0, microsecond=0, 
   #tzinfo=None, *, fold=0
 ): datetime{.raises: [ValueError].} =
+  runnableExamples:
+    let dt = datetime(1900, 2, 28)
+    echo repr dt
   chkSto month, mon, Month
 
   #chkSto day, d, MonthdayRange
@@ -51,8 +54,9 @@ proc datetime*(year, month, day: int,
   chkSto second, s
   let nanosecond = microsecond * 1000
   chkSto nanosecond, ns
-  result = types.datetime times.dateTime(
+  result = decl.datetime times.dateTime(
     year, mon, d, h, min, s, ns
   )
 
 {.pop.}
+
