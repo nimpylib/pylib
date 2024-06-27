@@ -1,5 +1,6 @@
 
 import std/times
+import std/macros
 from std/math import floorDiv, floorMod, splitDecimal, round
 import ./types
 
@@ -14,8 +15,33 @@ func inMicroseconds(self): int64{.borrow.}
 func `==`*(self; o: timedelta): bool =
   self.inMicroseconds == o.inMicroseconds
 
-func timedelta*(days=0, seconds=0, microseconds=0,
+func timedelta*(days: int, seconds=0, microseconds=0,
     milliseconds=0, minutes=0, hours=0, weeks=0): timedelta =
+  ## timedelta with int-only arguments
+  ## 
+  ## See `timedelta<#timedelta%2CFI%2CFI%2CFI%2CFI%2CFI%2CFI%2CFI>`_
+  ## that accepts mixin float and int as arguments
+  ## 
+  ## .. hint:: if setting default value for `days`(a.k.a. `days=0`),
+  ##   `timedelta()` will fail to be compiled due to `ambiguous call`
+  runnableExamples:
+    
+    template eq(a, b) = assert a == b
+
+    template td(xs: varargs[untyped]): untyped = timedelta(xs)
+    # Check keyword args to constructor
+    eq(timedelta(), td(weeks=0, days=0, hours=0, minutes=0, seconds=0,
+                milliseconds=0, microseconds=0))
+    eq(td(1), td(days=1))
+    eq(td(0, 1), td(seconds=1))
+    eq(td(0, 0, 1), td(microseconds=1))
+    eq(td(weeks=1), td(days=7))
+    eq(td(days=1), td(hours=24))
+    eq(td(hours=1), td(minutes=60))
+    eq(td(minutes=1), td(seconds=60))
+    eq(td(seconds=1), td(milliseconds=1000))
+    eq(td(milliseconds=1), td(microseconds=1000))
+
   types.timedelta initDuration(
     days=days, seconds=seconds,
     microseconds=microseconds, milliseconds=milliseconds,
@@ -23,8 +49,98 @@ func timedelta*(days=0, seconds=0, microseconds=0,
     weeks=weeks
   )
 
-func fromMicroseconds(us: int64): timedelta =
+type
+  IntS = int  ## int for sofar
+  FactorT = int64
+func fromMicroseconds(us: IntS): timedelta =
   types.timedelta initDuration(microseconds=us)
+
+type FI* = float|int
+func accum(
+  sofar: IntS, ## sofar is the # of microseconds accounted for so far
+  num: FI,
+  factor: FactorT,
+  leftover: var float): IntS =
+  ##[Fold in the value of the tag ("seconds", "weeks", etc) component of a
+  timedelta constructor.  sofar is the # of microseconds accounted for so far,
+  and there are factor microseconds per current unit, the number
+  of which is given by num.  num * factor is added to sofar in a
+  numerically careful way, and that's the result.  Any fractional
+  microseconds left over (this can happen if num is a float type) are
+  added into `leftover`.
+  Note that there are many ways this can give an error (NULL) return.]##
+  when num is_not float:
+    let prod = num * factor
+    result = sofar + prod
+  else:
+    #[ The Plan:  decompose num into an integer part and a
+    fractional part, num = intpart + fracpart.
+    Then num * factor == intpart * factor + fracpart * factor
+    and the LHS can be computed exactly in long arithmetic.
+    The RHS is again broken into an int part and frac part.
+    and the frac part is added into *leftover.]#
+    var (intpart, fracpart) = num.splitDecimal
+    var x = typeof(sofar) intpart
+    let prod = x * factor
+    let sum = sofar + prod
+    if fracpart == 0.0:
+      return sum
+    #[ So far we've lost no information.  Dealing with the
+    fractional part requires float arithmetic, and may
+    lose a little info.]#
+    let dnum = factor.float * fracpart
+    (fracpart, intpart) = dnum.splitDecimal
+    x = typeof(sofar) intpart
+
+    result = sum + x
+    leftover += fracpart
+
+macro accumByFactors(x: IntS; leftover: float; facs: varargs[untyped]) =
+  result = newStmtList()
+  for kw in facs:
+    let
+      key = kw[0]
+      val = kw[1]
+    result.add quote do:
+      if `key` != 0:
+        `x` = `x`.accum(`key`, FactorT `val`, `leftover`)
+
+const e6int = 1_000_000
+
+func timedelta*(
+    days: FI = 0, seconds: FI = 0, microseconds: FI = 0,
+    milliseconds: FI = 0, minutes: FI = 0, hours: FI = 0, weeks: FI = 0): timedelta =
+  runnableExamples:
+    template eq(a, b) = assert a == b
+    template td(xs: varargs[untyped]): untyped = timedelta(xs)
+    # from CPython/tests/datetimetester.py
+    eq(td(weeks=1.0/7), td(days=1))
+    eq(td(days=1.0/24), td(hours=1))
+    eq(td(hours=1.0/60), td(minutes=1))
+    eq(td(minutes=1.0/60), td(seconds=1))
+    eq(td(seconds=0.001), td(milliseconds=1))
+    eq(td(milliseconds=0.001), td(microseconds=1))
+
+  var leftover_us = 0.0
+  var x: IntS
+  x.accumByFactors(leftover_us,
+    microseconds = 1,
+    milliseconds = 1_000,
+    seconds = e6int, 
+    minutes = 60 * e6int,
+    hours = 3600 * e6int,
+    days =  3600 * 24 * e6int,
+    weeks = 3600 * 24 * 7 * e6int,
+  )
+  if leftover_us != 0.0:
+    var whole_us = round(leftover_us)
+
+    if abs(whole_us - leftover_us) == 0.5:
+      let x_is_odd = float((x and 1) == 1)
+      whole_us = 2.0 * round((leftover_us + x_is_odd) * 0.5) - x_is_odd
+    
+    x += IntS whole_us
+  result = x.fromMicroseconds
 
 using _: typedesc[timedelta]
 
