@@ -15,8 +15,8 @@ func inMicroseconds(self): int64{.borrow.}
 func `==`*(self; o: timedelta): bool =
   self.inMicroseconds == o.inMicroseconds
 
-func timedelta*(days: int, seconds=0, microseconds=0,
-    milliseconds=0, minutes=0, hours=0, weeks=0): timedelta =
+func timedelta*(days: int64, seconds=0'i64, microseconds=0'i64,
+    milliseconds=0'i64, minutes=0'i64, hours=0'i64, weeks=0'i64): timedelta =
   ## timedelta with int-only arguments
   ## 
   ## See `timedelta<#timedelta%2CFI%2CFI%2CFI%2CFI%2CFI%2CFI%2CFI>`_
@@ -55,7 +55,7 @@ type
 func fromMicroseconds(us: IntS): timedelta =
   types.timedelta initDuration(microseconds=us)
 
-type FI* = float|int
+type FI* = float|int64
 func accum(
   sofar: IntS, ## sofar is the # of microseconds accounted for so far
   num: FI,
