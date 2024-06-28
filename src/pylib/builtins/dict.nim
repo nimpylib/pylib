@@ -2,7 +2,8 @@
 import std/tables
 import std/macros
 import ../collections_abc
-import ../builtins/iter_next
+import ./iter_next
+import ../pystring/strimpl
 
 # Impl begin
 type
@@ -189,13 +190,15 @@ proc parseKeyValues(kwargs: NimNode|seq[NimNode]): NimNode =
   for kw in kwargs:
     expectKind(kw, nnkExprEqExpr)
     let (k, v) = (kw[0], kw[1])
-    result.add newTree(nnkTupleConstr, newLit $k, v)
+    result.add newTree(nnkTupleConstr, newCall(bindSym"str", newLit $k), v)
 
-proc dictByKw(kwargs: NimNode): NimNode =
-  let arr = parseKeyValues kwargs
+proc dictByKw(kws: NimNode): NimNode =
+  let arr = parseKeyValues kws
   result = newCall(PyDictProc, arr)
 
-proc dictByIterKw(iter: NimNode; kwargs: seq[NimNode]): NimNode =
+proc dictByIterKw(iter: NimNode; kwargs: NimNode|seq[NimNode]): NimNode =
+  when kwargs is NimNode:
+    expectKind kwargs, nnkArgList
   let lhs = newCall(PyDictProc, iter)
   let arr = parseKeyValues kwargs
   let rhs = newCall(PyDictProc, arr)
