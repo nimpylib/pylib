@@ -21,6 +21,10 @@ type
 
 
 template toNimTable(self: PyDict): OrderedTable = self.data
+template newPyDictImpl[K, V](x: int): untyped =
+  bind initOrderedTable
+  PyDict[K, V](data: initOrderedTable[K, V](x))
+
 template newPyDictImpl[K, V](x: varargs): untyped =
   ## zero or one arg
   ## shall support `[]`, `{k:v, ...}`, `@[(k, v),...]`
