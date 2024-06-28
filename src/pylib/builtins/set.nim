@@ -143,7 +143,7 @@ proc remove*[H](self: var PySet[H], ele: H) =
     raise newException(KeyError, $ele)
 
 
-template genUpdate(sysOp, op, fun) =
+template genUpdate(sysOp, op, fun){.dirty.} =
   proc op*[H; S: SomeSet[H]](self: var PySet[H]; s: S) = sysop self, s
   proc fun*[H; I: Iterable[H]](self: var PySet[H]; i: I) = sysop self, pyset(i)
 
