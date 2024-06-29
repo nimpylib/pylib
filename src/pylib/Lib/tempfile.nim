@@ -81,7 +81,7 @@ macro gen(opName: untyped): untyped =
     args: varargs[typed]): untyped = unpackVarargs self.closer.file.`opName`, args
 
 gen write
-gen flush
+proc flush*[IO](self: TemporaryFileWrapper[IO]) = flush(self.closer.file)
 gen read
 gen readline
 gen seek

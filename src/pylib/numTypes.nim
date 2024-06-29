@@ -20,7 +20,7 @@ template prep(a: PyStr|PyBytes): string =
 
 template int*(a: PyStr|PyBytes): NimInt =
   bind parseInt, prep
-  parseInt(a.prep)
+  parseInt(prep a)
 template int*(a: char): NimInt =
   bind parseInt
   parseInt($a)
@@ -66,7 +66,7 @@ func parseIntWithBase(x: string, base: int): int =
 template int*(x: PyStr|PyBytes; base: int): NimInt =
   ## allowed base
   bind parseIntWithBase, prep
-  parseIntWithBase(x.prep, base)
+  parseIntWithBase(prep x, base)
 
 {.pragma: unsupLong, deprecated:
   """long(a.k.a. PyLong) is not supported, 
@@ -79,7 +79,7 @@ template long*(a: bool): int{.unsupLong.} = BiggestInt(if a: 1 else: 0)
 
 template float*(a: PyStr|PyBytes): BiggestFloat =
   bind parseFloat, prep
-  parseFloat(a.prep)
+  parseFloat(prep a)
 template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
 
 using self: NimInt

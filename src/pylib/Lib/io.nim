@@ -42,6 +42,7 @@ import ./ncodec
 export DefErrors, LookupError
 import ../pystring/[strimpl, strbltins]
 import ../pybytes/[bytesimpl, bytesbltins]
+import ./warnings
 
 const
   SEEK_SET* = 0
@@ -171,24 +172,6 @@ proc peekChar(self: IOBase): char =
   if ci < 0.cint: raise newException(EOFError, "")
   discard c_ungetc(ci, self.file)
   result = char ci
-
-type Warning = enum
-  UserWarning, DeprecationWarning, RuntimeWarning
-# some simple impl for Python's warnings
-type Warnings = object
-var warnings: Warnings
-
-proc formatwarning(message: string, category: Warning, filename: string, lineno: int, ): string =
-  "$#:$#: $#: $#\n" % [filename, $lineno, $category, message]  # can use strformat.fmt
-
-template warn(warn: typeof(warnings), message: string, category: Warning = UserWarning
-    , stacklevel=1  #, source = None
-  )=
-  let
-    pos = instantiationInfo(index = stacklevel-2) # XXX: correct ?
-    lineno = pos.line
-    file = pos.filename
-  stderr.write formatwarning(message, category, file, lineno)
 
 template Iencode =
   result = self.codec.decode(result).data
@@ -506,7 +489,7 @@ template genOpenInfo(result: untyped; file; mode: static string,
   resMode: var FileMode
 ) =
   ## returns is binary
-  bind toSet, raise_ValueError, repr, warnings, warn,
+  bind toSet, raise_ValueError, repr, warn,
     True, False, DeprecationWarning, RuntimeWarning,
     initTextIO,
     TextIOWrapper, 
@@ -514,7 +497,7 @@ template genOpenInfo(result: untyped; file; mode: static string,
     DefErrors, DefEncoding, norm_buffering,
     FileMode, PathLike, fileExists
   const
-    modes = mode.toSet
+    modes = toSet mode
     allSet = toSet("axrwb+tU")
   when len(modes - allSet)!=0 or len(mode) > len(modes):
       raise_ValueError("invalid mode: $#" % mode.repr)
@@ -530,7 +513,7 @@ template genOpenInfo(result: untyped; file; mode: static string,
       when 'U' in modes:
           when creating or writing or appending or updating:
               raise_ValueError("mode U cannot be combined with 'x', 'w', 'a', or '+'")
-          warnings.warn("'U' mode is deprecated",
+          warn("'U' mode is deprecated",
                         DeprecationWarning, 2)
           True
       else:
@@ -550,11 +533,11 @@ template genOpenInfo(result: untyped; file; mode: static string,
   #if binary and newline is not None: raise_ValueError("binary mode doesn't take a newline argument")
   when binary:
     if buffering == 1:
-      warnings.warn("line buffering (buffering=1) isn't supported in binary " &
+      warn("line buffering (buffering=1) isn't supported in binary " &
                     "mode, the default buffer size will be used",
                     RuntimeWarning, 2)
   # raw = FileIO( ... )
-  let _ = file.norm_buffering(buffering)  # line_buffering is not used yet
+  let _ = norm_buffering(file, buffering)  # line_buffering is not used yet
   when not binary:
     if buffering == 0:
         raise_ValueError("can't have unbuffered text I/O")
@@ -673,10 +656,10 @@ template openImpl(result: untyped;
       encoding = encoding1, errors=errors1, newline=newline1, resMode=nmode)
   
   var nfile: File
-  when file is int: 
-    let succ = nfile.openNoNonInhertFlag(FileHandle file, mode=nmode)
+  when file is int:
+    let succ = openNoNonInhertFlag(nfile, FileHandle file, mode=nmode)
   else:
-    let succ = nfile.open($file, mode=nmode)
+    let succ = open(nfile, $file, mode=nmode)
   # Nim/Python:
   #  The file handle associated with the resulting File is not inheritable.
   if not succ:
