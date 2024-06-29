@@ -7,7 +7,7 @@ when defined(windows) and not weirdTarget:
     var varname = winApiProc(newWideCString(arg))
 
 # from nim-2.1.2 lib/std/private/osdirs.nim#L329
-# but raise FileNotFoundError when shall and change param
+# but `raise FileNotFoundError` when shall and change param
 proc rawRemoveDir*(dp: PathLike) {.noWeirdTarget.} =
   let dir = $dp
   when defined(windows):
@@ -15,7 +15,7 @@ proc rawRemoveDir*(dp: PathLike) {.noWeirdTarget.} =
     if res == 0'i32:
       dp.raiseExcWithPath()
   else:
-    if rmdir(dir) != 0'i32:
+    if rmdir(cstring dir) != 0'i32:
       dp.raiseExcWithPath()
 
 when not weirdTarget and not defined(windows):
