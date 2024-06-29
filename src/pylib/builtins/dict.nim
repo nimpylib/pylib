@@ -4,11 +4,12 @@ import std/macros
 import ../collections_abc
 import ./iter_next
 import ../pystring/strimpl
+import ./dict_decl
 
-# Impl begin
+export dict, PyDict
+export emptyPyDict
+
 type
-  PyDict*[K, V] = ref object
-    data: OrderedTable[K, V]
   PyDictView* = object of RootObj ## .. warning:: currently `mapping` attr
                                   ## is dict itself, i.e. modifiable
   PyDictKeyView*[T] = object of PyDictView
@@ -20,23 +21,6 @@ type
   SomeSinglePyDictView*[T] = PyDictValueView[T]|PyDictKeyView[T]
   SomePyDictView* = PyDictKeyView | PyDictValueView | PyDictItemView
 
-
-template toNimTable(self: PyDict): OrderedTable = self.data
-template newPyDictImpl[K, V](x: int): untyped =
-  bind initOrderedTable
-  PyDict[K, V](data: initOrderedTable[K, V](x))
-
-template newPyDictImpl[K, V](x: varargs): untyped =
-  ## zero or one arg
-  ## shall support `[]`, `{k:v, ...}`, `@[(k, v),...]`
-  bind toOrderedTable
-  PyDict[K, V](data: toOrderedTable[K, V](x))
-
-proc getOrDefault[A, B](t: PyDict[A, B], key: A): B =
-  ## inner. used to impl get(key, default)
-  t.toNimTable.getOrDefault key
-func emptyPyDict*[K, V](): PyDict[K, V] = newPyDictImpl[K, V]([])
-# Impl end
 
 proc contains*[A, B](t: PyDict[A, B], key: A): bool = contains(t.toNimTable, key)
 proc `[]`*[A, B](t: PyDict[A, B], key: A): B = `[]`(t.toNimTable, key)

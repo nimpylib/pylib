@@ -11,17 +11,11 @@
 import std/sets
 import std/macros
 from ../collections_abc import Iterable
+import ./set_decl
+export set_decl except asHashSet, incl, excl
 
 type
-  PySet*[H] = ref object
-    data: HashSet[H]
   SomeSet*[H] = PySet[H] or HashSet[H] or OrderedSet[H] or system.set[H]
-
-converter toHashSet[H](self: PySet[H]): HashSet[H] = self.data
-converter toHashSet[H](self: var PySet[H]): var HashSet[H] = self.data
-
-proc incl[H](self: var PySet[H], x: H) = self.data.incl x
-proc excl[H](self: var PySet[H], x: H) = self.data.excl x
 
 macro genpysets(defs) =
   let name = ident"pyset"
@@ -33,13 +27,11 @@ macro genpysets(defs) =
 
 genpysets:
   proc set*[H](): PySet[H] =
-    new result
-    result.data = initHashSet[H]()
+    newPySet initHashSet[H]()
   proc set*[H](s: HashSet[H]): PySet[H] =
-    new result
-    result.data = s
-  proc set*[H](s: PySet[H]): PySet[H] = set(s.data)
-  proc set*[H](arr: openarray[H]): PySet[H] = set arr.toHashSet
+    newPySet s
+  proc set*[H](s: PySet[H]): PySet[H] = set(s.asHashSet)
+  proc set*[H](arr: openarray[H]): PySet[H] = set arr.asHashSet
   proc set*[H](iterable: Iterable[H]): PySet[H] =
     result = set[H]()
     for i in iterable:
@@ -57,22 +49,9 @@ macro pysetLit*(lit): PySet =
 
 template copy*[H](self: PySet[H]): PySet[H] = pyset(self)
 
-func len*(self: PySet): int = self.data.len
-func `$`*(self: PySet): string = $self.data
-func repr*(self: Pyset): string = $self.data
-proc clear*(self: var PySet): int = self.data.clear()
-func `==`*(self, o: PySet): int = self.data == o.data
-func `<=`*(self, o: PySet): int = self.data <= o.data
-func `<`*(self, o: PySet): int = self.data < o.data
-func contains*[H](self: PySet[H], x: H): bool = self.data.contains x
-proc pop*[H](self: var PySet[H]): H{.discardable.} = self.data.pop()
-iterator items*[H](self: PySet[H]): H =
-  for i in self.data: yield i
-export sets.items
-
 template doBinData(op){.dirty.} =
   proc op*[H](self, o: PySet[H]): PySet[H] =
-    pyset op(self.data, o.data)
+    pyset op(self.asHashSet, o.asHashSet)
 
 macro doBinDatas(syms: varargs[untyped]) =
   result = newStmtList()
