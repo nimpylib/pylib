@@ -54,8 +54,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#PyDict" title="PyDict[K; V] = ref object">PyDict</a></li>
-<li><a class="reference" href="#PyDictItemView" title="PyDictItemView[K; V] = object of PyDictView
+      <li><a class="reference" href="#PyDictItemView" title="PyDictItemView[K; V] = object of PyDictView
   mapping*: PyDict[K, V]">PyDictItemView</a></li>
 <li><a class="reference" href="#PyDictKeyView" title="PyDictKeyView[T] = object of PyDictView
   mapping*: PyDict[T, auto]">PyDictKeyView</a></li>
@@ -101,10 +100,6 @@
 </ul>
 <ul class="simple nested-toc-section">delitem
   <li><a class="reference" href="#delitem%2CPyDict%5BK%2CV%5D%2CK" title="delitem[K, V](self: PyDict[K, V]; k: K)">delitem[K, V](self: PyDict[K, V]; k: K)</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">emptyPyDict
-  <li><a class="reference" href="#emptyPyDict" title="emptyPyDict[K, V](): PyDict[K, V]">emptyPyDict[K, V](): PyDict[K, V]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">get
@@ -233,6 +228,9 @@
     </ul>
   </details>
 </li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
+</li>
 
 </ul>
 
@@ -247,56 +245,45 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../collections_abc.html">../collections_abc</a>, <a class="reference external" href="iter_next.html">iter_next</a>
+    <a class="reference external" href="../collections_abc.html">../collections_abc</a>, <a class="reference external" href="iter_next.html">iter_next</a>, <a class="reference external" href="../pystring/strimpl.html">../pystring/strimpl</a>, <a class="reference external" href="dict_decl.html">dict_decl</a>
   </dl>
 </div>
 <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="PyDict">
-  <dt><pre><a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">V</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  </pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="PyDictItemView">
+    <div id="PyDictItemView">
   <dt><pre><a href="dict.html#PyDictItemView"><span class="Identifier">PyDictItemView</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">V</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="dict.html#PyDictView"><span class="Identifier">PyDictView</span></a>
-  <span class="Identifier">mapping</span><span class="Operator">*</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span>
+  <span class="Identifier">mapping</span><span class="Operator">*</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span>
 </pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="PyDictKeyView">
   <dt><pre><a href="dict.html#PyDictKeyView"><span class="Identifier">PyDictKeyView</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="dict.html#PyDictView"><span class="Identifier">PyDictView</span></a>
-  <span class="Identifier">mapping</span><span class="Operator">*</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">auto</span><span class="Other">]</span>
-</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="PyDictValueView">
-  <dt><pre><a href="dict.html#PyDictValueView"><span class="Identifier">PyDictValueView</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="dict.html#PyDictView"><span class="Identifier">PyDictView</span></a>
-  <span class="Identifier">mapping</span><span class="Operator">*</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">auto</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span>
+  <span class="Identifier">mapping</span><span class="Operator">*</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">auto</span><span class="Other">]</span>
 </pre></dt>
   <dd>
     
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="PyDictValueView">
+  <dt><pre><a href="dict.html#PyDictValueView"><span class="Identifier">PyDictValueView</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="dict.html#PyDictView"><span class="Identifier">PyDictView</span></a>
+  <span class="Identifier">mapping</span><span class="Operator">*</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">auto</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span>
+</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -308,8 +295,8 @@
 currently <tt class="docutils literal"><span class="pre"><span class="Identifier">mapping</span></span></tt> attr</div>
 <p>is dict itself, i.e. modifiable</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -318,8 +305,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -328,8 +315,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -341,12 +328,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dl class="item">
     <div id="==-procs-all">
   <div id="==,PyDict[A,B],PyDict[A,B]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#%3D%3D%2CPyDict%5BA%2CB%5D%2CPyDict%5BA%2CB%5D"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">,</span> <span class="Identifier">other</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#%3D%3D%2CPyDict%5BA%2CB%5D%2CPyDict%5BA%2CB%5D"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">,</span> <span class="Identifier">other</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -354,12 +341,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="[]-procs-all">
   <div id="[],PyDict[A,B],A">
-  <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CPyDict%5BA%2CB%5D%2CA"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">B</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CPyDict%5BA%2CB%5D%2CA"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">B</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L37" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L37" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -367,12 +354,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="[]=-procs-all">
   <div id="[]=,PyDict[A,B],A,sinkB">
-  <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CPyDict%5BA%2CB%5D%2CA%2CsinkB"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">B</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CPyDict%5BA%2CB%5D%2CA%2CsinkB"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">B</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -384,8 +371,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L76" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L76" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L65" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L65" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -393,12 +380,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="contains-procs-all">
   <div id="contains,PyDict[A,B],A">
-  <dt><pre><span class="Keyword">proc</span> <a href="#contains%2CPyDict%5BA%2CB%5D%2CA"><span class="Identifier">contains</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#contains%2CPyDict%5BA%2CB%5D%2CA"><span class="Identifier">contains</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -407,8 +394,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L85" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L85" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -417,8 +404,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L81" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L81" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -427,8 +414,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L82" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L82" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L71" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L71" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -436,12 +423,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="copy-procs-all">
   <div id="copy,PyDict[K,V]">
-  <dt><pre><span class="Keyword">func</span> <a href="#copy%2CPyDict%5BK%2CV%5D"><span class="Identifier">copy</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#copy%2CPyDict%5BK%2CV%5D"><span class="Identifier">copy</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L142" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L142" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L131" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L131" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -449,25 +436,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="delitem-procs-all">
   <div id="delitem,PyDict[K,V],K">
-  <dt><pre><span class="Keyword">proc</span> <a href="#delitem%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">delitem</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#delitem%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">delitem</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">)</span></pre></dt>
   <dd>
     
     pysugar expect such a proc to hook <tt class="docutils literal"><span class="pre"><span class="Identifier">del</span> <span class="Identifier">d</span><span class="Punctuation">[</span><span class="Identifier">k</span><span class="Punctuation">]</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L172" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L172" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="emptyPyDict-procs-all">
-  <div id="emptyPyDict">
-  <dt><pre><span class="Keyword">func</span> <a href="#emptyPyDict"><span class="Identifier">emptyPyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L161" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L161" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -475,22 +449,22 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="get-procs-all">
   <div id="get,PyDict[K,V],K">
-  <dt><pre><span class="Keyword">func</span> <a href="#get%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">get</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#get%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">get</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L145" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L145" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="get,PyDict[K,V],K,V">
-  <dt><pre><span class="Keyword">func</span> <a href="#get%2CPyDict%5BK%2CV%5D%2CK%2CV"><span class="Identifier">get</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#get%2CPyDict%5BK%2CV%5D%2CK%2CV"><span class="Identifier">get</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L157" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L157" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L146" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L146" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -498,12 +472,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="items-procs-all">
   <div id="items,PyDict[K,V]">
-  <dt><pre><span class="Keyword">func</span> <a href="#items%2CPyDict%5BK%2CV%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDictItemView"><span class="Identifier">PyDictItemView</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#items%2CPyDict%5BK%2CV%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDictItemView"><span class="Identifier">PyDictItemView</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L130" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L130" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L119" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L119" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -511,12 +485,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="iter-procs-all">
   <div id="iter,PyDict[K,V]">
-  <dt><pre><span class="Keyword">func</span> <a href="#iter%2CPyDict%5BK%2CV%5D"><span class="Identifier">iter</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="iter_next.html#PyIterator"><span class="Identifier">PyIterator</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#iter%2CPyDict%5BK%2CV%5D"><span class="Identifier">iter</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="iter_next.html#PyIterator"><span class="Identifier">PyIterator</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L118" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L118" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -524,12 +498,12 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="keys-procs-all">
   <div id="keys,PyDict[K,V]">
-  <dt><pre><span class="Keyword">func</span> <a href="#keys%2CPyDict%5BK%2CV%5D"><span class="Identifier">keys</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDictKeyView"><span class="Identifier">PyDictKeyView</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#keys%2CPyDict%5BK%2CV%5D"><span class="Identifier">keys</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDictKeyView"><span class="Identifier">PyDictKeyView</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L128" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L128" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L117" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L117" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -541,8 +515,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     dict.__len__
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L59" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L59" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -551,8 +525,8 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L78" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L78" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L67" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L67" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -560,22 +534,22 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="pop-procs-all">
   <div id="pop,PyDict[K,V],K">
-  <dt><pre><span class="Keyword">func</span> <a href="#pop%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">pop</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#pop%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">pop</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L158" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L158" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L147" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L147" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="pop,PyDict[K,V],K,V">
-  <dt><pre><span class="Keyword">func</span> <a href="#pop%2CPyDict%5BK%2CV%5D%2CK%2CV"><span class="Identifier">pop</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#pop%2CPyDict%5BK%2CV%5D%2CK%2CV"><span class="Identifier">pop</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L161" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L161" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L150" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L150" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -583,14 +557,14 @@ currently <tt class="docutils literal"><span class="pre"><span class="Identifier
 </div>
 <div id="popitem-procs-all">
   <div id="popitem,PyDict[K,V]">
-  <dt><pre><span class="Keyword">func</span> <a href="#popitem%2CPyDict%5BK%2CV%5D"><span class="Identifier">popitem</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#popitem%2CPyDict%5BK%2CV%5D"><span class="Identifier">popitem</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span></pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
 this is currently LILO instead of LIFO</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L165" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L165" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L154" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L154" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -598,14 +572,14 @@ this is currently LILO instead of LIFO</div>
 </div>
 <div id="setdefault-procs-all">
   <div id="setdefault,PyDict[K,V],K">
-  <dt><pre><span class="Keyword">func</span> <a href="#setdefault%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">setdefault</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">default</span> <span class="Other">=</span> <span class="Identifier">V</span><span class="Other">.</span><span class="Identifier">default</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#setdefault%2CPyDict%5BK%2CV%5D%2CK"><span class="Identifier">setdefault</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">K</span><span class="Other">;</span> <span class="Identifier">default</span> <span class="Other">=</span> <span class="Identifier">V</span><span class="Other">.</span><span class="Identifier">default</span><span class="Other">)</span></pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
 <tt class="docutils literal"><span class="pre"><span class="Identifier">default</span></span></tt> defaults to <tt class="docutils literal"><span class="pre"><span class="Identifier">V</span><span class="Operator">.</span><span class="Identifier">default</span></span></tt> instead of <tt class="docutils literal"><span class="pre"><span class="Identifier">None</span></span></tt></div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L149" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L149" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L138" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L138" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -613,22 +587,22 @@ this is currently LILO instead of LIFO</div>
 </div>
 <div id="toPyDict-procs-all">
   <div id="toPyDict">
-  <dt><pre><span class="Keyword">func</span> <a href="#toPyDict"><span class="Identifier">toPyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">not</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">]</span> <span class="Keyword">and</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#toPyDict"><span class="Identifier">toPyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">not</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">]</span> <span class="Keyword">and</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L125" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L125" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="toPyDict,openArray[]">
-  <dt><pre><span class="Keyword">func</span> <a href="#toPyDict%2CopenArray%5B%5D"><span class="Identifier">toPyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#toPyDict%2CopenArray%5B%5D"><span class="Identifier">toPyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L132" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L132" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L121" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L121" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -636,12 +610,12 @@ this is currently LILO instead of LIFO</div>
 </div>
 <div id="values-procs-all">
   <div id="values,PyDict[K,V]">
-  <dt><pre><span class="Keyword">func</span> <a href="#values%2CPyDict%5BK%2CV%5D"><span class="Identifier">values</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDictValueView"><span class="Identifier">PyDictValueView</span></a><span class="Other">[</span><span class="Identifier">V</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#values%2CPyDict%5BK%2CV%5D"><span class="Identifier">values</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDictValueView"><span class="Identifier">PyDictValueView</span></a><span class="Other">[</span><span class="Identifier">V</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L129" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L129" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L118" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L118" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -649,12 +623,12 @@ this is currently LILO instead of LIFO</div>
 </div>
 <div id="|-procs-all">
   <div id="|,PyDict,PyDict">
-  <dt><pre><span class="Keyword">func</span> <a href="#%7C%2CPyDict%2CPyDict"><span class="Identifier">`|`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">PyDict</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#%7C%2CPyDict%2CPyDict"><span class="Identifier">`|`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">PyDict</span></pre></dt>
   <dd>
     
     Python-like merge dict operator, a new dict is created from <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt>, keys in the second operand override keys in the first operand 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L245" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L245" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L236" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L236" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -662,12 +636,12 @@ this is currently LILO instead of LIFO</div>
 </div>
 <div id="|=-procs-all">
   <div id="|=,PyDict,PyDict">
-  <dt><pre><span class="Keyword">proc</span> <a href="#%7C%3D%2CPyDict%2CPyDict"><span class="Identifier">`|=`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#%7C%3D%2CPyDict%2CPyDict"><span class="Identifier">`|=`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span></pre></dt>
   <dd>
     
     Python-like in-place dict update operator. <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> is added into <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span></span></tt>, keys in <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> override same keys from <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L253" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L253" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L244" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L244" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -681,12 +655,12 @@ this is currently LILO instead of LIFO</div>
   <dl class="item">
     <div id="items-iterators-all">
   <div id="items.i,PyDict[K,V]">
-  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L125" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L125" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L114" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L114" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -694,7 +668,7 @@ this is currently LILO instead of LIFO</div>
 </div>
 <div id="iter-iterators-all">
   <div id="iter.i,PyDict[K,V]">
-  <dt><pre><span class="Keyword">iterator</span> <a href="#iter.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">iter</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">K</span></pre></dt>
+  <dt><pre><span class="Keyword">iterator</span> <a href="#iter.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">iter</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">K</span></pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
@@ -706,9 +680,9 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
 <span class="Keyword">for</span> <span class="Identifier">i</span> <span class="Keyword">in</span> <span class="Identifier">iter</span><span class="Punctuation">(</span><span class="Identifier">d</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
   <span class="Identifier">assert</span> <span class="Identifier">i</span> <span class="Operator">==</span> <span class="StringLit">&quot;a&quot;</span>
 <span class="Keyword">for</span> <span class="Identifier">i</span> <span class="Keyword">in</span> <span class="Identifier">d</span><span class="Punctuation">:</span>
-  <span class="Identifier">assert</span> <span class="Identifier">i</span> <span class="Operator">==</span> <span class="Punctuation">(</span><span class="StringLit">&quot;a&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">1</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L106" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L106" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+  <span class="Identifier">assert</span> <span class="Identifier">i</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;a&quot;</span> <span class="Keyword">and</span> <span class="Identifier">i</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">1</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L95" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L95" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -716,12 +690,12 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
 </div>
 <div id="keys-iterators-all">
   <div id="keys.i,PyDict[K,V]">
-  <dt><pre><span class="Keyword">iterator</span> <a href="#keys.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">keys</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">K</span></pre></dt>
+  <dt><pre><span class="Keyword">iterator</span> <a href="#keys.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">keys</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">K</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L103" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L103" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L92" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L92" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -729,12 +703,12 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
 </div>
 <div id="values-iterators-all">
   <div id="values.i,PyDict[K,V]">
-  <dt><pre><span class="Keyword">iterator</span> <a href="#values.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">values</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
+  <dt><pre><span class="Keyword">iterator</span> <a href="#values.i%2CPyDict%5BK%2CV%5D"><span class="Identifier">values</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">[</span><span class="Identifier">K</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">V</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L122" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L122" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L111" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L111" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -748,12 +722,12 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dl class="item">
     <div id="dict-macros-all">
   <div id="dict.m,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#dict.m%2Cvarargs%5Buntyped%5D"><span class="Identifier">dict</span></a><span class="Other">(</span><span class="Identifier">kwargs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#dict.m%2Cvarargs%5Buntyped%5D"><span class="Identifier">dict</span></a><span class="Other">(</span><span class="Identifier">kwargs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L201" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L201" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L192" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L192" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -761,12 +735,12 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
 </div>
 <div id="update-macros-all">
   <div id="update.m,PyDict,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#update.m%2CPyDict%2Cvarargs%5Buntyped%5D"><span class="Identifier">update</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#update.m%2CPyDict%2Cvarargs%5Buntyped%5D"><span class="Identifier">update</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
   <dd>
     
     <tt class="docutils literal"><span class="pre"><span class="Identifier">d</span><span class="Operator">.</span><span class="Identifier">update</span><span class="Punctuation">(</span><span class="Operator">**</span><span class="Identifier">kws</span><span class="Punctuation">)</span></span></tt> <tt class="docutils literal"><span class="pre"><span class="Identifier">d</span><span class="Operator">.</span><span class="Identifier">update</span><span class="Punctuation">(</span><span class="Identifier">iterable</span><span class="Punctuation">,</span> <span class="Operator">**</span><span class="Identifier">kws</span><span class="Punctuation">)</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L223" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L223" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L214" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L214" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -780,12 +754,12 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dl class="item">
     <div id="$-templates-all">
   <div id="$.t,PyDict">
-  <dt><pre><span class="Keyword">template</span> <a href="#%24.t%2CPyDict"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#%24.t%2CPyDict"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -794,8 +768,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L87" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L87" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -804,8 +778,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L99" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L99" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L88" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L88" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -814,8 +788,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L89" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L89" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -827,8 +801,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L69" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L69" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -840,8 +814,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -849,12 +823,12 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
 </div>
 <div id="repr-templates-all">
   <div id="repr.t,PyDict">
-  <dt><pre><span class="Keyword">template</span> <a href="#repr.t%2CPyDict"><span class="Identifier">repr</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#repr.t%2CPyDict"><span class="Identifier">repr</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -863,8 +837,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L90" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L90" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -873,8 +847,8 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L90" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L90" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -883,14 +857,20 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L90" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L90" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/dict.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
+  </dl>
+</div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a>, <a href="dict_decl.html#emptyPyDict"><span class="Identifier">emptyPyDict</span></a>
   </dl>
 </div>
 
@@ -900,7 +880,7 @@ Nim's for stmt calls <tt class="docutils literal"><span class="pre"><span class=
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-26 12:14:13 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-29 04:46:43 UTC</small>
       </div>
     </div>
   </div>

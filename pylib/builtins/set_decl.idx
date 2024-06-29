@@ -1,0 +1,19 @@
+nimTitle	set_decl	pylib/builtins/set_decl.html	module src/pylib/builtins/set_decl		0
+nim	set	pylib/builtins/set_decl.html#set	type set		5
+nim	PySet	pylib/builtins/set_decl.html#PySet	type PySet		7
+nim	asHashSet	pylib/builtins/set_decl.html#asHashSet,PySet[H]	proc asHashSet[H](self: PySet[H]): HashSet[H]		9
+nim	asHashSet	pylib/builtins/set_decl.html#asHashSet,PySet[H]_2	proc asHashSet[H](self: var PySet[H]): var HashSet[H]		10
+nim	newPySet	pylib/builtins/set_decl.html#newPySet,HashSet[H]	proc newPySet[H](h: HashSet[H]): PySet[H]		11
+nim	incl	pylib/builtins/set_decl.html#incl,PySet[H],H	proc incl[H](self: var PySet[H]; x: H)		13
+nim	excl	pylib/builtins/set_decl.html#excl,PySet[H],H	proc excl[H](self: var PySet[H]; x: H)		14
+nim	len	pylib/builtins/set_decl.html#len,PySet	proc len(self: PySet): int		16
+nim	`$`	pylib/builtins/set_decl.html#$,PySet	proc `$`(self: PySet): string		17
+nim	repr	pylib/builtins/set_decl.html#repr,PySet	proc repr(self: PySet): string		18
+nim	clear	pylib/builtins/set_decl.html#clear,PySet	proc clear(self: var PySet): int		19
+nim	`==`	pylib/builtins/set_decl.html#==,PySet,PySet	proc `==`(self, o: PySet): int		20
+nim	`<=`	pylib/builtins/set_decl.html#<=,PySet,PySet	proc `<=`(self, o: PySet): int		21
+nim	`<`	pylib/builtins/set_decl.html#<,PySet,PySet	proc `<`(self, o: PySet): int		22
+nim	contains	pylib/builtins/set_decl.html#contains,PySet[H],H	proc contains[H](self: PySet[H]; x: H): bool		23
+nim	pop	pylib/builtins/set_decl.html#pop,PySet[H]	proc pop[H](self: var PySet[H]): H		24
+nim	items	pylib/builtins/set_decl.html#items.i,PySet[H]	iterator items[H](self: PySet[H]): H		25
+nimgrp	ashashset	pylib/builtins/set_decl.html#asHashSet-procs-all	proc		9

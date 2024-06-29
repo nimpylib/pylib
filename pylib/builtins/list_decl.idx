@@ -1,0 +1,17 @@
+nimTitle	list_decl	pylib/builtins/list_decl.html	module src/pylib/builtins/list_decl		0
+nim	list	pylib/builtins/list_decl.html#list	type list		4
+nim	PyList	pylib/builtins/list_decl.html#PyList	type PyList		8
+nim	asSeq	pylib/builtins/list_decl.html#asSeq.c,PyList[T]	converter asSeq[T](self: PyList[T]): seq[T]		11
+nim	asSeq	pylib/builtins/list_decl.html#asSeq.c,PyList[T]_2	converter asSeq[T](self: var PyList[T]): var seq[T]		12
+nim	`@`	pylib/builtins/list_decl.html#@,PyList[T]	proc `@`[T](ls: PyList[T]): seq[T]		14
+nim	setLen	pylib/builtins/list_decl.html#setLen,PyList,Natural	proc setLen(self: PyList; len: Natural)		15
+nim	repr	pylib/builtins/list_decl.html#repr,PyList[T: set or string or openArray]	proc repr[T: set | string | openArray](self: PyList[T]): string		21
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,seq[T]	proc newPyList[T](s: seq[T]): PyList[T]		25
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,openArray[T]	proc newPyList[T](a: openArray[T]): PyList[T]		27
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,int	proc newPyList[T](len = 0): PyList[T]		29
+nim	newPyListOfCap	pylib/builtins/list_decl.html#newPyListOfCap,int	proc newPyListOfCap[T](cap = 0): PyList[T]		30
+nim	items	pylib/builtins/list_decl.html#items.i,PyList[T]	iterator items[T](self: PyList[T]): T		32
+nim	mitems	pylib/builtins/list_decl.html#mitems.i,PyList[T]	iterator mitems[T](self: PyList[T]): var T		36
+nim	getPtr	pylib/builtins/list_decl.html#getPtr,PyList[T],	proc getPtr[T](self: var PyList[T]; i: Natural | BackwardsIndex): ptr T		41
+nimgrp	newpylist	pylib/builtins/list_decl.html#newPyList-procs-all	proc		25
+nimgrp	asseq	pylib/builtins/list_decl.html#asSeq-converters-all	converter		11

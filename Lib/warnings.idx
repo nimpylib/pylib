@@ -1,0 +1,6 @@
+nimTitle	warnings	warnings.html	module src/pylib/Lib/warnings		0
+nim	UserWarning	warnings.html#UserWarning	Warning.UserWarning		4
+nim	DeprecationWarning	warnings.html#DeprecationWarning	Warning.DeprecationWarning		4
+nim	RuntimeWarning	warnings.html#RuntimeWarning	Warning.RuntimeWarning		4
+nim	Warning	warnings.html#Warning	enum Warning		4
+nim	warn	warnings.html#warn.t,string,Warning,int	template warn(message: string; category: Warning = UserWarning; stacklevel = 1)		11

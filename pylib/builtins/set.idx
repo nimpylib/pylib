@@ -1,71 +1,60 @@
 nimTitle	set	pylib/builtins/set.html	module src/pylib/builtins/set		0
-nim	PySet	pylib/builtins/set.html#PySet	type PySet		16
 nim	SomeSet	pylib/builtins/set.html#SomeSet	type SomeSet		18
-nim	set	pylib/builtins/set.html#set	proc set[H](): PySet[H]		35
-nim	pyset	pylib/builtins/set.html#pyset_2	proc pyset[H](): PySet[H]		35
-nim	set	pylib/builtins/set.html#set,HashSet[H]	proc set[H](s: HashSet[H]): PySet[H]		38
-nim	pyset	pylib/builtins/set.html#pyset,HashSet[H]	proc pyset[H](s: HashSet[H]): PySet[H]		38
-nim	set	pylib/builtins/set.html#set,PySet[H]	proc set[H](s: PySet[H]): PySet[H]		41
-nim	pyset	pylib/builtins/set.html#pyset,PySet[H]	proc pyset[H](s: PySet[H]): PySet[H]		41
-nim	set	pylib/builtins/set.html#set,openArray[H]	proc set[H](arr: openArray[H]): PySet[H]		42
-nim	pyset	pylib/builtins/set.html#pyset,openArray[H]	proc pyset[H](arr: openArray[H]): PySet[H]		42
-nim	set	pylib/builtins/set.html#set,Iterable[H]	proc set[H](iterable: Iterable[H]): PySet[H]		43
-nim	pyset	pylib/builtins/set.html#pyset,Iterable[H]	proc pyset[H](iterable: Iterable[H]): PySet[H]		34
-nim	pysetLit	pylib/builtins/set.html#pysetLit.m	macro pysetLit(lit): PySet		50
-nim	copy	pylib/builtins/set.html#copy.t,PySet[H]	template copy[H](self: PySet[H]): PySet[H]		58
-nim	len	pylib/builtins/set.html#len,PySet	proc len(self: PySet): int		60
-nim	`$`	pylib/builtins/set.html#$,PySet	proc `$`(self: PySet): string		61
-nim	repr	pylib/builtins/set.html#repr,PySet	proc repr(self: PySet): string		62
-nim	clear	pylib/builtins/set.html#clear,PySet	proc clear(self: var PySet): int		63
-nim	`==`	pylib/builtins/set.html#==,PySet,PySet	proc `==`(self, o: PySet): int		64
-nim	`<=`	pylib/builtins/set.html#<=,PySet,PySet	proc `<=`(self, o: PySet): int		65
-nim	`<`	pylib/builtins/set.html#<,PySet,PySet	proc `<`(self, o: PySet): int		66
-nim	contains	pylib/builtins/set.html#contains,PySet[H],H	proc contains[H](self: PySet[H]; x: H): bool		67
-nim	pop	pylib/builtins/set.html#pop,PySet[H]	proc pop[H](self: var PySet[H]): H		68
-nim	items	pylib/builtins/set.html#items.i,PySet[H]	iterator items[H](self: PySet[H]): H		69
-nim	`-`	pylib/builtins/set.html#-,PySet[H],PySet[H]	proc `-`[H](self, o: PySet[H]): PySet[H]		80
-nim	intersection	pylib/builtins/set.html#intersection,PySet[H],PySet[H]	proc intersection[H](self, o: PySet[H]): PySet[H]		80
-nim	union	pylib/builtins/set.html#union,PySet[H],PySet[H]	proc union[H](self, o: PySet[H]): PySet[H]		80
-nim	difference	pylib/builtins/set.html#difference,PySet[H],PySet[H]	proc difference[H](self, o: PySet[H]): PySet[H]		80
-nim	symmetric_difference	pylib/builtins/set.html#symmetric_difference,PySet[H],PySet[H]	proc symmetric_difference[H](self, o: PySet[H]): PySet[H]		82
-nim	`==`	pylib/builtins/set.html#==,,	proc `==`[H](self`gensym7: PySet[H]; s`gensym7: set[H]): bool		89
-nim	`==`	pylib/builtins/set.html#==,,_2	proc `==`[H](s`gensym7: set[H]; self`gensym7: PySet[H]): bool		94
-nim	`<=`	pylib/builtins/set.html#<=,,	proc `<=`[H](self`gensym9: PySet[H]; s`gensym9: set[H]): bool		89
-nim	`<=`	pylib/builtins/set.html#<=,,_2	proc `<=`[H](s`gensym9: set[H]; self`gensym9: PySet[H]): bool		95
-nim	`<`	pylib/builtins/set.html#<,,	proc `<`[H](self`gensym11: PySet[H]; s`gensym11: set[H]): bool		89
-nim	`<`	pylib/builtins/set.html#<,,_2	proc `<`[H](s`gensym11: set[H]; self`gensym11: PySet[H]): bool		96
-nim	`^`	pylib/builtins/set.html#^,,S	proc `^`[H; S: SomeSet[H]](self`gensym12: PySet[H]; s`gensym12: S): PySet[H]		103
-nim	`&`	pylib/builtins/set.html#&,,S	proc `&`[H; S: SomeSet[H]](self`gensym13: PySet[H]; s`gensym13: S): PySet[H]		104
-nim	`|`	pylib/builtins/set.html#|,,S	proc `|`[H; S: SomeSet[H]](self`gensym14: PySet[H]; s`gensym14: S): PySet[H]		105
-nim	issuperset	pylib/builtins/set.html#issuperset,,S	proc issuperset[H, S](self`gensym15: PySet[H]; s`gensym15: S): bool		110
-nim	issubset	pylib/builtins/set.html#issubset,,S	proc issubset[H, S](self`gensym17: PySet[H]; s`gensym17: S): bool		111
-nim	intersection	pylib/builtins/set.html#intersection,PySet[H],S	proc intersection[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		115
-nim	intersection	pylib/builtins/set.html#intersection,PySet[H],auto,auto,varargs[S]	proc intersection[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]		124
-nim	union	pylib/builtins/set.html#union,PySet[H],S	proc union[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		115
-nim	union	pylib/builtins/set.html#union,PySet[H],auto,auto,varargs[S]	proc union[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]		125
-nim	difference	pylib/builtins/set.html#difference,PySet[H],S	proc difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		115
-nim	difference	pylib/builtins/set.html#difference,PySet[H],auto,auto,varargs[S]	proc difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]		126
-nim	symmetric_difference	pylib/builtins/set.html#symmetric_difference,PySet[H],S	proc symmetric_difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		115
-nim	symmetric_difference	pylib/builtins/set.html#symmetric_difference,PySet[H],auto,auto,varargs[S]	proc symmetric_difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[\n    H]		127
-nim	isdisjoint	pylib/builtins/set.html#isdisjoint,PySet[H],S	proc isdisjoint[H, S](self: PySet[H]; s: S): bool		129
-nim	add	pylib/builtins/set.html#add,PySet[H],H	proc add[H](self: var PySet[H]; x: H)		133
-nim	`discard`	pylib/builtins/set.html#discard,PySet[H],H	proc `discard`[H](self: var PySet[H]; ele: H)		134
-nim	pydiscard	pylib/builtins/set.html#pydiscard,PySet[H],H	proc pydiscard[H](self: var PySet[H]; ele: H)		137
-nim	remove	pylib/builtins/set.html#remove,PySet[H],H	proc remove[H](self: var PySet[H]; ele: H)		141
-nim	`-=`	pylib/builtins/set.html#-=,,S	proc `-=`[H; S: SomeSet[H]](self`gensym22: var PySet[H]; s`gensym22: S)		147
-nim	difference_update	pylib/builtins/set.html#difference_update,,I	proc difference_update[H; I: Iterable[H]](self`gensym22: var PySet[H]; i`gensym22: I)		150
-nim	`|=`	pylib/builtins/set.html#|=,,S	proc `|=`[H; S: SomeSet[H]](self`gensym23: var PySet[H]; s`gensym23: S)		147
-nim	update	pylib/builtins/set.html#update,,I	proc update[H; I: Iterable[H]](self`gensym23: var PySet[H]; i`gensym23: I)		151
-nim	`&=`	pylib/builtins/set.html#&=,,S	proc `&=`[H; S: SomeSet[H]](self`gensym24: var PySet[H]; s`gensym24: S)		147
-nim	intersection_update	pylib/builtins/set.html#intersection_update,,I	proc intersection_update[H; I: Iterable[H]](self`gensym24: var PySet[H];\n                                       i`gensym24: I)		154
-nimgrp	difference	pylib/builtins/set.html#difference-procs-all	proc		82
-nimgrp	<=	pylib/builtins/set.html#<=-procs-all	proc		65
-nimgrp	<	pylib/builtins/set.html#<-procs-all	proc		66
-nimgrp	symmetricdifference	pylib/builtins/set.html#symmetric_difference-procs-all	proc		82
-nimgrp	union	pylib/builtins/set.html#union-procs-all	proc		82
-nimgrp	set	pylib/builtins/set.html#set-procs-all	proc		35
-nimgrp	intersection	pylib/builtins/set.html#intersection-procs-all	proc		82
-nimgrp	==	pylib/builtins/set.html#==-procs-all	proc		64
-nimgrp	pyset	pylib/builtins/set.html#pyset-procs-all	proc		27
+nim	set	pylib/builtins/set.html#set_2	proc set[H](): PySet[H]		29
+nim	pyset	pylib/builtins/set.html#pyset_2	proc pyset[H](): PySet[H]		29
+nim	set	pylib/builtins/set.html#set,HashSet[H]	proc set[H](s: HashSet[H]): PySet[H]		31
+nim	pyset	pylib/builtins/set.html#pyset,HashSet[H]	proc pyset[H](s: HashSet[H]): PySet[H]		31
+nim	set	pylib/builtins/set.html#set,PySet[H]	proc set[H](s: PySet[H]): PySet[H]		33
+nim	pyset	pylib/builtins/set.html#pyset,PySet[H]	proc pyset[H](s: PySet[H]): PySet[H]		33
+nim	set	pylib/builtins/set.html#set,openArray[H]	proc set[H](arr: openArray[H]): PySet[H]		34
+nim	pyset	pylib/builtins/set.html#pyset,openArray[H]	proc pyset[H](arr: openArray[H]): PySet[H]		34
+nim	set	pylib/builtins/set.html#set,Iterable[H]	proc set[H](iterable: Iterable[H]): PySet[H]		35
+nim	pyset	pylib/builtins/set.html#pyset,Iterable[H]	proc pyset[H](iterable: Iterable[H]): PySet[H]		28
+nim	pysetLit	pylib/builtins/set.html#pysetLit.m	macro pysetLit(lit): PySet		42
+nim	copy	pylib/builtins/set.html#copy.t,PySet[H]	template copy[H](self: PySet[H]): PySet[H]		50
+nim	`-`	pylib/builtins/set.html#-,PySet[H],PySet[H]	proc `-`[H](self, o: PySet[H]): PySet[H]		59
+nim	intersection	pylib/builtins/set.html#intersection,PySet[H],PySet[H]	proc intersection[H](self, o: PySet[H]): PySet[H]		59
+nim	union	pylib/builtins/set.html#union,PySet[H],PySet[H]	proc union[H](self, o: PySet[H]): PySet[H]		59
+nim	difference	pylib/builtins/set.html#difference,PySet[H],PySet[H]	proc difference[H](self, o: PySet[H]): PySet[H]		59
+nim	symmetric_difference	pylib/builtins/set.html#symmetric_difference,PySet[H],PySet[H]	proc symmetric_difference[H](self, o: PySet[H]): PySet[H]		61
+nim	`==`	pylib/builtins/set.html#==,,	proc `==`[H](self`gensym7: PySet[H]; s`gensym7: set[H]): bool		68
+nim	`==`	pylib/builtins/set.html#==,,_2	proc `==`[H](s`gensym7: set[H]; self`gensym7: PySet[H]): bool		73
+nim	`<=`	pylib/builtins/set.html#<=,,	proc `<=`[H](self`gensym9: PySet[H]; s`gensym9: set[H]): bool		68
+nim	`<=`	pylib/builtins/set.html#<=,,_2	proc `<=`[H](s`gensym9: set[H]; self`gensym9: PySet[H]): bool		74
+nim	`<`	pylib/builtins/set.html#<,,	proc `<`[H](self`gensym11: PySet[H]; s`gensym11: set[H]): bool		68
+nim	`<`	pylib/builtins/set.html#<,,_2	proc `<`[H](s`gensym11: set[H]; self`gensym11: PySet[H]): bool		75
+nim	`^`	pylib/builtins/set.html#^,,S	proc `^`[H; S: SomeSet[H]](self`gensym12: PySet[H]; s`gensym12: S): PySet[H]		82
+nim	`&`	pylib/builtins/set.html#&,,S	proc `&`[H; S: SomeSet[H]](self`gensym13: PySet[H]; s`gensym13: S): PySet[H]		83
+nim	`|`	pylib/builtins/set.html#|,,S	proc `|`[H; S: SomeSet[H]](self`gensym14: PySet[H]; s`gensym14: S): PySet[H]		84
+nim	issuperset	pylib/builtins/set.html#issuperset,,S	proc issuperset[H, S](self`gensym15: PySet[H]; s`gensym15: S): bool		89
+nim	issubset	pylib/builtins/set.html#issubset,,S	proc issubset[H, S](self`gensym17: PySet[H]; s`gensym17: S): bool		90
+nim	intersection	pylib/builtins/set.html#intersection,PySet[H],S	proc intersection[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		94
+nim	intersection	pylib/builtins/set.html#intersection,PySet[H],auto,auto,varargs[S]	proc intersection[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]		103
+nim	union	pylib/builtins/set.html#union,PySet[H],S	proc union[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		94
+nim	union	pylib/builtins/set.html#union,PySet[H],auto,auto,varargs[S]	proc union[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]		104
+nim	difference	pylib/builtins/set.html#difference,PySet[H],S	proc difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		94
+nim	difference	pylib/builtins/set.html#difference,PySet[H],auto,auto,varargs[S]	proc difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]		105
+nim	symmetric_difference	pylib/builtins/set.html#symmetric_difference,PySet[H],S	proc symmetric_difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]		94
+nim	symmetric_difference	pylib/builtins/set.html#symmetric_difference,PySet[H],auto,auto,varargs[S]	proc symmetric_difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[\n    H]		106
+nim	isdisjoint	pylib/builtins/set.html#isdisjoint,PySet[H],S	proc isdisjoint[H, S](self: PySet[H]; s: S): bool		108
+nim	add	pylib/builtins/set.html#add,PySet[H],H	proc add[H](self: var PySet[H]; x: H)		112
+nim	`discard`	pylib/builtins/set.html#discard,PySet[H],H	proc `discard`[H](self: var PySet[H]; ele: H)		113
+nim	pydiscard	pylib/builtins/set.html#pydiscard,PySet[H],H	proc pydiscard[H](self: var PySet[H]; ele: H)		116
+nim	remove	pylib/builtins/set.html#remove,PySet[H],H	proc remove[H](self: var PySet[H]; ele: H)		120
+nim	`-=`	pylib/builtins/set.html#-=,PySet[H],S	proc `-=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)		126
+nim	difference_update	pylib/builtins/set.html#difference_update,PySet[H],I	proc difference_update[H; I: Iterable[H]](self: var PySet[H]; i: I)		129
+nim	`|=`	pylib/builtins/set.html#|=,PySet[H],S	proc `|=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)		126
+nim	update	pylib/builtins/set.html#update,PySet[H],I	proc update[H; I: Iterable[H]](self: var PySet[H]; i: I)		130
+nim	`&=`	pylib/builtins/set.html#&=,PySet[H],S	proc `&=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)		126
+nim	intersection_update	pylib/builtins/set.html#intersection_update,PySet[H],I	proc intersection_update[H; I: Iterable[H]](self: var PySet[H]; i: I)		133
+nimgrp	<=	pylib/builtins/set.html#<=-procs-all	proc		74
+nimgrp	<	pylib/builtins/set.html#<-procs-all	proc		75
+nimgrp	symmetricdifference	pylib/builtins/set.html#symmetric_difference-procs-all	proc		61
+nimgrp	union	pylib/builtins/set.html#union-procs-all	proc		61
+nimgrp	set	pylib/builtins/set.html#set-procs-all	proc		29
+nimgrp	intersection	pylib/builtins/set.html#intersection-procs-all	proc		61
+nimgrp	==	pylib/builtins/set.html#==-procs-all	proc		73
+nimgrp	pyset	pylib/builtins/set.html#pyset-procs-all	proc		21
+nimgrp	difference	pylib/builtins/set.html#difference-procs-all	proc		61
 heading	set type	pylib/builtins/set.html#set-type	  set type		0
 heading	Literal	pylib/builtins/set.html#literal	  Literal		0

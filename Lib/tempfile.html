@@ -91,6 +91,10 @@
 <li><a class="reference" href="#close%2CTemporaryFileCloser%5BIO%5D" title="close[IO](self: TemporaryFileCloser[IO]; unlink = os.removeFile)">close[IO](self: TemporaryFileCloser[IO]; unlink = os.removeFile)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">flush
+  <li><a class="reference" href="#flush%2CTemporaryFileWrapper%5BIO%5D" title="flush[IO](self: TemporaryFileWrapper[IO])">flush[IO](self: TemporaryFileWrapper[IO])</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">mkdtemp
   <li><a class="reference" href="#mkdtemp" title="mkdtemp(suffix = sNone; prefix = sNone; dir = sNone): string">mkdtemp(suffix = sNone; prefix = sNone; dir = sNone): string</a></li>
 
@@ -126,13 +130,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">flush
-  <li><a class="reference" href="#flush.t%2C%2C" title="flush[IO](self`gensym5: TemporaryFileWrapper[IO];
-          args`gensym5: varargs[typed]): untyped">flush[IO](self`gensym5: TemporaryFileWrapper[IO];
-          args`gensym5: varargs[typed]): untyped</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">name
+      <ul class="simple nested-toc-section">name
   <li><a class="reference" href="#name.t%2CTemporaryFileWrapper" title="name(self: TemporaryFileWrapper): string">name(self: TemporaryFileWrapper): string</a></li>
 
 </ul>
@@ -147,27 +145,27 @@
 
 </ul>
 <ul class="simple nested-toc-section">read
-  <li><a class="reference" href="#read.t%2C%2C" title="read[IO](self`gensym6: TemporaryFileWrapper[IO];
-         args`gensym6: varargs[typed]): untyped">read[IO](self`gensym6: TemporaryFileWrapper[IO];
-         args`gensym6: varargs[typed]): untyped</a></li>
+  <li><a class="reference" href="#read.t%2C%2C" title="read[IO](self`gensym5: TemporaryFileWrapper[IO];
+         args`gensym5: varargs[typed]): untyped">read[IO](self`gensym5: TemporaryFileWrapper[IO];
+         args`gensym5: varargs[typed]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">readline
-  <li><a class="reference" href="#readline.t%2C%2C" title="readline[IO](self`gensym7: TemporaryFileWrapper[IO];
-             args`gensym7: varargs[typed]): untyped">readline[IO](self`gensym7: TemporaryFileWrapper[IO];
-             args`gensym7: varargs[typed]): untyped</a></li>
+  <li><a class="reference" href="#readline.t%2C%2C" title="readline[IO](self`gensym6: TemporaryFileWrapper[IO];
+             args`gensym6: varargs[typed]): untyped">readline[IO](self`gensym6: TemporaryFileWrapper[IO];
+             args`gensym6: varargs[typed]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">seek
-  <li><a class="reference" href="#seek.t%2C%2C" title="seek[IO](self`gensym8: TemporaryFileWrapper[IO];
-         args`gensym8: varargs[typed]): untyped">seek[IO](self`gensym8: TemporaryFileWrapper[IO];
-         args`gensym8: varargs[typed]): untyped</a></li>
+  <li><a class="reference" href="#seek.t%2C%2C" title="seek[IO](self`gensym7: TemporaryFileWrapper[IO];
+         args`gensym7: varargs[typed]): untyped">seek[IO](self`gensym7: TemporaryFileWrapper[IO];
+         args`gensym7: varargs[typed]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">tell
-  <li><a class="reference" href="#tell.t%2C%2C" title="tell[IO](self`gensym9: TemporaryFileWrapper[IO];
-         args`gensym9: varargs[typed]): untyped">tell[IO](self`gensym9: TemporaryFileWrapper[IO];
-         args`gensym9: varargs[typed]): untyped</a></li>
+  <li><a class="reference" href="#tell.t%2C%2C" title="tell[IO](self`gensym8: TemporaryFileWrapper[IO];
+         args`gensym8: varargs[typed]): untyped">tell[IO](self`gensym8: TemporaryFileWrapper[IO];
+         args`gensym8: varargs[typed]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">write
@@ -320,6 +318,19 @@
 </div>
 
 </div>
+<div id="flush-procs-all">
+  <div id="flush,TemporaryFileWrapper[IO]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#flush%2CTemporaryFileWrapper%5BIO%5D"><span class="Identifier">flush</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/tempfile.nim#L84" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/tempfile.nim#L84" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="mkdtemp-procs-all">
   <div id="mkdtemp">
   <dt><pre><span class="Keyword">proc</span> <a href="#mkdtemp"><span class="Identifier">mkdtemp</span></a><span class="Other">(</span><span class="Identifier">suffix</span> <span class="Other">=</span> <span class="Identifier">sNone</span><span class="Other">;</span> <span class="Identifier">prefix</span> <span class="Other">=</span> <span class="Identifier">sNone</span><span class="Other">;</span> <span class="Identifier">dir</span> <span class="Other">=</span> <span class="Identifier">sNone</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
@@ -408,21 +419,7 @@
 <div class="section" id="18">
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
-    <div id="flush-templates-all">
-  <div id="flush.t,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#flush.t%2C%2C"><span class="Identifier">flush</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym5</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
-                   <span class="Identifier">args`gensym5</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/tempfile.nim#L84" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/tempfile.nim#L84" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="name-templates-all">
+    <div id="name-templates-all">
   <div id="name.t,TemporaryFileWrapper">
   <dt><pre><span class="Keyword">template</span> <a href="#name.t%2CTemporaryFileWrapper"><span class="Identifier">name</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
@@ -466,8 +463,8 @@
 </div>
 <div id="read-templates-all">
   <div id="read.t,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#read.t%2C%2C"><span class="Identifier">read</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym6</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
-                  <span class="Identifier">args`gensym6</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#read.t%2C%2C"><span class="Identifier">read</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym5</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
+                  <span class="Identifier">args`gensym5</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -480,8 +477,8 @@
 </div>
 <div id="readline-templates-all">
   <div id="readline.t,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#readline.t%2C%2C"><span class="Identifier">readline</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym7</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
-                      <span class="Identifier">args`gensym7</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#readline.t%2C%2C"><span class="Identifier">readline</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym6</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
+                      <span class="Identifier">args`gensym6</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -494,8 +491,8 @@
 </div>
 <div id="seek-templates-all">
   <div id="seek.t,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#seek.t%2C%2C"><span class="Identifier">seek</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym8</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
-                  <span class="Identifier">args`gensym8</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#seek.t%2C%2C"><span class="Identifier">seek</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym7</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
+                  <span class="Identifier">args`gensym7</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -508,8 +505,8 @@
 </div>
 <div id="tell-templates-all">
   <div id="tell.t,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#tell.t%2C%2C"><span class="Identifier">tell</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym9</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
-                  <span class="Identifier">args`gensym9</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#tell.t%2C%2C"><span class="Identifier">tell</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self`gensym8</span><span class="Other">:</span> <a href="tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a><span class="Other">[</span><span class="Identifier">IO</span><span class="Other">]</span><span class="Other">;</span>
+                  <span class="Identifier">args`gensym8</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">typed</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -544,7 +541,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-26 12:14:30 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-29 04:47:00 UTC</small>
       </div>
     </div>
   </div>

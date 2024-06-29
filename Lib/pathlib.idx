@@ -1,33 +1,33 @@
 nimTitle	pathlib	pathlib.html	module src/pylib/Lib/pathlib		0
-nim	name	pathlib.html#name,Path	proc name(self`gensym0: Path): PyStr		26
-nim	suffix	pathlib.html#suffix,Path	proc suffix(self`gensym1: Path): PyStr		26
-nim	stem	pathlib.html#stem,Path	proc stem(self`gensym2: Path): PyStr		26
-nim	parts	pathlib.html#parts,Path	proc parts(self`gensym3: Path): PyList[PyStr]		30
-nim	suffixes	pathlib.html#suffixes,Path	proc suffixes(self`gensym4: Path): PyList[PyStr]		30
-nim	fspath	pathlib.html#fspath	proc fspath(self: Path): PyStr		47
-nim	Path	pathlib.html#Path,varargs[P]_2	proc Path[P: PathLike](pathsegments: varargs[P]): types.Path		49
-nim	`/`	pathlib.html#/,,PathLike	proc `/`(self: Path; p: PathLike): Path		53
-nim	`/`	pathlib.html#/,PathLike,	proc `/`(p: PathLike; self: Path): Path		54
-nim	joinpath	pathlib.html#joinpath,,varargs[P]_2	proc joinpath[P: PathLike](self: Path; pathsegments: varargs[P]): Path		56
-nim	open	pathlib.html#open.t,Path,StringLike,int	template open(self: Path; mode: StringLike = "r"; buffering = -1; encoding = DefEncoding;\n     errors = DefErrors; newline = DefNewLine): untyped		61
-nim	read_text	pathlib.html#read_text	proc read_text(self: Path; encoding = DefEncoding; errors = DefErrors): PyStr		68
-nim	write_text	pathlib.html#write_text,,PyStr	proc write_text(self: Path; data: PyStr; encoding = DefEncoding; errors = DefErrors): int		73
-nim	read_bytes	pathlib.html#read_bytes	proc read_bytes(self: Path): PyBytes		79
-nim	write_bytes	pathlib.html#write_bytes,,PyBytes	proc write_bytes(self: Path; b: PyBytes)		80
-nim	readlink	pathlib.html#readlink	proc readlink(self: Path): Path		82
-nim	symlink_to	pathlib.html#symlink_to,,	proc symlink_to(self: Path; target: string | Path; target_is_directory = false)		84
-nim	hardlink_to	pathlib.html#hardlink_to,,	proc hardlink_to(self: Path; target: string | Path)		87
-nim	unlink	pathlib.html#unlink	proc unlink(self: Path)		91
-nim	unlink	pathlib.html#unlink,,bool	proc unlink(self: Path; missing_ok: bool)		95
-nim	rename	pathlib.html#rename,,Path	proc rename(self: Path; target: Path): Path		105
-nim	rename	pathlib.html#rename,,string	proc rename(self: Path; target: string): Path		112
-nim	replace	pathlib.html#replace,,Path	proc replace(self: Path; target: Path): Path		105
-nim	replace	pathlib.html#replace,,string	proc replace(self: Path; target: string): Path		113
-nim	mkdir	pathlib.html#mkdir,,int,bool	proc mkdir(self: Path; mode = 0o000000000777; parents: bool; exist_ok = false)		120
-nim	rmdir	pathlib.html#rmdir	proc rmdir(self: Path)		132
-nim	touch	pathlib.html#touch,,int	proc touch(self: Path; mode = 0o000000000666; exist_ok = true)		134
-nim	stat	pathlib.html#stat	proc stat(self: Path): stat_result		154
-nimgrp	replace	pathlib.html#replace-procs-all	proc		113
-nimgrp	/	pathlib.html#/-procs-all	proc		53
-nimgrp	unlink	pathlib.html#unlink-procs-all	proc		91
-nimgrp	rename	pathlib.html#rename-procs-all	proc		112
+nim	name	pathlib.html#name,Path	proc name(self: Path): PyStr		27
+nim	suffix	pathlib.html#suffix,Path	proc suffix(self: Path): PyStr		27
+nim	stem	pathlib.html#stem,Path	proc stem(self: Path): PyStr		27
+nim	parts	pathlib.html#parts,Path	proc parts(self: Path): PyList[PyStr]		31
+nim	suffixes	pathlib.html#suffixes,Path	proc suffixes(self: Path): PyList[PyStr]		31
+nim	fspath	pathlib.html#fspath	proc fspath(self: Path): PyStr		48
+nim	Path	pathlib.html#Path,varargs[P]_2	proc Path[P: PathLike](pathsegments: varargs[P]): types.Path		50
+nim	`/`	pathlib.html#/,,PathLike	proc `/`(self: Path; p: PathLike): Path		54
+nim	`/`	pathlib.html#/,PathLike,	proc `/`(p: PathLike; self: Path): Path		55
+nim	joinpath	pathlib.html#joinpath,,varargs[P]_2	proc joinpath[P: PathLike](self: Path; pathsegments: varargs[P]): Path		57
+nim	open	pathlib.html#open.t,Path,StringLike,int	template open(self: Path; mode: StringLike = "r"; buffering = -1; encoding = DefEncoding;\n     errors = DefErrors; newline = DefNewLine): untyped		62
+nim	read_text	pathlib.html#read_text	proc read_text(self: Path; encoding = DefEncoding; errors = DefErrors): PyStr		69
+nim	write_text	pathlib.html#write_text,,PyStr	proc write_text(self: Path; data: PyStr; encoding = DefEncoding; errors = DefErrors): int		74
+nim	read_bytes	pathlib.html#read_bytes	proc read_bytes(self: Path): PyBytes		80
+nim	write_bytes	pathlib.html#write_bytes,,PyBytes	proc write_bytes(self: Path; b: PyBytes)		81
+nim	readlink	pathlib.html#readlink	proc readlink(self: Path): Path		83
+nim	symlink_to	pathlib.html#symlink_to,,	proc symlink_to(self: Path; target: string | Path; target_is_directory = false)		85
+nim	hardlink_to	pathlib.html#hardlink_to,,	proc hardlink_to(self: Path; target: string | Path)		88
+nim	unlink	pathlib.html#unlink	proc unlink(self: Path)		92
+nim	unlink	pathlib.html#unlink,,bool	proc unlink(self: Path; missing_ok: bool)		96
+nim	rename	pathlib.html#rename,,Path	proc rename(self: Path; target: Path): Path		106
+nim	rename	pathlib.html#rename,,string	proc rename(self: Path; target: string): Path		113
+nim	replace	pathlib.html#replace,,Path	proc replace(self: Path; target: Path): Path		106
+nim	replace	pathlib.html#replace,,string	proc replace(self: Path; target: string): Path		114
+nim	mkdir	pathlib.html#mkdir,,int,bool	proc mkdir(self: Path; mode = 0o000000000777; parents: bool; exist_ok = false)		121
+nim	rmdir	pathlib.html#rmdir	proc rmdir(self: Path)		133
+nim	touch	pathlib.html#touch,,int	proc touch(self: Path; mode = 0o000000000666; exist_ok = true)		135
+nim	stat	pathlib.html#stat	proc stat(self: Path): stat_result		155
+nimgrp	replace	pathlib.html#replace-procs-all	proc		114
+nimgrp	/	pathlib.html#/-procs-all	proc		54
+nimgrp	unlink	pathlib.html#unlink-procs-all	proc		92
+nimgrp	rename	pathlib.html#rename-procs-all	proc		113

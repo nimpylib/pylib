@@ -1,63 +1,63 @@
 nimTitle	io	io.html	module src/pylib/Lib/io		0
-nim	SEEK_SET	io.html#SEEK_SET	const SEEK_SET		47
-nim	SEEK_CUR	io.html#SEEK_CUR	const SEEK_CUR		48
-nim	SEEK_END	io.html#SEEK_END	const SEEK_END		49
-nim	DefNewLine	io.html#DefNewLine	const DefNewLine		51
-nim	IOBase	io.html#IOBase	type IOBase		62
-nim	UnsupportedOperation	io.html#UnsupportedOperation	object UnsupportedOperation		67
-nim	flush	io.html#flush,IOBase	proc flush(f: IOBase)		71
-nim	tell	io.html#tell,IOBase	proc tell(f: IOBase): int64		73
-nim	isatty	io.html#isatty,IOBase	proc isatty(f: IOBase): bool		75
-nim	fileno	io.html#fileno,IOBase	proc fileno(f: IOBase): int		77
-nim	NoEncTextIOBase	io.html#NoEncTextIOBase	type NoEncTextIOBase		81
-nim	NoEncTextIOWrapper	io.html#NoEncTextIOWrapper	type NoEncTextIOWrapper		85
-nim	TextIOWrapper	io.html#TextIOWrapper	type TextIOWrapper		89
-nim	encoding	io.html#encoding,TextIOWrapper	proc encoding(s: TextIOWrapper): PyStr		93
-nim	errors	io.html#errors,TextIOWrapper	proc errors(s: TextIOWrapper): PyStr		94
-nim	RawIOBase	io.html#RawIOBase	type RawIOBase		97
-nim	FileIO	io.html#FileIO	type FileIO		98
-nim	BufferedIOBase	io.html#BufferedIOBase	type BufferedIOBase		100
-nim	BufferedRandom	io.html#BufferedRandom	type BufferedRandom		101
-nim	BufferedReader	io.html#BufferedReader	type BufferedReader		102
-nim	BufferedWriter	io.html#BufferedWriter	type BufferedWriter		103
-nim	seek	io.html#seek.e,IOBase,int64	method seek(f: IOBase; cookie: int64; whence = SEEK_SET): int64		121
-nim	seek	io.html#seek.e,TextIOWrapper,int64	method seek(self: TextIOWrapper; cookie: int64; whence = SEEK_SET): int64		124
-nim	readline	io.html#readline,RawIOBase	proc readline(self: RawIOBase): PyBytes		257
-nim	readline	io.html#readline,RawIOBase,Natural	proc readline(self: RawIOBase; size: Natural): PyBytes		258
-nim	readline	io.html#readline,NoEncTextIOWrapper	proc readline(self: NoEncTextIOWrapper): PyStr		285
-nim	readline	io.html#readline,NoEncTextIOWrapper,int	proc readline(self: NoEncTextIOWrapper; size: int): PyStr		287
-nim	readline	io.html#readline,TextIOWrapper	proc readline(self: TextIOWrapper): PyStr		292
-nim	readline	io.html#readline,TextIOWrapper,Natural	proc readline(self: TextIOWrapper; size: Natural): PyStr		315
-nim	read	io.html#read,RawIOBase	proc read(self: RawIOBase): PyBytes		319
-nim	read	io.html#read,RawIOBase,int	proc read(self: RawIOBase; size: int): PyBytes		322
-nim	read	io.html#read,NoEncTextIOWrapper	proc read(self: NoEncTextIOWrapper): PyStr		331
-nim	read	io.html#read,TextIOWrapper	proc read(self: TextIOWrapper): PyStr		332
-nim	read	io.html#read,NoEncTextIOWrapper,int	proc read(self: NoEncTextIOWrapper; size: int): PyStr		345
-nim	read	io.html#read,TextIOWrapper,int	proc read(self: TextIOWrapper; size: int): PyStr		348
-nim	write	io.html#write,RawIOBase,PyBytes	proc write(self: RawIOBase; s: PyBytes): int		356
-nim	write	io.html#write,NoEncTextIOWrapper,PyStr	proc write(self: NoEncTextIOWrapper; s: PyStr): int		369
-nim	write	io.html#write,TextIOWrapper,PyStr	proc write(self: TextIOWrapper; s: PyStr): int		375
-nim	truncate	io.html#truncate,IOBase	proc truncate(self: IOBase): int		405
-nim	truncate	io.html#truncate,IOBase,int64	proc truncate(self: IOBase; size: int64): int64		417
-nim	close	io.html#close.e,IOBase	method close(self: IOBase)		430
-nim	close	io.html#close.e,RawIOBase	method close(self: RawIOBase)		431
-nim	close	io.html#close.e,TextIOWrapper	method close(self: TextIOWrapper)		432
-nim	DefEncoding	io.html#DefEncoding	const DefEncoding		440
-nim	LocaleEncoding	io.html#LocaleEncoding	const LocaleEncoding		441
-nim	newNoEncTextIO	io.html#newNoEncTextIO,File,string	proc newNoEncTextIO(file: File; name: string; newline = DefNewLine): NoEncTextIOWrapper		483
-nim	raiseOsOrFileNotFoundError	io.html#raiseOsOrFileNotFoundError,int	proc raiseOsOrFileNotFoundError(file: int)		636
-nim	raiseOsOrFileNotFoundError	io.html#raiseOsOrFileNotFoundError,PathLike[T]	proc raiseOsOrFileNotFoundError[T](file: PathLike[T])		642
-nim	initBufAsPy	io.html#initBufAsPy,File,int	proc initBufAsPy(nfile: var File; buf: int)		645
-nim	open	io.html#open.t,int,static[],int,string,string	template open(file: int; mode: static[string | char] = "r"; buffering: int = -1;\n     encoding: string = DefEncoding; errors: string = DefErrors;\n     newline: string | char = DefNewLine): untyped		688
-nim	open	io.html#open.t,PathLike[S],static[],int,string,string	template open[S](file: PathLike[S]; mode: static[string | char] = "r";\n        buffering: int = -1; encoding: string = DefEncoding;\n        errors: string = DefErrors; newline: string | char = DefNewLine): untyped		706
-nimgrp	readline	io.html#readline-procs-all	proc		257
-nimgrp	write	io.html#write-procs-all	proc		356
-nimgrp	truncate	io.html#truncate-procs-all	proc		405
-nimgrp	raiseosorfilenotfounderror	io.html#raiseOsOrFileNotFoundError-procs-all	proc		636
-nimgrp	read	io.html#read-procs-all	proc		319
-nimgrp	close	io.html#close-methods-all	method		430
-nimgrp	seek	io.html#seek-methods-all	method		121
-nimgrp	open	io.html#open-templates-all	template		688
+nim	SEEK_SET	io.html#SEEK_SET	const SEEK_SET		48
+nim	SEEK_CUR	io.html#SEEK_CUR	const SEEK_CUR		49
+nim	SEEK_END	io.html#SEEK_END	const SEEK_END		50
+nim	DefNewLine	io.html#DefNewLine	const DefNewLine		52
+nim	IOBase	io.html#IOBase	type IOBase		63
+nim	UnsupportedOperation	io.html#UnsupportedOperation	object UnsupportedOperation		68
+nim	flush	io.html#flush,IOBase	proc flush(f: IOBase)		72
+nim	tell	io.html#tell,IOBase	proc tell(f: IOBase): int64		74
+nim	isatty	io.html#isatty,IOBase	proc isatty(f: IOBase): bool		76
+nim	fileno	io.html#fileno,IOBase	proc fileno(f: IOBase): int		78
+nim	NoEncTextIOBase	io.html#NoEncTextIOBase	type NoEncTextIOBase		82
+nim	NoEncTextIOWrapper	io.html#NoEncTextIOWrapper	type NoEncTextIOWrapper		86
+nim	TextIOWrapper	io.html#TextIOWrapper	type TextIOWrapper		90
+nim	encoding	io.html#encoding,TextIOWrapper	proc encoding(s: TextIOWrapper): PyStr		94
+nim	errors	io.html#errors,TextIOWrapper	proc errors(s: TextIOWrapper): PyStr		95
+nim	RawIOBase	io.html#RawIOBase	type RawIOBase		98
+nim	FileIO	io.html#FileIO	type FileIO		99
+nim	BufferedIOBase	io.html#BufferedIOBase	type BufferedIOBase		101
+nim	BufferedRandom	io.html#BufferedRandom	type BufferedRandom		102
+nim	BufferedReader	io.html#BufferedReader	type BufferedReader		103
+nim	BufferedWriter	io.html#BufferedWriter	type BufferedWriter		104
+nim	seek	io.html#seek.e,IOBase,int64	method seek(f: IOBase; cookie: int64; whence = SEEK_SET): int64		122
+nim	seek	io.html#seek.e,TextIOWrapper,int64	method seek(self: TextIOWrapper; cookie: int64; whence = SEEK_SET): int64		125
+nim	readline	io.html#readline,RawIOBase	proc readline(self: RawIOBase): PyBytes		240
+nim	readline	io.html#readline,RawIOBase,Natural	proc readline(self: RawIOBase; size: Natural): PyBytes		241
+nim	readline	io.html#readline,NoEncTextIOWrapper	proc readline(self: NoEncTextIOWrapper): PyStr		268
+nim	readline	io.html#readline,NoEncTextIOWrapper,int	proc readline(self: NoEncTextIOWrapper; size: int): PyStr		270
+nim	readline	io.html#readline,TextIOWrapper	proc readline(self: TextIOWrapper): PyStr		275
+nim	readline	io.html#readline,TextIOWrapper,Natural	proc readline(self: TextIOWrapper; size: Natural): PyStr		298
+nim	read	io.html#read,RawIOBase	proc read(self: RawIOBase): PyBytes		302
+nim	read	io.html#read,RawIOBase,int	proc read(self: RawIOBase; size: int): PyBytes		305
+nim	read	io.html#read,NoEncTextIOWrapper	proc read(self: NoEncTextIOWrapper): PyStr		314
+nim	read	io.html#read,TextIOWrapper	proc read(self: TextIOWrapper): PyStr		315
+nim	read	io.html#read,NoEncTextIOWrapper,int	proc read(self: NoEncTextIOWrapper; size: int): PyStr		328
+nim	read	io.html#read,TextIOWrapper,int	proc read(self: TextIOWrapper; size: int): PyStr		331
+nim	write	io.html#write,RawIOBase,PyBytes	proc write(self: RawIOBase; s: PyBytes): int		339
+nim	write	io.html#write,NoEncTextIOWrapper,PyStr	proc write(self: NoEncTextIOWrapper; s: PyStr): int		352
+nim	write	io.html#write,TextIOWrapper,PyStr	proc write(self: TextIOWrapper; s: PyStr): int		358
+nim	truncate	io.html#truncate,IOBase	proc truncate(self: IOBase): int		388
+nim	truncate	io.html#truncate,IOBase,int64	proc truncate(self: IOBase; size: int64): int64		400
+nim	close	io.html#close.e,IOBase	method close(self: IOBase)		413
+nim	close	io.html#close.e,RawIOBase	method close(self: RawIOBase)		414
+nim	close	io.html#close.e,TextIOWrapper	method close(self: TextIOWrapper)		415
+nim	DefEncoding	io.html#DefEncoding	const DefEncoding		423
+nim	LocaleEncoding	io.html#LocaleEncoding	const LocaleEncoding		424
+nim	newNoEncTextIO	io.html#newNoEncTextIO,File,string	proc newNoEncTextIO(file: File; name: string; newline = DefNewLine): NoEncTextIOWrapper		466
+nim	raiseOsOrFileNotFoundError	io.html#raiseOsOrFileNotFoundError,int	proc raiseOsOrFileNotFoundError(file: int)		619
+nim	raiseOsOrFileNotFoundError	io.html#raiseOsOrFileNotFoundError,PathLike[T]	proc raiseOsOrFileNotFoundError[T](file: PathLike[T])		625
+nim	initBufAsPy	io.html#initBufAsPy,File,int	proc initBufAsPy(nfile: var File; buf: int)		628
+nim	open	io.html#open.t,int,static[],int,string,string	template open(file: int; mode: static[string | char] = "r"; buffering: int = -1;\n     encoding: string = DefEncoding; errors: string = DefErrors;\n     newline: string | char = DefNewLine): untyped		671
+nim	open	io.html#open.t,PathLike[S],static[],int,string,string	template open[S](file: PathLike[S]; mode: static[string | char] = "r";\n        buffering: int = -1; encoding: string = DefEncoding;\n        errors: string = DefErrors; newline: string | char = DefNewLine): untyped		689
+nimgrp	readline	io.html#readline-procs-all	proc		240
+nimgrp	write	io.html#write-procs-all	proc		339
+nimgrp	truncate	io.html#truncate-procs-all	proc		388
+nimgrp	raiseosorfilenotfounderror	io.html#raiseOsOrFileNotFoundError-procs-all	proc		619
+nimgrp	read	io.html#read-procs-all	proc		302
+nimgrp	close	io.html#close-methods-all	method		413
+nimgrp	seek	io.html#seek-methods-all	method		122
+nimgrp	open	io.html#open-templates-all	template		671
 heading	different from Python	io.html#different-from-python	  different from Python		0
 heading	open	io.html#different-from-python-open	   open		0
 heading	seek	io.html#different-from-python-seek	   seek		0
