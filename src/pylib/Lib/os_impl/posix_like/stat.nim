@@ -43,7 +43,7 @@ when DWin:
   proc fstat(fd: cint, res: var Stat): cint{.importc: "_fstat".}
   {.pop.}
 else:
-  import posix
+  import std/posix
   
   template toTime(x): untyped = x.tv_sec
   template st_atime*(s: Stat): untyped = Time64 toTime s.st_atim
@@ -81,8 +81,7 @@ macro to_result(s: Stat): stat_result =
     result.add newColonExpr(k, newDotExpr(s, k))
     #  `k`: `s`.`k`
 
-template statImpl{.dirty.} =
-  var st: Stat
+proc statFor(st: var Stat, path: int|PathLike) =
   let ret =
     when path is int:
       fstat(path.cint, st)
@@ -96,9 +95,19 @@ template statImpl{.dirty.} =
       raiseErrno($path)
     else:
       path.raiseErrnoWithPath()
-  result = to_result st
 
-proc stat*(path: int): stat_result = statImpl
+template statAttr*(path: PathLike|int, attr: untyped): untyped =
+  ## stat(`path`).`attr`
+  var st{.noinit.}: Stat
+  st.statFor path
+  st.attr
+
+template statAux: stat_result =
+  var st{.noinit.}: Stat
+  st.statFor path
+  to_result st
+
+proc stat*(path: int): stat_result = statAux
 proc stat*[T](path: PathLike[T]): stat_result =
   ## .. warning:: Under Windows, it's just a wrapper over `_wstat`,
   ##   so this differs from Python's `os.stat` either in prototype
@@ -111,4 +120,4 @@ proc stat*[T](path: PathLike[T]): stat_result =
       template zero(x) = assert x.int == 0
       zero s.st_gid
       zero s.st_uid
-  statImpl()
+  statAux

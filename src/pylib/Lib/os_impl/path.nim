@@ -1,6 +1,7 @@
 
 import std/os as nos
 import std/times as ntimes
+import ./posix_like/stat
 
 import ./common
 export common
@@ -53,15 +54,9 @@ expFRetTAsF getctime, getCreationTime
 expFRetTAsF getmtime, getLastModificationTime
 expFRetTAsF getatime, getLastAccessTime
 
-func getsize*[T](filename: PathLike[T]): int =
-  var f: File = nil
-  try:
-    f = system.open($filename)
-    result = getFileSize(f)
-  except OSError as e:
-    filename.raiseExcWithPath(e.errorCode.OSErrorCode)
-  finally:
-    f.close()  # syncio.close will do nothing if File is nil
+proc getsize*[T](filename: PathLike[T]): int =
+  # std/os.`getFileSize` doesn't work for directory
+  int statAttr(filename, st_size)
 
 func samefile*(a, b: PathLike): bool =
   tryOsOp(pathsAsOne(a, b)): result = samefile(a.fspath, b.fspath)

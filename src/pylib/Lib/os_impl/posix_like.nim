@@ -5,6 +5,7 @@ import ./posix_like/[
   rename, isatty, links, utime
 ]
 
+export stat except statAttr
 export
-  fdopen, open_close, truncate, stat, scandirImpl.scandir, mkrmdir, unlink,
+  fdopen, open_close, truncate, scandirImpl.scandir, mkrmdir, unlink,
   rename, isatty, links, utime
