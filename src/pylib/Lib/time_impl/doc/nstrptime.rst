@@ -1,7 +1,7 @@
 .. warning:: In current implementation,
   whitespace in format string means itself AS-IS, unlike C or Python,
   where any whitespace means a serial of any whitespaces. If really
-  wanting the behavior of C's, consider use `std/strscan`.
+  wanting the behavior of C's, consider using `std/strscan`.
 
 .. warning:: Current `strptime`
   is just locale-unaware, when it comes to 

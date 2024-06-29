@@ -62,7 +62,7 @@ doBinDatas `-`, intersection, union, difference, symmetric_difference
 
 const SetLitBugMsg = "When used, Nim compiler(at least 2.0.0-2.1.2) will complain:\n" & """
 'Error: unhandled exception: ccgexprs.nim(1994, 9) `setType.kind == tySet`', 
-Consider use `pyset` instead of set literal."""
+Consider using `pyset` instead of set literal."""
 template genBinSys(ret, op) =
   # XXX: see below
   proc op*[H](self: PySet[H], s: system.set[H]): ret{.error: SetLitBugMsg.} =
