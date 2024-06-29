@@ -1,6 +1,5 @@
 
-import ../[
-  strimpl]
+import ../strimpl
 export strimpl
 import ../../stringlib/split/common as ncommon
 export ncommon

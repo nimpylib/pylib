@@ -3,7 +3,7 @@
 ## its initializer, and a inverse function `mktime`
 
 import std/times
-import ./[types, converters]
+import ./types, ./converters
 
 proc gmtime*(): struct_time = dtToStructTime(now().inZone(utc()), result)
 proc localtime*(): struct_time = dtToStructTime(now(), result)

@@ -1,6 +1,7 @@
 
 import ../../pyerrors/oserr
-import ../../[io_abc, noneType]
+import ../../io_abc
+import ../../noneType
 import ../../pystring/[strimpl, strbltins]
 import ../../pybytes/[bytesimpl, bytesbltins]
 

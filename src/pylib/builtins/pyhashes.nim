@@ -1,9 +1,7 @@
 
 import std/hashes
-import ./[
-  list, dict, set,
-  complex
-]
+import ./list, ./dict, ./set
+import ./complex
 import ../pystring/strimpl
 import ../pybytes/bytesimpl
 

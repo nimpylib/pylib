@@ -7,7 +7,7 @@ from std/algorithm import reverse, sort, SortOrder, sortedByIt, sorted
 
 from ./iters import enumerate
 import ./private/mathutils
-import ./[pyslice, pyrange]
+import ./pyslice, ./pyrange
 import ../collections_abc
 
 export index, count

@@ -22,7 +22,7 @@
 # ```
 
 import std/macros
-import ./[pyraise, frame, pydef, unpack, decorator]
+import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator
 
 using mparser: var PyAsgnRewriter
 proc parsePyBody*(mparser; body: NimNode): NimNode  # front decl

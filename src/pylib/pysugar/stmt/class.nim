@@ -1,6 +1,6 @@
 
 import std/macros
-import ./[frame, funcSignature, decorator, tonim]
+import ./frame, ./funcSignature, ./decorator, ./tonim
 
 template emptyn: NimNode = newEmptyNode()
 
