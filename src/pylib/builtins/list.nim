@@ -19,6 +19,8 @@ export sorted, reverse  # for openArray
 import ./list_decl
 
 export list_decl except asSeq
+converter nimArrayAsList*[T; I](arr: array[I, T]): PyList[T] =
+  newPyList[T](arr)
 
 template len*(self: PyList): int = system.len(asSeq self)
 
