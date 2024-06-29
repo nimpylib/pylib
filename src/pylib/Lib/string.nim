@@ -39,8 +39,8 @@ func capwords*(a: StringLike, sep: StringLike): PyStr =
 
 type Template* = distinct string  ##[
   .. hint:: Currently inheriting `Template` is not supported.
-  (In Python, you can custom formatting via
-  defining subclass of `Template` and overwrite some attributes).
+    (In Python, you can custom formatting via
+    defining subclass of `Template` and overwrite some attributes).
 
   .. warning:: Currently `substitute` is implemented via `%` in std/strutils,
     in which there are two different behaviors from Python's `Template`:

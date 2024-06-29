@@ -63,7 +63,7 @@ func exit*(c: int) = quit(c)
 func exit*(x: NoneType) = quit(0)
 func exit*[T](obj: T) =
   ## .. warning:: this does not raise SystemExit,
-  ## which differs Python's
+  ##   which differs Python's
   exit(str(obj))
 
 type FT = float

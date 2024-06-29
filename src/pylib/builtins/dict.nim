@@ -11,7 +11,7 @@ export emptyPyDict
 
 type
   PyDictView* = object of RootObj ## .. warning:: currently `mapping` attr
-                                  ## is dict itself, i.e. modifiable
+                                  ##   is dict itself, i.e. modifiable
   PyDictKeyView*[T] = object of PyDictView
     mapping*: PyDict[T, auto]
   PyDictValueView*[T] = object of PyDictView
@@ -94,7 +94,7 @@ iterator keys*[K, V](self: PyDict[K ,V]): K =
 
 iterator iter*[K, V](self: PyDict[K ,V]): K =
   ## .. warning:: Nim's for stmt calls `items` implicitly, instead of iter
-  ## so beware to always write `iter` for dict in for loop
+  ##   so beware to always write `iter` for dict in for loop
   runnableExamples:
     let d = dict(a=1)
     for i in iter(d):
