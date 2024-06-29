@@ -100,7 +100,7 @@ iterator iter*[K, V](self: PyDict[K ,V]): K =
     for i in iter(d):
       assert i == "a"
     for i in d:
-      assert i == ("a", 1)
+      assert i[0] == "a" and i[1] == 1
   
   for i in self.keys(): yield i
 
