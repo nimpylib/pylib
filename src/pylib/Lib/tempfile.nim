@@ -76,9 +76,10 @@ template name*(self: TemporaryFileWrapper): string = self.closer.name
 
 import std/macros
 macro gen(opName: untyped): untyped =
+  let selfId = ident"self"
   quote do:
-    template `opName`*[IO](self: TemporaryFileWrapper[IO],
-    args: varargs[typed]): untyped = unpackVarargs self.closer.file.`opName`, args
+    template `opName`*[IO](`selfId`: TemporaryFileWrapper[IO],
+    args: varargs[typed]): untyped = unpackVarargs `selfId`.closer.file.`opName`, args
 
 gen write
 proc flush*[IO](self: TemporaryFileWrapper[IO]) = flush(self.closer.file)
