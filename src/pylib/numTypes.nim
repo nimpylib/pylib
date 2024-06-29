@@ -14,6 +14,8 @@ type NimInt* = system.int  ## alias of system.int
 
 ## TODO: later may allow to switch to bigints when compile
 
+template int*(i: SomeInteger): NimInt = system.int(i)
+
 template prep(a: PyStr|PyBytes): string =
   bind strip
   strip $a
@@ -77,6 +79,7 @@ template long*(a: char): BiggestInt{.unsupLong.} = parseBiggestInt($a)
 template long*[T: SomeNumber](a: T): BiggestInt{.unsupLong.} = BiggestInt(a)
 template long*(a: bool): int{.unsupLong.} = BiggestInt(if a: 1 else: 0)
 
+template float*(f: SomeNumber): BiggestFloat = system.float(f)
 template float*(a: PyStr|PyBytes): BiggestFloat =
   bind parseFloat, prep
   parseFloat(prep a)

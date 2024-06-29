@@ -27,7 +27,7 @@ proc monotonic*(): float =
     # JS only: without `.float`, compile fail
     # JS failed to compile `int64/int64`
   else:
-    monotonic_ns() / ns_per_s
+    monotonic_ns().float / ns_per_s
 
 proc perf_counter*(): float = monotonic()
 proc perf_counter_ns*(): int64 = monotonic_ns()

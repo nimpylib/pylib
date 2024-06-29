@@ -109,7 +109,7 @@ func raiseFileExistsError*(fp: PathLike) =
 # symbol used in case stmt's `of` branch must be constants
 when CONST_E:
   template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
-    case oserr.int
+    case system.int(oserr)
     of ErrExist:
       rErr FileExistsError
     of ErrNoent:
