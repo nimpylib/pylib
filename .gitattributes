@@ -1,2 +1,37 @@
+
 *.nim text
 *.nimble text
+
+# Binary data types
+*.aif binary
+*.aifc binary
+*.aiff binary
+*.au binary
+*.bmp binary
+*.exe binary
+*.icns binary
+*.gif binary
+*.ico binary
+*.jpg binary
+*.pck binary
+*.png binary
+*.psd binary
+*.tar binary
+*.wav binary
+*.zip binary
+
+# Generated files
+# https://github.com/github/linguist/blob/master/docs/overrides.md
+#
+# To always hide generated files in local diffs, mark them as binary:
+# $ git config diff.generated.binary true
+#
+[attr]generated linguist-generated=true diff=generated
+
+/src/pylib/pystring/unicase/*.nim
+
+
+# CRLF files
+[attr]dos text eol=crlf
+
+*.bat               dos
