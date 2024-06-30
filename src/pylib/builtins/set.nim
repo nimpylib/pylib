@@ -15,7 +15,7 @@ import ./set_decl
 export set_decl except asHashSet, incl, excl
 
 type
-  SomeSet*[H] = PySet[H] or HashSet[H] or OrderedSet[H] or system.set[H]
+  SomeSet*[H] = SomePySet[H] or HashSet[H] or OrderedSet[H] or system.set[H]
 
 macro genpysets(defs) =
   let name = ident"pyset"
@@ -30,12 +30,26 @@ genpysets:
     newPySet initHashSet[H]()
   proc set*[H](s: HashSet[H]): PySet[H] =
     newPySet s
-  proc set*[H](s: PySet[H]): PySet[H] = set(s.asHashSet)
-  proc set*[H](arr: openarray[H]): PySet[H] = set arr.asHashSet
+  proc set*[H](s: SomePySet[H]): PySet[H] = set(s.asHashSet)
+  proc set*[H](arr: openArray[H]): PySet[H] = set arr.toHashSet
   proc set*[H](iterable: Iterable[H]): PySet[H] =
     result = set[H]()
     for i in iterable:
-      result.add i
+      result.incl i
+
+proc frozenset*[H](): PyFrozenSet[H] =
+  newPyFrozenSet initHashSet[H]()
+proc frozenset*[H](s: HashSet[H]): PyFrozenSet[H] =
+  newPyFrozenSet s
+proc frozenset*[H](s: SomePySet[H]): PyFrozenSet[H] = frozenset(s.asHashSet)
+proc frozenset*[H](arr: openArray[H]): PyFrozenSet[H] = frozenset arr.toHashSet
+proc frozenset*[H](it: Iterable[H]): PyFrozenSet[H] =
+  # NIM-BUG: 
+  # sth like: when compiles(iterable.len): set[H](iterable.len) else: ..
+  # causes compile error
+  result = frozenset[H]()
+  for i in it:
+    result.incl i
 
 # Q: Why not define as `set` or `pyset`
 # A: That makes empty set impossible.
@@ -47,11 +61,19 @@ macro pysetLit*(lit): PySet =
     ls.add i
   result = newCall("pyset", ls)
 
-template copy*[H](self: PySet[H]): PySet[H] = pyset(self)
+template somepyset(S: typedesc[PySet], s: typed): S = pyset(s)
+template somepyset(S: typedesc[PyFrozenSet], s: typed): S = frozenset(s)
+
+template copy*[H; S: SomePySet[H]](self): S =
+  bind somepyset; somepyset(S, self)
 
 template doBinData(op){.dirty.} =
   proc op*[H](self, o: PySet[H]): PySet[H] =
     pyset op(self.asHashSet, o.asHashSet)
+  proc op*[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H] =
+    frozenset op(self.asHashSet, o.asHashSet)
+  proc op*[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H] =
+    frozenset op(self.asHashSet, o.asHashSet)
 
 macro doBinDatas(syms: varargs[untyped]) =
   result = newStmtList()
@@ -63,38 +85,40 @@ doBinDatas `-`, intersection, union, difference, symmetric_difference
 const SetLitBugMsg = "When used, Nim compiler(at least 2.0.0-2.1.2) will complain:\n" & """
 'Error: unhandled exception: ccgexprs.nim(1994, 9) `setType.kind == tySet`', 
 Consider using `pyset` instead of set literal."""
-template genBinSys(ret, op) =
+template genBinSys(ret, op){.dirty.} =
   # XXX: see below
-  proc op*[H](self: PySet[H], s: system.set[H]): ret{.error: SetLitBugMsg.} =
+  proc op*[H](self: SomePySet[H], s: system.set[H]): ret{.error: SetLitBugMsg.} =
     op self, pyset(s)
-  proc op*[H](s: system.set[H], self: PySet[H]): ret{.error: SetLitBugMsg.} = op self, s
+  proc op*[H](s: system.set[H], self: SomePySet[H]): ret{.error: SetLitBugMsg.} = op self, s
 template genBinSysBool(op) = genBinSys(bool, op)
-  
+
 genBinSysBool `==`
 genBinSysBool `<=`
 genBinSysBool `<`
 
 
-template aliasBin(alias, old) =
+template aliasBin(alias, old){.dirty.} =
   # binary op's rhs must be set too
-  proc alias*[H; S: SomeSet[H]](self: PySet[H], s: S): PySet[H] = old(self, s)
+  template alias*[H; M: SomePySet[H]; S: SomePySet[H]](
+    self: M, s: S): M|S = old(self, s)
 
 aliasBin `^`, symmetric_difference
 aliasBin `&`, intersection 
 aliasBin `|`, union
 
-template boolAliasBin(alias, old) =
-  proc alias*[H, S](self: PySet[H], s: S): bool = old(self, s)
+template boolAliasBin(alias, old){.dirty.} =
+  proc alias*[H, S](self, o: SomePySet[H], s: S): bool = old(self, s)
 
 boolAliasBin issuperset, `>=`
 boolAliasBin issubset, `<=`
 
 template fold(op){.dirty.} =
   # set.op(*others)
-  proc op*[H; S: not PySet[H]](
-    self: PySet[H], s: S): PySet[H] =
-    op(self, pyset[H](s))
-  proc op*[H, S](self: PySet[H], s1: auto, s2: auto; x: varargs[S]): PySet[H] =
+  proc op*[H; Self: SomePySet[H]; S: not PySet[H]](
+    self: Self, s: S): Self =
+    op(self, somepyset(Self, s))
+  proc op*[H; Self: SomePySet[H]; S](self: Self, s1: auto, s2: auto;
+      x: varargs[S]): Self =
     result = op(self, s1)
     result = op(result, s2)
     for i in x:
@@ -105,9 +129,8 @@ fold union
 fold difference
 fold symmetric_difference
 
-func isdisjoint*[H, S](self: PySet[H], s: S): bool =
+func isdisjoint*[H, S](self: SomePySet[H], s: S): bool =
   len(self.intersection(s)) == 0
-
 
 proc add*[H](self: var PySet[H], x: H) = self.incl x
 proc `discard`*[H](self: var PySet[H], ele: H) =
@@ -123,8 +146,8 @@ proc remove*[H](self: var PySet[H], ele: H) =
 
 
 template genUpdate(sysOp, op, fun){.dirty.} =
-  proc op*[H; S: SomeSet[H]](self: var PySet[H]; s: S) = sysop self, s
-  proc fun*[H; I: Iterable[H]](self: var PySet[H]; i: I) = sysop self, pyset(i)
+  proc op*[H; S: SomeSet[H]](self: var SomePySet[H]; s: S) = sysop self, s
+  proc fun*[H; I: Iterable[H]](self: var SomePySet[H]; i: I) = sysop self, pyset(i)
 
 genUpdate excl, `-=`, difference_update
 genUpdate incl, `|=`, update

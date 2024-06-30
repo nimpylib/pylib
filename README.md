@@ -223,7 +223,7 @@ Uninstall with `nimble uninstall pylib`.
 # Supported features
 
 - [x] F-Strings `f"foo {variable} bar {1 + 2} baz"`
-- [x] `str` `bytes` `bytearray` `list` `dict` `set` with their methods
+- [x] `str` `bytes` `bytearray` `list` `dict` `set` `frozenset()` with their methods
 - [x] Python-like variable unpacking
 - [x] Math with Float and Int mixed like Python.
 - [x] `import antigravity`
