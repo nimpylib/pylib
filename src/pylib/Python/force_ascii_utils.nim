@@ -79,10 +79,10 @@ when not defined(Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
         let encoding = Py_normalize_encoding($codeset)
         when defined(hpux):
           if encoding == "roman8":
-            var ch: array[2, cuchar]
+            var ch: array[2, cchar]
             var wch: wchar_t
             var res: csize_t
-            ch[0] = cast[cuchar](0xA7)
+            ch[0] = cast[cchar](0xA7)
             res = Py_mbstowcs(addr(wch), cast[cstring](addr(ch[0])), 1)
             if res != DECODE_ERROR and wch == wchar_t('\xA7'):
               # On HP-UX with C locale or the POSIX locale,
@@ -105,7 +105,7 @@ when not defined(Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
             var ch: array[2, char]
             var wch: array[1, wchar_t]
             var res: csize_t
-            var uch = cast[cuchar](i)
+            var uch = cast[cchar](i)
             ch[0] = cast[char](uch)
             res = Py_mbstowcs(wch[0].addr, cast[cstring](ch[0].addr), 1)
             if res != DECODE_ERROR:

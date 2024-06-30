@@ -21,7 +21,7 @@ proc c_getenv*(v: cstring): cstring{.importc: "getenv", header: "<stdlib.h>".}
 # _Py_SetLocaleFromEnv
 proc Py_SetLocaleFromEnv*(category: cint): cstring{.discardable.} =
   when defined(android):
-    var locale: string
+    var locale: cstring
 
     when defined(PY_COERCE_C_LOCALE):
       var coerce_c_locale: cstring
@@ -38,9 +38,9 @@ proc Py_SetLocaleFromEnv*(category: cint): cstring{.discardable.} =
     
     for evar in env_var_set:
       locale = c_getenv(evar)
-      if locale != "":
+      if locale != nil:
         if locale == utf8_locale or
-          locale == "en_US.UTF-8":
+          locale == cstring"en_US.UTF-8":
             return c_setlocale(category, utf8_locale)
         return c_setlocale(category, "C")
     #[ Android uses UTF-8, so explicitly set the locale to C.UTF-8 if none of

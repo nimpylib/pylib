@@ -7,7 +7,7 @@
 
 import std/os
 import std/fenv
-
+import std/strutils  # split toLowerAscii
 when defined(nimPreviewSlimSystem):
   import std/assertions
 
@@ -17,8 +17,12 @@ import ../noneType
 import ../pystring/strimpl
 const weirdTarget = defined(js) or defined(nimscript)
 when not weirdTarget:
+  const inFileSystemUtf8os = defined(macosx) or defined(android) or defined(vxworks)
+  when not inFileSystemUtf8os:
+    import ../Python/[
+      fileutils, force_ascii_utils
+    ]
   import ../Python/[
-    fileutils, force_ascii_utils,
     envutils,
     localeutils  # setlocale, LC_CTYPE
   ]
@@ -31,7 +35,6 @@ export list, strimpl
 # and MACHDEP is defined in configure.ac L313
 
 when not defined(windows):
-  from std/strutils import split
   import ./private/platformInfo
   proc major_ver(): string{.compileTime, used.} =
     uname_ver().split('.', 1)[0]
@@ -226,11 +229,6 @@ then we can get a trace:
 # ref:
 # https://docs.python.org/3/c-api/init_config.html#c.PyConfig.filesystem_encoding
 when not weirdTarget and (PyMajor, PyPatch) < (3, 15):
-  from std/strutils import toLowerAscii
-  func normEncoding(s: string): string =
-    ## XXX: see below, currently it's only for
-    ## UTF-8 (got in Debain) -> utf-8
-    s.toLowerAscii
   #[
   Py_PreInitialize
   _Py_PreInitializeFromPyArgv
@@ -248,7 +246,7 @@ when not weirdTarget and (PyMajor, PyPatch) < (3, 15):
   # source:
   # cpython/Python/initconfig.c
   # config_init_fs_encoding & config_get_fs_encoding
-  when defined(macosx) or defined(android) or defined(vxworks):
+  when inFileSystemUtf8os:
     template getfilesystemencodingImpl(): string = Utf8
   else:
     proc getfilesystemencodingImpl(): string =
@@ -264,13 +262,17 @@ when not weirdTarget and (PyMajor, PyPatch) < (3, 15):
             ##  Windows defaults to utf-8/surrogatepass (PEP 529)
             Utf8
       else:
+        template normEncoding(s: string): string =
+          ## XXX: see above, currently it's only for
+          ## UTF-8 (got in Debian) -> utf-8
+          s.toLowerAscii
         # As currently there is no preconfig, we skip the following line.
         #if(preconfig->utf8_mode)... // use utf-8
         if Py_GetForceASCII():
           return "ascii"
         normEncoding Py_GetLocaleEncoding()
   when (PyMajor, PyMinor) >= (3,7):
-    let filesystem_encoding: PyStr =
+    let filesystem_encoding: PyStr = block:
       let loc = c_setlocale(LC_CTYPE, nil)
       if loc != nil and loc == "C" or loc == "POSIX":
         # utf-8 mode (PEP 540)
