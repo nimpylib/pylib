@@ -3,6 +3,7 @@ nim	st_atime	os_impl/posix_like/stat.html#st_atime.t,Stat	template st_atime(s: S
 nim	st_mtime	os_impl/posix_like/stat.html#st_mtime.t,Stat	template st_mtime(s: Stat): untyped		50
 nim	st_ctime	os_impl/posix_like/stat.html#st_ctime.t,Stat	template st_ctime(s: Stat): untyped		51
 nim	stat_result	os_impl/posix_like/stat.html#stat_result	tuple stat_result		56
-nim	stat	os_impl/posix_like/stat.html#stat,int	proc stat(path: int): stat_result		101
-nim	stat	os_impl/posix_like/stat.html#stat,PathLike[T]	proc stat[T](path: PathLike[T]): stat_result		102
-nimgrp	stat	os_impl/posix_like/stat.html#stat-procs-all	proc		101
+nim	statAttr	os_impl/posix_like/stat.html#statAttr.t,,untyped	template statAttr(path: PathLike | int; attr: untyped): untyped		99
+nim	stat	os_impl/posix_like/stat.html#stat,int	proc stat(path: int): stat_result		110
+nim	stat	os_impl/posix_like/stat.html#stat,PathLike[T]	proc stat[T](path: PathLike[T]): stat_result		111
+nimgrp	stat	os_impl/posix_like/stat.html#stat-procs-all	proc		110

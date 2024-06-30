@@ -38,6 +38,8 @@
           <li><a class="reference external"
           data-doc-search-tag="pyrange: proc `$`[T](rng: PyRange[T]): string" href="pylib/builtins/pyrange.html#%24%2CPyRange%5BT%5D">pyrange: proc `$`[T](rng: PyRange[T]): string</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="set_decl: proc `$`(self: PyFrozenSet): string" href="pylib/builtins/set_decl.html#%24%2CPyFrozenSet">set_decl: proc `$`(self: PyFrozenSet): string</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="set_decl: proc `$`(self: PySet): string" href="pylib/builtins/set_decl.html#%24%2CPySet">set_decl: proc `$`(self: PySet): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="io_abc: proc `$`(p: CanIOOpenT): string" href="pylib/io_abc.html#%24%2CCanIOOpenT">io_abc: proc `$`(p: CanIOOpenT): string</a></li>
@@ -68,11 +70,11 @@
           </ul></dd>
 <dt><a name="%60%26amp%3B%3D%60" href="#%60%26amp%3B%3D%60"><span>`&amp;=`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc `&amp;=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)" href="pylib/builtins/set.html#%26%3D%2CPySet%5BH%5D%2CS">set: proc `&amp;=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)</a></li>
+          data-doc-search-tag="set: proc `&amp;=`[H; S: SomeSet[H]](self: var SomePySet[H]; s: S)" href="pylib/builtins/set.html#%26%3D%2CSomePySet%5BH%5D%2CS">set: proc `&amp;=`[H; S: SomeSet[H]](self: var SomePySet[H]; s: S)</a></li>
           </ul></dd>
 <dt><a name="%60%26amp%3B%60" href="#%60%26amp%3B%60"><span>`&amp;`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc `&amp;`[H; S: SomeSet[H]](self`gensym13: PySet[H]; s`gensym13: S): PySet[H]" href="pylib/builtins/set.html#%26%2C%2CS">set: proc `&amp;`[H; S: SomeSet[H]](self`gensym13: PySet[H]; s`gensym13: S): PySet[H]</a></li>
+          data-doc-search-tag="set: template `&amp;`[H; M: SomePySet[H]; S: SomePySet[H]](self: M; s: S): M | S" href="pylib/builtins/set.html#%26.t%2CM%2CS">set: template `&amp;`[H; M: SomePySet[H]; S: SomePySet[H]](self: M; s: S): M | S</a></li>
           </ul></dd>
 <dt><a name="%60%27j%60" href="#%60%27j%60"><span>`'j`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -180,7 +182,7 @@
 <li><a class="reference external"
           data-doc-search-tag="complex: template `-=`(a`gensym9, b`gensym9: PyComplex): untyped" href="pylib/builtins/complex.html#-%3D.t%2CPyComplex%2CPyComplex">complex: template `-=`(a`gensym9, b`gensym9: PyComplex): untyped</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `-=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)" href="pylib/builtins/set.html#-%3D%2CPySet%5BH%5D%2CS">set: proc `-=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)</a></li>
+          data-doc-search-tag="set: proc `-=`[H; S: SomeSet[H]](self: var SomePySet[H]; s: S)" href="pylib/builtins/set.html#-%3D%2CSomePySet%5BH%5D%2CS">set: proc `-=`[H; S: SomeSet[H]](self: var SomePySet[H]; s: S)</a></li>
           </ul></dd>
 <dt><a name="%60-%60" href="#%60-%60"><span>`-`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -193,6 +195,10 @@
           data-doc-search-tag="complex: template `-`(a`gensym5, b`gensym5: PyComplex): PyComplex" href="pylib/builtins/complex.html#-.t%2CPyComplex%2CPyComplex">complex: template `-`(a`gensym5, b`gensym5: PyComplex): PyComplex</a></li>
           <li><a class="reference external"
           data-doc-search-tag="complex: template `-`[T: SomeFloat](a`gensym14: T; z`gensym14: PyComplex[T]): PyComplex[T]" href="pylib/builtins/complex.html#-.t%2CT%2C">complex: template `-`[T: SomeFloat](a`gensym14: T; z`gensym14: PyComplex[T]): PyComplex[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc `-`[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#-%2CPyFrozenSet%5BH%5D%2CSomePySet%5BH%5D">set: proc `-`[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc `-`[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#-%2CPySet%5BH%5D%2CPyFrozenSet%5BH%5D">set: proc `-`[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc `-`[H](self, o: PySet[H]): PySet[H]" href="pylib/builtins/set.html#-%2CPySet%5BH%5D%2CPySet%5BH%5D">set: proc `-`[H](self, o: PySet[H]): PySet[H]</a></li>
           </ul></dd>
@@ -238,11 +244,11 @@
 <li><a class="reference external"
           data-doc-search-tag="pyslice: proc `&lt;=`(self`gensym6: PySlice; o`gensym6: PySlice): bool" href="pylib/builtins/pyslice.html#%3C%3D%2CPySlice%2CPySlice">pyslice: proc `&lt;=`(self`gensym6: PySlice; o`gensym6: PySlice): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `&lt;=`[H](self`gensym9: PySet[H]; s`gensym9: set[H]): bool" href="pylib/builtins/set.html#%3C%3D%2C%2C">set: proc `&lt;=`[H](self`gensym9: PySet[H]; s`gensym9: set[H]): bool</a></li>
+          data-doc-search-tag="set: proc `&lt;=`[H](s: set[H]; self: SomePySet[H]): bool" href="pylib/builtins/set.html#%3C%3D%2Cset%5BH%5D%2CSomePySet%5BH%5D">set: proc `&lt;=`[H](s: set[H]; self: SomePySet[H]): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `&lt;=`[H](s`gensym9: set[H]; self`gensym9: PySet[H]): bool" href="pylib/builtins/set.html#%3C%3D%2C%2C_2">set: proc `&lt;=`[H](s`gensym9: set[H]; self`gensym9: PySet[H]): bool</a></li>
+          data-doc-search-tag="set: proc `&lt;=`[H](self: SomePySet[H]; s: set[H]): bool" href="pylib/builtins/set.html#%3C%3D%2CSomePySet%5BH%5D%2Cset%5BH%5D">set: proc `&lt;=`[H](self: SomePySet[H]; s: set[H]): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc `&lt;=`(self, o: PySet): int" href="pylib/builtins/set_decl.html#%3C%3D%2CPySet%2CPySet">set_decl: proc `&lt;=`(self, o: PySet): int</a></li>
+          data-doc-search-tag="set_decl: proc `&lt;=`(self, o: SomePySet): int" href="pylib/builtins/set_decl.html#%3C%3D%2CSomePySet%2CSomePySet">set_decl: proc `&lt;=`(self, o: SomePySet): int</a></li>
           <li><a class="reference external"
           data-doc-search-tag="ops: template `&lt;=`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool" href="pylib/ops.html#%3C%3D.t%2CA%2CB">ops: template `&lt;=`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool</a></li>
           <li><a class="reference external"
@@ -264,11 +270,11 @@
 <li><a class="reference external"
           data-doc-search-tag="pyslice: proc `&lt;`(self`gensym3: PySlice; o`gensym3: PySlice): bool" href="pylib/builtins/pyslice.html#%3C%2CPySlice%2CPySlice">pyslice: proc `&lt;`(self`gensym3: PySlice; o`gensym3: PySlice): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `&lt;`[H](self`gensym11: PySet[H]; s`gensym11: set[H]): bool" href="pylib/builtins/set.html#%3C%2C%2C">set: proc `&lt;`[H](self`gensym11: PySet[H]; s`gensym11: set[H]): bool</a></li>
+          data-doc-search-tag="set: proc `&lt;`[H](s: set[H]; self: SomePySet[H]): bool" href="pylib/builtins/set.html#%3C%2Cset%5BH%5D%2CSomePySet%5BH%5D">set: proc `&lt;`[H](s: set[H]; self: SomePySet[H]): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `&lt;`[H](s`gensym11: set[H]; self`gensym11: PySet[H]): bool" href="pylib/builtins/set.html#%3C%2C%2C_2">set: proc `&lt;`[H](s`gensym11: set[H]; self`gensym11: PySet[H]): bool</a></li>
+          data-doc-search-tag="set: proc `&lt;`[H](self: SomePySet[H]; s: set[H]): bool" href="pylib/builtins/set.html#%3C%2CSomePySet%5BH%5D%2Cset%5BH%5D">set: proc `&lt;`[H](self: SomePySet[H]; s: set[H]): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc `&lt;`(self, o: PySet): int" href="pylib/builtins/set_decl.html#%3C%2CPySet%2CPySet">set_decl: proc `&lt;`(self, o: PySet): int</a></li>
+          data-doc-search-tag="set_decl: proc `&lt;`(self, o: SomePySet): int" href="pylib/builtins/set_decl.html#%3C%2CSomePySet%2CSomePySet">set_decl: proc `&lt;`(self, o: SomePySet): int</a></li>
           <li><a class="reference external"
           data-doc-search-tag="ops: template `&lt;`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool" href="pylib/ops.html#%3C.t%2CA%2CB">ops: template `&lt;`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool</a></li>
           <li><a class="reference external"
@@ -296,11 +302,11 @@
           <li><a class="reference external"
           data-doc-search-tag="pyslice: proc `==`(self: PySlice; o: PySlice): bool" href="pylib/builtins/pyslice.html#%3D%3D%2CPySlice%2CPySlice">pyslice: proc `==`(self: PySlice; o: PySlice): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `==`[H](self`gensym7: PySet[H]; s`gensym7: set[H]): bool" href="pylib/builtins/set.html#%3D%3D%2C%2C">set: proc `==`[H](self`gensym7: PySet[H]; s`gensym7: set[H]): bool</a></li>
+          data-doc-search-tag="set: proc `==`[H](s: set[H]; self: SomePySet[H]): bool" href="pylib/builtins/set.html#%3D%3D%2Cset%5BH%5D%2CSomePySet%5BH%5D">set: proc `==`[H](s: set[H]; self: SomePySet[H]): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `==`[H](s`gensym7: set[H]; self`gensym7: PySet[H]): bool" href="pylib/builtins/set.html#%3D%3D%2C%2C_2">set: proc `==`[H](s`gensym7: set[H]; self`gensym7: PySet[H]): bool</a></li>
+          data-doc-search-tag="set: proc `==`[H](self: SomePySet[H]; s: set[H]): bool" href="pylib/builtins/set.html#%3D%3D%2CSomePySet%5BH%5D%2Cset%5BH%5D">set: proc `==`[H](self: SomePySet[H]; s: set[H]): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc `==`(self, o: PySet): int" href="pylib/builtins/set_decl.html#%3D%3D%2CPySet%2CPySet">set_decl: proc `==`(self, o: PySet): int</a></li>
+          data-doc-search-tag="set_decl: proc `==`(self, o: SomePySet): int" href="pylib/builtins/set_decl.html#%3D%3D%2CSomePySet%2CSomePySet">set_decl: proc `==`(self, o: SomePySet): int</a></li>
           <li><a class="reference external"
           data-doc-search-tag="collections_abc: proc `==`[K, V](a, b: Mapping[K, V]): bool" href="pylib/collections_abc.html#%3D%3D%2CMapping%5BK%2CV%5D%2CMapping%5BK%2CV%5D">collections_abc: proc `==`[K, V](a, b: Mapping[K, V]): bool</a></li>
           <li><a class="reference external"
@@ -398,7 +404,7 @@
           </ul></dd>
 <dt><a name="%60%5E%60" href="#%60%5E%60"><span>`^`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc `^`[H; S: SomeSet[H]](self`gensym12: PySet[H]; s`gensym12: S): PySet[H]" href="pylib/builtins/set.html#%5E%2C%2CS">set: proc `^`[H; S: SomeSet[H]](self`gensym12: PySet[H]; s`gensym12: S): PySet[H]</a></li>
+          data-doc-search-tag="set: template `^`[H; M: SomePySet[H]; S: SomePySet[H]](self: M; s: S): M | S" href="pylib/builtins/set.html#%5E.t%2CM%2CS">set: template `^`[H; M: SomePySet[H]; S: SomePySet[H]](self: M; s: S): M | S</a></li>
           </ul></dd>
 <dt><a name="%60and%60" href="#%60and%60"><span>`and`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -444,7 +450,7 @@
 <li><a class="reference external"
           data-doc-search-tag="dict: proc `|=`(a, b: PyDict)" href="pylib/builtins/dict.html#%7C%3D%2CPyDict%2CPyDict">dict: proc `|=`(a, b: PyDict)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `|=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)" href="pylib/builtins/set.html#%7C%3D%2CPySet%5BH%5D%2CS">set: proc `|=`[H; S: SomeSet[H]](self: var PySet[H]; s: S)</a></li>
+          data-doc-search-tag="set: proc `|=`[H; S: SomeSet[H]](self: var SomePySet[H]; s: S)" href="pylib/builtins/set.html#%7C%3D%2CSomePySet%5BH%5D%2CS">set: proc `|=`[H; S: SomeSet[H]](self: var SomePySet[H]; s: S)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="consts: template `|=`(a, b: cint)" href="pylib/Lib/os_impl/consts.html#%7C%3D.t%2Ccint%2Ccint">consts: template `|=`(a, b: cint)</a></li>
           </ul></dd>
@@ -452,7 +458,7 @@
 <li><a class="reference external"
           data-doc-search-tag="dict: proc `|`(a, b: PyDict): PyDict" href="pylib/builtins/dict.html#%7C%2CPyDict%2CPyDict">dict: proc `|`(a, b: PyDict): PyDict</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc `|`[H; S: SomeSet[H]](self`gensym14: PySet[H]; s`gensym14: S): PySet[H]" href="pylib/builtins/set.html#%7C%2C%2CS">set: proc `|`[H; S: SomeSet[H]](self`gensym14: PySet[H]; s`gensym14: S): PySet[H]</a></li>
+          data-doc-search-tag="set: template `|`[H; M: SomePySet[H]; S: SomePySet[H]](self: M; s: S): M | S" href="pylib/builtins/set.html#%7C.t%2CM%2CS">set: template `|`[H; M: SomePySet[H]; S: SomePySet[H]](self: M; s: S): M | S</a></li>
           <li><a class="reference external"
           data-doc-search-tag="consts: template `|`(a, b: cint): cint" href="pylib/Lib/os_impl/consts.html#%7C.t%2Ccint%2Ccint">consts: template `|`(a, b: cint): cint</a></li>
           </ul></dd>
@@ -506,9 +512,9 @@
           </ul></dd>
 <dt><a name="asHashSet" href="#asHashSet"><span>asHashSet:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc asHashSet[H](self: PySet[H]): HashSet[H]" href="pylib/builtins/set_decl.html#asHashSet%2CPySet%5BH%5D">set_decl: proc asHashSet[H](self: PySet[H]): HashSet[H]</a></li>
+          data-doc-search-tag="set_decl: proc asHashSet[H](self: SomePySet[H]): HashSet[H]" href="pylib/builtins/set_decl.html#asHashSet%2CSomePySet%5BH%5D">set_decl: proc asHashSet[H](self: SomePySet[H]): HashSet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc asHashSet[H](self: var PySet[H]): var HashSet[H]" href="pylib/builtins/set_decl.html#asHashSet%2CPySet%5BH%5D_2">set_decl: proc asHashSet[H](self: var PySet[H]): var HashSet[H]</a></li>
+          data-doc-search-tag="set_decl: proc asHashSet[H](self: var SomePySet[H]): var HashSet[H]" href="pylib/builtins/set_decl.html#asHashSet%2CSomePySet%5BH%5D_2">set_decl: proc asHashSet[H](self: var SomePySet[H]): var HashSet[H]</a></li>
           </ul></dd>
 <dt><a name="as_integer_ratio" href="#as_integer_ratio"><span>as_integer_ratio:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -736,7 +742,7 @@
           <li><a class="reference external"
           data-doc-search-tag="pyrange: proc contains[T](x: PyRange[T]; y: T): bool" href="pylib/builtins/pyrange.html#contains%2CPyRange%5BT%5D%2CT">pyrange: proc contains[T](x: PyRange[T]; y: T): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc contains[H](self: PySet[H]; x: H): bool" href="pylib/builtins/set_decl.html#contains%2CPySet%5BH%5D%2CH">set_decl: proc contains[H](self: PySet[H]; x: H): bool</a></li>
+          data-doc-search-tag="set_decl: proc contains[H](self: SomePySet[H]; x: H): bool" href="pylib/builtins/set_decl.html#contains%2CSomePySet%5BH%5D%2CH">set_decl: proc contains[H](self: SomePySet[H]; x: H): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="collections_abc: proc contains[T](s: Container[T]; x: T): bool" href="pylib/collections_abc.html#contains%2CContainer%5BT%5D%2CT">collections_abc: proc contains[T](s: Container[T]; x: T): bool</a></li>
           <li><a class="reference external"
@@ -758,7 +764,7 @@
 <li><a class="reference external"
           data-doc-search-tag="dict: proc copy[K, V](self: PyDict[K, V]): PyDict[K, V]" href="pylib/builtins/dict.html#copy%2CPyDict%5BK%2CV%5D">dict: proc copy[K, V](self: PyDict[K, V]): PyDict[K, V]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: template copy[H](self: PySet[H]): PySet[H]" href="pylib/builtins/set.html#copy.t%2CPySet%5BH%5D">set: template copy[H](self: PySet[H]): PySet[H]</a></li>
+          data-doc-search-tag="set: template copy[H; S: SomePySet[H]](self): S" href="pylib/builtins/set.html#copy.t">set: template copy[H; S: SomePySet[H]](self): S</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pybytearray: proc copy(self: PyByteArray): PyByteArray" href="pylib/pybytearray.html#copy">pybytearray: proc copy(self: PyByteArray): PyByteArray</a></li>
           </ul></dd>
@@ -874,15 +880,21 @@
           </ul></dd>
 <dt><a name="difference" href="#difference"><span>difference:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]" href="pylib/builtins/set.html#difference%2CPySet%5BH%5D%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]</a></li>
+          data-doc-search-tag="set: proc difference[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#difference%2CPyFrozenSet%5BH%5D%2CSomePySet%5BH%5D">set: proc difference[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc difference[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#difference%2CPySet%5BH%5D%2CPyFrozenSet%5BH%5D">set: proc difference[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc difference[H](self, o: PySet[H]): PySet[H]" href="pylib/builtins/set.html#difference%2CPySet%5BH%5D%2CPySet%5BH%5D">set: proc difference[H](self, o: PySet[H]): PySet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]" href="pylib/builtins/set.html#difference%2CPySet%5BH%5D%2CS">set: proc difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]</a></li>
+          data-doc-search-tag="set: proc difference[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto;
+                                     x: varargs[S]): Self" href="pylib/builtins/set.html#difference%2CSelf%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc difference[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto;
+                                     x: varargs[S]): Self</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc difference[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self" href="pylib/builtins/set.html#difference%2CSelf%2CS">set: proc difference[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self</a></li>
           </ul></dd>
 <dt><a name="difference_update" href="#difference_update"><span>difference_update:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc difference_update[H; I: Iterable[H]](self: var PySet[H]; i: I)" href="pylib/builtins/set.html#difference_update%2CPySet%5BH%5D%2CI">set: proc difference_update[H; I: Iterable[H]](self: var PySet[H]; i: I)</a></li>
+          data-doc-search-tag="set: proc difference_update[H; I: Iterable[H]](self: var SomePySet[H]; i: I)" href="pylib/builtins/set.html#difference_update%2CSomePySet%5BH%5D%2CI">set: proc difference_update[H; I: Iterable[H]](self: var SomePySet[H]; i: I)</a></li>
           </ul></dd>
 <dt><a name="divmod" href="#divmod"><span>divmod:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -948,7 +960,7 @@
           </ul></dd>
 <dt><a name="excl" href="#excl"><span>excl:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc excl[H](self: var PySet[H]; x: H)" href="pylib/builtins/set_decl.html#excl%2CPySet%5BH%5D%2CH">set_decl: proc excl[H](self: var PySet[H]; x: H)</a></li>
+          data-doc-search-tag="set_decl: proc excl[H](self: var SomePySet[H]; x: H)" href="pylib/builtins/set_decl.html#excl%2CSomePySet%5BH%5D%2CH">set_decl: proc excl[H](self: var SomePySet[H]; x: H)</a></li>
           </ul></dd>
 <dt><a name="expandtabs" href="#expandtabs"><span>expandtabs:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1064,6 +1076,20 @@
 <li><a class="reference external"
           data-doc-search-tag="hex: proc fromhex(_: typedesc[PyBytes]; s: PyStr): PyBytes" href="pylib/pybytes/hex.html#fromhex%2Ctypedesc%5BPyBytes%5D%2CPyStr">hex: proc fromhex(_: typedesc[PyBytes]; s: PyStr): PyBytes</a></li>
           </ul></dd>
+<dt><a name="frozenset" href="#frozenset"><span>frozenset:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="set: proc frozenset[H](s: HashSet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#frozenset%2CHashSet%5BH%5D">set: proc frozenset[H](s: HashSet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc frozenset[H](it: Iterable[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#frozenset%2CIterable%5BH%5D">set: proc frozenset[H](it: Iterable[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc frozenset[H](arr: openArray[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#frozenset%2CopenArray%5BH%5D">set: proc frozenset[H](arr: openArray[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc frozenset[H](s: SomePySet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#frozenset%2CSomePySet%5BH%5D">set: proc frozenset[H](s: SomePySet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc frozenset[H](): PyFrozenSet[H]" href="pylib/builtins/set.html#frozenset_2">set: proc frozenset[H](): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set_decl: type frozenset" href="pylib/builtins/set_decl.html#frozenset">set_decl: type frozenset</a></li>
+          </ul></dd>
 <dt><a name="fspath" href="#fspath"><span>fspath:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="io_abc: proc fspath(c: char): PyStr" href="pylib/io_abc.html#fspath%2Cchar">io_abc: proc fspath(c: char): PyStr</a></li>
@@ -1149,6 +1175,8 @@
           data-doc-search-tag="pyhashes: proc hash(x: PySet): int" href="pylib/builtins/pyhashes.html#hash%2CPySet">pyhashes: proc hash(x: PySet): int</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pyhashes: proc hash(x: PyStr): int" href="pylib/builtins/pyhashes.html#hash%2CPyStr">pyhashes: proc hash(x: PyStr): int</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set_decl: proc hash[H](self: PyFrozenSet[H]): int" href="pylib/builtins/set_decl.html#hash%2CPyFrozenSet%5BH%5D">set_decl: proc hash[H](self: PyFrozenSet[H]): int</a></li>
           </ul></dd>
 <dt><a name="hex" href="#hex"><span>hex:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1176,7 +1204,7 @@
           </ul></dd>
 <dt><a name="incl" href="#incl"><span>incl:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc incl[H](self: var PySet[H]; x: H)" href="pylib/builtins/set_decl.html#incl%2CPySet%5BH%5D%2CH">set_decl: proc incl[H](self: var PySet[H]; x: H)</a></li>
+          data-doc-search-tag="set_decl: proc incl[H](self: var SomePySet[H]; x: H)" href="pylib/builtins/set_decl.html#incl%2CSomePySet%5BH%5D%2CH">set_decl: proc incl[H](self: var SomePySet[H]; x: H)</a></li>
           </ul></dd>
 <dt><a name="index" href="#index"><span>index:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1212,6 +1240,10 @@
 <li><a class="reference external"
           data-doc-search-tag="ncodec: proc initNCodecInfo(encoding: string; errors = DefErrors): NCodecInfo" href="pylib/Lib/ncodec.html#initNCodecInfo%2Cstring">ncodec: proc initNCodecInfo(encoding: string; errors = DefErrors): NCodecInfo</a></li>
           </ul></dd>
+<dt><a name="inner_incl" href="#inner_incl"><span>inner_incl:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="set_decl: proc inner_incl[H](self: var PyFrozenSet[H]; x: H)" href="pylib/builtins/set_decl.html#inner_incl%2CPyFrozenSet%5BH%5D%2CH">set_decl: proc inner_incl[H](self: var PyFrozenSet[H]; x: H)</a></li>
+          </ul></dd>
 <dt><a name="input" href="#input"><span>input:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="input: proc input(prompt = str(&quot;&quot;)): PyStr" href="pylib/builtins/input.html#input">input: proc input(prompt = str(&quot;&quot;)): PyStr</a></li>
@@ -1238,15 +1270,21 @@
           </ul></dd>
 <dt><a name="intersection" href="#intersection"><span>intersection:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc intersection[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]" href="pylib/builtins/set.html#intersection%2CPySet%5BH%5D%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc intersection[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]</a></li>
+          data-doc-search-tag="set: proc intersection[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#intersection%2CPyFrozenSet%5BH%5D%2CSomePySet%5BH%5D">set: proc intersection[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc intersection[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#intersection%2CPySet%5BH%5D%2CPyFrozenSet%5BH%5D">set: proc intersection[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc intersection[H](self, o: PySet[H]): PySet[H]" href="pylib/builtins/set.html#intersection%2CPySet%5BH%5D%2CPySet%5BH%5D">set: proc intersection[H](self, o: PySet[H]): PySet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc intersection[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]" href="pylib/builtins/set.html#intersection%2CPySet%5BH%5D%2CS">set: proc intersection[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]</a></li>
+          data-doc-search-tag="set: proc intersection[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto;
+                                       x: varargs[S]): Self" href="pylib/builtins/set.html#intersection%2CSelf%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc intersection[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto;
+                                       x: varargs[S]): Self</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc intersection[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self" href="pylib/builtins/set.html#intersection%2CSelf%2CS">set: proc intersection[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self</a></li>
           </ul></dd>
 <dt><a name="intersection_update" href="#intersection_update"><span>intersection_update:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc intersection_update[H; I: Iterable[H]](self: var PySet[H]; i: I)" href="pylib/builtins/set.html#intersection_update%2CPySet%5BH%5D%2CI">set: proc intersection_update[H; I: Iterable[H]](self: var PySet[H]; i: I)</a></li>
+          data-doc-search-tag="set: proc intersection_update[H; I: Iterable[H]](self: var SomePySet[H]; i: I)" href="pylib/builtins/set.html#intersection_update%2CSomePySet%5BH%5D%2CI">set: proc intersection_update[H; I: Iterable[H]](self: var SomePySet[H]; i: I)</a></li>
           </ul></dd>
 <dt><a name="IOBase" href="#IOBase"><span>IOBase:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1302,7 +1340,7 @@
           </ul></dd>
 <dt><a name="isdisjoint" href="#isdisjoint"><span>isdisjoint:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc isdisjoint[H, S](self: PySet[H]; s: S): bool" href="pylib/builtins/set.html#isdisjoint%2CPySet%5BH%5D%2CS">set: proc isdisjoint[H, S](self: PySet[H]; s: S): bool</a></li>
+          data-doc-search-tag="set: proc isdisjoint[H, S](self: SomePySet[H]; s: S): bool" href="pylib/builtins/set.html#isdisjoint%2CSomePySet%5BH%5D%2CS">set: proc isdisjoint[H, S](self: SomePySet[H]; s: S): bool</a></li>
           </ul></dd>
 <dt><a name="isinstance" href="#isinstance"><span>isinstance:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1346,11 +1384,11 @@
           </ul></dd>
 <dt><a name="issubset" href="#issubset"><span>issubset:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc issubset[H, S](self`gensym17: PySet[H]; s`gensym17: S): bool" href="pylib/builtins/set.html#issubset%2C%2CS">set: proc issubset[H, S](self`gensym17: PySet[H]; s`gensym17: S): bool</a></li>
+          data-doc-search-tag="set: proc issubset[H, S](self, o: SomePySet[H]; s: S): bool" href="pylib/builtins/set.html#issubset%2CSomePySet%5BH%5D%2CSomePySet%5BH%5D%2CS">set: proc issubset[H, S](self, o: SomePySet[H]; s: S): bool</a></li>
           </ul></dd>
 <dt><a name="issuperset" href="#issuperset"><span>issuperset:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc issuperset[H, S](self`gensym15: PySet[H]; s`gensym15: S): bool" href="pylib/builtins/set.html#issuperset%2C%2CS">set: proc issuperset[H, S](self`gensym15: PySet[H]; s`gensym15: S): bool</a></li>
+          data-doc-search-tag="set: proc issuperset[H, S](self, o: SomePySet[H]; s: S): bool" href="pylib/builtins/set.html#issuperset%2CSomePySet%5BH%5D%2CSomePySet%5BH%5D%2CS">set: proc issuperset[H, S](self, o: SomePySet[H]; s: S): bool</a></li>
           </ul></dd>
 <dt><a name="istitle" href="#istitle"><span>istitle:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1392,7 +1430,7 @@
           <li><a class="reference external"
           data-doc-search-tag="pyrange: iterator items[T](rng: PyRange[T]): T" href="pylib/builtins/pyrange.html#items.i%2CPyRange%5BT%5D">pyrange: iterator items[T](rng: PyRange[T]): T</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: iterator items[H](self: PySet[H]): H" href="pylib/builtins/set_decl.html#items.i%2CPySet%5BH%5D">set_decl: iterator items[H](self: PySet[H]): H</a></li>
+          data-doc-search-tag="set_decl: iterator items[H](self: SomePySet[H]): H" href="pylib/builtins/set_decl.html#items.i%2CSomePySet%5BH%5D">set_decl: iterator items[H](self: SomePySet[H]): H</a></li>
           <li><a class="reference external"
           data-doc-search-tag="collections_abc: iterator items[K, V](m: Mapping[K, V]): (K, V)" href="pylib/collections_abc.html#items.i%2CMapping%5BK%2CV%5D">collections_abc: iterator items[K, V](m: Mapping[K, V]): (K, V)</a></li>
           <li><a class="reference external"
@@ -1454,7 +1492,7 @@
           <li><a class="reference external"
           data-doc-search-tag="pyrange: template len[T](rng: PyRange[T]): int" href="pylib/builtins/pyrange.html#len.t%2CPyRange%5BT%5D">pyrange: template len[T](rng: PyRange[T]): int</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set_decl: proc len(self: PySet): int" href="pylib/builtins/set_decl.html#len%2CPySet">set_decl: proc len(self: PySet): int</a></li>
+          data-doc-search-tag="set_decl: proc len(self: SomePySet): int" href="pylib/builtins/set_decl.html#len%2CSomePySet">set_decl: proc len(self: SomePySet): int</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pybytearray: proc len(self: PyByteArray): int" href="pylib/pybytearray.html#len_2">pybytearray: proc len(self: PyByteArray): int</a></li>
           <li><a class="reference external"
@@ -1616,6 +1654,12 @@
           <li><a class="reference external"
           data-doc-search-tag="dict_decl: template newPyDictImpl[K, V](x: varargs): untyped" href="pylib/builtins/dict_decl.html#newPyDictImpl.t%2Cvarargs">dict_decl: template newPyDictImpl[K, V](x: varargs): untyped</a></li>
           </ul></dd>
+<dt><a name="newPyFrozenSet" href="#newPyFrozenSet"><span>newPyFrozenSet:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="set_decl: proc newPyFrozenSet[H](initialSize = defaultInitialSize): PyFrozenSet[H]" href="pylib/builtins/set_decl.html#newPyFrozenSet">set_decl: proc newPyFrozenSet[H](initialSize = defaultInitialSize): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set_decl: proc newPyFrozenSet[H](h: HashSet[H]): PyFrozenSet[H]" href="pylib/builtins/set_decl.html#newPyFrozenSet%2CHashSet%5BH%5D">set_decl: proc newPyFrozenSet[H](h: HashSet[H]): PyFrozenSet[H]</a></li>
+          </ul></dd>
 <dt><a name="newPyIterator" href="#newPyIterator"><span>newPyIterator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="iter_next: proc newPyIterator[T](it: iterator (): T): PyIterator[T]" href="pylib/builtins/iter_next.html#newPyIterator">iter_next: proc newPyIterator[T](it: iterator (): T): PyIterator[T]</a></li>
@@ -1634,6 +1678,8 @@
           </ul></dd>
 <dt><a name="newPySet" href="#newPySet"><span>newPySet:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="set_decl: proc newPySet[H](initialSize = defaultInitialSize): PySet[H]" href="pylib/builtins/set_decl.html#newPySet">set_decl: proc newPySet[H](initialSize = defaultInitialSize): PySet[H]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="set_decl: proc newPySet[H](h: HashSet[H]): PySet[H]" href="pylib/builtins/set_decl.html#newPySet%2CHashSet%5BH%5D">set_decl: proc newPySet[H](h: HashSet[H]): PySet[H]</a></li>
           </ul></dd>
 <dt><a name="next" href="#next"><span>next:</span></a></dt><dd><ul class="simple">
@@ -1972,6 +2018,10 @@
 <li><a class="reference external"
           data-doc-search-tag="format: proc pyformatImplAux(s: string; args: seq[NimNode]; kw: Kw): NimNode" href="pylib/stringlib/format.html#pyformatImplAux%2Cstring%2Cseq%5BNimNode%5D%2CKw">format: proc pyformatImplAux(s: string; args: seq[NimNode]; kw: Kw): NimNode</a></li>
           </ul></dd>
+<dt><a name="PyFrozenSet" href="#PyFrozenSet"><span>PyFrozenSet:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="set_decl: type PyFrozenSet" href="pylib/builtins/set_decl.html#PyFrozenSet">set_decl: type PyFrozenSet</a></li>
+          </ul></dd>
 <dt><a name="PyIterator" href="#PyIterator"><span>PyIterator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="iter_next: type PyIterator" href="pylib/builtins/iter_next.html#PyIterator">iter_next: type PyIterator</a></li>
@@ -2024,7 +2074,7 @@
           <li><a class="reference external"
           data-doc-search-tag="set: proc pyset[H](arr: openArray[H]): PySet[H]" href="pylib/builtins/set.html#pyset%2CopenArray%5BH%5D">set: proc pyset[H](arr: openArray[H]): PySet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc pyset[H](s: PySet[H]): PySet[H]" href="pylib/builtins/set.html#pyset%2CPySet%5BH%5D">set: proc pyset[H](s: PySet[H]): PySet[H]</a></li>
+          data-doc-search-tag="set: proc pyset[H](s: SomePySet[H]): PySet[H]" href="pylib/builtins/set.html#pyset%2CSomePySet%5BH%5D">set: proc pyset[H](s: SomePySet[H]): PySet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc pyset[H](): PySet[H]" href="pylib/builtins/set.html#pyset_2">set: proc pyset[H](): PySet[H]</a></li>
           </ul></dd>
@@ -2218,6 +2268,8 @@
           <li><a class="reference external"
           data-doc-search-tag="pyslice: proc repr(self: PySlice): string" href="pylib/builtins/pyslice.html#repr%2CPySlice">pyslice: proc repr(self: PySlice): string</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="set_decl: proc repr(self: PyFrozenSet): string" href="pylib/builtins/set_decl.html#repr%2CPyFrozenSet">set_decl: proc repr(self: PyFrozenSet): string</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="set_decl: proc repr(self: PySet): string" href="pylib/builtins/set_decl.html#repr%2CPySet">set_decl: proc repr(self: PySet): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pybool: proc repr(self: PyBool): string" href="pylib/pybool.html#repr">pybool: proc repr(self: PyBool): string</a></li>
@@ -2406,7 +2458,7 @@
           <li><a class="reference external"
           data-doc-search-tag="set: proc set[H](arr: openArray[H]): PySet[H]" href="pylib/builtins/set.html#set%2CopenArray%5BH%5D">set: proc set[H](arr: openArray[H]): PySet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc set[H](s: PySet[H]): PySet[H]" href="pylib/builtins/set.html#set%2CPySet%5BH%5D">set: proc set[H](s: PySet[H]): PySet[H]</a></li>
+          data-doc-search-tag="set: proc set[H](s: SomePySet[H]): PySet[H]" href="pylib/builtins/set.html#set%2CSomePySet%5BH%5D">set: proc set[H](s: SomePySet[H]): PySet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc set[H](): PySet[H]" href="pylib/builtins/set.html#set_2">set: proc set[H](): PySet[H]</a></li>
           <li><a class="reference external"
@@ -2439,6 +2491,10 @@
 <dt><a name="SomePyDictView" href="#SomePyDictView"><span>SomePyDictView:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="dict: type SomePyDictView" href="pylib/builtins/dict.html#SomePyDictView">dict: type SomePyDictView</a></li>
+          </ul></dd>
+<dt><a name="SomePySet" href="#SomePySet"><span>SomePySet:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="set_decl: type SomePySet" href="pylib/builtins/set_decl.html#SomePySet">set_decl: type SomePySet</a></li>
           </ul></dd>
 <dt><a name="SomeSet" href="#SomeSet"><span>SomeSet:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2594,13 +2650,17 @@
           </ul></dd>
 <dt><a name="symmetric_difference" href="#symmetric_difference"><span>symmetric_difference:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc symmetric_difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[
-    H]" href="pylib/builtins/set.html#symmetric_difference%2CPySet%5BH%5D%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc symmetric_difference[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[
-    H]</a></li>
+          data-doc-search-tag="set: proc symmetric_difference[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#symmetric_difference%2CPyFrozenSet%5BH%5D%2CSomePySet%5BH%5D">set: proc symmetric_difference[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc symmetric_difference[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#symmetric_difference%2CPySet%5BH%5D%2CPyFrozenSet%5BH%5D">set: proc symmetric_difference[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc symmetric_difference[H](self, o: PySet[H]): PySet[H]" href="pylib/builtins/set.html#symmetric_difference%2CPySet%5BH%5D%2CPySet%5BH%5D">set: proc symmetric_difference[H](self, o: PySet[H]): PySet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc symmetric_difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]" href="pylib/builtins/set.html#symmetric_difference%2CPySet%5BH%5D%2CS">set: proc symmetric_difference[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]</a></li>
+          data-doc-search-tag="set: proc symmetric_difference[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto;
+    x: varargs[S]): Self" href="pylib/builtins/set.html#symmetric_difference%2CSelf%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc symmetric_difference[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto;
+    x: varargs[S]): Self</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc symmetric_difference[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self" href="pylib/builtins/set.html#symmetric_difference%2CSelf%2CS">set: proc symmetric_difference[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self</a></li>
           </ul></dd>
 <dt><a name="SystemExit" href="#SystemExit"><span>SystemExit:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2774,11 +2834,15 @@
           </ul></dd>
 <dt><a name="union" href="#union"><span>union:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="set: proc union[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]" href="pylib/builtins/set.html#union%2CPySet%5BH%5D%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc union[H, S](self: PySet[H]; s1: auto; s2: auto; x: varargs[S]): PySet[H]</a></li>
+          data-doc-search-tag="set: proc union[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#union%2CPyFrozenSet%5BH%5D%2CSomePySet%5BH%5D">set: proc union[H](self: PyFrozenSet[H]; o: SomePySet[H]): PyFrozenSet[H]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc union[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]" href="pylib/builtins/set.html#union%2CPySet%5BH%5D%2CPyFrozenSet%5BH%5D">set: proc union[H](self: PySet[H]; o: PyFrozenSet[H]): PyFrozenSet[H]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set: proc union[H](self, o: PySet[H]): PySet[H]" href="pylib/builtins/set.html#union%2CPySet%5BH%5D%2CPySet%5BH%5D">set: proc union[H](self, o: PySet[H]): PySet[H]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc union[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]" href="pylib/builtins/set.html#union%2CPySet%5BH%5D%2CS">set: proc union[H; S: not PySet[H]](self: PySet[H]; s: S): PySet[H]</a></li>
+          data-doc-search-tag="set: proc union[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto; x: varargs[S]): Self" href="pylib/builtins/set.html#union%2CSelf%2Cauto%2Cauto%2Cvarargs%5BS%5D">set: proc union[H; Self: SomePySet[H]; S](self: Self; s1: auto; s2: auto; x: varargs[S]): Self</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set: proc union[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self" href="pylib/builtins/set.html#union%2CSelf%2CS">set: proc union[H; Self: SomePySet[H]; S: not PySet[H]](self: Self; s: S): Self</a></li>
           </ul></dd>
 <dt><a name="unpack" href="#unpack"><span>unpack:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2804,7 +2868,7 @@
 <li><a class="reference external"
           data-doc-search-tag="dict: macro update(self: PyDict; kws: varargs[untyped])" href="pylib/builtins/dict.html#update.m%2CPyDict%2Cvarargs%5Buntyped%5D">dict: macro update(self: PyDict; kws: varargs[untyped])</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="set: proc update[H; I: Iterable[H]](self: var PySet[H]; i: I)" href="pylib/builtins/set.html#update%2CPySet%5BH%5D%2CI">set: proc update[H; I: Iterable[H]](self: var PySet[H]; i: I)</a></li>
+          data-doc-search-tag="set: proc update[H; I: Iterable[H]](self: var SomePySet[H]; i: I)" href="pylib/builtins/set.html#update%2CSomePySet%5BH%5D%2CI">set: proc update[H; I: Iterable[H]](self: var SomePySet[H]; i: I)</a></li>
           </ul></dd>
 <dt><a name="upper" href="#upper"><span>upper:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2876,7 +2940,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-29 04:46:51 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-30 16:23:18 UTC</small>
       </div>
     </div>
   </div>
