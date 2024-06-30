@@ -61,8 +61,8 @@ macro pysetLit*(lit): PySet =
     ls.add i
   result = newCall("pyset", ls)
 
-template somepyset(S: typedesc[PySet], s: typed): S = pyset(s)
-template somepyset(S: typedesc[PyFrozenSet], s: typed): S = frozenset(s)
+template somepyset[H](S: typedesc[PySet[H]], s: typed): S = pyset[H](s)
+template somepyset[H](S: typedesc[PyFrozenSet[H]], s: typed): S = frozenset[H](s)
 
 template copy*[H; S: SomePySet[H]](self): S =
   bind somepyset; somepyset(S, self)
