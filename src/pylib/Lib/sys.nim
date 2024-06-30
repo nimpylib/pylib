@@ -1,6 +1,13 @@
+## Lib/sys
+##
+## .. hint:: if not defined `pylibConfigIsolated`,
+##   this module will call `setlocale(LC_CTYPE, "")`,
+##   a.k.a. changing locale to user's configure,
+##   just as CPython's initialization.
 
 import std/os
 import std/fenv
+
 when defined(nimPreviewSlimSystem):
   import std/assertions
 
@@ -8,6 +15,14 @@ import ../version as libversion
 import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
+const weirdTarget = defined(js) or defined(nimscript)
+when not weirdTarget:
+  import ../Python/[
+    fileutils, force_ascii_utils,
+    envutils,
+    localeutils  # setlocale, LC_CTYPE
+  ]
+
 export list, strimpl
 
 # CPython-3.13.0's sys.platform is getten from Python/getplatform.c Py_GetPlatform,
@@ -42,6 +57,7 @@ const platform* =
 
 when not defined(js):
   when not defined(pylibSysNoStdio):
+    # CPython's stdio is init-ed by create_stdio in Python/pylifecycle.c
     import ./io
     export io.read, io.readline, io.write, io.fileno, io.isatty
 
@@ -182,9 +198,90 @@ template getsizeof*(x; default: int): int =
   when compiles(sizeof(x)): sizeof(x)
   else: default
 
-
+const
+  Utf8 = "utf-8"
+  sUtf8 = str Utf8
 proc getdefaultencoding*(): PyStr =
   ## Return the current default encoding used by the Unicode implementation.
   ## 
   ## Always "utf-8" in Nim
-  str "utf-8"
+  sUtf8
+
+#[ gdb Python3.13.0b2:
+watch _PyRuntime->_main_interpreter.config.filesystem_encoding
+then we can get a trace:
+]#
+#[ TODO: after codecs
+ Python/pylifecycle.c
+  pyinit_main
+  Py_InitializeFromConfig
+ Object/unicodeobject.c
+  _PyUnicode_InitEncodings
+  init_fs_encoding
+  config_get_codec_name
+ Python/codecs.c _PyCodec_Lookup
+]#
+
+
+# ref:
+# https://docs.python.org/3/c-api/init_config.html#c.PyConfig.filesystem_encoding
+when not weirdTarget and (PyMajor, PyPatch) < (3, 15):
+  from std/strutils import toLowerAscii
+  func normEncoding(s: string): string =
+    ## XXX: see below, currently it's only for
+    ## UTF-8 (got in Debain) -> utf-8
+    s.toLowerAscii
+  #[
+  Py_PreInitialize
+  _Py_PreInitializeFromPyArgv
+  [_PyPreConfig_Write] (3.13)
+  _Py_SetLocaleFromEnv
+  ]#
+  # config ref: (PEP 587) and enhence (PEP 741)
+  when not defined(pylibConfigIsolated):
+    # TODO: consider coerce_c_locale:
+    # _PyPreConfig_Read -> preconfig_read -> preconfig_init_coerce_c_locale
+    proc simple_Py_PreInitialize =
+      Py_SetLocaleFromEnv(LC_CTYPE)
+    simple_Py_PreInitialize()
+
+  # source:
+  # cpython/Python/initconfig.c
+  # config_init_fs_encoding & config_get_fs_encoding
+  when defined(macosx) or defined(android) or defined(vxworks):
+    template getfilesystemencodingImpl(): string = Utf8
+  else:
+    proc getfilesystemencodingImpl(): string =
+      # modified from initconfig.c config_get_fs_encoding
+      when defined(Py_FORCE_UTF8_FS_ENCODING):
+        return Utf8
+      elif defined(windows):
+        return
+          when false: #0 != preconfig.legacy_windows_fs_encoding:
+            ##  Legacy Windows filesystem encoding: mbcs/replace
+            "mbcs"
+          else:
+            ##  Windows defaults to utf-8/surrogatepass (PEP 529)
+            Utf8
+      else:
+        # As currently there is no preconfig, we skip the following line.
+        #if(preconfig->utf8_mode)... // use utf-8
+        if Py_GetForceASCII():
+          return "ascii"
+        normEncoding Py_GetLocaleEncoding()
+  when (PyMajor, PyMinor) >= (3,7):
+    let filesystem_encoding: PyStr =
+      let loc = c_setlocale(LC_CTYPE, nil)
+      if loc != nil and loc == "C" or loc == "POSIX":
+        # utf-8 mode (PEP 540)
+        sUtf8
+      else:
+        str getfilesystemencodingImpl()
+  else:
+    let filesystem_encoding: PyStr = str getfilesystemencodingImpl()
+else:
+  # utf-8 mode is enabled by default since 3.15 (pep 686).
+  const filesystem_encoding = sUtf8
+
+proc getfilesystemencoding*(): PyStr = filesystem_encoding
+
