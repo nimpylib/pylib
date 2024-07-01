@@ -286,11 +286,18 @@ template expandtabsAux[S](a: S, tabsize#[: is a Positive]#;
   #  dynamically memory allocation, so no need to
   #  firstly perform one loop to just count the length of the result.
   # 3. we use case-branch instead of if-branch within the loop.
+  #
+  # Also, we get some opt inspiration from std/strmisc's expandTabs
+  # - with cap of `le + le shl 2`.
+  # - add spaces via loop, which reduces space complexity.
   mixin add
   var column = 0
-  var res = newStringOfCap(strByteLen)
+  var res = newStringOfCap(strByteLen + strByteLen shl 2)
   for c in a.iter:
     type C = typeof(c)
+    template addChars(res;c: C; n) =
+      for _ in 1..n:
+        res.add c
     case c
     of C('\r'), C('\n'):
       res.add c
@@ -299,7 +306,7 @@ template expandtabsAux[S](a: S, tabsize#[: is a Positive]#;
       let incr = (tabsize - column mod tabsize)
       column.inc incr
       if incr > 0:
-        res.add C(' ') * incr
+        res.addChars C(' '), incr
     else:
       res.add c
       column.inc
