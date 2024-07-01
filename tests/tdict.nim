@@ -10,3 +10,5 @@ test "dict":
   check len(d) == 2
 
   check len(dd) == 1
+
+  check str(dict([(1,2)])) == str("{1: 2}")
