@@ -1,0 +1,2 @@
+nimTitle	strIter	pylib/builtins/private/strIter.html	module src/pylib/builtins/private/strIter		0
+nim	strIterImpl	pylib/builtins/private/strIter.html#strIterImpl.t,,,,	template strIterImpl(it; strProc; start, stop): string		7

@@ -54,11 +54,11 @@ nim	replace	pylib/stringlib/meth.html#replace,S,char,char	proc replace[S](a: S; 
 nim	replace	pylib/stringlib/meth.html#replace,S,S,S	proc replace[S](a: S; sub, by: S): S		265
 nim	replace	pylib/stringlib/meth.html#replace,S,char,char,int	proc replace[S](a: S; sub, by: char; count: int): S		268
 nim	replace	pylib/stringlib/meth.html#replace,S,S,S,int	proc replace[S](a: S; sub, by: S; count: int): S		272
-nim	expandtabsImpl	pylib/stringlib/meth.html#expandtabsImpl.t,S,int,int,	template expandtabsImpl[S](a: S; tabsize: int; strByteLen: int; iter): string		315
-nim	join	pylib/stringlib/meth.html#join,char,openArray[T]	proc join[T](sep: char; a: openArray[T]): string		321
-nim	join	pylib/stringlib/meth.html#join,S,openArray[T]	proc join[T, S](sep: S; a: openArray[T]): S		324
-nim	partition	pylib/stringlib/meth.html#partition,S,S	proc partition[S](a: S; sep: S): tuple[before, sep, after: S]		337
-nim	rpartition	pylib/stringlib/meth.html#rpartition,S,S	proc rpartition[S](a: S; sep: S): tuple[before, sep, after: S]		338
+nim	expandtabsImpl	pylib/stringlib/meth.html#expandtabsImpl.t,S,int,int,	template expandtabsImpl[S](a: S; tabsize: int; strByteLen: int; iter): string		322
+nim	join	pylib/stringlib/meth.html#join,char,openArray[T]	proc join[T](sep: char; a: openArray[T]): string		328
+nim	join	pylib/stringlib/meth.html#join,S,openArray[T]	proc join[T, S](sep: S; a: openArray[T]): S		331
+nim	partition	pylib/stringlib/meth.html#partition,S,S	proc partition[S](a: S; sep: S): tuple[before, sep, after: S]		344
+nim	rpartition	pylib/stringlib/meth.html#rpartition,S,S	proc rpartition[S](a: S; sep: S): tuple[before, sep, after: S]		345
 nimgrp	isalnum	pylib/stringlib/meth.html#isalnum-procs-all	proc		137
 nimgrp	replace	pylib/stringlib/meth.html#replace-procs-all	proc		263
 nimgrp	rfind1	pylib/stringlib/meth.html#rfind1-procs-all	proc		65
@@ -67,7 +67,7 @@ nimgrp	ljust	pylib/stringlib/meth.html#ljust-procs-all	proc		199
 nimgrp	startswith	pylib/stringlib/meth.html#startsWith-procs-all	proc		43
 nimgrp	center	pylib/stringlib/meth.html#center-procs-all	proc		194
 nimgrp	rjust	pylib/stringlib/meth.html#rjust-procs-all	proc		201
-nimgrp	join	pylib/stringlib/meth.html#join-procs-all	proc		321
+nimgrp	join	pylib/stringlib/meth.html#join-procs-all	proc		328
 nimgrp	index1	pylib/stringlib/meth.html#index1-procs-all	proc		87
 nimgrp	isascii	pylib/stringlib/meth.html#isascii-procs-all	proc		113
 nimgrp	isalpha	pylib/stringlib/meth.html#isalpha-procs-all	proc		134

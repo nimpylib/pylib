@@ -1,56 +1,56 @@
 nimTitle	dict	pylib/builtins/dict.html	module src/pylib/builtins/dict		0
-nim	PyDictView	pylib/builtins/dict.html#PyDictView	object PyDictView		13
-nim	PyDictKeyView	pylib/builtins/dict.html#PyDictKeyView	object PyDictKeyView		15
-nim	PyDictValueView	pylib/builtins/dict.html#PyDictValueView	object PyDictValueView		17
-nim	PyDictItemView	pylib/builtins/dict.html#PyDictItemView	object PyDictItemView		19
-nim	SomeSinglePyDictView	pylib/builtins/dict.html#SomeSinglePyDictView	type SomeSinglePyDictView		21
-nim	SomePyDictView	pylib/builtins/dict.html#SomePyDictView	type SomePyDictView		22
-nim	contains	pylib/builtins/dict.html#contains,PyDict[A,B],A	proc contains[A, B](t: PyDict[A, B]; key: A): bool		25
-nim	`[]`	pylib/builtins/dict.html#[],PyDict[A,B],A	proc `[]`[A, B](t: PyDict[A, B]; key: A): B		26
-nim	`[]=`	pylib/builtins/dict.html#[]=,PyDict[A,B],A,sinkB	proc `[]=`[A, B](t: PyDict[A, B]; key: A; val: sink B)		27
-nim	repr	pylib/builtins/dict.html#repr.t,PyDict	template repr(self: PyDict): string		50
-nim	`$`	pylib/builtins/dict.html#$.t,PyDict	template `$`(self: PyDict): string		55
-nim	len	pylib/builtins/dict.html#len	proc len(self: PyDict): int		59
-nim	`==`	pylib/builtins/dict.html#==,PyDict[A,B],PyDict[A,B]	proc `==`[A, B](self, other: PyDict[A, B]): bool		63
-nim	clear	pylib/builtins/dict.html#clear	proc clear(self: PyDict)		65
-nim	len	pylib/builtins/dict.html#len,SomePyDictView	proc len(view: SomePyDictView): int		67
-nim	iter	pylib/builtins/dict.html#iter.t,SomePyDictView	template iter(view: SomePyDictView): untyped		68
-nim	items	pylib/builtins/dict.html#items.t,SomePyDictView	template items(view: SomePyDictView): untyped		69
-nim	contains	pylib/builtins/dict.html#contains,PyDictKeyView[T],T	proc contains[T](t: PyDictKeyView[T]; x: T): bool		70
-nim	contains	pylib/builtins/dict.html#contains,PyDictValueView[T],T	proc contains[T](t: PyDictValueView[T]; x: T): bool		71
-nim	contains	pylib/builtins/dict.html#contains,PyDictItemView[K,V],	proc contains[K, V](t: PyDictItemView[K, V]; x: (K, V)): bool		74
-nim	repr	pylib/builtins/dict.html#repr.t,PyDictKeyView	template repr(view`gensym1: PyDictKeyView): string		79
-nim	`$`	pylib/builtins/dict.html#$.t,PyDictKeyView	template `$`(view`gensym1: PyDictKeyView): string		87
-nim	repr	pylib/builtins/dict.html#repr.t,PyDictValueView	template repr(view`gensym2: PyDictValueView): string		79
-nim	`$`	pylib/builtins/dict.html#$.t,PyDictValueView	template `$`(view`gensym2: PyDictValueView): string		88
-nim	repr	pylib/builtins/dict.html#repr.t,PyDictItemView	template repr(view`gensym3: PyDictItemView): string		79
-nim	`$`	pylib/builtins/dict.html#$.t,PyDictItemView	template `$`(view`gensym3: PyDictItemView): string		89
-nim	keys	pylib/builtins/dict.html#keys.i,PyDict[K,V]	iterator keys[K, V](self: PyDict[K, V]): K		92
-nim	iter	pylib/builtins/dict.html#iter.i,PyDict[K,V]	iterator iter[K, V](self: PyDict[K, V]): K		95
-nim	iter	pylib/builtins/dict.html#iter,PyDict[K,V]	proc iter[K, V](self: PyDict[K, V]): PyIterator[K]		107
-nim	values	pylib/builtins/dict.html#values.i,PyDict[K,V]	iterator values[K, V](self: PyDict[K, V]): V		111
-nim	items	pylib/builtins/dict.html#items.i,PyDict[K,V]	iterator items[K, V](self: PyDict[K, V]): (K, V)		114
-nim	keys	pylib/builtins/dict.html#keys,PyDict[K,V]	proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K]		117
-nim	values	pylib/builtins/dict.html#values,PyDict[K,V]	proc values[K, V](self: PyDict[K, V]): PyDictValueView[V]		118
-nim	items	pylib/builtins/dict.html#items,PyDict[K,V]	proc items[K, V](self: PyDict[K, V]): PyDictItemView[K, V]		119
-nim	toPyDict	pylib/builtins/dict.html#toPyDict,openArray[]	proc toPyDict[K, V](x: openArray[(K, V)]): PyDict[K, V]		121
-nim	toPyDict	pylib/builtins/dict.html#toPyDict	proc toPyDict[K, V](x: not openArray[(K, V)] and Iterable[(K, V)]): PyDict[K, V]		125
-nim	copy	pylib/builtins/dict.html#copy,PyDict[K,V]	proc copy[K, V](self: PyDict[K, V]): PyDict[K, V]		131
-nim	setdefault	pylib/builtins/dict.html#setdefault,PyDict[K,V],K	proc setdefault[K, V](self: PyDict[K, V]; key: K; default = V.default)		138
-nim	get	pylib/builtins/dict.html#get,PyDict[K,V],K	proc get[K, V](self: PyDict[K, V]; key: K): V		145
-nim	get	pylib/builtins/dict.html#get,PyDict[K,V],K,V	proc get[K, V](self: PyDict[K, V]; key: K; default: V): V		146
-nim	pop	pylib/builtins/dict.html#pop,PyDict[K,V],K	proc pop[K, V](self: PyDict[K, V]; key: K): V		147
-nim	pop	pylib/builtins/dict.html#pop,PyDict[K,V],K,V	proc pop[K, V](self: PyDict[K, V]; key: K; default: V): V		150
-nim	popitem	pylib/builtins/dict.html#popitem,PyDict[K,V]	proc popitem[K, V](self: PyDict[K, V]): (K, V)		154
-nim	delitem	pylib/builtins/dict.html#delitem,PyDict[K,V],K	proc delitem[K, V](self: PyDict[K, V]; k: K)		161
-nim	dict	pylib/builtins/dict.html#dict.m,varargs[untyped]	macro dict(kwargs: varargs[untyped]): PyDict		192
-nim	update	pylib/builtins/dict.html#update.m,PyDict,varargs[untyped]	macro update(self: PyDict; kws: varargs[untyped])		214
-nim	`|`	pylib/builtins/dict.html#|,PyDict,PyDict	proc `|`(a, b: PyDict): PyDict		236
-nim	`|=`	pylib/builtins/dict.html#|=,PyDict,PyDict	proc `|=`(a, b: PyDict)		244
-nimgrp	contains	pylib/builtins/dict.html#contains-procs-all	proc		25
-nimgrp	len	pylib/builtins/dict.html#len-procs-all	proc		59
-nimgrp	get	pylib/builtins/dict.html#get-procs-all	proc		145
-nimgrp	topydict	pylib/builtins/dict.html#toPyDict-procs-all	proc		121
-nimgrp	pop	pylib/builtins/dict.html#pop-procs-all	proc		147
-nimgrp	$	pylib/builtins/dict.html#$-templates-all	template		55
-nimgrp	repr	pylib/builtins/dict.html#repr-templates-all	template		50
+nim	PyDictView	pylib/builtins/dict.html#PyDictView	object PyDictView		14
+nim	PyDictKeyView	pylib/builtins/dict.html#PyDictKeyView	object PyDictKeyView		16
+nim	PyDictValueView	pylib/builtins/dict.html#PyDictValueView	object PyDictValueView		18
+nim	PyDictItemView	pylib/builtins/dict.html#PyDictItemView	object PyDictItemView		20
+nim	SomeSinglePyDictView	pylib/builtins/dict.html#SomeSinglePyDictView	type SomeSinglePyDictView		22
+nim	SomePyDictView	pylib/builtins/dict.html#SomePyDictView	type SomePyDictView		23
+nim	contains	pylib/builtins/dict.html#contains,PyDict[A,B],A	proc contains[A, B](t: PyDict[A, B]; key: A): bool		26
+nim	`[]`	pylib/builtins/dict.html#[],PyDict[A,B],A	proc `[]`[A, B](t: PyDict[A, B]; key: A): B		27
+nim	`[]=`	pylib/builtins/dict.html#[]=,PyDict[A,B],A,sinkB	proc `[]=`[A, B](t: PyDict[A, B]; key: A; val: sink B)		28
+nim	repr	pylib/builtins/dict.html#repr.t,PyDict	template repr(self: PyDict): string		33
+nim	`$`	pylib/builtins/dict.html#$.t,PyDict	template `$`(self: PyDict): string		40
+nim	len	pylib/builtins/dict.html#len	proc len(self: PyDict): int		44
+nim	`==`	pylib/builtins/dict.html#==,PyDict[A,B],PyDict[A,B]	proc `==`[A, B](self, other: PyDict[A, B]): bool		48
+nim	clear	pylib/builtins/dict.html#clear	proc clear(self: PyDict)		50
+nim	len	pylib/builtins/dict.html#len,SomePyDictView	proc len(view: SomePyDictView): int		52
+nim	iter	pylib/builtins/dict.html#iter.t,SomePyDictView	template iter(view: SomePyDictView): untyped		53
+nim	items	pylib/builtins/dict.html#items.t,SomePyDictView	template items(view: SomePyDictView): untyped		54
+nim	contains	pylib/builtins/dict.html#contains,PyDictKeyView[T],T	proc contains[T](t: PyDictKeyView[T]; x: T): bool		55
+nim	contains	pylib/builtins/dict.html#contains,PyDictValueView[T],T	proc contains[T](t: PyDictValueView[T]; x: T): bool		56
+nim	contains	pylib/builtins/dict.html#contains,PyDictItemView[K,V],	proc contains[K, V](t: PyDictItemView[K, V]; x: (K, V)): bool		59
+nim	repr	pylib/builtins/dict.html#repr.t,PyDictKeyView	template repr(view`gensym1: PyDictKeyView): string		64
+nim	`$`	pylib/builtins/dict.html#$.t,PyDictKeyView	template `$`(view`gensym1: PyDictKeyView): string		72
+nim	repr	pylib/builtins/dict.html#repr.t,PyDictValueView	template repr(view`gensym2: PyDictValueView): string		64
+nim	`$`	pylib/builtins/dict.html#$.t,PyDictValueView	template `$`(view`gensym2: PyDictValueView): string		73
+nim	repr	pylib/builtins/dict.html#repr.t,PyDictItemView	template repr(view`gensym3: PyDictItemView): string		64
+nim	`$`	pylib/builtins/dict.html#$.t,PyDictItemView	template `$`(view`gensym3: PyDictItemView): string		74
+nim	keys	pylib/builtins/dict.html#keys.i,PyDict[K,V]	iterator keys[K, V](self: PyDict[K, V]): K		77
+nim	iter	pylib/builtins/dict.html#iter.i,PyDict[K,V]	iterator iter[K, V](self: PyDict[K, V]): K		80
+nim	iter	pylib/builtins/dict.html#iter,PyDict[K,V]	proc iter[K, V](self: PyDict[K, V]): PyIterator[K]		92
+nim	values	pylib/builtins/dict.html#values.i,PyDict[K,V]	iterator values[K, V](self: PyDict[K, V]): V		96
+nim	items	pylib/builtins/dict.html#items.i,PyDict[K,V]	iterator items[K, V](self: PyDict[K, V]): (K, V)		99
+nim	keys	pylib/builtins/dict.html#keys,PyDict[K,V]	proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K]		102
+nim	values	pylib/builtins/dict.html#values,PyDict[K,V]	proc values[K, V](self: PyDict[K, V]): PyDictValueView[V]		103
+nim	items	pylib/builtins/dict.html#items,PyDict[K,V]	proc items[K, V](self: PyDict[K, V]): PyDictItemView[K, V]		104
+nim	toPyDict	pylib/builtins/dict.html#toPyDict,openArray[]	proc toPyDict[K, V](x: openArray[(K, V)]): PyDict[K, V]		106
+nim	toPyDict	pylib/builtins/dict.html#toPyDict	proc toPyDict[K, V](x: not openArray[(K, V)] and Iterable[(K, V)]): PyDict[K, V]		110
+nim	copy	pylib/builtins/dict.html#copy,PyDict[K,V]	proc copy[K, V](self: PyDict[K, V]): PyDict[K, V]		116
+nim	setdefault	pylib/builtins/dict.html#setdefault,PyDict[K,V],K	proc setdefault[K, V](self: PyDict[K, V]; key: K; default = V.default)		123
+nim	get	pylib/builtins/dict.html#get,PyDict[K,V],K	proc get[K, V](self: PyDict[K, V]; key: K): V		130
+nim	get	pylib/builtins/dict.html#get,PyDict[K,V],K,V	proc get[K, V](self: PyDict[K, V]; key: K; default: V): V		131
+nim	pop	pylib/builtins/dict.html#pop,PyDict[K,V],K	proc pop[K, V](self: PyDict[K, V]; key: K): V		132
+nim	pop	pylib/builtins/dict.html#pop,PyDict[K,V],K,V	proc pop[K, V](self: PyDict[K, V]; key: K; default: V): V		135
+nim	popitem	pylib/builtins/dict.html#popitem,PyDict[K,V]	proc popitem[K, V](self: PyDict[K, V]): (K, V)		139
+nim	delitem	pylib/builtins/dict.html#delitem,PyDict[K,V],K	proc delitem[K, V](self: PyDict[K, V]; k: K)		146
+nim	dict	pylib/builtins/dict.html#dict.m,varargs[untyped]	macro dict(kwargs: varargs[untyped]): PyDict		177
+nim	update	pylib/builtins/dict.html#update.m,PyDict,varargs[untyped]	macro update(self: PyDict; kws: varargs[untyped])		199
+nim	`|`	pylib/builtins/dict.html#|,PyDict,PyDict	proc `|`(a, b: PyDict): PyDict		221
+nim	`|=`	pylib/builtins/dict.html#|=,PyDict,PyDict	proc `|=`(a, b: PyDict)		229
+nimgrp	contains	pylib/builtins/dict.html#contains-procs-all	proc		26
+nimgrp	len	pylib/builtins/dict.html#len-procs-all	proc		44
+nimgrp	get	pylib/builtins/dict.html#get-procs-all	proc		130
+nimgrp	topydict	pylib/builtins/dict.html#toPyDict-procs-all	proc		106
+nimgrp	pop	pylib/builtins/dict.html#pop-procs-all	proc		132
+nimgrp	$	pylib/builtins/dict.html#$-templates-all	template		40
+nimgrp	repr	pylib/builtins/dict.html#repr-templates-all	template		33

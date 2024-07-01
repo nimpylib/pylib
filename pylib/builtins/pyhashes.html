@@ -58,12 +58,11 @@
   <li><a class="reference" href="#hash%2Cfloat" title="hash(x: float): int">hash(x: float): int</a></li>
 <li><a class="reference" href="#hash%2Cint" title="hash(x: int): int">hash(x: int): int</a></li>
 <li><a class="reference" href="#hash%2Cproc" title="hash(x: proc): int">hash(x: proc): int</a></li>
-<li><a class="reference" href="#hash%2CPyBytes" title="hash(x: PyBytes): int">hash(x: PyBytes): int</a></li>
 <li><a class="reference" href="#hash%2CPyComplex" title="hash(x: PyComplex): int">hash(x: PyComplex): int</a></li>
 <li><a class="reference" href="#hash%2CPyDict" title="hash(x: PyDict): int">hash(x: PyDict): int</a></li>
 <li><a class="reference" href="#hash%2CPyList" title="hash(x: PyList): int">hash(x: PyList): int</a></li>
 <li><a class="reference" href="#hash%2CPySet" title="hash(x: PySet): int">hash(x: PySet): int</a></li>
-<li><a class="reference" href="#hash%2CPyStr" title="hash(x: PyStr): int">hash(x: PyStr): int</a></li>
+<li><a class="reference" href="#hash_2" title="hash(x: PyStr | PyBytes): int">hash(x: PyStr | PyBytes): int</a></li>
 <li><a class="reference" href="#hash" title="hash(x: tuple): int">hash(x: tuple): int</a></li>
 
 </ul>
@@ -117,18 +116,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="hash,PyBytes">
-  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyBytes"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="../pybytes/bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -137,8 +126,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -172,13 +161,13 @@
 
   </dd>
 </div>
-<div id="hash,PyStr">
-  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyStr"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="hash_2">
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash_2"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> <span class="Operator">|</span> <a href="../pybytes/bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -187,8 +176,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -204,7 +193,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-06-30 16:23:11 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-01 15:44:40 UTC</small>
       </div>
     </div>
   </div>
