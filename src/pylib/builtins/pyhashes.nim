@@ -11,11 +11,11 @@ template hashable(typ){.dirty.} =
 
 hashable int
 hashable float
-hashable PyComplex
-hashable PyStr
-hashable PyBytes
 hashable tuple
 hashable proc
+
+proc hash*(x: PyComplex): int = toInt hashes.hash(x.toNimComplex)
+proc hash*(x: PyStr|PyBytes): int = toInt hashes.hash($x)
 
 const unhashErr = "TypeError: unhashable type: "
 template unhashable(typ){.dirty.} =
