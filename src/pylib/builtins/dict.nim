@@ -5,6 +5,7 @@ import ../collections_abc
 import ./iter_next
 import ../pystring/strimpl
 import ./dict_decl
+import ./private/strIter
 
 export dict, PyDict
 export emptyPyDict
@@ -28,26 +29,6 @@ proc `[]=`*[A, B](t: PyDict[A, B], key: A, val: sink B) =
   `[]=`(t.toNimTable, key, val)
 
 using self: PyDict
-
-# as strimpl export len(c: char),
-# we use another name to prevent `Error: ambiguous call`
-template calLen(cs: char): int = 1
-template calLen(cs: string): int = cs.len
-  
-template strIterImpl(view, strProc;
-    start, stop): string =
-  bind calLen
-  let le = view.len
-  var result = newStringOfCap(calLen(start) + 3*le + calLen(stop))
-  result.add start
-  var notFirst = false
-  for k in iter(view):
-    if likely notFirst:
-      result.add ", "
-    result.add strProc(k)
-    notFirst = true
-  result.add stop
-  result
 
 template repr*(self: PyDict): string =
   bind strIterImpl

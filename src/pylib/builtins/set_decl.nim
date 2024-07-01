@@ -1,6 +1,7 @@
 
 import std/hashes
 import std/sets
+import ./private/strIter
 
 type
   frozenset*[H] = ref object
@@ -22,16 +23,25 @@ func newPySet*[H](initialSize = defaultInitialSize): PySet[H] =
 func newPyFrozenSet*[H](initialSize = defaultInitialSize): PyFrozenSet[H] =
   PyFrozenSet[H](data: initHashSet[H](initialSize))
 
-proc inner_incl*[H](self: var PyFrozenSet[H], x: H) = self.data.incl x
-
 proc incl*[H](self: var SomePySet[H], x: H) = self.data.incl x
 proc excl*[H](self: var SomePySet[H], x: H) = self.data.excl x
 
 func len*(self: SomePySet): int = self.data.len
-func `$`*(self: PySet): string = $self.data
-func `$`*(self: PyFrozenSet): string = "frozenset(" & $self.data & ')'
-func repr*(self: PySet): string = $self.data
-func repr*(self: PyFrozenSet): string = $self
+
+template repr*(self: PySet): string =
+  bind strIterImpl
+  mixin repr
+  strIterImpl self, repr, '{', '}'
+
+template repr*(self: PyFrozenSet): string =
+  bind strIterImpl
+  mixin repr
+  strIterImpl self, repr, "frozenset({", "})"
+
+template `$`*(self: SomePySet): string =
+  bind repr
+  repr self
+
 proc clear*(self: var PySet): int = self.data.clear()
 func `==`*(self, o: SomePySet): int = self.data == o.data
 func `<=`*(self, o: SomePySet): int = self.data <= o.data
