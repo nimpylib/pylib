@@ -30,11 +30,11 @@ proc `[]=`*[A, B](t: PyDict[A, B], key: A, val: sink B) =
 
 using self: PyDict
 
-template repr*(self: PyDict): string =
+template repr*(self: PyDict): string{.dirty.} =
   bind strIterImpl
   mixin repr
-  template strBy(k): string =
-    k.repr & ": " & self[k].repr
+  template strBy(d; k): string{.dirty.} =
+    k.repr & ": " & d[k].repr
   strIterImpl self, strBy, '{', '}'
 
 template `$`*(self: PyDict): string =

@@ -15,7 +15,9 @@ template strIterImpl*(it; strProc;
   for k in iter(it):
     if likely notFirst:
       result.add ", "
-    result.add strProc(k)
+    result.add:
+      when compiles(strProc(it, k)): strProc(it, k)
+      else: strProc(k)
     notFirst = true
   result.add stop
   result
