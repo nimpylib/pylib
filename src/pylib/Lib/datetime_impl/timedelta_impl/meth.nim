@@ -1,14 +1,17 @@
 
 import std/times
 import std/macros
+import std/hashes
 from std/math import floorDiv, floorMod, splitDecimal, round
 import ./decl
 
 using self: timedelta
 
 
-converter asDuration(self): Duration =
+func asDuration*(self): Duration =
+  ## EXT.
   Duration self
+converter cvtDuration(self): Duration = asDuration self
 
 func inMicroseconds(self): int64{.borrow.}
 
@@ -161,6 +164,12 @@ func seconds*(self): int64 =
 
 func microseconds*(self): int64 =
   self.asDuration.toParts()[Microseconds]
+
+func hash*(self): int =
+  let parts = self.asDuration.toParts()
+  hash(
+    (parts[Days], parts[Seconds], parts[Microseconds])
+  )
 
 func repr*(self): string =
   let parts = self.asDuration.toParts()
