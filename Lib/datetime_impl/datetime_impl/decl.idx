@@ -1,2 +1,4 @@
 nimTitle	decl	datetime_impl/datetime_impl/decl.html	module src/pylib/Lib/datetime_impl/datetime_impl/decl		0
-nim	datetime	datetime_impl/datetime_impl/decl.html#datetime	type datetime		5
+nim	datetime	datetime_impl/datetime_impl/decl.html#datetime	type datetime		6
+nim	newDatetime	datetime_impl/datetime_impl/decl.html#newDatetime,DateTime,tzinfo	proc newDatetime(dt: DateTime; tzinfo: tzinfo = nil): datetime		10
+nim	asNimDatetime	datetime_impl/datetime_impl/decl.html#asNimDatetime,datetime	proc asNimDatetime(self: datetime): DateTime		13

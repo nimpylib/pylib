@@ -1,0 +1,2 @@
+nimTitle	pyerr	datetime_impl/pyerr.html	module src/pylib/Lib/datetime_impl/pyerr		0
+nim	notImplErr	datetime_impl/pyerr.html#notImplErr.t	template notImplErr(meth)		5

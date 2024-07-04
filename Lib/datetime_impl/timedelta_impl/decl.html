@@ -51,7 +51,48 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#timedelta" title="timedelta = distinct Duration">timedelta</a></li>
+      <li><a class="reference" href="#timedelta" title="timedelta = ref object">timedelta</a></li>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
+    <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#TimeDeltaNone" title="TimeDeltaNone: timedelta = nil">TimeDeltaNone</a></li>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">asDuration
+  <li><a class="reference" href="#asDuration" title="asDuration(self: timedelta): Duration">asDuration(self: timedelta): Duration</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">inMicroseconds
+  <li><a class="reference" href="#inMicroseconds" title="inMicroseconds(self: timedelta): int64">inMicroseconds(self: timedelta): int64</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">newTimedelta
+  <li><a class="reference" href="#newTimedelta%2CDuration" title="newTimedelta(dur: Duration): timedelta">newTimedelta(dur: Duration): timedelta</a></li>
+
+</ul>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#16" id="66">Converters</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">toBool
+  <li><a class="reference" href="#toBool.c" title="toBool(self: timedelta): bool">toBool(self: timedelta): bool</a></li>
+
+</ul>
 
     </ul>
   </details>
@@ -73,7 +114,8 @@ Nim's Duration in std/times has the resolution of nanoseconds, but Python's time
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
     <div id="timedelta">
-  <dt><pre><a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a> <span class="Other">=</span> <span class="Keyword">distinct</span> <span class="Identifier">Duration</span></pre></dt>
+  <dt><pre><a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
+  </pre></dt>
   <dd>
     
     
@@ -85,6 +127,86 @@ Nim's Duration in std/times has the resolution of nanoseconds, but Python's time
 
   </dl>
 </div>
+<div class="section" id="10">
+  <h1><a class="toc-backref" href="#10">Consts</a></h1>
+  <dl class="item">
+    <div id="TimeDeltaNone">
+  <dt><pre><a href="decl.html#TimeDeltaNone"><span class="Identifier">TimeDeltaNone</span></a><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a> <span class="Other">=</span> <span class="Keyword">nil</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+  </dl>
+</div>
+<div class="section" id="12">
+  <h1><a class="toc-backref" href="#12">Procs</a></h1>
+  <dl class="item">
+    <div id="asDuration-procs-all">
+  <div id="asDuration">
+  <dt><pre><span class="Keyword">func</span> <a href="#asDuration"><span class="Identifier">asDuration</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Duration</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    EXT.
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="inMicroseconds-procs-all">
+  <div id="inMicroseconds">
+  <dt><pre><span class="Keyword">func</span> <a href="#inMicroseconds"><span class="Identifier">inMicroseconds</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="newTimedelta-procs-all">
+  <div id="newTimedelta,Duration">
+  <dt><pre><span class="Keyword">func</span> <a href="#newTimedelta%2CDuration"><span class="Identifier">newTimedelta</span></a><span class="Other">(</span><span class="Identifier">dur</span><span class="Other">:</span> <span class="Identifier">Duration</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+
+  </dl>
+</div>
+<div class="section" id="16">
+  <h1><a class="toc-backref" href="#16">Converters</a></h1>
+  <dl class="item">
+    <div id="toBool-converters-all">
+  <div id="toBool.c">
+  <dt><pre><span class="Keyword">converter</span> <a href="#toBool.c"><span class="Identifier">toBool</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/decl.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+
+  </dl>
+</div>
 
   </div>
 </div>
@@ -92,7 +214,7 @@ Nim's Duration in std/times has the resolution of nanoseconds, but Python's time
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-01 16:20:12 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-04 16:53:18 UTC</small>
       </div>
     </div>
   </div>

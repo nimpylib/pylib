@@ -1,1 +1,2 @@
 nimTitle	datetime	datetime.html	module src/pylib/Lib/datetime		0
+nim	`==`	datetime.html#==,tzinfo,NoneType	proc `==`(tzinfo: tzinfo; n: NoneType): bool		13

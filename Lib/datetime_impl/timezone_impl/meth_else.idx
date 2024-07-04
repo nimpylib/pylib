@@ -1,0 +1,11 @@
+nimTitle	meth_else	datetime_impl/timezone_impl/meth_else.html	module src/pylib/Lib/datetime_impl/timezone_impl/meth_else		0
+nim	tzname	datetime_impl/timezone_impl/meth_else.html#tzname.e,,	method tzname(self: tzinfo; dt: datetime): string		14
+nim	fromutc	datetime_impl/timezone_impl/meth_else.html#fromutc.e,,	method fromutc(self: tzinfo; dt: datetime): datetime		24
+nim	timezone	datetime_impl/timezone_impl/meth_else.html#timezone,timedelta	proc timezone(offset: timedelta): timezone		42
+nim	timezone	datetime_impl/timezone_impl/meth_else.html#timezone,timedelta,string	proc timezone(offset: timedelta; name: string): timezone		44
+nim	tzname	datetime_impl/timezone_impl/meth_else.html#tzname.e,,datetime	method tzname(self: timezone; _: datetime): string		50
+nim	fromutc	datetime_impl/timezone_impl/meth_else.html#fromutc.e,,_2	method fromutc(self: timezone; dt: datetime): datetime		52
+nim	`==`	datetime_impl/timezone_impl/meth_else.html#==,,timezone	proc `==`(self: timezone; o: timezone): bool		56
+nimgrp	timezone	datetime_impl/timezone_impl/meth_else.html#timezone-procs-all	proc		42
+nimgrp	fromutc	datetime_impl/timezone_impl/meth_else.html#fromutc-methods-all	method		24
+nimgrp	tzname	datetime_impl/timezone_impl/meth_else.html#tzname-methods-all	method		14

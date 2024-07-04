@@ -1,0 +1,15 @@
+nimTitle	decl	datetime_impl/timezone_impl/decl.html	module src/pylib/Lib/datetime_impl/timezone_impl/decl		0
+nim	tzinfo	datetime_impl/timezone_impl/decl.html#tzinfo	type tzinfo		8
+nim	timezone	datetime_impl/timezone_impl/decl.html#timezone	type timezone		9
+nim	TzNone	datetime_impl/timezone_impl/decl.html#TzNone	const TzNone		13
+nim	isTzNone	datetime_impl/timezone_impl/decl.html#isTzNone,tzinfo	proc isTzNone(self: tzinfo): bool		14
+nim	offset	datetime_impl/timezone_impl/decl.html#offset,timezone	proc offset(self: timezone): timedelta		16
+nim	hash	datetime_impl/timezone_impl/decl.html#hash,timezone	proc hash(self: timezone): int		18
+nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta	proc newPyTimezone(offset: timedelta): timezone		20
+nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta,string	proc newPyTimezone(offset: timedelta; name: string): timezone		22
+nim	toNimTimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone.e,tzinfo	method toNimTimezone(self: tzinfo): Timezone		27
+nim	toNimTimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone.e,timezone	method toNimTimezone(self: timezone): Timezone		31
+nim	repr	datetime_impl/timezone_impl/decl.html#repr,timezone	proc repr(self: timezone): string		57
+nim	`$`	datetime_impl/timezone_impl/decl.html#$,timezone	proc `$`(self: timezone): string		76
+nimgrp	newpytimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone-procs-all	proc		20
+nimgrp	tonimtimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone-methods-all	method		27
