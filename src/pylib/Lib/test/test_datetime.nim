@@ -1,10 +1,6 @@
 
 import ./import_utils
-importPyLib()
-pyimport datetime
-
-import std/unittest
-
+importTestPyLib datetime
 
 test "utcoffset":
   let

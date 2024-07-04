@@ -2,5 +2,5 @@
 nimcache/
 /docs/
 tester*
-/tempfiletest
+tempfiletest
 /tools/bin/

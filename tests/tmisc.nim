@@ -1,4 +1,3 @@
-import std/times
 
 {.experimental: "forLoopMacros".}
 
