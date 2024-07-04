@@ -3,6 +3,8 @@
 #  we shall mainly focus on the cases where Python differs Nim,
 #  and leave the rest to Nim's own stdlib test.
 
+import std/macros
+
 import pylib/Lib/[random, string, math]
 
 test "random":
@@ -44,5 +46,10 @@ when not defined(js):
 const
   SourceDir = currentSourcePath().parentDir
   LibTestMain = SourceDir /../ "src/pylib/Lib/test/main.nim"
+macro importTestLibMain =
+  result = nnkImportStmt.newTree newLit LibTestMain
+
+importTestLibMain()
 test "Lib/test":
-  check 0 == execShellCmd("nim r --hints:off " & LibTestMain)
+  testAll()
+
