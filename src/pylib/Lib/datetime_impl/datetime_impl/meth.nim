@@ -76,7 +76,7 @@ func outOfDay(delta: timedelta): bool =
     # times.nim(417, 65)
     # Error: illegal conversion from '86400000000' to '[-2147483648..2147483647]'
     const OneDayUs = convert(Days, Milliseconds, 1)
-    abs(delta.inMicroseconds) div 1000 > OneDayUs:
+    abs(delta.inMicroseconds) div 1000 > OneDayUs
   else:
     const OneDayMs = convert(Days, Microseconds, 1)
     abs(delta.inMicroseconds) > OneDayMs
