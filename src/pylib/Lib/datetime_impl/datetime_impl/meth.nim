@@ -2,6 +2,10 @@
 import std/macros
 import std/times
 import ./decl
+import ../timedelta_impl/decl
+import ../timezone_impl/[
+  decl, meth_by_datetime
+]
 
 macro getRangeStr(typ: typedesc): string =
   let tNode = typ.getType[1]
@@ -36,8 +40,8 @@ template chkSto(x: typed, aliasX: untyped) = chkSto(x, aliasX, catRange(x))
 # when `except RangeDefect`, a exception is raised, so the routinue just stops 
 # so this is safe.
 proc datetime*(year, month, day: int,
-  hour=0, minute=0, second=0, microsecond=0, 
-  #tzinfo=None, *, fold=0
+  hour=0, minute=0, second=0, microsecond=0,
+  tzinfo: tzinfo = nil, # *, fold=0
 ): datetime{.raises: [ValueError].} =
   runnableExamples:
     let dt = datetime(1900, 2, 28)
@@ -54,9 +58,32 @@ proc datetime*(year, month, day: int,
   chkSto second, s
   let nanosecond = microsecond * 1000
   chkSto nanosecond, ns
-  result = decl.datetime times.dateTime(
-    year, mon, d, h, min, s, ns
-  )
+  
+  result = newDatetime(times.dateTime(
+    year, mon, d, h, min, s, ns, 
+      zone = if tzinfo.isTzNone: local() else: tzinfo.toNimTimezone
+  ), tzinfo)
 
 {.pop.}
 
+
+using self: datetime
+
+const OneDayMs = convert(Days, Microseconds, 1)
+template chkOneDay(delta: timedelta) =
+  if abs(delta.inMicroseconds) > OneDayMs:
+    raise newException(ValueError, "offset must be a timedelta" &
+                         " strictly between -timedelta(hours=24) and" &
+                         " timedelta(hours=24).")
+
+func utcoffset*(self): timedelta =
+  if self.tzinfo.isTzNone: return TimeDeltaNone
+  result = self.tzinfo.utcoffset(self)
+  result.chkOneDay()
+func dst*(self): timedelta =
+  if self.tzinfo.isTzNone: return TimeDeltaNone
+  result = self.tzinfo.dst(self)
+  result.chkOneDay()
+
+proc `+`*(self; delta: timedelta): datetime =
+  newDatetime(self.asNimDatetime + delta.asDuration)

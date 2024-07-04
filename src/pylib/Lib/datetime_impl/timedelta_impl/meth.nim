@@ -7,14 +7,6 @@ import ./decl
 
 using self: timedelta
 
-
-func asDuration*(self): Duration =
-  ## EXT.
-  Duration self
-converter cvtDuration(self): Duration = asDuration self
-
-func inMicroseconds(self): int64{.borrow.}
-
 func `==`*(self; o: timedelta): bool =
   self.inMicroseconds == o.inMicroseconds
 
@@ -45,7 +37,7 @@ func timedelta*(days: int64, seconds=0'i64, microseconds=0'i64,
     eq(td(seconds=1), td(milliseconds=1000))
     eq(td(milliseconds=1), td(microseconds=1000))
 
-  decl.timedelta initDuration(
+  newTimedelta initDuration(
     days=days, seconds=seconds,
     microseconds=microseconds, milliseconds=milliseconds,
     minutes=minutes, hours=hours,
@@ -53,12 +45,14 @@ func timedelta*(days: int64, seconds=0'i64, microseconds=0'i64,
   )
 
 type
-  IntS = int  ## int for sofar
+  IntS = int64  ## int for sofar
   FactorT = int64
-func fromMicroseconds(us: IntS): timedelta =
-  decl.timedelta initDuration(microseconds=us)
+func fromMicroseconds(us: int64): timedelta =
+  newTimedelta initDuration(microseconds=us)
 
-type FI* = float|int64
+type
+  I_in_FI = int64
+  FI* = float|I_in_FI
 func accum(
   sofar: IntS, ## sofar is the # of microseconds accounted for so far
   num: FI,
@@ -105,8 +99,12 @@ macro accumByFactors(x: IntS; leftover: float; facs: varargs[untyped]) =
       key = kw[0]
       val = kw[1]
     result.add quote do:
+      when `key` is SomeInteger:
+        let nkey = I_in_FI `key`
+      else:
+        let nkey = `key`
       if `key` != 0:
-        `x` = `x`.accum(`key`, FactorT `val`, `leftover`)
+        `x` = accum(`x`, nkey, FactorT `val`, `leftover`)
 
 const e6int = 1_000_000
 
@@ -212,12 +210,13 @@ func total_seconds*(self): float =
   self.inMicroseconds.float / 1e6
 
 template bwBin(op){.dirty.} =
-  func op*(a, b: timedelta): timedelta{.borrow.}
+  func op*(a, b: timedelta): timedelta =
+    newTimedelta op(a.asDuration, b.asDuration)
 bwBin `+`
 bwBin `-`
 
-func `*`*(self; i: int64): timedelta{.borrow.}
-func `*`*(i: int64, self): timedelta{.borrow.}
+func `*`*(self; i: int64): timedelta = newTimedelta(self.asDuration * i)
+func `*`*(i: int64, self): timedelta = self * i
 
 template to_even(result) =
     if result > 0: result.inc
@@ -262,7 +261,7 @@ func `*`*(f: float, self): timedelta = self * f
 
 func `+`*(self): timedelta = self
 template bwUnary(op){.dirty.} =
-  func op*(self): timedelta{.borrow.}
+  func op*(self): timedelta = newTimedelta op(self.asDuration)
 
 bwUnary abs
 
@@ -276,13 +275,16 @@ func `/`*(self; i: int|float): timedelta =
   )
 
 func `/`*(self; t: timedelta): float =
-  self.inMicroseconds / t.inMicroseconds
+  when compiles(self.inMicroseconds / t.inMicroseconds):
+    self.inMicroseconds / t.inMicroseconds
+  else:
+    self.inMicroseconds.float / t.inMicroseconds.float
 
 func `//`*(self; i: int): timedelta =
   fromMicroseconds floorDiv(self.inMicroseconds, i)
 
 func `//`*(self; t: timedelta): int =
-  floorDiv self.inMicroseconds, t.inMicroseconds
+  floorDiv(self.inMicroseconds, t.inMicroseconds).int
 
 func `%`*(self, t: timedelta): timedelta =
   fromMicroseconds floorMod(self.inMicroseconds, t.inMicroseconds)

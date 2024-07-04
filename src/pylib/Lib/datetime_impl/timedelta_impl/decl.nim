@@ -10,4 +10,19 @@
 import std/times
 
 type
-  timedelta* = distinct Duration
+  timedelta* = ref object
+    data: Duration
+
+const TimeDeltaNone*: timedelta = nil
+
+func newTimedelta*(dur: Duration): timedelta = timedelta(data: dur) 
+
+using self: timedelta
+func asDuration*(self): Duration =
+  ## EXT.
+  self.data
+
+func inMicroseconds*(self): int64 = self.data.inMicroseconds
+
+converter toBool*(self): bool =
+  self.inMicroseconds == 0
