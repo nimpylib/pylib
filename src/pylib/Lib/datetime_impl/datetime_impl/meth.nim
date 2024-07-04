@@ -69,9 +69,21 @@ proc datetime*(year, month, day: int,
 
 using self: datetime
 
-const OneDayMs = convert(Days, Microseconds, 1)
+func outOfDay(delta: timedelta): bool =
+  when defined(js):
+    # JS backend does not reach `Microseconds` fineness.
+    # NIM-BUG: `convert(Days, Microseconds, 1)`:
+    # times.nim(417, 65)
+    # Error: illegal conversion from '86400000000' to '[-2147483648..2147483647]'
+    const OneDayUs = convert(Days, Milliseconds, 1)
+    abs(delta.inMicroseconds) div 1000 > OneDayUs:
+  else:
+    const OneDayMs = convert(Days, Microseconds, 1)
+    abs(delta.inMicroseconds) > OneDayMs
+
 template chkOneDay(delta: timedelta) =
-  if abs(delta.inMicroseconds) > OneDayMs:
+  bind outOfDay
+  if outOfDay delta:
     raise newException(ValueError, "offset must be a timedelta" &
                          " strictly between -timedelta(hours=24) and" &
                          " timedelta(hours=24).")
