@@ -48,7 +48,7 @@ template timeit*(stmt; setup; number=1000000): float =
     else: exec stmt
   let delta = now() - started
 
-  delta.inNanoseconds.float / 1e9
+  inNanoseconds(delta).float / 1e9
 
 template timeit*(stmt; number=1000000): float =
   runnableExamples:
