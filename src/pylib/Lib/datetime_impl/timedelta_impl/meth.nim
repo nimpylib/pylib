@@ -1,14 +1,10 @@
 
 import std/times
 import std/macros
-import std/hashes
 from std/math import floorDiv, floorMod, splitDecimal, round
 import ./decl
 
 using self: timedelta
-
-func `==`*(self; o: timedelta): bool =
-  self.inMicroseconds == o.inMicroseconds
 
 func timedelta*(days: int64, seconds=0'i64, microseconds=0'i64,
     milliseconds=0'i64, minutes=0'i64, hours=0'i64, weeks=0'i64): timedelta =
@@ -162,12 +158,6 @@ func seconds*(self): int64 =
 
 func microseconds*(self): int64 =
   self.asDuration.toParts()[Microseconds]
-
-func hash*(self): int =
-  let parts = self.asDuration.toParts()
-  hash(
-    (parts[Days], parts[Seconds], parts[Microseconds])
-  )
 
 func repr*(self): string =
   let parts = self.asDuration.toParts()

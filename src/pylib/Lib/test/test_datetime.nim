@@ -9,7 +9,7 @@ let
   DAY = timedelta(days=1)
   DT = datetime(1970, 1, 1)
 
-template assertEqual(a, b) = check a == b 
+template assertEqual(a, b) = check a == b
 test "datetime.utcoffset":
   def test_utcoffset():
     dummy = DT

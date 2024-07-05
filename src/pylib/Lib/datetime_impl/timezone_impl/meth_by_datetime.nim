@@ -1,7 +1,7 @@
 ## meth required by datetime class
 
 import ../timedelta_impl/decl
-import ../datetime_impl/decl
+import ../datetime_impl/inner_decl
 import ./decl
 import ../pyerr
 
@@ -13,3 +13,6 @@ method dst*(self: tzinfo; dt): timedelta{.base.} = notImplErr(tzinfo.dst)
 method dst*(self: timezone; _: datetime): timedelta =
   ## returns nil
   nil
+
+method tzname*(self: tzinfo; dt: datetime): string{.base.} = notImplErr(tzinfo.tzname)
+method tzname*(self: timezone; _: datetime): string = $self

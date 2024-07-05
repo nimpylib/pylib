@@ -35,13 +35,19 @@ macro catRange(x): untyped =
 
 template chkSto(x: typed, aliasX: untyped) = chkSto(x, aliasX, catRange(x))
 
+func checkFold(fold: int): bool{.raises: [ValueError].} =
+  if fold == 1: result = true
+  elif fold == 0: result = false
+  else:
+    raiseValueError("fold must be either 0 or 1")
+
 {.push warning[ProveInit]: off.}
 # for MonthdayRange:
 # when `except RangeDefect`, a exception is raised, so the routinue just stops 
 # so this is safe.
 proc datetime*(year, month, day: int,
   hour=0, minute=0, second=0, microsecond=0,
-  tzinfo: tzinfo = nil, # *, fold=0
+  tzinfo: tzinfo = nil, fold=0
 ): datetime{.raises: [ValueError].} =
   runnableExamples:
     let dt = datetime(1900, 2, 28)
@@ -58,44 +64,27 @@ proc datetime*(year, month, day: int,
   chkSto second, s
   let nanosecond = microsecond * 1000
   chkSto nanosecond, ns
-  
+
   result = newDatetime(times.dateTime(
     year, mon, d, h, min, s, ns, 
-      zone = if tzinfo.isTzNone: local() else: tzinfo.toNimTimezone
-  ), tzinfo)
+      zone = dtNormTz tzinfo
+  ), tzinfo, fold.checkFold)
 
 {.pop.}
 
 
+
+func max*(_: typedesc[datetime]): datetime = datetime(9999, 12, 31, 23, 59, 59, 999999)
+func min*(_: typedesc[datetime]): datetime = datetime.datetime(1, 1, 1, 0, 0)
+func resolution*(_: typedesc[datetime]): timedelta = timedelta.resolution
+
+func today*(_: typedesc[datetime]): datetime = newDatetime now()
+func now*(_: typedesc[datetime], tzinfo: tzinfo = TzNone): datetime =
+  newDatetime(now(), tzinfo)
+
 using self: datetime
-
-func outOfDay(delta: timedelta): bool =
-  when defined(js):
-    # JS backend does not reach `Microseconds` fineness.
-    # NIM-BUG: `convert(Days, Microseconds, 1)`:
-    # times.nim(417, 65)
-    # Error: illegal conversion from '86400000000' to '[-2147483648..2147483647]'
-    const OneDayUs = convert(Days, Milliseconds, 1)
-    abs(delta.inMicroseconds) div 1000 > OneDayUs
-  else:
-    const OneDayMs = convert(Days, Microseconds, 1)
-    abs(delta.inMicroseconds) > OneDayMs
-
-template chkOneDay(delta: timedelta) =
-  bind outOfDay
-  if outOfDay delta:
-    raise newException(ValueError, "offset must be a timedelta" &
-                         " strictly between -timedelta(hours=24) and" &
-                         " timedelta(hours=24).")
-
-func utcoffset*(self): timedelta =
-  if self.tzinfo.isTzNone: return TimeDeltaNone
-  result = self.tzinfo.utcoffset(self)
-  result.chkOneDay()
-func dst*(self): timedelta =
-  if self.tzinfo.isTzNone: return TimeDeltaNone
-  result = self.tzinfo.dst(self)
-  result.chkOneDay()
-
 proc `+`*(self; delta: timedelta): datetime =
-  newDatetime(self.asNimDatetime + delta.asDuration)
+  newDatetime(self.asNimDatetime + delta.asDuration, self.tzinfo)
+
+proc `-`*(self; delta: timedelta): datetime =
+  newDatetime(self.asNimDatetime - delta.asDuration, self.tzinfo)

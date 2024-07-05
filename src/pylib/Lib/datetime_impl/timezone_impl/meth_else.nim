@@ -11,8 +11,6 @@ using dt: datetime
 
 using self: tzinfo
 
-method tzname*(self; dt): string{.base.} = notImplErr(tzinfo.tzname)
-
 template chk_tzinfo(self) =
   if self.tzinfo != self:
     raise newException(ValueError, "fromutc: dt.tzinfo is not self")
@@ -47,7 +45,6 @@ func timezone*(offset: timedelta; name: string): timezone =
 
 using self: timezone
 
-method tzname*(self; _: datetime): string = $self
 
 method fromutc*(self; dt): datetime = 
   self.chk_tzinfo()
