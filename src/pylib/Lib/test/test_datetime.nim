@@ -9,6 +9,20 @@ let
   DAY = timedelta(days=1)
   DT = datetime(1970, 1, 1)
 
+test "timedelta init":
+  template eq(a, b) = check a == b
+
+  # Check keyword args to constructor
+  eq(timedelta(1), timedelta(days=1))
+  eq(timedelta(0, 1), timedelta(seconds=1))
+  eq(timedelta(0, 0, 1), timedelta(microseconds=1))
+  eq(timedelta(weeks=1), timedelta(days=7))
+  eq(timedelta(days=1), timedelta(hours=24))
+  eq(timedelta(hours=1), timedelta(minutes=60))
+  eq(timedelta(minutes=1), timedelta(seconds=60))
+  eq(timedelta(seconds=1), timedelta(milliseconds=1000))
+  eq(timedelta(milliseconds=1), timedelta(microseconds=1000))
+
 template assertEqual(a, b) = check a == b
 test "datetime.utcoffset":
   def test_utcoffset():

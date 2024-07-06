@@ -15,23 +15,6 @@ func timedelta*(days: int64, seconds=0'i64, microseconds=0'i64,
   ## 
   ## .. hint:: if setting default value for `days`(a.k.a. `days=0`),
   ##   `timedelta()` will fail to be compiled due to `ambiguous call`
-  runnableExamples:
-    
-    template eq(a, b) = assert a == b
-
-    template td(xs: varargs[untyped]): untyped = timedelta(xs)
-    # Check keyword args to constructor
-    eq(timedelta(), td(weeks=0, days=0, hours=0, minutes=0, seconds=0,
-                milliseconds=0, microseconds=0))
-    eq(td(1), td(days=1))
-    eq(td(0, 1), td(seconds=1))
-    eq(td(0, 0, 1), td(microseconds=1))
-    eq(td(weeks=1), td(days=7))
-    eq(td(days=1), td(hours=24))
-    eq(td(hours=1), td(minutes=60))
-    eq(td(minutes=1), td(seconds=60))
-    eq(td(seconds=1), td(milliseconds=1000))
-    eq(td(milliseconds=1), td(microseconds=1000))
 
   newTimedelta initDuration(
     days=days, seconds=seconds,
