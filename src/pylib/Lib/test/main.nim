@@ -1,6 +1,7 @@
 
 import std/strutils
-const jsExcludes = "skipJs.txt".slurp.strip().splitLines()
+when defined(js):
+  const jsExcludes = "skipJs.txt".slurp.strip().splitLines()
 
 import std/macros
 import std/os
@@ -20,6 +21,7 @@ static:
 
 macro testAll* =
   ## .. warning:: this causes `{.warning[UnusedImport]: off.}`
+  ## .. hint:: this generates `import` stmt, thus must be on top level
   result = newNimNode nnkImportStmt
   for i in allTests:
     let strNode = newLit i

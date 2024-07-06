@@ -50,6 +50,5 @@ macro importTestLibMain =
   result = nnkImportStmt.newTree newLit LibTestMain
 
 importTestLibMain()
-test "Lib/test":
-  testAll()
+testAll()
 
