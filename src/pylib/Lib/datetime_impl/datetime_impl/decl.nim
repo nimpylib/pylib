@@ -49,19 +49,10 @@ func tzname*(self): string =
 proc hashImpl(self): int =
   let self0 =
     if self.isfold:
-      let dt = self.asNimDatetime
-      newDatetime(
-        dateTime(
-          self.year,
-          dt.month, dt.monthday,
-          dt.hour, dt.minute, dt.second,
-          self.microsecond,
-          zone = dtNormTz self.tzinfo
-        ), self.tzinfo, false
-      )
+      newDatetime(self, isfold=false)
     else: self
   let offset = self0.utcoffset()
-  if offset == TimeDeltaNone:
+  if offset.isTimeDeltaNone:
     result = hash [
           self.year,
           self.month, self.day,
@@ -72,8 +63,8 @@ proc hashImpl(self): int =
       self.year, self.month, self.day)
     let seconds = self.hour * 3600 +
                   self.minute * 60 + self.second
-    let temp1 = timedelta(days=days, seconds=seconds,
-                microseconds=self.microsecond)
+    let temp1 = newTimedelta(days=days, seconds=seconds,
+                  microseconds=self.microsecond, true)
     let temp2 = temp1 - offset
     result = hash temp2
 

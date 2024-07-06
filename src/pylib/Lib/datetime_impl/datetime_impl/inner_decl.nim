@@ -35,7 +35,19 @@ wrap minute
 wrap second
 template ns2us(ns): untyped = ns div 1000
 wrap microsecond, nanosecond, ns2us
+func fold*(self): int = int self.isfold
 
+proc newDatetime*(self: datetime,
+    tzinfo: tzinfo = self.tzinfo, isfold = self.isfold): datetime =
+  newDatetime(
+    dateTime(
+      self.dt.year,
+      self.dt.month, self.dt.monthday,
+      self.dt.hour, self.dt.minute, self.dt.second,
+      self.microsecond,
+      zone = dtNormTz tzinfo
+    ), tzinfo, isfold
+  )
 
 func hashcode*(self): int = self.hashcode
 func `hashcode=`*(self; h: int) = self.hashcode = h

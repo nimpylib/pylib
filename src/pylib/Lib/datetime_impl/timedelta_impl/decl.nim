@@ -16,8 +16,15 @@ type
     hashcode: int
 
 const TimeDeltaNone*: timedelta = nil
+func isTimeDeltaNone*(self: timedelta): bool = self == nil 
 
 func newTimedelta*(dur: Duration): timedelta = timedelta(data: dur) 
+func newTimedelta*(days, seconds, microseconds: int,
+    normalize = true): timedelta =
+  ## CPython's new_delta C-API (private)
+  # TODO: opt for normalize == false
+  timedelta(data:
+    initDuration(days=days, seconds=seconds, microseconds=microseconds))
 
 using self: timedelta
 func asDuration*(self): Duration =
@@ -41,4 +48,8 @@ converter toBool*(self): bool =
   self.inMicroseconds == 0
 
 func `==`*(self; o: timedelta): bool =
+  # required by datetime_impl/meth
+  if self.isTimeDeltaNone and o.isTimeDeltaNone:
+    # do not write sth like `self == nil`, it deadloops!
+    return true
   self.inMicroseconds == o.inMicroseconds
