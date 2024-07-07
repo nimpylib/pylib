@@ -2,7 +2,7 @@
 
 import ../pyerr
 import ./decl
-import ../timedelta_impl/[decl, meth]
+import ../timedelta_impl/decl
 import ../datetime_impl/[decl, meth]
 
 

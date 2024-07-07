@@ -79,6 +79,7 @@ const in_aix = defined(aix)
 
 proc nTime_localtime*(t: time_t): Tm =
   var t = t
+  result.tm_mday = 1  # a workaround for compile error
   # as localtime_*'s first param is const pointer,
   # so it's fine to pass a local data's pointer
   when defined(windows):
@@ -100,6 +101,7 @@ proc nTime_localtime*(t: time_t): Tm =
 
 proc nTime_gmtime*(t: time_t): Tm =
   var t = t
+  result.tm_mday = 1  # a wrokaround for compile error
   # as gmtime_*'s first param is const pointer,
   # so it's fine to pass a local data's pointer
   when defined(windows):
