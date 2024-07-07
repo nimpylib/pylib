@@ -258,3 +258,11 @@ func divmod*(t1, t2: timedelta): (int64, timedelta) =
   (floorDiv(us1, us2),
    fromMicroseconds floorMod(us1, us2))
 
+using mself: var timedelta
+template iop(Iop, op){.dirty.} =
+  func Iop*(mself; t: timedelta) =
+    mself = op(mself, t)
+    mself.flush_hash()
+
+iop `+=`, `+`
+iop `-=`, `-`

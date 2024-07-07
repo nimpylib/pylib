@@ -2,33 +2,17 @@
 # translated from Python/fileutils.c
 
 import ./wchar_t
+export Py_mbstowcs
 
-#[ size_t mbstowcs(
-  wchar_t * __restrict__ _Dest,
-  const char * __restrict__ _Source,size_t _MaxCount);
-]#
-proc mbstowcs(dest: ptr wchar_t, src: cstring, maxcount: csize_t): csize_t{.
-  importc, header: "<stdlib.h>".}
+const
+  Py_FORCE_UTF8_LOCALE* = defined(android) or defined(vxworks)  ##[
+    CPython/Include/pyport.h:
+    Use UTF-8 as the filesystem encoding.
+      See PyUnicode_DecodeFSDefaultAndSize(), PyUnicode_EncodeFSDefault(),
+      Py_DecodeLocale() and Py_EncodeLocale().]##
+  Py_FORCE_UTF8_FS_ENCODING* = Py_FORCE_UTF8_LOCALE or defined(macos)
 
-# mbstowcs() and mbrtowc() errors
-const DECODE_ERROR = cast[csize_t](-1)
-
-proc `[]`(p: ptr wchar_t, i: csize_t): wchar_t =
-  (cast[ptr wchar_t](cast[csize_t](p)+i))[]
-
-# _Py_mbstowcs L143
-proc Py_mbstowcs*(dest: ptr wchar_t; src: cstring; n: csize_t): csize_t =
-  var count: csize_t = mbstowcs(dest, src, n)
-  if dest != nil and count != DECODE_ERROR:
-    var i: csize_t = 0
-    while i < count:
-      var ch: wchar_t = dest[i]
-      if not is_valid_wide_char(ch):
-        return DECODE_ERROR
-      inc(i)
-  return count
-
-when not defined(Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
+when not (Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
   import ../private/encoding_norm
   import std/posix  # setlocale
 
@@ -60,7 +44,7 @@ when not defined(Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
       -1: unknown, need to call check_force_ascii() to get the value
   ]#
   var `PyRuntime.fileutils.force_ascii` = -1 # _PyRuntime.fileutils.force_ascii
-  template force_ascii: untyped = `PyRuntime.fileutils.force_ascii`
+  template force_ascii*: untyped = `PyRuntime.fileutils.force_ascii`
 
   proc check_force_ascii*(): bool =
     block noerror:

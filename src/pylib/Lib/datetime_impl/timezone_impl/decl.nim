@@ -48,6 +48,19 @@ method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
   )
 
 let utc_timezone = newPyTimezone(timedelta(0))
+template utc*(_: typedesc[timezone]): timezone =
+  ## timezone.utc
+  bind utc_timezone
+  utc_timezone
+
+type NimTimezoneProc = typeof(times.timezone)
+static: assert NimTimezoneProc is proc
+template utc*(_: NimTimezoneProc): timezone =
+  ## if `import std/times`,
+  ## timezone.utc may matches this.
+  bind utc_timezone
+  utc_timezone
+
 func is_const_utc(tz: timezone): bool =
   bind `==`, utc_timezone  # `==` for ref, cmp on addr
   # utc_timezone is immutable, accessing it is fine

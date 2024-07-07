@@ -1,6 +1,5 @@
 
 import std/times
-import ./calendar_utils
 import ../timezone_impl/decl
 
 type
@@ -9,6 +8,7 @@ type
     tzinfo*: tzinfo
     isfold: bool
     hashcode: int
+  PyDatetime* = datetime
 
 template dtNormTz*(tz: tzinfo): Timezone =
   if tz.isTzNone: local() else: tz.toNimTimezone

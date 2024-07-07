@@ -39,6 +39,11 @@ func hashImpl(self): int =
     (parts[Days], parts[Seconds], parts[Microseconds])
   )
 
+
+func flush_hash*(self) =
+  ## EXT. calculate hash whatever
+  self.hashcode = self.hashImpl()
+
 func hash*(self): int =
   if self.hashcode == -1:
     self.hashcode = self.hashImpl()
