@@ -147,7 +147,9 @@ proc local_timezone_from_local(local_dt: datetime): timezone =
   if seconds2 != seconds and (seconds2 > seconds) == bool(fold):
     seconds = seconds2
   
-  let timestamp = seconds - epoch
+  let
+    diff = seconds - epoch
+    timestamp = time_t(diff)
   return local_timezone_from_timestamp(timestamp)
 
 proc astimezone*(self: datetime; tz = TzNone): datetime =
