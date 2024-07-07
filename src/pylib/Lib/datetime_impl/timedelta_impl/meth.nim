@@ -90,17 +90,6 @@ const e6int = 1_000_000
 func timedelta*(
     days: FI = 0, seconds: FI = 0, microseconds: FI = 0,
     milliseconds: FI = 0, minutes: FI = 0, hours: FI = 0, weeks: FI = 0): timedelta =
-  runnableExamples:
-    template eq(a, b) = assert a == b
-    template td(xs: varargs[untyped]): untyped = timedelta(xs)
-    # from CPython/tests/datetimetester.py
-    eq(td(weeks=1.0/7), td(days=1))
-    eq(td(days=1.0/24), td(hours=1))
-    eq(td(hours=1.0/60), td(minutes=1))
-    eq(td(minutes=1.0/60), td(seconds=1))
-    eq(td(seconds=0.001), td(milliseconds=1))
-    eq(td(milliseconds=0.001), td(microseconds=1))
-
   var leftover_us = 0.0
   var x: IntS
   x.accumByFactors(leftover_us,

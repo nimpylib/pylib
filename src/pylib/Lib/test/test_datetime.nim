@@ -23,6 +23,16 @@ test "timedelta init":
   eq(timedelta(seconds=1), timedelta(milliseconds=1000))
   eq(timedelta(milliseconds=1), timedelta(microseconds=1000))
 
+test "timedelta float init":
+  template eq(a, b) = check a == b
+  # from CPython/tests/datetimetester.py
+  eq(timedelta(weeks=1.0/7), timedelta(days=1))
+  eq(timedelta(days=1.0/24), timedelta(hours=1))
+  eq(timedelta(hours=1.0/60), timedelta(minutes=1))
+  eq(timedelta(minutes=1.0/60), timedelta(seconds=1))
+  eq(timedelta(seconds=0.001), timedelta(milliseconds=1))
+  eq(timedelta(milliseconds=0.001), timedelta(microseconds=1))
+
 template assertEqual(a, b) = check a == b
 test "datetime.utcoffset":
   def test_utcoffset():
