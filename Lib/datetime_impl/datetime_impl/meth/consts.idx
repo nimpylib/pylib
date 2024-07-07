@@ -1,0 +1,4 @@
+nimTitle	consts	datetime_impl/datetime_impl/meth/consts.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/consts		0
+nim	max	datetime_impl/datetime_impl/meth/consts.html#max,typedesc[datetime]	proc max(_: typedesc[datetime]): datetime		7
+nim	min	datetime_impl/datetime_impl/meth/consts.html#min,typedesc[datetime]	proc min(_: typedesc[datetime]): datetime		8
+nim	resolution	datetime_impl/datetime_impl/meth/consts.html#resolution,typedesc[datetime]	proc resolution(_: typedesc[datetime]): timedelta		9

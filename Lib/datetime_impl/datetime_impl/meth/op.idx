@@ -1,0 +1,8 @@
+nimTitle	op	datetime_impl/datetime_impl/meth/op.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/op		0
+nim	`+`	datetime_impl/datetime_impl/meth/op.html#+,,timedelta	proc `+`(self: datetime; delta: timedelta): datetime		14
+nim	`-`	datetime_impl/datetime_impl/meth/op.html#-,,timedelta	proc `-`(self: datetime; delta: timedelta): datetime		17
+nim	`-`	datetime_impl/datetime_impl/meth/op.html#-,,datetime	proc `-`(self: datetime; dt: datetime): timedelta		24
+nim	`==`	datetime_impl/datetime_impl/meth/op.html#==,,datetime	proc `==`(self: datetime; dt: datetime): bool		133
+nim	`<=`	datetime_impl/datetime_impl/meth/op.html#<=,,datetime	proc `<=`(self: datetime; dt: datetime): bool		134
+nim	`<`	datetime_impl/datetime_impl/meth/op.html#<,,datetime	proc `<`(self: datetime; dt: datetime): bool		135
+nimgrp	-	datetime_impl/datetime_impl/meth/op.html#--procs-all	proc		17

@@ -1,0 +1,2 @@
+nimTitle	obj_utils	datetime_impl/obj_utils.html	module src/pylib/Lib/datetime_impl/obj_utils		0
+nim	`@=`	datetime_impl/obj_utils.html#@=,ref.T,ref.T	proc `@=`[T](p1, p2: ref T): bool		3

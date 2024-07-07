@@ -1,0 +1,4 @@
+nimTitle	fileutils	_._/Python/fileutils.html	module src/pylib/Python/fileutils		0
+nim	Py_DecodeLocaleEx	_._/Python/fileutils.html#Py_DecodeLocaleEx,cstring,ptr.wchar_t,ptr.csize_t,cstring,bool,Py_error_handler	proc Py_DecodeLocaleEx(arg: cstring; wstr: var ptr wchar_t; wlen: ptr csize_t;\n                  reason: var cstring; current_locale: bool;\n                  errors: Py_error_handler): int		179
+nim	Utf8	_._/Python/fileutils.html#Utf8	const Utf8		236
+nim	Py_GetLocaleEncoding	_._/Python/fileutils.html#Py_GetLocaleEncoding	proc Py_GetLocaleEncoding(): string		239

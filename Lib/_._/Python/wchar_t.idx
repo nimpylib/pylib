@@ -1,0 +1,18 @@
+nimTitle	wchar_t	_._/Python/wchar_t.html	module src/pylib/Python/wchar_t		0
+nim	wchar_t	_._/Python/wchar_t.html#wchar_t	type wchar_t		5
+nim	ord	_._/Python/wchar_t.html#ord,wchar_t	proc ord(wc: wchar_t): int		7
+nim	allocWcharArr	_._/Python/wchar_t.html#allocWcharArr.t,I	template allocWcharArr[I](n: I): ptr wchar_t		9
+nim	deallocWcArr	_._/Python/wchar_t.html#deallocWcArr.t,ptr.wchar_t	template deallocWcArr(p: ptr wchar_t)		11
+nim	mbstate_t	_._/Python/wchar_t.html#mbstate_t	object mbstate_t		14
+nim	Py_UNICODE_IS_SURROGATE	_._/Python/wchar_t.html#Py_UNICODE_IS_SURROGATE.t,wchar_t	template Py_UNICODE_IS_SURROGATE(ch: wchar_t): bool		18
+nim	is_valid_wide_char	_._/Python/wchar_t.html#is_valid_wide_char,wchar_t	proc is_valid_wide_char(ch: wchar_t): bool		26
+nim	HAVE_MBRTOWC	_._/Python/wchar_t.html#HAVE_MBRTOWC	const HAVE_MBRTOWC		55
+nim	DECODE_ERROR	_._/Python/wchar_t.html#DECODE_ERROR	const DECODE_ERROR		59
+nim	INCOMPLETE_CHARACTER	_._/Python/wchar_t.html#INCOMPLETE_CHARACTER	const INCOMPLETE_CHARACTER		60
+nim	`[]`	_._/Python/wchar_t.html#[],ptr.wchar_t,csize_t	proc `[]`(p: ptr wchar_t; i: csize_t): wchar_t		62
+nim	`[]`	_._/Python/wchar_t.html#[],ptr.wchar_t,int	proc `[]`(p: ptr wchar_t; i: int): wchar_t		64
+nim	`[]=`	_._/Python/wchar_t.html#[]=,ptr.wchar_t,csize_t,wchar_t	proc `[]=`(p: ptr wchar_t; i: csize_t; val: wchar_t)		67
+nim	inc	_._/Python/wchar_t.html#inc.t,ptr.wchar_t,int	template inc(p: var ptr wchar_t; i = 1)		69
+nim	Py_mbstowcs	_._/Python/wchar_t.html#Py_mbstowcs,ptr.wchar_t,cstring,csize_t	proc Py_mbstowcs(dest: ptr wchar_t; src: cstring; n: csize_t): csize_t		75
+nim	Py_mbrtowc	_._/Python/wchar_t.html#Py_mbrtowc,PWc,cstring,csize_t,mbstate_t	proc Py_mbrtowc(wc: PWc; src: cstring; n: csize_t; mbs: var mbstate_t): csize_t		87
+nimgrp	[]	_._/Python/wchar_t.html#[]-procs-all	proc		62

@@ -1,0 +1,7 @@
+nimTitle	force_ascii_utils	_._/Python/force_ascii_utils.html	module src/pylib/Python/force_ascii_utils		0
+nim	Py_FORCE_UTF8_LOCALE	_._/Python/force_ascii_utils.html#Py_FORCE_UTF8_LOCALE	const Py_FORCE_UTF8_LOCALE		8
+nim	Py_FORCE_UTF8_FS_ENCODING	_._/Python/force_ascii_utils.html#Py_FORCE_UTF8_FS_ENCODING	const Py_FORCE_UTF8_FS_ENCODING		13
+nim	force_ascii	_._/Python/force_ascii_utils.html#force_ascii.t	template force_ascii(): untyped		47
+nim	check_force_ascii	_._/Python/force_ascii_utils.html#check_force_ascii	proc check_force_ascii(): bool		49
+nim	Py_GetForceASCII	_._/Python/force_ascii_utils.html#Py_GetForceASCII	proc Py_GetForceASCII(): bool		109
+nim	Py_ResetForceASCII	_._/Python/force_ascii_utils.html#Py_ResetForceASCII	proc Py_ResetForceASCII()		114

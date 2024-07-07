@@ -1,0 +1,6 @@
+nimTitle	unicode_err	pylib/pyerrors/unicode_err.html	module src/pylib/pyerrors/unicode_err		0
+nim	UnicodeError	pylib/pyerrors/unicode_err.html#UnicodeError	object UnicodeError		5
+nim	UnicodeDecodeError	pylib/pyerrors/unicode_err.html#UnicodeDecodeError	object UnicodeDecodeError		6
+nim	newUnicodeDecodeError	pylib/pyerrors/unicode_err.html#newUnicodeDecodeError,string,char,int,int,string	proc newUnicodeDecodeError(codec: string; src: char; start, stop: int; reason: string): ref UnicodeDecodeError		8
+nim	newUnicodeDecodeError	pylib/pyerrors/unicode_err.html#newUnicodeDecodeError,string,string,int,int,string	proc newUnicodeDecodeError(codec: string; src: string; start, stop: int;\n                      reason: string): ref UnicodeDecodeError		27
+nimgrp	newunicodedecodeerror	pylib/pyerrors/unicode_err.html#newUnicodeDecodeError-procs-all	proc		8

@@ -1,7 +1,13 @@
 nimTitle	decl	datetime_impl/timedelta_impl/decl.html	module src/pylib/Lib/datetime_impl/timedelta_impl/decl		0
-nim	timedelta	datetime_impl/timedelta_impl/decl.html#timedelta	type timedelta		13
-nim	TimeDeltaNone	datetime_impl/timedelta_impl/decl.html#TimeDeltaNone	const TimeDeltaNone		16
-nim	newTimedelta	datetime_impl/timedelta_impl/decl.html#newTimedelta,Duration	proc newTimedelta(dur: Duration): timedelta		18
-nim	asDuration	datetime_impl/timedelta_impl/decl.html#asDuration	proc asDuration(self: timedelta): Duration		21
-nim	inMicroseconds	datetime_impl/timedelta_impl/decl.html#inMicroseconds	proc inMicroseconds(self: timedelta): int64		25
-nim	toBool	datetime_impl/timedelta_impl/decl.html#toBool.c	converter toBool(self: timedelta): bool		27
+nim	timedelta	datetime_impl/timedelta_impl/decl.html#timedelta	type timedelta		14
+nim	TimeDeltaNone	datetime_impl/timedelta_impl/decl.html#TimeDeltaNone	const TimeDeltaNone		18
+nim	isTimeDeltaNone	datetime_impl/timedelta_impl/decl.html#isTimeDeltaNone,timedelta	proc isTimeDeltaNone(self: timedelta): bool		19
+nim	newTimedelta	datetime_impl/timedelta_impl/decl.html#newTimedelta,Duration	proc newTimedelta(dur: Duration): timedelta		21
+nim	newTimedelta	datetime_impl/timedelta_impl/decl.html#newTimedelta,int,int,int	proc newTimedelta(days, seconds, microseconds: int; normalize = true): timedelta		22
+nim	asDuration	datetime_impl/timedelta_impl/decl.html#asDuration	proc asDuration(self: timedelta): Duration		30
+nim	inMicroseconds	datetime_impl/timedelta_impl/decl.html#inMicroseconds	proc inMicroseconds(self: timedelta): int64		34
+nim	flush_hash	datetime_impl/timedelta_impl/decl.html#flush_hash	proc flush_hash(self: timedelta)		43
+nim	hash	datetime_impl/timedelta_impl/decl.html#hash	proc hash(self: timedelta): int		47
+nim	toBool	datetime_impl/timedelta_impl/decl.html#toBool.c	converter toBool(self: timedelta): bool		52
+nim	`==`	datetime_impl/timedelta_impl/decl.html#==,,timedelta	proc `==`(self: timedelta; o: timedelta): bool		55
+nimgrp	newtimedelta	datetime_impl/timedelta_impl/decl.html#newTimedelta-procs-all	proc		21

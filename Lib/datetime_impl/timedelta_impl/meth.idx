@@ -1,36 +1,36 @@
 nimTitle	meth	datetime_impl/timedelta_impl/meth.html	module src/pylib/Lib/datetime_impl/timedelta_impl/meth		0
-nim	`==`	datetime_impl/timedelta_impl/meth.html#==,,timedelta	proc `==`(self: timedelta; o: timedelta): bool		10
-nim	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta,int64,int64,int64,int64,int64,int64,int64	proc timedelta(days: int64; seconds = 0'i64; microseconds = 0'i64;\n          milliseconds = 0'i64; minutes = 0'i64; hours = 0'i64; weeks = 0'i64): timedelta		13
-nim	FI	datetime_impl/timedelta_impl/meth.html#FI	type FI		55
-nim	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta,FI,FI,FI,FI,FI,FI,FI	proc timedelta(days: FI = 0; seconds: FI = 0; microseconds: FI = 0;\n          milliseconds: FI = 0; minutes: FI = 0; hours: FI = 0; weeks: FI = 0): timedelta		111
-nim	min	datetime_impl/timedelta_impl/meth.html#min	proc min(_: _`gensym1644167251:type): timedelta		148
-nim	max	datetime_impl/timedelta_impl/meth.html#max	proc max(_: _`gensym1644167255:type): timedelta		151
-nim	resolution	datetime_impl/timedelta_impl/meth.html#resolution	proc resolution(_: _`gensym1644167259:type): timedelta		155
-nim	days	datetime_impl/timedelta_impl/meth.html#days	proc days(self: timedelta): int64		158
-nim	seconds	datetime_impl/timedelta_impl/meth.html#seconds	proc seconds(self: timedelta): int64		160
-nim	microseconds	datetime_impl/timedelta_impl/meth.html#microseconds	proc microseconds(self: timedelta): int64		163
-nim	hash	datetime_impl/timedelta_impl/meth.html#hash	proc hash(self: timedelta): int		166
-nim	repr	datetime_impl/timedelta_impl/meth.html#repr	proc repr(self: timedelta): string		172
-nim	`$`	datetime_impl/timedelta_impl/meth.html#$	proc `$`(self: timedelta): string		182
-nim	total_seconds	datetime_impl/timedelta_impl/meth.html#total_seconds	proc total_seconds(self: timedelta): float		208
-nim	`+`	datetime_impl/timedelta_impl/meth.html#+,timedelta,timedelta	proc `+`(a, b: timedelta): timedelta		215
-nim	`-`	datetime_impl/timedelta_impl/meth.html#-,timedelta,timedelta	proc `-`(a, b: timedelta): timedelta		216
-nim	`*`	datetime_impl/timedelta_impl/meth.html#*,,int64	proc `*`(self: timedelta; i: int64): timedelta		218
-nim	`*`	datetime_impl/timedelta_impl/meth.html#*,int64,	proc `*`(i: int64; self: timedelta): timedelta		219
-nim	`*`	datetime_impl/timedelta_impl/meth.html#*,,float	proc `*`(self: timedelta; f: float): timedelta		256
-nim	`*`	datetime_impl/timedelta_impl/meth.html#*,float,	proc `*`(f: float; self: timedelta): timedelta		259
-nim	`+`	datetime_impl/timedelta_impl/meth.html#+	proc `+`(self: timedelta): timedelta		262
-nim	abs	datetime_impl/timedelta_impl/meth.html#abs	proc abs(self: timedelta): timedelta		266
-nim	`-`	datetime_impl/timedelta_impl/meth.html#-	proc `-`(self: timedelta): timedelta		268
-nim	`/`	datetime_impl/timedelta_impl/meth.html#/,,	proc `/`(self: timedelta; i: int | float): timedelta		272
-nim	`/`	datetime_impl/timedelta_impl/meth.html#/,,timedelta	proc `/`(self: timedelta; t: timedelta): float		277
-nim	`//`	datetime_impl/timedelta_impl/meth.html#//,,int	proc `//`(self: timedelta; i: int): timedelta		283
-nim	`//`	datetime_impl/timedelta_impl/meth.html#//,,timedelta	proc `//`(self: timedelta; t: timedelta): int		286
-nim	`%`	datetime_impl/timedelta_impl/meth.html#%,timedelta,timedelta	proc `%`(self, t: timedelta): timedelta		289
-nim	divmod	datetime_impl/timedelta_impl/meth.html#divmod,timedelta,timedelta	proc divmod(t1, t2: timedelta): (int64, timedelta)		292
-nimgrp	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta-procs-all	proc		13
-nimgrp	/	datetime_impl/timedelta_impl/meth.html#/-procs-all	proc		272
-nimgrp	*	datetime_impl/timedelta_impl/meth.html#*-procs-all	proc		218
-nimgrp	-	datetime_impl/timedelta_impl/meth.html#--procs-all	proc		216
-nimgrp	+	datetime_impl/timedelta_impl/meth.html#+-procs-all	proc		215
-nimgrp	//	datetime_impl/timedelta_impl/meth.html#//-procs-all	proc		283
+nim	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta,int64,int64,int64,int64,int64,int64,int64	proc timedelta(days: int64; seconds = 0'i64; microseconds = 0'i64;\n          milliseconds = 0'i64; minutes = 0'i64; hours = 0'i64; weeks = 0'i64): timedelta		9
+nim	FI	datetime_impl/timedelta_impl/meth.html#FI	type FI		34
+nim	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta,FI,FI,FI,FI,FI,FI,FI	proc timedelta(days: FI = 0; seconds: FI = 0; microseconds: FI = 0;\n          milliseconds: FI = 0; minutes: FI = 0; hours: FI = 0; weeks: FI = 0): timedelta		90
+nim	min	datetime_impl/timedelta_impl/meth.html#min	proc min(_: _`gensym1677721678:type): timedelta		116
+nim	max	datetime_impl/timedelta_impl/meth.html#max	proc max(_: _`gensym1677721682:type): timedelta		119
+nim	resolution	datetime_impl/timedelta_impl/meth.html#resolution	proc resolution(_: _`gensym1677721686:type): timedelta		123
+nim	days	datetime_impl/timedelta_impl/meth.html#days	proc days(self: timedelta): int64		126
+nim	seconds	datetime_impl/timedelta_impl/meth.html#seconds	proc seconds(self: timedelta): int64		128
+nim	microseconds	datetime_impl/timedelta_impl/meth.html#microseconds	proc microseconds(self: timedelta): int64		131
+nim	repr	datetime_impl/timedelta_impl/meth.html#repr	proc repr(self: timedelta): string		134
+nim	`$`	datetime_impl/timedelta_impl/meth.html#$	proc `$`(self: timedelta): string		144
+nim	total_seconds	datetime_impl/timedelta_impl/meth.html#total_seconds	proc total_seconds(self: timedelta): float		170
+nim	`+`	datetime_impl/timedelta_impl/meth.html#+,timedelta,timedelta	proc `+`(a, b: timedelta): timedelta		177
+nim	`-`	datetime_impl/timedelta_impl/meth.html#-,timedelta,timedelta	proc `-`(a, b: timedelta): timedelta		178
+nim	`*`	datetime_impl/timedelta_impl/meth.html#*,,int64	proc `*`(self: timedelta; i: int64): timedelta		180
+nim	`*`	datetime_impl/timedelta_impl/meth.html#*,int64,	proc `*`(i: int64; self: timedelta): timedelta		181
+nim	`*`	datetime_impl/timedelta_impl/meth.html#*,,float	proc `*`(self: timedelta; f: float): timedelta		218
+nim	`*`	datetime_impl/timedelta_impl/meth.html#*,float,	proc `*`(f: float; self: timedelta): timedelta		221
+nim	`+`	datetime_impl/timedelta_impl/meth.html#+	proc `+`(self: timedelta): timedelta		224
+nim	abs	datetime_impl/timedelta_impl/meth.html#abs	proc abs(self: timedelta): timedelta		228
+nim	`-`	datetime_impl/timedelta_impl/meth.html#-	proc `-`(self: timedelta): timedelta		230
+nim	`/`	datetime_impl/timedelta_impl/meth.html#/,,	proc `/`(self: timedelta; i: int | float): timedelta		234
+nim	`/`	datetime_impl/timedelta_impl/meth.html#/,,timedelta	proc `/`(self: timedelta; t: timedelta): float		239
+nim	`//`	datetime_impl/timedelta_impl/meth.html#//,,int	proc `//`(self: timedelta; i: int): timedelta		245
+nim	`//`	datetime_impl/timedelta_impl/meth.html#//,,timedelta	proc `//`(self: timedelta; t: timedelta): int		248
+nim	`%`	datetime_impl/timedelta_impl/meth.html#%,timedelta,timedelta	proc `%`(self, t: timedelta): timedelta		251
+nim	divmod	datetime_impl/timedelta_impl/meth.html#divmod,timedelta,timedelta	proc divmod(t1, t2: timedelta): (int64, timedelta)		254
+nim	`+=`	datetime_impl/timedelta_impl/meth.html#+=,,timedelta	proc `+=`(mself; t: timedelta)		267
+nim	`-=`	datetime_impl/timedelta_impl/meth.html#-=,,timedelta	proc `-=`(mself; t: timedelta)		268
+nimgrp	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta-procs-all	proc		9
+nimgrp	/	datetime_impl/timedelta_impl/meth.html#/-procs-all	proc		234
+nimgrp	*	datetime_impl/timedelta_impl/meth.html#*-procs-all	proc		180
+nimgrp	-	datetime_impl/timedelta_impl/meth.html#--procs-all	proc		178
+nimgrp	//	datetime_impl/timedelta_impl/meth.html#//-procs-all	proc		245
+nimgrp	+	datetime_impl/timedelta_impl/meth.html#+-procs-all	proc		177

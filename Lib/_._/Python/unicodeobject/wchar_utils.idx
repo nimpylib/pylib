@@ -1,0 +1,7 @@
+nimTitle	wchar_utils	_._/Python/unicodeobject/wchar_utils.html	module src/pylib/Python/unicodeobject/wchar_utils		0
+nim	len	_._/Python/unicodeobject/wchar_utils.html#len	proc len(s): int		8
+nim	size	_._/Python/unicodeobject/wchar_utils.html#size	proc size(s): csize_t		12
+nim	items	_._/Python/unicodeobject/wchar_utils.html#items.i	iterator items(s): wchar_t		16
+nim	`$`	_._/Python/unicodeobject/wchar_utils.html#$	proc `$`(s; size = s.size): string		29
+nim	`$`	_._/Python/unicodeobject/wchar_utils.html#$,,int	proc `$`(s; le: int): string		34
+nimgrp	$	_._/Python/unicodeobject/wchar_utils.html#$-procs-all	proc		29

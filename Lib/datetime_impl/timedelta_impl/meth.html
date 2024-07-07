@@ -83,9 +83,17 @@
 <li><a class="reference" href="#%2B" title="`+`(self: timedelta): timedelta">`+`(self: timedelta): timedelta</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">+=
+  <li><a class="reference" href="#%2B%3D%2C%2Ctimedelta" title="`+=`(mself; t: timedelta)">`+=`(mself; t: timedelta)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">-
   <li><a class="reference" href="#-%2Ctimedelta%2Ctimedelta" title="`-`(a, b: timedelta): timedelta">`-`(a, b: timedelta): timedelta</a></li>
 <li><a class="reference" href="#-" title="`-`(self: timedelta): timedelta">`-`(self: timedelta): timedelta</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">-=
+  <li><a class="reference" href="#-%3D%2C%2Ctimedelta" title="`-=`(mself; t: timedelta)">`-=`(mself; t: timedelta)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">/
@@ -96,10 +104,6 @@
 <ul class="simple nested-toc-section">//
   <li><a class="reference" href="#%2F%2F%2C%2Cint" title="`//`(self: timedelta; i: int): timedelta">`//`(self: timedelta; i: int): timedelta</a></li>
 <li><a class="reference" href="#%2F%2F%2C%2Ctimedelta" title="`//`(self: timedelta; t: timedelta): int">`//`(self: timedelta; t: timedelta): int</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">==
-  <li><a class="reference" href="#%3D%3D%2C%2Ctimedelta" title="`==`(self: timedelta; o: timedelta): bool">`==`(self: timedelta; o: timedelta): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">abs
@@ -114,12 +118,8 @@
   <li><a class="reference" href="#divmod%2Ctimedelta%2Ctimedelta" title="divmod(t1, t2: timedelta): (int64, timedelta)">divmod(t1, t2: timedelta): (int64, timedelta)</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">hash
-  <li><a class="reference" href="#hash" title="hash(self: timedelta): int">hash(self: timedelta): int</a></li>
-
-</ul>
 <ul class="simple nested-toc-section">max
-  <li><a class="reference" href="#max" title="max(_: _`gensym1644167255:type): timedelta">max(_: _`gensym1644167255:type): timedelta</a></li>
+  <li><a class="reference" href="#max" title="max(_: _`gensym1677721682:type): timedelta">max(_: _`gensym1677721682:type): timedelta</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">microseconds
@@ -127,7 +127,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">min
-  <li><a class="reference" href="#min" title="min(_: _`gensym1644167251:type): timedelta">min(_: _`gensym1644167251:type): timedelta</a></li>
+  <li><a class="reference" href="#min" title="min(_: _`gensym1677721678:type): timedelta">min(_: _`gensym1677721678:type): timedelta</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">repr
@@ -135,7 +135,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">resolution
-  <li><a class="reference" href="#resolution" title="resolution(_: _`gensym1644167259:type): timedelta">resolution(_: _`gensym1644167259:type): timedelta</a></li>
+  <li><a class="reference" href="#resolution" title="resolution(_: _`gensym1677721686:type): timedelta">resolution(_: _`gensym1677721686:type): timedelta</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">seconds
@@ -184,8 +184,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -203,8 +203,8 @@
     <p>for timedelta.__str__</p>
 <p><tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="Identifier">D</span> <span class="Identifier">day</span><span class="Punctuation">[</span><span class="Identifier">s</span><span class="Punctuation">]</span><span class="Punctuation">,</span> <span class="Punctuation">]</span><span class="Punctuation">[</span><span class="Identifier">H</span><span class="Punctuation">]</span><span class="Identifier">H</span><span class="Punctuation">:</span><span class="Identifier">MM</span><span class="Punctuation">:</span><span class="Identifier">SS</span><span class="Punctuation">[</span><span class="Operator">.</span><span class="Identifier">UUUUUU</span><span class="Punctuation">]</span></span></tt>, where D is negative for negative t.</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L182" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L182" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L144" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L144" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -216,8 +216,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L289" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L289" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L251" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L251" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -230,8 +230,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L259" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L259" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L221" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L221" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -241,8 +241,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L219" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L219" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L181" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L181" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -252,8 +252,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L256" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L256" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L218" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L218" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -263,8 +263,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L218" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L218" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L180" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L180" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -276,8 +276,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L215" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L215" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L177" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L177" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -286,8 +286,21 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L262" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L262" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="+=-procs-all">
+  <div id="+=,,timedelta">
+  <dt><pre><span class="Keyword">func</span> <a href="#%2B%3D%2C%2Ctimedelta"><span class="Identifier">`+=`</span></a><span class="Other">(</span><span class="Identifier">mself</span><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L267" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L267" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -299,13 +312,26 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L216" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L216" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L178" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L178" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="-">
   <dt><pre><span class="Keyword">func</span> <a href="#-"><span class="Identifier">`-`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L230" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L230" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="-=-procs-all">
+  <div id="-=,,timedelta">
+  <dt><pre><span class="Keyword">func</span> <a href="#-%3D%2C%2Ctimedelta"><span class="Identifier">`-=`</span></a><span class="Other">(</span><span class="Identifier">mself</span><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -322,8 +348,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L272" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L272" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -333,8 +359,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L277" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L277" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L239" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L239" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -347,8 +373,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L283" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L283" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L245" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L245" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -358,22 +384,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L286" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L286" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="==-procs-all">
-  <div id="==,,timedelta">
-  <dt><pre><span class="Keyword">func</span> <a href="#%3D%3D%2C%2Ctimedelta"><span class="Identifier">`==`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L248" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L248" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -385,8 +397,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L266" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L266" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L228" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L228" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -398,8 +410,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L158" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L158" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L126" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L126" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -412,21 +424,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L292" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L292" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="hash-procs-all">
-  <div id="hash">
-  <dt><pre><span class="Keyword">func</span> <a href="#hash"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L166" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L166" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L254" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L254" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -434,12 +433,12 @@
 </div>
 <div id="max-procs-all">
   <div id="max">
-  <dt><pre><span class="Keyword">func</span> <a href="#max"><span class="Identifier">max</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1644167255:type</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#max"><span class="Identifier">max</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1677721682:type</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L151" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L151" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L119" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L119" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -451,8 +450,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L163" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L163" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L131" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L131" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -460,12 +459,12 @@
 </div>
 <div id="min-procs-all">
   <div id="min">
-  <dt><pre><span class="Keyword">func</span> <a href="#min"><span class="Identifier">min</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1644167251:type</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#min"><span class="Identifier">min</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1677721678:type</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L148" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L148" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L116" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L116" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -477,8 +476,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L172" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L172" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L134" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L134" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -486,12 +485,12 @@
 </div>
 <div id="resolution-procs-all">
   <div id="resolution">
-  <dt><pre><span class="Keyword">func</span> <a href="#resolution"><span class="Identifier">resolution</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1644167259:type</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#resolution"><span class="Identifier">resolution</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1677721686:type</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timedelta"><span class="Identifier">timedelta</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L155" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L155" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L123" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L123" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -503,8 +502,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L160" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L160" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L128" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L128" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -518,18 +517,8 @@
   <dd>
     
     
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">template</span> <span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">)</span> <span class="Operator">=</span> <span class="Identifier">assert</span> <span class="Identifier">a</span> <span class="Operator">==</span> <span class="Identifier">b</span>
-<span class="Keyword">template</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">xs</span><span class="Punctuation">:</span> <span class="Identifier">varargs</span><span class="Punctuation">[</span><span class="Identifier">untyped</span><span class="Punctuation">]</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">untyped</span> <span class="Operator">=</span> <span class="Identifier">timedelta</span><span class="Punctuation">(</span><span class="Identifier">xs</span><span class="Punctuation">)</span>
-<span class="Comment"># from CPython/tests/datetimetester.py</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">weeks</span><span class="Operator">=</span><span class="FloatNumber">1.0</span><span class="Operator">/</span><span class="DecNumber">7</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">days</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">days</span><span class="Operator">=</span><span class="FloatNumber">1.0</span><span class="Operator">/</span><span class="DecNumber">24</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">hours</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">hours</span><span class="Operator">=</span><span class="FloatNumber">1.0</span><span class="Operator">/</span><span class="DecNumber">60</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">minutes</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">minutes</span><span class="Operator">=</span><span class="FloatNumber">1.0</span><span class="Operator">/</span><span class="DecNumber">60</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">seconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">seconds</span><span class="Operator">=</span><span class="FloatNumber">0.001</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">milliseconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">milliseconds</span><span class="Operator">=</span><span class="FloatNumber">0.001</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">microseconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L111" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L111" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L90" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L90" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -544,25 +533,8 @@
 <div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
 if setting default value for <tt class="docutils literal"><span class="pre"><span class="Identifier">days</span></span></tt>(a.k.a. <tt class="docutils literal"><span class="pre"><span class="Identifier">days</span><span class="Operator">=</span><span class="DecNumber">0</span></span></tt>), <tt class="docutils literal"><span class="pre"><span class="Identifier">timedelta</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> will fail to be compiled due to <tt class="docutils literal"><span class="pre"><span class="Identifier">ambiguous</span> <span class="Identifier">call</span></span></tt></div>
 
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing">
-<span class="Keyword">template</span> <span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">)</span> <span class="Operator">=</span> <span class="Identifier">assert</span> <span class="Identifier">a</span> <span class="Operator">==</span> <span class="Identifier">b</span>
-
-<span class="Keyword">template</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">xs</span><span class="Punctuation">:</span> <span class="Identifier">varargs</span><span class="Punctuation">[</span><span class="Identifier">untyped</span><span class="Punctuation">]</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">untyped</span> <span class="Operator">=</span> <span class="Identifier">timedelta</span><span class="Punctuation">(</span><span class="Identifier">xs</span><span class="Punctuation">)</span>
-<span class="Comment"># Check keyword args to constructor</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">timedelta</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">weeks</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="Identifier">days</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="Identifier">hours</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="Identifier">minutes</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="Identifier">seconds</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">,</span>
-            <span class="Identifier">milliseconds</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="Identifier">microseconds</span><span class="Operator">=</span><span class="DecNumber">0</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">days</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">seconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="DecNumber">0</span><span class="Punctuation">,</span> <span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">microseconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">weeks</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">days</span><span class="Operator">=</span><span class="DecNumber">7</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">days</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">hours</span><span class="Operator">=</span><span class="DecNumber">24</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">hours</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">minutes</span><span class="Operator">=</span><span class="DecNumber">60</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">minutes</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">seconds</span><span class="Operator">=</span><span class="DecNumber">60</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">seconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">milliseconds</span><span class="Operator">=</span><span class="DecNumber">1000</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
-<span class="Identifier">eq</span><span class="Punctuation">(</span><span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">milliseconds</span><span class="Operator">=</span><span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Identifier">td</span><span class="Punctuation">(</span><span class="Identifier">microseconds</span><span class="Operator">=</span><span class="DecNumber">1000</span><span class="Punctuation">)</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -574,8 +546,8 @@ if setting default value for <tt class="docutils literal"><span class="pre"><spa
   <dd>
     
     timedelta.total_seconds()
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L208" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L208" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L170" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timedelta_impl/meth.nim#L170" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -591,7 +563,7 @@ if setting default value for <tt class="docutils literal"><span class="pre"><spa
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-04 16:53:19 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-07 17:33:46 UTC</small>
       </div>
     </div>
   </div>

@@ -1,0 +1,2 @@
+nimTitle	hashImpl	datetime_impl/datetime_impl/meth/hashImpl.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/hashImpl		0
+nim	hash	datetime_impl/datetime_impl/meth/hashImpl.html#hash,datetime	proc hash(self: datetime): int		31

@@ -1,0 +1,2 @@
+nimTitle	locale_codec	_._/Python/unicodeobject/locale_codec.html	module src/pylib/Python/unicodeobject/locale_codec		0
+nim	PyUnicode_DecodeLocale	_._/Python/unicodeobject/locale_codec.html#PyUnicode_DecodeLocale,PyStrData,string	proc PyUnicode_DecodeLocale(str: PyStrData; errors: string): string		38

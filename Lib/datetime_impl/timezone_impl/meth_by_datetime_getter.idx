@@ -1,0 +1,10 @@
+nimTitle	meth_by_datetime_getter	datetime_impl/timezone_impl/meth_by_datetime_getter.html	module src/pylib/Lib/datetime_impl/timezone_impl/meth_by_datetime_getter		0
+nim	utcoffset	datetime_impl/timezone_impl/meth_by_datetime_getter.html#utcoffset.e,tzinfo,datetime	method utcoffset(self: tzinfo; dt: datetime): timedelta		7
+nim	utcoffset	datetime_impl/timezone_impl/meth_by_datetime_getter.html#utcoffset.e,timezone,datetime	method utcoffset(self: timezone; _: datetime): timedelta		8
+nim	dst	datetime_impl/timezone_impl/meth_by_datetime_getter.html#dst.e,tzinfo,datetime	method dst(self: tzinfo; dt: datetime): timedelta		10
+nim	dst	datetime_impl/timezone_impl/meth_by_datetime_getter.html#dst.e,timezone,datetime	method dst(self: timezone; _: datetime): timedelta		11
+nim	tzname	datetime_impl/timezone_impl/meth_by_datetime_getter.html#tzname.e,tzinfo,datetime	method tzname(self: tzinfo; dt: datetime): string		15
+nim	tzname	datetime_impl/timezone_impl/meth_by_datetime_getter.html#tzname.e,timezone,datetime	method tzname(self: timezone; _: datetime): string		16
+nimgrp	tzname	datetime_impl/timezone_impl/meth_by_datetime_getter.html#tzname-methods-all	method		15
+nimgrp	utcoffset	datetime_impl/timezone_impl/meth_by_datetime_getter.html#utcoffset-methods-all	method		7
+nimgrp	dst	datetime_impl/timezone_impl/meth_by_datetime_getter.html#dst-methods-all	method		10

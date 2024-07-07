@@ -1,5 +1,1 @@
 nimTitle	meth	datetime_impl/datetime_impl/meth.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth		0
-nim	datetime	datetime_impl/datetime_impl/meth.html#datetime,int,int,int,int,int,int,int,tzinfo	proc datetime(year, month, day: int; hour = 0; minute = 0; second = 0;\n         microsecond = 0; tzinfo: tzinfo = nil): datetime		42
-nim	utcoffset	datetime_impl/datetime_impl/meth.html#utcoffset	proc utcoffset(self: datetime): timedelta		91
-nim	dst	datetime_impl/datetime_impl/meth.html#dst	proc dst(self: datetime): timedelta		95
-nim	`+`	datetime_impl/datetime_impl/meth.html#+,,timedelta	proc `+`(self: datetime; delta: timedelta): datetime		100

@@ -1,0 +1,3 @@
+nimTitle	inner_consts	datetime_impl/datetime_impl/meth/inner_consts.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/inner_consts		0
+nim	MAXYEAR	datetime_impl/datetime_impl/meth/inner_consts.html#MAXYEAR	const MAXYEAR		3
+nim	MINYEAR	datetime_impl/datetime_impl/meth/inner_consts.html#MINYEAR	const MINYEAR		4

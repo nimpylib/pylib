@@ -1,0 +1,2 @@
+nimTitle	init	datetime_impl/datetime_impl/meth/init.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/init		0
+nim	datetime	datetime_impl/datetime_impl/meth/init.html#datetime,int,int,int,int,int,int,int,tzinfo,int	proc datetime(year, month, day: int; hour = 0; minute = 0; second = 0;\n         microsecond = 0; tzinfo: tzinfo = nil; fold = 0): datetime		46

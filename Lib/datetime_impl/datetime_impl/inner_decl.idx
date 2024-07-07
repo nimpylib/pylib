@@ -1,0 +1,19 @@
+nimTitle	inner_decl	datetime_impl/datetime_impl/inner_decl.html	module src/pylib/Lib/datetime_impl/datetime_impl/inner_decl		0
+nim	datetime	datetime_impl/datetime_impl/inner_decl.html#datetime	type datetime		6
+nim	PyDatetime	datetime_impl/datetime_impl/inner_decl.html#PyDatetime	type PyDatetime		11
+nim	dtNormTz	datetime_impl/datetime_impl/inner_decl.html#dtNormTz.t,tzinfo	template dtNormTz(tz: tzinfo): Timezone		13
+nim	newDatetime	datetime_impl/datetime_impl/inner_decl.html#newDatetime,DateTime,tzinfo	proc newDatetime(dt: DateTime; tzinfo: tzinfo = nil; isfold = false): datetime		16
+nim	asNimDatetime	datetime_impl/datetime_impl/inner_decl.html#asNimDatetime,datetime	proc asNimDatetime(self: datetime): DateTime		19
+nim	isfold	datetime_impl/datetime_impl/inner_decl.html#isfold	proc isfold(self: datetime): bool		22
+nim	year	datetime_impl/datetime_impl/inner_decl.html#year	proc year(self: datetime): int		30
+nim	month	datetime_impl/datetime_impl/inner_decl.html#month	proc month(self: datetime): int		31
+nim	day	datetime_impl/datetime_impl/inner_decl.html#day	proc day(self: datetime): int		32
+nim	hour	datetime_impl/datetime_impl/inner_decl.html#hour	proc hour(self: datetime): int		33
+nim	minute	datetime_impl/datetime_impl/inner_decl.html#minute	proc minute(self: datetime): int		34
+nim	second	datetime_impl/datetime_impl/inner_decl.html#second	proc second(self: datetime): int		35
+nim	microsecond	datetime_impl/datetime_impl/inner_decl.html#microsecond	proc microsecond(self: datetime): int		37
+nim	fold	datetime_impl/datetime_impl/inner_decl.html#fold	proc fold(self: datetime): int		38
+nim	newDatetime	datetime_impl/datetime_impl/inner_decl.html#newDatetime,datetime,tzinfo,bool	proc newDatetime(self: datetime; tzinfo: tzinfo = self.tzinfo; isfold = self.isfold): datetime		40
+nim	hashcode	datetime_impl/datetime_impl/inner_decl.html#hashcode	proc hashcode(self: datetime): int		52
+nim	hashcode=	datetime_impl/datetime_impl/inner_decl.html#hashcode=,,int	proc hashcode=(self: datetime; h: int)		53
+nimgrp	newdatetime	datetime_impl/datetime_impl/inner_decl.html#newDatetime-procs-all	proc		16
