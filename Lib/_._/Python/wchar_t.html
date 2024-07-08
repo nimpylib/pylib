@@ -78,7 +78,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">[]=
-  <li><a class="reference" href="#%5B%5D%3D%2Cptr.wchar_t%2Ccsize_t%2Cwchar_t" title="`[]=`(p: ptr wchar_t; i: csize_t; val: wchar_t)">`[]=`(p: ptr wchar_t; i: csize_t; val: wchar_t)</a></li>
+  <li><a class="reference" href="#%5B%5D%3D%2Cptr.wchar_t%2CI%2Cwchar_t" title="`[]=`[I: csize_t | int](p: ptr wchar_t; i: I; val: wchar_t)">`[]=`[I: csize_t | int](p: ptr wchar_t; i: I; val: wchar_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">is_valid_wide_char
@@ -114,7 +114,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">inc
-  <li><a class="reference" href="#inc.t%2Cptr.wchar_t%2Cint" title="inc(p: var ptr wchar_t; i = 1)">inc(p: var ptr wchar_t; i = 1)</a></li>
+  <li><a class="reference" href="#inc.t%2Cptr.wchar_t%2CI" title="inc[I](p: var ptr wchar_t; i: I = 1)">inc[I](p: var ptr wchar_t; i: I = 1)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">Py_UNICODE_IS_SURROGATE
@@ -226,9 +226,8 @@
 
 </div>
 <div id="[]=-procs-all">
-  <div id="[]=,ptr.wchar_t,csize_t,wchar_t">
-  <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2Cptr.wchar_t%2Ccsize_t%2Cwchar_t"><span class="Identifier">`[]=`</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <a href="wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="[]=,ptr.wchar_t,I,wchar_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2Cptr.wchar_t%2CI%2Cwchar_t"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">csize_t</span> <span class="Operator">|</span> <span class="Identifier">int</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">ptr</span> <a href="wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <a href="wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">)</span></pre></dt>
   <dd>
     
     
@@ -325,8 +324,8 @@
 
 </div>
 <div id="inc-templates-all">
-  <div id="inc.t,ptr.wchar_t,int">
-  <dt><pre><span class="Keyword">template</span> <a href="#inc.t%2Cptr.wchar_t%2Cint"><span class="Identifier">inc</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Keyword">ptr</span> <a href="wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">;</span> <span class="Identifier">i</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
+  <div id="inc.t,ptr.wchar_t,I">
+  <dt><pre><span class="Keyword">template</span> <a href="#inc.t%2Cptr.wchar_t%2CI"><span class="Identifier">inc</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Keyword">ptr</span> <a href="wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">I</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
@@ -360,7 +359,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-07 17:33:49 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-08 14:31:02 UTC</small>
       </div>
     </div>
   </div>

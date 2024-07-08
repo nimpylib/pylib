@@ -1,3 +1,3 @@
 nimTitle	utf8_codec	_._/Python/unicodeobject/utf8_codec.html	module src/pylib/Python/unicodeobject/utf8_codec		0
-nim	MaxWStrLen	_._/Python/unicodeobject/utf8_codec.html#MaxWStrLen	const MaxWStrLen		7
-nim	Py_DecodeUTF8Ex	_._/Python/unicodeobject/utf8_codec.html#Py_DecodeUTF8Ex,cstring,csize_t,ptr.wchar_t,ptr.csize_t,cstring,Py_error_handler	proc Py_DecodeUTF8Ex(arg: cstring; size: csize_t; wstr: var ptr wchar_t;\n                wlen: ptr csize_t; reason: var cstring; errors: Py_error_handler): int		10
+nim	MaxWStrLen	_._/Python/unicodeobject/utf8_codec.html#MaxWStrLen	const MaxWStrLen		10
+nim	Py_DecodeUTF8Ex	_._/Python/unicodeobject/utf8_codec.html#Py_DecodeUTF8Ex,cstring,csize_t,ptr.wchar_t,ptr.csize_t,cstring,Py_error_handler	proc Py_DecodeUTF8Ex(orig_s: cstring; size: csize_t; wstr: var ptr wchar_t;\n                wlen: ptr csize_t; reason: var cstring; errors: Py_error_handler): int		28

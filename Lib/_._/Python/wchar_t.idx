@@ -11,8 +11,8 @@ nim	DECODE_ERROR	_._/Python/wchar_t.html#DECODE_ERROR	const DECODE_ERROR		59
 nim	INCOMPLETE_CHARACTER	_._/Python/wchar_t.html#INCOMPLETE_CHARACTER	const INCOMPLETE_CHARACTER		60
 nim	`[]`	_._/Python/wchar_t.html#[],ptr.wchar_t,csize_t	proc `[]`(p: ptr wchar_t; i: csize_t): wchar_t		62
 nim	`[]`	_._/Python/wchar_t.html#[],ptr.wchar_t,int	proc `[]`(p: ptr wchar_t; i: int): wchar_t		64
-nim	`[]=`	_._/Python/wchar_t.html#[]=,ptr.wchar_t,csize_t,wchar_t	proc `[]=`(p: ptr wchar_t; i: csize_t; val: wchar_t)		67
-nim	inc	_._/Python/wchar_t.html#inc.t,ptr.wchar_t,int	template inc(p: var ptr wchar_t; i = 1)		69
+nim	`[]=`	_._/Python/wchar_t.html#[]=,ptr.wchar_t,I,wchar_t	proc `[]=`[I: csize_t | int](p: ptr wchar_t; i: I; val: wchar_t)		67
+nim	inc	_._/Python/wchar_t.html#inc.t,ptr.wchar_t,I	template inc[I](p: var ptr wchar_t; i: I = 1)		69
 nim	Py_mbstowcs	_._/Python/wchar_t.html#Py_mbstowcs,ptr.wchar_t,cstring,csize_t	proc Py_mbstowcs(dest: ptr wchar_t; src: cstring; n: csize_t): csize_t		75
 nim	Py_mbrtowc	_._/Python/wchar_t.html#Py_mbrtowc,PWc,cstring,csize_t,mbstate_t	proc Py_mbrtowc(wc: PWc; src: cstring; n: csize_t; mbs: var mbstate_t): csize_t		87
 nimgrp	[]	_._/Python/wchar_t.html#[]-procs-all	proc		62

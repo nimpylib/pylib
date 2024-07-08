@@ -64,8 +64,8 @@
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">Py_DecodeUTF8Ex
-  <li><a class="reference" href="#Py_DecodeUTF8Ex%2Ccstring%2Ccsize_t%2Cptr.wchar_t%2Cptr.csize_t%2Ccstring%2CPy_error_handler" title="Py_DecodeUTF8Ex(arg: cstring; size: csize_t; wstr: var ptr wchar_t;
-                wlen: ptr csize_t; reason: var cstring; errors: Py_error_handler): int">Py_DecodeUTF8Ex(arg: cstring; size: csize_t; wstr: var ptr wchar_t;
+  <li><a class="reference" href="#Py_DecodeUTF8Ex%2Ccstring%2Ccsize_t%2Cptr.wchar_t%2Cptr.csize_t%2Ccstring%2CPy_error_handler" title="Py_DecodeUTF8Ex(orig_s: cstring; size: csize_t; wstr: var ptr wchar_t;
+                wlen: ptr csize_t; reason: var cstring; errors: Py_error_handler): int">Py_DecodeUTF8Ex(orig_s: cstring; size: csize_t; wstr: var ptr wchar_t;
                 wlen: ptr csize_t; reason: var cstring; errors: Py_error_handler): int</a></li>
 
 </ul>
@@ -87,7 +87,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../wchar_t.html">../wchar_t</a>, <a class="reference external" href="../internal/pycore_fileutils.html">../internal/pycore_fileutils</a>
+    <a class="reference external" href="ptr_op.html">ptr_op</a>, <a class="reference external" href="char_decl.html">char_decl</a>, <a class="reference external" href="../wchar_t.html">../wchar_t</a>, <a class="reference external" href="../internal/pycore_fileutils.html">../internal/pycore_fileutils</a>, <a class="reference external" href="codecs.html">codecs</a>
   </dl>
 </div>
 <div class="section" id="10">
@@ -98,8 +98,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Python/unicodeobject/utf8_codec.nim#L7" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Python/unicodeobject/utf8_codec.nim#L7" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Python/unicodeobject/utf8_codec.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Python/unicodeobject/utf8_codec.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -111,7 +111,7 @@
   <dl class="item">
     <div id="Py_DecodeUTF8Ex-procs-all">
   <div id="Py_DecodeUTF8Ex,cstring,csize_t,ptr.wchar_t,ptr.csize_t,cstring,Py_error_handler">
-  <dt><pre><span class="Keyword">proc</span> <a href="#Py_DecodeUTF8Ex%2Ccstring%2Ccsize_t%2Cptr.wchar_t%2Cptr.csize_t%2Ccstring%2CPy_error_handler"><span class="Identifier">Py_DecodeUTF8Ex</span></a><span class="Other">(</span><span class="Identifier">arg</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">wstr</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Keyword">ptr</span> <a href="../wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">;</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#Py_DecodeUTF8Ex%2Ccstring%2Ccsize_t%2Cptr.wchar_t%2Cptr.csize_t%2Ccstring%2CPy_error_handler"><span class="Identifier">Py_DecodeUTF8Ex</span></a><span class="Other">(</span><span class="Identifier">orig_s</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">wstr</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Keyword">ptr</span> <a href="../wchar_t.html#wchar_t"><span class="Identifier">wchar_t</span></a><span class="Other">;</span>
                      <span class="Identifier">wlen</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">reason</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">cstring</span><span class="Other">;</span>
                      <span class="Identifier">errors</span><span class="Other">:</span> <a href="../internal/pycore_fileutils.html#Py_error_handler"><span class="Identifier">Py_error_handler</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -130,8 +130,8 @@
  non-NULL, write the start of the illegal byte sequence into *wlen. If reason
  is not NULL, write the decoding error message into *reason.</pre>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Python/unicodeobject/utf8_codec.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Python/unicodeobject/utf8_codec.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Python/unicodeobject/utf8_codec.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Python/unicodeobject/utf8_codec.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -147,7 +147,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-07 17:33:49 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-08 14:31:02 UTC</small>
       </div>
     </div>
   </div>

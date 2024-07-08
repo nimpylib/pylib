@@ -1,0 +1,6 @@
+nimTitle	cstring_ptr_op	_._/Python/unicodeobject/cstring_ptr_op.html	module src/pylib/Python/unicodeobject/cstring_ptr_op		0
+nim	`+`	_._/Python/unicodeobject/cstring_ptr_op.html#+.t,cstring,I	template `+`[I: IndexType](s: cstring; i: I): cstring		6
+nim	inc	_._/Python/unicodeobject/cstring_ptr_op.html#inc.t,cstring,int	template inc(s: cstring; i = 1)		9
+nim	`-`	_._/Python/unicodeobject/cstring_ptr_op.html#-.t,cstring,cstring	template `-`(a, b: cstring): ptrdiff_t		11
+nim	`<%`	_._/Python/unicodeobject/cstring_ptr_op.html#<%.t,cstring,cstring	template `<%`(a, b: cstring): bool		14
+nim	`<=%`	_._/Python/unicodeobject/cstring_ptr_op.html#<=%.t,cstring,cstring	template `<=%`(a, b: cstring): bool		17
