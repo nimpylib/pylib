@@ -7,7 +7,7 @@ else:
 func ord*(wc: wchar_t): int = int(wc)
 
 template allocWcharArr*[I](n: I): ptr wchar_t =
-  cast[ptr wchar_t](alloc(n * I(sizeof(wchar_t))))
+  createU(wchar_t, Natural n)
 template deallocWcArr*(p: ptr wchar_t) = p.dealloc()
 
 type
@@ -64,10 +64,10 @@ proc `[]`*(p: ptr wchar_t, i: csize_t): wchar_t =
 proc `[]`*(p: ptr wchar_t, i: int): wchar_t =
   (cast[ptr wchar_t](cast[int](p)+i))[]
 
-proc `[]=`*(p: ptr wchar_t, i: csize_t, val: wchar_t) =
-  (cast[ptr wchar_t](cast[csize_t](p)+i))[]=val
-template inc*(p: var ptr wchar_t, i = 1) =
-  p = (cast[ptr wchar_t](cast[csize_t](p)+i))
+proc `[]=`*[I: csize_t|int](p: ptr wchar_t, i: I, val: wchar_t) =
+  (cast[ptr wchar_t](cast[I](p)+i))[]=val
+template inc*[I](p: var ptr wchar_t, i: I = 1) =
+  p = (cast[ptr wchar_t](cast[I](p)+i))
 
 # fileutils.c
 

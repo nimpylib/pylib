@@ -80,7 +80,7 @@ proc decode_current_locale(arg: cstring, wstr: var ptr wchar_t, wlen: ptr csize_
   # `var mbs: mbstate_t` has set mbs `0` alreadly.
 
   template inc[I: SomeInteger](s: cstring, i: I = 1) =
-    s = cast[cstring](cast[int](s).I + i)
+    s = cast[cstring](I(cast[int](s)) + i)
   block decode_no_error:
     while argsize != 0:
       let converted = Py_mbrtowc(outp, inp, argsize, mbs)
