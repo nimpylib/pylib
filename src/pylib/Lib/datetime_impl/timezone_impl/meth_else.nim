@@ -1,9 +1,8 @@
 
 
-import ../pyerr
 import ./decl
-import ../timedelta_impl/decl
-import ../datetime_impl/[decl, meth]
+import ../timedelta_impl/decl as td_decl
+import ../datetime_impl/decl as dt_decl
 
 
 using dt: datetime

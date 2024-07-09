@@ -1,15 +1,11 @@
 
-import std/macros
-
 include ./common
 import ../../../../Python/unicodeobject/locale_codec
 
 import ../../timedelta_impl/[decl, meth]
 import ../../timezone_impl/[decl, meth_by_datetime_getter, meth_by_datetime]
 
-from ./importer import ymd_to_ord
 import ./time_utils, ./to_seconds_utils
-import ./inner_consts
 import ./init, ./op
 import ./struct_tm_helper  # cTmToNormCall
 
