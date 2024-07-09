@@ -53,6 +53,10 @@ proc parseSignature*(signature: NimNode, deftype = ident"untyped"
     name_params = signature
     restype = deftype
   splitArrow signature, name_params, restype
+
+  if name_params.kind != nnkCall:
+    # Nim user may write sth like `def f: xxx`
+    error "SyntaxError: expected '(' after function name", name_params
   let name = name_params[0]
   var params = @[restype]
   parseParams(params, name_params, def_argtype=deftype, start=1)
