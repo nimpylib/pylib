@@ -54,7 +54,10 @@ converter toBool*(self): bool =
 
 func `==`*(self; o: timedelta): bool =
   # required by datetime_impl/meth
-  if self.isTimeDeltaNone and o.isTimeDeltaNone:
-    # do not write sth like `self == nil`, it deadloops!
-    return true
+  let
+    lNone = self.isTimeDeltaNone
+    rNone = o.isTimeDeltaNone
+  # do not write sth like `self == nil`, it deadloops!
+  if lNone and rNone: return true
+  if lNone xor rNone: return false
   self.inMicroseconds == o.inMicroseconds
