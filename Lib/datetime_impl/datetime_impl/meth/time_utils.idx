@@ -1,9 +1,5 @@
 nimTitle	time_utils	datetime_impl/datetime_impl/meth/time_utils.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils		0
-nim	time_t	datetime_impl/datetime_impl/meth/time_utils.html#time_t	type time_t		9
-nim	struct_tm	datetime_impl/datetime_impl/meth/time_utils.html#struct_tm	object struct_tm		10
-nim	HAVE_STRUCT_TM_TM_ZONE	datetime_impl/datetime_impl/meth/time_utils.html#HAVE_STRUCT_TM_TM_ZONE	const HAVE_STRUCT_TM_TM_ZONE		12
-nim	Tm	datetime_impl/datetime_impl/meth/time_utils.html#Tm	object Tm		15
-nim	newZoneCStr	datetime_impl/datetime_impl/meth/time_utils.html#newZoneCStr,Tm	proc newZoneCStr(tm: var Tm): cstring		57
-nim	freeZoneCStr	datetime_impl/datetime_impl/meth/time_utils.html#freeZoneCStr,cstring	proc freeZoneCStr(s: cstring)		67
-nim	nTime_localtime	datetime_impl/datetime_impl/meth/time_utils.html#nTime_localtime,time_t	proc nTime_localtime(t: time_t): Tm		80
-nim	nTime_gmtime	datetime_impl/datetime_impl/meth/time_utils.html#nTime_gmtime,time_t	proc nTime_gmtime(t: time_t): Tm		102
+nim	newZoneCStr	datetime_impl/datetime_impl/meth/time_utils.html#newZoneCStr,Tm	proc newZoneCStr(tm: var Tm): cstring		17
+nim	freeZoneCStr	datetime_impl/datetime_impl/meth/time_utils.html#freeZoneCStr,cstring	proc freeZoneCStr(s: cstring)		27
+nim	nTime_localtime	datetime_impl/datetime_impl/meth/time_utils.html#nTime_localtime,time_t	proc nTime_localtime(t: time_t): Tm		33
+nim	nTime_gmtime	datetime_impl/datetime_impl/meth/time_utils.html#nTime_gmtime,time_t	proc nTime_gmtime(t: time_t): Tm		37

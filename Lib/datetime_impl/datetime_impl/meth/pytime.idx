@@ -1,0 +1,11 @@
+nimTitle	pytime	datetime_impl/datetime_impl/meth/pytime.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/pytime		0
+nim	long	datetime_impl/datetime_impl/meth/pytime.html#long	type long		10
+nim	Timestamp	datetime_impl/datetime_impl/meth/pytime.html#Timestamp	type Timestamp		12
+nim	prFLoor	datetime_impl/datetime_impl/meth/pytime.html#prFLoor	PyTime_round_t.prFLoor		21
+nim	prCeiling	datetime_impl/datetime_impl/meth/pytime.html#prCeiling	PyTime_round_t.prCeiling		21
+nim	prHalfEven	datetime_impl/datetime_impl/meth/pytime.html#prHalfEven	PyTime_round_t.prHalfEven		21
+nim	prRoundUp	datetime_impl/datetime_impl/meth/pytime.html#prRoundUp	PyTime_round_t.prRoundUp		21
+nim	PyTime_round_t	datetime_impl/datetime_impl/meth/pytime.html#PyTime_round_t	enum PyTime_round_t		21
+nim	nPyTime_ObjectToTimeval	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_ObjectToTimeval,Timestamp,time_t,long,PyTime_round_t	proc nPyTime_ObjectToTimeval(obj: Timestamp; sec: var time_t; usec: var long;\n                        round: PyTime_round_t)		105
+nim	nPyTime_localtime	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_localtime,time_t,Tm	proc nPyTime_localtime(t: time_t; tm: var Tm)		115
+nim	nPyTime_gmtime	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_gmtime,time_t,Tm	proc nPyTime_gmtime(t: time_t; tm: var Tm)		137

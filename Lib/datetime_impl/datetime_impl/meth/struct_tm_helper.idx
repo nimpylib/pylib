@@ -1,0 +1,2 @@
+nimTitle	struct_tm_helper	datetime_impl/datetime_impl/meth/struct_tm_helper.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/struct_tm_helper		0
+nim	cTmToNormCall	datetime_impl/datetime_impl/meth/struct_tm_helper.html#cTmToNormCall.m,,Tm,varargs[untyped]	macro cTmToNormCall(call; tm: Tm; kwargs: varargs[untyped]): untyped		5

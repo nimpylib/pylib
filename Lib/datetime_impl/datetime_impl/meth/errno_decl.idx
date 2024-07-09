@@ -1,0 +1,3 @@
+nimTitle	errno_decl	datetime_impl/datetime_impl/meth/errno_decl.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/errno_decl		0
+nim	errno	datetime_impl/datetime_impl/meth/errno_decl.html#errno	var errno		4
+nim	EINVAL	datetime_impl/datetime_impl/meth/errno_decl.html#EINVAL	let EINVAL		5

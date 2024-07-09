@@ -1,0 +1,5 @@
+nimTitle	time_t_decl	datetime_impl/datetime_impl/meth/time_t_decl.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/time_t_decl		0
+nim	time_t	datetime_impl/datetime_impl/meth/time_t_decl.html#time_t	type time_t		8
+nim	SIZEOF_TIME_T	datetime_impl/datetime_impl/meth/time_t_decl.html#SIZEOF_TIME_T	const SIZEOF_TIME_T		16
+nim	PY_TIME_T_MAX	datetime_impl/datetime_impl/meth/time_t_decl.html#PY_TIME_T_MAX	const PY_TIME_T_MAX		17
+nim	PY_TIME_T_MIN	datetime_impl/datetime_impl/meth/time_t_decl.html#PY_TIME_T_MIN	const PY_TIME_T_MIN		18

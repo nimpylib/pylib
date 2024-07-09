@@ -1,5 +1,5 @@
 nimTitle	meth_else	datetime_impl/timezone_impl/meth_else.html	module src/pylib/Lib/datetime_impl/timezone_impl/meth_else		0
-nim	timezone	datetime_impl/timezone_impl/meth_else.html#timezone,timedelta	proc timezone(offset: timedelta): timezone		14
-nim	timezone	datetime_impl/timezone_impl/meth_else.html#timezone,timedelta,string	proc timezone(offset: timedelta; name: string): timezone		16
-nim	`==`	datetime_impl/timezone_impl/meth_else.html#==,,timezone	proc `==`(self: timezone; o: timezone): bool		22
-nimgrp	timezone	datetime_impl/timezone_impl/meth_else.html#timezone-procs-all	proc		14
+nim	timezone	datetime_impl/timezone_impl/meth_else.html#timezone,timedelta	proc timezone(offset: timedelta): timezone		13
+nim	timezone	datetime_impl/timezone_impl/meth_else.html#timezone,timedelta,string	proc timezone(offset: timedelta; name: string): timezone		15
+nim	`==`	datetime_impl/timezone_impl/meth_else.html#==,,timezone	proc `==`(self: timezone; o: timezone): bool		21
+nimgrp	timezone	datetime_impl/timezone_impl/meth_else.html#timezone-procs-all	proc		13

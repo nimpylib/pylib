@@ -1,3 +1,4 @@
 nimTitle	statics	datetime_impl/datetime_impl/meth/statics.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/statics		0
-nim	today	datetime_impl/datetime_impl/meth/statics.html#today,typedesc[datetime]	proc today(_: typedesc[datetime]): datetime		6
-nim	now	datetime_impl/datetime_impl/meth/statics.html#now,typedesc[datetime],tzinfo	proc now(_: typedesc[datetime]; tzinfo: tzinfo = TzNone): datetime		7
+nim	today	datetime_impl/datetime_impl/meth/statics.html#today	proc today(_: _`gensym1778384908:type): datetime		10
+nim	now	datetime_impl/datetime_impl/meth/statics.html#now,,tzinfo	proc now(_: _`gensym1778384912:type; tzinfo: tzinfo = TzNone): datetime		11
+nim	fromtimestamp	datetime_impl/datetime_impl/meth/statics.html#fromtimestamp,,Timestamp	proc fromtimestamp(_: _`gensym1778384983:type; timestamp: Timestamp; tz = TzNone): datetime		79

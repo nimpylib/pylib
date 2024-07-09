@@ -1,2 +1,2 @@
 nimTitle	aszone	datetime_impl/datetime_impl/meth/aszone.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/aszone		0
-nim	astimezone	datetime_impl/datetime_impl/meth/aszone.html#astimezone,datetime	proc astimezone(self: datetime; tz = TzNone): datetime		155
+nim	astimezone	datetime_impl/datetime_impl/meth/aszone.html#astimezone,datetime	proc astimezone(self: datetime; tz = TzNone): datetime		73

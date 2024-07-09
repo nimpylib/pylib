@@ -52,35 +52,6 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#struct_tm" title="struct_tm {.importc: &quot;struct tm&quot;, completeStruct.} = object">struct_tm</a></li>
-<li><a class="reference" href="#time_t" title="time_t {.importc.} = int">time_t</a></li>
-<li><a class="reference" href="#Tm" title="Tm {.importc: &quot;struct tm&quot;.} = object
-  tm_year*: int              ## years since 1900
-  tm_mon*: range[0 .. 11]
-  tm_mday*: range[1 .. 31]
-  tm_hour*: range[0 .. 23]
-  tm_min*: range[0 .. 59]
-  tm_sec*: range[0 .. 61]    ## C89 is 0..61, C99 is 0..60
-  tm_wday*: range[0 .. 6]
-  tm_yday*: range[0 .. 365]
-  tm_isdst*: int">Tm</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#HAVE_STRUCT_TM_TM_ZONE" title="HAVE_STRUCT_TM_TM_ZONE = false">HAVE_STRUCT_TM_TM_ZONE</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">freeZoneCStr
@@ -103,6 +74,9 @@
     </ul>
   </details>
 </li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
+</li>
 
 </ul>
 
@@ -117,69 +91,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="importer.html">importer</a>
-  </dl>
-</div>
-<div class="section" id="7">
-  <h1><a class="toc-backref" href="#7">Types</a></h1>
-  <dl class="item">
-    <div id="struct_tm">
-  <dt><pre><a href="time_utils.html#struct_tm"><span class="Identifier">struct_tm</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;struct tm&quot;</span><span class="Other">,</span> <span class="Identifier">completeStruct</span>.} <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="time_t">
-  <dt><pre><a href="time_utils.html#time_t"><span class="Identifier">time_t</span></a> {.<span class="Identifier">importc</span>.} <span class="Other">=</span> <span class="Identifier">int</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="Tm">
-  <dt><pre><a href="time_utils.html#Tm"><span class="Identifier">Tm</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;struct tm&quot;</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">tm_year</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int</span>              <span class="Comment">## years since 1900</span>
-  <span class="Identifier">tm_mon</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">11</span><span class="Other">]</span>
-  <span class="Identifier">tm_mday</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">1</span> <span class="Operator">..</span> <span class="DecNumber">31</span><span class="Other">]</span>
-  <span class="Identifier">tm_hour</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">23</span><span class="Other">]</span>
-  <span class="Identifier">tm_min</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">59</span><span class="Other">]</span>
-  <span class="Identifier">tm_sec</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">61</span><span class="Other">]</span>    <span class="Comment">## C89 is 0..61, C99 is 0..60</span>
-  <span class="Identifier">tm_wday</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">6</span><span class="Other">]</span>
-  <span class="Identifier">tm_yday</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">365</span><span class="Other">]</span>
-  <span class="Identifier">tm_isdst</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int</span>
-</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-  </dl>
-</div>
-<div class="section" id="10">
-  <h1><a class="toc-backref" href="#10">Consts</a></h1>
-  <dl class="item">
-    <div id="HAVE_STRUCT_TM_TM_ZONE">
-  <dt><pre><a href="time_utils.html#HAVE_STRUCT_TM_TM_ZONE"><span class="Identifier">HAVE_STRUCT_TM_TM_ZONE</span></a> <span class="Other">=</span> <span class="DecNumber">false</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
+    <a class="reference external" href="time_t_decl.html">time_t_decl</a>, <a class="reference external" href="struct_tm_decl.html">struct_tm_decl</a>, <a class="reference external" href="struct_tm_meth.html">struct_tm_meth</a>, <a class="reference external" href="pytime.html">pytime</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -191,8 +103,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L67" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L67" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -200,12 +112,12 @@
 </div>
 <div id="newZoneCStr-procs-all">
   <div id="newZoneCStr,Tm">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newZoneCStr%2CTm"><span class="Identifier">newZoneCStr</span></a><span class="Other">(</span><span class="Identifier">tm</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="time_utils.html#Tm"><span class="Identifier">Tm</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newZoneCStr%2CTm"><span class="Identifier">newZoneCStr</span></a><span class="Other">(</span><span class="Identifier">tm</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="struct_tm_decl.html#Tm"><span class="Identifier">Tm</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -213,12 +125,12 @@
 </div>
 <div id="nTime_gmtime-procs-all">
   <div id="nTime_gmtime,time_t">
-  <dt><pre><span class="Keyword">proc</span> <a href="#nTime_gmtime%2Ctime_t"><span class="Identifier">nTime_gmtime</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="time_utils.html#time_t"><span class="Identifier">time_t</span></a><span class="Other">)</span><span class="Other">:</span> <a href="time_utils.html#Tm"><span class="Identifier">Tm</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#nTime_gmtime%2Ctime_t"><span class="Identifier">nTime_gmtime</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="time_t_decl.html#time_t"><span class="Identifier">time_t</span></a><span class="Other">)</span><span class="Other">:</span> <a href="struct_tm_decl.html#Tm"><span class="Identifier">Tm</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L102" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L102" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L37" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L37" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -226,18 +138,24 @@
 </div>
 <div id="nTime_localtime-procs-all">
   <div id="nTime_localtime,time_t">
-  <dt><pre><span class="Keyword">proc</span> <a href="#nTime_localtime%2Ctime_t"><span class="Identifier">nTime_localtime</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="time_utils.html#time_t"><span class="Identifier">time_t</span></a><span class="Other">)</span><span class="Other">:</span> <a href="time_utils.html#Tm"><span class="Identifier">Tm</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#nTime_localtime%2Ctime_t"><span class="Identifier">nTime_localtime</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="time_t_decl.html#time_t"><span class="Identifier">time_t</span></a><span class="Other">)</span><span class="Other">:</span> <a href="struct_tm_decl.html#Tm"><span class="Identifier">Tm</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/time_utils.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
+  </dl>
+</div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="time_t_decl.html#SIZEOF_TIME_T"><span class="Identifier">SIZEOF_TIME_T</span></a>, <a href="time_t_decl.html#PY_TIME_T_MAX"><span class="Identifier">PY_TIME_T_MAX</span></a>, <a href="time_t_decl.html#time_t"><span class="Identifier">time_t</span></a>, <a href="time_t_decl.html#PY_TIME_T_MIN"><span class="Identifier">PY_TIME_T_MIN</span></a>, <a href="struct_tm_decl.html#struct_tm"><span class="Identifier">struct_tm</span></a>, <a href="struct_tm_decl.html#initTm.t,Tm"><span class="Identifier">initTm</span></a>, <a href="struct_tm_decl.html#HAVE_STRUCT_TM_TM_ZONE"><span class="Identifier">HAVE_STRUCT_TM_TM_ZONE</span></a>, <a href="struct_tm_decl.html#Tm"><span class="Identifier">Tm</span></a>, <a href="struct_tm_decl.html#initTm"><span class="Identifier">initTm</span></a>
   </dl>
 </div>
 
@@ -247,7 +165,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-08 14:31:02 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-09 16:15:39 UTC</small>
       </div>
     </div>
   </div>

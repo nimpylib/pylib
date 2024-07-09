@@ -1,0 +1,3 @@
+nimTitle	struct_tm_meth	datetime_impl/datetime_impl/meth/struct_tm_meth.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/struct_tm_meth		0
+nim	localtime_r	datetime_impl/datetime_impl/meth/struct_tm_meth.html#localtime_r,time_t,Tm	proc localtime_r(t: var time_t; tm: var Tm): ptr Tm		9
+nim	gmtime_r	datetime_impl/datetime_impl/meth/struct_tm_meth.html#gmtime_r,time_t,Tm	proc gmtime_r(t: var time_t; tm: var Tm): ptr Tm		10
