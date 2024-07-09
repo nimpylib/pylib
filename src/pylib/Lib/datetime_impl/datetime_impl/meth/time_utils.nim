@@ -1,5 +1,5 @@
 
-import ./time_t_decl, ./struct_tm_decl, ./struct_tm_meth
+import ./time_t_decl, ./struct_tm_decl
 export time_t_decl, struct_tm_decl
 import ./pytime  # nPyTime_localtime, nPyTime_gmtime
 

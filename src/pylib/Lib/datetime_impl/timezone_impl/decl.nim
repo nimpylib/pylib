@@ -1,7 +1,6 @@
 
 import ../timedelta_impl/[decl, meth]
 import std/times
-import std/hashes
 
 
 type

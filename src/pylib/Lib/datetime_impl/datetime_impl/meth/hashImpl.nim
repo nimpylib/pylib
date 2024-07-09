@@ -2,7 +2,6 @@
 import std/hashes
 include ./common
 import ./getter
-import ../../timezone_impl/[decl, meth_by_datetime]
 import ../../timedelta_impl/[decl, meth]  # import `-`, init for hash
 from ./importer import ymd_to_ord
 

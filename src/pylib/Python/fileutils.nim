@@ -213,9 +213,9 @@ proc Py_DecodeLocaleEx*(arg: cstring, wstr: var ptr wchar_t, wlen: ptr csize_t, 
   when Py_FORCE_UTF8_FS_ENCODING:
     retUtf8
   else:
-    var
-      `PyRuntime.preconfig.utf8_mode` = -1 # _PyRuntime.preconfig.utf8_mode
-      `PyRuntime.preconfig.legacy_windows_fs_encoding` = 0 # _PyRuntime.preconfig.legacy_windows_fs_encoding
+    var `PyRuntime.preconfig.utf8_mode` = -1 # _PyRuntime.preconfig.utf8_mode
+    when defined(windows):
+      var `PyRuntime.preconfig.legacy_windows_fs_encoding` = 0 # _PyRuntime.preconfig.legacy_windows_fs_encoding
     var use_utf8 = (`PyRuntime.preconfig.utf8_mode` >= 1)
     when defined(windows):
       use_utf8 = use_utf8 or `PyRuntime.preconfig.legacy_windows_fs_encoding` == 0

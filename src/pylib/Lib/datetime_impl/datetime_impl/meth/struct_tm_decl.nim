@@ -34,7 +34,8 @@ else:
 
 {.pop.}
 
+func initTm*: Tm = Tm(tm_mday: 1)
 template initTm*(tm: var Tm) =
   # a workaround for compile error
-  tm.tm_mday = 1
-func initTm*: Tm = result.tm_mday = 1
+  bind initTm
+  tm = initTm()

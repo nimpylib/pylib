@@ -8,21 +8,23 @@ import ./codecs
 
 const
   MaxWStrLen* = high(int) div sizeof(wchar_t)
-  MAX_UNICODE = Py_UCS4(0x10ffff)
 
 # unicodeobject.h
-# L35
-proc Py_UNICODE_HIGH_SURROGATE(ch: Py_UCS4): Py_UCS4 =
-  ## High surrogate = top 10 bits added to 0xD800.
-  ## The character must be in the range [U+10000; U+10ffff].
-  assert(0x10000 <= ch.ord and ch.ord <= 0x10ffff)
-  result = Py_UCS4(0xD800 - (0x10000 shr 10) + (ch.ord shr 10))
 
-proc Py_UNICODE_LOW_SURROGATE(ch: Py_UCS4): Py_UCS4 =
-  ## Low surrogate = bottom 10 bits added to 0xDC00.
-  ## The character must be in the range [U+10000; U+10ffff].
-  assert(0x10000 <= ch.ord and ch.ord <= 0x10ffff)
-  result = Py_UCS4(0xDC00 + (ch.ord and 0x3FF))
+const WC4 = sizeof(wchar_t) == 4
+when not WC4:
+  # L35
+  proc Py_UNICODE_HIGH_SURROGATE(ch: Py_UCS4): Py_UCS4 =
+    ## High surrogate = top 10 bits added to 0xD800.
+    ## The character must be in the range [U+10000; U+10ffff].
+    assert(0x10000 <= ch.ord and ch.ord <= 0x10ffff)
+    result = Py_UCS4(0xD800 - (0x10000 shr 10) + (ch.ord shr 10))
+
+  proc Py_UNICODE_LOW_SURROGATE(ch: Py_UCS4): Py_UCS4 =
+    ## Low surrogate = bottom 10 bits added to 0xDC00.
+    ## The character must be in the range [U+10000; U+10ffff].
+    assert(0x10000 <= ch.ord and ch.ord <= 0x10ffff)
+    result = Py_UCS4(0xDC00 + (ch.ord and 0x3FF))
 
 # L5268 _Py_DecodeUTF8Ex
 proc Py_DecodeUTF8Ex*(orig_s: cstring, size: csize_t,
@@ -72,12 +74,11 @@ proc Py_DecodeUTF8Ex*(orig_s: cstring, size: csize_t,
   var s = cast[ptr char](orig_s)
   let e = s + size
   var outpos = 0
-  const WC4 = sizeof(wchar_t) == 4
   type WlenType = typeof(wlen[])
   while s <% e:
     var ch: Py_UCS4
     when WC4:
-      ch = utf8_decode[Py_UCS4](s, e, (ptr Py_UCS4)unicode, outpos)
+      ch = utf8_decode[Py_UCS4](s, e, unicode, outpos)
     else:
       ch = utf8_decode[Py_UCS2](s, e, (ptr Py_UCS2)unicode, outpos)
 
@@ -112,9 +113,9 @@ proc Py_DecodeUTF8Ex*(orig_s: cstring, size: csize_t,
         else:
           unicode.deallocWcArr()
           reason = case ch.ord
-            of 0: "unexpected end of data"
-            of 1: "invalid start byte"
-            else: "invalid continuation byte"
+            of 0: cstring"unexpected end of data"
+            of 1: cstring"invalid start byte"
+            else: cstring"invalid continuation byte"
 
           if wlen != nil:
             wlen[] = cast[WlenType](s) - cast[WlenType](orig_s)

@@ -1,13 +1,9 @@
 
-import std/macros
 import std/times
 include ./common
 import ./getter
 import ../../timedelta_impl/[
   decl, meth]
-import ../../timezone_impl/[
-  decl
-]
 from ./importer import `@=`, ymd_to_ord, TypeError
 
 using self: datetime

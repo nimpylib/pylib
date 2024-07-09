@@ -40,7 +40,7 @@ func getMaxChar*[C](): C =
     {.error: "invalid Char type".}
 
 # L23
-proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: cstring;
+proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: (cstring|ptr char);
     dest: ptr STRINGLIB_CHAR; outpos: var Py_ssize_t): Py_UCS4 =
   const STRINGLIB_MAX_CHAR = getMaxChar[STRINGLIB_CHAR]()
   type S = typeof(inptr)
@@ -69,7 +69,7 @@ proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: cstring;
       ##
       if Py_IS_ALIGNED(s, ALIGNOF_SIZE_T):
         ##  Help register allocation
-        var n_s: cstring = s
+        var n_s: cstring = when s is cstring: s else: cast[cstring](s)
         var n_p: ptr STRINGLIB_CHAR = p
         while n_s + SIZEOF_SIZE_T <=% `end`:
           ## Read a whole size_t at a time (either 4 or 8 bytes),

@@ -4,7 +4,6 @@ import ../timedelta_impl/[decl, meth]
 import ../datetime_impl/inner_decl
 import ../datetime_impl/meth/[getter, op]
 import ./decl
-import ../pyerr
 
 using dt: datetime
 

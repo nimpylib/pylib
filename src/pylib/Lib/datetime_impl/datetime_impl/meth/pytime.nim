@@ -24,7 +24,7 @@ type
     prHalfEven
     prRoundUp
 
-const prTimeout = prRoundUp
+const prTimeout* = prRoundUp
 import std/math
 
 func round_half_even(x: float): float =
@@ -42,9 +42,6 @@ func round(x: float, round: PyTime_round_t): float =
     of prFLoor: floor(x)
     of prRoundUp: (if x >= 0: ceil(x) else: floor(x))
   return d
-
-proc time_t_overflow() =
-  raise newException(OverflowDefect, "timestamp out of range for platform time_t")
 
 func float_to_denominator(d: float, sec: var time_t, numerator: var long,
     idenominator: long, round: PyTime_round_t) =
@@ -68,7 +65,7 @@ func float_to_denominator(d: float, sec: var time_t, numerator: var long,
 
   # Nim will overflow-check time_t
   #  the following is from CPython's comments:
-  
+
   #[Conversion of an out-of-range value to time_t gives undefined behaviour
     (C99 §6.3.1.4p1), so we must guard against it. However, checking that
     `intpart` is in range is delicate: the obvious expression `intpart <=
