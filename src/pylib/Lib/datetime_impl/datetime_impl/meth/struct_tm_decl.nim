@@ -37,4 +37,4 @@ else:
 func initTm*(tm: var Tm) =
   # a workaround for compile error
   tm.tm_mday = 1
-func initTm*: Tm = result.initTm()
+func initTm*: Tm = result.tm_mday = 1
