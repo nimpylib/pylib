@@ -14,7 +14,7 @@ template chk_tzinfo(self: tzinfo; dt) =
     raise newException(ValueError, "fromutc: dt.tzinfo is not self")
 
 template notNone(td: timedelta) =
-  if td != TimeDeltaNone:
+  if td.isTimeDeltaNone:
     raise newException(ValueError, "tzinfo.fromutc: timedelta is None")
 
 method fromutc*(self: tzinfo; dt): datetime{.base.} =
