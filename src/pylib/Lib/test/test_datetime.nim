@@ -55,3 +55,38 @@ test "datetime attrs":
     assertEqual(dt.microsecond, 7)
     assertEqual(dt.tzinfo, None)
   test_trivial()
+
+class FixedOffset(tzinfo):
+    offset: timedelta
+    name: PyStr
+    dstoffset: timedelta
+    def init(self, offset: int, name, dstoffset=42):
+        offset = timedelta(minutes=offset)
+        dstoffset = timedelta(minutes=dstoffset)
+        self.offset = offset
+        self.name = name
+        self.dstoffset = dstoffset
+    def repr(self):
+        return self.name.lower()
+    def utcoffset(self, dt: datetime):
+        return self.offset
+    def tzname(self, dt: datetime):
+        return self.name
+    def dst(self, dt: datetime):
+        return self.dstoffset
+
+importPyLib time
+test "tzinfo fromtimestamp":
+  template meth(xs: varargs[untyped]): datetime =
+    datetime.PyDatetime.fromtimestamp(xs)
+  def test_tzinfo_fromtimestamp():
+    ts = time.time()
+    # Ensure it doesn't require tzinfo (i.e., that this doesn't blow up).
+    base = meth(ts)
+    # Try with and without naming the keyword.
+    off42 = newFixedOffset(42, "42")
+    another = meth(ts, off42)
+    again = meth(ts, tz=off42)
+    #assertIs(another.tzinfo, again.tzinfo)
+    assertEqual(another.utcoffset(), timedelta(minutes=42))
+  test_tzinfo_fromtimestamp()
