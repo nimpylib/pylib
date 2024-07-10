@@ -6,6 +6,7 @@ import ../../timedelta_impl/[decl, meth]
 import ../../timezone_impl/[decl, meth_by_datetime_getter, meth_by_datetime]
 
 import ./time_utils, ./to_seconds_utils
+from ./state_consts import CONST_EPOCH, utc_timezone
 import ./init, ./op
 import ./struct_tm_helper  # cTmToNormCall
 
@@ -31,14 +32,8 @@ proc local_timezone_from_timestamp(timestamp: time_t): timezone =
   let delta = local_time_tm.getUtcOffset timestamp
   result = newPyTimezone(delta, nameo)
 
-let utc_timezone = timezone.utc()
-# st = GET_CURRENT_STATE(current_mod); CONST_EPOCH(st)
-
-
 proc local_timezone(utc_time: datetime): timezone =
-  let epoch{.global.} = datetime(
-            1970, 1, 1, 0, 0, 0, 0, utc_timezone, fold=0)
-  let delta = utc_time - epoch
+  let delta = utc_time - CONST_EPOCH
   let one_second = newTimedelta(0, 1, 0, false)
   let seconds = delta // one_second
   let timestamp = time_t(seconds)

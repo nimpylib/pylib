@@ -8,6 +8,7 @@
 ]##
 
 import std/times
+from ./inner_consts import MINYEAR, MAXYEAR 
 
 template days_in_month(year, month: int): int = getDaysInMonth(month.Month, year)
 
@@ -125,7 +126,7 @@ proc ymd_to_ord*(ymd: YMD): int =
   ##  year, month, day -> ordinal, considering 01-Jan-0001 as day 1.
   days_before_year(ymd.year) + days_before_month(ymd.year, ymd.month) + ymd.day
 
-proc weekday(year, month, day: int): int =
+proc weekday*(year, month, day: int): int =
   ## Day of week, where Monday==0, ..., Sunday==6.  1/1/1 was a Monday. 
   (ymd_to_ord(year, month, day) + 6) mod 7
 
@@ -171,5 +172,5 @@ proc iso_to_ymd*(iso: YWD, ymd: var YMD) =
     day_1 = iso_week1_monday(iso.year)
     day_offset = (iso.week - 1) * 7 + iso.day - 1
   
-  ord_to_ymd(day_1 + day_offset, year, month, day)
+  ord_to_ymd(day_1 + day_offset, ymd)
 

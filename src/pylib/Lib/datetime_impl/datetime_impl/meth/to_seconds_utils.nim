@@ -1,5 +1,5 @@
 
-from ./importer import MINYEAR, MAXYEAR
+from ./inner_consts import MINYEAR, MAXYEAR
 from ./calendar_utils import ymd_to_ord
 import ./time_utils, ./struct_tm_helper
 
