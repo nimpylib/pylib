@@ -18,12 +18,12 @@ proc fromordinal*(_; ordinal: int): datetime =
     raise newException(ValueError, "ordinal must be >= 1")
   var ymd: YMD
   ord_to_ymd(ordinal, ymd)
-  datetime(ymd.year, ymd.month, ymd.day)
+  init.datetime(ymd.year, ymd.month, ymd.day)
 
 proc fromisocalendar*(_; year, week, day: int): datetime =
   var ymd: YMD
   iso_to_ymd((year, week, day), ymd)
-  datetime(ymd.year, ymd.month, ymd.day)
+  init.datetime(ymd.year, ymd.month, ymd.day)
 
 
 # ## fromtimestamp
@@ -74,7 +74,7 @@ proc datetime_from_timet_and_us(f: N_TM_FUNC, timet: time_t, us: int,
       if probe_seconds == result_seconds:
         fold = 1
   
-  return datetime(year, month, day, hour, minute,
+  return init.datetime(year, month, day, hour, minute,
                   second, us, tzinfo, fold)
 
 proc datetime_from_timestamp(f: N_TM_FUNC, timestamp: Timestamp, tzinfo=TzNone): datetime =

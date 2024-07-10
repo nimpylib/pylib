@@ -90,3 +90,112 @@ test "tzinfo fromtimestamp":
     #assertIs(another.tzinfo, again.tzinfo)
     assertEqual(another.utcoffset(), timedelta(minutes=42))
   test_tzinfo_fromtimestamp()
+
+suite "TestDate":
+  test "fromisocalendar":
+    def test_fromisocalendar():
+        # For each test case, assert that fromisocalendar is the
+        # inverse of the isocalendar function
+        dates = [
+            (2016, 4, 3),
+            (2005, 1, 2),       # (2004, 53, 7)
+            (2008, 12, 30),     # (2009, 1, 2)
+            (2010, 1, 2),       # (2009, 53, 6)
+            (2009, 12, 31),     # (2009, 53, 4)
+            (1900, 1, 1),       # Unusual non-leap year (year % 100 == 0)
+            (1900, 12, 31),
+            (2000, 1, 1),       # Unusual leap year (year % 400 == 0)
+            (2000, 12, 31),
+            (2004, 1, 1),       # Leap year
+            (2004, 12, 31),
+            (1, 1, 1),
+            (9999, 12, 31),
+            (MINYEAR, 1, 1),
+            (MAXYEAR, 12, 31),
+        ]
+
+        for datecomps in dates:
+            dobj = datetime(datecomps[0], datecomps[1], datecomps[2])
+            isocal = dobj.isocalendar()
+
+            d_roundtrip = datetime.PyDatetime.fromisocalendar(isocal[0], isocal[1], isocal[2])
+
+            assertEqual(dobj, d_roundtrip)
+    test_fromisocalendar()
+
+  test "fromisocalendar_value_errors":
+    def test_fromisocalendar_value_errors():
+        isocals = [
+            (2019, 0, 1),
+            (2019, -1, 1),
+            (2019, 54, 1),
+            (2019, 1, 0),
+            (2019, 1, -1),
+            (2019, 1, 8),
+            (2019, 53, 1),
+            (10000, 1, 1),
+            (0, 1, 1),
+            (9999999, 1, 1),
+            (2<<32, 1, 1),
+            (2019, 2<<32, 1),
+            (2019, 1, 2<<32),
+        ]
+
+        for isocal in isocals:
+            expect(ValueError):
+                _ = PyDatetime.fromisocalendar(isocal[0], isocal[1], isocal[2])
+    test_fromisocalendar_value_errors()
+  
+  test "ordinal_conversion":
+    template theclass: untyped = PyDatetime
+    template theclass(x: untyped, xs: varargs[untyped]): untyped =
+      datetime(x, xs)
+    def test_ordinal_conversions():
+        # Check some fixed values.
+        for tup in [(1, 1, 1, 1),      # calendar origin
+                      (1, 12, 31, 365),
+                      (2, 1, 1, 366),
+                      # first example from "Calendrical Calculations"
+                      (1945, 11, 12, 710347)]:
+            (y, m, day, n) = tup
+            d = theclass(y, m, day)
+            assertEqual(n, d.toordinal())
+            fromord = theclass.fromordinal(n)
+            assertEqual(d, fromord)
+            if hasattr(fromord, "hour"):
+            # if we're checking something fancier than a date, verify
+            # the extra fields have been zeroed out
+                assertEqual(fromord.hour, 0)
+                assertEqual(fromord.minute, 0)
+                assertEqual(fromord.second, 0)
+                assertEqual(fromord.microsecond, 0)
+
+        # Check first and last days of year spottily across the whole
+        # range of years supported.
+        for year in range(MINYEAR, MAXYEAR+1, 7):
+            # Verify (year, 1, 1) -> ordinal -> y, m, d is identity.
+            d1 = theclass(year, 1, 1)
+            n1 = d1.toordinal()
+            d2 = theclass.fromordinal(n1)
+            assertEqual(d1, d2)
+            # Verify that moving back a day gets to the end of year-1.
+            if year > 1:
+                d1 = theclass.fromordinal(n1-1)
+                d2 = theclass(year-1, 12, 31)
+                assertEqual(d1, d2)
+                assertEqual(d2.toordinal(), n1-1)
+
+        # Test every day in a leap-year and a non-leap year.
+        dim = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        for (year, isleap) in [(2000, True), (2002, False)]:
+            n2 = theclass(year, 1, 1).toordinal()
+            for month, rmaxday in zip(range(1, 13), dim):
+                maxday = rmaxday
+                if month == 2 and isleap:
+                    maxday += 1
+                for day in range(1, maxday+1):
+                    d3 = theclass(year, month, day)
+                    assertEqual(d3.toordinal(), n2)
+                    assertEqual(d3, theclass.fromordinal(n2))
+                    n2 += 1
+    test_ordinal_conversions()
