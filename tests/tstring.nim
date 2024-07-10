@@ -61,8 +61,15 @@ test "str methods":
 
   check "hello world".index("w") == 6
 
+  # XXX: do not write:
+  #[
   check "a" or "b" == "a"
   check "" or "b" == "b"
+  ]#
+  # which do not mean what you think from Python 
+
+  check ("a" or "b") == "a"
+  check ("" or "b") == "b"
 
   check fr"{666.0} Hello {42} World {true} ! {1 + 2}" == "666.0 Hello 42 World true ! 3"
   check fr"" == ""
