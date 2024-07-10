@@ -8,8 +8,12 @@ nim	`==`	pylib/pybool.html#==,bool,	proc `==`(b: bool; self: PyBool): PyBool		16
 nim	`is`	pylib/pybool.html#is,,	proc `is`(self: PyBool; opyb: PyBool): PyBool		17
 nim	`xor`	pylib/pybool.html#xor,,	proc `xor`(self: PyBool; opyb: PyBool): PyBool		18
 nim	`not`	pylib/pybool.html#not	proc `not`(self: PyBool): PyBool		19
-nim	`and`	pylib/pybool.html#and,,	proc `and`(self: PyBool; opyb: PyBool): PyBool		20
-nim	`or`	pylib/pybool.html#or,,	proc `or`(self: PyBool; opyb: PyBool): PyBool		21
+nim	`and`	pylib/pybool.html#and,,	proc `and`(self: PyBool; opyb: PyBool): PyBool		13
+nim	`and`	pylib/pybool.html#and,,bool	proc `and`(self: PyBool; b: bool): PyBool		14
+nim	`and`	pylib/pybool.html#and,bool,	proc `and`(b: bool; self: PyBool): PyBool		20
+nim	`or`	pylib/pybool.html#or,,	proc `or`(self: PyBool; opyb: PyBool): PyBool		13
+nim	`or`	pylib/pybool.html#or,,bool	proc `or`(self: PyBool; b: bool): PyBool		14
+nim	`or`	pylib/pybool.html#or,bool,	proc `or`(b: bool; self: PyBool): PyBool		21
 nim	pybool	pylib/pybool.html#pybool.c,T	converter pybool[T](x: T): PyBool		23
 nim	`not`	pylib/pybool.html#not,T	proc `not`[T: not PyBool and not bool](nself: T): PyBool		24
 nim	`and`	pylib/pybool.html#and,T,T	proc `and`[T: not PyBool and not bool](nself, npyb: T): T		25

@@ -88,7 +88,9 @@
 
 </ul>
 <ul class="simple nested-toc-section">and
-  <li><a class="reference" href="#and%2C%2C" title="`and`(self: PyBool; opyb: PyBool): PyBool">`and`(self: PyBool; opyb: PyBool): PyBool</a></li>
+  <li><a class="reference" href="#and%2Cbool%2C" title="`and`(b: bool; self: PyBool): PyBool">`and`(b: bool; self: PyBool): PyBool</a></li>
+<li><a class="reference" href="#and%2C%2Cbool" title="`and`(self: PyBool; b: bool): PyBool">`and`(self: PyBool; b: bool): PyBool</a></li>
+<li><a class="reference" href="#and%2C%2C" title="`and`(self: PyBool; opyb: PyBool): PyBool">`and`(self: PyBool; opyb: PyBool): PyBool</a></li>
 <li><a class="reference" href="#and%2CT%2CT" title="`and`[T: not PyBool and not bool](nself, npyb: T): T">`and`[T: not PyBool and not bool](nself, npyb: T): T</a></li>
 
 </ul>
@@ -110,7 +112,9 @@
 
 </ul>
 <ul class="simple nested-toc-section">or
-  <li><a class="reference" href="#or%2C%2C" title="`or`(self: PyBool; opyb: PyBool): PyBool">`or`(self: PyBool; opyb: PyBool): PyBool</a></li>
+  <li><a class="reference" href="#or%2Cbool%2C" title="`or`(b: bool; self: PyBool): PyBool">`or`(b: bool; self: PyBool): PyBool</a></li>
+<li><a class="reference" href="#or%2C%2Cbool" title="`or`(self: PyBool; b: bool): PyBool">`or`(self: PyBool; b: bool): PyBool</a></li>
+<li><a class="reference" href="#or%2C%2C" title="`or`(self: PyBool; opyb: PyBool): PyBool">`or`(self: PyBool; opyb: PyBool): PyBool</a></li>
 <li><a class="reference" href="#or%2CT%2CT" title="`or`[T: not PyBool and not bool](nself, npyb: T): T">`or`[T: not PyBool and not bool](nself, npyb: T): T</a></li>
 
 </ul>
@@ -282,14 +286,36 @@
 
 </div>
 <div id="and-procs-all">
-  <div id="and,,">
-  <dt><pre><span class="Keyword">func</span> <a href="#and%2C%2C"><span class="Identifier">`and`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">;</span> <span class="Identifier">opyb</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <div id="and,bool,">
+  <dt><pre><span class="Keyword">func</span> <a href="#and%2Cbool%2C"><span class="Identifier">`and`</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybool.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybool.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="and,,bool">
+  <dt><pre><span class="Keyword">func</span> <a href="#and%2C%2Cbool"><span class="Identifier">`and`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybool.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybool.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="and,,">
+  <dt><pre><span class="Keyword">func</span> <a href="#and%2C%2C"><span class="Identifier">`and`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">;</span> <span class="Identifier">opyb</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybool.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybool.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -369,14 +395,36 @@
 
 </div>
 <div id="or-procs-all">
-  <div id="or,,">
-  <dt><pre><span class="Keyword">func</span> <a href="#or%2C%2C"><span class="Identifier">`or`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">;</span> <span class="Identifier">opyb</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <div id="or,bool,">
+  <dt><pre><span class="Keyword">func</span> <a href="#or%2Cbool%2C"><span class="Identifier">`or`</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybool.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybool.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="or,,bool">
+  <dt><pre><span class="Keyword">func</span> <a href="#or%2C%2Cbool"><span class="Identifier">`or`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybool.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybool.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="or,,">
+  <dt><pre><span class="Keyword">func</span> <a href="#or%2C%2C"><span class="Identifier">`or`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">;</span> <span class="Identifier">opyb</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pybool.html#PyBool"><span class="Identifier">PyBool</span></a> {.<span class="Identifier">borrow</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybool.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybool.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -490,7 +538,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-10 14:05:11 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-10 15:01:38 UTC</small>
       </div>
     </div>
   </div>

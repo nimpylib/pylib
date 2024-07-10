@@ -9,5 +9,5 @@ nim	inMicroseconds	datetime_impl/timedelta_impl/decl.html#inMicroseconds	proc in
 nim	flush_hash	datetime_impl/timedelta_impl/decl.html#flush_hash	proc flush_hash(self: timedelta)		43
 nim	hash	datetime_impl/timedelta_impl/decl.html#hash	proc hash(self: timedelta): int		47
 nim	toBool	datetime_impl/timedelta_impl/decl.html#toBool.c	converter toBool(self: timedelta): bool		52
-nim	`==`	datetime_impl/timedelta_impl/decl.html#==,,timedelta	proc `==`(self: timedelta; o: timedelta): bool		55
+nim	`==`	datetime_impl/timedelta_impl/decl.html#==,,timedelta	proc `==`(self: timedelta; o: timedelta): bool		56
 nimgrp	newtimedelta	datetime_impl/timedelta_impl/decl.html#newTimedelta-procs-all	proc		21
