@@ -1,3 +1,4 @@
+## See also: ./getter_requires_op ./getter_of_date
 
 import ../inner_decl
 import ../../timedelta_impl/decl

@@ -3,7 +3,7 @@ include ./common
 import ./init
 import ./pytime, ./time_utils, ./to_seconds_utils, ./struct_tm_decl
 export Timestamp
-from ./calendar_utils import ord_to_ymd, iso_to_ymd
+from ./calendar_utils import ord_to_ymd, iso_to_ymd, YMD
 import ../../timezone_impl/[decl, meth_by_datetime]
 import std/times
 
