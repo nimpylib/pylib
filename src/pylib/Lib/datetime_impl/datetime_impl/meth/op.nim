@@ -4,7 +4,8 @@ include ./common
 import ./getter
 import ../../timedelta_impl/[
   decl, meth]
-from ./importer import `@=`, ymd_to_ord, TypeError
+from ./calendar_utils import ymd_to_ord
+from ./importer import `@=`, TypeError
 
 using self: datetime
 proc `+`*(self; delta: timedelta): datetime =

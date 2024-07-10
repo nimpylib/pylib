@@ -3,7 +3,7 @@ import std/hashes
 include ./common
 import ./getter
 import ../../timedelta_impl/[decl, meth]  # import `-`, init for hash
-from ./importer import ymd_to_ord
+from ./calendar_utils import ymd_to_ord
 
 proc hashImpl(self: datetime): int =
   let self0 =

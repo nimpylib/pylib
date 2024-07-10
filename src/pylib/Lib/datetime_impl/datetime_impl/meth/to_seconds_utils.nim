@@ -1,5 +1,6 @@
 
-from ./importer import ymd_to_ord, MINYEAR, MAXYEAR
+from ./importer import MINYEAR, MAXYEAR
+from ./calendar_utils import ymd_to_ord
 import ./time_utils, ./struct_tm_helper
 
 let max_fold_seconds* = BiggestInt 24 * 3600  ## \

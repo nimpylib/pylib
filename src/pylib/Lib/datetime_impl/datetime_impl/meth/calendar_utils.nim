@@ -1,3 +1,4 @@
+# translated from CPython-3.14.0-alpha/Modules/_datetimemodule.c
 ##[
  General calendrical helper functions
  
@@ -48,7 +49,7 @@ const
   DI400Y = 146097
 
 type
-  YMD = tuple[
+  YMD* = tuple[
     year, month, day: int
   ]
 proc ord_to_ymd*(ordinal: int, result: var YMD) =
