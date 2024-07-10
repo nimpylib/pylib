@@ -17,8 +17,8 @@ genBin `==`
 func `is`*(self; opyb): PyBool{.borrow.}
 func `xor`*(self; opyb): PyBool{.borrow.}  ## EXT
 func `not`*(self): PyBool{.borrow.}
-func `and`*(self; opyb): PyBool{.borrow.}
-func `or`*(self; opyb): PyBool{.borrow.}
+genBin `and`
+genBin `or`
 
 converter pybool*[T](x: T): PyBool # forward decl
 func `not`*[T: not PyBool and not bool](nself: T): PyBool = not nself.pybool
