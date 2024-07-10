@@ -69,3 +69,10 @@ proc datetime*(year, month, day: int,
   ), tzinfo, fold.checkFold)
 
 {.pop.}
+
+proc replace*(self: datetime,
+    year=self.year, month=self.month, day=self.day,
+    hour=self.hour, minute=self.minute, second=self.second,
+    microsecond=self.microsecond, tzinfo=self.tzinfo, fold=0): datetime =
+  datetime(year, month, day, hour, minute, second, microsecond, tzinfo,
+           fold=fold)

@@ -91,7 +91,11 @@ test "tzinfo fromtimestamp":
     assertEqual(another.utcoffset(), timedelta(minutes=42))
   test_tzinfo_fromtimestamp()
 
+import std/macros
 suite "TestDate":
+  template theclass: untyped = PyDatetime
+  template theclass(x: untyped, xs: varargs[untyped]): untyped =
+    datetime(x, xs)
   test "fromisocalendar":
     def test_fromisocalendar():
         # For each test case, assert that fromisocalendar is the
@@ -115,10 +119,10 @@ suite "TestDate":
         ]
 
         for datecomps in dates:
-            dobj = datetime(datecomps[0], datecomps[1], datecomps[2])
+            dobj = theclass(datecomps[0], datecomps[1], datecomps[2])
             isocal = dobj.isocalendar()
 
-            d_roundtrip = datetime.PyDatetime.fromisocalendar(isocal[0], isocal[1], isocal[2])
+            d_roundtrip = theclass.fromisocalendar(isocal[0], isocal[1], isocal[2])
 
             assertEqual(dobj, d_roundtrip)
     test_fromisocalendar()
@@ -145,11 +149,8 @@ suite "TestDate":
             expect(ValueError):
                 _ = PyDatetime.fromisocalendar(isocal[0], isocal[1], isocal[2])
     test_fromisocalendar_value_errors()
-  
+
   test "ordinal_conversion":
-    template theclass: untyped = PyDatetime
-    template theclass(x: untyped, xs: varargs[untyped]): untyped =
-      datetime(x, xs)
     def test_ordinal_conversions():
         # Check some fixed values.
         for tup in [(1, 1, 1, 1),      # calendar origin
@@ -199,3 +200,28 @@ suite "TestDate":
                     assertEqual(d3, theclass.fromordinal(n2))
                     n2 += 1
     test_ordinal_conversions()
+
+  test "replace":
+    macro replaceWith(dt: datetime, name: string, x): datetime =
+      let nameId = newLit name
+      result = quote do:
+        `dt`.replace(`nameId`=`x`)
+    def test_replace(self):
+        args = [1, 2, 3]
+        base = theclass(args[0], arg[1], arg[2])
+        assertEqual(base.replace(), base)
+        assertEqual(copy.replace(base), base)
+
+        changes = (("year", 2),
+                   ("month", 3),
+                   ("day", 4))
+        for i, (name, newval) in enumerate(changes):
+            newargs = list(args)
+            newargs[i] = newval
+            expected = theclass(newargs[0], newargs[1], newargs[2])
+            assertEqual(replaceWith(base, name, newval), expected)
+
+        # Out of bounds.
+        base = theclass(2000, 2, 29)
+        expect(ValueError):
+          _ = base.replace(year=2001)
