@@ -50,7 +50,8 @@ func hash*(self): int =
   result = self.hashcode
 
 converter toBool*(self): bool =
-  self.inMicroseconds == 0
+  ## delta_bool
+  self.inMicroseconds != 0
 
 func `==`*(self; o: timedelta): bool =
   # required by datetime_impl/meth
