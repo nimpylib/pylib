@@ -3,6 +3,7 @@ include ./common
 import ./init
 import ./pytime, ./time_utils, ./to_seconds_utils, ./struct_tm_decl
 export Timestamp
+from ./calendar_utils import ord_to_ymd, iso_to_ymd
 import ../../timezone_impl/[decl, meth_by_datetime]
 import std/times
 
@@ -12,6 +13,20 @@ func now*(_; tzinfo: tzinfo = TzNone): datetime =
   newDatetime(now(), tzinfo)
 
 
+proc fromordinal*(_; ordinal: int): datetime =
+  if ordinal < 1:
+    raise newException(ValueError, "ordinal must be >= 1")
+  var ymd: YMD
+  ord_to_ymd(ordinal, ymd)
+  datetime(ymd.year, ymd.month, ymd.day)
+
+proc fromisocalendar*(_; year, week, day: int): datetime =
+  var ymd: YMD
+  iso_to_ymd((year, week, day), ymd)
+  datetime(ymd.year, ymd.month, ymd.day)
+
+
+# ## fromtimestamp
 type
   N_TM_FUNC = proc (timer: time_t): Tm
 
@@ -24,7 +39,7 @@ proc datetime_from_timet_and_us(f: N_TM_FUNC, timet: time_t, us: int,
     month = tm.tm_mon + 1
     day =   tm.tm_mday
     hour =  tm.tm_hour
-    minute =tm.tm_min
+    minute= tm.tm_min
   #[The platform localtime/gmtime may insert leap seconds,
     indicated by tm.tm_sec > 59.  We don't care about them,
     except to the extent that passing them on to the datetime

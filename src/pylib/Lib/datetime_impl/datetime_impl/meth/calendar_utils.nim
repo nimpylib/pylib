@@ -125,3 +125,51 @@ proc ymd_to_ord*(ymd: YMD): int =
   ##  year, month, day -> ordinal, considering 01-Jan-0001 as day 1.
   days_before_year(ymd.year) + days_before_month(ymd.year, ymd.month) + ymd.day
 
+proc weekday(year, month, day: int): int =
+  ## Day of week, where Monday==0, ..., Sunday==6.  1/1/1 was a Monday. 
+  (ymd_to_ord(year, month, day) + 6) mod 7
+
+proc iso_week1_monday(year: int): int =
+  let
+    first_day = ymd_to_ord(year, 1, 1)
+    first_weekday = (first_day + 6) mod 7
+  result = first_day - first_weekday
+  if first_weekday > 3:
+    result += 7
+
+template raiseValErr(pre: string, i: int, suf: string) =
+  raise newException(ValueError, pre & $i & suf)
+template raiseValErr(pre: string, i: int) =
+  raise newException(ValueError, pre & $i)
+
+type
+  YWD = tuple[
+    year, week, day: int
+  ]
+
+proc iso_to_ymd*(iso: YWD, ymd: var YMD) =
+  ## Year is bounded to 0 < year < 10000 because 9999-12-31 is (9999, 52, 5)
+  if iso.year < MINYEAR or iso.year > MAXYEAR:
+    raiseValErr "Year is out of range: ", iso.year
+  
+  if iso.week <= 0 or iso.week >= 53:
+    var out_of_range = true
+    if iso.week == 53:
+      # ISO years have 53 weeks in it on years starting with a Thursday
+      # and on leap years starting on Wednesday
+      let first_weekday = weekday(iso.year, 1, 1)
+      if first_weekday == 3 or (first_weekday == 2 and is_leap(iso.year)):
+        out_of_range = false
+
+    if out_of_range:
+      raiseValErr "Invalid week: ", iso.week
+
+  if iso.day <= 0 or iso.day >= 8:
+    raiseValErr "Invalid day: ", iso.day, " (range is [1, 7])"
+
+  let
+    day_1 = iso_week1_monday(iso.year)
+    day_offset = (iso.week - 1) * 7 + iso.day - 1
+  
+  ord_to_ymd(day_1 + day_offset, year, month, day)
+
