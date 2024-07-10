@@ -47,25 +47,25 @@ method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
     localZonedTimeFromAdjTime
   )
 
-let utc_timezone = newPyTimezone(timedelta(0))
+let UTC* = newPyTimezone(timedelta(0))
 template utc*(_: typedesc[timezone]): timezone =
   ## timezone.utc
-  bind utc_timezone
-  utc_timezone
+  bind UTC
+  UTC
 
 type NimTimezoneProc = typeof(times.timezone)
 static: assert NimTimezoneProc is proc
 template utc*(_: NimTimezoneProc): timezone =
   ## if `import std/times`,
   ## timezone.utc may matches this.
-  bind utc_timezone
-  utc_timezone
+  bind UTC
+  UTC
 
 func is_const_utc(tz: timezone): bool =
   bind `==`, utc_timezone  # `==` for ref, cmp on addr
   # utc_timezone is immutable, accessing it is fine
   {.noSideEffect.}:
-    tz == utc_timezone
+    tz == UTC
 
 func repr*(self: timezone): string =
   let type_name = $typeof(self)
