@@ -1,4 +1,4 @@
 nimTitle	meth_by_datetime	datetime_impl/timezone_impl/meth_by_datetime.html	module src/pylib/Lib/datetime_impl/timezone_impl/meth_by_datetime		0
-nim	fromutc	datetime_impl/timezone_impl/meth_by_datetime.html#fromutc.e,tzinfo,	method fromutc(self: tzinfo; dt: datetime): datetime		20
-nim	fromutc	datetime_impl/timezone_impl/meth_by_datetime.html#fromutc.e,timezone,	method fromutc(self: timezone; dt: datetime): datetime		37
-nimgrp	fromutc	datetime_impl/timezone_impl/meth_by_datetime.html#fromutc-methods-all	method		20
+nim	fromutc	datetime_impl/timezone_impl/meth_by_datetime.html#fromutc.e,tzinfo,	method fromutc(self: tzinfo; dt: datetime): datetime		19
+nim	fromutc	datetime_impl/timezone_impl/meth_by_datetime.html#fromutc.e,timezone,	method fromutc(self: timezone; dt: datetime): datetime		36
+nimgrp	fromutc	datetime_impl/timezone_impl/meth_by_datetime.html#fromutc-methods-all	method		19

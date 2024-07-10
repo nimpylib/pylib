@@ -1,3 +1,1 @@
 nimTitle	consts	datetime_impl/consts.html	module src/pylib/Lib/datetime_impl/consts		0
-nim	MINYEAR	datetime_impl/consts.html#MINYEAR	const MINYEAR		3
-nim	MAXYEAR	datetime_impl/consts.html#MAXYEAR	const MAXYEAR		4

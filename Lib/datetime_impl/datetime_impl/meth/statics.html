@@ -54,16 +54,24 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">fromtimestamp
-  <li><a class="reference" href="#fromtimestamp%2C%2CTimestamp" title="fromtimestamp(_: _`gensym1778384983:type; timestamp: Timestamp; tz = TzNone): datetime">fromtimestamp(_: _`gensym1778384983:type; timestamp: Timestamp; tz = TzNone): datetime</a></li>
+      <ul class="simple nested-toc-section">fromisocalendar
+  <li><a class="reference" href="#fromisocalendar%2C%2Cint%2Cint%2Cint" title="fromisocalendar(_: _`gensym1795162140:type; year, week, day: int): datetime">fromisocalendar(_: _`gensym1795162140:type; year, week, day: int): datetime</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">fromordinal
+  <li><a class="reference" href="#fromordinal%2C%2Cint" title="fromordinal(_: _`gensym1795162134:type; ordinal: int): datetime">fromordinal(_: _`gensym1795162134:type; ordinal: int): datetime</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">fromtimestamp
+  <li><a class="reference" href="#fromtimestamp%2C%2CTimestamp" title="fromtimestamp(_: _`gensym1795162214:type; timestamp: Timestamp; tz = TzNone): datetime">fromtimestamp(_: _`gensym1795162214:type; timestamp: Timestamp; tz = TzNone): datetime</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">now
-  <li><a class="reference" href="#now%2C%2Ctzinfo" title="now(_: _`gensym1778384912:type; tzinfo: tzinfo = TzNone): datetime">now(_: _`gensym1778384912:type; tzinfo: tzinfo = TzNone): datetime</a></li>
+  <li><a class="reference" href="#now%2C%2Ctzinfo" title="now(_: _`gensym1795162129:type; tzinfo: tzinfo = TzNone): datetime">now(_: _`gensym1795162129:type; tzinfo: tzinfo = TzNone): datetime</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">today
-  <li><a class="reference" href="#today" title="today(_: _`gensym1778384908:type): datetime">today(_: _`gensym1778384908:type): datetime</a></li>
+  <li><a class="reference" href="#today" title="today(_: _`gensym1795162125:type): datetime">today(_: _`gensym1795162125:type): datetime</a></li>
 
 </ul>
 
@@ -87,20 +95,46 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../decl.html">../decl</a>, <a class="reference external" href="init.html">init</a>, <a class="reference external" href="pytime.html">pytime</a>, <a class="reference external" href="time_utils.html">time_utils</a>, <a class="reference external" href="to_seconds_utils.html">to_seconds_utils</a>, <a class="reference external" href="struct_tm_decl.html">struct_tm_decl</a>, <a class="reference external" href="../../timezone_impl/decl.html">../../timezone_impl/decl</a>, <a class="reference external" href="../../timezone_impl/meth_by_datetime.html">../../timezone_impl/meth_by_datetime</a>
+    <a class="reference external" href="../decl.html">../decl</a>, <a class="reference external" href="init.html">init</a>, <a class="reference external" href="pytime.html">pytime</a>, <a class="reference external" href="time_utils.html">time_utils</a>, <a class="reference external" href="to_seconds_utils.html">to_seconds_utils</a>, <a class="reference external" href="struct_tm_decl.html">struct_tm_decl</a>, <a class="reference external" href="calendar_utils.html">calendar_utils</a>, <a class="reference external" href="../../timezone_impl/decl.html">../../timezone_impl/decl</a>, <a class="reference external" href="../../timezone_impl/meth_by_datetime.html">../../timezone_impl/meth_by_datetime</a>
   </dl>
 </div>
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="fromtimestamp-procs-all">
-  <div id="fromtimestamp,,Timestamp">
-  <dt><pre><span class="Keyword">proc</span> <a href="#fromtimestamp%2C%2CTimestamp"><span class="Identifier">fromtimestamp</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1778384983:type</span><span class="Other">;</span> <span class="Identifier">timestamp</span><span class="Other">:</span> <a href="pytime.html#Timestamp"><span class="Identifier">Timestamp</span></a><span class="Other">;</span> <span class="Identifier">tz</span> <span class="Other">=</span> <span class="Identifier">TzNone</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
+    <div id="fromisocalendar-procs-all">
+  <div id="fromisocalendar,,int,int,int">
+  <dt><pre><span class="Keyword">proc</span> <a href="#fromisocalendar%2C%2Cint%2Cint%2Cint"><span class="Identifier">fromisocalendar</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1795162140:type</span><span class="Other">;</span> <span class="Identifier">year</span><span class="Other">,</span> <span class="Identifier">week</span><span class="Other">,</span> <span class="Identifier">day</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="fromordinal-procs-all">
+  <div id="fromordinal,,int">
+  <dt><pre><span class="Keyword">proc</span> <a href="#fromordinal%2C%2Cint"><span class="Identifier">fromordinal</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1795162134:type</span><span class="Other">;</span> <span class="Identifier">ordinal</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="fromtimestamp-procs-all">
+  <div id="fromtimestamp,,Timestamp">
+  <dt><pre><span class="Keyword">proc</span> <a href="#fromtimestamp%2C%2CTimestamp"><span class="Identifier">fromtimestamp</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1795162214:type</span><span class="Other">;</span> <span class="Identifier">timestamp</span><span class="Other">:</span> <a href="pytime.html#Timestamp"><span class="Identifier">Timestamp</span></a><span class="Other">;</span> <span class="Identifier">tz</span> <span class="Other">=</span> <span class="Identifier">TzNone</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L94" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L94" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -108,12 +142,12 @@
 </div>
 <div id="now-procs-all">
   <div id="now,,tzinfo">
-  <dt><pre><span class="Keyword">func</span> <a href="#now%2C%2Ctzinfo"><span class="Identifier">now</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1778384912:type</span><span class="Other">;</span> <span class="Identifier">tzinfo</span><span class="Other">:</span> <a href="../../timezone_impl/decl.html#tzinfo"><span class="Identifier">tzinfo</span></a> <span class="Other">=</span> <span class="Identifier">TzNone</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#now%2C%2Ctzinfo"><span class="Identifier">now</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1795162129:type</span><span class="Other">;</span> <span class="Identifier">tzinfo</span><span class="Other">:</span> <a href="../../timezone_impl/decl.html#tzinfo"><span class="Identifier">tzinfo</span></a> <span class="Other">=</span> <span class="Identifier">TzNone</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -121,12 +155,12 @@
 </div>
 <div id="today-procs-all">
   <div id="today">
-  <dt><pre><span class="Keyword">func</span> <a href="#today"><span class="Identifier">today</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1778384908:type</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#today"><span class="Identifier">today</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Operator">_`gensym1795162125:type</span><span class="Other">)</span><span class="Other">:</span> <a href="../inner_decl.html#datetime"><span class="Identifier">datetime</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/datetime_impl/meth/statics.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -148,7 +182,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-09 16:15:39 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-10 14:05:39 UTC</small>
       </div>
     </div>
   </div>

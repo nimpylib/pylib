@@ -4,4 +4,4 @@ nim	IS_CONTINUATION_BYTE	_._/Python/unicodeobject/codecs.html#IS_CONTINUATION_BY
 nim	ALIGNOF_SIZE_T	_._/Python/unicodeobject/codecs.html#ALIGNOF_SIZE_T	const ALIGNOF_SIZE_T		29
 nim	Py_IS_ALIGNED	_._/Python/unicodeobject/codecs.html#Py_IS_ALIGNED.t,,	template Py_IS_ALIGNED(p: cstring | ptr; a: typeof(ALIGNOF_SIZE_T)): bool		31
 nim	getMaxChar	_._/Python/unicodeobject/codecs.html#getMaxChar	proc getMaxChar[C](): C		34
-nim	utf8_decode	_._/Python/unicodeobject/codecs.html#utf8_decode,,cstring,ptr.STRINGLIB_CHAR,Py_ssize_t	proc utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char); end: cstring;\n                            dest: ptr STRINGLIB_CHAR; outpos: var Py_ssize_t): Py_UCS4		43
+nim	utf8_decode	_._/Python/unicodeobject/codecs.html#utf8_decode,,,ptr.STRINGLIB_CHAR,Py_ssize_t	proc utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char);\n                            end: (cstring | ptr char); dest: ptr STRINGLIB_CHAR;\n                            outpos: var Py_ssize_t): Py_UCS4		43

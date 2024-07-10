@@ -1,0 +1,10 @@
+nimTitle	calendar_utils	datetime_impl/datetime_impl/meth/calendar_utils.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/calendar_utils		0
+nim	ymd_to_ord	datetime_impl/datetime_impl/meth/calendar_utils.html#ymd_to_ord,int,int,int	proc ymd_to_ord(year, month, day: int): int		40
+nim	YMD	datetime_impl/datetime_impl/meth/calendar_utils.html#YMD	tuple YMD		53
+nim	ord_to_ymd	datetime_impl/datetime_impl/meth/calendar_utils.html#ord_to_ymd,int,YMD	proc ord_to_ymd(ordinal: int; result: var YMD)		56
+nim	ymd_to_ord	datetime_impl/datetime_impl/meth/calendar_utils.html#ymd_to_ord,YMD	proc ymd_to_ord(ymd: YMD): int		125
+nim	weekday	datetime_impl/datetime_impl/meth/calendar_utils.html#weekday,int,int,int	proc weekday(year, month, day: int): int		129
+nim	iso_week1_monday	datetime_impl/datetime_impl/meth/calendar_utils.html#iso_week1_monday,int	proc iso_week1_monday(year: int): int		133
+nim	YWD	datetime_impl/datetime_impl/meth/calendar_utils.html#YWD	tuple YWD		147
+nim	iso_to_ymd	datetime_impl/datetime_impl/meth/calendar_utils.html#iso_to_ymd,YWD,YMD	proc iso_to_ymd(iso: YWD; ymd: var YMD)		151
+nimgrp	ymdtoord	datetime_impl/datetime_impl/meth/calendar_utils.html#ymd_to_ord-procs-all	proc		40

@@ -1,5 +1,0 @@
-nimTitle	calendar_utils	datetime_impl/datetime_impl/calendar_utils.html	module src/pylib/Lib/datetime_impl/datetime_impl/calendar_utils		0
-nim	ymd_to_ord	datetime_impl/datetime_impl/calendar_utils.html#ymd_to_ord,int,int,int	proc ymd_to_ord(year, month, day: int): int		38
-nim	ord_to_ymd	datetime_impl/datetime_impl/calendar_utils.html#ord_to_ymd,int,YMD	proc ord_to_ymd(ordinal: int; result: var YMD)		54
-nim	ymd_to_ord	datetime_impl/datetime_impl/calendar_utils.html#ymd_to_ord,YMD	proc ymd_to_ord(ymd: YMD): int		123
-nimgrp	ymdtoord	datetime_impl/datetime_impl/calendar_utils.html#ymd_to_ord-procs-all	proc		38

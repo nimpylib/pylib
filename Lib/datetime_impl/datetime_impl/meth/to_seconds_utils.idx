@@ -1,6 +1,6 @@
 nimTitle	to_seconds_utils	datetime_impl/datetime_impl/meth/to_seconds_utils.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/to_seconds_utils		0
-nim	max_fold_seconds	datetime_impl/datetime_impl/meth/to_seconds_utils.html#max_fold_seconds	let max_fold_seconds		5
-nim	epoch	datetime_impl/datetime_impl/meth/to_seconds_utils.html#epoch	let epoch		9
-nim	utc_to_seconds	datetime_impl/datetime_impl/meth/to_seconds_utils.html#utc_to_seconds,int,int,int,int,int,int	proc utc_to_seconds(year, month, day, hour, minute, second: int): BiggestInt		12
-nim	local	datetime_impl/datetime_impl/meth/to_seconds_utils.html#local,BiggestInt	proc local(u: BiggestInt): BiggestInt		19
-nim	local_to_seconds	datetime_impl/datetime_impl/meth/to_seconds_utils.html#local_to_seconds,int,int,int,int,int,int,int	proc local_to_seconds(year, month, day, hour, minute, second: int; fold: int): BiggestInt		27
+nim	max_fold_seconds	datetime_impl/datetime_impl/meth/to_seconds_utils.html#max_fold_seconds	let max_fold_seconds		6
+nim	epoch	datetime_impl/datetime_impl/meth/to_seconds_utils.html#epoch	let epoch		10
+nim	utc_to_seconds	datetime_impl/datetime_impl/meth/to_seconds_utils.html#utc_to_seconds,int,int,int,int,int,int	proc utc_to_seconds(year, month, day, hour, minute, second: int): BiggestInt		13
+nim	local	datetime_impl/datetime_impl/meth/to_seconds_utils.html#local,BiggestInt	proc local(u: BiggestInt): BiggestInt		20
+nim	local_to_seconds	datetime_impl/datetime_impl/meth/to_seconds_utils.html#local_to_seconds,int,int,int,int,int,int,int	proc local_to_seconds(year, month, day, hour, minute, second: int; fold: int): BiggestInt		28

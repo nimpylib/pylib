@@ -1,4 +1,4 @@
 nimTitle	getter	datetime_impl/datetime_impl/meth/getter.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/getter		0
-nim	utcoffset	datetime_impl/datetime_impl/meth/getter.html#utcoffset	proc utcoffset(self: datetime): timedelta		24
-nim	dst	datetime_impl/datetime_impl/meth/getter.html#dst	proc dst(self: datetime): timedelta		28
-nim	tzname	datetime_impl/datetime_impl/meth/getter.html#tzname	proc tzname(self: datetime): string		32
+nim	utcoffset	datetime_impl/datetime_impl/meth/getter.html#utcoffset	proc utcoffset(self: datetime): timedelta		25
+nim	dst	datetime_impl/datetime_impl/meth/getter.html#dst	proc dst(self: datetime): timedelta		29
+nim	tzname	datetime_impl/datetime_impl/meth/getter.html#tzname	proc tzname(self: datetime): string		33

@@ -1,0 +1,5 @@
+nimTitle	getter_of_date	datetime_impl/datetime_impl/meth/getter_of_date.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/getter_of_date		0
+nim	toordinal	datetime_impl/datetime_impl/meth/getter_of_date.html#toordinal	proc toordinal(self: datetime): int		10
+nim	weekday	datetime_impl/datetime_impl/meth/getter_of_date.html#weekday	proc weekday(self: datetime): int		14
+nim	isoweekday	datetime_impl/datetime_impl/meth/getter_of_date.html#isoweekday	proc isoweekday(self: datetime): int		17
+nim	isocalendar	datetime_impl/datetime_impl/meth/getter_of_date.html#isocalendar	proc isocalendar(self: datetime): YWD		21

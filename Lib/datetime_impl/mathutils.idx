@@ -1,0 +1,2 @@
+nimTitle	mathutils	datetime_impl/mathutils.html	module src/pylib/Lib/datetime_impl/mathutils		0
+nim	divmod	datetime_impl/mathutils.html#divmod,I,Natural,I	proc divmod[I](x: I; y: Natural; r: var I): I		3

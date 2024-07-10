@@ -6,6 +6,7 @@ nim	prCeiling	datetime_impl/datetime_impl/meth/pytime.html#prCeiling	PyTime_roun
 nim	prHalfEven	datetime_impl/datetime_impl/meth/pytime.html#prHalfEven	PyTime_round_t.prHalfEven		21
 nim	prRoundUp	datetime_impl/datetime_impl/meth/pytime.html#prRoundUp	PyTime_round_t.prRoundUp		21
 nim	PyTime_round_t	datetime_impl/datetime_impl/meth/pytime.html#PyTime_round_t	enum PyTime_round_t		21
-nim	nPyTime_ObjectToTimeval	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_ObjectToTimeval,Timestamp,time_t,long,PyTime_round_t	proc nPyTime_ObjectToTimeval(obj: Timestamp; sec: var time_t; usec: var long;\n                        round: PyTime_round_t)		105
-nim	nPyTime_localtime	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_localtime,time_t,Tm	proc nPyTime_localtime(t: time_t; tm: var Tm)		115
-nim	nPyTime_gmtime	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_gmtime,time_t,Tm	proc nPyTime_gmtime(t: time_t; tm: var Tm)		137
+nim	prTimeout	datetime_impl/datetime_impl/meth/pytime.html#prTimeout	const prTimeout		27
+nim	nPyTime_ObjectToTimeval	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_ObjectToTimeval,Timestamp,time_t,long,PyTime_round_t	proc nPyTime_ObjectToTimeval(obj: Timestamp; sec: var time_t; usec: var long;\n                        round: PyTime_round_t)		102
+nim	nPyTime_localtime	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_localtime,time_t,Tm	proc nPyTime_localtime(t: time_t; tm: var Tm)		112
+nim	nPyTime_gmtime	datetime_impl/datetime_impl/meth/pytime.html#nPyTime_gmtime,time_t,Tm	proc nPyTime_gmtime(t: time_t; tm: var Tm)		134

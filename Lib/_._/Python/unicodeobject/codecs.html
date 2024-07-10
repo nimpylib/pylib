@@ -69,9 +69,11 @@
 
 </ul>
 <ul class="simple nested-toc-section">utf8_decode
-  <li><a class="reference" href="#utf8_decode%2C%2Ccstring%2Cptr.STRINGLIB_CHAR%2CPy_ssize_t" title="utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char); end: cstring;
-                            dest: ptr STRINGLIB_CHAR; outpos: var Py_ssize_t): Py_UCS4">utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char); end: cstring;
-                            dest: ptr STRINGLIB_CHAR; outpos: var Py_ssize_t): Py_UCS4</a></li>
+  <li><a class="reference" href="#utf8_decode%2C%2C%2Cptr.STRINGLIB_CHAR%2CPy_ssize_t" title="utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char);
+                            end: (cstring | ptr char); dest: ptr STRINGLIB_CHAR;
+                            outpos: var Py_ssize_t): Py_UCS4">utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char);
+                            end: (cstring | ptr char); dest: ptr STRINGLIB_CHAR;
+                            outpos: var Py_ssize_t): Py_UCS4</a></li>
 
 </ul>
 
@@ -154,8 +156,9 @@
 
 </div>
 <div id="utf8_decode-procs-all">
-  <div id="utf8_decode,,cstring,ptr.STRINGLIB_CHAR,Py_ssize_t">
-  <dt><pre><span class="Keyword">proc</span> <a href="#utf8_decode%2C%2Ccstring%2Cptr.STRINGLIB_CHAR%2CPy_ssize_t"><span class="Identifier">utf8_decode</span></a><span class="Other">[</span><span class="Identifier">STRINGLIB_CHAR</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">inptr</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Other">(</span><span class="Identifier">cstring</span> <span class="Operator">|</span> <span class="Keyword">ptr</span> <span class="Identifier">char</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">end</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span>
+  <div id="utf8_decode,,,ptr.STRINGLIB_CHAR,Py_ssize_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#utf8_decode%2C%2C%2Cptr.STRINGLIB_CHAR%2CPy_ssize_t"><span class="Identifier">utf8_decode</span></a><span class="Other">[</span><span class="Identifier">STRINGLIB_CHAR</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">inptr</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Other">(</span><span class="Identifier">cstring</span> <span class="Operator">|</span> <span class="Keyword">ptr</span> <span class="Identifier">char</span><span class="Other">)</span><span class="Other">;</span>
+                                 <span class="Identifier">end</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">cstring</span> <span class="Operator">|</span> <span class="Keyword">ptr</span> <span class="Identifier">char</span><span class="Other">)</span><span class="Other">;</span>
                                  <span class="Identifier">dest</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">STRINGLIB_CHAR</span><span class="Other">;</span>
                                  <span class="Identifier">outpos</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Py_ssize_t</span><span class="Other">)</span><span class="Other">:</span> <a href="char_decl.html#Py_UCS4"><span class="Identifier">Py_UCS4</span></a></pre></dt>
   <dd>
@@ -210,7 +213,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-09 16:15:39 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-10 14:05:39 UTC</small>
       </div>
     </div>
   </div>

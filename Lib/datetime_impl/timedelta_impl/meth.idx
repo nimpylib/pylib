@@ -2,9 +2,9 @@ nimTitle	meth	datetime_impl/timedelta_impl/meth.html	module src/pylib/Lib/dateti
 nim	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta,int64,int64,int64,int64,int64,int64,int64	proc timedelta(days: int64; seconds = 0'i64; microseconds = 0'i64;\n          milliseconds = 0'i64; minutes = 0'i64; hours = 0'i64; weeks = 0'i64): timedelta		9
 nim	FI	datetime_impl/timedelta_impl/meth.html#FI	type FI		34
 nim	timedelta	datetime_impl/timedelta_impl/meth.html#timedelta,FI,FI,FI,FI,FI,FI,FI	proc timedelta(days: FI = 0; seconds: FI = 0; microseconds: FI = 0;\n          milliseconds: FI = 0; minutes: FI = 0; hours: FI = 0; weeks: FI = 0): timedelta		90
-nim	min	datetime_impl/timedelta_impl/meth.html#min	proc min(_: _`gensym1677721678:type): timedelta		116
-nim	max	datetime_impl/timedelta_impl/meth.html#max	proc max(_: _`gensym1677721682:type): timedelta		119
-nim	resolution	datetime_impl/timedelta_impl/meth.html#resolution	proc resolution(_: _`gensym1677721686:type): timedelta		123
+nim	min	datetime_impl/timedelta_impl/meth.html#min	proc min(_: _`gensym1694498894:type): timedelta		116
+nim	max	datetime_impl/timedelta_impl/meth.html#max	proc max(_: _`gensym1694498898:type): timedelta		119
+nim	resolution	datetime_impl/timedelta_impl/meth.html#resolution	proc resolution(_: _`gensym1694498902:type): timedelta		123
 nim	days	datetime_impl/timedelta_impl/meth.html#days	proc days(self: timedelta): int64		126
 nim	seconds	datetime_impl/timedelta_impl/meth.html#seconds	proc seconds(self: timedelta): int64		128
 nim	microseconds	datetime_impl/timedelta_impl/meth.html#microseconds	proc microseconds(self: timedelta): int64		131

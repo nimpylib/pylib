@@ -1,0 +1,3 @@
+nimTitle	state_consts	datetime_impl/datetime_impl/meth/state_consts.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/state_consts		0
+nim	utc_timezone	datetime_impl/datetime_impl/meth/state_consts.html#utc_timezone.t	template utc_timezone(): timezone		5
+nim	CONST_EPOCH	datetime_impl/datetime_impl/meth/state_consts.html#CONST_EPOCH	let CONST_EPOCH		9

@@ -1,0 +1,2 @@
+nimTitle	getter_requires_op	datetime_impl/datetime_impl/meth/getter_requires_op.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/getter_requires_op		0
+nim	timestamp	datetime_impl/datetime_impl/meth/getter_requires_op.html#timestamp	proc timestamp(self: datetime): float		13

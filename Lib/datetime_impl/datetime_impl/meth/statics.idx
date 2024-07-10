@@ -1,4 +1,6 @@
 nimTitle	statics	datetime_impl/datetime_impl/meth/statics.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/statics		0
-nim	today	datetime_impl/datetime_impl/meth/statics.html#today	proc today(_: _`gensym1778384908:type): datetime		10
-nim	now	datetime_impl/datetime_impl/meth/statics.html#now,,tzinfo	proc now(_: _`gensym1778384912:type; tzinfo: tzinfo = TzNone): datetime		11
-nim	fromtimestamp	datetime_impl/datetime_impl/meth/statics.html#fromtimestamp,,Timestamp	proc fromtimestamp(_: _`gensym1778384983:type; timestamp: Timestamp; tz = TzNone): datetime		79
+nim	today	datetime_impl/datetime_impl/meth/statics.html#today	proc today(_: _`gensym1795162125:type): datetime		11
+nim	now	datetime_impl/datetime_impl/meth/statics.html#now,,tzinfo	proc now(_: _`gensym1795162129:type; tzinfo: tzinfo = TzNone): datetime		12
+nim	fromordinal	datetime_impl/datetime_impl/meth/statics.html#fromordinal,,int	proc fromordinal(_: _`gensym1795162134:type; ordinal: int): datetime		16
+nim	fromisocalendar	datetime_impl/datetime_impl/meth/statics.html#fromisocalendar,,int,int,int	proc fromisocalendar(_: _`gensym1795162140:type; year, week, day: int): datetime		23
+nim	fromtimestamp	datetime_impl/datetime_impl/meth/statics.html#fromtimestamp,,Timestamp	proc fromtimestamp(_: _`gensym1795162214:type; timestamp: Timestamp; tz = TzNone): datetime		94
