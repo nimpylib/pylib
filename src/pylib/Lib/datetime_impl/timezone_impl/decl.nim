@@ -1,4 +1,5 @@
 
+from ../mathutils import divmod
 import ../timedelta_impl/[decl, meth]
 import std/times
 
@@ -75,15 +76,6 @@ func repr*(self: timezone): string =
     result.add ", "
     result.add self.name
   result.add ')'
-
-func divmod[I](x: I, y: Natural, r: var I): I =
-  ## returns floorDiv(x, y)
-  result = x div y
-  r = x - result * y
-  if r < 0:
-    result.dec
-    r.inc y
-  assert 0 <= r and r < y
 
 func `$`*(self: timezone): string =
   if self.name.len != 0: return self.name

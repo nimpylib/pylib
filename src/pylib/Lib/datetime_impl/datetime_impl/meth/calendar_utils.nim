@@ -130,7 +130,7 @@ proc weekday*(year, month, day: int): int =
   ## Day of week, where Monday==0, ..., Sunday==6.  1/1/1 was a Monday. 
   (ymd_to_ord(year, month, day) + 6) mod 7
 
-proc iso_week1_monday(year: int): int =
+proc iso_week1_monday*(year: int): int =
   let
     first_day = ymd_to_ord(year, 1, 1)
     first_weekday = (first_day + 6) mod 7
@@ -144,7 +144,7 @@ template raiseValErr(pre: string, i: int) =
   raise newException(ValueError, pre & $i)
 
 type
-  YWD = tuple[
+  YWD* = tuple[
     year, week, day: int
   ]
 
