@@ -241,3 +241,20 @@ suite "TestDate":
         base = theclass(2000, 2, 29)
         expect(ValueError):
           _ = base.replace(year=2001)
+  test "strftime":
+    def test_strftime():
+        t = theclass(2005, 3, 2)
+        assertEqual(t.strftime("m:%m d:%d y:%Y"), "m:03 d:02 y:2005")
+        assertEqual(t.strftime(""), "") # SF bug #761337
+        assertEqual(t.strftime('x'*1000), 'x'*1000) # SF bug #1556784
+
+        check not compiles(t.strftime) # needs an arg
+        check not compiles(t.strftime("one", "two")) # too many args
+        check not compiles(t.strftime(42)) # arg wrong type
+
+        # test that unicode input is allowed (issue 2782)
+        assertEqual(t.strftime("%m"), "03")
+
+        # A naive object replaces %z, %:z and %Z w/ empty strings.
+        assertEqual(t.strftime("'%z' '%:z' '%Z'"), "'' '' ''")
+    test_strftime()
