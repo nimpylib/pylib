@@ -1,5 +1,5 @@
 import std/times
-import ./types, ./converters, ./nstrpftime
+import ./types, ./converters, ./nstrfptime
 
 fetchDoc(docTable)
 export fetchDoc, docTable
