@@ -11,7 +11,6 @@ import ../../timezone_impl/[
 
 include ./common
 from std/times import DateTime, yearday, toParts
-import ./getter_of_date
 
 from ./importer import NotImplementedError
 

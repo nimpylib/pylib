@@ -1,5 +1,4 @@
 
-from ../mathutils import divmod
 from ../delta_chk import chkOneDay
 import ../timedelta_impl/[decl, meth]
 import std/times
