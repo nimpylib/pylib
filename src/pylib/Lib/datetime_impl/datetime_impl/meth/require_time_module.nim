@@ -1,6 +1,6 @@
 
 import ../../../time_impl/[
-  types, converters, nstrfptime
+  types, converters, nstrfptime, asctimeImpl
 ]
 
 from std/strutils import multiReplace, replace, align, parseInt
@@ -94,4 +94,7 @@ func strptime*(_; datetime_string, format: string): datetime =
   )
 
 # TODO: easy: support all in nstrfptime.NotImplDirectives, with the help of calendar_utils
+
+func ctime*(self): string =
+  asctimeImpl(result, self.asNimDatetime)
 
