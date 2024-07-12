@@ -1,19 +1,20 @@
 nimTitle	decl	datetime_impl/timezone_impl/decl.html	module src/pylib/Lib/datetime_impl/timezone_impl/decl		0
-nim	tzinfo	datetime_impl/timezone_impl/decl.html#tzinfo	type tzinfo		8
-nim	timezone	datetime_impl/timezone_impl/decl.html#timezone	type timezone		9
-nim	TzNone	datetime_impl/timezone_impl/decl.html#TzNone	const TzNone		13
-nim	isTzNone	datetime_impl/timezone_impl/decl.html#isTzNone,tzinfo	proc isTzNone(self: tzinfo): bool		14
-nim	offset	datetime_impl/timezone_impl/decl.html#offset,timezone	proc offset(self: timezone): timedelta		16
-nim	hash	datetime_impl/timezone_impl/decl.html#hash,timezone	proc hash(self: timezone): int		18
-nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta	proc newPyTimezone(offset: timedelta): timezone		20
-nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta,string	proc newPyTimezone(offset: timedelta; name: string): timezone		22
-nim	toNimTimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone.e,tzinfo	method toNimTimezone(self: tzinfo): Timezone		27
-nim	toNimTimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone.e,timezone	method toNimTimezone(self: timezone): Timezone		31
-nim	UTC	datetime_impl/timezone_impl/decl.html#UTC	let UTC		50
-nim	utc	datetime_impl/timezone_impl/decl.html#utc.t,typedesc[timezone]	template utc(_: typedesc[timezone]): timezone		51
-nim	utc	datetime_impl/timezone_impl/decl.html#utc.t,NimTimezoneProc	template utc(_: NimTimezoneProc): timezone		58
-nim	repr	datetime_impl/timezone_impl/decl.html#repr,timezone	proc repr(self: timezone): string		70
-nim	`$`	datetime_impl/timezone_impl/decl.html#$,timezone	proc `$`(self: timezone): string		80
-nimgrp	newpytimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone-procs-all	proc		20
-nimgrp	tonimtimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone-methods-all	method		27
-nimgrp	utc	datetime_impl/timezone_impl/decl.html#utc-templates-all	template		51
+nim	tzinfo	datetime_impl/timezone_impl/decl.html#tzinfo	type tzinfo		9
+nim	timezone	datetime_impl/timezone_impl/decl.html#timezone	type timezone		10
+nim	TzNone	datetime_impl/timezone_impl/decl.html#TzNone	const TzNone		14
+nim	isTzNone	datetime_impl/timezone_impl/decl.html#isTzNone,tzinfo	proc isTzNone(self: tzinfo): bool		15
+nim	offset	datetime_impl/timezone_impl/decl.html#offset,timezone	proc offset(self: timezone): timedelta		17
+nim	hash	datetime_impl/timezone_impl/decl.html#hash,timezone	proc hash(self: timezone): int		19
+nim	toNimTimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone.e,tzinfo	method toNimTimezone(self: tzinfo): Timezone		22
+nim	toNimTimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone.e,timezone	method toNimTimezone(self: timezone): Timezone		26
+nim	UTC	datetime_impl/timezone_impl/decl.html#UTC	let UTC		45
+nim	utc	datetime_impl/timezone_impl/decl.html#utc.t,typedesc[timezone]	template utc(_: typedesc[timezone]): timezone		46
+nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta	proc newPyTimezone(offset: timedelta): timezone		51
+nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta,string	proc newPyTimezone(offset: timedelta; name: string): timezone		57
+nim	utc	datetime_impl/timezone_impl/decl.html#utc.t,NimTimezoneProc	template utc(_: NimTimezoneProc): timezone		63
+nim	repr	datetime_impl/timezone_impl/decl.html#repr,timezone	proc repr(self: timezone): string		75
+nim	format_utcoffset	datetime_impl/timezone_impl/decl.html#format_utcoffset,DurationParts,char,string	proc format_utcoffset(parts: DurationParts; sep: string | char = ':'; prefix = "UTC"): string		124
+nim	`$`	datetime_impl/timezone_impl/decl.html#$,timezone	proc `$`(self: timezone): string		139
+nimgrp	newpytimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone-procs-all	proc		51
+nimgrp	tonimtimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone-methods-all	method		22
+nimgrp	utc	datetime_impl/timezone_impl/decl.html#utc-templates-all	template		46

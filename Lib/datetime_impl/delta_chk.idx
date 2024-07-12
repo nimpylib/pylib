@@ -1,0 +1,2 @@
+nimTitle	delta_chk	datetime_impl/delta_chk.html	module src/pylib/Lib/datetime_impl/delta_chk		0
+nim	chkOneDay	datetime_impl/delta_chk.html#chkOneDay.t,timedelta	template chkOneDay(delta: timedelta)		14

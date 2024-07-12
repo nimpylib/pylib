@@ -64,7 +64,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#9" id="59">Lets</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#UTC" title="UTC = newPyTimezone(timedelta(0, 0, 0, 0, 0, 0, 0))">UTC</a></li>
+      <li><a class="reference" href="#UTC" title="UTC = timezone(offset: timedelta(0, 0, 0, 0, 0, 0, 0))">UTC</a></li>
 
     </ul>
   </details>
@@ -84,6 +84,10 @@
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">$
   <li><a class="reference" href="#%24%2Ctimezone" title="`$`(self: timezone): string">`$`(self: timezone): string</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">format_utcoffset
+  <li><a class="reference" href="#format_utcoffset%2CDurationParts%2Cchar%2Cstring" title="format_utcoffset(parts: DurationParts; sep: string | char = ':'; prefix = &quot;UTC&quot;): string">format_utcoffset(parts: DurationParts; sep: string | char = ':'; prefix = &quot;UTC&quot;): string</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">hash
@@ -151,7 +155,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../mathutils.html">../mathutils</a>, <a class="reference external" href="../timedelta_impl/decl.html">../timedelta_impl/decl</a>, <a class="reference external" href="../timedelta_impl/meth.html">../timedelta_impl/meth</a>
+    <a class="reference external" href="../mathutils.html">../mathutils</a>, <a class="reference external" href="../delta_chk.html">../delta_chk</a>, <a class="reference external" href="../timedelta_impl/decl.html">../timedelta_impl/decl</a>, <a class="reference external" href="../timedelta_impl/meth.html">../timedelta_impl/meth</a>
   </dl>
 </div>
 <div class="section" id="7">
@@ -163,8 +167,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -173,8 +177,8 @@
   <dd>
     
     an abstract base class
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L8" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L8" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -185,12 +189,12 @@
   <h1><a class="toc-backref" href="#9">Lets</a></h1>
   <dl class="item">
     <div id="UTC">
-  <dt><pre><a href="decl.html#UTC"><span class="Identifier">UTC</span></a> <span class="Other">=</span> <span class="Identifier">newPyTimezone</span><span class="Other">(</span><span class="Identifier">timedelta</span><span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
+  <dt><pre><a href="decl.html#UTC"><span class="Identifier">UTC</span></a> <span class="Other">=</span> <a href="decl.html#timezone"><span class="Identifier">timezone</span></a><span class="Other">(</span><span class="Identifier">offset</span><span class="Other">:</span> <span class="Identifier">timedelta</span><span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L45" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L45" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -205,8 +209,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -222,8 +226,24 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L139" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L139" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="format_utcoffset-procs-all">
+  <div id="format_utcoffset,DurationParts,char,string">
+  <dt><pre><span class="Keyword">func</span> <a href="#format_utcoffset%2CDurationParts%2Cchar%2Cstring"><span class="Identifier">format_utcoffset</span></a><span class="Other">(</span><span class="Identifier">parts</span><span class="Other">:</span> <span class="Identifier">DurationParts</span><span class="Other">;</span> <span class="Identifier">sep</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">char</span> <span class="Other">=</span> <span class="CharLit">':'</span><span class="Other">;</span>
+                      <span class="Identifier">prefix</span> <span class="Other">=</span> <span class="StringLit">&quot;UTC&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dd>
+    
+    <pre>common code of CPython C-API `timezone_str` and `format_utcoffset`
+in `_datetimemodule.c</pre>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L124" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L124" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -235,8 +255,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -248,8 +268,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -257,24 +277,24 @@
 </div>
 <div id="newPyTimezone-procs-all">
   <div id="newPyTimezone,timedelta">
-  <dt><pre><span class="Keyword">func</span> <a href="#newPyTimezone%2Ctimedelta"><span class="Identifier">newPyTimezone</span></a><span class="Other">(</span><span class="Identifier">offset</span><span class="Other">:</span> <a href="../timedelta_impl/decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timezone"><span class="Identifier">timezone</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="newPyTimezone,timedelta,string">
-  <dt><pre><span class="Keyword">func</span> <a href="#newPyTimezone%2Ctimedelta%2Cstring"><span class="Identifier">newPyTimezone</span></a><span class="Other">(</span><span class="Identifier">offset</span><span class="Other">:</span> <a href="../timedelta_impl/decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timezone"><span class="Identifier">timezone</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newPyTimezone%2Ctimedelta"><span class="Identifier">newPyTimezone</span></a><span class="Other">(</span><span class="Identifier">offset</span><span class="Other">:</span> <a href="../timedelta_impl/decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timezone"><span class="Identifier">timezone</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L51" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L51" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="newPyTimezone,timedelta,string">
+  <dt><pre><span class="Keyword">func</span> <a href="#newPyTimezone%2Ctimedelta%2Cstring"><span class="Identifier">newPyTimezone</span></a><span class="Other">(</span><span class="Identifier">offset</span><span class="Other">:</span> <a href="../timedelta_impl/decl.html#timedelta"><span class="Identifier">timedelta</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="decl.html#timezone"><span class="Identifier">timezone</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -286,8 +306,8 @@
   <dd>
     
     inner
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -299,8 +319,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -319,8 +339,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -330,8 +350,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -349,8 +369,8 @@
   <dd>
     
     if <tt class="docutils literal"><span class="pre"><span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">times</span></span></tt>, timezone.utc may matches this.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L58" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L58" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -359,8 +379,8 @@
   <dd>
     
     timezone.utc
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L51" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L51" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L46" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/datetime_impl/timezone_impl/decl.nim#L46" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -376,7 +396,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-10 15:02:03 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-12 08:14:10 UTC</small>
       </div>
     </div>
   </div>

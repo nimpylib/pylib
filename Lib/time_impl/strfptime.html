@@ -83,11 +83,13 @@
     
     <p class="module-desc"><div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
 A few of the format directives for <tt class="docutils literal"><span class="pre"><span class="Identifier">strftime</span></span></tt>/<tt class="docutils literal"><span class="pre"><span class="Identifier">strptime</span></span></tt> are not supported, and using them causes <tt class="docutils literal"><span class="pre"><span class="Identifier">AssertDefect</span></span></tt>. They are listed in <a class="reference external" href="time_impl/nstrpftime.html#NotImplDirectives">nstrfptime.NotImplDirectives</a></div>
+<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
+Some directives (only for strftime) whose implementents are platform-depend in CPython are always supported here: '%V' '%G' '%g'</div>
 </p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="types.html">types</a>, <a class="reference external" href="converters.html">converters</a>, <a class="reference external" href="nstrpftime.html">nstrpftime</a>
+    <a class="reference external" href="types.html">types</a>, <a class="reference external" href="converters.html">converters</a>, <a class="reference external" href="nstrfptime.html">nstrfptime</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -105,8 +107,8 @@ A few of the format directives for <tt class="docutils literal"><span class="pre
   </dd>
 </div>
 <div id="strftime,string,struct_time">
-  <dt><pre><span class="Keyword">func</span> <a href="#strftime%2Cstring%2Cstruct_time"><span class="Identifier">strftime</span></a><span class="Other">(</span><span class="Identifier">format</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#strftime%2Cstring%2Cstruct_time"><span class="Identifier">strftime</span></a><span class="Other">(</span><span class="Identifier">format</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">st</span><span class="Other">:</span> <a href="types.html#struct_time"><span class="Identifier">struct_time</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -152,7 +154,7 @@ Current <tt class="docutils literal"><span class="pre"><span class="Identifier">
 <div class="section" id="19">
   <h1><a class="toc-backref" href="#19">Exports</a></h1>
   <dl class="item">
-    <a href="private/doc_utils.html#fetchDoc.m,staticDocTable"><span class="Identifier">fetchDoc</span></a>, <a href="private/doc_utils.html#fetchDoc.m,staticDocTable,"><span class="Identifier">fetchDoc</span></a>, <a href="nstrpftime.html#docTable"><span class="Identifier">docTable</span></a>
+    <a href="private/doc_utils.html#fetchDoc.m,staticDocTable"><span class="Identifier">fetchDoc</span></a>, <a href="private/doc_utils.html#fetchDoc.m,staticDocTable,"><span class="Identifier">fetchDoc</span></a>, <a href="nstrfptime.html#docTable"><span class="Identifier">docTable</span></a>
   </dl>
 </div>
 
@@ -162,7 +164,7 @@ Current <tt class="docutils literal"><span class="pre"><span class="Identifier">
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-10 15:01:51 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-12 08:13:58 UTC</small>
       </div>
     </div>
   </div>
