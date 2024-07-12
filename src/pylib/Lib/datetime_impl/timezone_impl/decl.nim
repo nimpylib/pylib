@@ -1,5 +1,6 @@
 
 from ../mathutils import divmod
+from ../delta_chk import chkOneDay
 import ../timedelta_impl/[decl, meth]
 import std/times
 
@@ -16,12 +17,6 @@ func isTzNone*(self: tzinfo): bool = self == TzNone
 func offset*(self: timezone): timedelta = self.offset  ## inner
 
 func hash*(self: timezone): int = hash self.offset
-
-func newPyTimezone*(offset: timedelta): timezone =
-  timezone(offset: offset)
-func newPyTimezone*(offset: timedelta; name: string): timezone =
-  timezone(offset: offset, name: name)
-
 
 {.pragma: benign, tags: [], raises: [], gcsafe.}
 method toNimTimezone*(self: tzinfo): Timezone{.base, raises: [].} =
@@ -47,11 +42,21 @@ method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
     localZonedTimeFromAdjTime
   )
 
-let UTC* = newPyTimezone(timedelta(0))
+let UTC* = timezone(offset: timedelta(0))
 template utc*(_: typedesc[timezone]): timezone =
   ## timezone.utc
   bind UTC
   UTC
+
+proc newPyTimezone*(offset: timedelta): timezone =
+  if bool(offset) == false:
+    return UTC
+  offset.chkOneDay
+  timezone(offset: offset)
+
+func newPyTimezone*(offset: timedelta; name: string): timezone =
+  offset.chkOneDay
+  timezone(offset: offset, name: name)
 
 type NimTimezoneProc = typeof(times.timezone)
 static: assert NimTimezoneProc is proc
