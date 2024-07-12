@@ -61,8 +61,8 @@ class FixedOffset(tzinfo):
     name: PyStr
     dstoffset: timedelta
     def init(self, offset: int, name, dstoffset=42):
-        offset = timedelta(minutes=offset)
-        dstoffset = timedelta(minutes=dstoffset)
+        offset = timedelta(days=0, minutes=offset)
+        dstoffset = timedelta(days=0, minutes=dstoffset)
         self.offset = offset
         self.name = name
         self.dstoffset = dstoffset
@@ -218,29 +218,43 @@ suite "TestDate":
     test_ordinal_conversions()
 
   test "replace":
-    macro replaceWith(dt: datetime, name: string, x): datetime =
-      let nameId = newLit name
+    macro replaceWith(dt: datetime, name: static string, x): datetime =
+      let nameId = ident name
       result = quote do:
         `dt`.replace(`nameId`=`x`)
-    def test_replace(self):
-        args = [1, 2, 3]
-        base = theclass(args[0], arg[1], arg[2])
+    const
+      changes = [("year", 2),
+                  ("month", 3),
+                  ("day", 4)]
+      args = [1, 2, 3]
+    macro test_replaceWith(base: datetime) =
+        result = newStmtList()
+        var i = 0
+        for (name, newval) in changes:
+          let iD = newLit i
+          let
+            nameId = newLit name
+            newvalId = newLit newval
+          result.add quote do:
+            block:
+              var newargs = args
+              newargs[`iD`] = `newvalId`
+              let expected = theclass(newargs[0], newargs[1], newargs[2])
+              assertEqual(replaceWith(`base`, `nameId`, `newvalId`), expected)
+          i += 1
+
+    def test_replace():
+        base = theclass(args[0], args[1], args[2])
         assertEqual(base.replace(), base)
-        assertEqual(copy.replace(base), base)
 
-        changes = (("year", 2),
-                   ("month", 3),
-                   ("day", 4))
-        for i, (name, newval) in enumerate(changes):
-            newargs = list(args)
-            newargs[i] = newval
-            expected = theclass(newargs[0], newargs[1], newargs[2])
-            assertEqual(replaceWith(base, name, newval), expected)
-
+        test_replaceWith base
+        
         # Out of bounds.
         base = theclass(2000, 2, 29)
         expect(ValueError):
           _ = base.replace(year=2001)
+    test_replace()
+
   test "strftime":
     def test_strftime():
         t = theclass(2005, 3, 2)
