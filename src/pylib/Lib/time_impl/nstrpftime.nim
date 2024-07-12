@@ -43,8 +43,12 @@ func notImplErr(c: char) =
   if c == 'Z':
     msg.add ", which is deprecated by Python."
   assert false, msg
-func invalidFormat =
-  raise newException(ValueError, "Invalid format string")
+
+template raiseUnknownDirective(c: char, fmt: string) =
+  raise newException(ValueError, "'$#' is a bad directive in format format: $#".format(c, repr(fmt)))
+
+template raiseStrayPercent(fmt: string) =
+  raise newException(ValueError, "stray % in format " & repr(fmt))
 
 const
   `xp` = "ddd M d"
@@ -58,8 +62,9 @@ template cStyle(cstr: string;
     handleSnippet; # Callable[[string, int, int], void]
     doWith;  # Callable[[string], void]; handle Nim's formatStr
     handlePercent;   # Callable[[], void]
+    noNimEquivHandle = notImplErr,
+    handleUnknownDirective = raiseUnknownDirective,
     forParse: static[bool] = false,
-    noNimEquivHandle = notImplErr
     ) =
   let le = cstr.len
   template fmtOrP(fmt): string =
@@ -74,7 +79,8 @@ template cStyle(cstr: string;
       handleSnippet cstr, i, le
       return
     if idx == hi:
-      invalidFormat()
+      when forParse:
+        raiseStrayPercent cstr
     if unlikely idx != 0:
       handleSnippet cstr, i, idx
 
@@ -101,7 +107,8 @@ template cStyle(cstr: string;
     of 'c': doWith fmtOrP(cf, cp)
     of NotImplDirectives:
       noNimEquivHandle c
-    else: invalidFormat()
+    else:
+      handleUnknownDirective(c, cstr)
     i.inc
 
 
@@ -112,7 +119,20 @@ func strftime*(format: string, dt: DateTime): string
     result.add s[start..<stop]
   template doWith(f) = result.add dt.format f
   template handlePercent = result.add '%'
-  cStyle format, handleSnippet, doWith, handlePercent
+  let iso_w_y = dt.getIsoWeekAndYear()
+  template handleSomeAndUnknown(c: char, fmt: string) =
+    case c
+    of 'G':
+      result.add $iso_w_y.isoyear
+    of 'g':
+      result.add ($iso_w_y.isoyear).substr(3)
+    of 'V':
+      result.add $iso_w_y.isoweek
+    else:
+      handlePercent
+      result.add c
+  cStyle format, handleSnippet, doWith, handlePercent,
+    handleUnknownDirective=handleSomeAndUnknown
 
 proc translate2Nim(cstr: string): string =
   ## translate to Nim std/time's format
