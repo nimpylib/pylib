@@ -91,6 +91,22 @@ test "tzinfo fromtimestamp":
     assertEqual(another.utcoffset(), timedelta(minutes=42))
   test_tzinfo_fromtimestamp()
 
+suite "TestTimedelta":
+
+  test "normalize":
+    proc tG(delta: timedelta, days, seconds, microseconds: int64) =
+      check delta.days == days
+      check delta.seconds == seconds
+      check delta.microseconds == microseconds
+    tG timedelta(microseconds = -1), -1, 86399, 999999
+    tG timedelta(days = -1, hours = -1, seconds = -59, microseconds = -1),
+        days = -2, seconds=82740, microseconds=999999
+    tG timedelta(days = -2, hours = -3, seconds = -4559, microseconds = -5),
+        days = -3, seconds=71040, microseconds=999995
+    tG timedelta(days = 2, hours = -3, seconds = -4, microseconds = -5),
+        days=1, seconds=75595, microseconds=999995
+    
+
 import std/macros
 suite "TestDate":
   template theclass: untyped = PyDatetime

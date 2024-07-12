@@ -2,7 +2,8 @@
 import std/times
 import std/macros
 from std/math import floorDiv, floorMod, splitDecimal, round
-import ./decl
+import ./decl, ./getter
+export getter.days, getter.seconds, getter.microseconds
 
 using self: timedelta
 
@@ -123,14 +124,6 @@ func max*(_): timedelta =
 func resolution*(_): timedelta =
   timedelta(microseconds=1)
 
-func days*(self): int64 = self.asDuration.inDays
-
-func seconds*(self): int64 =
-  self.asDuration.toParts()[Seconds]
-
-func microseconds*(self): int64 =
-  self.asDuration.toParts()[Microseconds]
-
 func repr*(self): string =
   let parts = self.asDuration.toParts()
   template gets(u: FixedTimeUnit): string = $parts[u]
@@ -228,7 +221,7 @@ template bwUnary(op){.dirty.} =
 bwUnary abs
 
 func `-`*(self): timedelta =
-  timedelta(-self.days, -self.seconds, -self.microseconds)
+  timedelta(microseconds = -self.inMicroseconds)
 
 
 func `/`*(self; i: int|float): timedelta =
