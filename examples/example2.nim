@@ -1,5 +1,4 @@
 import pylib
-import std/strutils
 type Customer = ref object
   name: string
   balance: float
@@ -33,7 +32,7 @@ class Customer(object):
       self.balance += amount
       return self.balance
 
-let c = newCustomer("Jack", 500)
+let c = newCustomer("Jack", 500.0)
 print("Took 250, new balance is $1.".format(c.withdraw(250.0)))
 print("Added 1337, new balance is $1.".format(c.deposit(1337.0)))
 
@@ -67,4 +66,4 @@ class Shape:
     self.y = self.y * scale
 
 let sh = newShape(5.0, 15.3)
-print("Area is $1".format(sh.area()))
+print("Area is {}".format(sh.area()))
