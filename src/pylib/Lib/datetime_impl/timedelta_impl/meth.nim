@@ -126,9 +126,9 @@ func resolution*(_): timedelta =
 
 func repr*(self): string =
   let parts = self.asDuration.toParts()
-  template gets(u: FixedTimeUnit): string = $parts[u]
-  result = "timedelta(days=" & Days.gets & ", seconds=" & Seconds.gets &
-    ", microseconds=" & Microseconds.gets & ')'
+  template gets(attrImpl): string = $parts.attrImpl
+  result = "timedelta(days=" & daysImpl.gets & ", seconds=" & secondsImpl.gets &
+    ", microseconds=" & microsecondsImpl.gets & ')'
 
 func addRepeat(s: var string, c: char, i: int) =
   for _ in 1..i:
@@ -143,22 +143,27 @@ func `$`*(self): string =
     let d = fill - s.len
     if d > 0: result.addRepeat '0', d
     result.add s
-  template push(u: FixedTimeUnit; fill=2) = push($parts[u], fill)
-  let d = parts[Days]
+  template push(i: SomeInteger; fill=2) = push($i, fill)
+  let d = parts.daysImpl
   if d != 0:
     result = $d
     result.add " day"
     if d.abs > 1: result.add 's'
     result.add ", "
-  push Hours
+  var secs = parts.secondsImpl
+  var hrs, mins: int
+  # here secs is a Natural, so divmod in std/math can be used.
+  (mins, secs) = math.divmod(secs, 60)
+  (hrs, mins)  = math.divmod(mins, 60)
+  result.add $hrs  # hours shall not be padded
   result.add ':'
-  push Minutes
+  push mins
   result.add ':'
-  push Seconds
-  let us = parts[Microseconds]
+  push secs
+  let us = parts.microsecondsImpl
   if us != 0:
     result.add '.'
-    push $us, 6
+    push us, 6
 
 func total_seconds*(self): float =
   ## timedelta.total_seconds()

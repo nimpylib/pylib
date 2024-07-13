@@ -30,6 +30,7 @@ func isoformat*(self; sep: StringLike = 'T', timespec="auto"): PyStr =
     let ch = $sep
   str n_datetime.isoformat(self, sep=ch, timespec=timespec)
 func str*(self): PyStr = self.isoformat(' ')
+func str*(self: timedelta): PyStr = $self
 func ctime*(self): PyStr = str n_datetime.ctime(self)
 
 func `==`*(tzinfo: tzinfo, n: NoneType): bool = tzinfo.isTzNone
