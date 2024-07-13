@@ -3,10 +3,15 @@
 ## platform independent implementation.
 import ./private/doc_utils
 
-const docTable* = initDocTable(
-  slurp"./doc/nstrfptime.rst", {
-  "strptime": slurp"./doc/nstrptime.rst"
-})  ## used to transport doc string to outer module.
+var docTableInner{.compileTime.}: DocTable
+when defined(nimdoc):
+  docTableInner = initDocTable(
+    slurp"./doc/nstrfptime.rst", {
+    "strptime": slurp"./doc/nstrptime.rst"
+  })
+# if let `const docTable = initDocTable(...)` shown in doc,
+# a large lump of data will occur in doc.
+const docTable* = docTableInner  ## used to transport doc string to outer module.
 
 export fetchDoc
 
