@@ -238,6 +238,8 @@
           <li><a class="reference external"
           data-doc-search-tag="strimpl: proc `==`(o: string; self: PyStr): bool" href="_._/pystring/strimpl.html#%3D%3D%2Cstring%2C">strimpl: proc `==`(o: string; self: PyStr): bool</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="datetime: proc `==`(delta: timedelta; n: NoneType): bool" href="datetime.html#%3D%3D%2Ctimedelta%2CNoneType">datetime: proc `==`(delta: timedelta; n: NoneType): bool</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="datetime: proc `==`(tzinfo: tzinfo; n: NoneType): bool" href="datetime.html#%3D%3D%2Ctzinfo%2CNoneType">datetime: proc `==`(tzinfo: tzinfo; n: NoneType): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="op: proc `==`(self: datetime; dt: datetime): bool" href="datetime_impl/datetime_impl/meth/op.html#%3D%3D%2C%2Cdatetime">op: proc `==`(self: datetime; dt: datetime): bool</a></li>
@@ -654,6 +656,8 @@
           </ul></dd>
 <dt><a name="ctime" href="#ctime"><span>ctime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="datetime: proc ctime(self: datetime): PyStr" href="datetime.html#ctime">datetime: proc ctime(self: datetime): PyStr</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="require_time_module: proc ctime(self: datetime): string" href="datetime_impl/datetime_impl/meth/require_time_module.html#ctime">require_time_module: proc ctime(self: datetime): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="n_time: proc ctime(): string" href="n_time.html#ctime">n_time: proc ctime(): string</a></li>
@@ -1178,6 +1182,8 @@
           </ul></dd>
 <dt><a name="isoformat" href="#isoformat"><span>isoformat:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="datetime: proc isoformat(self: datetime; sep: StringLike = 'T'; timespec = &quot;auto&quot;): PyStr" href="datetime.html#isoformat%2C%2CStringLike%2Cstring">datetime: proc isoformat(self: datetime; sep: StringLike = 'T'; timespec = &quot;auto&quot;): PyStr</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="isoformat: proc isoformat(self: datetime; sep: char | string; timespec: IsoFormatTimespec): string" href="datetime_impl/datetime_impl/meth/isoformat.html#isoformat%2C%2C%2CIsoFormatTimespec">isoformat: proc isoformat(self: datetime; sep: char | string; timespec: IsoFormatTimespec): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="isoformat: proc isoformat(self: datetime; sep: char | string = &quot;T&quot;; timespec = &quot;auto&quot;): string" href="datetime_impl/datetime_impl/meth/isoformat.html#isoformat%2C%2Cstring%2Cstring">isoformat: proc isoformat(self: datetime; sep: char | string = &quot;T&quot;; timespec = &quot;auto&quot;): string</a></li>
@@ -1559,6 +1565,10 @@
 <dt><a name="None" href="#None"><span>None:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="noneType: const None" href="_._/noneType.html#None">noneType: const None</a></li>
+          </ul></dd>
+<dt><a name="noneToTzInfo" href="#noneToTzInfo"><span>noneToTzInfo:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="datetime: converter noneToTzInfo(_: NoneType): tzinfo" href="datetime.html#noneToTzInfo.c%2CNoneType">datetime: converter noneToTzInfo(_: NoneType): tzinfo</a></li>
           </ul></dd>
 <dt><a name="NoneType" href="#NoneType"><span>NoneType:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2399,9 +2409,13 @@
           data-doc-search-tag="strimpl: template str[O: object](o: O): PyStr" href="_._/pystring/strimpl.html#str.t%2CO">strimpl: template str[O: object](o: O): PyStr</a></li>
           <li><a class="reference external"
           data-doc-search-tag="strimpl: template str[T](a: T): PyStr" href="_._/pystring/strimpl.html#str.t%2CT">strimpl: template str[T](a: T): PyStr</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="datetime: proc str(self: datetime): PyStr" href="datetime.html#str">datetime: proc str(self: datetime): PyStr</a></li>
           </ul></dd>
 <dt><a name="strftime" href="#strftime"><span>strftime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="datetime: proc strftime(self: datetime; format: PyStr): PyStr" href="datetime.html#strftime%2C%2CPyStr">datetime: proc strftime(self: datetime; format: PyStr): PyStr</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="require_time_module: proc strftime(self: datetime; format: string): string" href="datetime_impl/datetime_impl/meth/require_time_module.html#strftime%2C%2Cstring">require_time_module: proc strftime(self: datetime; format: string): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="n_time: proc strftime(format: string): string" href="n_time.html#strftime%2Cstring">n_time: proc strftime(format: string): string</a></li>
@@ -2664,6 +2678,12 @@
           </ul></dd>
 <dt><a name="tzname" href="#tzname"><span>tzname:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="datetime: proc tzname(dt: datetime): PyStr" href="datetime.html#tzname%2Cdatetime">datetime: proc tzname(dt: datetime): PyStr</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="datetime: method tzname(tz: timezone; dt: datetime): PyStr" href="datetime.html#tzname.e%2Ctimezone%2Cdatetime">datetime: method tzname(tz: timezone; dt: datetime): PyStr</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="datetime: method tzname(tz: tzinfo; dt: datetime): PyStr" href="datetime.html#tzname.e%2Ctzinfo%2Cdatetime">datetime: method tzname(tz: tzinfo; dt: datetime): PyStr</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="getter: proc tzname(self: datetime): string" href="datetime_impl/datetime_impl/meth/getter.html#tzname">getter: proc tzname(self: datetime): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="meth_by_datetime_getter: method tzname(self: timezone; _: datetime): string" href="datetime_impl/timezone_impl/meth_by_datetime_getter.html#tzname.e%2Ctimezone%2Cdatetime">meth_by_datetime_getter: method tzname(self: timezone; _: datetime): string</a></li>
@@ -2858,7 +2878,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-13 15:23:15 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-13 15:26:21 UTC</small>
       </div>
     </div>
   </div>

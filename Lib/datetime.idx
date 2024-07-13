@@ -1,2 +1,13 @@
 nimTitle	datetime	datetime.html	module src/pylib/Lib/datetime		0
-nim	`==`	datetime.html#==,tzinfo,NoneType	proc `==`(tzinfo: tzinfo; n: NoneType): bool		13
+nim	tzname	datetime.html#tzname.e,tzinfo,datetime	method tzname(tz: tzinfo; dt: datetime): PyStr		11
+nim	tzname	datetime.html#tzname.e,timezone,datetime	method tzname(tz: timezone; dt: datetime): PyStr		13
+nim	tzname	datetime.html#tzname,datetime	proc tzname(dt: datetime): PyStr		15
+nim	strftime	datetime.html#strftime,,PyStr	proc strftime(self: datetime; format: PyStr): PyStr		20
+nim	isoformat	datetime.html#isoformat,,StringLike,string	proc isoformat(self: datetime; sep: StringLike = 'T'; timespec = "auto"): PyStr		21
+nim	str	datetime.html#str	proc str(self: datetime): PyStr		32
+nim	ctime	datetime.html#ctime	proc ctime(self: datetime): PyStr		33
+nim	`==`	datetime.html#==,tzinfo,NoneType	proc `==`(tzinfo: tzinfo; n: NoneType): bool		35
+nim	`==`	datetime.html#==,timedelta,NoneType	proc `==`(delta: timedelta; n: NoneType): bool		36
+nim	noneToTzInfo	datetime.html#noneToTzInfo.c,NoneType	converter noneToTzInfo(_: NoneType): tzinfo		38
+nimgrp	==	datetime.html#==-procs-all	proc		35
+nimgrp	tzname	datetime.html#tzname-methods-all	method		11
