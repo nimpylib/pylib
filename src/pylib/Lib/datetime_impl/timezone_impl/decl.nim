@@ -2,6 +2,7 @@
 from ../delta_chk import chkOneDay
 import ../timedelta_impl/[decl, meth]
 import std/times
+from std/strutils import toHex
 
 
 type
@@ -135,10 +136,34 @@ func format_utcoffset*(parts: DurationParts, sep: string|char = ':',
   format_utcoffset(hours, minutes, seconds, microseconds,
     sep=sep, prefix=prefix)
 
-func `$`*(self: timezone): string =
+template retIfNone(self) =
   if self.isTzNone: return "None"
+
+func `$`*(self: timezone): string =
+  ## timezone_str
+  self.retIfNone
   if self.name.len != 0: return self.name
   if self.is_const_utc or
       bool(self.offset) == false:
     return "UTC"
   format_utcoffset(self.offset.asDuration.toParts(), sep=':', prefix="UTC")
+
+method repr*(self: tzinfo): string{.base.} =
+  ## object.__repr__
+  self.retIfNone
+  let hAddr = cast[int](self).toHex(sizeof(int)*2)
+  "<datetime.tzinfo object at " & hAddr & '>'
+
+method repr*(self: timezone): string =
+  ## timezone_repr
+  self.retIfNone
+  result = $typeof(self)
+  if self.is_const_utc:
+    result.add ".utc"
+    return
+  result.add '('
+  result.add meth.repr(self.offset)
+  if self.name.len != 0:
+    result.add ", "
+    result.add self.name
+  result.add ')'
