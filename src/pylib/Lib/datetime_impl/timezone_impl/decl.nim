@@ -82,7 +82,7 @@ func repr*(self: timezone): string =
     result.add self.name
   result.add ')'
 
-func format_utcoffset(hours, minutes, seconds, microseconds: int,
+func format_utcoffset(hours, minutes, seconds, microseconds: int64,
     sep: char|string = ':', prefix="UTC"): string =
   var
     hours = hours
@@ -124,7 +124,7 @@ func format_utcoffset(hours, minutes, seconds, microseconds: int,
 func format_utcoffset*(parts: DurationParts, sep: string|char = ':',
     prefix="UTC"): string =
   ## common code of CPython C-API `timezone_str` and `format_utcoffset`
-  ## in `_datetimemodule.c
+  ## in `_datetimemodule.c`
   when not defined(release):
     let days = parts[Days] + parts[Weeks] * 7
     assert days == 0, "timezone's init shall check its offset is within one day"

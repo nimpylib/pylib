@@ -19,8 +19,8 @@ func secondsImpl*(parts): int64 =
   ## result is never negative. In Python, only timedelta.days may be negative
   # do not use `.inSeconds()`, as that's a sum
   result = parts[Seconds]
-  result.inc convert(Hours, Seconds, parts[Hours])
-  result.inc convert(Minutes, Seconds, parts[Minutes])
+  result += convert(Hours, Seconds, parts[Hours])
+  result += convert(Minutes, Seconds, parts[Minutes])
   if result <= 0:
     result.inc convert(Days, Seconds, 1)
   if parts[Microseconds] < 0:
@@ -33,8 +33,8 @@ func microsecondsImpl*(parts): int64 =
   # do not use .inMicroseconds
   # nanoseconds part is always 0 for timedelta's Duration attr
   result = parts[Microseconds]
-  result.inc convert(Milliseconds, Microseconds, parts[Milliseconds])
+  result += convert(Milliseconds, Microseconds, parts[Milliseconds])
   if result <= 0:
-    result.inc 1_000_000
+    result += 1_000_000
 
 func microseconds*(self): int64 = self.asDuration.toParts.microsecondsImpl()

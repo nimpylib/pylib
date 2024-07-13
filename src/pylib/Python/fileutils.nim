@@ -187,14 +187,14 @@ proc Py_DecodeLocaleEx*(arg: cstring, wstr: var ptr wchar_t, wlen: ptr csize_t, 
    surrogateescape error handler instead of decoding them.
 
    On success, return 0 and write the newly allocated wide character string into
-   *wstr (use PyMem_RawFree() to free the memory). If wlen is not NULL, write
-   the number of wide characters excluding the null character into *wlen.
+   `wstr` (use PyMem_RawFree() to free the memory). If wlen is not NULL, write
+   the number of wide characters excluding the null character into `wlen`.
 
    On memory allocation failure, return -1.
 
-   On decoding error, return -2. If wlen is not NULL, write the start of
-   invalid byte sequence in the input string into *wlen. If reason is not NULL,
-   write the decoding error message into *reason.
+   On decoding error, return -2. Write the start of
+   invalid byte sequence in the input string into `wlen`. If reason is not NULL,
+   write the decoding error message into `reason`.
 
    Return -3 if the error handler 'errors' is not supported.
 
