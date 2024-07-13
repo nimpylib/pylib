@@ -6,12 +6,12 @@ import ../../../time_impl/[
 from std/strutils import multiReplace, replace, align, parseInt
 import ../../timedelta_impl/decl
 import ../../timezone_impl/[
-  decl, meth_by_datetime_getter
+  decl as timezone_decl, meth_by_datetime_getter
 ]
 
 include ./common
-from std/times import DateTime, yearday, toParts
-
+from std/times import DateTime, yearday
+import ./format_utcoffset
 from ./importer import NotImplementedError
 
 using self: datetime
@@ -28,12 +28,7 @@ func timetuple*(self): struct_time =
 using tzinfoarg: datetime
 
 proc add_somezreplacement(s: var string, sep: string, tzinfo: tzinfo, tzinfoarg) =
-  var offset: timedelta
-  try:
-    offset = tzinfo.utcoffset(tzinfoarg)
-  except ValueError, NotImplementedError:
-    return
-  s.add format_utcoffset(offset.asDuration.toParts(), sep, prefix="")
+  s.add_format_utcoffset(sep, tzinfo, tzinfoarg)
 
 const Py_NORMALIZE_CENTURY = true  # since CPython gh-120713
 proc add_Zreplacement(s: var string, tzinfo: tzinfo, tzinfoarg) =
@@ -97,4 +92,3 @@ func strptime*(_; datetime_string, format: string): datetime =
 
 func ctime*(self): string =
   asctimeImpl(result, self.asNimDatetime)
-
