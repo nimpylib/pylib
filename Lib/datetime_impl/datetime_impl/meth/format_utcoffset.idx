@@ -1,0 +1,2 @@
+nimTitle	format_utcoffset	datetime_impl/datetime_impl/meth/format_utcoffset.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/format_utcoffset		0
+nim	add_format_utcoffset	datetime_impl/datetime_impl/meth/format_utcoffset.html#add_format_utcoffset,string,string,tzinfo,datetime	proc add_format_utcoffset(s: var string; sep: string; tzinfo: tzinfo;\n                     tzinfoarg: datetime)		10

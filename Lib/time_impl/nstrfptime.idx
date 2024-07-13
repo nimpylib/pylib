@@ -1,5 +1,5 @@
 nimTitle	nstrfptime	time_impl/nstrfptime.html	module src/pylib/Lib/time_impl/nstrfptime		0
-nim	docTable	time_impl/nstrfptime.html#docTable	const docTable		6
-nim	NotImplDirectives	time_impl/nstrfptime.html#NotImplDirectives	const NotImplDirectives		16
-nim	strftime	time_impl/nstrfptime.html#strftime,string,DateTime	proc strftime(format: string; dt: DateTime): string		116
-nim	strptime	time_impl/nstrfptime.html#strptime,DateTime,string,string	proc strptime(dt: var DateTime; s: string; format_with_sp_asis: string)		153
+nim	docTable	time_impl/nstrfptime.html#docTable	const docTable		14
+nim	NotImplDirectives	time_impl/nstrfptime.html#NotImplDirectives	const NotImplDirectives		21
+nim	strftime	time_impl/nstrfptime.html#strftime,string,DateTime	proc strftime(format: string; dt: DateTime): string		121
+nim	strptime	time_impl/nstrfptime.html#strptime,DateTime,string,string	proc strptime(dt: var DateTime; s: string; format_with_sp_asis: string)		158

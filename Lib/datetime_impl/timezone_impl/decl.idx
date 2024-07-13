@@ -14,7 +14,10 @@ nim	newPyTimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone,timedelta,
 nim	utc	datetime_impl/timezone_impl/decl.html#utc.t,NimTimezoneProc	template utc(_: NimTimezoneProc): timezone		63
 nim	repr	datetime_impl/timezone_impl/decl.html#repr,timezone	proc repr(self: timezone): string		75
 nim	format_utcoffset	datetime_impl/timezone_impl/decl.html#format_utcoffset,DurationParts,char,string	proc format_utcoffset(parts: DurationParts; sep: string | char = ':'; prefix = "UTC"): string		124
-nim	`$`	datetime_impl/timezone_impl/decl.html#$,timezone	proc `$`(self: timezone): string		139
+nim	`$`	datetime_impl/timezone_impl/decl.html#$,timezone	proc `$`(self: timezone): string		142
+nim	repr	datetime_impl/timezone_impl/decl.html#repr.e,tzinfo	method repr(self: tzinfo): string		151
+nim	repr	datetime_impl/timezone_impl/decl.html#repr.e,timezone	method repr(self: timezone): string		157
 nimgrp	newpytimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone-procs-all	proc		51
+nimgrp	repr	datetime_impl/timezone_impl/decl.html#repr-methods-all	method		151
 nimgrp	tonimtimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone-methods-all	method		22
 nimgrp	utc	datetime_impl/timezone_impl/decl.html#utc-templates-all	template		46

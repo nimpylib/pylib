@@ -1,6 +1,6 @@
 nimTitle	statics	datetime_impl/datetime_impl/meth/statics.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/statics		0
-nim	today	datetime_impl/datetime_impl/meth/statics.html#today	proc today(_: _`gensym1828716557:type): datetime		11
-nim	now	datetime_impl/datetime_impl/meth/statics.html#now,,tzinfo	proc now(_: _`gensym1828716561:type; tzinfo: tzinfo = TzNone): datetime		12
-nim	fromordinal	datetime_impl/datetime_impl/meth/statics.html#fromordinal,,int	proc fromordinal(_: _`gensym1828716566:type; ordinal: int): datetime		16
-nim	fromisocalendar	datetime_impl/datetime_impl/meth/statics.html#fromisocalendar,,int,int,int	proc fromisocalendar(_: _`gensym1828716572:type; year, week, day: int): datetime		23
-nim	fromtimestamp	datetime_impl/datetime_impl/meth/statics.html#fromtimestamp,,Timestamp	proc fromtimestamp(_: _`gensym1828716646:type; timestamp: Timestamp; tz = TzNone): datetime		94
+nim	today	datetime_impl/datetime_impl/meth/statics.html#today	proc today(_: _`gensym1811939341:type): datetime		11
+nim	now	datetime_impl/datetime_impl/meth/statics.html#now,,tzinfo	proc now(_: _`gensym1811939345:type; tzinfo: tzinfo = TzNone): datetime		12
+nim	fromordinal	datetime_impl/datetime_impl/meth/statics.html#fromordinal,,int	proc fromordinal(_: _`gensym1811939350:type; ordinal: int): datetime		16
+nim	fromisocalendar	datetime_impl/datetime_impl/meth/statics.html#fromisocalendar,,int,int,int	proc fromisocalendar(_: _`gensym1811939356:type; year, week, day: int): datetime		23
+nim	fromtimestamp	datetime_impl/datetime_impl/meth/statics.html#fromtimestamp,,Timestamp	proc fromtimestamp(_: _`gensym1811939430:type; timestamp: Timestamp; tz = TzNone): datetime		94
