@@ -73,8 +73,8 @@ suite "datetime":
 
         tzinfos = list([
             (str(""), None.noneToTzInfo),
-            ("+00:00", UTC),
-            ("+00:00", timezone(timedelta(0))),
+            (str("+00:00"), UTC),
+            (str("+00:00"), timezone(timedelta(0))),
         ])
 
         for (expected, td) in tzoffsets:
