@@ -62,6 +62,35 @@ suite "datetime":
     # str is ISO format with the separator forced to a blank.
     assertEqual(str(t), "0001-02-03 04:05:01.000123")
 
+    def test_isoformat_timezone():
+        tzoffsets = [
+            ("05:00", timedelta(hours=5)),
+            ("02:00", timedelta(hours=2)),
+            ("06:27", timedelta(hours=6, minutes=27)),
+            ("12:32:30", timedelta(hours=12, minutes=32, seconds=30)),
+            ("02:04:09.123456", timedelta(hours=2, minutes=4, seconds=9, microseconds=123456))
+        ]
+
+        tzinfos = list([
+            (str(""), None.noneToTzInfo),
+            ("+00:00", UTC),
+            ("+00:00", timezone(timedelta(0))),
+        ])
+
+        for (expected, td) in tzoffsets:
+          for (prefix, sign) in [("-", -1), ("+", 1)]:
+            tzinfos.append(
+              (prefix + expected, tzinfo(timezone(sign * td)))
+            )
+        dt_base = theclass(2016, 4, 1, 12, 37, 9)
+        exp_base = "2016-04-01T12:37:09"
+
+        for (exp_tz, tzi) in tzinfos:
+            dt = dt_base.replace(tzinfo=tzi)
+            exp = exp_base + exp_tz
+            check dt.isoformat() == exp
+    test_isoformat_timezone()
+
   suite "fromisoformat":
     test "if reversible":
       def test_fromisoformat_datetime():
