@@ -23,11 +23,6 @@ func isoformat*(self; sep: char|string, timespec: IsoFormatTimespec): string =
   addDtf "yyyy-MM-dd"
   add sep
   addDtf "HH"
-  template add0Nd(d: SomeInteger, n: int) =
-    let sd = $d
-    for _ in 1..(n-sd.len):
-      result.add '0'
-    result.add sd
   let us = self.microsecond
   let ntspec =
     if timespec == IsoFormatTimespec.auto:
