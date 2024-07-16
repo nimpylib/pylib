@@ -11,6 +11,10 @@ let
 
 template assertEqual(a, b) = check a == b
 
+template theclass: untyped = PyDatetime
+template theclass(x: untyped, xs: varargs[untyped]): untyped =
+  init.datetime(x, xs)
+from std/sugar import collect
 suite "datetime":
   test "utcoffset":
     def test_utcoffset():
@@ -57,6 +61,312 @@ suite "datetime":
       discard t.isoformat(timespec="\ud800")
     # str is ISO format with the separator forced to a blank.
     assertEqual(str(t), "0001-02-03 04:05:01.000123")
+
+  suite "fromisoformat":
+    test "if reversible":
+      def test_fromisoformat_datetime():
+        # Test that isoformat() is reversible
+        base_dates = [
+            (1, 1, 1),
+            (1900, 1, 1),
+            (2004, 11, 12),
+            (2017, 5, 30)
+        ]
+
+        base_times = [
+            (0, 0, 0, 0),
+            (0, 0, 0, 241000),
+            (0, 0, 0, 234567),
+            (12, 30, 45, 234567)
+        ]
+
+        separators = [' ', 'T']
+
+        tzinfos = [None.noneToTzInfo, datetime.UTC,
+                   timezone(timedelta(hours = -5)),
+                   timezone(timedelta(hours = 2))]
+
+        dts = collect:
+          for date_tuple in base_dates:
+            for time_tuple in base_times:
+              for tzi in tzinfos:
+                theclass(
+                  date_tuple[0], date_tuple[1], date_tuple[2],
+                  time_tuple[0], time_tuple[1], time_tuple[2], time_tuple[3],
+                  tzinfo=tzi
+                )
+
+        for dt in dts:
+            for sep in separators:
+                dtstr = dt.isoformat(sep=sep)
+                dt_rt = theclass.fromisoformat(dtstr)
+                assertEqual(dt, dt_rt)
+      test_fromisoformat_datetime()
+
+    #[ C compile error in list([timedelta(..)...])
+    def test_fromisoformat_timezone():
+        base_dt = theclass(2014, 12, 30, 12, 30, 45, 217456)
+
+        tzoffsets = list([
+            timedelta(hours=5), timedelta(hours=2),
+            timedelta(hours=6, minutes=27),
+            timedelta(hours=12, minutes=32, seconds=30),
+            timedelta(hours=2, minutes=4, seconds=9, microseconds=123456)
+        ])
+
+        for td in tzoffsets:
+          tzoffsets.append(-1 * td)
+
+        tzinfos = list([None.noneToTzInfo, UTC,
+                   timezone(timedelta(hours=0))])
+
+        for td in tzoffsets:
+          tzinfos.append(timezone(td))
+
+        for tzi in tzinfos:
+            dt = base_dt.replace(tzinfo=tzi)
+            dtstr = dt.isoformat()
+
+            dt_rt = theclass.fromisoformat(dtstr)
+            check dt == dt_rt
+    test_fromisoformat_timezone()
+    ]#
+
+    def test_fromisoformat_separators():
+        separators = [
+            " ", "T", "\u007f",     # 1-bit widths
+            "\u0080", "ʁ",          # 2-bit widths
+            "ᛇ", "時",               # 3-bit widths
+            "🐍",                    # 4-bit widths
+            "\ud800",               # bpo-34454: Surrogate code point
+        ]
+
+        for sep in separators:
+            dt = theclass(2018, 1, 31, 23, 59, 47, 124789)
+            dtstr = dt.isoformat(sep=sep)
+
+            dt_rt = theclass.fromisoformat(dtstr)
+            assertEqual(dt, dt_rt)
+    test_fromisoformat_separators()
+
+    def test_fromisoformat_ambiguous():
+        # Test strings like 2018-01-31+12:15 (where +12:15 is not a time zone)
+        separators = ['+', '-']
+        for sep in separators:
+            dt = theclass(2018, 1, 31, 12, 15)
+            dtstr = dt.isoformat(sep=sep)
+
+            block:
+                dt_rt = theclass.fromisoformat(dtstr)
+                assertEqual(dt, dt_rt)
+    test_fromisoformat_ambiguous()
+
+    #[ hard to rewrite
+    def test_fromisoformat_timespecs():
+        datetime_bases = [
+            (2009, 12, 4, 8, 17, 45, 123456),
+            (2009, 12, 4, 8, 17, 45, 0)]
+
+        tzinfos = [None, timezone.utc,
+                   timezone(timedelta(hours=-5)),
+                   timezone(timedelta(hours=2)),
+                   timezone(timedelta(hours=6, minutes=27))]
+
+        timespecs = ["hours", "minutes", "seconds",
+                     "milliseconds", "microseconds"]
+
+        for ip, ts in enumerate(timespecs):
+            for tzi in tzinfos:
+                for dt_tuple in datetime_bases:
+                    if ts == "milliseconds":
+                        new_microseconds = 1000 * (dt_tuple[6] // 1000)
+                        dt_tuple = dt_tuple[0:6] + (new_microseconds,)
+
+                    dt = theclass(*(dt_tuple[0:(4 + ip)]), tzinfo=tzi)
+                    dtstr = dt.isoformat(timespec=ts)
+                    block:
+                        dt_rt = theclass.fromisoformat(dtstr)
+                        assertEqual(dt, dt_rt)
+    test_fromisoformat_timespecs()
+    ]#
+
+    def test_fromisoformat_datetime_examples():
+        BST = timezone(timedelta(hours=1), "BST")
+        EST = timezone(timedelta(hours = -5), "EST")
+        EDT = timezone(timedelta(hours = -4), "EDT")
+        examples = [
+            ("2025-01-02", theclass(2025, 1, 2, 0, 0)),
+            ("2025-01-02T03", theclass(2025, 1, 2, 3, 0)),
+            ("2025-01-02T03:04", theclass(2025, 1, 2, 3, 4)),
+            ("2025-01-02T0304", theclass(2025, 1, 2, 3, 4)),
+            ("2025-01-02T03:04:05", theclass(2025, 1, 2, 3, 4, 5)),
+            ("2025-01-02T030405", theclass(2025, 1, 2, 3, 4, 5)),
+            ("2025-01-02T03:04:05.6",
+             theclass(2025, 1, 2, 3, 4, 5, 600000)),
+            ("2025-01-02T03:04:05,6",
+             theclass(2025, 1, 2, 3, 4, 5, 600000)),
+            ("2025-01-02T03:04:05.678",
+             theclass(2025, 1, 2, 3, 4, 5, 678000)),
+            ("2025-01-02T03:04:05.678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2025-01-02T03:04:05,678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2025-01-02T030405.678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2025-01-02T030405,678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2025-01-02T03:04:05.6789010",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2009-04-19T03:15:45.2345",
+             theclass(2009, 4, 19, 3, 15, 45, 234500)),
+            ("2009-04-19T03:15:45.1234567",
+             theclass(2009, 4, 19, 3, 15, 45, 123456)),
+            ("2025-01-02T03:04:05,678",
+             theclass(2025, 1, 2, 3, 4, 5, 678000)),
+            ("20250102", theclass(2025, 1, 2, 0, 0)),
+            ("20250102T03", theclass(2025, 1, 2, 3, 0)),
+            ("20250102T03:04", theclass(2025, 1, 2, 3, 4)),
+            ("20250102T03:04:05", theclass(2025, 1, 2, 3, 4, 5)),
+            ("20250102T030405", theclass(2025, 1, 2, 3, 4, 5)),
+            ("20250102T03:04:05.6",
+             theclass(2025, 1, 2, 3, 4, 5, 600000)),
+            ("20250102T03:04:05,6",
+             theclass(2025, 1, 2, 3, 4, 5, 600000)),
+            ("20250102T03:04:05.678",
+             theclass(2025, 1, 2, 3, 4, 5, 678000)),
+            ("20250102T03:04:05,678",
+             theclass(2025, 1, 2, 3, 4, 5, 678000)),
+            ("20250102T03:04:05.678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("20250102T030405.678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("20250102T030405,678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("20250102T030405.6789010",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2022W01", theclass(2022, 1, 3)),
+            ("2022W52520", theclass(2022, 12, 26, 20, 0)),
+            ("2022W527520", theclass(2023, 1, 1, 20, 0)),  # meaning 2022W527T20, a.k.a. 5 before 20 is just a sep
+            ("2026W01516", theclass(2025, 12, 29, 16, 0)),
+            ("2026W013516", theclass(2025, 12, 31, 16, 0)),
+            ("2025W01503", theclass(2024, 12, 30, 3, 0)),
+            ("2025W014503", theclass(2025, 1, 2, 3, 0)),
+            ("2025W01512", theclass(2024, 12, 30, 12, 0)),
+            ("2025W014512", theclass(2025, 1, 2, 12, 0)),
+            ("2025W014T121431", theclass(2025, 1, 2, 12, 14, 31)),
+            ("2026W013T162100", theclass(2025, 12, 31, 16, 21)),
+            ("2026W013 162100", theclass(2025, 12, 31, 16, 21)),
+            ("2022W527T202159", theclass(2023, 1, 1, 20, 21, 59)),
+            ("2022W527 202159", theclass(2023, 1, 1, 20, 21, 59)),
+            ("2025W014 121431", theclass(2025, 1, 2, 12, 14, 31)),
+            ("2025W014T030405", theclass(2025, 1, 2, 3, 4, 5)),
+            ("2025W014 030405", theclass(2025, 1, 2, 3, 4, 5)),
+            ("2020-W53-6T03:04:05", theclass(2021, 1, 2, 3, 4, 5)),
+            ("2020W537 03:04:05", theclass(2021, 1, 3, 3, 4, 5)),
+            ("2025-W01-4T03:04:05", theclass(2025, 1, 2, 3, 4, 5)),
+            ("2025-W01-4T03:04:05.678901",
+             theclass(2025, 1, 2, 3, 4, 5, 678901)),
+            ("2025-W01-4T12:14:31", theclass(2025, 1, 2, 12, 14, 31)),
+            ("2025-W01-4T12:14:31.012345",
+             theclass(2025, 1, 2, 12, 14, 31, 12345)),
+            ("2026-W01-3T16:21:00", theclass(2025, 12, 31, 16, 21)),
+            ("2026-W01-3T16:21:00.000000", theclass(2025, 12, 31, 16, 21)),
+            ("2022-W52-7T20:21:59",
+             theclass(2023, 1, 1, 20, 21, 59)),
+            ("2022-W52-7T20:21:59.999999",
+             theclass(2023, 1, 1, 20, 21, 59, 999999)),
+            ("2025-W01003+00",
+             theclass(2024, 12, 30, 3, 0, tzinfo=UTC)),
+            ("2025-01-02T03:04:05+00",
+             theclass(2025, 1, 2, 3, 4, 5, tzinfo=UTC)),
+            ("2025-01-02T03:04:05Z",
+             theclass(2025, 1, 2, 3, 4, 5, tzinfo=UTC)),
+            ("2025-01-02003:04:05,6+00:00:00.00",
+             theclass(2025, 1, 2, 3, 4, 5, 600000, tzinfo=UTC)),
+            ("2000-01-01T00+21",
+             theclass(2000, 1, 1, 0, 0, tzinfo=timezone(timedelta(hours=21)))),
+            ("2025-01-02T03:05:06+0300",
+             theclass(2025, 1, 2, 3, 5, 6,
+                           tzinfo=timezone(timedelta(hours=3)))),
+            ("2025-01-02T03:05:06-0300",
+             theclass(2025, 1, 2, 3, 5, 6,
+                           tzinfo=timezone(timedelta(hours = -3)))),
+            ("2025-01-02T03:04:05+0000",
+             theclass(2025, 1, 2, 3, 4, 5, tzinfo=UTC)),
+            ("2025-01-02T03:05:06+03",
+             theclass(2025, 1, 2, 3, 5, 6,
+                           tzinfo=timezone(timedelta(hours=3)))),
+            ("2025-01-02T03:05:06-03",
+             theclass(2025, 1, 2, 3, 5, 6,
+                           tzinfo=timezone(timedelta(hours = -3)))),
+            ("2020-01-01T03:05:07.123457-05:00",
+             theclass(2020, 1, 1, 3, 5, 7, 123457, tzinfo=EST)),
+            ("2020-01-01T03:05:07.123457-0500",
+             theclass(2020, 1, 1, 3, 5, 7, 123457, tzinfo=EST)),
+            ("2020-06-01T04:05:06.111111-04:00",
+             theclass(2020, 6, 1, 4, 5, 6, 111111, tzinfo=EDT)),
+            ("2020-06-01T04:05:06.111111-0400",
+             theclass(2020, 6, 1, 4, 5, 6, 111111, tzinfo=EDT)),
+            ("2021-10-31T01:30:00.000000+01:00",
+             theclass(2021, 10, 31, 1, 30, tzinfo=BST)),
+            ("2021-10-31T01:30:00.000000+0100",
+             theclass(2021, 10, 31, 1, 30, tzinfo=BST)),
+            ("2025-01-02T03:04:05,6+000000.00",
+             theclass(2025, 1, 2, 3, 4, 5, 600000, tzinfo=UTC)),
+            ("2025-01-02T03:04:05,678+00:00:10",
+             theclass(2025, 1, 2, 3, 4, 5, 678000,
+                           tzinfo=timezone(timedelta(seconds=10)))),
+        ]
+
+        for (input_str, expected) in examples:
+            block:
+                actual = theclass.fromisoformat(input_str)
+                assertEqual(actual, expected)
+    test_fromisoformat_datetime_examples()
+
+    def test_fromisoformat_fails_datetime():
+        # Test that fromisoformat() fails on invalid values
+        bad_strs = [
+            "",                             # Empty string
+            "\ud800",                       # bpo-34454: Surrogate code point
+            "2009.04-19T03",                # Wrong first separator
+            "2009-04.19T03",                # Wrong second separator
+            "2009-04-19T0a",                # Invalid hours
+            "2009-04-19T03:1a:45",          # Invalid minutes
+            "2009-04-19T03:15:4a",          # Invalid seconds
+            "2009-04-19T03;15:45",          # Bad first time separator
+            "2009-04-19T03:15;45",          # Bad second time separator
+            "2009-04-19T03:15:4500:00",     # Bad time zone separator
+            "2009-04-19T03:15:45.123456+24:30",    # Invalid time zone offset
+            "2009-04-19T03:15:45.123456-24:30",    # Invalid negative offset
+            "2009-04-10ᛇᛇᛇᛇᛇ12:15",         # Too many unicode separators
+            "2009-04\ud80010T12:15",        # Surrogate char in date
+            "2009-04-10T12\ud80015",        # Surrogate char in time
+            "2009-04-19T1",                 # Incomplete hours
+            "2009-04-19T12:3",              # Incomplete minutes
+            "2009-04-19T12:30:4",           # Incomplete seconds
+            "2009-04-19T12:",               # Ends with time separator
+            "2009-04-19T12:30:",            # Ends with time separator
+            "2009-04-19T12:30:45.",         # Ends with time separator
+            "2009-04-19T12:30:45.123456+",  # Ends with timzone separator
+            "2009-04-19T12:30:45.123456-",  # Ends with timzone separator
+            "2009-04-19T12:30:45.123456-05:00a",    # Extra text
+            "2009-04-19T12:30:45.123-05:00a",       # Extra text
+            "2009-04-19T12:30:45-05:00a",           # Extra text
+        ]
+
+        for bad_str in bad_strs:
+            block:
+                expect(ValueError):
+                    _ = theclass.fromisoformat(bad_str)
+    test_fromisoformat_fails_datetime()
+
+    def test_fromisoformat_utc():
+        dt_str = "2014-04-19T13:21:13+00:00"
+        dt = theclass.fromisoformat(dt_str)
+
+        assertEqual(dt.tzinfo, UTC)
+    test_fromisoformat_fails_datetime()
 
 class FixedOffset(tzinfo):
     offset: timedelta
@@ -114,13 +424,33 @@ suite "timedelta":
         days = -3, seconds=71040, microseconds=999995
     tG timedelta(days = 2, hours = -3, seconds = -4, microseconds = -5),
         days=1, seconds=75595, microseconds=999995
-    
+
+  test "stringify":
+    template eq(a, b) = check a == b
+    def test_str():
+
+        eq(str(timedelta(1)), "1 day, 0:00:00")
+        eq(str(timedelta(-1)), "-1 day, 0:00:00")
+        eq(str(timedelta(2)), "2 days, 0:00:00")
+        eq(str(timedelta(-2)), "-2 days, 0:00:00")
+
+        eq(str(timedelta(hours=12, minutes=58, seconds=59)), "12:58:59")
+        eq(str(timedelta(hours=2, minutes=3, seconds=4)), "2:03:04")
+        eq(str(timedelta(weeks = -30, hours=23, minutes=12, seconds=34)),
+           "-210 days, 23:12:34")
+
+        eq(str(timedelta(milliseconds=1)), "0:00:00.001000")
+        eq(str(timedelta(microseconds=3)), "0:00:00.000003")
+
+        # may overflow int64
+        #eq(str(timedelta(days=999999999, hours=23, minutes=59, seconds=59,
+        #           microseconds=999999)),
+        #   "999999999 days, 23:59:59.999999")
+    test_str()
+
 
 import std/macros
 suite "date":
-  template theclass: untyped = PyDatetime
-  template theclass(x: untyped, xs: varargs[untyped]): untyped =
-    init.datetime(x, xs)
   test "fromisocalendar":
     def test_fromisocalendar():
         # For each test case, assert that fromisocalendar is the
