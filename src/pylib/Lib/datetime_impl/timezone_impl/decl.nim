@@ -26,7 +26,7 @@ method toNimTimezone*(self: tzinfo): Timezone{.base, raises: [].} =
 method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
   let
     offset_dur = self.offset.asDuration
-    offset_sec = offset_dur.inMicroseconds
+    offset_sec = -offset_dur.inSeconds
     isDst = false
     # at least in Nim2.0, isDst doesn't affect the calculation of DateTime
   proc localZonedTimeFromTime(t: Time): ZonedTime{.benign.} =
