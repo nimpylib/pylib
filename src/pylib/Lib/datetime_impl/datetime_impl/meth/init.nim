@@ -48,8 +48,10 @@ proc datetime*(year, month, day: int,
   tzinfo: tzinfo = nil, fold=0
 ): datetime{.raises: [ValueError].} =
   runnableExamples:
-    let dt = datetime(1900, 2, 28)
-    echo repr dt
+    let d = datetime(1900, 2, 28)
+    assert d.year == 1900
+    assert d.month == 2
+    assert d.day == 28
   chkSto month, mon, Month
 
   #chkSto day, d, MonthdayRange

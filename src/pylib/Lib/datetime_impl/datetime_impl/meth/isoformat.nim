@@ -16,7 +16,7 @@ type
 
 using self: datetime # | date
 func isoformat*(self; sep: char|string, timespec: IsoFormatTimespec): string =
-  result = newStringOfCap 28  # 20 + 5 + 3  # the max possible cap  # sep is a UTF-8 char, at most 3-bytes
+  result = newStringOfCap 29  # 20 + 5 + 4  # the max possible cap  # sep is a UTF-8 char, at most 4-bytes
   template add(cs: char|string) = result.add cs
   template addDtF(s) =
     result.add self.asNimDatetime.format s
