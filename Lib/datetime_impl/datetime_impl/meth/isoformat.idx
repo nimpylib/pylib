@@ -1,7 +1,7 @@
 nimTitle	isoformat	datetime_impl/datetime_impl/meth/isoformat.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/isoformat		0
 nim	IsoFormatTimespec	datetime_impl/datetime_impl/meth/isoformat.html#IsoFormatTimespec	enum IsoFormatTimespec		9
 nim	isoformat	datetime_impl/datetime_impl/meth/isoformat.html#isoformat,,,IsoFormatTimespec	proc isoformat(self: datetime; sep: char | string; timespec: IsoFormatTimespec): string		18
-nim	isoformat	datetime_impl/datetime_impl/meth/isoformat.html#isoformat,,string,string	proc isoformat(self: datetime; sep: char | string = "T"; timespec = "auto"): string		54
-nim	`$`	datetime_impl/datetime_impl/meth/isoformat.html#$	proc `$`(self: datetime): string		58
-nim	repr	datetime_impl/datetime_impl/meth/isoformat.html#repr	proc repr(self: datetime): string		62
+nim	isoformat	datetime_impl/datetime_impl/meth/isoformat.html#isoformat,,string,string	proc isoformat(self: datetime; sep: char | string = "T"; timespec = "auto"): string		49
+nim	`$`	datetime_impl/datetime_impl/meth/isoformat.html#$	proc `$`(self: datetime): string		53
+nim	repr	datetime_impl/datetime_impl/meth/isoformat.html#repr	proc repr(self: datetime): string		57
 nimgrp	isoformat	datetime_impl/datetime_impl/meth/isoformat.html#isoformat-procs-all	proc		18

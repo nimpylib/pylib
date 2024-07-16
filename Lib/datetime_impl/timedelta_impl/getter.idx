@@ -2,6 +2,6 @@ nimTitle	getter	datetime_impl/timedelta_impl/getter.html	module src/pylib/Lib/da
 nim	daysImpl	datetime_impl/timedelta_impl/getter.html#daysImpl	proc daysImpl(parts: DurationParts): int64		10
 nim	days	datetime_impl/timedelta_impl/getter.html#days	proc days(self: timedelta): int64		16
 nim	secondsImpl	datetime_impl/timedelta_impl/getter.html#secondsImpl	proc secondsImpl(parts: DurationParts): int64		18
-nim	seconds	datetime_impl/timedelta_impl/getter.html#seconds	proc seconds(self: timedelta): int64		29
-nim	microsecondsImpl	datetime_impl/timedelta_impl/getter.html#microsecondsImpl	proc microsecondsImpl(parts: DurationParts): int64		31
-nim	microseconds	datetime_impl/timedelta_impl/getter.html#microseconds	proc microseconds(self: timedelta): int64		40
+nim	seconds	datetime_impl/timedelta_impl/getter.html#seconds	proc seconds(self: timedelta): int64		30
+nim	microsecondsImpl	datetime_impl/timedelta_impl/getter.html#microsecondsImpl	proc microsecondsImpl(parts: DurationParts): int64		32
+nim	microseconds	datetime_impl/timedelta_impl/getter.html#microseconds	proc microseconds(self: timedelta): int64		41

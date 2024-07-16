@@ -5,9 +5,11 @@ nim	tzname	datetime.html#tzname,datetime	proc tzname(dt: datetime): PyStr		15
 nim	strftime	datetime.html#strftime,,PyStr	proc strftime(self: datetime; format: PyStr): PyStr		20
 nim	isoformat	datetime.html#isoformat,,StringLike,string	proc isoformat(self: datetime; sep: StringLike = 'T'; timespec = "auto"): PyStr		21
 nim	str	datetime.html#str	proc str(self: datetime): PyStr		32
-nim	ctime	datetime.html#ctime	proc ctime(self: datetime): PyStr		33
-nim	`==`	datetime.html#==,tzinfo,NoneType	proc `==`(tzinfo: tzinfo; n: NoneType): bool		35
-nim	`==`	datetime.html#==,timedelta,NoneType	proc `==`(delta: timedelta; n: NoneType): bool		36
-nim	noneToTzInfo	datetime.html#noneToTzInfo.c,NoneType	converter noneToTzInfo(_: NoneType): tzinfo		38
-nimgrp	==	datetime.html#==-procs-all	proc		35
+nim	str	datetime.html#str,timedelta	proc str(self: timedelta): PyStr		33
+nim	ctime	datetime.html#ctime	proc ctime(self: datetime): PyStr		34
+nim	`==`	datetime.html#==,tzinfo,NoneType	proc `==`(tzinfo: tzinfo; n: NoneType): bool		36
+nim	`==`	datetime.html#==,timedelta,NoneType	proc `==`(delta: timedelta; n: NoneType): bool		37
+nim	noneToTzInfo	datetime.html#noneToTzInfo.c,NoneType	converter noneToTzInfo(_: NoneType): tzinfo		39
+nimgrp	str	datetime.html#str-procs-all	proc		32
+nimgrp	==	datetime.html#==-procs-all	proc		36
 nimgrp	tzname	datetime.html#tzname-methods-all	method		11

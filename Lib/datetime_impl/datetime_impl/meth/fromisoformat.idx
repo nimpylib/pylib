@@ -1,0 +1,2 @@
+nimTitle	fromisoformat	datetime_impl/datetime_impl/meth/fromisoformat.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/fromisoformat		0
+nim	datetime_fromisoformat	datetime_impl/datetime_impl/meth/fromisoformat.html#datetime_fromisoformat	proc datetime_fromisoformat(dtstr: string): datetime		282
