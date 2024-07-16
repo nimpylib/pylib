@@ -3,6 +3,7 @@ include ./common
 import ./init
 import ./pytime, ./time_utils, ./to_seconds_utils, ./struct_tm_decl
 export Timestamp
+import ./fromisoformat
 from ./calendar_utils import ord_to_ymd, iso_to_ymd, YMD
 import ../../timezone_impl/[decl, meth_by_datetime]
 import std/times
@@ -13,6 +14,7 @@ func now*(_; tzinfo: tzinfo = TzNone): datetime =
   newDatetime(now(), tzinfo)
 
 
+proc fromisoformat*(_; nonkw: string): datetime = datetime_fromisoformat(nonkw)
 proc fromordinal*(_; ordinal: int): datetime =
   if ordinal < 1:
     raise newException(ValueError, "ordinal must be >= 1")
