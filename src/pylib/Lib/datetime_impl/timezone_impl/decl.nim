@@ -119,7 +119,8 @@ func format_utcoffset(hours, minutes, seconds, microseconds: int64,
     add sep
     add02d seconds
   if microseconds != 0:
-    result.setLen result.len + 7
+    # We shall `result.setcap result.len + 7`,
+    # but it's a little complex to make it
     add '.'
     add0Nd microseconds, 6
 
