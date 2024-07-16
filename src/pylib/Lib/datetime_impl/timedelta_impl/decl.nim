@@ -36,7 +36,7 @@ func inMicroseconds*(self): int64 = self.data.inMicroseconds
 func hashImpl(self): int =
   let parts = self.asDuration.toParts()
   hash(
-    (parts[Days], parts[Seconds], parts[Microseconds])
+    (parts[Days], parts[Seconds], parts[Microseconds]+1000*parts[Milliseconds])
   )
 
 

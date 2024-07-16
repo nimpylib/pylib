@@ -21,7 +21,7 @@ func secondsImpl*(parts): int64 =
   result = parts[Seconds]
   result += convert(Hours, Seconds, parts[Hours])
   result += convert(Minutes, Seconds, parts[Minutes])
-  let usN0 = parts[Microseconds] < 0
+  let usN0 = parts[Microseconds] + 1000 * parts[Milliseconds] < 0
   if result < 0 or result == 0 and usN0:
     result.inc convert(Days, Seconds, 1)
   if usN0:

@@ -132,7 +132,7 @@ func format_utcoffset*(parts: DurationParts, sep: string|char = ':',
     hours = parts[Hours]
     minutes = parts[Minutes]
     seconds = parts[Seconds]
-    microseconds = parts[Microseconds]
+    microseconds = parts[Microseconds] + 1000 * parts[Milliseconds]
   format_utcoffset(hours, minutes, seconds, microseconds,
     sep=sep, prefix=prefix)
 
