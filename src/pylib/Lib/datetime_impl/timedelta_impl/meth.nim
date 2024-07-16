@@ -32,7 +32,7 @@ func fromMicroseconds(us: int64): timedelta =
 
 type
   I_in_FI = int64
-  FI* = float|I_in_FI
+  FI* = float|I_in_FI  ## float or int64
 func accum(
   sofar: IntS, ## sofar is the # of microseconds accounted for so far
   num: FI,

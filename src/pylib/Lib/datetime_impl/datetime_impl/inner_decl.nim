@@ -10,9 +10,6 @@ type
     hashcode: int
   PyDatetime* = datetime
 
-template dtNormTz*(tz: tzinfo): Timezone =
-  if tz.isTzNone: local() else: tz.toNimTimezone
-
 func newDatetime*(dt: Datetime, tzinfo: tzinfo = nil, isfold = false): datetime =
   datetime(dt: dt, tzinfo: tzinfo, isfold: isfold)
 
@@ -45,7 +42,7 @@ proc newDatetime*(self: datetime,
       self.dt.month, self.dt.monthday,
       self.dt.hour, self.dt.minute, self.dt.second,
       self.microsecond,
-      zone = dtNormTz tzinfo
+      zone = tzToNimTimezone tzinfo
     ), tzinfo, isfold
   )
 

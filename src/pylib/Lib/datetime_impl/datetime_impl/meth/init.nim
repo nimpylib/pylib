@@ -67,7 +67,7 @@ proc datetime*(year, month, day: int,
 
   result = newDatetime(times.dateTime(
     year, mon, d, h, min, s, ns, 
-      zone = dtNormTz tzinfo
+      zone = tzToNimTimezone tzinfo
   ), tzinfo, fold.checkFold)
 
 {.pop.}

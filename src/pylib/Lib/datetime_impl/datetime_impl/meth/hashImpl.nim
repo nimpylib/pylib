@@ -1,6 +1,6 @@
 
 import std/hashes
-include ./common
+import ../inner_decl
 import ./getter
 import ../../timedelta_impl/[decl, meth]  # import `-`, init for hash
 from ./calendar_utils import ymd_to_ord

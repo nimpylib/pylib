@@ -20,10 +20,16 @@ func hash*(self: timezone): int = hash self.offset
 
 {.pragma: benign, tags: [], raises: [], gcsafe.}
 method toNimTimezone*(self: tzinfo): Timezone{.base, raises: [].} =
+  ## .. warning:: in Nim, method's self cannot be nil,
+  ##   otherwise a NilAccessDefect will occur.
+  ##   use `tzToNimTimezone`_ as a workaround.
   #notImplErr(tzinfo.toNimTimezone)
   local()  # XXX: okey?
 
 method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
+  ## .. warning:: in Nim, method's self cannot be nil,
+  ##   otherwise a NilAccessDefect will occur.
+  ##   use `tzToNimTimezone`_ as a workaround.
   let
     offset_dur = self.offset.asDuration
     tot_us = offset_dur.inMicroseconds
@@ -43,6 +49,14 @@ method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
     localZonedTimeFromTime,
     localZonedTimeFromAdjTime
   )
+
+template tzToNimTimezone*(tz: tzinfo): Timezone =
+  ## EXT.
+  ## `if tz.isTzNone: local() else: tz.toNimTimezone`
+  ## as when tz is None, a.k.a. dispatcher is nil,
+  ## `toNimTimezone` will fail when called, raising `NilAccessDefect`
+  bind local, isTzNone, toNimTimezone
+  if isTzNone(tz): local() else: toNimTimezone(tz)
 
 let UTC* = timezone(offset: timedelta(0))
 template utc*(_: typedesc[timezone]): timezone =
