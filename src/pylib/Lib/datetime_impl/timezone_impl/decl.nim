@@ -165,5 +165,5 @@ method repr*(self: timezone): string =
   result.add meth.repr(self.offset)
   if self.name.len != 0:
     result.add ", "
-    result.add self.name
+    result.add self.name.repr
   result.add ')'
