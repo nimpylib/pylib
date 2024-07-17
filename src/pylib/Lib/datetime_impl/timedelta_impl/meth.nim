@@ -87,7 +87,7 @@ macro accumByFactors(x: IntS; leftover: float; facs: varargs[untyped]) =
       if `key` != 0:
         `x` = accum(`x`, nkey, FactorT `val`, `leftover`)
 
-const e6int = 1_000_000
+const e6int = BiggestInt 1_000_000
 
 func timedelta*(
     days: FI = 0, seconds: FI = 0, microseconds: FI = 0,

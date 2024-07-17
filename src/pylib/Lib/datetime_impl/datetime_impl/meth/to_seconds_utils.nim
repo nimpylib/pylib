@@ -7,7 +7,7 @@ let max_fold_seconds* = BiggestInt 24 * 3600  ## \
 ## As of version 2015f max fold in IANA database is
 ## 23 hours at 1969-09-30 13:00:00 in Kwajalein.
 
-let epoch* = BiggestInt 719163 * 24 * 60 * 60  ## \
+let epoch* = BiggestInt(719163) * 24 * 60 * 60  ## \
 ## NB: date(1970,1,1).toordinal() == 719163
 
 func utc_to_seconds*(year, month, day, hour, minute, second: int): BiggestInt =

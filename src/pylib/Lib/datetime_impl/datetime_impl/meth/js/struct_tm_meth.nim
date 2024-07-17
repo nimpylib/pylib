@@ -59,12 +59,14 @@ func getUtcOffset(dt: DateTime): clong =
 using ordinal: int|int64
 
 wrap valueOf
-func isNaN(n: int): bool{.importcpp.}
+func isNaN(n: int): bool{.importjs: "isNaN(#)".}
 proc newCheckedDate(ordinal): DateTime =
   result = newDate(ordinal)
-  if isNaN(result.valueOf()):
-    raise newException(OSError,
-      "Given ordinal value is out of valid value for JS'`new Date`")
+  when not defined(release):
+    let val = result.valueOf()
+    if isNaN(val):
+      raise newException(OSError,
+        "Given ordinal value is out of valid value for JS'`new Date`: " & $val)
 
 proc tm_from_local*(ordinal): Tm =
   result.initTm
