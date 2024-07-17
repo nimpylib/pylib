@@ -1,6 +1,8 @@
 nimTitle	struct_tm_decl	datetime_impl/datetime_impl/meth/struct_tm_decl.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/struct_tm_decl		0
-nim	struct_tm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#struct_tm	object struct_tm		6
+nim	struct_tm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#struct_tm	object struct_tm		7
 nim	HAVE_STRUCT_TM_TM_ZONE	datetime_impl/datetime_impl/meth/struct_tm_decl.html#HAVE_STRUCT_TM_TM_ZONE	const HAVE_STRUCT_TM_TM_ZONE		8
-nim	Tm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#Tm	object Tm		11
-nim	initTm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#initTm	proc initTm(): Tm		37
-nim	initTm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#initTm.t,Tm	template initTm(tm: var Tm)		38
+nim	Tm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#Tm	object Tm		12
+nim	year	datetime_impl/datetime_impl/meth/struct_tm_decl.html#year,Tm	proc year(tm: Tm): int		36
+nim	month	datetime_impl/datetime_impl/meth/struct_tm_decl.html#month,Tm	proc month(tm: Tm): int		37
+nim	initTm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#initTm	proc initTm(): Tm		39
+nim	initTm	datetime_impl/datetime_impl/meth/struct_tm_decl.html#initTm.t,Tm	template initTm(tm: var Tm)		40

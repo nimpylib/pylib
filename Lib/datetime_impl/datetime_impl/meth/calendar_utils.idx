@@ -1,4 +1,5 @@
 nimTitle	calendar_utils	datetime_impl/datetime_impl/meth/calendar_utils.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/calendar_utils		0
+nim	days_before_month	datetime_impl/datetime_impl/meth/calendar_utils.html#days_before_month,int,int	proc days_before_month(year, month: int): int		20
 nim	ymd_to_ord	datetime_impl/datetime_impl/meth/calendar_utils.html#ymd_to_ord,int,int,int	proc ymd_to_ord(year, month, day: int): int		40
 nim	YMD	datetime_impl/datetime_impl/meth/calendar_utils.html#YMD	tuple YMD		53
 nim	ord_to_ymd	datetime_impl/datetime_impl/meth/calendar_utils.html#ord_to_ymd,int,YMD	proc ord_to_ymd(ordinal: int; result: var YMD)		56

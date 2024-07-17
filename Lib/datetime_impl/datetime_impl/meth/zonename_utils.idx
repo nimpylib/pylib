@@ -1,0 +1,4 @@
+nimTitle	zonename_utils	datetime_impl/datetime_impl/meth/zonename_utils.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/zonename_utils		0
+nim	newZoneCStr	datetime_impl/datetime_impl/meth/zonename_utils.html#newZoneCStr,Tm	proc newZoneCStr(tm: var Tm): cstring		18
+nim	freeZoneCStr	datetime_impl/datetime_impl/meth/zonename_utils.html#freeZoneCStr,cstring	proc freeZoneCStr(s: cstring)		34
+nim	zonename	datetime_impl/datetime_impl/meth/zonename_utils.html#zonename,Tm	proc zonename(tm: var Tm): string		50
