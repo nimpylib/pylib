@@ -7,13 +7,13 @@ when not weridTarget:
   proc c_strftime(buf: cstring, len: csize_t, fmt: cstring, tm: var Tm): csize_t{.
     importc: "strftime", header: "<time.h>".}
 
-template newCCharArr(n): cstring =
-  cast[cstring](
-    when compileOption("threads"):
-      allocShared(n)
-    else:
-      alloc(n)
-  )
+  template newCCharArr(n): cstring =
+    cast[cstring](
+      when compileOption("threads"):
+        allocShared(n)
+      else:
+        alloc(n)
+    )
 
 proc newZoneCStr*(tm: var Tm): cstring =
   when defined(js):

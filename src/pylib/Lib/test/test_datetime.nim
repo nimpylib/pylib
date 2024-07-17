@@ -70,16 +70,20 @@ suite "datetime":
             ("12:32:30", timedelta(hours=12, minutes=32, seconds=30)),
             ("02:04:09.123456", timedelta(hours=2, minutes=4, seconds=9, microseconds=123456))
         ]
-
-        tzinfos = list([
+        # XXX: NIM-BUG:
+        # if using list here on debian when JS, you will get:
+        #  Error: internal error: genTypeInfo(tyInferred)
+        tmp_tzinfos = ([
             (str(""), None.noneToTzInfo),
             (str("+00:00"), UTC),
             (str("+00:00"), timezone(timedelta(0))),
         ])
+        #when defined(js) and defined(debian):
+        tzinfos = @tmp_tzinfos
 
         for (expected, td) in tzoffsets:
           for (prefix, sign) in [("-", -1), ("+", 1)]:
-            tzinfos.append(
+            tzinfos.add(
               (prefix + expected, tzinfo(timezone(sign * td)))
             )
         dt_base = theclass(2016, 4, 1, 12, 37, 9)

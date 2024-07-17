@@ -1,6 +1,7 @@
 
 const SupportIteratorHit = (NimMajor, NimMinor, NimPatch) >= (2, 1, 2)
 
+const ItemTypeMode = typeOfIter
 type
   Iterable*[T] = concept self  ## Mimic Pythons Iterable. But not checks `iter`
     #for value in self: value is T 
@@ -11,7 +12,7 @@ type
     else:
       #typeof(self.items(), typeOfIter) is T
       when defined(js):
-        typeof(self.items(), typeOfIter) is T
+        typeof(self.items(), ItemTypeMode) is T
       else:
         for value in self: value is T 
   Iterator*[T] = concept self of Iterable[T]
