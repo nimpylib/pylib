@@ -15,10 +15,10 @@ skipDirs      = @["examples"]
 requires "nim >= 1.6.0"  # ensure `pydef.nim`c's runnableExamples works
 
 task testJs, "Test JS":
-  exec "nim js -r -d:nodejs tests/tester"
+  selfExec "js -r -d:nodejs tests/tester"
 
 task testC, "Test C":
-  exec "nim r --mm:orc tests/tester"
+  selfExec "r --mm:orc tests/tester"
 
 import std/os
 let
@@ -62,17 +62,17 @@ task testDoc, "cmdargs: if the last is arg: " &
     "ALL: gen for all(default); else: a nim file":
   let def_arg = srcDir / "pylib.nim"
   let sargs = getHandledArg("testDoc", def_arg)
-  exec "nim doc --project --outdir:docs " & sargs
+  selfExec "doc --project --outdir:docs " & sargs
 
 
 const nimSuf = ".nim"
 
 proc testLib(fp: string, sargs: string) =
-  var cmd = "nim doc"
+  var cmd = "doc"
   if fp.endsWith nimSuf:
     if (fp[0..(fp.len - nimSuf.len-1)] & "_impl").dirExists:
       cmd.add " --project"
-    exec cmd & " --outdir:docs/Lib " & sargs & ' ' & fp
+    selfExec cmd & " --outdir:docs/Lib " & sargs & ' ' & fp
 
 task testLibDoc, "Test doc-gen and runnableExamples, can pass several args":
   var args = getArgs "testLibDoc"
