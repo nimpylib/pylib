@@ -3,7 +3,7 @@ import std/strutils
 import std/os
 const SourceDir = currentSourcePath().parentDir
 when defined(js):
-  const jsExcludes = (SourceDir / "skipJs.txt").slurp.strip().splitLines()
+  const jsExcludes = ("skipJs.txt").slurp.strip().splitLines()
 
 import std/macros
 
@@ -15,7 +15,13 @@ static:
     let name = t.path.lastPathPart
     if name[0] != 't' or name.startsWith "temp": continue
     when defined(js):
-      if name in jsExcludes: continue
+      var nname = name
+      nname.removeSuffix(".nim")
+      nname.removePrefix("t")
+      nname.removePrefix("_")
+      if nname in jsExcludes: continue
+      nname.removePrefix("est_")
+      if nname in jsExcludes: continue
     allTests.add t.path
 
 macro testAll* =
