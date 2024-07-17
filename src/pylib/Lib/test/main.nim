@@ -3,7 +3,7 @@ import std/strutils
 import std/os
 const SourceDir = currentSourcePath().parentDir
 when defined(js):
-  const jsExcludes = SourceDir / "skipJs.txt".slurp.strip().splitLines()
+  const jsExcludes = (SourceDir / "skipJs.txt").slurp.strip().splitLines()
 
 import std/macros
 
