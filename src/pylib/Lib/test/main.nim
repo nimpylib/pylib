@@ -1,12 +1,11 @@
 
 import std/strutils
+import std/os
+const SourceDir = currentSourcePath().parentDir
 when defined(js):
-  const jsExcludes = "skipJs.txt".slurp.strip().splitLines()
+  const jsExcludes = SourceDir / "skipJs.txt".slurp.strip().splitLines()
 
 import std/macros
-import std/os
-
-const SourceDir = currentSourcePath().parentDir
 
 var allTests{.compileTime.}: seq[string]
 static:
