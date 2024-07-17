@@ -1,27 +1,27 @@
 nimTitle	collections_abc	_._/collections_abc.html	module src/pylib/collections_abc		0
-nim	Iterable	_._/collections_abc.html#Iterable	type Iterable		5
-nim	Iterator	_._/collections_abc.html#Iterator	type Iterator		17
-nim	Sized	_._/collections_abc.html#Sized	type Sized		20
-nim	Container	_._/collections_abc.html#Container	type Container		23
-nim	Collection	_._/collections_abc.html#Collection	type Collection		29
-nim	Sequence	_._/collections_abc.html#Sequence	type Sequence		31
-nim	MutableSequence	_._/collections_abc.html#MutableSequence	type MutableSequence		34
-nim	Mapping	_._/collections_abc.html#Mapping	type Mapping		40
-nim	contains	_._/collections_abc.html#contains,Container[T],T	proc contains[T](s: Container[T]; x: T): bool		48
-nim	index	_._/collections_abc.html#index,Sequence[T],T,int,int	proc index[T](s: Sequence[T]; x: T; start = 0; stop = -1): int		54
-nim	count	_._/collections_abc.html#count,Sequence[T],T	proc count[T](s: Sequence[T]; x: T): int		63
-nim	append	_._/collections_abc.html#append,MutableSequence[T],T	proc append[T](ms: MutableSequence[T]; x: T)		68
-nim	clear	_._/collections_abc.html#clear,MutableSequence	proc clear(ms: MutableSequence)		71
-nim	reverse	_._/collections_abc.html#reverse,MutableSequence	proc reverse(ms: MutableSequence)		75
-nim	extend	_._/collections_abc.html#extend,MutableSequence[T],Iterable[T]	proc extend[T](ms: MutableSequence[T]; it: Iterable[T])		80
-nim	pop	_._/collections_abc.html#pop,MutableSequence[T],int	proc pop[T](ms: MutableSequence[T]; index = -1): T		84
-nim	remove	_._/collections_abc.html#remove,MutableSequence[T],T	proc remove[T](ms: MutableSequence[T]; x: T)		89
-nim	keys	_._/collections_abc.html#keys.t,Mapping[K,V]	template keys[K, V](m: Mapping[K, V]): untyped		94
-nim	values	_._/collections_abc.html#values.i,Mapping[K,V]	iterator values[K, V](m: Mapping[K, V]): V		96
-nim	items	_._/collections_abc.html#items.i,Mapping[K,V]	iterator items[K, V](m: Mapping[K, V]): (K, V)		98
-nim	contains	_._/collections_abc.html#contains,Mapping[K,V],K	proc contains[K, V](m: Mapping[K, V]; k: K): bool		101
-nim	get	_._/collections_abc.html#get,Mapping[K,V],K	proc get[K, V](m: Mapping[K, V]; key: K): V		105
-nim	get	_._/collections_abc.html#get,Mapping[K,V],K,V	proc get[K, V](m: Mapping[K, V]; key: K; default: V): V		106
-nim	`==`	_._/collections_abc.html#==,Mapping[K,V],Mapping[K,V]	proc `==`[K, V](a, b: Mapping[K, V]): bool		110
-nimgrp	contains	_._/collections_abc.html#contains-procs-all	proc		48
-nimgrp	get	_._/collections_abc.html#get-procs-all	proc		105
+nim	Iterable	_._/collections_abc.html#Iterable	type Iterable		6
+nim	Iterator	_._/collections_abc.html#Iterator	type Iterator		18
+nim	Sized	_._/collections_abc.html#Sized	type Sized		21
+nim	Container	_._/collections_abc.html#Container	type Container		24
+nim	Collection	_._/collections_abc.html#Collection	type Collection		30
+nim	Sequence	_._/collections_abc.html#Sequence	type Sequence		32
+nim	MutableSequence	_._/collections_abc.html#MutableSequence	type MutableSequence		35
+nim	Mapping	_._/collections_abc.html#Mapping	type Mapping		41
+nim	contains	_._/collections_abc.html#contains,Container[T],T	proc contains[T](s: Container[T]; x: T): bool		49
+nim	index	_._/collections_abc.html#index,Sequence[T],T,int,int	proc index[T](s: Sequence[T]; x: T; start = 0; stop = -1): int		55
+nim	count	_._/collections_abc.html#count,Sequence[T],T	proc count[T](s: Sequence[T]; x: T): int		64
+nim	append	_._/collections_abc.html#append,MutableSequence[T],T	proc append[T](ms: MutableSequence[T]; x: T)		69
+nim	clear	_._/collections_abc.html#clear,MutableSequence	proc clear(ms: MutableSequence)		72
+nim	reverse	_._/collections_abc.html#reverse,MutableSequence	proc reverse(ms: MutableSequence)		76
+nim	extend	_._/collections_abc.html#extend,MutableSequence[T],Iterable[T]	proc extend[T](ms: MutableSequence[T]; it: Iterable[T])		81
+nim	pop	_._/collections_abc.html#pop,MutableSequence[T],int	proc pop[T](ms: MutableSequence[T]; index = -1): T		85
+nim	remove	_._/collections_abc.html#remove,MutableSequence[T],T	proc remove[T](ms: MutableSequence[T]; x: T)		90
+nim	keys	_._/collections_abc.html#keys.t,Mapping[K,V]	template keys[K, V](m: Mapping[K, V]): untyped		95
+nim	values	_._/collections_abc.html#values.i,Mapping[K,V]	iterator values[K, V](m: Mapping[K, V]): V		97
+nim	items	_._/collections_abc.html#items.i,Mapping[K,V]	iterator items[K, V](m: Mapping[K, V]): (K, V)		99
+nim	contains	_._/collections_abc.html#contains,Mapping[K,V],K	proc contains[K, V](m: Mapping[K, V]; k: K): bool		102
+nim	get	_._/collections_abc.html#get,Mapping[K,V],K	proc get[K, V](m: Mapping[K, V]; key: K): V		106
+nim	get	_._/collections_abc.html#get,Mapping[K,V],K,V	proc get[K, V](m: Mapping[K, V]; key: K; default: V): V		107
+nim	`==`	_._/collections_abc.html#==,Mapping[K,V],Mapping[K,V]	proc `==`[K, V](a, b: Mapping[K, V]): bool		111
+nimgrp	contains	_._/collections_abc.html#contains-procs-all	proc		49
+nimgrp	get	_._/collections_abc.html#get-procs-all	proc		106
