@@ -33,7 +33,7 @@ method toNimTimezone*(self: timezone): Timezone{.raises: [].} =
   let
     offset_dur = self.offset.asDuration
     tot_us = offset_dur.inMicroseconds
-    offset_us = (tot_us mod 1_000_000).microseconds
+    offset_us = (tot_us mod 1_000_000).int.microseconds
     offset_sec = -(tot_us div 1_000_000)
     isDst = false
     # at least in Nim2.0, isDst doesn't affect the calculation of DateTime

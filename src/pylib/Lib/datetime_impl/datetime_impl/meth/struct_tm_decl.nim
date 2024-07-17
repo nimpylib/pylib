@@ -1,14 +1,15 @@
 
 
-{.push header: "<time.h>".}
-
-type
-  struct_tm*{.importc: "struct tm", completeStruct.} = object
-
-const HAVE_STRUCT_TM_TM_ZONE* = sizeof(struct_tm) > 9*sizeof(cint)
+when defined(js):
+  const HAVE_STRUCT_TM_TM_ZONE* = true
+  {.pragma: TmPragma.}
+else:
+  type struct_tm*{.importc: "struct tm", header: "<time.h>", completeStruct.} = object
+  const HAVE_STRUCT_TM_TM_ZONE* = sizeof(struct_tm) > 9*sizeof(cint)
+  {.pragma: TmPragma, importc: "struct tm", header: "<time.h>".}
 
 when not HAVE_STRUCT_TM_TM_ZONE:
-  type Tm*{.importc: "struct tm".} = object
+  type Tm*{.TmPragma.} = object
     tm_year*: int  ## years since 1900
     tm_mon*:  range[0 .. 11]
     tm_mday*: range[1 .. 31]
@@ -19,7 +20,7 @@ when not HAVE_STRUCT_TM_TM_ZONE:
     tm_yday*: range[0 .. 365] 
     tm_isdst*: int
 else:
-  type Tm*{.importc: "struct tm".} = object
+  type Tm*{.TmPragma.} = object
     tm_year*: int  ## years since 1900
     tm_mon*:  range[0 .. 11]
     tm_mday*: range[1 .. 31]
@@ -32,7 +33,8 @@ else:
     tm_gmtoff*: clong
     tm_zone*: cstring
 
-{.pop.}
+func year*(tm: Tm): int = tm.tm_year + 1900
+func month*(tm: Tm): int = tm.tm_mon + 1
 
 func initTm*: Tm = Tm(tm_mday: 1)
 template initTm*(tm: var Tm) =

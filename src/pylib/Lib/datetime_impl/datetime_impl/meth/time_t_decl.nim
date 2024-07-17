@@ -1,16 +1,21 @@
 
 
-const
-  LP64 = sizeof(int) == sizeof(int64)
+import ./platform_utils
 
-{.push header: "<time.h>".}
-when LP64:
-  type time_t*{.importc.} = int64
-elif sizeof(int) == sizeof(int32):
-  type time_t*{.importc.} = int32
+when weridTarget:
+  type time_t* = int  # js number, used as `new Date(value)`'s value
 else:
-  {.error: "unsupported time_t size, only support 64bit and 32 bit system".}
-{.pop.}
+  const
+    LP64 = sizeof(int) == sizeof(int64)
+
+  {.push header: "<time.h>".}
+  when LP64:
+    type time_t*{.importc.} = int64
+  elif sizeof(int) == sizeof(int32):
+    type time_t*{.importc.} = int32
+  else:
+    {.error: "unsupported time_t size, only support 64bit and 32 bit system".}
+  {.pop.}
 
 const
   SIZEOF_TIME_T* = sizeof time_t

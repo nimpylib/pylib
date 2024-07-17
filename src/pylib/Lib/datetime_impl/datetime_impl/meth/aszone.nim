@@ -1,11 +1,10 @@
 
 include ./common
-import ../../../../Python/unicodeobject/locale_codec
 
 import ../../timedelta_impl/[decl, meth]
 import ../../timezone_impl/[decl, meth_by_datetime_getter, meth_by_datetime]
 
-import ./time_utils, ./to_seconds_utils
+import ./time_utils, ./zonename_utils, ./to_seconds_utils
 from ./state_consts import CONST_EPOCH, utc_timezone
 import ./init, ./op
 import ./struct_tm_helper  # cTmToNormCall
@@ -25,9 +24,7 @@ proc getUtcOffset(local_time_tm: Tm, timestamp: time_t): timedelta =
 
 proc local_timezone_from_timestamp(timestamp: time_t): timezone =
   var local_time_tm = nTime_localtime timestamp
-  let zone = local_time_tm.newZoneCStr()
-  let nameo = PyUnicode_DecodeLocale(zone, "surrogateescape")
-  zone.freeZoneCStr()
+  let nameo = local_time_tm.zonename
 
   let delta = local_time_tm.getUtcOffset timestamp
   result = newPyTimezone(delta, nameo)

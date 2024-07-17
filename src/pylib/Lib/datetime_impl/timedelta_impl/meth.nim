@@ -1,6 +1,7 @@
 
 import std/times
 import std/macros
+from ../mathutils import divmod
 from std/math import floorDiv, floorMod, splitDecimal, round
 import ./decl, ./getter
 export getter.days, getter.seconds, getter.microseconds
@@ -153,8 +154,9 @@ func `$`*(self): string =
   var secs = parts.secondsImpl
   var hrs, mins: int
   # here secs is a Natural, so divmod in std/math can be used.
-  (mins, secs) = math.divmod(secs, 60)
-  (hrs, mins)  = math.divmod(mins, 60)
+  # XXX: no divmod in std/math when JS ?
+  mins = typeof(mins) divmod(secs, 60, secs)
+  hrs  = typeof(hrs) divmod(mins, 60, mins)
   result.add $hrs  # hours shall not be padded
   result.add ':'
   push mins

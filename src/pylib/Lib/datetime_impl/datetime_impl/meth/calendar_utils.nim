@@ -17,7 +17,7 @@ template is_leap(year): bool = isLeapYear(year)
 const arr_days_before_month: array[1..12, int] = [
   0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
 
-func days_before_month(year, month: int): int =
+func days_before_month*(year, month: int): int =
   ## year, month -> number of days in year preceding first day of month
 
   assert(month >= 1);

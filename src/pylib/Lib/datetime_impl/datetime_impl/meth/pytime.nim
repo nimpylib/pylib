@@ -1,10 +1,15 @@
 
 ## translated from CPython/Python/pytime.c
 
-import ./time_t_decl, ./struct_tm_decl, ./struct_tm_meth
+import ./time_t_decl
 export time_t_decl
-import ./errno_decl
-from ./importer import raiseErrno
+import ./platform_utils
+when defined(js):
+  import ./js/time
+else:
+  import ./struct_tm_decl, ./struct_tm_meth
+  import ./errno_decl
+  from ./importer import raiseErrno
 
 type
   long* = clong
@@ -108,41 +113,44 @@ func nPyTime_ObjectToTimeval*(
   pytime.object_to_denominator(obj, sec, usec, SEC_TO_US, round)
 
 
-# L1286 _PyTime_localtime
-proc nPyTime_localtime*(t: time_t, tm: var Tm) =
-  var t = t
-  # as localtime_*'s first param is const pointer,
-  # so it's fine to pass a local data's pointer
-  when defined(windows):
-    var error: int
-    error = localtime_s(tm, t)
-    if error != 0:
-      raiseErrno()
-  else:
-    when defined(aix) and SIZEOF_TIME_T < 8:
-      # bpo-34373: AIX does not return NULL if t is too small or too large
-      if (t < -2145916800 or # 1902-01-01
-          t > 2145916800): # 2038-01-01 
-        errno = EINVAL
-        raise newException(OverflowDefect, "localtime argument out of range")
-    errno = 0
-    if localtime_r(t, tm) == nil:
-     if errno == 0:
-       errno = EINVAL
-       raiseErrno()
-
-proc nPyTime_gmtime*(t: time_t, tm: var Tm) =
-  var t = t
-  # as gmtime_*'s first param is const pointer,
-  # so it's fine to pass a local data's pointer
-  when defined(windows):
-    let error = gmtime_s(tm, (t))
-    if error != 0:
-      errno = error
-      raiseErrno()
-  else:
-    if gmtime_r((t), tm) == nil:
-      when declared(EINVAL):
-        if errno == 0:
+when weridTarget:
+  export time.nPyTime_gmtime, time.nPyTime_localtime
+else:
+  # L1286 _PyTime_localtime
+  proc nPyTime_localtime*(t: time_t, tm: var Tm) =
+    var t = t
+    # as localtime_*'s first param is const pointer,
+    # so it's fine to pass a local data's pointer
+    when defined(windows):
+      var error: int
+      error = localtime_s(tm, t)
+      if error != 0:
+        raiseErrno()
+    else:
+      when defined(aix) and SIZEOF_TIME_T < 8:
+        # bpo-34373: AIX does not return NULL if t is too small or too large
+        if (t < -2145916800 or # 1902-01-01
+            t > 2145916800): # 2038-01-01 
           errno = EINVAL
-      raiseErrno()
+          raise newException(OverflowDefect, "localtime argument out of range")
+      errno = 0
+      if localtime_r(t, tm) == nil:
+       if errno == 0:
+         errno = EINVAL
+         raiseErrno()
+
+  proc nPyTime_gmtime*(t: time_t, tm: var Tm) =
+    var t = t
+    # as gmtime_*'s first param is const pointer,
+    # so it's fine to pass a local data's pointer
+    when defined(windows):
+      let error = gmtime_s(tm, (t))
+      if error != 0:
+        errno = error
+        raiseErrno()
+    else:
+      if gmtime_r((t), tm) == nil:
+        when declared(EINVAL):
+          if errno == 0:
+            errno = EINVAL
+        raiseErrno()

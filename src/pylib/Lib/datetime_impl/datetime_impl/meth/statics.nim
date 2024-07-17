@@ -37,8 +37,8 @@ proc datetime_from_timet_and_us(f: N_TM_FUNC, timet: time_t, us: int,
   let tm = f(timet)
   let timet = BiggestInt timet
   let
-    year =  tm.tm_year + 1900
-    month = tm.tm_mon + 1
+    year =  tm.year
+    month = tm.month
     day =   tm.tm_mday
     hour =  tm.tm_hour
     minute= tm.tm_min
