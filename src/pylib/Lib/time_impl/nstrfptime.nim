@@ -145,7 +145,7 @@ func strftime*(format: string, dt: DateTime): string
   template `%j`: int = dt.yearday.int + 1
   template handleSomeAndUnknown(c: char, fmt: string) =
     template push(i: int) = result.add $i
-    template push(i: int, n: int{lit}) = result.add align($i, n, '0')
+    template push(i: int, n: int{lit}) = result.add intToStr(i, n)
     template push(s: char|string) = result.add s
     case c
     # Year
