@@ -122,10 +122,10 @@ proc transInOrder(outBuf: var openArray[char], inBuf: openArray[char], endiannes
   else:
     handleTargetOrder i
 
-template highByte(b: PyBytes): uint8 =
+template highByte(b: PyBytes, endian: Endianness, hi = b.len-1): uint8 =
   uint8:
-    when BigEndian: b[0]
-    else: b[^1]
+    if endian == bigEndian : b.getChar 0
+    else: b.getChar hi
 
 template signbitSet(b: uint8): bool =
   (b and 0b1000_0000'u8) == 0b1000_0000'u8
@@ -156,8 +156,10 @@ proc from_bytes(res: var NimInt, bytes: PyBytes, byteorder: Endianness, signed=f
   res = cast[NimInt](holder)
   if signed:
     let bLen = bytes.len
-    if bytes.highByte().signbitSet():
+    if bLen > 0 and bytes.highByte(byteorder, blen-1).signbitSet():
+      # res -= 1 shl (8 * bLen) <- the same as following line
       res = res or lowestN_set0_and_rest_setP1[NimInt](totByteLen, bLen)
+
       #debugecho "byte: ", res.toBin(64)
 
   if not signed and res < 0:
