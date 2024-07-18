@@ -18,7 +18,7 @@ export fetchDoc
 import std/strutils
 import std/times
 
-const NotImplDirectives* = {'j','w','y','U','Z'      
+const NotImplDirectives* = {'y', 'Z'      
 } ## Here are their concrete meanings in Python,
   ## as well as some notes about why they cannot be directly mapped to
   ## Nim's DateTime.format/parse.
@@ -26,22 +26,23 @@ const NotImplDirectives* = {'j','w','y','U','Z'
   ## The direct alternative value when formatting in Nim,
   ## if any, is introduced by `<-`:
   ##
-  ## - j: Day of the year as a decimal number `[001,366]`. <- DateTime.yearday + 1
-  ## - w: Weekday `[0(Sunday),6]`. <- (DateTime.weekday.int + 1) mod 7
   ## - y: Year without century as a decimal number `[00,99]`. <- DateTime.format"yy"
   ##   When parsing, C/Python's %y use 20th or 21th centry
   ##   depending on the value of %y
   ##   Nim's yy use the current century
+  ## - Z: Time zone name (no characters if no time zone exists). Deprecated.
+  ##   Impossible to implement without interacting with C lib.
+  ##   Any way, it's deprecated.
+  ##
+  ## Following are strftime only currently:
+  ##
+  ## - j: Day of the year as a decimal number `[001,366]`. <- DateTime.yearday + 1
+  ## - u: Weekday `[0(Monday), 6]`. <- DateTime.weekday.int
+  ## - w: Weekday `[0(Sunday),6]`. <- (DateTime.weekday.int + 1) mod 7
   ## - U: Week number of the year (Sunday as the first day of the week)
   ##   as a decimal number `[00,53]`.
   ##   All days in a new year preceding the first Sunday are considered
   ##   to be in week 0.
-  ##   Nim's V or VV is of range `[1,53]` (times.IsoWeekRange, get via DateTime.getIsoWeekAndYear)
-  ##   and use Monday as the first day of a week.
-  ##   (Nim's is iso-week, Python's is not)
-  ## - Z: Time zone name (no characters if no time zone exists). Deprecated.
-  ##   Impossible to implement without interacting with C lib.
-  ##   Any way, it's deprecated.
 
 func notImplErr(c: char) =
   var msg = "not implement format directives: %" & c
@@ -125,17 +126,28 @@ func strftime*(format: string, dt: DateTime): string
   template doWith(f) = result.add dt.format f
   template handlePercent = result.add '%'
   let iso_w_y = dt.getIsoWeekAndYear()
+  template weekday2w(weekday: WeekDay): int = (weekday.int+1) mod 7
+  template `%w`: int = weekday2w dt.weekday
+  template `%j`: int = dt.yearday.int + 1
   template handleSomeAndUnknown(c: char, fmt: string) =
+    template push(i: int) = result.add $i
+    template push(i: int, n: int{lit}) = result.add align($i, n, '0')
+    template push(s: char|string) = result.add s
     case c
-    of 'G':
-      result.add $iso_w_y.isoyear
-    of 'g':
-      result.add ($iso_w_y.isoyear).substr(3)
-    of 'V':
-      result.add $iso_w_y.isoweek
+    # Year
+    of 'G': push iso_w_y.isoyear.int, 4
+    of 'g': push ($iso_w_y.isoyear).substr(2)
+    # Week
+    of 'V': push iso_w_y.isoweek.int, 2
+    of 'U': push (dt.yearday.int - `%w` + 7) div 7, 2
+    # Day
+    of 'j': push `%j`, 3
+    # Weekday
+    of 'u': push dt.weekday.int + 1
+    of 'w': push `%w`
     else:
       handlePercent
-      result.add c
+      push c
   cStyle format, handleSnippet, doWith, handlePercent,
     handleUnknownDirective=handleSomeAndUnknown
 
