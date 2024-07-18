@@ -57,12 +57,17 @@ template raiseStrayPercent(fmt: string) =
   raise newException(ValueError, "stray % in format " & repr(fmt))
 
 const
+  Tp = "H:m:s"
+  Tf = "HH:mm:ss"
+  `%Y` = "uuuu"
+const
   `xp` = "ddd M d"
   `xf` = "ddd MM dd"
-  `Xp` = "H:m:s uuuu"
-  `Xf` = "HH:mm:ss uuuu"
-  `cp` = xp & ' ' & Xp
-  `cf` = xf & ' ' & Xf
+  `Xp` = Tp
+  `Xf` = Tf
+  `space%Y` = ' ' & `%Y`
+  `cp` = xp & ' ' & Xp & `space%Y`
+  `cf` = xf & ' ' & Xf & `space%Y`
 
 template cStyle(cstr: string;
     handleSnippet; # Callable[[string, int, int], void]
@@ -94,23 +99,32 @@ template cStyle(cstr: string;
     let c = cstr[i]
     case c
     of '%': handlePercent()
-    of 'Y': doWith "uuuu"
-    of 'm': doWith fmtOrP "MM"
-    of 'd': doWith fmtOrP "dd"
-    of 'H': doWith fmtOrP "HH"
-    of 'M': doWith fmtOrP "mm"
-    of 'S': doWith fmtOrP "ss"
-    of 'f': doWith "ffffff"  # XXX: on Python %f is not for time.strftime()
-    of 'z': doWith "ZZZ"
-    of 'a': doWith "ddd"
-    of 'A': doWith "dddd"
+    # Year
+    of 'Y': doWith `%Y`
+    # Month
     of 'b': doWith "MMM"
     of 'B': doWith "MMMM"
+    of 'm': doWith fmtOrP "MM"
+    # Day
+    of 'd': doWith fmtOrP "dd"
+    # Weekday
+    of 'a': doWith "ddd"
+    of 'A': doWith "dddd"
+    # Hour, Minute, Second
+    of 'H': doWith fmtOrP "HH"
     of 'I': doWith fmtOrP "hh"
+    of 'M': doWith fmtOrP "mm"
+    of 'S': doWith fmtOrP "ss"
+    # Microsecond
+    of 'f': doWith "ffffff"  # XXX: on Python %f is not for time.strftime()
+    # Other
+    of 'z': doWith "ZZZ"
     of 'p': doWith "tt"
     of 'x': doWith fmtOrP(xf, xp)
     of 'X': doWith fmtOrP(Xf, Xp)
     of 'c': doWith fmtOrP(cf, cp)
+    of 'F': doWith fmtOrP(`%Y` & "-MM-dd", `%Y` & "-M-d")
+    of 'T': doWith fmtOrP(Tf, Tp)
     of NotImplDirectives:
       noNimEquivHandle c
     else:
