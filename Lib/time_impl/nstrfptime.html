@@ -55,7 +55,7 @@
     <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#docTable" title="docTable = (module: &quot;&quot;, api: (data: [], counter: 0))">docTable</a></li>
-<li><a class="reference" href="#NotImplDirectives" title="NotImplDirectives = {'j', 'w', 'y', 'U', 'Z'}">NotImplDirectives</a></li>
+<li><a class="reference" href="#NotImplDirectives" title="NotImplDirectives = {'y', 'Z'}">NotImplDirectives</a></li>
 
     </ul>
   </details>
@@ -106,26 +106,29 @@
   <dd>
     
     used to transport doc string to outer module.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="NotImplDirectives">
-  <dt><pre><a href="nstrfptime.html#NotImplDirectives"><span class="Identifier">NotImplDirectives</span></a> <span class="Other">=</span> <span class="Other">{</span><span class="CharLit">'j'</span><span class="Other">,</span> <span class="CharLit">'w'</span><span class="Other">,</span> <span class="CharLit">'y'</span><span class="Other">,</span> <span class="CharLit">'U'</span><span class="Other">,</span> <span class="CharLit">'Z'</span><span class="Other">}</span></pre></dt>
+  <dt><pre><a href="nstrfptime.html#NotImplDirectives"><span class="Identifier">NotImplDirectives</span></a> <span class="Other">=</span> <span class="Other">{</span><span class="CharLit">'y'</span><span class="Other">,</span> <span class="CharLit">'Z'</span><span class="Other">}</span></pre></dt>
   <dd>
     
     <p>Here are their concrete meanings in Python, as well as some notes about why they cannot be directly mapped to Nim's DateTime.format/parse.</p>
 <p>The direct alternative value when formatting in Nim, if any, is introduced by <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;-</span></span></tt>:</p>
+<ul class="simple"><li>y: Year without century as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">00</span><span class="Punctuation">,</span><span class="DecNumber">99</span><span class="Punctuation">]</span></span></tt>. &lt;- DateTime.format&quot;yy&quot; When parsing, C/Python's %y use 20th or 21th centry depending on the value of %y Nim's yy use the current century</li>
+<li>Z: Time zone name (no characters if no time zone exists). Deprecated. However, this is supported in Lib/datetime</li>
+</ul>
+<p>Following are strftime only currently:</p>
 <ul class="simple"><li>j: Day of the year as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">001</span><span class="Punctuation">,</span><span class="DecNumber">366</span><span class="Punctuation">]</span></span></tt>. &lt;- DateTime.yearday + 1</li>
+<li>u: Weekday <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">(</span><span class="Identifier">Monday</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="DecNumber">6</span><span class="Punctuation">]</span></span></tt>. &lt;- DateTime.weekday.int</li>
 <li>w: Weekday <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">(</span><span class="Identifier">Sunday</span><span class="Punctuation">)</span><span class="Punctuation">,</span><span class="DecNumber">6</span><span class="Punctuation">]</span></span></tt>. &lt;- (DateTime.weekday.int + 1) mod 7</li>
-<li>y: Year without century as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">00</span><span class="Punctuation">,</span><span class="DecNumber">99</span><span class="Punctuation">]</span></span></tt>. &lt;- DateTime.format&quot;yy&quot; When parsing, C/Python's %y use 20th or 21th centry depending on the value of %y Nim's yy use the current century</li>
-<li>U: Week number of the year (Sunday as the first day of the week) as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">00</span><span class="Punctuation">,</span><span class="DecNumber">53</span><span class="Punctuation">]</span></span></tt>. All days in a new year preceding the first Sunday are considered to be in week 0. Nim's V or VV is of range <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">53</span><span class="Punctuation">]</span></span></tt> (times.IsoWeekRange, get via DateTime.getIsoWeekAndYear) and use Monday as the first day of a week. (Nim's is iso-week, Python's is not)</li>
-<li>Z: Time zone name (no characters if no time zone exists). Deprecated. Impossible to implement without interacting with C lib. Any way, it's deprecated.</li>
+<li>U: Week number of the year (Sunday as the first day of the week) as a decimal number <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">00</span><span class="Punctuation">,</span><span class="DecNumber">53</span><span class="Punctuation">]</span></span></tt>. All days in a new year preceding the first Sunday are considered to be in week 0.</li>
 </ul>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -142,8 +145,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L121" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L121" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L141" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L141" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -157,8 +160,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L158" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L158" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/time_impl/nstrfptime.nim#L189" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/time_impl/nstrfptime.nim#L189" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -180,7 +183,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-17 12:25:47 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-18 15:24:01 UTC</small>
       </div>
     </div>
   </div>

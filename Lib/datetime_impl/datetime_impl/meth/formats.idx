@@ -1,0 +1,3 @@
+nimTitle	formats	datetime_impl/datetime_impl/meth/formats.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/formats		0
+nim	formatValue	datetime_impl/datetime_impl/meth/formats.html#formatValue,string,,string	proc formatValue(result: var string; value: datetime; specifier: string)		7
+nim	format	datetime_impl/datetime_impl/meth/formats.html#format,,string	proc format(self: datetime; format_spec = ""): string		15
