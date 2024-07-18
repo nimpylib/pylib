@@ -5,9 +5,15 @@ import ./private/doc_utils
 
 var docTableInner{.compileTime.}: DocTable
 when defined(nimdoc):
+  const
+    strfpDoc = slurp"./doc/nstrfptime.rst"
+    strpDoc = slurp"./doc/nstrptime.rst"
+  static: # `slurp` will fail silently if such a file doesn't exist
+    assert strfpDoc.len != 0
+    assert strpDoc.len != 0
   docTableInner = initDocTable(
-    slurp"./doc/nstrfptime.rst", {
-    "strptime": slurp"./doc/nstrptime.rst"
+    strfpDoc, {
+    "strptime": strpDoc
   })
 # if let `const docTable = initDocTable(...)` shown in doc,
 # a large lump of data will occur in doc.
@@ -31,8 +37,7 @@ const NotImplDirectives* = {'y', 'Z'
   ##   depending on the value of %y
   ##   Nim's yy use the current century
   ## - Z: Time zone name (no characters if no time zone exists). Deprecated.
-  ##   Impossible to implement without interacting with C lib.
-  ##   Any way, it's deprecated.
+  ##   However, this is supported in Lib/datetime
   ##
   ## Following are strftime only currently:
   ##
