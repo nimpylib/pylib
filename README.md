@@ -9,14 +9,17 @@
 [![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/issues)
 [![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/pulls)-->
 
+> Write Python in Nim
 
-Nimpylib is a collection of Python-like operators/functions and libraries (<del>syntax sugar</del> no longer just syntax sugar).
+Nimpylib is a collection of Python-like operators/functions and libraries as well as syntax sugars.
 It can help you to translate your Python program to Nim,
 and gain a better view into different behaviors between Python and Nim.
 
 ---
 
 [Read Docs](https://nimpylib.github.io/pylib/)
+|
+[Lib Docs](https://nimpylib.github.io/pylib/Lib)
 |
 [Wiki about History](https://github.com/nimpylib/pylib/wiki/History)
 
@@ -25,8 +28,11 @@ and gain a better view into different behaviors between Python and Nim.
 Thanks to Nim supporting multiply backends, pylib currently officially supports
 to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not tested.
 
-[^JS]: Some of features is not available for JS backend, which are listed
-[here](https://github.com/nimpylib/pylib/blob/master/tests/skipJs.txt)
+[^JS]: Some of features (listed
+ [here](https://github.com/nimpylib/pylib/blob/master/tests/skipJs.txt))
+ and Libs (listed
+ [here](https://github.com/nimpylib/pylib/blob/master/src/pylib/Lib/test/skipJs.txt))
+is not available for JS backend yet.
 
 # Usage
 
@@ -285,7 +291,7 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `long()` Python2 like
 - [x] `unicode()` Python2 like
 - [x] `u"string here"` / `u'a'` Python2 like
-- [x] `b"string here"` / `b'a'` Python2 like
+- [x] `b"string here"` / `b'a'`
 - [x] `zip(iterable1, iterable2)`
 - More...
 
@@ -302,52 +308,78 @@ Uninstall with `nimble uninstall pylib`.
 
 ```console
 $ nimble test
-[OK] getattr/set/has
+[Suite] datetime
+  [OK] utcoffset
+  [OK] attrs
+  [OK] isoformat
+
+[Suite] fromisoformat
+  [OK] if reversible
+
+[Suite] timedelta
+  [OK] init
+  [OK] float init
+  [OK] normalize
+  [OK] stringify
+
+[Suite] date
+  [OK] fromisocalendar
+  [OK] fromisocalendar_value_errors
+  [OK] ordinal_conversion
+  [OK] replace
+  [OK] strftime
+  [OK] ctime
+
+[Suite] tzinfo
+  [OK] fromtimestamp
+[OK] Lib/os
+[OK] os.path
+[OK] Lib/time
+[OK] Lib/timeit
 [OK] bytes
 [OK] bytes meth
-[OK] complex
-[OK] decorator
-[OK] custom decorator
+[OK] str operations
+[OK] str index
+[OK] str methods
+[OK] str.replace
+[OK] PyStr.maketrans&translate
 [OK] dict
-[OK] rewrite in `def`
-[OK] Floor division
-[OK] io & with
-[OK] bltin iters
-[OK] iters as iterable
+[OK] random
+[OK] Lib/string
+[OK] Lib/math
+[OK] Lib/tempfile
 [OK] Python-like types
 [OK] divmod
 [OK] pass
 [OK] lambda
 [OK] walrus operator
-2024-06-14T21:31:43+08:00 TimeIt: 9 Repetitions on 1 millisecond, 14 microseconds, and 700 nanoseconds, CPU Time 0.0.
-[OK] timeit
 [OK] hex()
 [OK] chr()
 [OK] oct()
 [OK] ord()
 [OK] bin()
-[OK] Range-like Nim procedure
-[OK] tonim macro
-[OK] unpack macro
-[OK] With statement
+[OK] bytearray
+[OK] complex
+[OK] decorator
+[OK] custom decorator
+[OK] rewrite in `def`
+[OK] Floor division
+[OK] io & with
+[OK] iter/next
+[OK] bltin iters
+[OK] iters as iterable
 [OK] list shallow
 [OK] list.sort
 [OK] list methods
+[OK] Range-like Nim procedure
+[OK] set
 [OK] str.format
-[OK] random
-[OK] Lib/string
-[OK] Lib/math
-[OK] os
-[OK] os.path
-[OK] tempfile
-[OK] iter/next
+[OK] tonim macro
+[OK] unpack macro
+[OK] With statement
+[OK] getattr/set/has
+[OK] Modulo operations
 [OK] int(x[, base])
 [OK] float(str)
-[OK] Modulo operations
-[OK] str operations
-[OK] str index
-[OK] str methods
-[OK] str.maketrans&translate
-[OK] set
-[OK] bytearray
+[OK] int.{from,to}_bytes
 ```
