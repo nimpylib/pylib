@@ -6,6 +6,7 @@ import std/math
 import ./pyerrors/rterr
 import ./pystring/strimpl
 import ./pybytes/bytesimpl
+import ./version
 
 const weridTarget = defined(js) or defined(nimscript)
 
@@ -97,14 +98,15 @@ template bit_length*(self: NimInt): NimInt =
   bind fastLog2, abs
   1 + fastLog2 abs(self)
 
+template bit_count*(self: NimInt): NimInt{.pysince(3,10).} =
+  self.countSetBits()
+
 template conjugate*(self: NimInt): NimInt = self
 
 func parseByteOrder(byteorder: string): Endianness =
   if byteorder == "little": result = littleEndian
   elif byteorder == "big": result = bigEndian
   else: raise newException(ValueError, "byteorder must be either 'little' or 'big'")
-
-const BigEndian = cpuEndian == bigEndian
 
 template highByte(b: PyBytes, endian: Endianness, hi = b.len-1): uint8 =
   uint8:
@@ -131,6 +133,7 @@ when arrNotCvtableInt:
     else:
       for it{.inject.} in 0 .. bHi: body
 else:
+  const BigEndian = cpuEndian == bigEndian
   proc transInOrder(outBuf: var openArray[char], inBuf: openArray[char], endianness: Endianness,
       length, totLen: int) =
     template asgnWithI(inp, outp){.dirty.} =
@@ -204,27 +207,40 @@ func from_bytes*(_: typedesc[NimInt], bytes: PyBytes, byteorder: PyStr, signed=f
   result = newInt()
   result.add_from_bytes(bytes, endianness, signed)
 
-func to_bytes*(self; length: int, byteorder: PyStr, signed=false): PyBytes =
+func from_bytes*(_: typedesc[NimInt], bytes: PyBytes,
+    byteorder: static[PyStr] = str("big"), signed=false): NimInt{.pysince(3,11).} =
+  ## this variant uses static param for byteorder
+  const endianness = parseByteOrder $byteorder
+  result = newInt()
+  result.add_from_bytes(bytes, endianness, signed)
+
+func to_chars*(self; length: int, endianness: Endianness, signed=false): seq[char] =
+  ## EXT.
   if length < 0:
     raise newException(ValueError, "length argument must be non-negative")
   if not signed and self < 0:
     raise newException(OverflowDefect, "can't convert negative int to unsigned")
-  let endianness = parseByteOrder $byteorder
 
   let bitLen = self.bit_length()
   let byteLen = ceilDiv(bitLen, 8)
-  const totByteLen = getSize(self)
   if byteLen > length:
     raise newException(OverflowDefect, "int too big to convert")
-  var s: seq[char]
 
   when arrNotCvtableInt:
-    s = newSeqOfCap[char](length)
+    result = newSeqOfCap[char](length)
     loopRangeWithIt(length - 1, endianness):
-      s.add (self shr (it*8)).charPart
+      result.add (self shr (it*8)).charPart
   else:
-    s = newSeq[char](length)
+    const totByteLen = getSize(self)
+    result = newSeq[char](length)
     let cstr = cast[array[totByteLen, char]](self)
-    transInOrder s, cstr, endianness, length = length, totLen = totByteLen
+    transInOrder result, cstr, endianness, length = length, totLen = totByteLen
 
-  bytes s
+func to_bytes*(self; length: int, byteorder: PyStr, signed=false): PyBytes =
+  let endianness = parseByteOrder $byteorder
+  bytes self.to_chars(length, endianness, signed=signed)
+
+func to_bytes*(self; length: int, byteorder: static[PyStr] = str("big"), signed=false
+    ): PyBytes{.pysince(3,11).} =
+  const endianness = parseByteOrder $byteorder
+  bytes self.to_chars(length, endianness, signed=signed)

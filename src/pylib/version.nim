@@ -19,3 +19,6 @@ const
   PyReleaseLevel* = "final"
   PySerial* = 0
 
+template pysince*(major, minor: int, def){.dirty.} =
+  when (PyMajor, PyMinor) >= (major, minor):
+    def
