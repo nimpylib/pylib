@@ -4,6 +4,7 @@ from std/unicode import runeAt, utf8, runeLen, Rune, `$`
 import ./strimpl
 from ../pyerrors import TypeError
 import ../builtins/[reprImpl, asciiImpl]
+import ../nimpatch/abs
 
 func reversed*(s: PyStr): PyStr =
   unicode.reversed s
@@ -87,16 +88,6 @@ template ascii*(a: untyped): PyStr =
   bind pyasciiImpl, str
   str pyasciiImpl(repr(a))
 
-proc absInt[T: SomeSignedInt](x: T): T{.inline.} =
-  ## For JS,
-  ## Between nim's using BigInt and 
-  ## this [patch](https://github.com/nim-lang/Nim/issues/23378)
-  ##   `system.abs` will gen: `(-1)*x`, which can lead to a runtime err
-  ## as `x` may be a `bigint`, which causes error:
-  ##    Uncaught TypeError: Cannot mix BigInt and other types, ...
-  if x < 0.T: result = T(-1) * x
-  else: result = x
-
 template makeConv(name, call: untyped, len: int, pfix: string) =
   func `name`*(a: SomeInteger): PyStr =
     # Special case
@@ -104,7 +95,7 @@ template makeConv(name, call: untyped, len: int, pfix: string) =
       return `pfix` & "0"
     var res = call(
       when a isnot SomeUnsignedInt:
-        absInt(a)
+        abs(a)
       else:
         a,
       `len`).toLowerAscii().strip(chars = {'0'}, trailing = false)
