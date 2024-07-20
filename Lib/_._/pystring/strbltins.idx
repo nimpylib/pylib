@@ -1,16 +1,16 @@
 nimTitle	strbltins	_._/pystring/strbltins.html	module src/pylib/pystring/strbltins		0
-nim	reversed	_._/pystring/strbltins.html#reversed,PyStr	proc reversed(s: PyStr): PyStr		8
-nim	chr	_._/pystring/strbltins.html#chr,SomeInteger	proc chr(a: SomeInteger): PyStr		11
-nim	ord1	_._/pystring/strbltins.html#ord1,PyStr	proc ord1(a: PyStr): int		17
-nim	ord	_._/pystring/strbltins.html#ord,PyStr	proc ord(a: PyStr): int		22
-nim	pyrepr	_._/pystring/strbltins.html#pyrepr,StringLike	proc pyrepr(s: StringLike): PyStr		34
-nim	repr	_._/pystring/strbltins.html#repr,PyStr	proc repr(x: PyStr): string		43
-nim	ascii	_._/pystring/strbltins.html#ascii,string	proc ascii(us: string): PyStr		50
-nim	ascii	_._/pystring/strbltins.html#ascii,PyStr	proc ascii(us: PyStr): PyStr		71
-nim	ascii	_._/pystring/strbltins.html#ascii.t,char	template ascii(c: char): PyStr		74
-nim	ascii	_._/pystring/strbltins.html#ascii.t,untyped	template ascii(a: untyped): PyStr		81
-nim	oct	_._/pystring/strbltins.html#oct,SomeInteger	proc oct(a`gensym3: SomeInteger): PyStr		119
-nim	bin	_._/pystring/strbltins.html#bin,SomeInteger	proc bin(a`gensym6: SomeInteger): PyStr		120
-nim	hex	_._/pystring/strbltins.html#hex,SomeInteger	proc hex(a`gensym9: SomeInteger): PyStr		121
-nimgrp	ascii	_._/pystring/strbltins.html#ascii-procs-all	proc		50
-nimgrp	ascii	_._/pystring/strbltins.html#ascii-templates-all	template		74
+nim	reversed	_._/pystring/strbltins.html#reversed,PyStr	proc reversed(s: PyStr): PyStr		9
+nim	chr	_._/pystring/strbltins.html#chr,SomeInteger	proc chr(a: SomeInteger): PyStr		12
+nim	ord1	_._/pystring/strbltins.html#ord1,PyStr	proc ord1(a: PyStr): int		18
+nim	ord	_._/pystring/strbltins.html#ord,PyStr	proc ord(a: PyStr): int		23
+nim	pyrepr	_._/pystring/strbltins.html#pyrepr,StringLike	proc pyrepr(s: StringLike): PyStr		35
+nim	repr	_._/pystring/strbltins.html#repr,PyStr	proc repr(x: PyStr): string		44
+nim	ascii	_._/pystring/strbltins.html#ascii,string	proc ascii(us: string): PyStr		51
+nim	ascii	_._/pystring/strbltins.html#ascii,PyStr	proc ascii(us: PyStr): PyStr		72
+nim	ascii	_._/pystring/strbltins.html#ascii.t,char	template ascii(c: char): PyStr		75
+nim	ascii	_._/pystring/strbltins.html#ascii.t,untyped	template ascii(a: untyped): PyStr		82
+nim	oct	_._/pystring/strbltins.html#oct,SomeInteger	proc oct(a`gensym10: SomeInteger): PyStr		110
+nim	bin	_._/pystring/strbltins.html#bin,SomeInteger	proc bin(a`gensym13: SomeInteger): PyStr		111
+nim	hex	_._/pystring/strbltins.html#hex,SomeInteger	proc hex(a`gensym16: SomeInteger): PyStr		112
+nimgrp	ascii	_._/pystring/strbltins.html#ascii-procs-all	proc		51
+nimgrp	ascii	_._/pystring/strbltins.html#ascii-templates-all	template		75

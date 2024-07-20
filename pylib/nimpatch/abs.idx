@@ -1,0 +1,4 @@
+nimTitle	abs	pylib/nimpatch/abs.html	module src/pylib/nimpatch/abs		0
+nim	FixedVer	pylib/nimpatch/abs.html#FixedVer	const FixedVer		8
+nim	BeforeFixedVer	pylib/nimpatch/abs.html#BeforeFixedVer	const BeforeFixedVer		9
+nim	hasBug	pylib/nimpatch/abs.html#hasBug	const hasBug		11
