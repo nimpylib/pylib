@@ -43,11 +43,29 @@ expM trunc
 
 expM isnan
 
-func isfinite*(x: SomeFloat): bool =
-  let cls = classify(x)
-  result = cls != fcInf and cls != fcNan
+when defined(js):
+  func isfiniteImpl(x: float): bool{.importjs: "Number.isFinite(#)".}
+  func isfinite*(x: SomeFloat): bool = float(x).isfiniteImpl
+  func isinf*(x: SomeFloat): bool =
+    not x.isnan and not x.isfinite
+elif CLike:
+  template wrap(sym, c_sym){.dirty.} =
+    func c_sym(x: c_double|c_float): c_int{.importc: astToStr(sym), header: "<math.h>".}
+    func sym*(x: float): bool = bool c_sym x.c_double
+    func sym*(x: float32): bool = bool c_sym x.c_float
+  wrap isfinite, c_isfinite
+  wrap isinf, c_isinf
+else:
+  func isfinite*(x: SomeFloat): bool =
+    let cls = classify(x)
+    result = cls != fcInf and cls != fcNegInf and cls != fcNan
 
-func isinf*(x: SomeFloat): bool = classify(x) == fcInf
+  func isinf*(x: SomeFloat): bool =
+    let cls = classify(x)
+    cls == fcInf or cls == fcNegInf
+static:
+  assert declared isinf
+  assert declared isfinite
 
 template py_math_isclose_impl*(abs) =
   ## inner use. Implementation of isclose.
