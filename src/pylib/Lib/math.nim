@@ -5,6 +5,7 @@ import std/math
 import std/bitops
 import std/macros
 
+const CLike = defined(c) or defined(cpp)
 
 template aCap(s: var string) =
   let c = s[0]
@@ -69,6 +70,8 @@ static:
 
 template py_math_isclose_impl*(abs) =
   ## inner use. Implementation of isclose.
+  ##
+  ## mixin a, b, isinf, rel_tol, abs_tol
   if rel_tol < 0.0 or abs_tol < 0.0:
     raise newException(ValueError, "tolerances must be non-negative")
   if a == b:
@@ -103,19 +106,21 @@ func expm1*[F: SomeFloat](x: F): F = exp(x) - 1
 
 expM frexp
 
-when defined(js):
-  func jsldexp*(x: SomeFloat, i: int): float =
-    ## translated from
-    ## https://blog.codefrau.net/2014/08/deconstructing-floats-frexp-and-ldexp.html
-    let steps = min(3, ceil(abs(i))/1023)
-    result = x
-    for step in 0..<steps:
-      result *= pow(2, floor(step+i)/steps)
-else:
+when CLike:
   {.push header: "<math.h>".}
   proc ldexpf(arg: c_float, exp: c_int): c_float{.importc.}
   proc ldexp(arg: c_double, exp: c_int): c_double{.importc.}
   {.pop.}
+else:
+  func ldexpPatch(x: SomeFloat, i: int): float =
+    ## translated from
+    ## https://blog.codefrau.net/2014/08/deconstructing-floats-frexp-and-ldexp.html
+    ## which is for JS.
+    ## XXX: suitable for Obj-C ?
+    let steps = min(3, ceil(abs(i))/1023)
+    result = x
+    for step in 0..<steps:
+      result *= pow(2, floor(step+i)/steps)
 
 template raiseDomainErr =
   raise newException(ValueError, "math domain error") 
@@ -130,18 +135,32 @@ func ldexp*(x: SomeFloat, i: int): float =
     # and we can leave Overflow for Nim to handle
     result = x
   else:
+    var
+      exp: c_int
+      erange = false
     if i > cast[typeof(i)](high c_int):
-      raiseDomainErr()
-    if i < cast[typeof(i)](low c_int):
+      result = copySign(Inf, x)
+      erange = true
+      exp = high c_int
+    elif i < cast[typeof(i)](low c_int):
+      # underflow to +-0
       result = copySign(0.0, x)
+      exp = low c_int
     else:
+      exp = cast[c_int](i)  # we have checked range above.
       result = 
-        when defined(js): jsldexp(x, i)
-        else:
-          when x is float32: ldexpf(x.c_float, i.c_int)
-          else: ldexp(x.c_double, i.c_int)
+        when CLike:
+          when x is float32: ldexpf(x.c_float, exp)
+          else: ldexp(x.c_double, exp)
+        else: ldexpPatch(x, i)
       if result.isinf():
-        raiseRangeErr()
+        erange = true
+    template chk_error(x: float) =
+      # a ldexp-only `is_error` of CPython
+      if erange:
+        if not (fabs(x) < 1.5):
+          raiseRangeErr()
+    chk_error(result)
 
 func modf*(x: SomeFloat): tuple[intpart: float, floatpart: float] =
   splitDecimal x.float
