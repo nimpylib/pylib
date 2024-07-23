@@ -8,6 +8,9 @@ import ./pystring/strimpl
 import ./pybytes/bytesimpl
 import ./version
 
+import ./numTypes/floats
+export floats
+
 const weridTarget = defined(js) or defined(nimscript)
 
 
