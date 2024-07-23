@@ -7,6 +7,13 @@ import std/macros
 
 const CLike = defined(c) or defined(cpp)
 
+template clikeOr(inCLike, b): untyped =
+  # for nimvm-able expr
+  when nimvm: b
+  else:
+    when CLike: inCLike
+    else: b
+
 template aCap(s: var string) =
   let c = s[0]
   let nc = char(uint8(c) xor 0b0010_0000'u8)
@@ -44,26 +51,34 @@ expM trunc
 
 expM isnan
 
-when defined(js):
-  func isfiniteImpl(x: float): bool{.importjs: "Number.isFinite(#)".}
-  func isfinite*(x: SomeFloat): bool = float(x).isfiniteImpl
-  func isinf*(x: SomeFloat): bool =
-    not x.isnan and not x.isfinite
-elif CLike:
-  template wrap(sym, c_sym){.dirty.} =
-    func c_sym(x: c_double|c_float): c_int{.importc: astToStr(sym), header: "<math.h>".}
-    func sym*(x: float): bool = bool c_sym x.c_double
-    func sym*(x: float32): bool = bool c_sym x.c_float
-  wrap isfinite, c_isfinite
-  wrap isinf, c_isinf
-else:
-  func isfinite*(x: SomeFloat): bool =
-    let cls = classify(x)
-    result = cls != fcInf and cls != fcNegInf and cls != fcNan
 
-  func isinf*(x: SomeFloat): bool =
-    let cls = classify(x)
-    cls == fcInf or cls == fcNegInf
+func n_isfinite(x: SomeFloat): bool{.used.} =
+  let cls = classify(x)
+  result = cls != fcInf and cls != fcNegInf and cls != fcNan
+
+func n_isinf(x: SomeFloat): bool{.used.} =
+  let cls = classify(x)
+  cls == fcInf or cls == fcNegInf
+
+when defined(js):
+  func js_isfiniteImpl(x: float): bool{.importjs: "Number.isFinite(#)".}
+  func js_isfinite(x: SomeFloat): bool = float(x).js_isfiniteImpl
+  func js_isinf(x: SomeFloat): bool =
+    not x.isnan and not x.js_isfinite
+
+template wrap(sym, c_sym, n_sym, js_sym){.dirty.} =
+  func c_sym(x: c_double|c_float): c_int{.importc: astToStr(sym), header: "<math.h>".}
+  func sym*(x: SomeFloat): bool =
+    when nimvm: n_sym(x)
+    else:
+      when CLike:
+        bool c_sym (when x is float32: x.c_float else: x.c_double)
+      elif defined(js): js_sym x
+      else: n_sym(x)
+
+wrap isfinite, c_isfinite, n_isfinite, js_isfinite
+wrap isinf, c_isinf, n_isinf, js_isinf
+
 static:
   assert declared isinf
   assert declared isfinite
@@ -111,16 +126,18 @@ when CLike:
   proc ldexpf(arg: c_float, exp: c_int): c_float{.importc.}
   proc ldexp(arg: c_double, exp: c_int): c_double{.importc.}
   {.pop.}
-else:
-  func ldexpPatch(x: SomeFloat, i: int): float =
-    ## translated from
-    ## https://blog.codefrau.net/2014/08/deconstructing-floats-frexp-and-ldexp.html
-    ## which is for JS.
-    ## XXX: suitable for Obj-C ?
-    let steps = min(3, ceil(abs(i))/1023)
-    result = x
-    for step in 0..<steps:
-      result *= pow(2, floor(step+i)/steps)
+
+func n_ldexp(x: SomeFloat, i: int): float{.used.} =
+  ## a version of `ldexp`_ that's implemented in pure Nim, used by ldexp in weridTarget
+  ##
+  ## translated from
+  ## https://blog.codefrau.net/2014/08/deconstructing-floats-frexp-and-ldexp.html
+  ## which is for JS.
+  ## XXX: Not sure if suitable for Obj-C
+  let steps = min(3, int ceil(abs(i)/1023) )
+  result = x
+  for step in 0..<steps:
+    result *= pow(2, floor((step+i)/steps))
 
 template raiseDomainErr =
   raise newException(ValueError, "math domain error") 
@@ -149,10 +166,11 @@ func ldexp*(x: SomeFloat, i: int): float =
     else:
       exp = cast[c_int](i)  # we have checked range above.
       result = 
-        when CLike:
+        clikeOr(
           when x is float32: ldexpf(x.c_float, exp)
-          else: ldexp(x.c_double, exp)
-        else: ldexpPatch(x, i)
+          else: ldexp(x.c_double, exp),
+          n_ldexp(x, i)
+        )
       if result.isinf():
         erange = true
     template chk_error(x: float) =
