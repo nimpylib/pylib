@@ -1,11 +1,12 @@
 
 import std/math
-import ./private/floathex
 import ../pystring/strimpl
-
+import ./floats/[init]
+export init.float
 
 func hex*(x: float): PyStr =
   str x.hexImpl
+
 
 func isfinite(x: SomeFloat): bool =
   let cls = classify(x)

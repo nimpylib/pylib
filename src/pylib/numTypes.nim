@@ -83,12 +83,6 @@ template long*(a: char): BiggestInt{.unsupLong.} = parseBiggestInt($a)
 template long*[T: SomeNumber](a: T): BiggestInt{.unsupLong.} = BiggestInt(a)
 template long*(a: bool): int{.unsupLong.} = BiggestInt(if a: 1 else: 0)
 
-template float*(f: SomeNumber): BiggestFloat = system.float(f)
-template float*(a: PyStr|PyBytes): BiggestFloat =
-  bind parseFloat, prep
-  parseFloat(prep a)
-template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
-
 using self: NimInt
 template newInt(): NimInt = NimInt(0)
 template getSize(self: NimInt): int = sizeof(NimInt) # sizeof cannot be overloaded
