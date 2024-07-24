@@ -17,9 +17,12 @@ when defined(nimdoc):
     )
 
 
+  func addDocImpl(doc: string): NimNode =
+    newCommentStmtNode doc
+
   func addDocImpl(doc: string; def: NimNode): NimNode =
     result = def
-    result.body.insert(0, newCommentStmtNode doc)
+    result.body.insert(0, addDocImpl doc)
   macro fetchDoc*(tab: static DocTable) =
     ## used for fetch module level doc
     let doc = tab.module
