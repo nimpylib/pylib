@@ -18,3 +18,8 @@ func float*(a: PyStr|PyBytes): BiggestFloat =
       "could not convert string to float: " & repr(a))
 
 template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
+
+type HasIndex = concept self
+  self.index() is SomeInteger
+
+template float*(obj: HasIndex): BiggestFloat{.pysince(3,8).} = BiggestFloat obj.index()

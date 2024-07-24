@@ -25,6 +25,15 @@ template int*(a: char): NimInt =
 template int*(a: bool): NimInt = (if a: 1 else: 0)
 template int*(f: float): NimInt = system.int(f)
 
+
+type HasIndex = concept self
+  self.index() is SomeInteger
+type HasTrunc = concept self
+  self.trunc() is SomeInteger
+
+template int*(obj: HasIndex): NimInt = NimInt obj.index()
+template int*(obj: HasTrunc): NimInt = NimInt obj.trunc()
+
 template nimint*(a): NimInt =
   bind int
   int(a)
