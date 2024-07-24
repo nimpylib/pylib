@@ -12,5 +12,6 @@ template addPatch*(ver: (int, int, int), flag: bool, patchBody: untyped){.dirty.
   when hasBug:
     patchBody
   else:
-    {.warning: currentSourcePath() & " patch takes no effect after " & $FixedVer.}
+    {.warning: currentSourcePath() & " patch takes no effect after " & $FixedVer &
+      " or without flags: " & astToStr(flag).}
   
