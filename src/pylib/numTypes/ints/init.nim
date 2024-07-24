@@ -1,18 +1,24 @@
 
 import ./decl
 import ../reimporter
-from std/strutils import parseInt, parseBinInt, parseOctInt, parseHexInt, toLowerAscii
-from std/unicode import strip
+import ../utils/stripOpenArray
+from std/strutils import toLowerAscii
+from std/parseutils import parseInt, parseBin, parseOct, parseHex
 
 template int*(i: SomeInteger): NimInt = system.int(i)
 
-template prep(a: PyStr|PyBytes): string =
-  bind strip
-  strip $a
+func invalidInt(s: string, base: int) =
+  raise newException(ValueError,
+    "invalid literal for int() with base " & $base & ": " & s)
 
-template int*(a: PyStr|PyBytes): NimInt =
-  bind parseInt, prep
-  parseInt(prep a)
+func int*(a: PyStr|PyBytes): NimInt =
+  let sa = $a
+  let (m, n) = (sa).stripAsRange
+  template stripped: untyped = (sa).toOpenArray(m, n)
+  let ni = parseInt(stripped, result)
+  if ni == 0:
+    invalidInt(repr(a), 10)
+
 template int*(a: char): NimInt =
   bind parseInt
   parseInt($a)
@@ -23,7 +29,7 @@ template nimint*(a): NimInt =
   bind int
   int(a)
 
-func parseIntPrefix(x: string): int =
+func parseIntPrefix(x: openArray[char]): int =
   ## returns:
   ## 
   ## * -1 if no prefix found
@@ -38,16 +44,23 @@ func parseIntPrefix(x: string): int =
     else: -2
   else: -1
 
-func parseIntWithBase(x: string, base: int): int =
+type ParseIntError = object of CatchableError
+  base*: int
+
+func parseIntWithBase(x: openArray[char], base: int): int =
+  template invalidInt(base_arg: int) =
+    raise (ref ParseIntError)(base: base_arg)
+  template chk(i: int) =
+    if i != x.len:
+      invalidInt(base)
   case base
-  of 2: result = parseBinInt x
-  of 8: result = parseOctInt x
-  of 16: result = parseHexInt x
+  of 2: chk x.parseBin result
+  of 8: chk x.parseOct result
+  of 16: chk x.parseHex result
   of 0:
     let prefixBase = parseIntPrefix x
     if prefixBase < 0:
-      raise newException(ValueError,
-        "invalid literal for int() with base 0: " & x.repr)
+      invalidInt 0
     result = parseIntWithBase(x, prefixBase)
   elif base in 3..32:
     raise newException(NotImplementedError,
@@ -55,7 +68,12 @@ func parseIntWithBase(x: string, base: int): int =
   else:
     raise newException(ValueError, "int() base must be >= 2 and <= 36, or 0")
 
-template int*(x: PyStr|PyBytes; base: int): NimInt =
+func int*(a: PyStr|PyBytes; base: int): NimInt =
   ## allowed base
-  bind parseIntWithBase, prep
-  parseIntWithBase(prep x, base)
+  let sa = $a
+  let (m, n) = (sa).stripAsRange
+  try:
+    template stripped: untyped = (sa).toOpenArray(m, n)
+    result = parseIntWithBase(stripped, base)
+  except ParseIntError as e:
+    invalidInt(repr(a), e.base)

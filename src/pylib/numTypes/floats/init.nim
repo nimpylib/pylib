@@ -1,11 +1,15 @@
 
 
 from std/parseutils import parseFloat
-
+import ../utils/stripOpenArray
 import ../reimporter
 
-template float*(a: PyStr|PyBytes): BiggestFloat =
-  bind parseFloat, strip
-  parseFloat strip $a
+func float*(a: PyStr|PyBytes): BiggestFloat =
+  let (m, n) = a.stripAsRange
+  template stripped: untyped = ($a).toOpenArray(m, n)
+  let ni = parseFloat(stripped, result)
+  if ni != n - m + 1:
+    raise newException(ValueError,
+      "could not convert string to float: " & repr(a))
 
 template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
