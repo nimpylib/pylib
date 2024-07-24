@@ -5,6 +5,8 @@ import ./parse_inf_nan
 import ../utils/stripOpenArray
 import ../reimporter
 
+template float*(number: SomeNumber = 0.0): BiggestFloat = BiggestFloat number
+
 func float*(a: PyStr|PyBytes): BiggestFloat =
   let (m, n) = a.stripAsRange
   template stripped: untyped = ($a).toOpenArray(m, n)
