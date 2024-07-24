@@ -1,12 +1,16 @@
 
 import std/math
 import ../pystring/strimpl
-import ./floats/[init]
+import ./floats/[init, floathex]
 export init.float
 
 func hex*(x: float): PyStr =
   str x.hexImpl
 
+func fromhex*(_: typedesc[float], s: string): float =
+  floatFromhexImpl s
+func float_fromhex*(s: string): float =
+  floatFromhexImpl s
 
 func isfinite(x: SomeFloat): bool =
   let cls = classify(x)
