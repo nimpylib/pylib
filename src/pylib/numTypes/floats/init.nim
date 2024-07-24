@@ -1,12 +1,8 @@
 
 
 from std/parseutils import parseFloat
-import std/unicode
-import ../../version
-import ../../pystring/strimpl
-import ../../pybytes/bytesimpl
 
-template float*(f: SomeNumber): BiggestFloat = system.float(f)
+import ../reimporter
 
 template float*(a: PyStr|PyBytes): BiggestFloat =
   bind parseFloat, strip
