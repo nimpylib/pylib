@@ -8,8 +8,9 @@ import ../reimporter
 template float*(number: SomeNumber = 0.0): BiggestFloat = BiggestFloat number
 
 func float*(a: PyStr|PyBytes): BiggestFloat =
-  let (m, n) = a.stripAsRange
-  template stripped: untyped = ($a).toOpenArray(m, n)
+  let sa = $a
+  let (m, n) = sa.stripAsRange
+  template stripped: untyped = (sa).toOpenArray(m, n)
   if Py_parse_inf_or_nan(result, stripped):
     return
   let ni = parseFloat(stripped, result)
