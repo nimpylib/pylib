@@ -33,6 +33,7 @@ type HasTrunc = concept self
 
 template int*(obj: HasIndex): NimInt = NimInt obj.index()
 template int*(obj: HasTrunc): NimInt = NimInt obj.trunc()
+template int*(obj: HasIndex and HasIndex): NimInt = NimInt obj.index()
 
 template nimint*(a): NimInt =
   bind int
