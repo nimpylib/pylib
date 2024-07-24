@@ -1,11 +1,13 @@
 
 const sep = '.'
-template asVersion*(v: (int, int)): string = asVersion(v[0], v[1])
-template asVersion*(v: (int, int, int)): string = asVersion(v[0], v[1], v[2])
 template asVersion*(major, minor: int): string =
+  bind sep
   $major & sep & $minor
 template asVersion*(major, minor, patch: int): string =
+  bind sep
   $major & sep & $minor & sep & $patch
+func asVersion*(v: (int, int)): string = asVersion(v[0], v[1])
+func asVersion*(v: (int, int, int)): string = asVersion(v[0], v[1], v[2])
 
 const
   Major* = 0
