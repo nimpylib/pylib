@@ -152,7 +152,7 @@ const
     releaselevel: PyReleaseLevel,
     serial: PySerial
   )
-  version* = str asVersion(version_info)
+  version* = str asVersion((PyMajor, PyMinor, PyPatch))
   hexversion* = version_info.toHexversion
 
   maxsize* = high(BiggestInt)
