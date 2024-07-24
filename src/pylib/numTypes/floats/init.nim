@@ -1,12 +1,15 @@
 
 
 from std/parseutils import parseFloat
+import ./parse_inf_nan
 import ../utils/stripOpenArray
 import ../reimporter
 
 func float*(a: PyStr|PyBytes): BiggestFloat =
   let (m, n) = a.stripAsRange
   template stripped: untyped = ($a).toOpenArray(m, n)
+  if Py_parse_inf_or_nan(result, stripped):
+    return
   let ni = parseFloat(stripped, result)
   if ni != n - m + 1:
     raise newException(ValueError,
