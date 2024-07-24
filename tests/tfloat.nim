@@ -1,6 +1,6 @@
 
-import std/math
-import std/random
+import std/math as std_math
+import std/random as std_random
 
 from pylib/Lib/math import ldexp
 
