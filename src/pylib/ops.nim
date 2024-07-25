@@ -2,10 +2,33 @@ import std/math
 
 
 # Power templates for different types of arguments
-template `**`*[T](a: T, b: Natural): T = a ^ b
-template `**`*[T: SomeFloat](a, b: T): T = pow(a, b)
-template `**`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = pow(a, b)
-template `**`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = pow(B(a), b)
+template `**`*[T](a: T, b: Natural): T =
+  runnableExamples:
+    var i = -1
+    doAssertRaises OverflowDefect:
+      discard (5 ** i)
+      ## this runs iff `i` is of static[int]
+      ## e.g. `5 ** -1`
+  bind `^`
+  a ^ b
+
+template `**`*[T](a: T; b: static[int]): int|float =
+  runnableExamples:
+    const f = 5 ** -1  # only when the rhs is static[int]
+    assert f == 0.2
+    const i = 5 ** 2
+    assert i == int(25)
+  when b < 0:
+    bind pow
+    pow(a.float, b.float)  # returns float
+  else:
+    bind `^`
+    a ^ b  # returns int or float
+    bind pow
+
+template `**`*[T: SomeFloat](a, b: T): T = bind pow; pow(a, b)
+template `**`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = bind pow; pow(a, A(b))
+template `**`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B = bind pow; pow(B(a), b)
 
 template `**=`*(a: var SomeNumber, b: SomeNumber) = a = a**b
 
