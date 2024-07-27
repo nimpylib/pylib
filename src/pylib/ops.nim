@@ -5,7 +5,7 @@ import std/math
 template `**`*[T](a: T, b: Natural): T =
   runnableExamples:
     var i = -1
-    doAssertRaises OverflowDefect:
+    doAssertRaises RangeDefect:
       discard (5 ** i)
       ## this runs iff `i` is of static[int]
       ## e.g. `5 ** -1`
@@ -23,8 +23,7 @@ template `**`*[T](a: T; b: static[int]): int|float =
     pow(a.float, b.float)  # returns float
   else:
     bind `^`
-    a ^ b  # returns int or float
-    bind pow
+    a ^ b  # returns int or floatd
 
 template `**`*[T: SomeFloat](a, b: T): T = bind pow; pow(a, b)
 template `**`*[A: SomeFloat, B: SomeInteger](a: A, b: B): A = bind pow; pow(a, A(b))
