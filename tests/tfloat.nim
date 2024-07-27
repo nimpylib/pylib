@@ -345,3 +345,31 @@ suite "float":
       check ((1.0).is_integer())
       check not (float("nan").is_integer())
       check not (float("inf").is_integer())
+    test "as_integer_ratio":
+        for (f, ratio) in [
+                (0.875, (7, 8)),
+                (-0.875, (-7, 8)),
+                (0.0, (0, 1)),
+                (11.5, (23, 2)),
+            ]:
+            check f.as_integer_ratio() == ratio
+
+        for _ in range(10000):
+            var f = rand 1.0
+            f *= pow(10.0, float rand(2 .. 15))
+            let (n, d) = f.as_integer_ratio()
+            check almostEqual(n/d, f)
+
+        check (0, 1) == float(0.0).as_integer_ratio()
+        check (5, 2) == float(2.5).as_integer_ratio()
+        check (1, 2) == float(0.5).as_integer_ratio()
+        when false and sizeof(system.int) > 4: # cannot pass
+            check ((system.int 4728779608739021, system.int 2251799813685248) ==
+                            (float(2.1).as_integer_ratio()))
+            check ((system.int -4728779608739021, system.int 2251799813685248) ==
+                            (float(-2.1).as_integer_ratio()))
+        check (-2100, 1) == float(-2100.0).as_integer_ratio()
+
+        expect(OverflowError): discard Inf.as_integer_ratio()
+        expect(OverflowError): discard (-Inf).as_integer_ratio()
+        expect(ValueError):    discard (NaN).as_integer_ratio()
