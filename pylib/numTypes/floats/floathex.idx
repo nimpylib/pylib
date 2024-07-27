@@ -1,0 +1,3 @@
+nimTitle	floathex	pylib/numTypes/floats/floathex.html	module src/pylib/numTypes/floats/floathex		0
+nim	hexImpl	pylib/numTypes/floats/floathex.html#hexImpl,float	proc hexImpl(x: float): string		88
+nim	floatFromhexImpl	pylib/numTypes/floats/floathex.html#floatFromhexImpl,string	proc floatFromhexImpl(s: string): float		101

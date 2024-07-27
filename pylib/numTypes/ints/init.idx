@@ -1,0 +1,13 @@
+nimTitle	init	pylib/numTypes/ints/init.html	module src/pylib/numTypes/ints/init		0
+nim	int	pylib/numTypes/ints/init.html#int.t,SomeInteger	template int(i: SomeInteger): NimInt		8
+nim	int	pylib/numTypes/ints/init.html#int	proc int(a: PyStr | PyBytes): NimInt		14
+nim	int	pylib/numTypes/ints/init.html#int.t,char	template int(a: char): NimInt		22
+nim	int	pylib/numTypes/ints/init.html#int.t,bool	template int(a: bool): NimInt		25
+nim	int	pylib/numTypes/ints/init.html#int.t,float	template int(f: float): NimInt		26
+nim	int	pylib/numTypes/ints/init.html#int.t,HasIndex	template int(obj: HasIndex): NimInt		34
+nim	int	pylib/numTypes/ints/init.html#int.t,HasTrunc	template int(obj: HasTrunc): NimInt		35
+nim	int	pylib/numTypes/ints/init.html#int.t	template int(obj: HasIndex and HasIndex): NimInt		36
+nim	nimint	pylib/numTypes/ints/init.html#nimint.t	template nimint(a): NimInt		38
+nim	int	pylib/numTypes/ints/init.html#int,,int	proc int(a: PyStr | PyBytes; base: int): NimInt		81
+nimgrp	int	pylib/numTypes/ints/init.html#int-procs-all	proc		14
+nimgrp	int	pylib/numTypes/ints/init.html#int-templates-all	template		8

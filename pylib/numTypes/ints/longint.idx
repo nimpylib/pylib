@@ -1,0 +1,6 @@
+nimTitle	longint	pylib/numTypes/ints/longint.html	module src/pylib/numTypes/ints/longint		0
+nim	long	pylib/numTypes/ints/longint.html#long.t,string	template long(a: string): BiggestInt		8
+nim	long	pylib/numTypes/ints/longint.html#long.t,char	template long(a: char): BiggestInt		9
+nim	long	pylib/numTypes/ints/longint.html#long.t,T	template long[T: SomeNumber](a: T): BiggestInt		10
+nim	long	pylib/numTypes/ints/longint.html#long.t,bool	template long(a: bool): int		11
+nimgrp	long	pylib/numTypes/ints/longint.html#long-templates-all	template		8

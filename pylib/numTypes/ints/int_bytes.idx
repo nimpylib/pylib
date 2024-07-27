@@ -1,0 +1,9 @@
+nimTitle	int_bytes	pylib/numTypes/ints/int_bytes.html	module src/pylib/numTypes/ints/int_bytes		0
+nim	add_from_bytes	pylib/numTypes/ints/int_bytes.html#add_from_bytes,NimInt,PyBytes,Endianness	proc add_from_bytes(res: var NimInt; bytes: PyBytes; byteorder: Endianness;\n               signed = false)		70
+nim	from_bytes	pylib/numTypes/ints/int_bytes.html#from_bytes,typedesc[NimInt],PyBytes,PyStr	proc from_bytes(_: typedesc[NimInt]; bytes: PyBytes; byteorder: PyStr; signed = false): NimInt		107
+nim	from_bytes	pylib/numTypes/ints/int_bytes.html#from_bytes,typedesc[NimInt],PyBytes,static[PyStr]	proc from_bytes(_: typedesc[NimInt]; bytes: PyBytes;\n           byteorder: static[PyStr] = str("big"); signed = false): NimInt		113
+nim	to_chars	pylib/numTypes/ints/int_bytes.html#to_chars,,int,Endianness	proc to_chars(self: NimInt; length: int; endianness: Endianness; signed = false): seq[\n    char]		120
+nim	to_bytes	pylib/numTypes/ints/int_bytes.html#to_bytes,,int,PyStr	proc to_bytes(self: NimInt; length: int; byteorder: PyStr; signed = false): PyBytes		142
+nim	to_bytes	pylib/numTypes/ints/int_bytes.html#to_bytes,,int,static[PyStr]	proc to_bytes(self: NimInt; length: int; byteorder: static[PyStr] = str("big");\n         signed = false): PyBytes		147
+nimgrp	frombytes	pylib/numTypes/ints/int_bytes.html#from_bytes-procs-all	proc		107
+nimgrp	tobytes	pylib/numTypes/ints/int_bytes.html#to_bytes-procs-all	proc		142

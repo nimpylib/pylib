@@ -1,0 +1,4 @@
+nimTitle	nint_proto	pylib/numTypes/ints/nint_proto.html	module src/pylib/numTypes/ints/nint_proto		0
+nim	newInt	pylib/numTypes/ints/nint_proto.html#newInt.t	template newInt(): NimInt		7
+nim	getSize	pylib/numTypes/ints/nint_proto.html#getSize.t,NimInt	template getSize(self: NimInt): int		8
+nim	fitLen	pylib/numTypes/ints/nint_proto.html#fitLen.t,NimInt,int	template fitLen(_: var NimInt; nbyte: int): bool		9

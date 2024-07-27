@@ -1,0 +1,6 @@
+nimTitle	getter	pylib/numTypes/ints/getter.html	module src/pylib/numTypes/ints/getter		0
+nim	is_integer	pylib/numTypes/ints/getter.html#is_integer.t,NimInt	template is_integer(_: NimInt): bool		7
+nim	as_integer_ratio	pylib/numTypes/ints/getter.html#as_integer_ratio.t,NimInt	template as_integer_ratio(self: NimInt): (NimInt, NimInt)		8
+nim	bit_length	pylib/numTypes/ints/getter.html#bit_length.t,NimInt	template bit_length(self: NimInt): NimInt		11
+nim	bit_count	pylib/numTypes/ints/getter.html#bit_count.t,NimInt	template bit_count(self: NimInt): NimInt		15
+nim	conjugate	pylib/numTypes/ints/getter.html#conjugate.t,NimInt	template conjugate(self: NimInt): NimInt		18

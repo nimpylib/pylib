@@ -55,8 +55,8 @@
 <li><a class="reference" href="#Minor" title="Minor = 9">Minor</a></li>
 <li><a class="reference" href="#Patch" title="Patch = 1">Patch</a></li>
 <li><a class="reference" href="#PyMajor" title="PyMajor {.intdefine.} = 3">PyMajor</a></li>
-<li><a class="reference" href="#PyMinor" title="PyMinor {.intdefine.} = 10">PyMinor</a></li>
-<li><a class="reference" href="#PyPatch" title="PyPatch {.intdefine.} = 3">PyPatch</a></li>
+<li><a class="reference" href="#PyMinor" title="PyMinor {.intdefine.} = 13">PyMinor</a></li>
+<li><a class="reference" href="#PyPatch" title="PyPatch {.intdefine.} = 0">PyPatch</a></li>
 <li><a class="reference" href="#PyReleaseLevel" title="PyReleaseLevel = &quot;final&quot;">PyReleaseLevel</a></li>
 <li><a class="reference" href="#PySerial" title="PySerial = 0">PySerial</a></li>
 <li><a class="reference" href="#ReleaseLevel" title="ReleaseLevel = &quot;alpha&quot;">ReleaseLevel</a></li>
@@ -68,11 +68,36 @@
 </li>
 <li>
   <details open>
+    <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">asVersion
+  <li><a class="reference" href="#asVersion" title="asVersion(v: (int, int)): string">asVersion(v: (int, int)): string</a></li>
+<li><a class="reference" href="#asVersion_2" title="asVersion(v: (int, int, int)): string">asVersion(v: (int, int, int)): string</a></li>
+
+</ul>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">pysince
+  <li><a class="reference" href="#pysince.m%2Cstaticint%2Cstaticint%2C" title="pysince(major, minor: static int; def)">pysince(major, minor: static int; def)</a></li>
+
+</ul>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">asVersion
   <li><a class="reference" href="#asVersion.t%2Cint%2Cint%2Cint" title="asVersion(major, minor, patch: int): string">asVersion(major, minor, patch: int): string</a></li>
-<li><a class="reference" href="#asVersion.t" title="asVersion(v: tuple): string">asVersion(v: tuple): string</a></li>
+<li><a class="reference" href="#asVersion.t%2Cint%2Cint" title="asVersion(major, minor: int): string">asVersion(major, minor: int): string</a></li>
 
 </ul>
 
@@ -98,8 +123,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L8" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L8" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -108,8 +133,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -118,8 +143,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -128,28 +153,28 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="PyMinor">
-  <dt><pre><a href="version.html#PyMinor"><span class="Identifier">PyMinor</span></a> {.<span class="Identifier">intdefine</span>.} <span class="Other">=</span> <span class="DecNumber">10</span></pre></dt>
+  <dt><pre><a href="version.html#PyMinor"><span class="Identifier">PyMinor</span></a> {.<span class="Identifier">intdefine</span>.} <span class="Other">=</span> <span class="DecNumber">13</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="PyPatch">
-  <dt><pre><a href="version.html#PyPatch"><span class="Identifier">PyPatch</span></a> {.<span class="Identifier">intdefine</span>.} <span class="Other">=</span> <span class="DecNumber">3</span></pre></dt>
+  <dt><pre><a href="version.html#PyPatch"><span class="Identifier">PyPatch</span></a> {.<span class="Identifier">intdefine</span>.} <span class="Other">=</span> <span class="DecNumber">0</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -158,8 +183,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -168,8 +193,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -178,8 +203,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -188,8 +213,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -198,10 +223,58 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
+</div>
+
+  </dl>
+</div>
+<div class="section" id="12">
+  <h1><a class="toc-backref" href="#12">Procs</a></h1>
+  <dl class="item">
+    <div id="asVersion-procs-all">
+  <div id="asVersion">
+  <dt><pre><span class="Keyword">func</span> <a href="#asVersion"><span class="Identifier">asVersion</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="asVersion_2">
+  <dt><pre><span class="Keyword">func</span> <a href="#asVersion_2"><span class="Identifier">asVersion</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+
+  </dl>
+</div>
+<div class="section" id="17">
+  <h1><a class="toc-backref" href="#17">Macros</a></h1>
+  <dl class="item">
+    <div id="pysince-macros-all">
+  <div id="pysince.m,staticint,staticint,">
+  <dt><pre><span class="Keyword">macro</span> <a href="#pysince.m%2Cstaticint%2Cstaticint%2C"><span class="Identifier">pysince</span></a><span class="Other">(</span><span class="Identifier">major</span><span class="Other">,</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">static</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">def</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
 </div>
 
   </dl>
@@ -215,13 +288,13 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L4" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L4" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/version.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/version.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="asVersion.t">
-  <dt><pre><span class="Keyword">template</span> <a href="#asVersion.t"><span class="Identifier">asVersion</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<div id="asVersion.t,int,int">
+  <dt><pre><span class="Keyword">template</span> <a href="#asVersion.t%2Cint%2Cint"><span class="Identifier">asVersion</span></a><span class="Other">(</span><span class="Identifier">major</span><span class="Other">,</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
@@ -242,7 +315,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-20 14:01:08 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-07-27 00:20:21 UTC</small>
       </div>
     </div>
   </div>

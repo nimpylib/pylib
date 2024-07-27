@@ -1,0 +1,2 @@
+nimTitle	chk_shl	pylib/ops/chk_shl.html	module src/pylib/ops/chk_shl		0
+nim	checkedShl	pylib/ops/chk_shl.html#checkedShl,I,I	proc checkedShl[I: SomeInteger](a, b: I): I		7

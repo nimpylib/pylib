@@ -1,0 +1,7 @@
+nimTitle	floats	pylib/numTypes/floats.html	module src/pylib/numTypes/floats		0
+nim	hex	pylib/numTypes/floats.html#hex,float	proc hex(x: float): PyStr		8
+nim	fromhex	pylib/numTypes/floats.html#fromhex,typedesc[float],string	proc fromhex(_: typedesc[float]; s: string): float		11
+nim	float_fromhex	pylib/numTypes/floats.html#float_fromhex,string	proc float_fromhex(s: string): float		13
+nim	is_integer	pylib/numTypes/floats.html#is_integer,float	proc is_integer(self: float): bool		19
+nim	as_integer_ratio	pylib/numTypes/floats.html#as_integer_ratio,float,int	proc as_integer_ratio(self: float; n: int = high(int) shr 32): (int, int)		30
+nim	checked_as_integer_ratio	pylib/numTypes/floats.html#checked_as_integer_ratio,float	proc checked_as_integer_ratio(self: float): (int, int)		68
