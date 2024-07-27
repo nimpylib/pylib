@@ -418,13 +418,24 @@ method close*(self: TextIOWrapper) =
   base_close()
   self.codec.close()
 
+template raise_ValueError(s) = raise newException(ValueError, s)
+
+func checkClosed(self: IOBase, msg: string) =
+  if self.closed:
+      raise_ValueError(msg)
+func checkClosed(self: IOBase) = self.checkClosed(
+      "I/O operation on closed file.")
+
+func enter*[IO: IOBase](self: IO): IO =
+  self.checkClosed()
+  self
+template exit*(self: IOBase, args: varargs[untyped]) = self.close()
+
 proc parseErrors(s: string): EncErrors = parseEnum[EncErrors](s, EncErrors.strict)
 proc getPreferredEncoding(): string = getCurrentEncoding(true)  ## concrete ANSI when on Windows
 const
   DefEncoding* = ""
   LocaleEncoding* = "locale"
-
-template raise_ValueError(s) = raise newException(ValueError, s)
 
 proc toSet(s: string): set[char] =
   for c in s: result.incl c
