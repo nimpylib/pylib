@@ -76,7 +76,8 @@ func tell*(f: IOBase): int64 = f.getFilePos()
 func isatty*(f: IOBase): bool = f.isatty()
 
 proc fileno*(f: IOBase): int = int getFileHandle f
-const DEFAULT_BUFFER_SIZE = 8192
+
+const DEFAULT_BUFFER_SIZE* = 8192
 
 type
   NoEncTextIOBase* = ref object of IOBase
