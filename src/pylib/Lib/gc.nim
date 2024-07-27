@@ -17,8 +17,12 @@
 ## As Nim's mm is so different from Python's gc,
 ## only a few APIs of `gc` can be ported to Nim.
 
-proc enable*() = GC_enable()
-proc disable*() = GC_disable()
+proc enable*() =
+  when defined(gcOrc): GC_enableOrc()
+  else: GC_enable()
+proc disable*() =
+  when defined(gcOrc): GC_disableOrc()
+  else: GC_disable()
 
 const GcCollectResult* = 0  ## Result of `collect`_
 
