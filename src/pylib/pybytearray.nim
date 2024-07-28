@@ -40,7 +40,8 @@ wrapCmp `<=`
 wrapCmp `<`
 
 func `$`*(self): string = self.asNim
-template toNimString*(self: PyByteArray): string = self.asNim
+func toNimString*(self: PyByteArray): string = self.asNim
+func toNimString*(self: var PyByteArray): var string = self.asNim
 
 func bytearray*: PyByteArray = newPyByteArray()
 func bytearray*(o: BytesLike): PyByteArray = newPyByteArray(o)
