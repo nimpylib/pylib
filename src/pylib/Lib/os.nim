@@ -8,9 +8,9 @@ export os
 
 import ./os_impl/[
   consts, posix_like, subp, utils, path, walkImpl, listdirx,
-  term]
+  term, inheritable]
 export
   consts, posix_like, subp, utils, path, walkImpl, listdirx,
-  term
+  term, set_inheritable, get_inheritable
 
 
