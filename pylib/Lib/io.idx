@@ -9,55 +9,58 @@ nim	flush	pylib/Lib/io.html#flush,IOBase	proc flush(f: IOBase)		72
 nim	tell	pylib/Lib/io.html#tell,IOBase	proc tell(f: IOBase): int64		74
 nim	isatty	pylib/Lib/io.html#isatty,IOBase	proc isatty(f: IOBase): bool		76
 nim	fileno	pylib/Lib/io.html#fileno,IOBase	proc fileno(f: IOBase): int		78
-nim	NoEncTextIOBase	pylib/Lib/io.html#NoEncTextIOBase	type NoEncTextIOBase		82
-nim	NoEncTextIOWrapper	pylib/Lib/io.html#NoEncTextIOWrapper	type NoEncTextIOWrapper		86
-nim	TextIOWrapper	pylib/Lib/io.html#TextIOWrapper	type TextIOWrapper		90
-nim	encoding	pylib/Lib/io.html#encoding,TextIOWrapper	proc encoding(s: TextIOWrapper): PyStr		94
-nim	errors	pylib/Lib/io.html#errors,TextIOWrapper	proc errors(s: TextIOWrapper): PyStr		95
-nim	RawIOBase	pylib/Lib/io.html#RawIOBase	type RawIOBase		98
-nim	FileIO	pylib/Lib/io.html#FileIO	type FileIO		99
-nim	BufferedIOBase	pylib/Lib/io.html#BufferedIOBase	type BufferedIOBase		101
-nim	BufferedRandom	pylib/Lib/io.html#BufferedRandom	type BufferedRandom		102
-nim	BufferedReader	pylib/Lib/io.html#BufferedReader	type BufferedReader		103
-nim	BufferedWriter	pylib/Lib/io.html#BufferedWriter	type BufferedWriter		104
-nim	seek	pylib/Lib/io.html#seek.e,IOBase,int64	method seek(f: IOBase; cookie: int64; whence = SEEK_SET): int64		122
-nim	seek	pylib/Lib/io.html#seek.e,TextIOWrapper,int64	method seek(self: TextIOWrapper; cookie: int64; whence = SEEK_SET): int64		125
-nim	readline	pylib/Lib/io.html#readline,RawIOBase	proc readline(self: RawIOBase): PyBytes		240
-nim	readline	pylib/Lib/io.html#readline,RawIOBase,Natural	proc readline(self: RawIOBase; size: Natural): PyBytes		241
-nim	readline	pylib/Lib/io.html#readline,NoEncTextIOWrapper	proc readline(self: NoEncTextIOWrapper): PyStr		268
-nim	readline	pylib/Lib/io.html#readline,NoEncTextIOWrapper,int	proc readline(self: NoEncTextIOWrapper; size: int): PyStr		270
-nim	readline	pylib/Lib/io.html#readline,TextIOWrapper	proc readline(self: TextIOWrapper): PyStr		275
-nim	readline	pylib/Lib/io.html#readline,TextIOWrapper,Natural	proc readline(self: TextIOWrapper; size: Natural): PyStr		298
-nim	read	pylib/Lib/io.html#read,RawIOBase	proc read(self: RawIOBase): PyBytes		302
-nim	read	pylib/Lib/io.html#read,RawIOBase,int	proc read(self: RawIOBase; size: int): PyBytes		305
-nim	read	pylib/Lib/io.html#read,NoEncTextIOWrapper	proc read(self: NoEncTextIOWrapper): PyStr		314
-nim	read	pylib/Lib/io.html#read,TextIOWrapper	proc read(self: TextIOWrapper): PyStr		315
-nim	read	pylib/Lib/io.html#read,NoEncTextIOWrapper,int	proc read(self: NoEncTextIOWrapper; size: int): PyStr		328
-nim	read	pylib/Lib/io.html#read,TextIOWrapper,int	proc read(self: TextIOWrapper; size: int): PyStr		331
-nim	write	pylib/Lib/io.html#write,RawIOBase,PyBytes	proc write(self: RawIOBase; s: PyBytes): int		339
-nim	write	pylib/Lib/io.html#write,NoEncTextIOWrapper,PyStr	proc write(self: NoEncTextIOWrapper; s: PyStr): int		352
-nim	write	pylib/Lib/io.html#write,TextIOWrapper,PyStr	proc write(self: TextIOWrapper; s: PyStr): int		358
-nim	truncate	pylib/Lib/io.html#truncate,IOBase	proc truncate(self: IOBase): int		388
-nim	truncate	pylib/Lib/io.html#truncate,IOBase,int64	proc truncate(self: IOBase; size: int64): int64		400
-nim	close	pylib/Lib/io.html#close.e,IOBase	method close(self: IOBase)		413
-nim	close	pylib/Lib/io.html#close.e,RawIOBase	method close(self: RawIOBase)		414
-nim	close	pylib/Lib/io.html#close.e,TextIOWrapper	method close(self: TextIOWrapper)		415
-nim	DefEncoding	pylib/Lib/io.html#DefEncoding	const DefEncoding		423
-nim	LocaleEncoding	pylib/Lib/io.html#LocaleEncoding	const LocaleEncoding		424
-nim	newNoEncTextIO	pylib/Lib/io.html#newNoEncTextIO,File,string	proc newNoEncTextIO(file: File; name: string; newline = DefNewLine): NoEncTextIOWrapper		466
-nim	raiseOsOrFileNotFoundError	pylib/Lib/io.html#raiseOsOrFileNotFoundError,int	proc raiseOsOrFileNotFoundError(file: int)		619
-nim	raiseOsOrFileNotFoundError	pylib/Lib/io.html#raiseOsOrFileNotFoundError,PathLike[T]	proc raiseOsOrFileNotFoundError[T](file: PathLike[T])		625
-nim	initBufAsPy	pylib/Lib/io.html#initBufAsPy,File,int	proc initBufAsPy(nfile: var File; buf: int)		628
-nim	open	pylib/Lib/io.html#open.t,int,static[],int,string,string	template open(file: int; mode: static[string | char] = "r"; buffering: int = -1;\n     encoding: string = DefEncoding; errors: string = DefErrors;\n     newline: string | char = DefNewLine): untyped		671
-nim	open	pylib/Lib/io.html#open.t,PathLike[S],static[],int,string,string	template open[S](file: PathLike[S]; mode: static[string | char] = "r";\n        buffering: int = -1; encoding: string = DefEncoding;\n        errors: string = DefErrors; newline: string | char = DefNewLine): untyped		689
-nimgrp	readline	pylib/Lib/io.html#readline-procs-all	proc		240
-nimgrp	write	pylib/Lib/io.html#write-procs-all	proc		339
-nimgrp	truncate	pylib/Lib/io.html#truncate-procs-all	proc		388
-nimgrp	raiseosorfilenotfounderror	pylib/Lib/io.html#raiseOsOrFileNotFoundError-procs-all	proc		619
-nimgrp	read	pylib/Lib/io.html#read-procs-all	proc		302
-nimgrp	close	pylib/Lib/io.html#close-methods-all	method		413
-nimgrp	seek	pylib/Lib/io.html#seek-methods-all	method		122
-nimgrp	open	pylib/Lib/io.html#open-templates-all	template		671
+nim	DEFAULT_BUFFER_SIZE	pylib/Lib/io.html#DEFAULT_BUFFER_SIZE	const DEFAULT_BUFFER_SIZE		80
+nim	NoEncTextIOBase	pylib/Lib/io.html#NoEncTextIOBase	type NoEncTextIOBase		83
+nim	NoEncTextIOWrapper	pylib/Lib/io.html#NoEncTextIOWrapper	type NoEncTextIOWrapper		87
+nim	TextIOWrapper	pylib/Lib/io.html#TextIOWrapper	type TextIOWrapper		91
+nim	encoding	pylib/Lib/io.html#encoding,TextIOWrapper	proc encoding(s: TextIOWrapper): PyStr		95
+nim	errors	pylib/Lib/io.html#errors,TextIOWrapper	proc errors(s: TextIOWrapper): PyStr		96
+nim	RawIOBase	pylib/Lib/io.html#RawIOBase	type RawIOBase		99
+nim	FileIO	pylib/Lib/io.html#FileIO	type FileIO		100
+nim	BufferedIOBase	pylib/Lib/io.html#BufferedIOBase	type BufferedIOBase		102
+nim	BufferedRandom	pylib/Lib/io.html#BufferedRandom	type BufferedRandom		103
+nim	BufferedReader	pylib/Lib/io.html#BufferedReader	type BufferedReader		104
+nim	BufferedWriter	pylib/Lib/io.html#BufferedWriter	type BufferedWriter		105
+nim	seek	pylib/Lib/io.html#seek.e,IOBase,int64	method seek(f: IOBase; cookie: int64; whence = SEEK_SET): int64		123
+nim	seek	pylib/Lib/io.html#seek.e,TextIOWrapper,int64	method seek(self: TextIOWrapper; cookie: int64; whence = SEEK_SET): int64		126
+nim	readline	pylib/Lib/io.html#readline,RawIOBase	proc readline(self: RawIOBase): PyBytes		241
+nim	readline	pylib/Lib/io.html#readline,RawIOBase,Natural	proc readline(self: RawIOBase; size: Natural): PyBytes		242
+nim	readline	pylib/Lib/io.html#readline,NoEncTextIOWrapper	proc readline(self: NoEncTextIOWrapper): PyStr		269
+nim	readline	pylib/Lib/io.html#readline,NoEncTextIOWrapper,int	proc readline(self: NoEncTextIOWrapper; size: int): PyStr		271
+nim	readline	pylib/Lib/io.html#readline,TextIOWrapper	proc readline(self: TextIOWrapper): PyStr		276
+nim	readline	pylib/Lib/io.html#readline,TextIOWrapper,Natural	proc readline(self: TextIOWrapper; size: Natural): PyStr		299
+nim	read	pylib/Lib/io.html#read,RawIOBase	proc read(self: RawIOBase): PyBytes		303
+nim	read	pylib/Lib/io.html#read,RawIOBase,int	proc read(self: RawIOBase; size: int): PyBytes		306
+nim	read	pylib/Lib/io.html#read,NoEncTextIOWrapper	proc read(self: NoEncTextIOWrapper): PyStr		315
+nim	read	pylib/Lib/io.html#read,TextIOWrapper	proc read(self: TextIOWrapper): PyStr		316
+nim	read	pylib/Lib/io.html#read,NoEncTextIOWrapper,int	proc read(self: NoEncTextIOWrapper; size: int): PyStr		329
+nim	read	pylib/Lib/io.html#read,TextIOWrapper,int	proc read(self: TextIOWrapper; size: int): PyStr		332
+nim	write	pylib/Lib/io.html#write,RawIOBase,PyBytes	proc write(self: RawIOBase; s: PyBytes): int		340
+nim	write	pylib/Lib/io.html#write,NoEncTextIOWrapper,PyStr	proc write(self: NoEncTextIOWrapper; s: PyStr): int		353
+nim	write	pylib/Lib/io.html#write,TextIOWrapper,PyStr	proc write(self: TextIOWrapper; s: PyStr): int		359
+nim	truncate	pylib/Lib/io.html#truncate,IOBase	proc truncate(self: IOBase): int		389
+nim	truncate	pylib/Lib/io.html#truncate,IOBase,int64	proc truncate(self: IOBase; size: int64): int64		401
+nim	close	pylib/Lib/io.html#close.e,IOBase	method close(self: IOBase)		414
+nim	close	pylib/Lib/io.html#close.e,RawIOBase	method close(self: RawIOBase)		415
+nim	close	pylib/Lib/io.html#close.e,TextIOWrapper	method close(self: TextIOWrapper)		416
+nim	enter	pylib/Lib/io.html#enter,IO	proc enter[IO: IOBase](self: IO): IO		429
+nim	exit	pylib/Lib/io.html#exit.t,IOBase,varargs[untyped]	template exit(self: IOBase; args: varargs[untyped])		432
+nim	DefEncoding	pylib/Lib/io.html#DefEncoding	const DefEncoding		437
+nim	LocaleEncoding	pylib/Lib/io.html#LocaleEncoding	const LocaleEncoding		438
+nim	newNoEncTextIO	pylib/Lib/io.html#newNoEncTextIO,File,string	proc newNoEncTextIO(file: File; name: string; newline = DefNewLine): NoEncTextIOWrapper		478
+nim	raiseOsOrFileNotFoundError	pylib/Lib/io.html#raiseOsOrFileNotFoundError,int	proc raiseOsOrFileNotFoundError(file: int)		631
+nim	raiseOsOrFileNotFoundError	pylib/Lib/io.html#raiseOsOrFileNotFoundError,PathLike[T]	proc raiseOsOrFileNotFoundError[T](file: PathLike[T])		637
+nim	initBufAsPy	pylib/Lib/io.html#initBufAsPy,File,int	proc initBufAsPy(nfile: var File; buf: int)		640
+nim	open	pylib/Lib/io.html#open.t,int,static[],int,string,string	template open(file: int; mode: static[string | char] = "r"; buffering: int = -1;\n     encoding: string = DefEncoding; errors: string = DefErrors;\n     newline: string | char = DefNewLine): untyped		683
+nim	open	pylib/Lib/io.html#open.t,PathLike[S],static[],int,string,string	template open[S](file: PathLike[S]; mode: static[string | char] = "r";\n        buffering: int = -1; encoding: string = DefEncoding;\n        errors: string = DefErrors; newline: string | char = DefNewLine): untyped		701
+nimgrp	readline	pylib/Lib/io.html#readline-procs-all	proc		241
+nimgrp	write	pylib/Lib/io.html#write-procs-all	proc		340
+nimgrp	truncate	pylib/Lib/io.html#truncate-procs-all	proc		389
+nimgrp	raiseosorfilenotfounderror	pylib/Lib/io.html#raiseOsOrFileNotFoundError-procs-all	proc		631
+nimgrp	read	pylib/Lib/io.html#read-procs-all	proc		303
+nimgrp	close	pylib/Lib/io.html#close-methods-all	method		414
+nimgrp	seek	pylib/Lib/io.html#seek-methods-all	method		123
+nimgrp	open	pylib/Lib/io.html#open-templates-all	template		683
 heading	different from Python	pylib/Lib/io.html#different-from-python	  different from Python		0
 heading	open	pylib/Lib/io.html#different-from-python-open	   open		0
 heading	seek	pylib/Lib/io.html#different-from-python-seek	   seek		0
