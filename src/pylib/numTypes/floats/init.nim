@@ -7,7 +7,9 @@ import ../reimporter
 
 template float*(number: SomeNumber = 0.0): BiggestFloat = BiggestFloat number
 
-func float*(a: PyStr|PyBytes): BiggestFloat =
+func parsePyFloat*(a: string|PyStr|PyBytes): BiggestFloat =
+  ## EXT. the same as `float(str|bytes)`
+  # used by builtins.complex
   let sa = $a
   let (m, n) = sa.stripAsRange
   template stripped: untyped = (sa).toOpenArray(m, n)
@@ -17,6 +19,8 @@ func float*(a: PyStr|PyBytes): BiggestFloat =
   if ni != n - m + 1:
     raise newException(ValueError,
       "could not convert string to float: " & repr(a))
+
+func float*(a: PyStr|PyBytes): BiggestFloat = parsePyFloat(a)
 
 template float*(a: bool): BiggestFloat = (if a: 1.0 else: 0.0)
 

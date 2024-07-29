@@ -17,11 +17,14 @@ type PyComplex*[T] = distinct Complex[T]
 template toNimComplex*[T](z: PyComplex[T]): Complex[T] =
   Complex[T] z
 
-template borrowAttr(expAs, attr) =
-  ## borrow postfix, assuming returns T
+template borrowAttr(expAs, attr){.dirty.} =
+  ## borrow postfix, assuming returns T,
+  ## and forbid setter
   template expAs*[T](z: PyComplex[T]): T =
     bind toNimComplex
     z.toNimComplex.attr
+  template `expAs=`*[T](z: PyComplex[T], _: T){.error:
+    "AttributeError: readonly attribute".} = discard
 
 borrowAttr imag, im
 borrowAttr real, re
