@@ -1,5 +1,7 @@
 
-
+# XXX: this shall work `when defined(freertos) or defined(zephyr)`
+#  but is is meaningful?
+import ./private/platform_utils
 import ../../pyerrors/oserr
 
 const
@@ -35,22 +37,38 @@ template ifRaiseThenErrnoOrN1 =
     raiseErrno()
   return -1
 
-template ifRaiseThenWinErr0OrN1 =
-  static: assert MS_WINDOWS
-  if ifRaise:
-    # in Windows, raiseOSError raises Windows Error
-    raiseOSError OSErrorCode 0
-  return -1
+when MS_WINDOWS:
+  template ifRaiseThenWinErr0OrN1 =
+    if ifRaise:
+      # in Windows, raiseOSError raises Windows Error
+      raiseOSError OSErrorCode 0
+    return -1
+
+  proc get_handle_inheritableImpl(handle: Handle): int =
+    var flags: DWORD
+    if not bool getHandleInformation(handle, flags.addr):
+      ifRaiseThenWinErr0OrN1
+    return flags.int and HANDLE_FLAG_INHERIT.int
+
+  proc set_handle_inheritableImpl(handle: Handle, inheritable: bool): int =
+    let flags = DWORD:
+      if inheritable: HANDLE_FLAG_INHERIT else: 0
+    if not bool setHandleInformation(handle, HANDLE_FLAG_INHERIT, flags):
+      ifRaiseThenWinErr0OrN1
+    return 0
+
+proc get_handle_inheritable*(handle: int): bool{.platformAvail(windows).} =
+  bool get_handle_inheritableImpl(Handle handle)
+
+proc set_handle_inheritable*(handle: int, inheritable: bool){.platformAvail(windows).} =
+  discard set_handle_inheritableImpl(Handle handle, inheritable)
 
 proc get_inheritable(fd: int, ifRaise: bool): int =
   when MS_WINDOWS:
     let handle = Py_get_osfhandle_noraise fd
     if handle == INVALID_HANDLE_VALUE:
       ifRaiseThenErrnoOrN1
-    var flags: DWORD
-    if not bool getHandleInformation(handle, flags.addr):
-      ifRaiseThenWinErr0OrN1
-    return flags.int and HANDLE_FLAG_INHERIT.int
+    return get_handle_inheritableImpl(handle)    
   else:
     let flags = fcntl(fd.cint, F_GETFD)
     if flags == -1:
@@ -91,6 +109,7 @@ proc Py_atomic_store_relaxed[T](obj: ptr T, value: T) =
 proc set_inheritable(fd: int, inheritable: bool, ifRaise: bool, atomic_flag_works: ptr int): int =
   ##[ there are setInheritable in std/syncio,
    which, however:
+    - not available for evary platform.
     - accept Handle which still need get_osfhandle/fcntl to get from `fd`
     - don't try "fast-path" and try fallback
     - don't respect what we do in `block check_errno`
@@ -105,18 +124,14 @@ proc set_inheritable(fd: int, inheritable: bool, ifRaise: bool, atomic_flag_work
       if isInheritable == -1:
         return -1
       atomic_flag_works[] = int bool isInheritable
-    
+
     if bool atomic_flag_works[]:
       return 0
   when MS_WINDOWS:
     let handle = Py_get_osfhandle_noraise FileHandle fd
     if handle == INVALID_HANDLE_VALUE:
       ifRaiseThenErrnoOrN1
-    let flags = DWORD:
-      if inheritable: HANDLE_FLAG_INHERIT else: 0
-    if not bool setHandleInformation(handle, HANDLE_FLAG_INHERIT, flags):
-      ifRaiseThenWinErr0OrN1
-    return 0
+    return set_handle_inheritableImpl(handle, inheritable)
   else:
     let fd = cint fd
     when SupportIoctlInheritCtl:
