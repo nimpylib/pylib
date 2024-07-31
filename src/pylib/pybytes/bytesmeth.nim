@@ -4,6 +4,7 @@ import ./bytesimpl
 import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
+import ../version
 
 
 template `*`*(a: PyBytes; i: int): PyBytes =
@@ -113,7 +114,7 @@ func contains*(a: PyBytes, o: int): bool = a.find(o) != -1
 template W(isX) =
   func isX*(a: PyBytes): bool = meth.isX($a)
 
-W isascii
+func isascii*(a: PyBytes): bool{.pysince(3,7).} = meth.isascii($a)
 W isspace
 W isalpha
 W isdigit

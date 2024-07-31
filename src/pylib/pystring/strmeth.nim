@@ -67,7 +67,7 @@ func casefoldImpl(s: string): string =
   for ch in s.runes:
     result.addCasefold ch
 
-func casefold*(a: PyStr): PyStr =
+func casefold*(a: PyStr): PyStr{.pysince(3,3).} =
   ## str.casefold()
   ##
   ## `str.lower()` is used for most characters, but, for example,
@@ -233,7 +233,7 @@ template runeCheck(s: PyStr, runePredict; zeroLenTrue: static[bool]) =
     if not runePredict r:
       return false
 
-func isascii*(a: PyStr): bool =
+func isascii*(a: PyStr): bool{.pysince(3,7).} =
   a.runeCheck isascii, zeroLenTrue=true
 
 func isalpha*(a: PyStr): bool = unicode.isAlpha($a)
