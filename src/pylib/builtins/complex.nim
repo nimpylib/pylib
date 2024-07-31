@@ -214,7 +214,7 @@ genMixinOp `-`
 genMixinOp `*`
 genMixinOp `/`
 
-template `'j`*(lit: string): PyComplex =
+func `'j`*(s: static string): PyComplex[BiggestFloat]=
   ## 1+3'j or 1+3'J
   ## 
   ## NOTE: Nim disallows custom suffixes without `'`.
@@ -222,5 +222,6 @@ template `'j`*(lit: string): PyComplex =
   ## Consider using `complex` instead.
   runnableExamples:
     assert 1+3'j == 1.0+3.0'J
-
-  complex(0.0, lit.parsePyFloat)
+  var imPart: BiggestFloat
+  assert s.len == s.parsePyFloat imPart
+  complex(0.0, imPart)
