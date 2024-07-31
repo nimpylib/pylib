@@ -6,7 +6,7 @@ test "decorator":
       return 1
     @classmethod
     def cm(cls):
-      check(cls == O)
+      assert(cls == O)
       return 2
   
   check(O.sm()==1)
