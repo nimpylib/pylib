@@ -1,2 +1,4 @@
 nimTitle	parse_inf_nan	pylib/numTypes/floats/parse_inf_nan.html	module src/pylib/numTypes/floats/parse_inf_nan		0
-nim	Py_parse_inf_or_nan	pylib/numTypes/floats/parse_inf_nan.html#Py_parse_inf_or_nan,float,openArray[char]	proc Py_parse_inf_or_nan(res: var float; ori_s: openArray[char]): bool		4
+nim	parse_inf_or_nan	pylib/numTypes/floats/parse_inf_nan.html#parse_inf_or_nan,openArray[char],float	proc parse_inf_or_nan(ori_s: openArray[char]; res: var float): int		4
+nim	parse_inf_or_nan	pylib/numTypes/floats/parse_inf_nan.html#parse_inf_or_nan,float,openArray[char]	proc parse_inf_or_nan(res: var float; ori_s: openArray[char]): bool		35
+nimgrp	parseinfornan	pylib/numTypes/floats/parse_inf_nan.html#parse_inf_or_nan-procs-all	proc		4

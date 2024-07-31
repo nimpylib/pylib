@@ -1,6 +1,6 @@
 nimTitle	init	pylib/numTypes/floats/init.html	module src/pylib/numTypes/floats/init		0
-nim	float	pylib/numTypes/floats/init.html#float.t,SomeNumber	template float(number: SomeNumber = 0.0): BiggestFloat		8
-nim	float	pylib/numTypes/floats/init.html#float	proc float(a: PyStr | PyBytes): BiggestFloat		10
-nim	float	pylib/numTypes/floats/init.html#float.t,bool	template float(a: bool): BiggestFloat		21
-nim	float	pylib/numTypes/floats/init.html#float.t,HasIndex	template float(obj: HasIndex): BiggestFloat		26
-nimgrp	float	pylib/numTypes/floats/init.html#float-templates-all	template		8
+nim	float	pylib/numTypes/floats/init.html#float.t,SomeNumber	template float(number: SomeNumber = 0.0): BiggestFloat		7
+nim	float	pylib/numTypes/floats/init.html#float	proc float(a: PyStr | PyBytes): BiggestFloat		20
+nim	float	pylib/numTypes/floats/init.html#float.t,bool	template float(a: bool): BiggestFloat		22
+nim	float	pylib/numTypes/floats/init.html#float.t,HasIndex	template float(obj: HasIndex): BiggestFloat		27
+nimgrp	float	pylib/numTypes/floats/init.html#float-templates-all	template		7

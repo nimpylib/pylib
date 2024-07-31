@@ -1,2 +1,2 @@
 nimTitle	stripOpenArray	pylib/numTypes/utils/stripOpenArray.html	module src/pylib/numTypes/utils/stripOpenArray		0
-nim	stripAsRange	pylib/numTypes/utils/stripOpenArray.html#stripAsRange,openArray[char],static[bool],static[bool],openArray[Rune]	proc stripAsRange(s: openArray[char]; leading, trailing: static[bool] = true;\n             runes: openArray[Rune] = unicodeSpaces): tuple[first, last: int]		5
+nim	stripAsRange	pylib/numTypes/utils/stripOpenArray.html#stripAsRange,openArray[char],static[bool],static[bool],openArray[Rune]	proc stripAsRange(s: openArray[char]; leading: static[bool] = true;\n             trailing: static[bool] = true;\n             runes: openArray[Rune] = unicodeSpaces): tuple[first, last: int]		5

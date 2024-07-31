@@ -1,68 +1,69 @@
 nimTitle	bytesmeth	pylib/pybytes/bytesmeth.html	module src/pylib/pybytes/bytesmeth		0
-nim	`*`	pylib/pybytes/bytesmeth.html#*.t,PyBytes,int	template `*`(a: PyBytes; i: int): PyBytes		9
-nim	`*`	pylib/pybytes/bytesmeth.html#*.t,int,PyBytes	template `*`(i: int; a: PyBytes): PyBytes		12
-nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,PyBytes	proc count(a: PyBytes; sub: PyBytes): int		16
-nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,PyBytes,int	proc count(a: PyBytes; sub: PyBytes; start: int): int		19
-nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,PyBytes,int,int	proc count(a: PyBytes; sub: PyBytes; start = 0; end: int): int		22
-nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,int	proc count(a: PyBytes; sub: int): int		29
-nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,int,int	proc count(a: PyBytes; sub: int; start: int): int		30
-nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,int,int,int	proc count(a: PyBytes; sub: int; start = 0; end: int): int		32
-nim	casefold	pylib/pybytes/bytesmeth.html#casefold.t,PyBytes	template casefold(a: PyBytes): PyBytes		35
-nim	lower	pylib/pybytes/bytesmeth.html#lower,PyBytes	proc lower(a: PyBytes): PyBytes		39
-nim	upper	pylib/pybytes/bytesmeth.html#upper,PyBytes	proc upper(a: PyBytes): PyBytes		40
-nim	title	pylib/pybytes/bytesmeth.html#title,PyBytes	proc title(a: PyBytes): PyBytes		58
-nim	capitalize	pylib/pybytes/bytesmeth.html#capitalize,PyBytes	proc capitalize(a: PyBytes): PyBytes		62
-nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,char	proc startsWith(a: PyBytes; suffix: char): bool		70
-nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,int	proc startsWith(a: PyBytes; suffix: int): bool		72
-nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,Tup	proc startsWith[Tup: tuple](a: PyBytes; suffix: Tup): bool		74
-nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,Suf,int	proc startsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start: int): bool		76
-nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,Suf,int,int	proc startsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start, end: int): bool		82
-nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,char	proc endsWith(a: PyBytes; suffix: char): bool		70
-nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,int	proc endsWith(a: PyBytes; suffix: int): bool		72
-nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,Tup	proc endsWith[Tup: tuple](a: PyBytes; suffix: Tup): bool		74
-nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,Suf,int	proc endsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start: int): bool		76
-nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,Suf,int,int	proc endsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start, end: int): bool		83
-nim	find	pylib/pybytes/bytesmeth.html#find,PyBytes,int,int	proc find(a: PyBytes; b: int; start = 0; end = len(a)): int		85
-nim	rfind	pylib/pybytes/bytesmeth.html#rfind,PyBytes,int,int	proc rfind(a: PyBytes; b: int; start = 0; end = len(a)): int		88
-nim	index	pylib/pybytes/bytesmeth.html#index,PyBytes,int,int	proc index(a: PyBytes; b: int; start = 0; end = len(a)): int		91
-nim	rindex	pylib/pybytes/bytesmeth.html#rindex,PyBytes,int,int	proc rindex(a: PyBytes; b: int; start = 0; end = len(a)): int		94
-nim	find	pylib/pybytes/bytesmeth.html#find,PyBytes,PyBytes,int	proc find(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		98
-nim	rfind	pylib/pybytes/bytesmeth.html#rfind,PyBytes,PyBytes,int	proc rfind(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		101
-nim	index	pylib/pybytes/bytesmeth.html#index,PyBytes,PyBytes,int	proc index(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		104
-nim	rindex	pylib/pybytes/bytesmeth.html#rindex,PyBytes,PyBytes,int	proc rindex(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		107
-nim	contains	pylib/pybytes/bytesmeth.html#contains,PyBytes,PyBytes	proc contains(a: PyBytes; o: PyBytes): bool		110
-nim	contains	pylib/pybytes/bytesmeth.html#contains,PyBytes,int	proc contains(a: PyBytes; o: int): bool		111
-nim	isascii	pylib/pybytes/bytesmeth.html#isascii,PyBytes	proc isascii(a`gensym41: PyBytes): bool		116
-nim	isspace	pylib/pybytes/bytesmeth.html#isspace,PyBytes	proc isspace(a`gensym42: PyBytes): bool		117
-nim	isalpha	pylib/pybytes/bytesmeth.html#isalpha,PyBytes	proc isalpha(a`gensym43: PyBytes): bool		118
-nim	islower	pylib/pybytes/bytesmeth.html#islower,PyBytes	proc islower(a: PyBytes): bool		123
-nim	isupper	pylib/pybytes/bytesmeth.html#isupper,PyBytes	proc isupper(a: PyBytes): bool		124
-nim	istitle	pylib/pybytes/bytesmeth.html#istitle,PyBytes	proc istitle(a: PyBytes): bool		125
-nim	center	pylib/pybytes/bytesmeth.html#center,PyBytes,int,char	proc center(a: PyBytes; width: int; fillchar = ' '): PyBytes		128
-nim	ljust	pylib/pybytes/bytesmeth.html#ljust,PyBytes,int,char	proc ljust(a: PyBytes; width: int; fillchar = ' '): PyBytes		132
-nim	rjust	pylib/pybytes/bytesmeth.html#rjust,PyBytes,int,char	proc rjust(a: PyBytes; width: int; fillchar = ' '): PyBytes		134
-nim	center	pylib/pybytes/bytesmeth.html#center,PyBytes,int,PyBytes	proc center(a: PyBytes; width: int; fillchar: PyBytes): PyBytes		137
-nim	ljust	pylib/pybytes/bytesmeth.html#ljust,PyBytes,int,PyBytes	proc ljust(a: PyBytes; width: int; fillchar: PyBytes): PyBytes		140
-nim	rjust	pylib/pybytes/bytesmeth.html#rjust,PyBytes,int,PyBytes	proc rjust(a: PyBytes; width: int; fillchar: PyBytes): PyBytes		143
-nim	zfill	pylib/pybytes/bytesmeth.html#zfill,PyBytes,int	proc zfill(a: PyBytes; width: int): PyBytes		146
-nim	removeprefix	pylib/pybytes/bytesmeth.html#removeprefix,PyBytes,PyBytes	proc removeprefix(a: PyBytes; suffix: PyBytes): PyBytes		149
-nim	removesuffix	pylib/pybytes/bytesmeth.html#removesuffix,PyBytes,PyBytes	proc removesuffix(a: PyBytes; suffix: PyBytes): PyBytes		151
-nim	replace	pylib/pybytes/bytesmeth.html#replace,PyBytes,,	proc replace(a: PyBytes; sub, by: PyBytes | char): PyBytes		154
-nim	replace	pylib/pybytes/bytesmeth.html#replace,PyBytes,,,int	proc replace(a: PyBytes; sub, by: PyBytes | char; count: int): PyBytes		157
-nim	expandtabs	pylib/pybytes/bytesmeth.html#expandtabs,PyBytes,int	proc expandtabs(a: PyBytes; tabsize = 8): PyBytes		163
-nim	join	pylib/pybytes/bytesmeth.html#join,PyBytes,openArray[T]	proc join[T](sep: PyBytes; a: openArray[T]): PyBytes		166
-nim	partition	pylib/pybytes/bytesmeth.html#partition,PyBytes,PyBytes	proc partition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		170
-nim	rpartition	pylib/pybytes/bytesmeth.html#rpartition,PyBytes,PyBytes	proc rpartition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		173
-nimgrp	contains	pylib/pybytes/bytesmeth.html#contains-procs-all	proc		110
-nimgrp	replace	pylib/pybytes/bytesmeth.html#replace-procs-all	proc		154
-nimgrp	rfind	pylib/pybytes/bytesmeth.html#rfind-procs-all	proc		88
-nimgrp	ljust	pylib/pybytes/bytesmeth.html#ljust-procs-all	proc		132
-nimgrp	startswith	pylib/pybytes/bytesmeth.html#startsWith-procs-all	proc		82
-nimgrp	center	pylib/pybytes/bytesmeth.html#center-procs-all	proc		128
-nimgrp	rjust	pylib/pybytes/bytesmeth.html#rjust-procs-all	proc		134
-nimgrp	count	pylib/pybytes/bytesmeth.html#count-procs-all	proc		16
-nimgrp	endswith	pylib/pybytes/bytesmeth.html#endsWith-procs-all	proc		83
-nimgrp	index	pylib/pybytes/bytesmeth.html#index-procs-all	proc		91
-nimgrp	rindex	pylib/pybytes/bytesmeth.html#rindex-procs-all	proc		94
-nimgrp	find	pylib/pybytes/bytesmeth.html#find-procs-all	proc		85
-nimgrp	*	pylib/pybytes/bytesmeth.html#*-templates-all	template		9
+nim	`*`	pylib/pybytes/bytesmeth.html#*.t,PyBytes,int	template `*`(a: PyBytes; i: int): PyBytes		10
+nim	`*`	pylib/pybytes/bytesmeth.html#*.t,int,PyBytes	template `*`(i: int; a: PyBytes): PyBytes		13
+nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,PyBytes	proc count(a: PyBytes; sub: PyBytes): int		17
+nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,PyBytes,int	proc count(a: PyBytes; sub: PyBytes; start: int): int		20
+nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,PyBytes,int,int	proc count(a: PyBytes; sub: PyBytes; start = 0; end: int): int		23
+nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,int	proc count(a: PyBytes; sub: int): int		30
+nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,int,int	proc count(a: PyBytes; sub: int; start: int): int		31
+nim	count	pylib/pybytes/bytesmeth.html#count,PyBytes,int,int,int	proc count(a: PyBytes; sub: int; start = 0; end: int): int		33
+nim	casefold	pylib/pybytes/bytesmeth.html#casefold.t,PyBytes	template casefold(a: PyBytes): PyBytes		36
+nim	lower	pylib/pybytes/bytesmeth.html#lower,PyBytes	proc lower(a: PyBytes): PyBytes		40
+nim	upper	pylib/pybytes/bytesmeth.html#upper,PyBytes	proc upper(a: PyBytes): PyBytes		41
+nim	title	pylib/pybytes/bytesmeth.html#title,PyBytes	proc title(a: PyBytes): PyBytes		59
+nim	capitalize	pylib/pybytes/bytesmeth.html#capitalize,PyBytes	proc capitalize(a: PyBytes): PyBytes		63
+nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,char	proc startsWith(a: PyBytes; suffix: char): bool		71
+nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,int	proc startsWith(a: PyBytes; suffix: int): bool		73
+nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,Tup	proc startsWith[Tup: tuple](a: PyBytes; suffix: Tup): bool		75
+nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,Suf,int	proc startsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start: int): bool		77
+nim	startsWith	pylib/pybytes/bytesmeth.html#startsWith,PyBytes,Suf,int,int	proc startsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start, end: int): bool		83
+nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,char	proc endsWith(a: PyBytes; suffix: char): bool		71
+nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,int	proc endsWith(a: PyBytes; suffix: int): bool		73
+nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,Tup	proc endsWith[Tup: tuple](a: PyBytes; suffix: Tup): bool		75
+nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,Suf,int	proc endsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start: int): bool		77
+nim	endsWith	pylib/pybytes/bytesmeth.html#endsWith,PyBytes,Suf,int,int	proc endsWith[Suf: PyBytes | tuple](a: PyBytes; suffix: Suf; start, end: int): bool		84
+nim	find	pylib/pybytes/bytesmeth.html#find,PyBytes,int,int	proc find(a: PyBytes; b: int; start = 0; end = len(a)): int		86
+nim	rfind	pylib/pybytes/bytesmeth.html#rfind,PyBytes,int,int	proc rfind(a: PyBytes; b: int; start = 0; end = len(a)): int		89
+nim	index	pylib/pybytes/bytesmeth.html#index,PyBytes,int,int	proc index(a: PyBytes; b: int; start = 0; end = len(a)): int		92
+nim	rindex	pylib/pybytes/bytesmeth.html#rindex,PyBytes,int,int	proc rindex(a: PyBytes; b: int; start = 0; end = len(a)): int		95
+nim	find	pylib/pybytes/bytesmeth.html#find,PyBytes,PyBytes,int	proc find(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		99
+nim	rfind	pylib/pybytes/bytesmeth.html#rfind,PyBytes,PyBytes,int	proc rfind(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		102
+nim	index	pylib/pybytes/bytesmeth.html#index,PyBytes,PyBytes,int	proc index(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		105
+nim	rindex	pylib/pybytes/bytesmeth.html#rindex,PyBytes,PyBytes,int	proc rindex(a: PyBytes; b: PyBytes; start = 0; end = len(a)): int		108
+nim	contains	pylib/pybytes/bytesmeth.html#contains,PyBytes,PyBytes	proc contains(a: PyBytes; o: PyBytes): bool		111
+nim	contains	pylib/pybytes/bytesmeth.html#contains,PyBytes,int	proc contains(a: PyBytes; o: int): bool		112
+nim	isascii	pylib/pybytes/bytesmeth.html#isascii,PyBytes	proc isascii(a: PyBytes): bool		117
+nim	isspace	pylib/pybytes/bytesmeth.html#isspace,PyBytes	proc isspace(a`gensym41: PyBytes): bool		118
+nim	isalpha	pylib/pybytes/bytesmeth.html#isalpha,PyBytes	proc isalpha(a`gensym42: PyBytes): bool		119
+nim	isdigit	pylib/pybytes/bytesmeth.html#isdigit,PyBytes	proc isdigit(a`gensym43: PyBytes): bool		120
+nim	islower	pylib/pybytes/bytesmeth.html#islower,PyBytes	proc islower(a: PyBytes): bool		125
+nim	isupper	pylib/pybytes/bytesmeth.html#isupper,PyBytes	proc isupper(a: PyBytes): bool		126
+nim	istitle	pylib/pybytes/bytesmeth.html#istitle,PyBytes	proc istitle(a: PyBytes): bool		127
+nim	center	pylib/pybytes/bytesmeth.html#center,PyBytes,int,char	proc center(a: PyBytes; width: int; fillchar = ' '): PyBytes		130
+nim	ljust	pylib/pybytes/bytesmeth.html#ljust,PyBytes,int,char	proc ljust(a: PyBytes; width: int; fillchar = ' '): PyBytes		134
+nim	rjust	pylib/pybytes/bytesmeth.html#rjust,PyBytes,int,char	proc rjust(a: PyBytes; width: int; fillchar = ' '): PyBytes		136
+nim	center	pylib/pybytes/bytesmeth.html#center,PyBytes,int,PyBytes	proc center(a: PyBytes; width: int; fillchar: PyBytes): PyBytes		139
+nim	ljust	pylib/pybytes/bytesmeth.html#ljust,PyBytes,int,PyBytes	proc ljust(a: PyBytes; width: int; fillchar: PyBytes): PyBytes		142
+nim	rjust	pylib/pybytes/bytesmeth.html#rjust,PyBytes,int,PyBytes	proc rjust(a: PyBytes; width: int; fillchar: PyBytes): PyBytes		145
+nim	zfill	pylib/pybytes/bytesmeth.html#zfill,PyBytes,int	proc zfill(a: PyBytes; width: int): PyBytes		148
+nim	removeprefix	pylib/pybytes/bytesmeth.html#removeprefix,PyBytes,PyBytes	proc removeprefix(a: PyBytes; suffix: PyBytes): PyBytes		151
+nim	removesuffix	pylib/pybytes/bytesmeth.html#removesuffix,PyBytes,PyBytes	proc removesuffix(a: PyBytes; suffix: PyBytes): PyBytes		153
+nim	replace	pylib/pybytes/bytesmeth.html#replace,PyBytes,,	proc replace(a: PyBytes; sub, by: PyBytes | char): PyBytes		156
+nim	replace	pylib/pybytes/bytesmeth.html#replace,PyBytes,,,int	proc replace(a: PyBytes; sub, by: PyBytes | char; count: int): PyBytes		159
+nim	expandtabs	pylib/pybytes/bytesmeth.html#expandtabs,PyBytes,int	proc expandtabs(a: PyBytes; tabsize = 8): PyBytes		165
+nim	join	pylib/pybytes/bytesmeth.html#join,PyBytes,openArray[T]	proc join[T](sep: PyBytes; a: openArray[T]): PyBytes		168
+nim	partition	pylib/pybytes/bytesmeth.html#partition,PyBytes,PyBytes	proc partition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		172
+nim	rpartition	pylib/pybytes/bytesmeth.html#rpartition,PyBytes,PyBytes	proc rpartition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		175
+nimgrp	contains	pylib/pybytes/bytesmeth.html#contains-procs-all	proc		111
+nimgrp	replace	pylib/pybytes/bytesmeth.html#replace-procs-all	proc		156
+nimgrp	rfind	pylib/pybytes/bytesmeth.html#rfind-procs-all	proc		89
+nimgrp	ljust	pylib/pybytes/bytesmeth.html#ljust-procs-all	proc		134
+nimgrp	startswith	pylib/pybytes/bytesmeth.html#startsWith-procs-all	proc		83
+nimgrp	center	pylib/pybytes/bytesmeth.html#center-procs-all	proc		130
+nimgrp	rjust	pylib/pybytes/bytesmeth.html#rjust-procs-all	proc		136
+nimgrp	count	pylib/pybytes/bytesmeth.html#count-procs-all	proc		17
+nimgrp	endswith	pylib/pybytes/bytesmeth.html#endsWith-procs-all	proc		84
+nimgrp	index	pylib/pybytes/bytesmeth.html#index-procs-all	proc		92
+nimgrp	rindex	pylib/pybytes/bytesmeth.html#rindex-procs-all	proc		95
+nimgrp	find	pylib/pybytes/bytesmeth.html#find-procs-all	proc		86
+nimgrp	*	pylib/pybytes/bytesmeth.html#*-templates-all	template		10

@@ -1,0 +1,2 @@
+nimTitle	parsefloat	pylib/numTypes/floats/parsefloat.html	module src/pylib/numTypes/floats/parsefloat		0
+nim	parsePyFloat	pylib/numTypes/floats/parsefloat.html#parsePyFloat,openArray[char],BiggestFloat	proc parsePyFloat(a: openArray[char]; res: var BiggestFloat): int		5

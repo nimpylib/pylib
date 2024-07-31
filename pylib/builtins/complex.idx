@@ -1,44 +1,50 @@
 nimTitle	complex	pylib/builtins/complex.html	module src/pylib/builtins/complex		0
-nim	PyComplex	pylib/builtins/complex.html#PyComplex	type PyComplex		15
-nim	toNimComplex	pylib/builtins/complex.html#toNimComplex.t,PyComplex[T]	template toNimComplex[T](z: PyComplex[T]): Complex[T]		17
-nim	imag	pylib/builtins/complex.html#imag.t	template imag[T](z`gensym0: PyComplex[T]): T		26
-nim	real	pylib/builtins/complex.html#real.t	template real[T](z`gensym1: PyComplex[T]): T		27
-nim	`$`	pylib/builtins/complex.html#$,PyComplex	proc `$`(z: PyComplex): string		38
-nim	pycomplex	pylib/builtins/complex.html#pycomplex.t,Complex[T]	template pycomplex[T](z: Complex[T]): PyComplex[T]		55
-nim	complex	pylib/builtins/complex.html#complex,T,T	proc complex[T: SomeFloat](re: T = 0.0; im: T = 0.0): PyComplex[T]		60
-nim	complex	pylib/builtins/complex.html#complex,T,T_2	proc complex[T: SomeInteger](re: T = 0; im: T = 0): PyComplex[BiggestFloat]		62
-nim	pycomplex	pylib/builtins/complex.html#pycomplex.t,T,typeof(T(0))	template pycomplex[T](re: T; im = T(0)): PyComplex[T]		65
-nim	abs	pylib/builtins/complex.html#abs,PyComplex[T]	proc abs[T](z: PyComplex[T]): T		70
-nim	conjugate	pylib/builtins/complex.html#conjugate,PyComplex[T]	proc conjugate[T](z: PyComplex[T]): PyComplex[T]		72
-nim	`+`	pylib/builtins/complex.html#+.t,PyComplex,PyComplex	template `+`(a`gensym4, b`gensym4: PyComplex): PyComplex		90
-nim	`-`	pylib/builtins/complex.html#-.t,PyComplex,PyComplex	template `-`(a`gensym5, b`gensym5: PyComplex): PyComplex		91
-nim	`*`	pylib/builtins/complex.html#*.t,PyComplex,PyComplex	template `*`(a`gensym6, b`gensym6: PyComplex): PyComplex		92
-nim	`/`	pylib/builtins/complex.html#/.t,PyComplex,PyComplex	template `/`(a`gensym7, b`gensym7: PyComplex): PyComplex		93
-nim	`+=`	pylib/builtins/complex.html#+=.t,PyComplex,PyComplex	template `+=`(a`gensym8, b`gensym8: PyComplex): untyped		94
-nim	`-=`	pylib/builtins/complex.html#-=.t,PyComplex,PyComplex	template `-=`(a`gensym9, b`gensym9: PyComplex): untyped		95
-nim	`*=`	pylib/builtins/complex.html#*=.t,PyComplex,PyComplex	template `*=`(a`gensym10, b`gensym10: PyComplex): untyped		96
-nim	`/=`	pylib/builtins/complex.html#/=.t,PyComplex,PyComplex	template `/=`(a`gensym11, b`gensym11: PyComplex): untyped		97
-nim	`==`	pylib/builtins/complex.html#==.t,PyComplex,PyComplex	template `==`(a`gensym12, b`gensym12: PyComplex): untyped		98
-nim	`+`	pylib/builtins/complex.html#+.t,T,	template `+`[T: SomeFloat](a`gensym13: T; z`gensym13: PyComplex[T]): PyComplex[T]		101
-nim	`+`	pylib/builtins/complex.html#+.t,,T	template `+`[T: SomeFloat](z`gensym13: PyComplex[T]; a`gensym13: T): PyComplex[T]		103
-nim	`+`	pylib/builtins/complex.html#+.t,I,	template `+`[I: SomeInteger; T](a`gensym13: I; z`gensym13: PyComplex[T]): PyComplex[T]		106
-nim	`+`	pylib/builtins/complex.html#+.t,,I	template `+`[I: SomeInteger; T](z`gensym13: PyComplex[T]; a`gensym13: I): PyComplex[T]		111
-nim	`-`	pylib/builtins/complex.html#-.t,T,	template `-`[T: SomeFloat](a`gensym14: T; z`gensym14: PyComplex[T]): PyComplex[T]		101
-nim	`-`	pylib/builtins/complex.html#-.t,,T	template `-`[T: SomeFloat](z`gensym14: PyComplex[T]; a`gensym14: T): PyComplex[T]		103
-nim	`-`	pylib/builtins/complex.html#-.t,I,	template `-`[I: SomeInteger; T](a`gensym14: I; z`gensym14: PyComplex[T]): PyComplex[T]		106
-nim	`-`	pylib/builtins/complex.html#-.t,,I	template `-`[I: SomeInteger; T](z`gensym14: PyComplex[T]; a`gensym14: I): PyComplex[T]		112
-nim	`*`	pylib/builtins/complex.html#*.t,T,	template `*`[T: SomeFloat](a`gensym15: T; z`gensym15: PyComplex[T]): PyComplex[T]		101
-nim	`*`	pylib/builtins/complex.html#*.t,,T	template `*`[T: SomeFloat](z`gensym15: PyComplex[T]; a`gensym15: T): PyComplex[T]		103
-nim	`*`	pylib/builtins/complex.html#*.t,I,	template `*`[I: SomeInteger; T](a`gensym15: I; z`gensym15: PyComplex[T]): PyComplex[T]		106
-nim	`*`	pylib/builtins/complex.html#*.t,,I	template `*`[I: SomeInteger; T](z`gensym15: PyComplex[T]; a`gensym15: I): PyComplex[T]		113
-nim	`/`	pylib/builtins/complex.html#/.t,T,	template `/`[T: SomeFloat](a`gensym16: T; z`gensym16: PyComplex[T]): PyComplex[T]		101
-nim	`/`	pylib/builtins/complex.html#/.t,,T	template `/`[T: SomeFloat](z`gensym16: PyComplex[T]; a`gensym16: T): PyComplex[T]		103
-nim	`/`	pylib/builtins/complex.html#/.t,I,	template `/`[I: SomeInteger; T](a`gensym16: I; z`gensym16: PyComplex[T]): PyComplex[T]		106
-nim	`/`	pylib/builtins/complex.html#/.t,,I	template `/`[I: SomeInteger; T](z`gensym16: PyComplex[T]; a`gensym16: I): PyComplex[T]		114
-nim	`'j`	pylib/builtins/complex.html#'j.t,string	template `'j`(lit: string): PyComplex		116
-nimgrp	complex	pylib/builtins/complex.html#complex-procs-all	proc		60
-nimgrp	pycomplex	pylib/builtins/complex.html#pycomplex-templates-all	template		55
-nimgrp	/	pylib/builtins/complex.html#/-templates-all	template		93
-nimgrp	*	pylib/builtins/complex.html#*-templates-all	template		92
-nimgrp	-	pylib/builtins/complex.html#--templates-all	template		91
-nimgrp	+	pylib/builtins/complex.html#+-templates-all	template		90
+nim	PyComplex	pylib/builtins/complex.html#PyComplex	type PyComplex		17
+nim	toNimComplex	pylib/builtins/complex.html#toNimComplex.t,PyComplex[T]	template toNimComplex[T](z: PyComplex[T]): Complex[T]		19
+nim	imag	pylib/builtins/complex.html#imag.t,PyComplex[T]	template imag[T](z: PyComplex[T]): T		25
+nim	imag=	pylib/builtins/complex.html#imag=.t,PyComplex[T],T	template imag=[T](z: PyComplex[T]; _: T)		31
+nim	real	pylib/builtins/complex.html#real.t,PyComplex[T]	template real[T](z: PyComplex[T]): T		25
+nim	real=	pylib/builtins/complex.html#real=.t,PyComplex[T],T	template real=[T](z: PyComplex[T]; _: T)		32
+nim	`$`	pylib/builtins/complex.html#$,PyComplex	proc `$`(z: PyComplex): string		43
+nim	pycomplex	pylib/builtins/complex.html#pycomplex.t,Complex[T]	template pycomplex[T](z: Complex[T]): PyComplex[T]		60
+nim	complex	pylib/builtins/complex.html#complex,T,T	proc complex[T: SomeFloat](real: T = 0.0; imag: T = 0.0): PyComplex[T]		65
+nim	complex	pylib/builtins/complex.html#complex,T,T_2	proc complex[T: SomeInteger](real: T = 0; imag: T = 0): PyComplex[BiggestFloat]		67
+nim	complex	pylib/builtins/complex.html#complex.t,HasFloat,HasFloat	template complex(real, imag: HasFloat): PyComplex[BiggestFloat]		76
+nim	complex	pylib/builtins/complex.html#complex.t,HasIndex,HasIndex	template complex(real, imag: HasIndex): PyComplex[BiggestFloat]		81
+nim	complex	pylib/builtins/complex.html#complex,string	proc complex(s: string): PyComplex[BiggestFloat]		85
+nim	pycomplex	pylib/builtins/complex.html#pycomplex.t,T,typeof(T(0))	template pycomplex[T](re: T; im = T(0)): PyComplex[T]		166
+nim	abs	pylib/builtins/complex.html#abs,PyComplex[T]	proc abs[T](z: PyComplex[T]): T		171
+nim	conjugate	pylib/builtins/complex.html#conjugate,PyComplex[T]	proc conjugate[T](z: PyComplex[T]): PyComplex[T]		173
+nim	`+`	pylib/builtins/complex.html#+.t,PyComplex,PyComplex	template `+`(a`gensym118, b`gensym118: PyComplex): PyComplex		191
+nim	`-`	pylib/builtins/complex.html#-.t,PyComplex,PyComplex	template `-`(a`gensym119, b`gensym119: PyComplex): PyComplex		192
+nim	`*`	pylib/builtins/complex.html#*.t,PyComplex,PyComplex	template `*`(a`gensym120, b`gensym120: PyComplex): PyComplex		193
+nim	`/`	pylib/builtins/complex.html#/.t,PyComplex,PyComplex	template `/`(a`gensym121, b`gensym121: PyComplex): PyComplex		194
+nim	`+=`	pylib/builtins/complex.html#+=.t,PyComplex,PyComplex	template `+=`(a`gensym122, b`gensym122: PyComplex): untyped		195
+nim	`-=`	pylib/builtins/complex.html#-=.t,PyComplex,PyComplex	template `-=`(a`gensym123, b`gensym123: PyComplex): untyped		196
+nim	`*=`	pylib/builtins/complex.html#*=.t,PyComplex,PyComplex	template `*=`(a`gensym124, b`gensym124: PyComplex): untyped		197
+nim	`/=`	pylib/builtins/complex.html#/=.t,PyComplex,PyComplex	template `/=`(a`gensym125, b`gensym125: PyComplex): untyped		198
+nim	`==`	pylib/builtins/complex.html#==.t,PyComplex,PyComplex	template `==`(a`gensym126, b`gensym126: PyComplex): untyped		199
+nim	`+`	pylib/builtins/complex.html#+.t,T,	template `+`[T: SomeFloat](a`gensym127: T; z`gensym127: PyComplex[T]): PyComplex[T]		202
+nim	`+`	pylib/builtins/complex.html#+.t,,T	template `+`[T: SomeFloat](z`gensym127: PyComplex[T]; a`gensym127: T): PyComplex[T]		204
+nim	`+`	pylib/builtins/complex.html#+.t,I,	template `+`[I: SomeInteger; T](a`gensym127: I; z`gensym127: PyComplex[T]): PyComplex[T]		207
+nim	`+`	pylib/builtins/complex.html#+.t,,I	template `+`[I: SomeInteger; T](z`gensym127: PyComplex[T]; a`gensym127: I): PyComplex[T]		212
+nim	`-`	pylib/builtins/complex.html#-.t,T,	template `-`[T: SomeFloat](a`gensym128: T; z`gensym128: PyComplex[T]): PyComplex[T]		202
+nim	`-`	pylib/builtins/complex.html#-.t,,T	template `-`[T: SomeFloat](z`gensym128: PyComplex[T]; a`gensym128: T): PyComplex[T]		204
+nim	`-`	pylib/builtins/complex.html#-.t,I,	template `-`[I: SomeInteger; T](a`gensym128: I; z`gensym128: PyComplex[T]): PyComplex[T]		207
+nim	`-`	pylib/builtins/complex.html#-.t,,I	template `-`[I: SomeInteger; T](z`gensym128: PyComplex[T]; a`gensym128: I): PyComplex[T]		213
+nim	`*`	pylib/builtins/complex.html#*.t,T,	template `*`[T: SomeFloat](a`gensym129: T; z`gensym129: PyComplex[T]): PyComplex[T]		202
+nim	`*`	pylib/builtins/complex.html#*.t,,T	template `*`[T: SomeFloat](z`gensym129: PyComplex[T]; a`gensym129: T): PyComplex[T]		204
+nim	`*`	pylib/builtins/complex.html#*.t,I,	template `*`[I: SomeInteger; T](a`gensym129: I; z`gensym129: PyComplex[T]): PyComplex[T]		207
+nim	`*`	pylib/builtins/complex.html#*.t,,I	template `*`[I: SomeInteger; T](z`gensym129: PyComplex[T]; a`gensym129: I): PyComplex[T]		214
+nim	`/`	pylib/builtins/complex.html#/.t,T,	template `/`[T: SomeFloat](a`gensym130: T; z`gensym130: PyComplex[T]): PyComplex[T]		202
+nim	`/`	pylib/builtins/complex.html#/.t,,T	template `/`[T: SomeFloat](z`gensym130: PyComplex[T]; a`gensym130: T): PyComplex[T]		204
+nim	`/`	pylib/builtins/complex.html#/.t,I,	template `/`[I: SomeInteger; T](a`gensym130: I; z`gensym130: PyComplex[T]): PyComplex[T]		207
+nim	`/`	pylib/builtins/complex.html#/.t,,I	template `/`[I: SomeInteger; T](z`gensym130: PyComplex[T]; a`gensym130: I): PyComplex[T]		215
+nim	`'j`	pylib/builtins/complex.html#'j,staticstring	proc `'j`(s: static string): PyComplex[BiggestFloat]		217
+nimgrp	complex	pylib/builtins/complex.html#complex-procs-all	proc		65
+nimgrp	pycomplex	pylib/builtins/complex.html#pycomplex-templates-all	template		60
+nimgrp	/	pylib/builtins/complex.html#/-templates-all	template		194
+nimgrp	*	pylib/builtins/complex.html#*-templates-all	template		193
+nimgrp	-	pylib/builtins/complex.html#--templates-all	template		192
+nimgrp	complex	pylib/builtins/complex.html#complex-templates-all	template		76
+nimgrp	+	pylib/builtins/complex.html#+-templates-all	template		191
