@@ -176,7 +176,7 @@ func floatFromhexImpl*(s: string): float =
   while cur.IS_SPACE:
     step
 
-  if result.Py_parse_inf_or_nan s.toOpenArray(curIdx, s_hi):
+  if result.parse_inf_or_nan s.toOpenArray(curIdx, s_hi):
     return
 
   # optional sign
