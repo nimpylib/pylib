@@ -2,7 +2,9 @@
 import std/unicode except strip
 import ../../pystring/consts
 
-func stripAsRange*(s: openArray[char], leading, trailing: static[bool] = true,
+func stripAsRange*(s: openArray[char],
+            leading: static[bool] = true,
+            trailing: static[bool] = true,
             runes: openArray[Rune] = unicodeSpaces): tuple[first, last: int] =
   ## `s[first..last]` will be stripped data.
   var

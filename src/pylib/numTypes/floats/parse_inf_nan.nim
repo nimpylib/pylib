@@ -12,11 +12,6 @@ func parse_inf_or_nan*(ori_s: openArray[char], res: var float): int =
     for i, c in b:
       if a[i+start].toLowerAscii != c:
         return false
-  func `~=`(a, b: openArray[char]): bool =
-    ## b must be in lower case
-    if a.len != b.len:
-      return false
-    a.iStartsWith b
   var negate = false
   let first = ori_s[0]
   result =
