@@ -12,6 +12,7 @@ runnableExamples:
 import std/complex as ncomplex except im, complex
 from ../numTypes/floats/parsefloat import parsePyFloat
 import ../numTypes/utils/stripOpenArray
+import ../version
 
 type PyComplex*[T] = distinct Complex[T]
 
