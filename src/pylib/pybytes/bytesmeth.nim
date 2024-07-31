@@ -116,6 +116,7 @@ template W(isX) =
 W isascii
 W isspace
 W isalpha
+W isdigit
 
 template firstChar(s: PyBytes): char = s.getChar 0
 template bytesAllAlpha(s: PyBytes, isWhat, notWhat): untyped =

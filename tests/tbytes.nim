@@ -17,6 +17,9 @@ suite "bytes":
 
     check b"HbOa".translate(btab, b"a") == b"H2O"
 
+    check b"0123456789".isdigit()
+    check not b"a".isdigit()
+
   test "repr":
     check repr(b"\xfe\xff") == "b'\\xfe\\xff'"
     #check repr(b"\xfe\"\xff") == "b'\\xfe\"\\xff'"
