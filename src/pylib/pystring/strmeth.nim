@@ -9,6 +9,8 @@ import ./strip, ./split/[split, rsplit]
 export strip, split, rsplit
 import ../stringlib/meth
 import ../version
+
+import ./consts
 include ./unicase/[
   toUpperMapper, casefoldMapper
 ]
@@ -221,12 +223,18 @@ func rindex*(a, b: PyStr, start = 0, `end` = len(a)): int =
 
 const AsciiOrdRange = 0..0x7F
 func isascii*(a: Rune): bool = ord(a) in AsciiOrdRange
-func isascii*(a: PyStr): bool =
-  result = true
-  if a.byteLen == 0: return
-  for r in a.runes:
-    if not r.isascii():
+
+template runeCheck(s: PyStr, runePredict; zeroLenTrue: static[bool]) =
+  ## Common code for isascii and isspace.
+  result = when zeroLenTrue: true
+  else:
+    if s.byteLen == 0: false else: true
+  for r in s.runes:
+    if not runePredict r:
       return false
+
+func isascii*(a: PyStr): bool =
+  a.runeCheck isascii, zeroLenTrue=true
 
 func isalpha*(a: PyStr): bool = unicode.isAlpha($a)
 
@@ -238,7 +246,8 @@ func isupper*(a: PyStr): bool = a.strAllAlpha isUpper, isLower
 func istitle*(a: PyStr): bool =
   a.istitleImpl isUpper, isLower, runes, firstChar
 
-func isspace*(a: PyStr): bool = unicode.isSpace($a)
+func isPySpace(r: Rune): bool = r in unicodeSpaces
+func isspace*(a: PyStr): bool = a.runeCheck isPySpace, zeroLenTrue=false
 
 func center*(a: PyStr, width: int, fillchar = ' '): PyStr =
   ## Mimics Python str.center(width: int, fillchar: str=" ") -> str

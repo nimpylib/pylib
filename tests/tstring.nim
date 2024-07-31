@@ -56,8 +56,12 @@ test "str methods":
   check " ".join([1, 2, 3, 4, 5, 6, 7, 8, 9]) == "1 2 3 4 5 6 7 8 9"
   check " ".join(['a', 'b', 'c', 'd', 'e']) == "a b c d e"
 
-  check " ".isspace
-  check "                   ".isspace
+  check "".isascii()
+  check not "".isspace()
+  check "\x1c\x1d\x1e\x1f".isspace()
+  check " ".isspace()
+  check "                   ".isspace()
+  check " \u2000 ".isspace()
 
   check "hello world".index("w") == 6
 
