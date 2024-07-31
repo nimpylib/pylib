@@ -3,14 +3,15 @@
 ## Use `toNimComplex` and `pycomplex` to convert between PyComplex and Complex
 
 runnableExamples:
-  assert complex(1, 3) == 1.0+3.0'J
+  assert complex(1, 3) == complex("1.0+3.0J")
 
   # complex only stores floats, not int,
   # just as Python's
   assert not (type(complex(1, 2).real) is int)
 
 import std/complex as ncomplex except im, complex
-from std/strutils import parseFloat
+from ../numTypes/floats/parsefloat import parsePyFloat
+import ../numTypes/utils/stripOpenArray
 
 type PyComplex*[T] = distinct Complex[T]
 
@@ -60,10 +61,91 @@ template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
   bind PyComplex
   PyComplex[T] z
 
-func complex*[T: SomeFloat](re: T = 0.0, im: T = 0.0): PyComplex[T] =
-  pycomplex ncomplex.complex(re, im)
-func complex*[T: SomeInteger](re: T = 0, im: T = 0): PyComplex[BiggestFloat] =
-  pycomplex ncomplex.complex(re.BiggestFloat, im.BiggestFloat)
+func complex*[T: SomeFloat](real: T = 0.0, imag: T = 0.0): PyComplex[T] =
+  pycomplex ncomplex.complex(real, imag)
+func complex*[T: SomeInteger](real: T = 0, imag: T = 0): PyComplex[BiggestFloat] =
+  pycomplex ncomplex.complex(real.BiggestFloat, imag.BiggestFloat)
+
+func complex*(s: string): PyComplex[BiggestFloat] =
+  const errMsgPre = "complex() arg is a malformed string, reason: "
+  template malformedArg(msg: string) =
+    raise newException(ValueError, errMsgPre & msg)
+  if s.len == 0: malformedArg("got empty string")
+  # cleanup leading and trailing whitespaces and parentheses.
+  var (m, n) = s.stripAsRange
+  let begParen = s[m] == '('
+  let endParan = s[n] == ')'
+  if begParen:
+    m.inc
+  if endParan:
+    n.dec
+  if begParen and not endParan: malformedArg("missing closing parentheses")
+  if endParan and not begParen:
+    malformedArg("missing beginning parentheses")
+  let offset = s.toOpenArray(m, n).stripAsRange
+  var cur = m + offset[0]
+  n = m + offset[1]
+  template leftS: untyped = (s).toOpenArray(cur, n)
+  template curChar: char =
+    if cur > n:
+      malformedArg("expecting more chars at end")
+    s[cur]
+
+  # now whitespaces and parentheses are cleanup.
+  var
+    re, im: float
+    nParsed: int
+  template isJ(c: char): bool =
+    c == 'j' or c == 'J'
+  template isOp(c: char): bool =
+    c == '+' or c == '-'
+  template checkSuffix =
+    if cur > n:
+      malformedArg("expect 'j' or 'J', but got nothing at index: " & $cur)
+    let suffix = s[cur]
+    if not suffix.isJ:
+      malformedArg("expect 'j' or 'J', but got " & suffix.repr & " at index " & $cur)
+    cur.inc
+  nParsed = leftS.parsePyFloat re
+
+  if nParsed != 0:
+    # all 4 forms starting with <float> land here
+    cur.inc nParsed
+    if cur > n:
+      # <float>
+      return complex(re, im)
+    let infix = curChar
+    if infix.isOp:
+      # <float><signed-float>j | <float><sign>j
+      nParsed = leftS.parsePyFloat im
+      if nParsed != 0:
+        # <float><signed-float>j
+        cur.inc nParsed
+      else:
+        # <float><sign>j
+        im = if infix == '+': 1.0 else: -1.0
+        cur.inc
+      checkSuffix
+    elif curChar.isJ:
+      # <float>j
+      cur.inc
+      swap im, re
+    else:
+      discard  # <float> is handled above
+  else:
+    # not starting with <float>; must be <sign>j or j
+    let prefix = curChar
+    if prefix.isOp:
+      # <sign>j
+      im = if prefix == '+': 1.0 else: -1.0
+      cur.inc
+    else:
+      # j
+      im = 1.0
+    checkSuffix
+  if cur != n+1:
+    malformedArg("superfluous chars in range " & $(cur..(n+1)))
+  result = complex(re, im)
 
 template pycomplex*[T](re: T; im = T(0)): PyComplex[T] =
   ## alias of `complex`.
@@ -125,4 +207,4 @@ template `'j`*(lit: string): PyComplex =
   runnableExamples:
     assert 1+3'j == 1.0+3.0'J
 
-  complex(0.0, lit.parseFloat)
+  complex(0.0, lit.parsePyFloat)
