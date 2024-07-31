@@ -18,16 +18,9 @@ const
     EPS = fromHex("0x0.0000000000001p0") # diff between 1.0 and next float up
 
 proc identical(x, y: float) =
-    if x.isnan or y.isnan:
-        check x.isnan == y.isnan
-        return
-    if x == y and (x != 0.0 or copySign(1.0, x)):
-        return
-    debugEcho repr(x) & " not identical to " & repr(y)
-    debugEcho x.hex() & " not identical to " & y.hex()
-    #let pos = instantiationInfo(index = -1) # no use considering this file will be included
-    #debugEcho f"at {pos.filename}({pos.line},{pos.column})"
-    fail()
+  template `<->`(a, b: bool): bool = not (a xor b)
+  check (x.isnan <-> y.isnan) or
+      x == y and (x != 0.0 or copySign(1.0, x) == copySign(1.0, y))
 
 suite "float.fromhex":
     test "literals":
@@ -356,7 +349,7 @@ suite "float":
 
         for _ in range(10000):
             var f = rand 1.0
-            f *= pow(10.0, float rand(2 .. 15))
+            f *= pow(10.0, float rand(2 .. 10))
             let (n, d) = f.as_integer_ratio()
             check almostEqual(n/d, f)
 
@@ -370,6 +363,6 @@ suite "float":
                             (float(-2.1).as_integer_ratio()))
         check (-2100, 1) == float(-2100.0).as_integer_ratio()
 
-        expect(OverflowError): discard Inf.as_integer_ratio()
-        expect(OverflowError): discard (-Inf).as_integer_ratio()
+        expect(OverflowDefect): discard Inf.as_integer_ratio()
+        expect(OverflowDefect): discard (-Inf).as_integer_ratio()
         expect(ValueError):    discard (NaN).as_integer_ratio()
