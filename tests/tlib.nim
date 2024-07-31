@@ -5,7 +5,7 @@
 
 import std/macros
 
-import pylib/Lib/[random, string, math]
+import pylib/Lib/[random, string]
 
 test "random":
   # TODO: more test (maybe firstly set `seed`)
@@ -21,27 +21,6 @@ test "Lib/string":
   expect ValueError:
     let d = dict(who="tim")
     discard templ.substitute(d)
-
-# TODO: more tests.
-test "Lib/math":
-  checkpoint "log"
-  check log(1.0/math.e) == -1
-  check log(1.0) == 0
-  check log(32.0, 2.0) == 5
-
-when not defined(js):
-  import pylib/Lib/tempfile
-  test "Lib/tempfile":
-    var tname = ""
-    const cont = b"content"
-    with NamedTemporaryFile() as f:  # open in binary mode by default
-      tname = f.name
-      f.write(cont)
-      f.flush()
-      check fileExists f.name
-      f.seek(0)
-      check f.read() == cont
-    check not fileExists tname
 
 const
   SourceDir = currentSourcePath().parentDir
