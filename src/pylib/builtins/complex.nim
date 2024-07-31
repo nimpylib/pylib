@@ -66,6 +66,21 @@ func complex*[T: SomeFloat](real: T = 0.0, imag: T = 0.0): PyComplex[T] =
 func complex*[T: SomeInteger](real: T = 0, imag: T = 0): PyComplex[BiggestFloat] =
   pycomplex ncomplex.complex(real.BiggestFloat, imag.BiggestFloat)
 
+type
+  HasIndex = concept self
+    self.index() is SomeInteger
+  HasFloat = concept self
+    float(self) is BiggestFloat
+
+template complex*(real, imag: HasFloat): PyComplex[BiggestFloat] =
+  bind complex
+  complex(float(real), float(imag))
+
+template complex*(real, imag: HasIndex): PyComplex[BiggestFloat]{.
+    pysince(3,8).} =
+  bind complex
+  complex(obj.index().BiggestFloat, obj.index().BiggestFloat)
+
 func complex*(s: string): PyComplex[BiggestFloat] =
   const errMsgPre = "complex() arg is a malformed string, reason: "
   template malformedArg(msg: string) =
