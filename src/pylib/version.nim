@@ -26,12 +26,17 @@ const
 
 when defined(nimdoc):
   import std/macros
+  func preappendDoc(body: NimNode, doc: string) =
+    let first = body[0]
+    if first.kind == nnkCommentStmt:
+        body[0] = newCommentStmtNode(doc & first.strVal)
+    else:
+        body.insert(0, newCommentStmtNode doc)
   func addDocImpl(doc: string; def: NimNode): NimNode =
     result = def
-    let docN = newCommentStmtNode doc
     case def.kind
     of RoutineNodes:
-      result.body.insert(0, docN)
+      preappendDoc result.body, doc
     else:
       error "not impl for node kind: " & $def.kind, def
       ## XXX: I even don't know how to add
