@@ -1,4 +1,5 @@
 
+import ../../../version
 
 const
   SEEK_SET* = 0
@@ -37,3 +38,31 @@ else:
   template toCSEEK*(whence: int): cint =
     whence.cint
 
+
+when not defined(windows):
+  {.emit: """
+/*INCLUDE_SECTION*/
+#define _GNU_SOURCE
+""".}
+  {.push header: "<unistd.h>".}
+  let
+    sdata{.importc: "SEEK_DATA".}: cint
+    shole{.importc: "SEEK_HOLE".}: cint
+  {.pop.}
+  when defined(nimdoc):
+    # Currently no way add document comment node to let via macro
+    template SEEK_DATA*: int{.pysince(3,3).} =
+      ## .. note:: this is in fact a runtime constant,
+      ##   defined as template only during document generation process.
+      ##   **Cannot** use as `SEEK_DATA()` (with parentheses).
+      ##
+      ## .. hint:: only usable if `<unistd.h>` in your system defines it,
+      ##
+      ## .. hint::  only supported on some filesystems,
+      ##   refer to your system's manpage of `lseek`
+    template SEEK_HOLE*: int{.pysince(3,3).} =
+      ## see `SEEK_DATA`_ for hints.
+  else:
+    let
+      SEEK_DATA* = int sdata
+      SEEK_HOLE* = int shole
