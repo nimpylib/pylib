@@ -3,6 +3,8 @@ import std/os
 import std/macros
 import ./common
 
+## SEEK_* is in ./posix_like/seek_c
+
 macro expLower(sym) =
   var s = sym.strVal
   s[0] = char(s[0].int - 32)
@@ -20,19 +22,36 @@ let
   linesep* = str("\p")
   sep* = str DirSep
 
-when defined(windows):
-  const
-    name* = str "nt"
-    devnull* = str "nul"
-    defpath* = str ".;C:\\bin"
-    
-else:
-  const
-    name* = str "posix"
-    devnull* = str "/dev/null"
-    defpath* = str "/bin:/usr/bin"
-
 const DW = defined(windows)
+
+when defined(nimdoc):
+  const
+    OsDifferContent = "<os-dependent-content>"
+    devnull*: PyStr = OsDifferContent
+    defpath*: PyStr = OsDifferContent
+    name*: PyStr = OsDifferContent ##[
+
+"nt" when windows, "posix" when posix;
+
+.. note:: when in neither Windows nor POSIX,
+  os.name will be defined as `str(hostOS)` iff
+  `pylibOsName` is defined when compiling
+]##
+
+else:
+  when DW:
+    const
+      name* = str "nt"
+      devnull* = str "nul"
+      defpath* = str ".;C:\\bin"
+  else:
+    when defined(posix):
+      const name* = str "posix"
+    elif defined(pylibOsName):
+      const name* = str hostOs
+    const
+      devnull* = str "/dev/null"
+      defpath* = str "/bin:/usr/bin"
 
 macro pwULexp(i; header: string = "<fcntl.h>") =
   ## POSIX/Windows `importc` and export
