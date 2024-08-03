@@ -1,5 +1,5 @@
 
-import std/math as std_math
+import std/math as std_math except divmod
 import std/random as std_random
 
 from pylib/Lib/math import ldexp
