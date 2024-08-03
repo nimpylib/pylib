@@ -1,34 +1,29 @@
 
 # XXX: this shall work `when defined(freertos) or defined(zephyr)`
 #  but is is meaningful?
-import ./private/platform_utils
+import ./private/[platform_utils, iph_utils]
 import ../../pyerrors/oserr
 
 const
   MS_WINDOWS = defined(windows)
-  SupportIoctlInheritCtl = (defined(linux) or defined(bsd)) and
-                              not defined(nimscript)
-  # XXX: hard to express as following in Nim
-  # defined(HAVE_SYS_IOCTL_H) && defined(FIOCLEX) && defined(FIONCLEX)
 
 when MS_WINDOWS:
   import std/winlean
+  from std/os import raiseOSError
+  proc Py_get_osfhandle_noraise(fd: int): Handle =
+    with_Py_SUPPRESS_IPH:
+      result = get_osfhandle FileHandle fd
 else:
   import std/posix
+  const SupportIoctlInheritCtl = (defined(linux) or defined(bsd)) and
+                              not defined(nimscript)
+  # XXX: hard to express as following in Nim
+  # defined(HAVE_SYS_IOCTL_H) && defined(FIOCLEX) && defined(FIONCLEX)
   when SupportIoctlInheritCtl:
     {.push header: "<sys/ioctl.h>".}
     let FIOCLEX{.importc.}: uint
     let FIONCLEX{.importc.}: uint
     {.pop.}
-
-when MS_WINDOWS:
-  template with_Py_SUPPRESS_IPH(body) = body # TODO
-
-  proc Py_get_osfhandle_noraise(fd: int): Handle =
-    with_Py_SUPPRESS_IPH:
-      result = get_osfhandle FileHandle fd
-else:
-  template with_Py_SUPPRESS_IPH(body) = body
 
 # === get_inheritable ===
 
@@ -38,37 +33,37 @@ template ifRaiseThenErrnoOrN1 =
   return -1
 
 when MS_WINDOWS:
-  template ifRaiseThenWinErr0OrN1 =
+  template ifRaiseThenWinErr0OrN1(ifRaise: bool) =
     if ifRaise:
       # in Windows, raiseOSError raises Windows Error
       raiseOSError OSErrorCode 0
     return -1
 
-  proc get_handle_inheritableImpl(handle: Handle): int =
+  proc get_handle_inheritableImpl(handle: Handle, ifRaise: bool): int =
     var flags: DWORD
     if not bool getHandleInformation(handle, flags.addr):
-      ifRaiseThenWinErr0OrN1
+      ifRaiseThenWinErr0OrN1 ifRaise
     return flags.int and HANDLE_FLAG_INHERIT.int
 
-  proc set_handle_inheritableImpl(handle: Handle, inheritable: bool): int =
+  proc set_handle_inheritableImpl(handle: Handle, inheritable, ifRaise: bool): int =
     let flags = DWORD:
       if inheritable: HANDLE_FLAG_INHERIT else: 0
     if not bool setHandleInformation(handle, HANDLE_FLAG_INHERIT, flags):
-      ifRaiseThenWinErr0OrN1
+      ifRaiseThenWinErr0OrN1 ifRaise
     return 0
 
 proc get_handle_inheritable*(handle: int): bool{.platformAvail(windows).} =
-  bool get_handle_inheritableImpl(Handle handle)
+  bool get_handle_inheritableImpl(Handle handle, true)
 
 proc set_handle_inheritable*(handle: int, inheritable: bool){.platformAvail(windows).} =
-  discard set_handle_inheritableImpl(Handle handle, inheritable)
+  discard set_handle_inheritableImpl(Handle handle, inheritable, true)
 
 proc get_inheritable(fd: int, ifRaise: bool): int =
   when MS_WINDOWS:
     let handle = Py_get_osfhandle_noraise fd
     if handle == INVALID_HANDLE_VALUE:
       ifRaiseThenErrnoOrN1
-    return get_handle_inheritableImpl(handle)    
+    return get_handle_inheritableImpl(handle, ifRaise)
   else:
     let flags = fcntl(fd.cint, F_GETFD)
     if flags == -1:
@@ -83,28 +78,27 @@ proc get_inheritable*(fd: int): bool =
 
 # === set_inheritable ===
 
-# works fine on Windows
-{.emit:"""/*VARSECTION*/
-static const int _defined_O_PATH =
-#if defined(O_PATH)
-  1
-#else
-  0
-#endif
-; // defined shall only occur after #if/#elif
-""".}
+when not MS_WINDOWS:
+  {.emit:"""/*VARSECTION*/
+  static const int _defined_O_PATH =
+  #if defined(O_PATH)
+    1
+  #else
+    0
+  #endif
+  ; // defined shall only occur after #if/#elif
+  """.}
 
-let
-  c_defined_O_PATH{.importc: "_defined_O_PATH", nodecl.}: cint
-  defined_O_PATH = bool c_defined_O_PATH
+  let
+    c_defined_O_PATH{.importc: "_defined_O_PATH", nodecl.}: cint
+    defined_O_PATH = bool c_defined_O_PATH
 
+  #import std/sysatomics # already export by system
 
-#import std/sysatomics # already export by system
-
-proc Py_atomic_load_relaxed[T](obj: ptr T): T =
-  atomicLoadN obj, ATOMIC_RELAXED
-proc Py_atomic_store_relaxed[T](obj: ptr T, value: T) =
-  atomicStoreN obj, value, ATOMIC_RELAXED
+  proc Py_atomic_load_relaxed[T](obj: ptr T): T =
+    atomicLoadN obj, ATOMIC_RELAXED
+  proc Py_atomic_store_relaxed[T](obj: ptr T, value: T) =
+    atomicStoreN obj, value, ATOMIC_RELAXED
 
 proc set_inheritable(fd: int, inheritable: bool, ifRaise: bool, atomic_flag_works: ptr int): int =
   ##[ there are setInheritable in std/syncio,
@@ -131,7 +125,7 @@ proc set_inheritable(fd: int, inheritable: bool, ifRaise: bool, atomic_flag_work
     let handle = Py_get_osfhandle_noraise FileHandle fd
     if handle == INVALID_HANDLE_VALUE:
       ifRaiseThenErrnoOrN1
-    return set_handle_inheritableImpl(handle, inheritable)
+    return set_handle_inheritableImpl(handle, inheritable, ifRaise)
   else:
     let fd = cint fd
     when SupportIoctlInheritCtl:
