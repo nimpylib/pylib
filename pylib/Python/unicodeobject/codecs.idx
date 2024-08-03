@@ -1,0 +1,7 @@
+nimTitle	codecs	pylib/Python/unicodeobject/codecs.html	module src/pylib/Python/unicodeobject/codecs		0
+nim	ASCII_CHAR_MASK	pylib/Python/unicodeobject/codecs.html#ASCII_CHAR_MASK	const ASCII_CHAR_MASK		15
+nim	IS_CONTINUATION_BYTE	pylib/Python/unicodeobject/codecs.html#IS_CONTINUATION_BYTE.t,untyped	template IS_CONTINUATION_BYTE(ch: untyped): untyped		23
+nim	ALIGNOF_SIZE_T	pylib/Python/unicodeobject/codecs.html#ALIGNOF_SIZE_T	const ALIGNOF_SIZE_T		29
+nim	Py_IS_ALIGNED	pylib/Python/unicodeobject/codecs.html#Py_IS_ALIGNED.t,,	template Py_IS_ALIGNED(p: cstring | ptr; a: typeof(ALIGNOF_SIZE_T)): bool		31
+nim	getMaxChar	pylib/Python/unicodeobject/codecs.html#getMaxChar	proc getMaxChar[C](): C		34
+nim	utf8_decode	pylib/Python/unicodeobject/codecs.html#utf8_decode,,,ptr.STRINGLIB_CHAR,Py_ssize_t	proc utf8_decode[STRINGLIB_CHAR](inptr: var (cstring | ptr char);\n                            end: (cstring | ptr char); dest: ptr STRINGLIB_CHAR;\n                            outpos: var Py_ssize_t): Py_UCS4		43

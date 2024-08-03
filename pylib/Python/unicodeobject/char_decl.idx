@@ -1,0 +1,4 @@
+nimTitle	char_decl	pylib/Python/unicodeobject/char_decl.html	module src/pylib/Python/unicodeobject/char_decl		0
+nim	Py_UCS1	pylib/Python/unicodeobject/char_decl.html#Py_UCS1	type Py_UCS1		3
+nim	Py_UCS2	pylib/Python/unicodeobject/char_decl.html#Py_UCS2	type Py_UCS2		4
+nim	Py_UCS4	pylib/Python/unicodeobject/char_decl.html#Py_UCS4	type Py_UCS4		5

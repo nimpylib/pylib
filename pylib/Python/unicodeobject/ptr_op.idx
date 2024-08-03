@@ -1,0 +1,7 @@
+nimTitle	ptr_op	pylib/Python/unicodeobject/ptr_op.html	module src/pylib/Python/unicodeobject/ptr_op		0
+nim	`+`	pylib/Python/unicodeobject/ptr_op.html#+.t,ptr.T,I	template `+`[I: IndexType; T](s: ptr T; i: I): ptr T		5
+nim	inc	pylib/Python/unicodeobject/ptr_op.html#inc.t,ptr.T,int	template inc[T](s: ptr T; i = 1)		8
+nim	`-`	pylib/Python/unicodeobject/ptr_op.html#-.t,ptr.T,ptr.T	template `-`[T](a, b: ptr T): ptrdiff_t		10
+nim	`<%`	pylib/Python/unicodeobject/ptr_op.html#<%.t,ptr.T,ptr.T	template `<%`[T](a, b: ptr T): bool		13
+nim	`<=%`	pylib/Python/unicodeobject/ptr_op.html#<=%.t,ptr.T,ptr.T	template `<=%`[T](a, b: ptr T): bool		16
+nim	`[]`	pylib/Python/unicodeobject/ptr_op.html#[].t,ptr.T,I	template `[]`[I: IndexType; T](p: ptr T; i: I): T		19

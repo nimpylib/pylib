@@ -1,0 +1,2 @@
+nimTitle	errnoHandle	os_impl/posix_like/errnoHandle.html	module src/pylib/Lib/os_impl/posix_like/errnoHandle		0
+nim	errno	os_impl/posix_like/errnoHandle.html#errno	var errno		5

@@ -1,21 +1,21 @@
 nimTitle	consts	os_impl/consts.html	module src/pylib/Lib/os_impl/consts		0
-nim	curdir	os_impl/consts.html#curdir	let curdir		11
-nim	pardir	os_impl/consts.html#pardir	let pardir		11
-nim	extsep	os_impl/consts.html#extsep	let extsep		11
-nim	pathsep	os_impl/consts.html#pathsep	let pathsep		11
-nim	altsep	os_impl/consts.html#altsep	let altsep		11
-nim	linesep	os_impl/consts.html#linesep	let linesep		20
-nim	sep	os_impl/consts.html#sep	let sep		21
-nim	name	os_impl/consts.html#name	const name		31
-nim	devnull	os_impl/consts.html#devnull	const devnull		32
-nim	defpath	os_impl/consts.html#defpath	const defpath		33
-nim	O_RDONLY	os_impl/consts.html#O_RDONLY	let O_RDONLY		45
-nim	O_WRONLY	os_impl/consts.html#O_WRONLY	let O_WRONLY		45
-nim	O_RDWR	os_impl/consts.html#O_RDWR	let O_RDWR		45
-nim	O_APPEND	os_impl/consts.html#O_APPEND	let O_APPEND		45
-nim	O_CREAT	os_impl/consts.html#O_CREAT	let O_CREAT		45
-nim	O_EXCL	os_impl/consts.html#O_EXCL	let O_EXCL		45
-nim	O_TRUNC	os_impl/consts.html#O_TRUNC	let O_TRUNC		45
-nim	O_CLOEXEC	os_impl/consts.html#O_CLOEXEC	let O_CLOEXEC		45
-nim	`|`	os_impl/consts.html#|.t,cint,cint	template `|`(a, b: cint): cint		73
-nim	`|=`	os_impl/consts.html#|=.t,cint,cint	template `|=`(a, b: cint)		74
+nim	curdir	os_impl/consts.html#curdir	let curdir		13
+nim	pardir	os_impl/consts.html#pardir	let pardir		13
+nim	extsep	os_impl/consts.html#extsep	let extsep		13
+nim	pathsep	os_impl/consts.html#pathsep	let pathsep		13
+nim	altsep	os_impl/consts.html#altsep	let altsep		13
+nim	linesep	os_impl/consts.html#linesep	let linesep		22
+nim	sep	os_impl/consts.html#sep	let sep		23
+nim	devnull	os_impl/consts.html#devnull	const devnull		30
+nim	defpath	os_impl/consts.html#defpath	const defpath		31
+nim	name	os_impl/consts.html#name	const name		32
+nim	O_RDONLY	os_impl/consts.html#O_RDONLY	let O_RDONLY		64
+nim	O_WRONLY	os_impl/consts.html#O_WRONLY	let O_WRONLY		64
+nim	O_RDWR	os_impl/consts.html#O_RDWR	let O_RDWR		64
+nim	O_APPEND	os_impl/consts.html#O_APPEND	let O_APPEND		64
+nim	O_CREAT	os_impl/consts.html#O_CREAT	let O_CREAT		64
+nim	O_EXCL	os_impl/consts.html#O_EXCL	let O_EXCL		64
+nim	O_TRUNC	os_impl/consts.html#O_TRUNC	let O_TRUNC		64
+nim	O_CLOEXEC	os_impl/consts.html#O_CLOEXEC	let O_CLOEXEC		64
+nim	`|`	os_impl/consts.html#|.t,cint,cint	template `|`(a, b: cint): cint		92
+nim	`|=`	os_impl/consts.html#|=.t,cint,cint	template `|=`(a, b: cint)		93

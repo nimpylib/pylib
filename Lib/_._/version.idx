@@ -1,0 +1,19 @@
+nimTitle	version	_._/version.html	module src/pylib/version		0
+nim	asVersion	_._/version.html#asVersion.t,int,int	template asVersion(major, minor: int): string		3
+nim	asVersion	_._/version.html#asVersion.t,int,int,int	template asVersion(major, minor, patch: int): string		6
+nim	asVersion	_._/version.html#asVersion	proc asVersion(v: (int, int)): string		9
+nim	asVersion	_._/version.html#asVersion_2	proc asVersion(v: (int, int, int)): string		10
+nim	Major	_._/version.html#Major	const Major		13
+nim	Minor	_._/version.html#Minor	const Minor		14
+nim	Patch	_._/version.html#Patch	const Patch		15
+nim	Version	_._/version.html#Version	const Version		16
+nim	ReleaseLevel	_._/version.html#ReleaseLevel	const ReleaseLevel		18
+nim	Serial	_._/version.html#Serial	const Serial		19
+nim	PyMajor	_._/version.html#PyMajor	const PyMajor		21
+nim	PyMinor	_._/version.html#PyMinor	const PyMinor		22
+nim	PyPatch	_._/version.html#PyPatch	const PyPatch		23
+nim	PyReleaseLevel	_._/version.html#PyReleaseLevel	const PyReleaseLevel		24
+nim	PySerial	_._/version.html#PySerial	const PySerial		25
+nim	pysince	_._/version.html#pysince.m,staticint,staticint,	macro pysince(major, minor: static int; def)		46
+nimgrp	asversion	_._/version.html#asVersion-procs-all	proc		9
+nimgrp	asversion	_._/version.html#asVersion-templates-all	template		3

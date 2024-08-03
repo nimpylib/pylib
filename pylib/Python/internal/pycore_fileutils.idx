@@ -1,0 +1,12 @@
+nimTitle	pycore_fileutils	pylib/Python/internal/pycore_fileutils.html	module src/pylib/Python/internal/pycore_fileutils		0
+nim	Py_ERROR_UNKNOWN	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_UNKNOWN	Py_error_handler.Py_ERROR_UNKNOWN		5
+nim	Py_ERROR_STRICT	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_STRICT	Py_error_handler.Py_ERROR_STRICT		5
+nim	Py_ERROR_SURROGATEESCAPE	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_SURROGATEESCAPE	Py_error_handler.Py_ERROR_SURROGATEESCAPE		5
+nim	Py_ERROR_REPLACE	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_REPLACE	Py_error_handler.Py_ERROR_REPLACE		5
+nim	Py_ERROR_IGNORE	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_IGNORE	Py_error_handler.Py_ERROR_IGNORE		5
+nim	Py_ERROR_BACKSLASHREPLACE	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_BACKSLASHREPLACE	Py_error_handler.Py_ERROR_BACKSLASHREPLACE		5
+nim	Py_ERROR_SURROGATEPASS	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_SURROGATEPASS	Py_error_handler.Py_ERROR_SURROGATEPASS		5
+nim	Py_ERROR_XMLCHARREFREPLACE	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_XMLCHARREFREPLACE	Py_error_handler.Py_ERROR_XMLCHARREFREPLACE		5
+nim	Py_ERROR_OTHER	pylib/Python/internal/pycore_fileutils.html#Py_ERROR_OTHER	Py_error_handler.Py_ERROR_OTHER		5
+nim	Py_error_handler	pylib/Python/internal/pycore_fileutils.html#Py_error_handler	enum Py_error_handler		5
+nim	Py_GetErrorHandler	pylib/Python/internal/pycore_fileutils.html#Py_GetErrorHandler,string	proc Py_GetErrorHandler(errors: string): Py_error_handler		16

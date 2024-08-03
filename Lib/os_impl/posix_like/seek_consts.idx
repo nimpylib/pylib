@@ -1,0 +1,7 @@
+nimTitle	seek_consts	os_impl/posix_like/seek_consts.html	module src/pylib/Lib/os_impl/posix_like/seek_consts		0
+nim	SEEK_SET	os_impl/posix_like/seek_consts.html#SEEK_SET	const SEEK_SET		6
+nim	SEEK_CUR	os_impl/posix_like/seek_consts.html#SEEK_CUR	const SEEK_CUR		7
+nim	SEEK_END	os_impl/posix_like/seek_consts.html#SEEK_END	const SEEK_END		8
+nim	toCSEEK	os_impl/posix_like/seek_consts.html#toCSEEK.t,int	template toCSEEK(whence: int): cint		39
+nim	SEEK_DATA	os_impl/posix_like/seek_consts.html#SEEK_DATA.t	template SEEK_DATA(): int		45
+nim	SEEK_HOLE	os_impl/posix_like/seek_consts.html#SEEK_HOLE.t	template SEEK_HOLE(): int		56

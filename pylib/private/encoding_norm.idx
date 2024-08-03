@@ -1,0 +1,3 @@
+nimTitle	encoding_norm	pylib/private/encoding_norm.html	module src/pylib/private/encoding_norm		0
+nim	Py_normalize_encoding	pylib/private/encoding_norm.html#Py_normalize_encoding,string	proc Py_normalize_encoding(encoding: string): string		22
+nim	encodings.normalize_encoding	pylib/private/encoding_norm.html#encodings.normalize_encoding,string	proc encodings.normalize_encoding(encoding: string): string		28

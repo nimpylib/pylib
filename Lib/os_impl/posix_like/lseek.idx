@@ -1,0 +1,2 @@
+nimTitle	lseek	os_impl/posix_like/lseek.html	module src/pylib/Lib/os_impl/posix_like/lseek		0
+nim	lseek	os_impl/posix_like/lseek.html#lseek,int,int64,int	proc lseek(fd: int; position: int64; whence: int): int64		12

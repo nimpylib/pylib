@@ -14,6 +14,6 @@ nim	PyMinor	pylib/version.html#PyMinor	const PyMinor		22
 nim	PyPatch	pylib/version.html#PyPatch	const PyPatch		23
 nim	PyReleaseLevel	pylib/version.html#PyReleaseLevel	const PyReleaseLevel		24
 nim	PySerial	pylib/version.html#PySerial	const PySerial		25
-nim	pysince	pylib/version.html#pysince.m,staticint,staticint,	macro pysince(major, minor: static int; def)		41
+nim	pysince	pylib/version.html#pysince.m,staticint,staticint,	macro pysince(major, minor: static int; def)		46
 nimgrp	asversion	pylib/version.html#asVersion-procs-all	proc		9
 nimgrp	asversion	pylib/version.html#asVersion-templates-all	template		3

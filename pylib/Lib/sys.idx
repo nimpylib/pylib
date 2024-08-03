@@ -1,0 +1,30 @@
+nimTitle	sys	pylib/Lib/sys.html	module src/pylib/Lib/sys		0
+nim	platform	pylib/Lib/sys.html#platform	const platform		42
+nim	stdin	pylib/Lib/sys.html#stdin	var stdin		68
+nim	stdout	pylib/Lib/sys.html#stdout	var stdout		68
+nim	stderr	pylib/Lib/sys.html#stderr	var stderr		68
+nim	dunder_stdin	pylib/Lib/sys.html#dunder_stdin	let dunder_stdin		80
+nim	dunder_stdout	pylib/Lib/sys.html#dunder_stdout	let dunder_stdout		81
+nim	dunder_stderr	pylib/Lib/sys.html#dunder_stderr	let dunder_stderr		82
+nim	exit	pylib/Lib/sys.html#exit,PyStr	proc exit(s: PyStr)		84
+nim	exit	pylib/Lib/sys.html#exit,int	proc exit(c: int)		85
+nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		86
+nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		87
+nim	float_info	pylib/Lib/sys.html#float_info	const float_info		94
+nim	rounds	pylib/Lib/sys.html#rounds.t	template rounds(fi: typeof(float_info)): int		110
+nim	implementation	pylib/Lib/sys.html#implementation	const implementation		142
+nim	version_info	pylib/Lib/sys.html#version_info	const version_info		152
+nim	version	pylib/Lib/sys.html#version	const version		159
+nim	hexversion	pylib/Lib/sys.html#hexversion	const hexversion		160
+nim	maxsize	pylib/Lib/sys.html#maxsize	const maxsize		162
+nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		163
+nim	copyright	pylib/Lib/sys.html#copyright	const copyright		164
+nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		171
+nim	argv	pylib/Lib/sys.html#argv	var argv		172
+nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		189
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		197
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		201
+nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		211
+nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		292
+nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		84
+nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		197
