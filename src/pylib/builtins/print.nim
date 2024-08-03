@@ -1,20 +1,61 @@
-import std/[strutils, macros]
+import std/macros
+import  ../Lib/sys
+import ../noneType
+
+import std/locks
+
+var lockPrint: Lock
+when nimvm: discard
+else:
+  lockPrint.initLock()
+
+from std/strutils import join
 
 when defined(js):
-  import jsconsole
+  import std/[jsconsole]
   
-  proc printImpl(objects: openArray[string], sep=" ", endl="\n", flush=false) =
-    console.log(objects.join(sep).cstring, endl)
-else:
-  proc printImpl(objects: openArray[string], sep=" ", endl="\n",
-                  file=stdout, flush=false) =
-    # Write all objects joined by sep
-    file.write(objects.join(sep))
-    # Write end of line
-    file.write(endl)
-    # If flush is needed, flush the file
-    if flush:
-      file.flushFile()
+proc printImpl(objects: openArray[string], sep=" ", endl="\n",
+              file: NoneType|File|typeof(sys.stdout) = None, flush=false) =
+  template notImpl(backend) =
+    raise newException(OSError, "print with file != None is not supported" &
+      " for " & astToStr(backend) & " backend")
+  when nimvm:
+    const fileStd = file is NoneType
+    let noEnd = objects.join(sep)
+    if endl=="\n" and fileStd:
+      echo noEnd
+      return
+    else:
+      notImpl NimScript
+  else:
+    when defined(js):
+      template toStdout =
+        console.log(objects.join(sep).cstring, endl)
+      when file is NoneType: toStdout
+      elif file is File:
+        if file == stdout: toStdout
+        else: notImpl JavaScript
+      else:
+        if file == sys.dunder_stdout:
+          toStdout
+        else: notImpl JavaScript
+    else:
+      when file is NoneType:
+        let file = sys.stdout
+      # Write all objects joined by sep
+      let le = len objects
+      withLock lockPrint:
+        if le != 0:
+          file.write(objects[0])
+          for i in 1..<le:
+            file.write(sep)
+            file.write(objects[i])
+        # Write end of line
+        file.write(endl)
+        # If flush is needed, flush the file
+        if flush:
+          when file is File: file.flushFile
+          else: file.flush()
 
 macro print*(data: varargs[untyped]): untyped =
   ## Print macro identical to Python "print()" function with
