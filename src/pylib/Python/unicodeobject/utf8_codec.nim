@@ -86,7 +86,7 @@ proc Py_DecodeUTF8Ex*(orig_s: cstring, size: csize_t,
       when WC4:
         doAssert false, "unreachable"
       else:
-        assert ch.ord > 0xFFFF and ch <= MAX_UNICODE
+        assert ch.ord > 0xFFFF and ch.int <= MAX_UNICODE_val
         # write a surrogate pair
         unicode[outpos] = wchar_t Py_UNICODE_HIGH_SURROGATE(ch)
         outpos.inc
@@ -108,7 +108,7 @@ proc Py_DecodeUTF8Ex*(orig_s: cstring, size: csize_t,
           (s[2] and 0xc0) == 0x80):
           ch = typeof(ch) ((s[0] and 0x0f) shl 12) + ((s[1] and 0x3f) shl 6) + (s[2] and 0x3f)
           s.inc 3
-          unicode[outpos] = ch
+          unicode[outpos] = cast[wchar_t](ch)
           outpos.inc
         else:
           unicode.deallocWcArr()

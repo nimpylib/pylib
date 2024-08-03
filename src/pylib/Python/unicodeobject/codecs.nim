@@ -106,13 +106,13 @@ proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: (cstring
           inc(n_s, SIZEOF_SIZE_T)
           inc(n_p, SIZEOF_SIZE_T)
         s = cast[ptr char](n_s)
-        p = cast[ptr Py_UCS4](n_p)
+        p = cast[ptr STRINGLIB_CHAR](n_p)
         if s == `end`:
           break
         ch = cast[cuchar](s[])
       if ch < 0x80:
         inc(s)
-        p[] = ch
+        p[] = cast[STRINGLIB_CHAR](ch)
         inc(p)
         continue
     if ch < 0xE0:
@@ -137,7 +137,7 @@ proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: (cstring
           (STRINGLIB_MAX_CHAR < 0x07FF and ch > STRINGLIB_MAX_CHAR):
         # Out-of-range
         Return
-      p[] = ch
+      p[] = cast[STRINGLIB_CHAR](ch)
       inc(p)
       continue
     if ch < 0xF0:
@@ -179,7 +179,7 @@ proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: (cstring
       if STRINGLIB_MAX_CHAR <= 0x07FF or
           (STRINGLIB_MAX_CHAR < 0xFFFF and ch > STRINGLIB_MAX_CHAR):
         Return
-      p[] = ch
+      p[] = cast[STRINGLIB_CHAR](ch)
       inc(p)
       continue
     if ch < 0xF5:
@@ -229,7 +229,7 @@ proc utf8_decode*[STRINGLIB_CHAR](inptr: var (cstring|ptr char); `end`: (cstring
       if STRINGLIB_MAX_CHAR <= 0xFFFF or
           (STRINGLIB_MAX_CHAR < 0x10FFFF and ch > STRINGLIB_MAX_CHAR):
         Return
-      p[] = ch
+      p[] = cast[STRINGLIB_CHAR](ch)
       inc(p)
       continue
     InvalidStart

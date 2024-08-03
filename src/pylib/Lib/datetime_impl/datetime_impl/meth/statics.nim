@@ -63,7 +63,7 @@ proc datetime_from_timet_and_us(f: N_TM_FUNC, timet: time_t, us: int,
       timezone, we can hackily just forego fold detection
       for this time range. ]#
   when defined(windows):
-    shallCheckFold = shallFold and timet - max_fold_seconds > 0
+    shallCheckFold = shallCheckFold and timet - max_fold_seconds > 0
   if shallCheckFold:
     var
       result_seconds = utc_to_seconds(year, month, day, hour, minute, second)
