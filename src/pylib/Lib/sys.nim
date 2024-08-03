@@ -62,7 +62,7 @@ when not defined(js):
   when not defined(pylibSysNoStdio):
     # CPython's stdio is init-ed by create_stdio in Python/pylifecycle.c
     import ./io
-    export io.read, io.readline, io.write, io.fileno, io.isatty
+    export io.read, io.readline, io.write, io.fileno, io.isatty, io.flush
 
     template wrap(ioe): untyped =
       var ioe* = newNoEncTextIO(
@@ -76,6 +76,10 @@ when not defined(js):
     stdin.mode = "r"
     stdout.mode = "w"
     stderr.mode = "w"
+    let
+      dunder_stdin* = stdin   ## __stdin__
+      dunder_stdout* = stdout ## __stdout__
+      dunder_stderr* = stderr ## __stderr__
 
 proc exit*(s: PyStr) = quit($s)
 func exit*(c: int) = quit(c)
