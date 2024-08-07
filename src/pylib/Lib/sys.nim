@@ -34,7 +34,7 @@ export list, strimpl
 # which is defined in Makefile.pre.in L1808 as "$(MACHDEP)"
 # and MACHDEP is defined in configure.ac L313
 
-when not defined(windows):
+when not weirdTarget and not defined(windows):
   import ./private/platformInfo
   proc major_ver(): string{.compileTime, used.} =
     uname_ver().split('.', 1)[0]
@@ -58,7 +58,7 @@ const platform* =
   ## and haiku/netbsd appended with major version instead of "unknown".
   ## In short, this won't be "unknown" as Python does.
 
-when not defined(js):
+when not weirdTarget:
   when not defined(pylibSysNoStdio):
     # CPython's stdio is init-ed by create_stdio in Python/pylifecycle.c
     import ./io
@@ -177,21 +177,22 @@ when not declared(paramStr):
 else:
   for i in 0..argn:
     orig_argv.append str paramStr i
-  argv = when defined(nimscript):
-    if argn > 0:
-      if orig_argv[1] == "e":
-        orig_argv[2..^1]
-      else:
-        assert orig_argv[1][^5..^1] == ".nims"
-        orig_argv[1..^1]
-  else: list(orig_argv)
-
-template executable*: PyStr =
-  ## .. note:: when nimscript, this is path of `Nim`;
-  ## otherwise, it's the path of current app/exe.
   when defined(nimscript):
-    str getCurrentCompilerExe()
-  else:
+    if argn > 0:
+      argv =
+        if orig_argv[1] == "e":
+          orig_argv[2..^1]
+        else:
+          assert orig_argv[1][^5..^1] == ".nims"
+          orig_argv[1..^1]
+  else: argv = list(orig_argv)
+
+when defined(nimscript):
+  template executable*: PyStr = str getCurrentCompilerExe()
+else:
+  template executable*: PyStr =
+    ## .. note:: when nimscript, this is path of `Nim`;
+    ## otherwise, it's the path of current app/exe.
     str getAppFilename()
 
 template getsizeof*(x): int =

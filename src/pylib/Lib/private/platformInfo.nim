@@ -1,6 +1,8 @@
 ## used by Lib/os and Lib/platform
 
-import std/osproc
+const weirdTarget = defined(nimscript) or defined(js)
+when not weirdTarget:
+  import std/osproc
 import std/strutils
 
 template unchkUpperAscii(c: char): char =
@@ -17,12 +19,12 @@ const `platform.system`* =
   when Solaris: "SunOS"
   else: hostOS.capitalizeAscii1
 
-# TODO: runtime detect version, mv to platform/sys
+
 
 proc check_output_s(cmd: string): string =
   ## a simple `subprocess.check_output`,
   ## but arg is string instead of vararg/seq
-  let t =  execCmdEx("ver")
+  let t = when weirdTarget: gorgeEx(cmd) else: execCmdEx(cmd)
   assert t.exitCode == 0
   result = t.output
 
@@ -33,8 +35,8 @@ when not defined(windows):
 
 proc `platform.version`*(): string =
   when defined(windows):
-    let s = check_output_s("cmd /c ver").strip()
-    # ver -> "\r\nMicrosoft Windows [Version 10.0.xxxxx.xxxx]\r\n"
+    # ver -> "\r\nMicrosoft Windows [Version x.x.xxxxx.xxxx]\r\n"
+    let s = check_output_s("cmd /c ver").strip(chars={'\r', '\n'})
     let idx = s.find('[')
     assert idx != -1 and s[^1] == ']',
       "platform.version's impl for Windows is undue now!"
