@@ -36,15 +36,21 @@ export list, strimpl
 
 when not weirdTarget and not defined(windows):
   import ./private/platformInfo
-  proc major_ver(): string{.compileTime, used.} =
-    uname_ver().split('.', 1)[0]
+
+  template sufBefore(pre: string, ver: (int, int)): string =
+    when (PyMajor, PyMinor) < ver:
+      pre & uname_release_major()
+    else:
+      pre
 
 const platform* =
   when defined(windows): "win32"  # hostOS is windows
   elif defined(macosx): "darwin"  # hostOS is macosx
-  elif defined(linux): "linux"
+  elif defined(android): "android"
+  elif defined(linux): "linux".sufBefore (3,3)
+  elif defined(aix): "aix".sufBefore (3,8)
   else:
-    when Solaris:
+    when defined(solaris):
       # Only solaris (SunOS 5) is supported by Nim, as of Nim 2.1.1,
       # and SunOS's dev team in Oracle had been disbanded years ago
       # Thus SunOS's version would never excceed 5 ...
@@ -53,7 +59,7 @@ const platform* =
       hostOS
     else:
       # XXX: haiku, netbsd  ok ?
-      hostOS & major_ver()
+      hostOS & uname_release_major()
   ## .. note:: the value is standalone for bare system
   ## and haiku/netbsd appended with major version instead of "unknown".
   ## In short, this won't be "unknown" as Python does.

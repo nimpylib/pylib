@@ -29,8 +29,29 @@ proc check_output_s(cmd: string): string =
   result = t.output
 
 when not defined(windows):
-  proc uname_ver*(): string =
-    check_output_s("uname -r").strip(leading=false, chars={'\n'})
+  func without(s: string, chars: set[char]): string =
+    for c in s:
+      if c not_in chars:
+        result.add c
+
+  # translated from CPython/configure when setting `ac_md_release`
+  proc ac_md_release*(): string =
+    result = check_output_s(
+      when defined(aix) or defined(UnixWare) or defined(OpenUNIX): "uname -v"
+      # though UnixWare, OpenUNIX are not officially supported by Nim currently.
+      else: "uname -r"
+    )
+    result.removeSuffix '\n'
+
+    # tr -d '/ '
+    result = result.without {'/', ' '}
+
+    # sed 's/^[A-Z]\.//'
+    result.removeSuffix {'A'..'Z'}
+    result.removePrefix '.'
+
+  proc uname_release_major*(): string =
+    ac_md_release().split('.', 1)[0]  # sed 's/\..*//'`
 
 
 proc `platform.version`*(): string =
@@ -43,5 +64,6 @@ proc `platform.version`*(): string =
     result = s[idx+1..^2]
     result = result.split(' ', 1)[1]
   else:
-    result = uname_ver()
+    result = ac_md_release()
+    # XXX: TODO: maybe not suitable, see CPython's Lib/platform
 
