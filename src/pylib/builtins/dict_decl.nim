@@ -12,7 +12,7 @@ template newPyDictImpl*[K, V](x: int): untyped =
   bind initOrderedTable
   PyDict[K, V](data: initOrderedTable[K, V](x))
 
-template newPyDictImpl*[K, V](x: varargs): untyped =
+template newPyDictImpl*[K, V](x: openArray[(K, V)] = []): untyped =
   ## zero or one arg
   ## shall support `[]`, `{k:v, ...}`, `@[(k, v),...]`
   bind toOrderedTable

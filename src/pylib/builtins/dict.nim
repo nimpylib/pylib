@@ -110,7 +110,7 @@ func toPyDict*[K, V](x: openArray[(K, V)]): PyDict[K, V] =
 func toPyDict*[K, V](x:
   not openArray[(K, V)] and Iterable[(K, V)]): PyDict[K, V] =
   result = newPyDictImpl[K, V]()
-  for k, v in x:
+  for (k, v) in x:
     result[k] = v
 
 func copy*[K, V](self: PyDict[K, V]): PyDict[K, V] =
