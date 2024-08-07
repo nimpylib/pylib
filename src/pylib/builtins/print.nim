@@ -13,12 +13,14 @@ from std/strutils import join
 
 when defined(js):
   import std/[jsconsole]
-  
-proc printImpl(objects: openArray[string], sep=" ", endl="\n",
+
+proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string="\n",
               file: NoneType|File|typeof(sys.stdout) = None, flush=false) =
   template notImpl(backend) =
     raise newException(OSError, "print with file != None is not supported" &
       " for " & astToStr(backend) & " backend")
+  when sep is char:
+    let sep = $sep  # strutils.join only accept string sep
   when nimvm:
     const fileStd = file is NoneType
     let noEnd = objects.join(sep)
