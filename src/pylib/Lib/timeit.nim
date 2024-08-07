@@ -57,25 +57,92 @@ template execTP(s: TimeitParam) =
   elif compiles(s()): s()
   else: exec s
 
+type
+  Code = object
+    f: proc(){.nimcall.}
+
+proc newCode(tp: TimeitParam): Code =
+  when tp is string:
+    {.error: """
+here TimeitParam cannot be string,
+because Nim is a compile-language, storing code at runtime is impossible,
+and implementing compile-time functionality is not worthy""".}
+  else:
+    result.f = proc(){.nimcall.} =
+      when compiles((let _ = tp())):
+        let _ = tp()
+      else: tp()
+
+template parseCode(c: Code): untyped =
+  c.f()
+
+type
+  Timer* = ref object
+    timer: typeof(default_timer)
+    stmt, setup: Code
+
+proc newTimer*(
+    stmt: TimeitParam = NullStmt;
+    setup: TimeitParam = NullStmt;
+    timer=default_timer, number=default_number): Timer =
+  Timer(
+    timer: timer,
+    stmt: newCode stmt,
+    setup: newCode setup,
+  )
+
+template timeitImpl(number: int; timer: typed; setupBody, stmtBody): float =
+  setupBody
+  let started = timer()
+  for _ in 1 .. number:
+    stmtBody
+  timer() - started
+
+
+template timeit*(self: Timer, number=default_number): float =
+  bind timeitImpl, parseCode
+  timeitImpl(number, self.timer,
+    (parseCode self.setup),
+    (parseCode self.stmt)
+  )
+
 template timeit*(
     stmt: TimeitParam = NullStmt;
     setup: TimeitParam = NullStmt;
     timer=default_timer, number=default_number): float =
-  ## timeit(stmt, setup, number=1000000) with globals is `globals()`
-  ## 
+  ## timeit(stmt, setup, number=1000000) with globals is `globals()|locals()`
+  ##
   ## stmt, setup are Callable or str literal
-  ## 
-  ## .. hint:: this is equal to python's timeit with arg: `globals=globals()`
+  ##
   runnableExamples:
-    echo timeit("discard")
+    discard timeit("i.inc", "var i = 0")
+    assert i != 0
+
     proc f() = discard
     discard timeit(f)
     proc retf(): int = 1
     discard timeit(retf)
-  bind execTP
-  execTP setup
-  let started = timer()
-  for _ in 1 .. number:
-    execTP stmt
-  timer() - started
+  bind execTP, timeitImpl
+  timeitImpl(number, timer,
+    (execTP setup),
+    (execTP stmt)
+  )
 
+
+template repeatImpl(repeatExpr: int; doTimeit): seq[float] =
+  let repeat = repeatExpr
+  var r = newSeq[float](repeat)
+  for i in 1..repeat:
+    r[i] = doTimeit
+  r
+
+template repeat*(
+    stmt: TimeitParam = NullStmt;
+    setup: TimeitParam = NullStmt;
+    timer=default_timer, repeat=default_repeat, number=default_number): seq[float] =
+  bind repeatImpl, timeit
+  repeatImpl(repeat, timeit(stmt, setup, timer, number))
+
+template repeat*(self: Timer, repeat=default_repeat, number=default_number): seq[float] =
+  bind repeatImpl, timeit
+  repeatImpl(repeat, timeit(self, number))
