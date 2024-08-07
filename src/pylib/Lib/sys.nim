@@ -16,6 +16,8 @@ import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
 const weirdTarget = defined(js) or defined(nimscript)
+when defined(js):
+  import std/jsffi
 when not weirdTarget:
   const inFileSystemUtf8os = defined(macosx) or defined(android) or defined(vxworks)
   when not inFileSystemUtf8os:
@@ -43,7 +45,7 @@ when not weirdTarget and not defined(windows):
     else:
       pre
 
-const platform* =
+proc nativePlatform(): string =
   when defined(windows): "win32"  # hostOS is windows
   elif defined(macosx): "darwin"  # hostOS is macosx
   elif defined(android): "android"
@@ -60,6 +62,22 @@ const platform* =
     else:
       # XXX: haiku, netbsd  ok ?
       hostOS & uname_release_major()
+
+proc jsPlatform(): string = 
+  when defined(nodejs):
+    return $require("os").platform()
+  else:
+    let navigator{.importcpp.}: JsObject
+    result = ($navigator.platform).toLowerAscii
+    if result.startsWith "win32": "win32"
+    elif result.startsWith "linux": "linux"
+    elif result.startsWith "mac": "darwin"
+    ## XXX: TODO
+    else: result
+
+const platform*: PyStr =
+  when defined(js): str jsPlatform()
+  else: str nativePlatform()
   ## .. note:: the value is standalone for bare system
   ## and haiku/netbsd appended with major version instead of "unknown".
   ## In short, this won't be "unknown" as Python does.
