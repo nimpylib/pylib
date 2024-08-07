@@ -1,5 +1,6 @@
 
 
+import std/math except divmod
 proc assertFloatsAreIdentical(x, y: float) =
   template `<->`(a, b: bool): bool = not (a xor b)
   check (x.isnan <-> y.isnan) or
