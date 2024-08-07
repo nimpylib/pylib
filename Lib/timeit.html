@@ -48,19 +48,38 @@
     </div>
     <ul class="simple simple-toc" id="toc-list">
   <li>
+  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
+</li>
+<li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
+    <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">timeit
-  <li><a class="reference" href="#timeit.t%2Cint" title="timeit(number = 1000000): float">timeit(number = 1000000): float</a></li>
-<li><a class="reference" href="#timeit.t%2Cint%2Cuntyped" title="timeit(repetitions: int; statements: untyped)">timeit(repetitions: int; statements: untyped)</a></li>
-<li><a class="reference" href="#timeit.t%2C%2Cint" title="timeit(stmt; number = 1000000): float">timeit(stmt; number = 1000000): float</a></li>
-<li><a class="reference" href="#timeit.t%2C%2C%2Cint" title="timeit(stmt; setup; number = 1000000): float">timeit(stmt; setup; number = 1000000): float</a></li>
+      <ul class="simple nested-toc-section">print_exc
+  <li><a class="reference" href="#print_exc" title="print_exc(self, file: NoneType | File | typeof(sys.stderr) = None)">print_exc(self, file: NoneType | File | typeof(sys.stderr) = None)</a></li>
 
 </ul>
 
     </ul>
   </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">autorange
+  <li><a class="reference" href="#autorange.t%2CTimer" title="autorange(self: Timer; callable = None): (int, float)">autorange(self: Timer; callable = None): (int, float)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">repeat
+  <li><a class="reference" href="#repeat.t%2Cvarargs%5Buntyped%5D" title="repeat(xs: varargs[untyped]): PyList[float]">repeat(xs: varargs[untyped]): PyList[float]</a></li>
+
+</ul>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
 </li>
 
 </ul>
@@ -72,68 +91,68 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc">timeit </p>
-    <div class="section" id="18">
+    <p class="module-desc"></p>
+    <div class="section" id="6">
+  <h1><a class="toc-backref" href="#6">Imports</a></h1>
+  <dl class="item">
+    <a class="reference external" href="n_timeit.html">n_timeit</a>, <a class="reference external" href="noneType.html">noneType</a>, <a class="reference external" href="list.html">list</a>, <a class="reference external" href="sys.html">sys</a>
+  </dl>
+</div>
+<div class="section" id="12">
+  <h1><a class="toc-backref" href="#12">Procs</a></h1>
+  <dl class="item">
+    <div id="print_exc-procs-all">
+  <div id="print_exc">
+  <dt><pre><span class="Keyword">proc</span> <a href="#print_exc"><span class="Identifier">print_exc</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">,</span> <span class="Identifier">file</span><span class="Other">:</span> <a href="noneType.html#NoneType"><span class="Identifier">NoneType</span></a> <span class="Operator">|</span> <span class="Identifier">File</span> <span class="Operator">|</span> <span class="Identifier">typeof</span><span class="Other">(</span><span class="Identifier">sys</span><span class="Other">.</span><span class="Identifier">stderr</span><span class="Other">)</span> <span class="Other">=</span> <span class="Identifier">None</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+
+  </dl>
+</div>
+<div class="section" id="18">
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
-    <div id="timeit-templates-all">
-  <div id="timeit.t,int">
-  <dt><pre><span class="Keyword">template</span> <a href="#timeit.t%2Cint"><span class="Identifier">timeit</span></a><span class="Other">(</span><span class="Identifier">number</span> <span class="Other">=</span> <span class="DecNumber">1000000</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+    <div id="autorange-templates-all">
+  <div id="autorange.t,Timer">
+  <dt><pre><span class="Keyword">template</span> <a href="#autorange.t%2CTimer"><span class="Identifier">autorange</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="n_timeit.html#Timer"><span class="Identifier">Timer</span></a><span class="Other">;</span> <span class="Identifier">callable</span> <span class="Other">=</span> <span class="Identifier">None</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">float</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="timeit.t,int,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#timeit.t%2Cint%2Cuntyped"><span class="Identifier">timeit</span></a><span class="Other">(</span><span class="Identifier">repetitions</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">statements</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    <p>EXT. unstable.</p>
-<p>returns nothing but send output to stdout.</p>
-<p>output shows more information than Pythons.</p>
 
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">var</span> <span class="Identifier">i</span> <span class="Operator">=</span> <span class="DecNumber">0</span>
-<span class="Identifier">timeit</span><span class="Punctuation">(</span><span class="DecNumber">10</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-  <span class="Identifier">i</span><span class="Operator">.</span><span class="Identifier">inc</span>
-<span class="Identifier">assert</span> <span class="Identifier">i</span> <span class="Operator">==</span> <span class="DecNumber">10</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
 </div>
-<div id="timeit.t,,int">
-  <dt><pre><span class="Keyword">template</span> <a href="#timeit.t%2C%2Cint"><span class="Identifier">timeit</span></a><span class="Other">(</span><span class="Identifier">stmt</span><span class="Other">;</span> <span class="Identifier">number</span> <span class="Other">=</span> <span class="DecNumber">1000000</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+<div id="repeat-templates-all">
+  <div id="repeat.t,varargs[untyped]">
+  <dt><pre><span class="Keyword">template</span> <a href="#repeat.t%2Cvarargs%5Buntyped%5D"><span class="Identifier">repeat</span></a><span class="Other">(</span><span class="Identifier">xs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Identifier">echo</span> <span class="Identifier">timeit</span><span class="Punctuation">(</span><span class="StringLit">&quot;discard&quot;</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="timeit.t,,,int">
-  <dt><pre><span class="Keyword">template</span> <a href="#timeit.t%2C%2C%2Cint"><span class="Identifier">timeit</span></a><span class="Other">(</span><span class="Identifier">stmt</span><span class="Other">;</span> <span class="Identifier">setup</span><span class="Other">;</span> <span class="Identifier">number</span> <span class="Other">=</span> <span class="DecNumber">1000000</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
-  <dd>
-    
-    <p>timeit(stmt, setup, number=1000000) with globals is <tt class="docutils literal"><span class="pre"><span class="Identifier">globals</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt></p>
-<p>stmt, setup are Callable or str literal</p>
-<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
-this is equal to python's timeit with arg: <tt class="docutils literal"><span class="pre"><span class="Identifier">globals</span><span class="Operator">=</span><span class="Identifier">globals</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt></div>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/timeit.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/timeit.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
+  </dl>
+</div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="list.html#[]=,PyList[T],HSlice,PyList[T]"><span class="Identifier">[]=</span></a>, <a href="list.html#repr.t,PyList[T]"><span class="Identifier">repr</span></a>, <a href="list.html#sorted,PyList[T]"><span class="Identifier">sorted</span></a>, <a href="list.html#nimArrayAsList.c,array[I,T]"><span class="Identifier">nimArrayAsList</span></a>, <a href="list.html#[]=,PyList[T],HSlice,openArray[T]"><span class="Identifier">[]=</span></a>, <a href="list_decl.html#list"><span class="Identifier">list</span></a>, <a href="list.html#==.t,openArray[T],PyList[T]"><span class="Identifier">==</span></a>, <a href="list.html#==,PyList[T],PyList[T]"><span class="Identifier">==</span></a>, <a href="list.html#+,PyList[T],openArray[T]"><span class="Identifier">+</span></a>, <a href="pyrange.html#count,PyRange[T],T"><span class="Identifier">count</span></a>, <a href="list_decl.html#repr,PyList[T: set or string or openArray]"><span class="Identifier">repr</span></a>, <a href="list.html#sorted,,proc(T)"><span class="Identifier">sorted</span></a>, <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a>, <a href="list.html#sort,PyList[T],proc(T)"><span class="Identifier">sort</span></a>, <a href="list.html#sorted,Sequence[T],proc(T)"><span class="Identifier">sorted</span></a>, <a href="list.html#$.t,PyList[T]"><span class="Identifier">$</span></a>, <a href="list.html#[],PyList[T],HSlice"><span class="Identifier">[]</span></a>, <a href="list_decl.html#newPyListOfCap,int"><span class="Identifier">newPyListOfCap</span></a>, <a href="list.html#append,PyList[T],T"><span class="Identifier">append</span></a>, <a href="pyrange.html#index,PyRange[T],T"><span class="Identifier">index</span></a>, <a href="list.html#clear,PyList"><span class="Identifier">clear</span></a>, <a href="list.html#[],PyList[T],int"><span class="Identifier">[]</span></a>, <a href="list.html#==.t,seq[T],PyList[T]"><span class="Identifier">==</span></a>, <a href="list.html#+=,PyList[T],openArray[T]"><span class="Identifier">+=</span></a>, <a href="list_decl.html#getPtr,PyList[T],"><span class="Identifier">getPtr</span></a>, <a href="list_decl.html#newPyList,openArray[T]"><span class="Identifier">newPyList</span></a>, <a href="list.html#pop,PyList[T],int"><span class="Identifier">pop</span></a>, <a href="list.html#[]=,PyList[T],PySlice,"><span class="Identifier">[]=</span></a>, <a href="list.html#sort,PyList[T]"><span class="Identifier">sort</span></a>, <a href="list.html#list_2"><span class="Identifier">list</span></a>, <a href="list.html#pop,PyList[T]"><span class="Identifier">pop</span></a>, <a href="list.html#extend,PyList[T],openArray[T]"><span class="Identifier">extend</span></a>, <a href="list.html#[]=,PyList[T],HSlice,Iterable[T]"><span class="Identifier">[]=</span></a>, <a href="list_decl.html#setLen,PyList,Natural"><span class="Identifier">setLen</span></a>, <a href="list.html#list,Iterable[T]"><span class="Identifier">list</span></a>, <a href="list.html#[]=,PyList[T],BackwardsIndex,T"><span class="Identifier">[]=</span></a>, <a href="collections_abc.html#index,Sequence[T],T,int,int"><span class="Identifier">index</span></a>, <a href="list_decl.html#items.i,PyList[T]"><span class="Identifier">items</span></a>, <a href="collections_abc.html#count,Sequence[T],T"><span class="Identifier">count</span></a>, <a href="collections_abc.html#reverse,MutableSequence"><span class="Identifier">reverse</span></a>, <a href="list.html#extend.t,PyList[T],Iterable[T]"><span class="Identifier">extend</span></a>, <a href="list.html#==,PyList[T],openArray[T]"><span class="Identifier">==</span></a>, <a href="list_decl.html#newPyList,int"><span class="Identifier">newPyList</span></a>, <a href="list.html#*=,PyList[T],int"><span class="Identifier">*=</span></a>, <a href="list.html#[]=,PyList[T],PySlice,Sequence[T]"><span class="Identifier">[]=</span></a>, <a href="list_decl.html#newPyList,seq[T]"><span class="Identifier">newPyList</span></a>, <a href="list.html#[]=,PyList[T],int,T"><span class="Identifier">[]=</span></a>, <a href="list.html#len.t,PyList"><span class="Identifier">len</span></a>, <a href="list_decl.html#mitems.i,PyList[T]"><span class="Identifier">mitems</span></a>, <a href="list.html#+.t,PyList[T],PyList[T]"><span class="Identifier">+</span></a>, <a href="list.html#*,Natural,PyList[T]"><span class="Identifier">*</span></a>, <a href="list.html#insert,PyList[T],int,T"><span class="Identifier">insert</span></a>, <a href="list.html#==,PyList[T],seq[T]"><span class="Identifier">==</span></a>, <a href="list_decl.html#@,PyList[T]"><span class="Identifier">@</span></a>, <a href="list.html#+=,PyList[T],PyList[T]"><span class="Identifier">+=</span></a>, <a href="list.html#list,openArray[T]"><span class="Identifier">list</span></a>, <a href="list.html#delitem,PyList,int"><span class="Identifier">delitem</span></a>, <a href="list.html#reverse,PyList"><span class="Identifier">reverse</span></a>, <a href="list.html#repr,PyList[char]"><span class="Identifier">repr</span></a>, <a href="list.html#*.t,PyList[T],Natural"><span class="Identifier">*</span></a>, <a href="list.html#[],PyList[T],PySlice"><span class="Identifier">[]</span></a>, <a href="list.html#list,seq[T]"><span class="Identifier">list</span></a>, <a href="list.html#[],PyList[T],BackwardsIndex"><span class="Identifier">[]</span></a>, <a href="noneType.html#None"><span class="Identifier">None</span></a>, <a href="noneType.html#NoneType"><span class="Identifier">NoneType</span></a>, <a href="n_timeit.html#timeit.t,int,untyped"><span class="Identifier">timeit</span></a>, <a href="n_timeit.html#timeit.t,Timer"><span class="Identifier">timeit</span></a>, <a href="n_timeit.html#default_repeat"><span class="Identifier">default_repeat</span></a>, <a href="n_timeit.html#NullaryFunc"><span class="Identifier">NullaryFunc</span></a>, <a href="n_timeit.html#Timer"><span class="Identifier">Timer</span></a>, <a href="n_timeit.html#autorange.t,Timer,proc(int,float)"><span class="Identifier">autorange</span></a>, <a href="n_timeit.html#NullStmt"><span class="Identifier">NullStmt</span></a>, <a href="n_timeit.html#default_timer"><span class="Identifier">default_timer</span></a>, <a href="n_timeit.html#default_number"><span class="Identifier">default_number</span></a>, <a href="n_timeit.html#TimeitParam"><span class="Identifier">TimeitParam</span></a>, <a href="n_timeit.html#timeit.t,TimeitParam,TimeitParam"><span class="Identifier">timeit</span></a>
   </dl>
 </div>
 
@@ -143,7 +162,7 @@ this is equal to python's timeit with arg: <tt class="docutils literal"><span cl
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-03 01:17:15 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-07 13:30:06 UTC</small>
       </div>
     </div>
   </div>

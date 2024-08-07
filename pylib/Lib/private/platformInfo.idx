@@ -1,4 +1,4 @@
 nimTitle	platformInfo	pylib/Lib/private/platformInfo.html	module src/pylib/Lib/private/platformInfo		0
-nim	platform.system	pylib/Lib/private/platformInfo.html#platform.system	const platform.system		16
-nim	uname_ver	pylib/Lib/private/platformInfo.html#uname_ver	proc uname_ver(): string		30
-nim	platform.version	pylib/Lib/private/platformInfo.html#platform.version	proc platform.version(): string		34
+nim	platform.system	pylib/Lib/private/platformInfo.html#platform.system	const platform.system		18
+nim	uname_ver	pylib/Lib/private/platformInfo.html#uname_ver	proc uname_ver(): string		32
+nim	platform.version	pylib/Lib/private/platformInfo.html#platform.version	proc platform.version(): string		36

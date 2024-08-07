@@ -1,6 +1,4 @@
 nimTitle	timeit	pylib/Lib/timeit.html	module src/pylib/Lib/timeit		0
-nim	timeit	pylib/Lib/timeit.html#timeit.t,int,untyped	template timeit(repetitions: int; statements: untyped)		12
-nim	timeit	pylib/Lib/timeit.html#timeit.t,,,int	template timeit(stmt; setup; number = 1000000): float		35
-nim	timeit	pylib/Lib/timeit.html#timeit.t,,int	template timeit(stmt; number = 1000000): float		53
-nim	timeit	pylib/Lib/timeit.html#timeit.t,int	template timeit(number = 1000000): float		60
-nimgrp	timeit	pylib/Lib/timeit.html#timeit-templates-all	template		12
+nim	repeat	pylib/Lib/timeit.html#repeat.t,varargs[untyped]	template repeat(xs: varargs[untyped]): PyList[float]		11
+nim	autorange	pylib/Lib/timeit.html#autorange.t,Timer	template autorange(self: Timer; callable = None): (int, float)		15
+nim	print_exc	pylib/Lib/timeit.html#print_exc	proc print_exc(self, file: NoneType | File | typeof(sys.stderr) = None)		20

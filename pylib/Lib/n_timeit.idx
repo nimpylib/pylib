@@ -1,0 +1,18 @@
+nimTitle	n_timeit	pylib/Lib/n_timeit.html	module src/pylib/Lib/n_timeit		0
+nim	default_number	pylib/Lib/n_timeit.html#default_number	const default_number		11
+nim	default_repeat	pylib/Lib/n_timeit.html#default_repeat	const default_repeat		12
+nim	default_timer	pylib/Lib/n_timeit.html#default_timer	var default_timer		19
+nim	timeit	pylib/Lib/n_timeit.html#timeit.t,int,untyped	template timeit(repetitions: int; statements: untyped)		24
+nim	NullaryFunc	pylib/Lib/n_timeit.html#NullaryFunc	type NullaryFunc		48
+nim	TimeitParam	pylib/Lib/n_timeit.html#TimeitParam	type TimeitParam		50
+nim	NullStmt	pylib/Lib/n_timeit.html#NullStmt	const NullStmt		51
+nim	Timer	pylib/Lib/n_timeit.html#Timer	type Timer		80
+nim	newTimer	pylib/Lib/n_timeit.html#newTimer,TimeitParam,TimeitParam	proc newTimer(stmt: TimeitParam = NullStmt; setup: TimeitParam = NullStmt;\n         timer = default_timer; number = default_number): Timer		84
+nim	timeit	pylib/Lib/n_timeit.html#timeit.t,Timer	template timeit(self: Timer; number = default_number): float		102
+nim	timeit	pylib/Lib/n_timeit.html#timeit.t,TimeitParam,TimeitParam	template timeit(stmt: TimeitParam = NullStmt; setup: TimeitParam = NullStmt;\n       timer = default_timer; number = default_number): float		109
+nim	repeat	pylib/Lib/n_timeit.html#repeat.t,TimeitParam,TimeitParam	template repeat(stmt: TimeitParam = NullStmt; setup: TimeitParam = NullStmt;\n       timer = default_timer; repeat = default_repeat; number = default_number): seq[\n    float]		139
+nim	repeat	pylib/Lib/n_timeit.html#repeat.t,Timer	template repeat(self: Timer; repeat = default_repeat; number = default_number): seq[float]		146
+nim	autorange	pylib/Lib/n_timeit.html#autorange.t,Timer,proc(int,float)	template autorange(self: Timer; callable: proc (number: int; time_taken: float) = nil): (\n    int, float)		150
+nim	print_exc	pylib/Lib/n_timeit.html#print_exc,auto,auto	proc print_exc(self, file: auto = nil)		168
+nimgrp	repeat	pylib/Lib/n_timeit.html#repeat-templates-all	template		139
+nimgrp	timeit	pylib/Lib/n_timeit.html#timeit-templates-all	template		24
