@@ -146,3 +146,34 @@ template repeat*(
 template repeat*(self: Timer, repeat=default_repeat, number=default_number): seq[float] =
   bind repeatImpl, timeit
   repeatImpl(repeat, timeit(self, number))
+
+template autorange*(self: Timer, callable:
+    proc(number: int, time_taken: float) = nil): (int, float) =
+  bind timeit
+  var i = 1
+  var
+    number: int
+    time_taken: float
+  while true:
+    for j in [1, 2, 5]:
+      number = i * j
+      time_taken = timeit(self, number)
+      if not callback.isNil:
+        callback(number, time_taken)
+      if time_taken >= 0.2:
+        return (number, time_taken)
+    i *= 10
+
+when defined(nimdoc):
+  proc print_exc*(self, file: File = nil) =
+    ## .. hint:: Currently its implementation is based
+    ##   on `system.getStackTrace`, which is different from Python's
+else:
+  when not defined(debug):
+    proc print_exc*(self, file: File = nil){.error: "only available on debug build".}
+  else:
+    proc print_exc*(self, file = nil) =
+      when file.isNil:
+        writeStackTrace()
+      else:
+        file.write getStackTrace()
