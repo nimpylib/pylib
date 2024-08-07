@@ -1,4 +1,4 @@
 nimTitle	timeit	pylib/Lib/timeit.html	module src/pylib/Lib/timeit		0
 nim	repeat	pylib/Lib/timeit.html#repeat.t,varargs[untyped]	template repeat(xs: varargs[untyped]): PyList[float]		11
 nim	autorange	pylib/Lib/timeit.html#autorange.t,Timer	template autorange(self: Timer; callable = None): (int, float)		15
-nim	print_exc	pylib/Lib/timeit.html#print_exc	proc print_exc(self, file: NoneType | File | typeof(sys.stderr) = None)		20
+nim	print_exc	pylib/Lib/timeit.html#print_exc,Timer	proc print_exc(self: Timer; file: NoneType | File | typeof(sys.stderr) = None)		20
