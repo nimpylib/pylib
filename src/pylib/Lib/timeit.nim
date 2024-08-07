@@ -6,6 +6,18 @@ import std/[
   strutils, times, macros
 ]
 
+
+const
+  default_number* = 1000000
+  default_repeat* = 5
+
+
+proc default_timer_defval(): float{.nimcall.} =
+  ## default value of default_timer
+  getTime().toUnixFloat
+
+var default_timer* = default_timer_defval
+
 template cpuTimeImpl(): untyped =
   when defined(js): now() else: cpuTime()
 
@@ -32,31 +44,29 @@ template timeit*(repetitions: int, statements: untyped) =
 
 macro exec(s: static[string]) = parseStmt s
 
-template timeit*(stmt; setup; number=1000000): float =
+template timeit*(stmt; setup; timer=default_timer, number=default_number): float =
   ## timeit(stmt, setup, number=1000000) with globals is `globals()`
   ## 
   ## stmt, setup are Callable or str literal
   ## 
   ## .. hint:: this is equal to python's timeit with arg: `globals=globals()`
-  bind times.`$`, times.`-`, now, format, inNanoseconds, exec
+  bind exec
 
   when compiles(setup()): setup()
   else: exec setup
-  let started = now()
+  let started = timer()
   for _ in 1 .. number:
     when compiles(stmt()): stmt()
     else: exec stmt
-  let delta = now() - started
+  timer() - started
 
-  inNanoseconds(delta).float / 1e9
-
-template timeit*(stmt; number=1000000): float =
+template timeit*(stmt; number=default_number): float =
   runnableExamples:
     echo timeit("discard")
   bind timeit
   timeit(stmt, "", number)
 
 
-template timeit*(number=1000000): float = 
+template timeit*(number=default_number): float = 
   bind timeit
   timeit("", "", number)
