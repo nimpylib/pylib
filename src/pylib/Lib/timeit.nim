@@ -44,29 +44,38 @@ template timeit*(repetitions: int, statements: untyped) =
 
 macro exec(s: static[string]) = parseStmt s
 
-template timeit*(stmt; setup; timer=default_timer, number=default_number): float =
+type
+  NullaryFunc* = concept self ## Callable[[], Any]
+    self()
+  TimeitParam* = string|NullaryFunc
+const NullStmt* = "discard"
+
+template execTP(s: TimeitParam) =
+  bind exec
+  when compiles((let _ = s())):
+    let _ = s()
+  elif compiles(s()): s()
+  else: exec s
+
+template timeit*(
+    stmt: TimeitParam = NullStmt;
+    setup: TimeitParam = NullStmt;
+    timer=default_timer, number=default_number): float =
   ## timeit(stmt, setup, number=1000000) with globals is `globals()`
   ## 
   ## stmt, setup are Callable or str literal
   ## 
   ## .. hint:: this is equal to python's timeit with arg: `globals=globals()`
-  bind exec
-
-  when compiles(setup()): setup()
-  else: exec setup
-  let started = timer()
-  for _ in 1 .. number:
-    when compiles(stmt()): stmt()
-    else: exec stmt
-  timer() - started
-
-template timeit*(stmt; number=default_number): float =
   runnableExamples:
     echo timeit("discard")
-  bind timeit
-  timeit(stmt, "", number)
+    proc f() = discard
+    discard timeit(f)
+    proc retf(): int = 1
+    discard timeit(retf)
+  bind execTP
+  execTP setup
+  let started = timer()
+  for _ in 1 .. number:
+    execTP stmt
+  timer() - started
 
-
-template timeit*(number=default_number): float = 
-  bind timeit
-  timeit("", "", number)
