@@ -165,14 +165,14 @@ template autorange*(self: Timer, callable:
     i *= 10
 
 when defined(nimdoc):
-  proc print_exc*(self, file: auto = nil) =
+  proc print_exc*(self: Timer, file: auto = nil) =
     ## .. hint:: Currently its implementation is based
     ##   on `system.getStackTrace`, which is different from Python's
 else:
   when not defined(debug):
-    proc print_exc*(self, file: auto = nil){.error: "only available on debug build".}
+    proc print_exc*(self: Timer, file: auto = nil){.error: "only available on debug build".}
   else:
-    proc print_exc*(self, file: auto = nil) =
+    proc print_exc*(self:Timer, file: auto = nil) =
       when file.isNil:
         writeStackTrace()
       else:
