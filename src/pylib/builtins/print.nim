@@ -2,12 +2,14 @@ import std/macros
 import  ../Lib/sys
 import ../noneType
 
-import std/locks
-
-var lockPrint: Lock
-when nimvm: discard
+when defined(js):
+  import std/[jsconsole]
 else:
-  lockPrint.initLock()
+  import std/locks
+  when NimMajor == 1:
+    template addExitProc(f) = addQuitProc(f)
+  else:
+    import std/exitprocs
 
 from std/strutils import join
 
@@ -42,6 +44,12 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
           toStdout
         else: notImpl JavaScript
     else:
+      var lockPrint{.global.}: Lock
+      when nimvm: discard
+      else:
+        once:
+          lockPrint.initLock()
+          addExitProc( proc(){.noconv.} = lockPrint.deinitLock() )
       when file is NoneType:
         let file = sys.stdout
       # Write all objects joined by sep
