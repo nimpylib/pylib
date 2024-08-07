@@ -59,7 +59,7 @@ template execTP(s: TimeitParam) =
 
 type
   Code = object
-    f: proc(){.nimcall.}
+    f: proc()
 
 proc newCode(tp: TimeitParam): Code =
   when tp is string:
@@ -68,7 +68,7 @@ here TimeitParam cannot be string,
 because Nim is a compile-language, storing code at runtime is impossible,
 and implementing compile-time functionality is not worthy""".}
   else:
-    result.f = proc(){.nimcall.} =
+    result.f = proc() =
       when compiles((let _ = tp())):
         let _ = tp()
       else: tp()
