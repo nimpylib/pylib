@@ -17,7 +17,7 @@ template autorange*(self: Timer, callable=None): (int, float) =
   autorange(self, nil)
 
 template sys_stderr: untyped = sys.stderr
-proc print_exc*(self: Timer, file: NoneType|File|typeof(sys.stderr) = None) =
+proc print_exc*(self: Timer, file: auto = None) =
   bind print_exc, sys_stderr
   print_exc(self,
     when file is NoneType: sys_stderr

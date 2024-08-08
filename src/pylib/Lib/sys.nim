@@ -8,7 +8,7 @@
 import std/os
 import std/fenv
 when defined(js) or not (defined(Py_FORCE_UTF8_FS_ENCODING) or defined(windows)):
-  from std/strutils import toLowerAscii
+  import std/strutils # toLowerAscii startsWith
 when defined(nimPreviewSlimSystem):
   import std/assertions
 
@@ -48,13 +48,13 @@ when not weirdTarget and not defined(windows):
 
 proc getPlatform(): string = 
   when defined(js):
-    template inString(jo: JsObject): string =
-      $(jo.to(cstring))
     when defined(nodejs):
-      return require("os").platform().inString
+      proc `os.platform`(): cstring{.importjs:
+        "require('os').platform()".}
+      return `os.platform`().`$`
     else:
-      let navigator{.importcpp.}: JsObject
-      result = navigator.platform.inString.toLowerAscii
+      let `navigator.platform`{.importjs: "navigator.platform".}: cstring
+      result = `navigator.platform`.`$`.toLowerAscii
       result =
         if result.startsWith "win32": "win32"
         elif result.startsWith "linux": "linux"
@@ -78,11 +78,14 @@ proc getPlatform(): string =
         # XXX: haiku, netbsd  ok ?
         hostOS & uname_release_major()
 
-const platform*: PyStr =
-  str getPlatform()
-  ## .. note:: the value is standalone for bare system
-  ## and haiku/netbsd appended with major version instead of "unknown".
-  ## In short, this won't be "unknown" as Python does.
+when defined(js):
+  let platform* = str getPlatform()
+else:
+  const platform*: PyStr =
+    str getPlatform()
+    ## .. note:: the value is standalone for bare system
+    ## and haiku/netbsd appended with major version instead of "unknown".
+    ## In short, this won't be "unknown" as Python does.
 
 when not weirdTarget:
   when not defined(pylibSysNoStdio):
@@ -132,7 +135,7 @@ const
     #rounds: 1
   )  ## float_info.rounds is defined as a `getter`, see `rounds`_
 
-when not defined(nimscript):
+when not weirdTarget:
   let fiRound = fegetround().int
   template rounds*(fi: typeof(float_info)): int =
     ## not available when nimscript
@@ -140,7 +143,7 @@ when not defined(nimscript):
     fiRound
 else:
   template rounds*(fi: typeof(float_info)): int =
-    {.error: "not available for nimscript/compile-time".}
+    {.error: "not available for nimscript/JavaScript/compile-time".}
 
 func int2hex(x: int): int =
   ## 10 -> 0x10
@@ -216,6 +219,14 @@ else:
 
 when defined(nimscript):
   template executable*: PyStr = str getCurrentCompilerExe()
+elif defined(js):
+  const execPathJs =
+    when defined(nodejs): "process.execPath"
+    else: "typeof Deno === 'undefined' ? '' : Deno.execPath()"
+  let execPath{.importjs: execPathJs.}: cstring
+  template executable*: PyStr =
+    bind execPath
+    str execPath
 else:
   template executable*: PyStr =
     ## .. note:: when nimscript, this is path of `Nim`;
