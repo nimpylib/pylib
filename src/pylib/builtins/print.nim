@@ -59,7 +59,11 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
               let denoStdout{.importjs:"Deno.stdout".}: JsObject
               proc () = denoStdout.writeSync cstring(objects.join(sep) & endl)
 
-        when file is NoneType: toStdout()
+        when file is NoneType:
+          when compiles(sys.stdout):
+            if sys.stdout.isNil:
+              return
+          toStdout()
         elif file is File:
           if file == system.stdout: toStdout()
           else: notImpl "JavaScript", true
@@ -76,6 +80,8 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
             addExitProc( proc(){.noconv.} = lockPrint.deinitLock() )
         when file is NoneType:
           let file = sys.stdout
+          if file.isNil:
+            return
         # Write all objects joined by sep
         let le = len objects
         withLock lockPrint:
