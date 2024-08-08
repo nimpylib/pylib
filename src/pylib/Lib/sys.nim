@@ -7,7 +7,8 @@
 
 import std/os
 import std/fenv
-import std/strutils  # split toLowerAscii
+when defined(js) or not (defined(Py_FORCE_UTF8_FS_ENCODING) or defined(windows)):
+  from std/strutils import toLowerAscii
 when defined(nimPreviewSlimSystem):
   import std/assertions
 
@@ -45,39 +46,38 @@ when not weirdTarget and not defined(windows):
     else:
       pre
 
-proc nativePlatform(): string =
-  when defined(windows): "win32"  # hostOS is windows
-  elif defined(macosx): "darwin"  # hostOS is macosx
-  elif defined(android): "android"
-  elif defined(linux): "linux".sufBefore (3,3)
-  elif defined(aix): "aix".sufBefore (3,8)
-  else:
-    when defined(solaris):
-      # Only solaris (SunOS 5) is supported by Nim, as of Nim 2.1.1,
-      # and SunOS's dev team in Oracle had been disbanded years ago
-      # Thus SunOS's version would never excceed 5 ...
-      "sunos5"  # hostOS is solaris
-    elif hostOS == "standalone":
-      hostOS
+proc getPlatform(): string = 
+  when defined(js):
+    when defined(nodejs):
+      return $require("os").platform()
     else:
-      # XXX: haiku, netbsd  ok ?
-      hostOS & uname_release_major()
-
-proc jsPlatform(): string = 
-  when defined(nodejs):
-    return $require("os").platform()
+      let navigator{.importcpp.}: JsObject
+      result = ($navigator.platform).toLowerAscii
+      result =
+        if result.startsWith "win32": "win32"
+        elif result.startsWith "linux": "linux"
+        elif result.startsWith "mac": "darwin"
+        else: result## XXX: TODO
   else:
-    let navigator{.importcpp.}: JsObject
-    result = ($navigator.platform).toLowerAscii
-    if result.startsWith "win32": "win32"
-    elif result.startsWith "linux": "linux"
-    elif result.startsWith "mac": "darwin"
-    ## XXX: TODO
-    else: result
+    when defined(windows): "win32"  # hostOS is windows
+    elif defined(macosx): "darwin"  # hostOS is macosx
+    elif defined(android): "android"
+    elif defined(linux): "linux".sufBefore (3,3)
+    elif defined(aix): "aix".sufBefore (3,8)
+    else:
+      when defined(solaris):
+        # Only solaris (SunOS 5) is supported by Nim, as of Nim 2.1.1,
+        # and SunOS's dev team in Oracle had been disbanded years ago
+        # Thus SunOS's version would never excceed 5 ...
+        "sunos5"  # hostOS is solaris
+      elif hostOS == "standalone":
+        hostOS
+      else:
+        # XXX: haiku, netbsd  ok ?
+        hostOS & uname_release_major()
 
 const platform*: PyStr =
-  when defined(js): str jsPlatform()
-  else: str nativePlatform()
+  str getPlatform()
   ## .. note:: the value is standalone for bare system
   ## and haiku/netbsd appended with major version instead of "unknown".
   ## In short, this won't be "unknown" as Python does.
