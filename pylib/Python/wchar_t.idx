@@ -5,6 +5,7 @@ nim	allocWcharArr	pylib/Python/wchar_t.html#allocWcharArr.t,I	template allocWcha
 nim	deallocWcArr	pylib/Python/wchar_t.html#deallocWcArr.t,ptr.wchar_t	template deallocWcArr(p: ptr wchar_t)		11
 nim	mbstate_t	pylib/Python/wchar_t.html#mbstate_t	object mbstate_t		14
 nim	Py_UNICODE_IS_SURROGATE	pylib/Python/wchar_t.html#Py_UNICODE_IS_SURROGATE.t,wchar_t	template Py_UNICODE_IS_SURROGATE(ch: wchar_t): bool		18
+nim	MAX_UNICODE_val	pylib/Python/wchar_t.html#MAX_UNICODE_val	const MAX_UNICODE_val		20
 nim	is_valid_wide_char	pylib/Python/wchar_t.html#is_valid_wide_char,wchar_t	proc is_valid_wide_char(ch: wchar_t): bool		26
 nim	HAVE_MBRTOWC	pylib/Python/wchar_t.html#HAVE_MBRTOWC	const HAVE_MBRTOWC		55
 nim	DECODE_ERROR	pylib/Python/wchar_t.html#DECODE_ERROR	const DECODE_ERROR		59

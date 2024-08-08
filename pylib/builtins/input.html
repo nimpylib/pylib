@@ -76,7 +76,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../pystring/strimpl.html">../pystring/strimpl</a>
+    <a class="reference external" href="print.html">print</a>, <a class="reference external" href="../pystring/strimpl.html">../pystring/strimpl</a>, <a class="reference external" href="../Lib/sys.html">../Lib/sys</a>, <a class="reference external" href="../pyerrors/rterr.html">../pyerrors/rterr</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -84,14 +84,13 @@
   <dl class="item">
     <div id="input-procs-all">
   <div id="input">
-  <dt><pre><span class="Keyword">proc</span> <a href="#input"><span class="Identifier">input</span></a><span class="Other">(</span><span class="Identifier">prompt</span> <span class="Other">=</span> <span class="Identifier">str</span><span class="Other">(</span><span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">EOFError</span><span class="Other">]</span><span class="Other">,</span>
-                                      <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">]</span><span class="Other">,</span>
-                                      <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#input"><span class="Identifier">input</span></a><span class="Other">(</span><span class="Identifier">prompt</span> <span class="Other">=</span> <span class="Identifier">str</span><span class="Other">(</span><span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RuntimeError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span>
+    <span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Python-like <tt class="docutils literal"><span class="pre">input()</span></tt> procedure.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/input.nim#L4" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/input.nim#L4" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    when on non-nodejs JavaScript backend, uses <tt class="docutils literal"><span class="pre"><span class="Identifier">prompt</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/input.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/input.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -107,7 +106,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-07 13:39:32 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-08 04:14:11 UTC</small>
       </div>
     </div>
   </div>

@@ -13,6 +13,6 @@ nim	timeit	pylib/Lib/n_timeit.html#timeit.t,TimeitParam,TimeitParam	template tim
 nim	repeat	pylib/Lib/n_timeit.html#repeat.t,TimeitParam,TimeitParam	template repeat(stmt: TimeitParam = NullStmt; setup: TimeitParam = NullStmt;\n       timer = default_timer; repeat = default_repeat; number = default_number): seq[\n    float]		139
 nim	repeat	pylib/Lib/n_timeit.html#repeat.t,Timer	template repeat(self: Timer; repeat = default_repeat; number = default_number): seq[float]		146
 nim	autorange	pylib/Lib/n_timeit.html#autorange.t,Timer,proc(int,float)	template autorange(self: Timer; callable: proc (number: int; time_taken: float) = nil): (\n    int, float)		150
-nim	print_exc	pylib/Lib/n_timeit.html#print_exc,auto,auto	proc print_exc(self, file: auto = nil)		168
+nim	print_exc	pylib/Lib/n_timeit.html#print_exc,Timer,auto	proc print_exc(self: Timer; file: auto = nil)		168
 nimgrp	repeat	pylib/Lib/n_timeit.html#repeat-templates-all	template		139
 nimgrp	timeit	pylib/Lib/n_timeit.html#timeit-templates-all	template		24
