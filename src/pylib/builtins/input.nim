@@ -1,16 +1,19 @@
 
+import ./print
 import ../pystring/strimpl
+import ../Lib/sys
+import ../pyerrors/rterr
 
-proc input*(prompt = str("")): PyStr =
-  ## Python-like ``input()`` procedure.
-  when defined(js):
+
+proc inputImpl: PyStr =
+  when defined(nimscript):
+    # XXX: currently sys.stdin is not available on nimscript
+    static: assert not compiles(sys.stdin)
+    readLineFromStdin()
+  elif defined(js):
+    static: assert defined(nodejs)
     var jsResStr: cstring
-    let jsPs = $(prompt).cstring
-    when not defined(nodejs):  # browesr or deno
-      asm "`jsResStr` = prompt(`jsPs`);"
-    else:
-      asm """ // XXX: only support ASCII charset now.
-        if (`jsPs`) process.stdout.write(`jsPs`);
+    asm """// XXX: FIXME: only support ASCII charset now.
         const fs = require('fs');
         let fd = (process.platform == 'win32') ?
           process.stdin.fd :
@@ -45,6 +48,24 @@ proc input*(prompt = str("")): PyStr =
     """]#
     result = str $jsResStr
   else:
-    if prompt.len > 0:
-      stdout.write($prompt)
-    result = str stdin.readLine()
+    sys.stdin.readline()
+
+
+proc inputImpl(prompt: string): PyStr =
+  when defined(js) and not defined(nodejs):# browesr or deno
+    proc prompt(ps: cstring): cstring{.importjs: "prompt(#)".}
+    return str $prompt(cstring prompt)
+  else:
+    if prompt.len != 0:
+      print(prompt, endl="")
+    inputImpl()
+
+proc input*(prompt = str("")): PyStr =
+  ##
+  ## when on non-nodejs JavaScript backend,
+  ## uses `prompt`
+  template lost(std) = raise newException(RuntimeError, "input() lost " & std)
+  if sys.stdin.isNil: lost "stdin"
+  if sys.stdout.isNil: lost "stdout"
+  inputImpl prompt
+  
