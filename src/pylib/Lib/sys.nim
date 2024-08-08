@@ -104,6 +104,7 @@ when not weirdTarget:
       dunder_stdin* = stdin   ## __stdin__
       dunder_stdout* = stdout ## __stdout__
       dunder_stderr* = stderr ## __stderr__
+    converter noneStdstream*(n: NoneType): typeof(stdout) = nil
 
 proc exit*(s: PyStr) = quit($s)
 func exit*(c: int) = quit(c)
