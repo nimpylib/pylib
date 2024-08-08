@@ -4,7 +4,7 @@ import ../noneType
 import ../pystring/strimpl
 
 when defined(js):
-  import std/[jsconsole]
+  import std/[jsconsole, jsffi]
 elif not defined(nimscript):
   import std/locks
   when NimMajor == 1:
@@ -20,9 +20,11 @@ template isEchoNL(c: string): bool = c == "\n"
 
 proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string="\n",
               file: auto = None, flush=false) =
-  template notImpl(backend) =
-    raise newException(OSError, "print with file != None or endl != '\n' is not supported" &
-      " for " & astToStr(backend) & " backend")
+  template notImpl(backend, supportEnd=false) =
+    raise newException(OSError, "print with file != None " & 
+      when supportEnd: "" else: "or endl != '\n'" &
+      " is not supported for " &
+      astToStr(backend) & " backend")
   template vmPrintImpl =
     if file is_not NoneType or not endl.isEchoNL:
       notImpl "NimScript"
@@ -41,16 +43,30 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
         # as `File` cannot appear when nimvm
         assert file is NoneType|File|typeof(sys.stdout)
       when defined(js):
-        template toStdout =
-          console.log(objects.join(sep).cstring, endl)
-        when file is NoneType: toStdout
+        let toStdout =
+          when defined(nodejs):
+            let processStdout{.importjs: "process.stdout".}: JsObject
+            proc () = processStdout.write cstring(objects.join(sep) & endl)
+            # XXX: FIXME: this is async on Windows
+          else:
+            let Deno{.importcpp.}: JsObject
+            let inBorwser = Deno == jsUndefined
+            if inBorwser:
+              if not endl.isEchoNL:
+                notImpl "JavaScript"
+              proc () = console.log "%s", cstring objects.join(sep)
+            else:
+              let denoStdout{.importjs:"Deno.stdout".}: JsObject
+              proc () = denoStdout.writeSync cstring(objects.join(sep) & endl)
+
+        when file is NoneType: toStdout()
         elif file is File:
-          if file == stdout: toStdout
-          else: notImpl "JavaScript"
+          if file == system.stdout: toStdout()
+          else: notImpl "JavaScript", true
         else:
           if file == sys.dunder_stdout:
-            toStdout
-          else: notImpl "JavaScript"
+            toStdout()
+          else: notImpl "JavaScript", true
       else:
         var lockPrint{.global.}: Lock
         when nimvm: discard
