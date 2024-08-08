@@ -1,5 +1,5 @@
 
-# v x.xx.x - yyyy-mm-dd
+# vx.xx.x - yyyy-mm-dd
 
 
 ## Fixes for inconsistence with Python
