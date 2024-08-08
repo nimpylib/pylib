@@ -11,7 +11,8 @@ proc inputImpl: PyStr =
     static: assert not compiles(sys.stdin)
     readLineFromStdin()
   elif defined(js):
-    static: assert defined(nodejs)
+    when not defined(nodejs):
+      {.warning: "assuming NodeJs but nodejs is not defined".}
     var jsResStr: cstring
     asm """// XXX: FIXME: only support ASCII charset now.
         const fs = require('fs');
@@ -64,8 +65,9 @@ proc input*(prompt = str("")): PyStr =
   ##
   ## when on non-nodejs JavaScript backend,
   ## uses `prompt`
-  template lost(std) = raise newException(RuntimeError, "input() lost " & std)
-  if sys.stdin.isNil: lost "stdin"
-  if sys.stdout.isNil: lost "stdout"
+  when declared(sys.stdin) and declared(sys.stdout):
+    template lost(std) = raise newException(RuntimeError, "input() lost " & std)
+    if sys.stdin.isNil: lost "stdin"
+    if sys.stdout.isNil: lost "stdout"
   inputImpl prompt
   

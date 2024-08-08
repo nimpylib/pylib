@@ -41,12 +41,16 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
       static:
         # check here instead of using `file: xxx` in param list
         # as `File` cannot appear when nimvm
-        assert file is NoneType|File|typeof(sys.stdout)
+        when declared(sys.stdout):
+          type Param = NoneType|File|typeof(sys.stdout)
+        else:
+          type Param = NoneType|File
+        assert file is Param
       when defined(js):
         let toStdout =
           when defined(nodejs):
-            let processStdout{.importjs: "process.stdout".}: JsObject
-            proc () = processStdout.write cstring(objects.join(sep) & endl)
+            proc processStdoutWrite(s: cstring){.importjs: "process.stdout.write(#)".}
+            proc () = processStdoutWrite(cstring(objects.join(sep) & endl))
             # XXX: FIXME: this is async on Windows
           else:
             let Deno{.importcpp.}: JsObject
@@ -54,10 +58,10 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
             if inBorwser:
               if not endl.isEchoNL:
                 notImpl "JavaScript"
-              proc () = console.log "%s", cstring objects.join(sep)
+              proc () = console.log("%s", cstring objects.join(sep))
             else:
-              let denoStdout{.importjs:"Deno.stdout".}: JsObject
-              proc () = denoStdout.writeSync cstring(objects.join(sep) & endl)
+              proc denoStdoutWriteSync(s: cstring){.importjs:"Deno.stdout.writeSync(#)".}
+              proc () = denoStdoutWriteSync(cstring(objects.join(sep) & endl))
 
         when file is NoneType:
           when compiles(sys.stdout):
