@@ -48,11 +48,13 @@ when not weirdTarget and not defined(windows):
 
 proc getPlatform(): string = 
   when defined(js):
+    template inString(jo: JsObject): string =
+      $(jo.to(cstring))
     when defined(nodejs):
-      return $require("os").platform()
+      return require("os").platform().inString
     else:
       let navigator{.importcpp.}: JsObject
-      result = ($navigator.platform).toLowerAscii
+      result = navigator.platform.inString.toLowerAscii
       result =
         if result.startsWith "win32": "win32"
         elif result.startsWith "linux": "linux"
