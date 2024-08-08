@@ -17,7 +17,7 @@ type
 # #define Py_UNICODE_IS_SURROGATE(ch) (0xD800 <= (ch) && (ch) <= 0xDFFF)
 template Py_UNICODE_IS_SURROGATE*(ch: wchar_t): bool =
   (0xD800.wchar_t <= (ch) and (ch) <= 0xDFFF.wchar_t)
-const MAX_UNICODE_val = 0x10ffff
+const MAX_UNICODE_val* = 0x10ffff
 
 # ref
 # https://github.com/python/cpython/commit/d3cc6890#diff-90d08e583c4c9c6f391b2ae90f819f600a6326928ea9512c9e0c6d98e9f29ac2R15126
