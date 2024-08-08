@@ -20,9 +20,9 @@ template isEchoNL(c: string): bool = c == "\n"
 
 proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string="\n",
               file: auto = None, flush=false) =
-  template notImpl(backend, supportEnd=false) =
+  template notImpl(backend; supportEnd=false) =
     raise newException(OSError, "print with file != None " & 
-      when supportEnd: "" else: "or endl != '\n'" &
+      (when supportEnd: "" else: "or endl != '\n'") &
       " is not supported for " &
       astToStr(backend) & " backend")
   template vmPrintImpl =
