@@ -19,6 +19,7 @@ import ../pystring/strimpl
 const weirdTarget = defined(js) or defined(nimscript)
 when defined(js):
   import std/jsffi
+  import ../jsutils/deno
 when not weirdTarget:
   const inFileSystemUtf8os = defined(macosx) or defined(android) or defined(vxworks)
   when not inFileSystemUtf8os:
@@ -220,17 +221,30 @@ else:
 when defined(nimscript):
   template executable*: PyStr = str getCurrentCompilerExe()
 elif defined(js):
-  const execPathJs =
-    when defined(nodejs): "process.execPath"
-    else: "typeof Deno === 'undefined' ? '' : Deno.execPath()"
-  let execPath{.importjs: execPathJs.}: cstring
-  template executable*: PyStr =
-    bind execPath
-    str execPath
+  when defined(nodejs): 
+    let execPath{.importjs: "process.execPath".}: cstring
+    template executable*: PyStr =
+      bind execPath
+      str $execPath
+  else:
+    func getExecPath: cstring =
+      # Deno.execPath() may ask permission,
+      #  so we only invoke it when called
+      if inDeno:
+        asm "`result` = Deno.execPath()"
+      else: result = ""
+    template executable*: PyStr =
+      bind getExecPath
+      str $getExecPath()
 else:
   template executable*: PyStr =
-    ## .. note:: when nimscript, this is path of `Nim`;
-    ## otherwise, it's the path of current app/exe.
+    ## returns:
+    ##
+    ##   - when nimscript, path of `Nim`;
+    ##   - when JavaScript:
+    ##     - on browser: empty string
+    ##     - on NodeJS/Deno: executable path of Node/Deno
+    ##   - otherwise, it's the path of current app/exe.
     str getAppFilename()
 
 template getsizeof*(x): int =
