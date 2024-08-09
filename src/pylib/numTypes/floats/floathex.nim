@@ -1,5 +1,5 @@
 
-from std/parseutils import skipWhile, parseInt
+import std/parseutils  # skipWhile, parseInt, parseBiggestInt
 from std/strutils import find, initSkipTable, isSpaceAscii, toLowerAscii,
   HexDigits
 import std/fenv
@@ -99,9 +99,6 @@ func hexImpl*(x: float): string =
 template IS_SPACE(c): bool = isSpaceAscii(c)
 
 func floatFromhexImpl*(s: string): float =
-  const
-    LONG_MAXd2 = high(int) div 2
-    LONG_MINd2 = low(int) div 2
   #[For the sake of simplicity and correctness, we impose an artificial
   limit on ndigits, the total number of hex digits in the coefficient
   The limit is chosen to ensure that, writing exp for the exponent,
@@ -148,9 +145,18 @@ func floatFromhexImpl*(s: string): float =
   let
     s_hi = s.high
     s_end = s.len
-  var
-    exp: int
-    negate = false
+  when sizeof(int) >= 8:
+    var exp: int
+    const intExp = true
+  else:
+    var exp: BiggestInt
+    const intExp = false
+  type TExp = typeof(exp)
+  const
+    LONG_MAXd2 = high(TExp) div 2
+    LONG_MINd2 = low(TExp) div 2
+  var negate = false
+    
 
   template raiseValueError(msg) =
     raise newException(ValueError, msg)
@@ -227,14 +233,16 @@ func floatFromhexImpl*(s: string): float =
       parse_error
     step
     while inBound and cur in '0'..'9':
-      step
-    let n = parseInt(s, exp, exp_start)
+      step 
+    let n =
+      when intExp: parseInt(s, exp, exp_start)
+      else: parseBiggestInt(s, exp, exp_start)
     assert n != 0
   else:
     exp = 0
   
   # for 0 <= j < ndigits, HEX_DIGIT(j) gives the jth most significant digit
-  template HEX_DIGIT(j): int =
+  template HEX_DIGIT(j: int): int =
     hex_from_char(s[
       if j < fdigits: coeff_end-j
       else: coeff_end-1-j
@@ -261,10 +269,10 @@ func floatFromhexImpl*(s: string): float =
     overflow_error
 
   # Adjust exponent for fractional part.
-  exp -= 4*fdigits
+  exp -= TExp 4*fdigits
 
   # top_exp = 1 more than exponent of most sig. bit of coefficient
-  var top_exp = exp + 4*(ndigits - 1)
+  var top_exp = exp + 4*(ndigits.TExp - 1)
   var digits = HEX_DIGIT(ndigits-1)
   while digits != 0:
     top_exp.inc
@@ -279,7 +287,7 @@ func floatFromhexImpl*(s: string): float =
 
   # lsb = exponent of least significant bit of the *rounded* value
   # This is top_exp - DBL_MANT_DIG unless result is subnormal.
-  let lsb = max(top_exp, int(DBL_MIN_EXP)) - DBL_MANT_DIG
+  let lsb = max(top_exp, DBL_MIN_EXP.TExp) - TExp DBL_MANT_DIG
 
   result = 0.0
   template handleInTill(till) =
@@ -288,16 +296,16 @@ func floatFromhexImpl*(s: string): float =
   if exp >= lsb:
     # no rounding required
     handleInTill 0
-    result = ldexp(result, exp)
+    result = ldexp(result, exp.int)
     finished
   # rounding required.  key_digit is the index of the hex digit
   # containing the first bit to be rounded away.
   let
-    half_eps = 1 shl ((lsb - exp - 1) mod 4)
-    key_digit = (lsb - exp - 1) div 4
+    half_eps = 1 shl (cast[int](lsb - exp - 1) mod 4)
+    key_digit = int(lsb - exp - 1) div 4
   handleInTill key_digit+1
   let digit = HEX_DIGIT(key_digit)
-  result = 16.0*result + float(digit and (16-2*half_eps))
+  result = 16.0*result + float(digit.TExp and (16-2*half_eps))
 
   # round-half-even: round up if bit lsb-1 is 1 and at least one of
   # bits lsb, lsb-2, lsb-3, lsb-4, ... is 1.
@@ -320,5 +328,5 @@ func floatFromhexImpl*(s: string): float =
         # overflow corner case:
         # pre-rounded value < 2**DBL_MAX_EXP; rounded=2**DBL_MAX_EXP.
         overflow_error
-  result = ldexp(result, exp+4*key_digit)
+  result = ldexp(result, int exp+4*key_digit)
   finished
