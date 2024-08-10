@@ -1,2 +1,2 @@
 nimTitle	input	pylib/builtins/input.html	module src/pylib/builtins/input		0
-nim	input	pylib/builtins/input.html#input	proc input(prompt = str("")): PyStr		63
+nim	input	pylib/builtins/input.html#input	proc input(prompt = str("")): PyStr		64
