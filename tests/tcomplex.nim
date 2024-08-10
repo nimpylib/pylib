@@ -81,6 +81,12 @@ suite "complex":
     check(complex(imag=1.5), 0.0, 1.5)
     check(complex(real=4.25, imag=1.5), 4.25, 1.5)
     check(complex(4.25, imag=1.5), 4.25, 1.5)
+  test "literals":
+    check 1-3'j == complex(1, -3)
+    checkpoint "at compile-time"
+    const c = -3-1'j
+    check c.real == -3
+    check c.imag == -1
   test "str":
     let z = complex(3.0, -4.0)
     check $z == "(3-4j)"

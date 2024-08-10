@@ -10,4 +10,9 @@ func parsePyFloat*(a: openArray[char], res: var BiggestFloat): int =
   if a.len == 0: return 0
   result = a.parse_inf_or_nan(res)
   if result != 0: return
-  result = parseFloat(a, res)
+  when nimvm:
+    # NIM-BUG: https://github.com/nim-lang/Nim/issues/23936
+    # bypass
+    result = parseFloat(a.toOpenArray(0, a.high), res)
+  else:
+    result = parseFloat(a, res)
