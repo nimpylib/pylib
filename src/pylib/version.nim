@@ -12,7 +12,7 @@ func asVersion*(v: (int, int, int)): string = asVersion(v[0], v[1], v[2])
 const
   Major* = 0
   Minor* = 9
-  Patch* = 1
+  Patch* = 2
   Version* = asVersion(Major, Minor, Patch)
 
   ReleaseLevel* = "alpha"

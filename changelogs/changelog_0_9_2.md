@@ -1,5 +1,5 @@
 
-# v0.9.2 - 2024-08-08
+# v0.9.2 - 2024-08-16
 
 ## Bug fixes
 - math.isinf, isfinite didn't consider negative infinity as infinity.
@@ -30,6 +30,8 @@
   - io
     - DEFAULT_BUFFER_SIZE is exported now
     - context mgr for io.IOBase
+  - os
+    - stat_result's `__getattr__`  returned int over float
 
 ## Feature additions
 - int.to_bytes and int.from_bytes classmethod
@@ -54,9 +56,11 @@
     - filesystem-relative method
   - timeit.*, (not just .timeit)
   - os
+    - add JS support for most APIs
     - `{get,set}_[handle_]inheritable`
     - lseek
     - `SEEK_*` constants
+    - getpid
 
 ### Nimscript Support Addition
 input print
