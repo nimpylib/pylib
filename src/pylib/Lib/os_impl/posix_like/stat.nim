@@ -28,7 +28,7 @@ when DWin:
     
   {.push header: "<sys/stat.h>".}
   type
-    Stat{.importc: "struct _stat".} = object
+    Stat{.importc: "struct _stat64".} = object
       st_ino*: Ino
       st_mode*: Mode
       st_nlink*: Nlink
@@ -40,7 +40,7 @@ when DWin:
       st_mtime*: Time64
       st_ctime*: Time64
   proc wstat(p: WideCString, res: var Stat): cint{.importc: "_wstat64".}
-  proc fstat(fd: cint, res: var Stat): cint{.importc: "_fstat".}
+  proc fstat(fd: cint, res: var Stat): cint{.importc: "_fstat64".}
   {.pop.}
 else:
   import std/posix
