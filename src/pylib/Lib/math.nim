@@ -5,6 +5,10 @@ import std/math
 import std/bitops
 import std/macros
 
+template impPatch(sym) =
+  import ./math_patch/sym
+  export sym
+
 const CLike = defined(c) or defined(cpp)
 
 template clikeOr(inCLike, b): untyped =
@@ -130,6 +134,8 @@ when not defined(js):
 
   expM gamma
   expM lgamma
+else:
+  impPatch gamma
 
 expM exp
 func expm1*[F: SomeFloat](x: F): F = exp(x) - 1

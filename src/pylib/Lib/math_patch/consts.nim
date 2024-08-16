@@ -1,0 +1,9 @@
+ 
+const
+  Pinf* = Inf
+  Ninf* = NegInf
+
+  EULER* = ## euler_gamma
+    0.577215664901532860606512090082402431042
+  SQRT_TWO_PI* =  ## sqrt(2*PI) <-> sqrt(TAU)
+    2.506628274631000502415765284811045253
