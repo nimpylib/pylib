@@ -6,9 +6,18 @@ import std/os
 import ./common
 import ./posix_like/mkrmdir
 
-proc getcwd*(): PyStr = str getCurrentDir()
-proc getcwdb*(): PyBytes = bytes getCurrentDir()
-proc chdir*(s: PathLike) = setCurrentDir $s
+when InJs:
+  import ./osJsPatch
+  proc cwd(): cstring{.importDenoOrProcess(cwd).}
+  proc getcwd*(): PyStr = str cwd()
+  proc getcwdb*(): PyBytes = bytes cwd()
+  proc chdir(d: cstring){.importDenoOrProcess(chdir).}
+  proc chdir*(s: PathLike) = chdir cstring $s
+
+else:
+  proc getcwd*(): PyStr = str getCurrentDir()
+  proc getcwdb*(): PyBytes = bytes getCurrentDir()
+  proc chdir*(s: PathLike) = setCurrentDir $s
 
 proc makedirs*[T](d: PathLike[T], mode=0o777, exists_ok=false) =
   let dir = $d

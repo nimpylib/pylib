@@ -1,13 +1,17 @@
 
+when NimMajor > 1:
+  import std/oserrors
+else:
+  import std/os
 when defined(windows):
   import std/winlean
 else:
   import std/posix
 
-when NimMajor > 1:
-  import std/oserrors
-else:
-  import std/os
+const InJs* = defined(js)
+when InJs:
+  import ./jsoserr
+
 import ../io_abc
 import ../private/backendMark
 export OSErrorCode
@@ -21,7 +25,11 @@ type
 # as they're currently only used there.
 
 const weirdTarget = defined(nimscript) or defined(js)
-when not weirdTarget:
+when InJs:
+  export isNotFound
+elif defined(nimscript):
+  proc isNotFound*(err: OSErrorCode): bool{.error: "not implement for NimScript backend".}
+else:
   when defined(windows):
     proc isNotFound*(err: OSErrorCode): bool = 
       let i = err.int
@@ -29,9 +37,7 @@ when not weirdTarget:
     const ERROR_DIRECTORY_NOT_SUPPORTED = 336
   else:
     let enoent = ENOENT.int
-    proc isNotFound*(err: OSErrorCode): bool = err.int == enoent
-else:
-  proc isNotFound*(err: OSErrorCode): bool{.error: "not implement for JS backend".}
+    proc isNotFound*(err: OSErrorCode): bool = err.int == enoent  
 
 template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode, osErrorMsgCb): string =
   ## always suffixed with a `\n`
@@ -44,9 +50,14 @@ template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode, osErrorMsgCb): stri
   msg.add fp.pathrepr
   msg
 
-template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string =
-  bind osErrorMsgWithPath, osErrorMsg
-  osErrorMsgWithPath(fp, err, osErrorMsg)
+when InJs:
+  func osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string{.error: "not impl".}
+    #bind osErrorMsgWithPath, errnoMsgOSErr
+    #osErrorMsgWithPath(fp, err, errnoMsgOSErr)
+else:
+  template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode): string =
+    bind osErrorMsgWithPath, osErrorMsg
+    osErrorMsgWithPath(fp, err, osErrorMsg)
 
 func newOSErrorWithMsg(err: OSErrorCode, msg: string): owned(ref OSError) =
   (ref OSError)(errorCode: err.int32, msg: msg)
@@ -77,12 +88,13 @@ template noWeirdTarget*(def) =
 const CONST_E = defined(windows) or compiles(static(EEXIST))
 # in posix_other_const.nim, E* is declared as `var`
 
-when weirdTarget:
+when defined(nimscript):
   const
     NON_ERR_CODE = -1  # no errCode shall match this
     ErrExist = NON_ERR_CODE
     ErrNoent = NON_ERR_CODE
     ErrIsdir = NON_ERR_CODE
+elif InJs: discard
 else:
 
   when defined(windows):
@@ -108,7 +120,7 @@ func raiseFileExistsError*(fp: PathLike) =
 
 # symbol used in case stmt's `of` branch must be constants
 when CONST_E:
-  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
+  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb:typed=osErrorMsg) =
     case system.int(oserr)
     of ErrExist:
       rErr FileExistsError
@@ -119,7 +131,7 @@ when CONST_E:
     else:
       raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
 else:
-  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb=osErrorMsg) =
+  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb:typed=osErrorMsg) =
     let ierr = oserr.int
     if ierr == ErrExist:
       rErr FileExistsError
@@ -155,38 +167,61 @@ template tryOsOp*(p: PathLike, body) =
   except OSError as e:
     p.raiseExcWithPath(e.errorCode.OSErrorCode)
 
-when defined(windows):
-  # std/posix has defined `errno`
-  var errno{.importc, header: "<errno.h>".}: cint
-
-when not weirdTarget:
+when InJs:
+  proc errnoMsgOSErr(errnoCode: OSErrorCode): string = jsErrnoMsg(errnoCode)
+  proc errnoMsg*(errnoCode: cint): string = jsErrnoMsg(errnoCode.OSErrorCode)
+elif not weirdTarget:
   proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
 
   func errnoMsgOSErr(errnoCode: OSErrorCode): string = $c_strerror(errnoCode.cint)
 
   func errnoMsg*(errnoCode: cint): string = $c_strerror(errnoCode)
 
-  proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
-    result = (ref OSError)(errorCode: errnoCode.int32, msg: errnoMsg(errno))
-    if additionalInfo.len > 0:
-      if result.msg.len > 0 and result.msg[^1] != '\n': result.msg.add '\n'
-      result.msg.add "Additional info: "
-      result.msg.add additionalInfo
-        # don't add trailing `.` etc, which negatively impacts "jump to file" in IDEs.
-    if result.msg == "":
-      result.msg = "unknown OS error"
 
+proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
+  result = (ref OSError)(errorCode: errnoCode.int32, msg: errnoMsg(errnoCode))
+  if additionalInfo.len > 0:
+    if result.msg.len > 0 and result.msg[^1] != '\n': result.msg.add '\n'
+    result.msg.add "Additional info: "
+    result.msg.add additionalInfo
+      # don't add trailing `.` etc, which negatively impacts "jump to file" in IDEs.
+  if result.msg == "":
+    result.msg = "unknown OS error"
+
+
+proc raiseErrno*(errno: cint; additionalInfo = "") =
+  ## may raise OSError only
+  raise newErrnoErr(errno, additionalInfo)
+
+proc raiseErrnoWithPath*[T](p: PathLike[T]; errno: cint) =
+  ## raises OSError or its SubError.
+  ## refer to errno even under Windows.
+  let errCode = errno.OSErrorCode
+  template rErr(exc) =
+    p.raiseExcWithPath(exc, errCode)
+  errMap errCode, rErr, errnoMsgOSErr
+
+when InJs:
+  proc raiseErrnoWithMsg*(errno: cint, errMsg: string) =
+    let errCode = errno.OSErrorCode
+    template rErr(exc) =
+      raise newException(exc, errMsg)
+    template msgDiscardCode(_): string = errMsg
+    errMap errCode, rErr, msgDiscardCode
+  template catchJsErrAndRaise*(doSth) =
+      var errMsg = ""
+      let err = catchJsErrAsCode errMsg:
+        doSth
+      if err != 0:
+        raiseErrnoWithMsg err, errMsg
+else:
   proc newErrnoErr(additionalInfo = ""): owned(ref OSError) =
     newErrnoErr(errno, additionalInfo)
 
   proc raiseErrno*(additionalInfo = "") =
     ## may raise OSError only
     raise newErrnoErr(additionalInfo)
-
   proc raiseErrnoWithPath*[T](p: PathLike[T]) =
-    ## raises OSError or its SubError.
-    ## refer to errno even under Windows.
-    let errCode = errno.OSErrorCode
-    template rErr(exc) =
-      p.raiseExcWithPath(exc, errCode)
-    errMap errCode, rErr, errnoMsgOSErr
+    raiseErrnoWithPath(p)
+
+

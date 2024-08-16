@@ -1,5 +1,8 @@
 
 const DenoDetectedJsExpr* = "typeof Deno !== 'undefined'"
 when defined(js):
-  let inDeno*{.importjs: DenoDetectedJsExpr.}: bool
+  when defined(nodejs):
+    let inDeno* = false
+  else:
+    let inDeno*{.importjs: DenoDetectedJsExpr.}: bool
 

@@ -5,6 +5,8 @@ import ./posix_like/stat
 
 import ./common
 export common
+when InJs:
+  import ./osJsPatch
 
 import ./consts
 export consts
@@ -46,13 +48,16 @@ psExp normpath, normalizedPath
 func relpath*[T](p: PathLike[T], start=curdir): T =
   mapPathLike[T] relativePath($p, $start)
 
-template expFRetTAsF(nam, nimProc){.dirty.} =
-  ## returns Time as float
-  proc nam*[T](p: PathLike[T]): float =
-    p.tryOsOp: result = nimProc($p).toUnixFloat
-expFRetTAsF getctime, getCreationTime
-expFRetTAsF getmtime, getLastModificationTime
-expFRetTAsF getatime, getLastAccessTime
+when defined(js):
+  export getatime, getmtime, getctime
+else:
+  template expFRetTAsF(nam, nimProc){.dirty.} =
+    ## returns Time as float
+    proc nam*[T](p: PathLike[T]): float =
+      p.tryOsOp: result = nimProc($p).toUnixFloat
+  expFRetTAsF getctime, getCreationTime
+  expFRetTAsF getmtime, getLastModificationTime
+  expFRetTAsF getatime, getLastAccessTime
 
 proc getsize*[T](filename: PathLike[T]): int =
   # std/os.`getFileSize` doesn't work for directory

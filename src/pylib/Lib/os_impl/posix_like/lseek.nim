@@ -9,7 +9,7 @@ when MS_WINDOWS:
 else:
   import std/posix
 
-proc lseek*(fd: int, position: int64, whence: int): int64 =
+proc lseek*(fd: int, position: int64, whence: int): int64{.noWeirdTarget.} =
   let how = whence.toCSEEK
   with_Py_SUPPRESS_IPH:
     when MS_WINDOWS:

@@ -56,7 +56,7 @@ when defined(nimdoc):
   template SEEK_HOLE*: int{.pysince(3,3).} =
     ## see `SEEK_DATA`_ for hints.
 else:
-  when not defined(windows):
+  when not defined(js) and not defined(windows):
     {.emit: """
     /*INCLUDE_SECTION*/
     #define _GNU_SOURCE

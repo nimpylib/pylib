@@ -230,9 +230,10 @@ elif defined(js):
     func getExecPath: cstring =
       # Deno.execPath() may ask permission,
       #  so we only invoke it when called
-      if inDeno:
-        asm "`result` = Deno.execPath()"
-      else: result = ""
+      {.noSideEffect.}:
+        if inDeno:
+          asm "`result` = Deno.execPath()"
+        else: result = ""
     template executable*: PyStr =
       bind getExecPath
       str $getExecPath()

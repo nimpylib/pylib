@@ -13,36 +13,82 @@ type Time64 = int64
 */
 TODO: impl our own stat... Get rid of `_wstat`
 ]#
-when DWin:
-  when defined(nimPreviewSlimSystem):
-    import std/widestrs
-  type
-    Dev{.importc: "_dev_t", header: "<sys/types.h>".} = c_uint
-    Ino = c_ushort
-    Mode = c_ushort
-    Nlink = c_short
-    Uid = c_short
-    Gid = c_short
-    Off = int64
-    
-  {.push header: "<sys/stat.h>".}
-  type
-    Stat{.importc: "struct _stat64".} = object
-      st_ino*: Ino
-      st_mode*: Mode
-      st_nlink*: Nlink
-      st_uid*: Uid
-      st_gid*: Gid
-      st_dev*: Dev  ## same as st_rdev on Windows
-      st_size*: Off
-      st_atime*: Time64
-      st_mtime*: Time64
-      st_ctime*: Time64
-  proc wstat(p: WideCString, res: var Stat): cint{.importc: "_wstat64".}
-  proc fstat(fd: cint, res: var Stat): cint{.importc: "_fstat64".}
-  {.pop.}
+
+when InJs:
+  import std/jsffi
+  import ./jsStat
+  template impStatTAttr[T](attr; dstAttr; cvt: typed) =
+    func attr*(self: Stat): T =
+      let res = self.dstAttr
+      if res.isNull:
+        raise newException(AttributeError,
+          "'os.stat_result' object has no attribute '" & astToStr(attr) & '\'')
+      result = cvt[T] res
+  template jsToT[T](jsObj: JsObject): T = jsObj.to T
+  template impStatTAttr[T](attr; dstAttr) =
+    impStatTAttr[T](attr, dstAttr, jsToT)
+
+  template impStatIAttr(attr; dstAttr) = impStatTAttr[cdouble](attr, dstAttr)
+  template impStatIAttr(attr; dstAttr; typ) =
+    type typ = cdouble
+    impStatIAttr(attr, dstAttr)
+  impStatIAttr st_ino,    ino,    Ino
+  impStatIAttr st_mode,   mode,   Mode
+  impStatIAttr st_nlink,  nlink,  Nlink
+  impStatIAttr st_uid,    uid,    Uid
+  impStatIAttr st_gid,    gid,    Gid
+  impStatIAttr st_dev,    dev,    Dev
+  impStatIAttr st_rdev,   rdev
+  impStatIAttr st_size,   size,   Off
+  impStatIAttr st_blocks, blocks, Blkcnt
+  impStatIAttr st_blksize,blksize,Blksize
+
+  func rawValueOf(obj: JsObject): JsObject{.importjs: "(#).valueOf()".}
+  template chkDate(obj: JsObject) =
+    if obj.isNull:  # may be null on some platform
+      raise newException(OSError,
+        "get date from stat_result is supported in your platform")
+  func dateToSec(obj: JsObject): float =
+    # the number of milliseconds for this date since the epoch
+    chkDate obj
+    obj.rawValueOf().to(cdouble).float / 1000
+  func dateToNs(obj: JsObject): BiggestInt =
+    chkDate obj
+    BiggestInt obj.rawValueOf().to(cdouble)
+
+
 else:
-  import std/posix
+  const DWin = defined(windows)
+  when DWin:
+    when defined(nimPreviewSlimSystem):
+      import std/widestrs
+    type
+      Dev{.importc: "_dev_t", header: "<sys/types.h>".} = c_uint
+      Ino = c_ushort
+      Mode = c_ushort
+      Nlink = c_short
+      Uid = c_short
+      Gid = c_short
+      Off = int64
+
+    {.push header: "<sys/stat.h>".}
+    type
+      Stat{.importc: "struct _stat64".} = object
+        st_ino*: Ino
+        st_mode*: Mode
+        st_nlink*: Nlink
+        st_uid*: Uid
+        st_gid*: Gid
+        st_dev*: Dev  ## same as st_rdev on Windows
+        st_size*: Off
+        st_atime*: Time64
+        st_mtime*: Time64
+        st_ctime*: Time64
+    proc wstat(p: WideCString, res: var Stat): cint{.importc: "_wstat64".}
+    proc fstat(fd: cint, res: var Stat): cint{.importc: "_fstat64".}
+    {.pop.}
+  else:
+    import std/posix
 
 type
   stat_result* = ref object
@@ -50,6 +96,10 @@ type
 
 macro genTimeGetter(amc: static[char]) =
   result = newStmtList()
+  let
+    js_s_xtime = amc & "time"
+    js_xtime = ident js_s_xtime
+    js_getxtime = ident("get" & js_s_xtime)
   let s_st_xtim = "st_" & amc & "tim"
   template get(attr: string): NimNode =
     newDotExpr(x, ident(attr))
@@ -59,17 +109,27 @@ macro genTimeGetter(amc: static[char]) =
   let
     xtime_ns = ident(s_st_xtim & "e_ns")
   result = quote do:
+    when InJs:
+      func `js_getxtime`*(s: Stat): float =
+        ## inner, used by os.path
+        s.`js_xtime`.dateToSec()
     func `xtime`*(self: stat_result): float =
-      when compiles(self.data.`xtim`):
-        self.data.`xtim`.tv_sec.float + self.data.`xtim`.tv_nsec/1_000_000_000
+      when InJs:
+        `js_getxtime` self.data
       else:
-        self.data.`xtime`.float
+        when compiles(self.data.`xtim`):
+          self.data.`xtim`.tv_sec.float + self.data.`xtim`.tv_nsec/1_000_000_000
+        else:
+          self.data.`xtime`.float
     func `xtime_ns`*(self: stat_result): BiggestInt{.pysince(3,3).} =
-      when compiles(self.data.`xtim`):
-        self.data.`xtim`.tv_sec.BiggestInt * 1_000_000_000 +
-        self.data.`xtim`.tv_nsec.BiggestInt
+      when InJs:
+        self.data.`js_xtime`.dateToNs()
       else:
-        self.data.`xtime`.BiggestInt * 1_000_000_000
+        when compiles(self.data.`xtim`):
+          self.data.`xtim`.tv_sec.BiggestInt * 1_000_000_000 +
+          self.data.`xtim`.tv_nsec.BiggestInt
+        else:
+          self.data.`xtime`.BiggestInt * 1_000_000_000
 
 genTimeGetter 'a'
 genTimeGetter 'm'
@@ -92,9 +152,9 @@ func getitem(self: stat_result, i: int): BiggestInt =
   of 4: result = BiggestInt self.data.st_gid
   of 5: result = BiggestInt self.data.st_dev
   of 6: result = BiggestInt self.data.st_size
-  of 7: result = BiggestInt self.data.st_atime
-  of 8: result = BiggestInt self.data.st_mtime
-  of 9: result = BiggestInt self.data.st_ctime
+  of 7: result = BiggestInt self.st_atime
+  of 8: result = BiggestInt self.st_mtime
+  of 9: result = BiggestInt self.st_ctime
   else:
     raise newException(IndexDefect, "tuple index out of range")
 

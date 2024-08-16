@@ -3,14 +3,29 @@ import std/os
 import ../common
 import ./stat
 
+when InJs:
+  import std/jsffi
+  import ./links
+  type
+    Dir = JsObject  ## fs.Dir
+    Dirent = JsObject  ## fs.Dirent
+  from ./jsStat import Stat, statSync
+
 type
-  ScandirIterator[T] = ref object
-    iter: iterator(): DirEntry[T]
-  DirEntry*[T] = ref object
+  DirEntryImpl[T] = ref object of RootObj
     name*: T
     path*: T
-    kind: PathComponent
     stat_res: ref stat_result
+
+when InJs:
+  type DirEntry*[T] = ref object of DirEntryImpl[T]
+    statObj: Stat
+else:
+  type DirEntry*[T] = ref object of DirEntryImpl[T]
+    kind: PathComponent
+
+type ScandirIterator[T] = ref object
+    iter: iterator(): DirEntry[T]
 
 func close*(scandirIter: ScandirIterator) = discard
 iterator items*[T](scandirIter: ScandirIterator[T]): DirEntry[T] =
@@ -19,30 +34,55 @@ iterator items*[T](scandirIter: ScandirIterator[T]): DirEntry[T] =
 
 using self: DirEntry
 
-proc newDirEntry[T](name: string, dir: string, kind: PathComponent
-): DirEntry[T] =
-  new result
-  result.name = mapPathLike[T] name
-  result.path = mapPathLike[T] joinPath(dir, name)
-  result.kind = kind
+when InJs:
+  proc newDirEntry[T](name: string, dir: string, hasIsFileDir: JsObject
+  ): DirEntry[T] =
+    new result
+    result.name = mapPathLike[T] name
+    result.path = mapPathLike[T] joinPath(dir, name)
+    result.statObj = hasIsFileDir
+else:
+  proc newDirEntry[T](name: string, dir: string, kind: PathComponent
+  ): DirEntry[T] =
+    new result
+    result.name = mapPathLike[T] name
+    result.path = mapPathLike[T] joinPath(dir, name)
+    result.kind = kind
 
 func repr*(self): string =
   "<DirEntry " & self.name.repr & '>'
 
-template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
-  func is_x*(self): bool = 
-    ## follow_symlinks is True on default.
-    self.kind == pcX or self.kind == pcLinkToX
-  func is_x*(self; follow_symlinks: bool): bool =
-    ## result is cached. Python's is cached too.
-    result = self.kind == pcX
-    if follow_symlinks:
-      return result or self.kind == pcLinkToX
-gen_is_x is_file, pcFile, pcLinkToFile
-gen_is_x is_dir, pcDir, pcLinkToDir
-func is_symlink*(self): bool = 
-  ## ..warning:: this may differ Python's
-  self.kind == pcLinkToDir or self.kind == pcLinkToFile
+when InJs:
+  func is_symlink*(self): bool = self.statObj.isSymbolicLink()
+  template gen_is_x(is_x, jsAttr){.dirty.} =
+    func is_x*(self): bool = 
+      ## follow_symlinks is True on default.
+      if self.is_symlink():
+        let p = readlink $self.path / $self.name
+        statSync(p).jsAttr()
+      else:
+        self.statObj.jsAttr()
+    func is_x*(self; follow_symlinks: bool): bool =
+      if follow_symlinks: self.is_x()
+      else: self.statObj.jsAttr()
+  gen_is_x is_file, isFile
+  gen_is_x is_dir, isDirectory
+else:
+  template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
+    func is_x*(self): bool = 
+      ## follow_symlinks is True on default.
+      self.kind == pcX or self.kind == pcLinkToX
+    func is_x*(self; follow_symlinks: bool): bool =
+      ## result is cached. Python's is cached too.
+      result = self.kind == pcX
+      if follow_symlinks:
+        return result or self.kind == pcLinkToX
+  gen_is_x is_file, pcFile, pcLinkToFile
+  gen_is_x is_dir, pcDir, pcLinkToDir
+  func is_symlink*(self): bool = 
+    ## ..warning:: this may differ Python's
+    self.kind == pcLinkToDir or self.kind == pcLinkToFile
+
 
 func stat*(self): stat_result =
   if self.stat_res != nil:
@@ -52,21 +92,37 @@ func stat*(self): stat_result =
   new self.stat_res
   self.stat_res[] = result
 
-template scandirImpl{.dirty.} =
-  # NOTE: this variant is referred by ../walkImpl
-  let spath = $path
-  try:
-    for t in walkDir(spath, relative=true, checkDir=true):
-      let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
-      yield de
-  except OSError as e:
-    let oserr = e.errorCode.OSErrorCode
-    path.raiseExcWithPath(oserr)
+when defined(js):
+  # readdirSync returns array, which might be too expensive.
+  proc opendirSync(p: cstring): Dir{.importNode(fs, opendirSync).}
+  proc closeSync(self: Dir){.importcpp.}
+  proc readSync(self: Dir): Dirent{.importcpp.}
 
-iterator scandir*[T](path: PathLike[T]): DirEntry[T] = scandirImpl
+template scandirImpl(path){.dirty.} =
+  let spath = $path
+  when defined(js):
+    var dir: Dir
+    catchJsErrAndRaise:
+      dir = opendirSync(cstring $path)
+    var dirent: Dirent
+    while true:
+      dirent = dir.readdirSync()
+      let de = newDirEntry[T](name = $dirent.name.to(cstring), dir = spath, hasIsFileDir=dirent)
+      if dirent.isNull: break
+
+  else:
+    try:
+      for t in walkDir(spath, relative=true, checkDir=true):
+        let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
+        yield de
+    except OSError as e:
+      let oserr = e.errorCode.OSErrorCode
+      path.raiseExcWithPath(oserr)
+
+iterator scandir*[T](path: PathLike[T]): DirEntry[T] = scandirImpl path
 iterator scandirIter*[T](path: T): DirEntry[T]{.closure.} =
   ## used by os.walk
-  scandirImpl 
+  scandirImpl path
 
 iterator scandir*(): DirEntry[PyStr] =
   for de in scandir[PyStr](str('.')):

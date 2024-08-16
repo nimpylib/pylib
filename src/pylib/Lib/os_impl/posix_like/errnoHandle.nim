@@ -1,6 +1,6 @@
 
 import ../../../pyerrors
-export pyerrors
+import ../../../pyerrors/errno as errnoMod
+export pyerrors, errnoMod
 
-var errno*{.importc, header: "<errno.h>".}: cint
 
