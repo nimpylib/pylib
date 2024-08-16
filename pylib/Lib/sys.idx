@@ -22,10 +22,10 @@ nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		194
 nim	copyright	pylib/Lib/sys.html#copyright	const copyright		195
 nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		202
 nim	argv	pylib/Lib/sys.html#argv	var argv		203
-nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		240
-nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		250
-nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		254
-nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		264
-nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		345
+nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		241
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		251
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		255
+nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		265
+nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		346
 nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		115
-nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		250
+nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		251

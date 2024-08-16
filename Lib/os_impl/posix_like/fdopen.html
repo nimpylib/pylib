@@ -48,9 +48,6 @@
     </div>
     <ul class="simple simple-toc" id="toc-list">
   <li>
-  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
-</li>
-<li>
   <details open>
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
@@ -61,9 +58,6 @@
 
     </ul>
   </details>
-</li>
-<li>
-  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
 </li>
 
 </ul>
@@ -76,13 +70,7 @@
     <div id="tocRoot"></div>
     
     <p class="module-desc">this module depends on <tt class="docutils literal"><span class="pre"><span class="Identifier">io</span></span></tt> module</p>
-    <div class="section" id="6">
-  <h1><a class="toc-backref" href="#6">Imports</a></h1>
-  <dl class="item">
-    <a class="reference external" href="../../_._/io.html">../../../io</a>
-  </dl>
-</div>
-<div class="section" id="18">
+    <div class="section" id="18">
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
     <div id="fdopen-templates-all">
@@ -90,23 +78,15 @@
   <dt><pre><span class="Keyword">template</span> <a href="#fdopen.t%2CPositive%2Cvarargs%5Buntyped%5D"><span class="Identifier">fdopen</span></a><span class="Other">(</span><span class="Identifier">fd</span><span class="Other">:</span> <span class="Identifier">Positive</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
-    <p>Return an open file object connected to the file descriptor fd.</p>
-<p>This is an alias of the io.open() function and accepts the same arguments. The only difference is that the first argument of fdopen() must always be an integer.</p>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/fdopen.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/fdopen.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    not support JS/NimScript backend
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/fdopen.nim#L7" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/fdopen.nim#L7" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
-  </dl>
-</div>
-<div class="section" id="19">
-  <h1><a class="toc-backref" href="#19">Exports</a></h1>
-  <dl class="item">
-    <a href="../../io.html#write,RawIOBase,PyBytes"><span class="Identifier">write</span></a>, <a href="../../io.html#close.e,IOBase"><span class="Identifier">close</span></a>, <a href="../../io.html#read,TextIOWrapper"><span class="Identifier">read</span></a>, <a href="../../io.html#read,TextIOWrapper,int"><span class="Identifier">read</span></a>, <a href="../../io.html#close.e,RawIOBase"><span class="Identifier">close</span></a>, <a href="../../io.html#readline,NoEncTextIOWrapper"><span class="Identifier">readline</span></a>, <a href="../../io.html#initBufAsPy,File,int"><span class="Identifier">initBufAsPy</span></a>, <a href="../../io.html#readline,NoEncTextIOWrapper,int"><span class="Identifier">readline</span></a>, <a href="../../io.html#write,TextIOWrapper,PyStr"><span class="Identifier">write</span></a>, <a href="../../io.html#open.t,int,static[],int,string,string"><span class="Identifier">open</span></a>, <a href="../../io.html#readline,TextIOWrapper,Natural"><span class="Identifier">readline</span></a>, <a href="../../io.html#readline,RawIOBase,Natural"><span class="Identifier">readline</span></a>, <a href="../../io.html#truncate,IOBase"><span class="Identifier">truncate</span></a>, <a href="../../io.html#truncate,IOBase,int64"><span class="Identifier">truncate</span></a>, <a href="../../io.html#raiseOsOrFileNotFoundError,int"><span class="Identifier">raiseOsOrFileNotFoundError</span></a>, <a href="../../io.html#read,RawIOBase"><span class="Identifier">read</span></a>, <a href="../../io.html#close.e,TextIOWrapper"><span class="Identifier">close</span></a>, <a href="../../io.html#readline,TextIOWrapper"><span class="Identifier">readline</span></a>, <a href="../../io.html#readline,RawIOBase"><span class="Identifier">readline</span></a>, <a href="../../io.html#read,RawIOBase,int"><span class="Identifier">read</span></a>, <a href="../../io.html#write,NoEncTextIOWrapper,PyStr"><span class="Identifier">write</span></a>, <a href="../../io.html#raiseOsOrFileNotFoundError,PathLike[T]"><span class="Identifier">raiseOsOrFileNotFoundError</span></a>, <a href="../../io.html#open.t,PathLike[S],static[],int,string,string"><span class="Identifier">open</span></a>, <a href="../../io.html#read,NoEncTextIOWrapper"><span class="Identifier">read</span></a>, <a href="../../io.html#seek.e,IOBase,int64"><span class="Identifier">seek</span></a>, <a href="../../io.html#read,NoEncTextIOWrapper,int"><span class="Identifier">read</span></a>, <a href="../../io.html#seek.e,TextIOWrapper,int64"><span class="Identifier">seek</span></a>
   </dl>
 </div>
 
@@ -116,7 +96,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-10 10:53:56 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-16 13:39:06 UTC</small>
       </div>
     </div>
   </div>

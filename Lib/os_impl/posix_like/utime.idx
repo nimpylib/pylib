@@ -1,7 +1,7 @@
 nimTitle	utime	os_impl/posix_like/utime.html	module src/pylib/Lib/os_impl/posix_like/utime		0
 nim	TimePair	os_impl/posix_like/utime.html#TimePair	tuple TimePair		10
 nim	TimeNsPair	os_impl/posix_like/utime.html#TimeNsPair	tuple TimeNsPair		12
-nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimePair[N]	proc utime[T; N](path: PathLike[T]; times: TimePair[N]; follow_symlinks = true)		85
-nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimeNsPair	proc utime[T](path: PathLike[T]; ns: TimeNsPair; follow_symlinks = true)		87
-nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T]	proc utime[T](path: PathLike[T]; follow_symlinks = true)		89
-nimgrp	utime	os_impl/posix_like/utime.html#utime-procs-all	proc		85
+nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimePair[N]	proc utime[T; N](path: PathLike[T]; times: TimePair[N]; follow_symlinks = true)		98
+nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimeNsPair	proc utime[T](path: PathLike[T]; ns: TimeNsPair; follow_symlinks = true)		100
+nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T]	proc utime[T](path: PathLike[T]; follow_symlinks = true)		102
+nimgrp	utime	os_impl/posix_like/utime.html#utime-procs-all	proc		98
