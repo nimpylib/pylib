@@ -37,8 +37,6 @@ template expM(x) = export math.x
 
 #expM pow  # pylib.nim has exported it
 
-expM ceil
-expM floor
 
 expM copysign
 
@@ -46,8 +44,6 @@ template aliasFF(fn, nimfn){.dirty.} =
   func fn*[F: SomeFloat](x: F): F = nimfn(x)
 
 aliasFF fabs, abs  # system.abs, limited for float only
-
-expM trunc
 
 expM isnan
 
@@ -82,6 +78,25 @@ wrap isinf, c_isinf, n_isinf, js_isinf
 static:
   assert declared isinf
   assert declared isfinite
+
+func chkIntFromFloat(x: float) =
+  ## check impl of `PyLong_FromDouble`
+  if x.isnan:
+    raise newException(ValueError, "cannot convert float NaN to integer")
+  if x.isinf:
+    raise newException(OverflowDefect,
+      "cannot convert float infinity to integer")
+
+template genToInt(sym){.dirty.} =
+  func sym*(x: SomeFloat): int =
+    ## .. hint:: unlike C/Nim's returning float,
+    ##   Python's returns `int` and raises errors for nans and infinities
+    chkIntFromFloat x
+    int sym x
+
+genToInt ceil
+genToInt floor
+genToInt trunc
 
 template py_math_isclose_impl*(abs) =
   ## inner use. Implementation of isclose.
