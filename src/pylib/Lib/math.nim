@@ -136,6 +136,7 @@ when not defined(js):
   expM lgamma
 else:
   impPatch gamma
+  impPatch lgamma
 
 expM exp
 func expm1*[F: SomeFloat](x: F): F = exp(x) - 1
