@@ -4,6 +4,7 @@
 import std/math
 import std/bitops
 import std/macros
+from ./math_patch/err import raiseDomainErr, raiseRangeErr
 
 template impPatch(sym) =
   import ./math_patch/sym
@@ -160,12 +161,6 @@ func n_ldexp(x: SomeFloat, i: int): float{.used.} =
   result = x
   for step in 0..<steps:
     result *= pow(2, floor((step+i)/steps))
-
-template raiseDomainErr =
-  raise newException(ValueError, "math domain error") 
-
-template raiseRangeErr =
-  raise newException(OverflowDefect, " math range error")
 
 func ldexp*(x: SomeFloat, i: int): float =
   # NaNs, zeros and infinities are returned unchanged 

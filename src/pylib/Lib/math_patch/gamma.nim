@@ -2,7 +2,8 @@
 #[
  The original C code, copyright, license, and constants are from
  [Cephes](http://www.netlib.org/cephes)'s cprob/gamma.c
- The implementation follows the original, but has been modified for Nim.
+ The implementation follows the original, but has been modified a lot
+ for Nim and add support for Python/R/stdlib-js's behaviors.
 
  ```
  Copyright 1984, 1987, 1989, 1992, 2000 by Stephen L. Moshier
@@ -18,6 +19,7 @@ import std/math
 import ./consts
 import ./sinpi
 from ./polevl import polExpd0
+from ./err import raiseDomainErr, raiseRangeErr
 
 func smallApprox[T: SomeFloat](x, z: T): T =
   z / ((1.0+( EULER*x )) * x)
@@ -51,40 +53,91 @@ func isNegInteger(normX: SomeFloat): bool =
   floor(normX) == normX and normX < 0
 
 
-func gamma*[T: SomeFloat](x: T): T =
-  var z: T
-  let fc = classify(x)
-  if fc == fcNan or fc == fcNegInf or x.isNegInteger:
-    return NaN
-  if x == 0.0:
-    if fc == fcNegZero:
-      return NINF
-    return PINF
-  if x > 171.61447887182298:
-    return PINF
-  if x < -170.5674972726612:
-    return 0.0
-  var p, q: T
-  q = abs(x)
-  if q > 33.0:
-    if x >= 0.0:
-      return stirlingApprox(x)
-    p = floor(q)
+const
+  MAX_GAMMA_X = 171.61447887182298
+  MIN_GAMMA_X = -170.5674972726612
 
-    # Check whether `x` is even...
-    let sign =
-      if (p.int and 1) == 0: -1.0
+type GammaError* = enum
+  geOk
+  geInfDiscont = "x in {0, -1, -2, ...}" ##[ when .
+Infinity discontinuity,
+which shall produce `Complex Infinity` in SymPy and
+means domain error]##
+  geOverFlow = "x > " & $MAX_GAMMA_X & ", result overflow as inf"
+  geUnderFlow = "x < " & $MIN_GAMMA_X & ", result underflow as `-0.0` or `0.0`."
+  geZeroCantDetSign = "`x < -maxSafeInteger`(exclude -inf), " &
+    "can't detect result's sign"   ## `x` losing unit digit, often not regard as an error
+  geGotNegInf = "x == -inf"  ## this is made as a enumerate item as different languages'
+                             ## implementation has different treatment towards -inf
+
+
+func isEven[F: SomeFloat](positive: F): int =
+  ## check if a positive float intpart is even.
+  ## returns:
+  ##  -1 if cannot detect, 0/1 for yes/no
+  assert positive > 0.0
+  if positive < F.maxSafeInteger:
+    # maxSafeInteger is less than BiggestInt.high
+    cast[int]((cast[BiggestInt](positive) and 1))
+  else: -1
+
+
+func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
+  template ret(st; rt=geOk) =
+    ## set to res & return
+    res = st
+    return rt
+  case fc
+  of fcNan:    ret NaN
+  of fcNegInf: ret 0.0, geGotNegInf
+  elif x == 0.0 or x.isNegInteger:
+    # XXX: though in ieee754 there're both `-0.0` and `0.0`,
+    #  we just come along with mainstream like SymPy, R, etc and
+    #  simply return NaN and introduce domain error.
+    ret NaN, geInfDiscont
+  elif x > MAX_GAMMA_X:
+    ret PINF, geOverFlow
+  else: discard
+
+  # now `x` is a normal, non-zero, non-negative-integer float
+
+  template chkGetSign(ax: T): T =
+    ## used for `gamma` with negative value,
+    ## panic if `ax` is not positive.
+    ##
+    ## if `ax` is even, gets -1.0; if odd, gets 1.0;
+    ## And makes outer functions returns geZeroCantDetSign if cannot detect
+    let even: int = ax.isEven
+    if even == -1:
+      ret 0.0, geZeroCantDetSign
+    block:
+      if even == 1: -1.0
       else: 1.0
+  let ax = abs(x)
+  var sign: float
+  if x < MIN_GAMMA_X:
+    # `\lim_{x->-\infinity} |\Gamma(x)| = 0`, but not gamma(x) itself.
+    sign = chkGetSign ax
+    ret sign * 0.0, geUnderFlow
+  var z: T
+  var p, q: T
+  if ax > 33.0:
+    if x >= 0.0:
+      ret stirlingApprox(x)
+    p = floor(ax)
 
-    z = q - p;
+    sign = chkGetSign p
+
+    # calcuate the delta between nearest integer
+    z = ax - p
     if z > 0.5:
       p += 1.0
-      z = q - p
+      z = ax - p
+    # now z is in (-0.5, 0.5]
 
-    z = q * sinpi(z)
-    if z == 0.0:
-      return sign * PINF
-    return sign * PI / ( abs(z)*stirlingApprox(q) )
+    z = ax * sinpi(z)
+    if z == 0.0: ret sign * PINF
+    else: ret sign * PI / ( abs(z)*stirlingApprox(q) )
 
   # Reduce `x`...
   z = 1.0;
@@ -95,18 +148,18 @@ func gamma*[T: SomeFloat](x: T): T =
 
   while x < 0.0:
     if x > -1.0e-9:
-      return smallApprox(x, z)
+      ret smallApprox(x, z)
     z /= x
     x += 1.0
 
   while x < 2.0:
     if x < 1.0e-9:
-      return smallApprox(x, z)
+      ret smallApprox(x, z)
     z /= x
     x += 1.0
 
   if x == 2.0:
-    return z
+    ret z
 
   x -= 2.0
 
@@ -131,4 +184,51 @@ func gamma*[T: SomeFloat](x: T): T =
     0.0005396055804933034,
     -0.000023158187332412014,
   ]
-  return z * p / q
+  ret z * p / q
+
+func gamma*[T: SomeFloat](x: T, res: var T): GammaError =
+  ## a more error friendly version of gamma
+  gammaImpl x, res, classify(x)
+
+func gamma*[F: SomeFloat](x: F): F =
+  ## CPython `math.gamma`-like, with error message more detailed.
+  runnableExamples:
+    template chkValueErr(arg) =
+      doAssertRaises ValueError: discard gamma arg
+    chkValueErr NegInf
+    chkValueErr 0.0
+    assert NegInf == 1.0/gamma(-172.5)
+  let err = x.gamma result
+  case err
+  of geOverFlow, geUnderFlow:
+    raiseRangeErr $err
+  of geInfDiscont, geGotNegInf:
+    raiseDomainErr $err
+  of geOk, geZeroCantDetSign: discard
+
+func rGamma*[F: SomeFloat](x: F): F{.raises: [].} =
+  ## behaviors like R's `gamma` except for this without any warning.
+  runnableExamples:
+    from std/math import isNaN
+    assert isNaN rgamma NegInf
+    assert Inf == 1/rgamma(-172.1)  # never returns -0.0
+  case x.gamma result
+  of geGotNegInf:
+    result = NaN
+  of geUnderFlow:
+    result = 0.0  ## always returns +0.0
+  else: discard
+
+func stdlibJsGamma*[F: SomeFloat](x: F): F{.raises: [].} =
+  ## behaviors like `@stdlib-js/gamma.js`
+  let fc = classify(x)
+  case fc
+  of fcNegZero: return NINF
+  of fcZero: return PINF
+  of fcNegInf: return NaN
+  else: discard
+  discard x.gammaImpl(result, fc)
+
+when isMainModule and defined(js) and defined(es6):  # for test
+  func gamma*(x: float): float{.exportc.} = stdlibJsGamma[float](x)
+  {.emit: """export {gamma};""".}
