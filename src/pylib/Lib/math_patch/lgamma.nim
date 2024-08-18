@@ -5,6 +5,11 @@
 This module was hand-translated from [FreeBSD's lgamma](
 https://svnweb.freebsd.org/base/release/12.2.0/lib/msun/src/e_lgamma_r.c) implementation;
 
+and with some modification:
+
+- no static data is used, so each function is thread-safe.
+
+
 The following copyright, license, and long comment were part of
   the original implementation available as part of
   FreeBSD
@@ -24,13 +29,13 @@ is preserved.
 from std/math import ln, classify, FloatClass, Pi
 import ./trunc, ./sinpi, ./consts
 from ./polevl import polExpd0
+from ./err import mapRaiseGammaErr, GammaError
 
 const
   WC = 4.18938533204672725052e-01    ##  0x3FDACFE390C97D69
 
   YMIN = 1.461632144968362245
 
-  TWO52 = 4503599627370496'i64  ##  2**52
   TWO56 = 72057594037927936'i64 ##  2**56
 
   TINY = 1.3877787807814457e-17
@@ -140,12 +145,134 @@ proc polyvalW[F](x: F): F =
     -0.0016309293409657527,
   ]
 
-let
-  vzero{.volatile.}: float = 0
-  one = 1.00000000000000000000e+00
-# we will use `one/vzero` to produce Inf instead of using Inf directly.
-template retInvInf: float =
-  {.noSideEffect.}: return one/vzero
+func lgamma*[F: SomeFloat](x: F, res: var F): GammaError =
+  ## currently do not return geOverFlow, geUnderFlow
+  var flg: int32
+  var p, q: F
+  var w, y, z, r: F
+
+  template ret(st; rt=geOk) =
+    res = st
+    return rt
+  # purge +-Inf, NaN
+  let fc = classify(x)
+  if fc == fcNan:
+    ret x
+  if fc == fcNegInf:
+    ## R/CPython's lgamma(-Inf) returns Inf;
+    ## Why not ln(|gamma(-oo)|) -[ieee754 float trunc]-> ln(0+) -> -inf?
+    ret NINF, geGotNegInf
+  if fc == fcInf:
+    ret Pinf
+  if x == 0.0:
+    ret Pinf, geDom
+  var
+    xc = x
+    isNegative = false
+  if xc < 0.0:
+    isNegative = true
+    xc = -xc
+
+  # purge tiny argument
+  # If |x| < 2**-56, return -ln(|x|)
+  if xc < TINY:
+    ret -ln(xc)
+
+  var t, nadj: F
+  # purge negative integers and start evaluation for other x < 0 
+  if isNegative:
+    # If |x| > maxSafeInteger, then x lost
+    # the accuracy of unit digit, so it becomes a -integer
+    # XXX: the original C uses: /* |x|>=2**52, must be -integer */
+    #  where the 2**52 comes from?
+    if xc > F.maxSafeInteger:
+      ret NINF, geZeroCantDetSign
+    t = sinpi(xc)
+    if t == 0.0:  # -integer
+      ret Pinf, geDom
+    nadj = ln(Pi / abs(t * xc))
+
+  # purge 1 and 2
+  if xc == 1.0 or xc == 2.0:
+    ret 0.0
+
+  # for x < 2.0
+  if xc < 2.0:
+    if xc <= 0.9:  # lgamma(x) = lgamma(x+1)-log(x)
+      r = -ln(xc)
+      if xc >= (YMIN - 1.0 + 0.27):
+        ##  0.7316 <= x <=  0.9
+        y = 1.0 - xc
+        flg = 0
+      elif xc >= (YMIN - 1.0 - 0.27):
+        ##  0.2316 <= x < 0.7316
+        y = xc - (TC - 1.0)
+        flg = 1
+      else:
+        ##  0 < x < 0.2316
+        y = xc
+        flg = 2
+    else:
+      r = 0.0
+      if xc >= (YMIN + 0.27):
+        ##  1.7316 <= x < 2
+        y = 2.0 - xc
+        flg = 0
+      elif xc >= (YMIN - 0.27):
+        ##  1.2316 <= x < 1.7316
+        y = xc - TC
+        flg = 1
+      else:
+        ##  0.9 < x < 1.2316
+        y = xc - 1.0
+        flg = 2
+    var p1, p2, p3: F
+    case flg
+    of 0:
+      z = y * y
+      p1 = polyvalA1(z)
+      p2 = z * polyvalA2(z)
+      p = (y * p1) + p2
+      r += (p - (0.5 * y))
+    of 1:
+      z = y * y
+      w = z * y
+      p1 = polyvalT1(w)
+      p2 = polyvalT2(w)
+      p3 = polyvalT3(w)
+      p = (z * p1) - (TT - (w * (p2 + (y * p3))))
+      r += (TF + p)
+    of 2:
+      p1 = y * polyvalU(y)
+      p2 = polyvalV(y)
+      r += (-(0.5 * y)) + (p1 / p2)
+    else: discard
+  elif xc < 8.0:
+    ##  2 <= x < 8
+    flg = uncheckedTruncToInt[typeof(flg)](xc)
+    y = xc - F flg
+    p = y * polyvalS(y)
+    q = polyvalR(y)
+    r = (0.5 * y) + (p / q)
+    z = 1.0
+    ##  gammaln(1+s) = ln(s) + gammaln(s)
+    if flg in 3..7:
+      for i in countdown(flg-1, 2):
+        z = z * (y + F i)
+      r += ln(z)
+  elif xc < F TWO56:
+    ##  8 <= x < 2**56
+    t = ln(xc)
+    z = 1.0 / xc
+    y = z * z
+    w = WC + (z * polyvalW(y))
+    r = ((xc - 0.5) * (t - 1.0)) + w
+  else:
+    ##  2**56 <= x <= Inf
+    r = xc * (ln(xc) - 1.0)
+  if isNegative:
+    r = nadj - r
+  ret r
 
 func lgamma*[F: SomeFloat](x: F): F =
   ##[ Evaluates the natural logarithm of the absolute value of gamma function.
@@ -246,124 +373,15 @@ func lgamma*[F: SomeFloat](x: F): F =
   runnableExamples:
     assert lgamma(1.0) == 0.0
     assert lgamma(Inf) == Inf
+    assert lgamma(NaN) == NaN
+  mapRaiseGammaErr x.lgamma result
 
-  var flg: int32
-  var p, q: F
-  var w, y, z, r: F
-
-  # purge +-Inf, NaN
-  let fc = classify(x)
-  if fc == fcNan:
-    return x
-  if fc == fcNegInf or fc == fcInf:
+func stdlibJsLgamma*[F: SomeFloat](x: F): F =
+  case x.lgamma result
+  of geGotNegInf:
     return Pinf
-  if x == 0.0:
-    return Pinf
-  var
-    xc = x
-    isNegative = false
-  if xc < 0.0:
-    isNegative = true
-    xc = -xc
-
-  # purge tiny argument
-  # If |x| < 2**-56, return -ln(|x|)
-  if xc < TINY:
-    return -ln(xc)
-
-  var t, nadj: F
-  # purge negative integers and start evaluation for other x < 0 
-  if isNegative:
-    #  |x| >= 2**52, must be -integer
-    if xc >= F TWO52:
-      retInvInf
-    t = sinpi(xc)
-    if t == 0.0:  # -integer
-      retInvInf
-    nadj = ln(Pi / abs(t * xc))
-
-  # purge 1 and 2
-  if xc == 1.0 or xc == 2.0:
-    return 0.0
-
-  # for x < 2.0
-  if xc < 2.0:
-    if xc <= 0.9:  # lgamma(x) = lgamma(x+1)-log(x)
-      r = -ln(xc)
-      if xc >= (YMIN - 1.0 + 0.27):
-        ##  0.7316 <= x <=  0.9
-        y = 1.0 - xc
-        flg = 0
-      elif xc >= (YMIN - 1.0 - 0.27):
-        ##  0.2316 <= x < 0.7316
-        y = xc - (TC - 1.0)
-        flg = 1
-      else:
-        ##  0 < x < 0.2316
-        y = xc
-        flg = 2
-    else:
-      r = 0.0
-      if xc >= (YMIN + 0.27):
-        ##  1.7316 <= x < 2
-        y = 2.0 - xc
-        flg = 0
-      elif xc >= (YMIN - 0.27):
-        ##  1.2316 <= x < 1.7316
-        y = xc - TC
-        flg = 1
-      else:
-        ##  0.9 < x < 1.2316
-        y = xc - 1.0
-        flg = 2
-    var p1, p2, p3: F
-    case flg
-    of 0:
-      z = y * y
-      p1 = polyvalA1(z)
-      p2 = z * polyvalA2(z)
-      p = (y * p1) + p2
-      r += (p - (0.5 * y))
-    of 1:
-      z = y * y
-      w = z * y
-      p1 = polyvalT1(w)
-      p2 = polyvalT2(w)
-      p3 = polyvalT3(w)
-      p = (z * p1) - (TT - (w * (p2 + (y * p3))))
-      r += (TF + p)
-    of 2:
-      p1 = y * polyvalU(y)
-      p2 = polyvalV(y)
-      r += (-(0.5 * y)) + (p1 / p2)
-    else: discard
-  elif xc < 8.0:
-    ##  2 <= x < 8
-    flg = uncheckedTruncToInt[typeof(flg)](xc)
-    y = xc - F flg
-    p = y * polyvalS(y)
-    q = polyvalR(y)
-    r = (0.5 * y) + (p / q)
-    z = 1.0
-    ##  gammaln(1+s) = ln(s) + gammaln(s)
-    if flg in 3..7:
-      for i in countdown(flg-1, 2):
-        z = z * (y + F i)
-      r += ln(z)
-  elif xc < F TWO56:
-    ##  8 <= x < 2**56
-    t = ln(xc)
-    z = 1.0 / xc
-    y = z * z
-    w = WC + (z * polyvalW(y))
-    r = ((xc - 0.5) * (t - 1.0)) + w
-  else:
-    ##  2**56 <= x <= Inf
-    r = xc * (ln(xc) - 1.0)
-  if isNegative:
-    r = nadj - r
-  return r
+  else: discard
 
 when isMainModule and defined(js) and defined(es6):  # for test
-  func gammaln*(x: float): float{.exportc.} = lgamma(x)
+  func gammaln*(x: float): float{.exportc.} = stdlibJsLgamma(x)
   {.emit: """export {gammaln};""".}
