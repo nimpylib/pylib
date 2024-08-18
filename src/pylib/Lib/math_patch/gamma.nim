@@ -18,6 +18,7 @@
 import std/math
 import ./consts
 import ./sinpi
+from ./trunc import uncheckedTruncToInt
 from ./polevl import polExpd0
 from ./err import raiseDomainErr, raiseRangeErr
 
@@ -121,8 +122,10 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     ret sign * 0.0, geUnderFlow
   var z: T
   var p, q: T
+  let isPositive = x > 0.0
+  var ix: int
   if ax > 33.0:
-    if x >= 0.0:
+    if isPositive:
       ret stirlingApprox(x)
     p = floor(ax)
 
@@ -138,6 +141,20 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     z = ax * sinpi(z)
     if z == 0.0: ret sign * PINF
     else: ret sign * PI / ( abs(z)*stirlingApprox(q) )
+  elif isPositive:
+    # then x is in `(0.0, 33.0]`
+    template asInt(x: T, res: var int): bool =
+      res = uncheckedTruncToInt[int](x)
+      # NIM-BUG: using cast above results in rt-err when JS in `math.fac`
+      res.T == x
+    const
+      NGAMMA_INTEGRAL =  ## length of `fac`'s inner table
+        when sizeof(int) == 2: 5
+        elif sizeof(int) == 4: 13
+        else: 21
+    if x.asInt(ix) and ix < NGAMMA_INTEGRAL:
+      # fast-path: `gamma(x) = (x-1)!`, when x is positive integer.
+      ret T fac(ix-1)
 
   # Reduce `x`...
   z = 1.0;
