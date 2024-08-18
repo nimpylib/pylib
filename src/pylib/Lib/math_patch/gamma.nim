@@ -20,7 +20,8 @@ import ./consts
 import ./sinpi
 from ./trunc import uncheckedTruncToInt
 from ./polevl import polExpd0
-from ./err import raiseDomainErr, raiseRangeErr
+from ./err import mapRaiseGammaErr, GammaError,
+  MAX_GAMMA_X, MIN_GAMMA_X
 
 func smallApprox[T: SomeFloat](x, z: T): T =
   z / ((1.0+( EULER*x )) * x)
@@ -54,24 +55,6 @@ func isNegInteger(normX: SomeFloat): bool =
   floor(normX) == normX and normX < 0
 
 
-const
-  MAX_GAMMA_X = 171.61447887182298
-  MIN_GAMMA_X = -170.5674972726612
-
-type GammaError* = enum
-  geOk
-  geInfDiscont = "x in {0, -1, -2, ...}" ##[ when .
-Infinity discontinuity,
-which shall produce `Complex Infinity` in SymPy and
-means domain error]##
-  geOverFlow = "x > " & $MAX_GAMMA_X & ", result overflow as inf"
-  geUnderFlow = "x < " & $MIN_GAMMA_X & ", result underflow as `-0.0` or `0.0`."
-  geZeroCantDetSign = "`x < -maxSafeInteger`(exclude -inf), " &
-    "can't detect result's sign"   ## `x` losing unit digit, often not regard as an error
-  geGotNegInf = "x == -inf"  ## this is made as a enumerate item as different languages'
-                             ## implementation has different treatment towards -inf
-
-
 func isEven[F: SomeFloat](positive: F): int =
   ## check if a positive float intpart is even.
   ## returns:
@@ -95,7 +78,7 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     # XXX: though in ieee754 there're both `-0.0` and `0.0`,
     #  we just come along with mainstream like SymPy, R, etc and
     #  simply return NaN and introduce domain error.
-    ret NaN, geInfDiscont
+    ret NaN, geDom
   elif x > MAX_GAMMA_X:
     ret PINF, geOverFlow
   else: discard
@@ -117,7 +100,10 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
   let ax = abs(x)
   var sign: float
   if x < MIN_GAMMA_X:
-    # `\lim_{x->-\infinity} |\Gamma(x)| = 0`, but not gamma(x) itself.
+    # `\lim\limits_{x->-\infty} |\Gamma(x)| != 0`,
+    # but for ieee754 float, when x < `MIN_GAMMA_X`,
+    # for any value close to integer(get via `nextafter()`),
+    # it just be truncated as zero.
     sign = chkGetSign ax
     ret sign * 0.0, geUnderFlow
   var z: T
@@ -215,13 +201,7 @@ func gamma*[F: SomeFloat](x: F): F =
     chkValueErr NegInf
     chkValueErr 0.0
     assert NegInf == 1.0/gamma(-172.5)
-  let err = x.gamma result
-  case err
-  of geOverFlow, geUnderFlow:
-    raiseRangeErr $err
-  of geInfDiscont, geGotNegInf:
-    raiseDomainErr $err
-  of geOk, geZeroCantDetSign: discard
+  mapRaiseGammaErr x.gamma result
 
 func rGamma*[F: SomeFloat](x: F): F{.raises: [].} =
   ## behaviors like R's `gamma` except for this without any warning.
