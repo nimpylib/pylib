@@ -159,9 +159,8 @@ func lgamma*[F: SomeFloat](x: F, res: var F): GammaError =
   if fc == fcNan:
     ret x
   if fc == fcNegInf:
-    ## R/CPython's lgamma(-Inf) returns Inf;
-    ## Why not ln(|gamma(-oo)|) -[ieee754 float trunc]-> ln(0+) -> -inf?
-    ret NINF, geGotNegInf
+    ## R/CPython/C's lgamma(-Inf) returns Inf
+    ret Pinf, geGotNegInf
   if fc == fcInf:
     ret Pinf
   if x == 0.0:
@@ -366,8 +365,22 @@ func lgamma*[F: SomeFloat](x: F): F =
               lgamma(x) ~ -log(|x|) for tiny x
               lgamma(0) = lgamma(neg.integer) = inf and raise divide-by-zero
               lgamma(inf) = inf
-              lgamma(-inf) = inf (bug for bug compatible with C99!?)
+              lgamma(-inf) = inf  # see below
     ```
+    For `lgamma(-inf)`,
+    - some implementations, like CPython's math, R
+    and C/C++ returns +inf;
+     which is not suitable, as gamma(x) where x < about -200
+     is always truncated to 0.0 at ieee754 float domain.
+     This behavior was said for bug compatible with C99, and is readlly documented by [POSIX man](
+      https://www.man7.org/linux/man-pages/man3/lgamma.3.html
+     ) and [cppreference.com](https://en.cppreference.com/w/c/numeric/math/lgamma)
+    - While others like `scipy.special.gammaln`, Go's `math.Lgamma`, returns 
+
+    In my option, `ln(|gamma(-oo)|) -[ieee754 float trunc]-> ln(0+) -> -inf`
+  
+    But in this function it returns +inf to keep consistent with Python,
+
   ]##
 
   runnableExamples:
@@ -376,11 +389,17 @@ func lgamma*[F: SomeFloat](x: F): F =
     assert lgamma(NaN) == NaN
   mapRaiseGammaErr x.lgamma result
 
-func stdlibJsLgamma*[F: SomeFloat](x: F): F =
-  case x.lgamma result
-  of geGotNegInf:
-    return Pinf
-  else: discard
+func stdlibJsLgamma*[F: SomeFloat](x: F): F{.raises: [].} =
+  discard x.lgamma result
+
+func rLgamma*[F: SomeFloat](x: F): F{.raises: [].} = stdlibJsLgamma(x)
+
+func scipyGammaLn*[F: SomeFloat](x: F): F{.raises: [].} =
+  ## .. note:: this returns -inf for -inf argument, and raises no math error,
+  ##   just like `scipy.special.gammaln`
+  let err = x.lgamma result
+  if err == geGotNegInf:
+    return NINF
 
 when isMainModule and defined(js) and defined(es6):  # for test
   func gammaln*(x: float): float{.exportc.} = stdlibJsLgamma(x)
