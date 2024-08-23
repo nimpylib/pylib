@@ -136,6 +136,8 @@ when not defined(js):
   expM gamma
   expM lgamma
 else:
+  impPatch erf
+  export erfc
   impPatch gamma
   impPatch lgamma
 
