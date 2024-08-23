@@ -13,28 +13,32 @@ nim	trunc	pylib/Lib/math.html#trunc,SomeFloat	proc trunc(x: SomeFloat): int		104
 nim	py_math_isclose_impl	pylib/Lib/math.html#py_math_isclose_impl.t	template py_math_isclose_impl(abs)		106
 nim	isclose	pylib/Lib/math.html#isclose,SomeFloat,SomeFloat,float,float	proc isclose(a, b: SomeFloat; rel_tol = 1e-9; abs_tol = 0.0): bool		122
 nim	dist	pylib/Lib/math.html#dist,F	proc dist[F: SomeFloat](x: F): F		128
-nim	expm1	pylib/Lib/math.html#expm1,F	proc expm1[F: SomeFloat](x: F): F		143
-nim	ldexp	pylib/Lib/math.html#ldexp,SomeFloat,int	proc ldexp(x: SomeFloat; i: int): float		165
-nim	modf	pylib/Lib/math.html#modf,SomeFloat	proc modf(x: SomeFloat): tuple[intpart: float, floatpart: float]		200
-nim	fmod	pylib/Lib/math.html#fmod,SomeNumber,SomeNumber	proc fmod(x: SomeNumber; y: SomeNumber): float		203
-nim	remainder	pylib/Lib/math.html#remainder,SomeNumber,SomeNumber	proc remainder(x: SomeNumber; y: SomeNumber): float		210
-nim	prod	pylib/Lib/math.html#prod,Iterable[T]	proc prod[T](iterable: Iterable[T]; start = 1.T): T		223
-nim	MemoryError	pylib/Lib/math.html#MemoryError	type MemoryError		229
-nim	fsum	pylib/Lib/math.html#fsum,Iterable[T: SomeFloat]	proc fsum[T: SomeFloat](iterable: Iterable[T]): T		233
-nim	log	pylib/Lib/math.html#log,F	proc log[F: SomeFloat](x: F): F		336
-nim	log1p	pylib/Lib/math.html#log1p,F	proc log1p[F: SomeFloat](x: F): F		341
-nim	degress	pylib/Lib/math.html#degress,F	proc degress[F: SomeFloat](x: F): F		343
-nim	radians	pylib/Lib/math.html#radians,F	proc radians[F: SomeFloat](x: F): F		345
-nim	asin	pylib/Lib/math.html#asin,F	proc asin[F: SomeFloat](x: F): F		355
-nim	asinh	pylib/Lib/math.html#asinh,F	proc asinh[F: SomeFloat](x: F): F		356
-nim	acos	pylib/Lib/math.html#acos,F	proc acos[F: SomeFloat](x: F): F		357
-nim	acosh	pylib/Lib/math.html#acosh,F	proc acosh[F: SomeFloat](x: F): F		358
-nim	atan	pylib/Lib/math.html#atan,F	proc atan[F: SomeFloat](x: F): F		359
-nim	atan2	pylib/Lib/math.html#atan2,F	proc atan2[F: SomeFloat](x: F): F		360
-nim	atanh	pylib/Lib/math.html#atanh,F	proc atanh[F: SomeFloat](x: F): F		361
-nim	comb	pylib/Lib/math.html#comb,int,int	proc comb(n, k: int): int		364
-nim	perm	pylib/Lib/math.html#perm,int	proc perm(n: int): int		366
-nim	perm	pylib/Lib/math.html#perm,Natural,Natural	proc perm(n, k: Natural): int		370
-nim	factorial	pylib/Lib/math.html#factorial,Natural	proc factorial(x: Natural): int		377
-nim	isqrt	pylib/Lib/math.html#isqrt,T	proc isqrt[T: SomeNumber](x: T): int		386
-nimgrp	perm	pylib/Lib/math.html#perm-procs-all	proc		366
+nim	expm1	pylib/Lib/math.html#expm1,float	proc expm1(x: float): float		155
+nim	expm1	pylib/Lib/math.html#expm1,float32	proc expm1(x: float32): float32		156
+nim	ldexp	pylib/Lib/math.html#ldexp,SomeFloat,int	proc ldexp(x: SomeFloat; i: int): float		182
+nim	modf	pylib/Lib/math.html#modf,SomeFloat	proc modf(x: SomeFloat): tuple[intpart: float, floatpart: float]		217
+nim	fmod	pylib/Lib/math.html#fmod,SomeNumber,SomeNumber	proc fmod(x: SomeNumber; y: SomeNumber): float		220
+nim	remainder	pylib/Lib/math.html#remainder,SomeNumber,SomeNumber	proc remainder(x: SomeNumber; y: SomeNumber): float		227
+nim	prod	pylib/Lib/math.html#prod,Iterable[T]	proc prod[T](iterable: Iterable[T]; start = 1.T): T		240
+nim	MemoryError	pylib/Lib/math.html#MemoryError	type MemoryError		246
+nim	fsum	pylib/Lib/math.html#fsum,Iterable[T: SomeFloat]	proc fsum[T: SomeFloat](iterable: Iterable[T]): T		250
+nim	log	pylib/Lib/math.html#log,F	proc log[F: SomeFloat](x: F): F		353
+nim	log1p	pylib/Lib/math.html#log1p,float	proc log1p(x: float): float		155
+nim	log1p	pylib/Lib/math.html#log1p,float32	proc log1p(x: float32): float32		156
+nim	degress	pylib/Lib/math.html#degress,F	proc degress[F: SomeFloat](x: F): F		360
+nim	radians	pylib/Lib/math.html#radians,F	proc radians[F: SomeFloat](x: F): F		362
+nim	asin	pylib/Lib/math.html#asin,F	proc asin[F: SomeFloat](x: F): F		372
+nim	asinh	pylib/Lib/math.html#asinh,F	proc asinh[F: SomeFloat](x: F): F		373
+nim	acos	pylib/Lib/math.html#acos,F	proc acos[F: SomeFloat](x: F): F		374
+nim	acosh	pylib/Lib/math.html#acosh,F	proc acosh[F: SomeFloat](x: F): F		375
+nim	atan	pylib/Lib/math.html#atan,F	proc atan[F: SomeFloat](x: F): F		376
+nim	atan2	pylib/Lib/math.html#atan2,F	proc atan2[F: SomeFloat](x: F): F		377
+nim	atanh	pylib/Lib/math.html#atanh,F	proc atanh[F: SomeFloat](x: F): F		378
+nim	comb	pylib/Lib/math.html#comb,int,int	proc comb(n, k: int): int		381
+nim	perm	pylib/Lib/math.html#perm,int	proc perm(n: int): int		383
+nim	perm	pylib/Lib/math.html#perm,Natural,Natural	proc perm(n, k: Natural): int		387
+nim	factorial	pylib/Lib/math.html#factorial,Natural	proc factorial(x: Natural): int		394
+nim	isqrt	pylib/Lib/math.html#isqrt,T	proc isqrt[T: SomeNumber](x: T): int		403
+nimgrp	log1p	pylib/Lib/math.html#log1p-procs-all	proc		358
+nimgrp	perm	pylib/Lib/math.html#perm-procs-all	proc		383
+nimgrp	expm1	pylib/Lib/math.html#expm1-procs-all	proc		160
