@@ -10,7 +10,7 @@ template impPatch(sym) =
   import ./math_patch/sym
   export sym
 
-const CLike = defined(c) or defined(cpp)
+const CLike = defined(c) or defined(cpp) or defined(objc)
 
 template clikeOr(inCLike, b): untyped =
   # for nimvm-able expr
@@ -142,7 +142,22 @@ else:
   impPatch lgamma
 
 expM exp
-func expm1*[F: SomeFloat](x: F): F = exp(x) - 1
+
+template impJsOrC(sym, cfloatSym){.dirty.} =
+  when defined(js):
+    func sym*(x: float): float{.importjs: "Math." & astToStr(sym) & "(#)".}
+    func sym*(x: float32): float32 = float32(sym(float x))
+  elif CLike:
+    {.push header: "<math.h>".}
+    func sym(arg: c_double): c_double{.importc.}
+    func cfloatSym(arg: c_float): c_float{.importc.}
+    {.pop.}
+    func sym*(x: float): float = float sym(arg=c_double(x))
+    func sym*(x: float32): float32 = float32 cfloatSym c_float(x)
+  else:
+    {.error: "unreachable".}
+
+impJsOrC expm1, expm1f
 
 expM frexp
 
@@ -340,7 +355,7 @@ aliasFF log, ln
 expM log2
 expM log10
 
-func log1p*[F: SomeFloat](x: F): F = log(1+x)
+impJsOrC log1p, log1pf
 
 aliasFF degress, radToDeg
 
