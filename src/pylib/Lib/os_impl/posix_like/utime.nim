@@ -65,7 +65,7 @@ else:
         return true
   else:
     template initTimeval(s, us): untyped =
-      Timeval(tv_sec: posix.Time(s), tv_usec: clong us)
+      Timeval(tv_sec: posix.Time(s), tv_usec: Suseconds us)
     func stoTime(s: int): Timeval = initTimeval(s, 0)
     func stoTime(s_ns: float): Timeval =
       let
