@@ -1,0 +1,5 @@
+nimTitle	float_view	pylib/Lib/math_patch/ldexp_frexp/float_view.html	module src/pylib/Lib/math_patch/ldexp_frexp/float_view		0
+nim	FLOAT64_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#FLOAT64_VIEW.t	template FLOAT64_VIEW(): array		23
+nim	UINT32_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#UINT32_VIEW.t	template UINT32_VIEW(): array		26
+nim	FLOAT32_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#FLOAT32_VIEW.t	template FLOAT32_VIEW(): array		29
+nim	UINT16_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#UINT16_VIEW.t	template UINT16_VIEW(): array		32

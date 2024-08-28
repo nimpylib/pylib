@@ -1,0 +1,2 @@
+nimTitle	assertIsInfinite	pylib/Lib/math_patch/ldexp_frexp/assertIsInfinite.html	module src/pylib/Lib/math_patch/ldexp_frexp/assertIsInfinite		0
+nim	isInfinite	pylib/Lib/math_patch/ldexp_frexp/assertIsInfinite.html#isInfinite,float	proc isInfinite(f: float): bool		2

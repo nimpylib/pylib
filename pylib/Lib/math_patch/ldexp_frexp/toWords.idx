@@ -1,0 +1,4 @@
+nimTitle	toWords	pylib/Lib/math_patch/ldexp_frexp/toWords.html	module src/pylib/Lib/math_patch/ldexp_frexp/toWords		0
+nim	toWords	pylib/Lib/math_patch/ldexp_frexp/toWords.html#toWords,float	proc toWords(x: float): (uint32, uint32)		5
+nim	toWords	pylib/Lib/math_patch/ldexp_frexp/toWords.html#toWords,float32	proc toWords(x: float32): (uint16, uint16)		10
+nimgrp	towords	pylib/Lib/math_patch/ldexp_frexp/toWords.html#toWords-procs-all	proc		5
