@@ -167,7 +167,12 @@ when CLike:
   proc ldexp(arg: c_double, exp: c_int): c_double{.importc.}
   {.pop.}
 
-func n_ldexp(x: SomeFloat, i: int): float{.used.} =
+import ./math_patch/ldexp_frexp/ldexp as pure_ldexp
+
+func js_ldexp(x: SomeFloat, i: int): float =
+  pure_ldexp.ldexp(x.float, i)
+
+func round_ldexp(x: SomeFloat, i: int): float =
   ## a version of `ldexp`_ that's implemented in pure Nim, used by ldexp in weridTarget
   ##
   ## translated from
@@ -178,6 +183,10 @@ func n_ldexp(x: SomeFloat, i: int): float{.used.} =
   result = x
   for step in 0..<steps:
     result *= pow(2, floor((step+i)/steps))
+
+func n_ldexp(x: SomeFloat, i: int): float{.used.} =
+  when defined(js): js_ldexp(x, i)
+  else: round_ldexp(x, i)
 
 func ldexp*(x: SomeFloat, i: int): float =
   # NaNs, zeros and infinities are returned unchanged 
