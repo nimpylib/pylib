@@ -18,11 +18,12 @@ macro genNewTA(T: typedesc) =
 
 #func newTypedArray*[T](x: auto): TypedArray[T]{.importjs: "new " & toArrName($T) & "(#)".}
 
-genNewTA uint32
+genNewTA uint8
 genNewTA uint16
+genNewTA uint32
 
-genNewTA float64
 genNewTA float32
+genNewTA float64
 
 func `[]`*[T](x: TypedArray[T], i: cint): T{.importjs: "#[#]".}
 func `[]=`*[T](x: TypedArray[T], i: cint, val: T){.importjs: "#[#]=#;".}

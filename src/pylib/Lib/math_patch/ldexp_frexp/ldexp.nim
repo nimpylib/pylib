@@ -9,8 +9,7 @@ const
   TWO52_INV = 2.220446049250313e-16 ##\
   ## 1/(1<<52) = 1/(2**52) = 1/4503599627370496
 
-
-proc ldexpImpl(frac: float, exp: int): float =
+func ldexp*(frac: float, exp: int): float =
   if (
     exp == 0 or
     frac == 0.0 or # handles +-0
@@ -59,13 +58,10 @@ proc ldexpImpl(frac: float, exp: int): float =
   # Create a new floating-point number:
   return m * fromWords( high, WORDS[ 1 ] )
 
-func ldexp*(frac: float, exp: int): float =
-  {.noSideEffect.}:  # XXX: TODO
-    ldexpImpl frac, exp
-  
 when isMainModule and defined(js):
+  func jsldexp( frac: float, exp: cint ): float{.used, exportc: "ldexp".} = ldexp(frac, exp.int)
   when defined(es6):
-    {.error: "TODO".}
+    # for test
+    {.emit: """export {ldexp};""".}
   else:
-    proc jsldexp( frac: float, exp: cint ): float{.exportc: "ldexp".} = ldexp(frac, exp.int)
     {.emit: "module.exports = ldexp;".}

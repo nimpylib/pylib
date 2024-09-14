@@ -13,3 +13,7 @@ else:
 let
   HIGH* = HIGHv
   LOW* = LOWv
+
+template accessHighLow*(body) =
+  {.noSideEffect.}:
+    body

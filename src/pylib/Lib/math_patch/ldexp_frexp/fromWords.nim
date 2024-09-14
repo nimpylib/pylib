@@ -4,13 +4,17 @@ import ./float_view
 import ./indices
 
 proc fromWords*(high, low: uint32): float =
-  UINT32_VIEW[HIGH] = high
-  UINT32_VIEW[LOW]  = low
+  init64FloatView FLOAT64_VIEW, UINT32_VIEW
+  accessHighLow:
+    UINT32_VIEW[HIGH] = high
+    UINT32_VIEW[LOW]  = low
   return FLOAT64_VIEW[0]
 
 proc fromWords*(high, low: uint16): float32 =
-  UINT16_VIEW[HIGH] = high
-  UINT16_VIEW[LOW]  = low
+  init32FloatView FLOAT32_VIEW, UINT16_VIEW
+  accessHighLow:
+    UINT16_VIEW[HIGH] = high
+    UINT16_VIEW[LOW]  = low
   return FLOAT32_VIEW[0]
 
 when isMainModule:
