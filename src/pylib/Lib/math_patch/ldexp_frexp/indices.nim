@@ -1,19 +1,26 @@
 
 import ./assertIsLittleEndian
 
-var HIGHv, LOWv: cint
+when defined(js):
+  var HIGHv, LOWv: cint
 
-if isLittleEndian():
-  HIGHv = 1; # second index
-  LOWv = 0; # first index
+  if isLittleEndian():
+    HIGHv = 1; # second index
+    LOWv = 0; # first index
+  else:
+    HIGHv = 0; # first index
+    LOWv = 1; # second index
+
+  let
+    HIGH* = HIGHv
+    LOW* = LOWv
+  template accessHighLow*(body) =
+    {.noSideEffect.}:
+      body
+
 else:
-  HIGHv = 0; # first index
-  LOWv = 1; # second index
+  const
+    HIGH* = int(isLittleEndian())
+    LOW* = int(not isLittleEndian())
 
-let
-  HIGH* = HIGHv
-  LOW* = LOWv
-
-template accessHighLow*(body) =
-  {.noSideEffect.}:
-    body
+  template accessHighLow*(body) = body

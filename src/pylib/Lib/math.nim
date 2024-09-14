@@ -169,9 +169,12 @@ when CLike:
 
 import ./math_patch/ldexp_frexp/ldexp as pure_ldexp
 
-func js_ldexp(x: SomeFloat, i: int): float =
+func n_ldexp(x: SomeFloat, i: int): float =
   pure_ldexp.ldexp(x.float, i)
 
+#[
+func js_ldexp(x: SomeFloat, i: int): float =
+  pure_ldexp.ldexp(x.float, i)
 func round_ldexp(x: SomeFloat, i: int): float =
   ## a version of `ldexp`_ that's implemented in pure Nim, used by ldexp in weridTarget
   ##
@@ -187,6 +190,7 @@ func round_ldexp(x: SomeFloat, i: int): float =
 func n_ldexp(x: SomeFloat, i: int): float{.used.} =
   when defined(js): js_ldexp(x, i)
   else: round_ldexp(x, i)
+]#
 
 func ldexp*(x: SomeFloat, i: int): float =
   # NaNs, zeros and infinities are returned unchanged 
