@@ -6,7 +6,7 @@ import ../builtins/complex
 
 import std/complex as ncomplex except complex
 from std/math import ln
-from ./math import
+from ./n_math import
   isinf, isfinite, isclose,
   pi, e, tau, inf, nan,
   py_math_isclose_impl
