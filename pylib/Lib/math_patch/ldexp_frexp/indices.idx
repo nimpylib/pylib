@@ -1,3 +1,4 @@
 nimTitle	indices	pylib/Lib/math_patch/ldexp_frexp/indices.html	module src/pylib/Lib/math_patch/ldexp_frexp/indices		0
-nim	HIGH	pylib/Lib/math_patch/ldexp_frexp/indices.html#HIGH	let HIGH		14
-nim	LOW	pylib/Lib/math_patch/ldexp_frexp/indices.html#LOW	let LOW		15
+nim	HIGH	pylib/Lib/math_patch/ldexp_frexp/indices.html#HIGH	const HIGH		23
+nim	LOW	pylib/Lib/math_patch/ldexp_frexp/indices.html#LOW	const LOW		24
+nim	accessHighLow	pylib/Lib/math_patch/ldexp_frexp/indices.html#accessHighLow.t	template accessHighLow(body)		26

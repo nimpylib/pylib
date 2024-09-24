@@ -1,5 +1,11 @@
 nimTitle	float_view	pylib/Lib/math_patch/ldexp_frexp/float_view.html	module src/pylib/Lib/math_patch/ldexp_frexp/float_view		0
-nim	FLOAT64_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#FLOAT64_VIEW.t	template FLOAT64_VIEW(): array		23
-nim	UINT32_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#UINT32_VIEW.t	template UINT32_VIEW(): array		26
-nim	FLOAT32_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#FLOAT32_VIEW.t	template FLOAT32_VIEW(): array		29
-nim	UINT16_VIEW	pylib/Lib/math_patch/ldexp_frexp/float_view.html#UINT16_VIEW.t	template UINT16_VIEW(): array		32
+nim	`[]`	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[],FView[F],range[]	proc `[]`[F](fv: FView[F]; i: range[0 .. 0]): F		40
+nim	`[]=`	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[]=,FView[F],range[],F	proc `[]=`[F](fv: var FView[F]; i: range[0 .. 0]; f: F)		41
+nim	`[]=`	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[]=,IView[uint64,float64],range[],uint32	proc `[]=`(fv: var IView[uint64, float64]; i: range[0 .. 1]; val: uint32)		52
+nim	`[]`	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[],IView[uint64,float64],range[]	proc `[]`(fv: IView[uint64, float64]; i: range[0 .. 1]): uint32		64
+nim	`[]=`	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[]=,IView[uint32,float32],range[],uint16	proc `[]=`(fv: var IView[uint32, float32]; i: range[0 .. 1]; val: uint16)		52
+nim	`[]`	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[],IView[uint32,float32],range[]	proc `[]`(fv: IView[uint32, float32]; i: range[0 .. 1]): uint16		65
+nim	init64FloatView	pylib/Lib/math_patch/ldexp_frexp/float_view.html#init64FloatView.t,,	template init64FloatView(FLOAT64_VIEW, UINT32_VIEW)		69
+nim	init32FloatView	pylib/Lib/math_patch/ldexp_frexp/float_view.html#init32FloatView.t,,	template init32FloatView(FLOAT32_VIEW, UINT16_VIEW)		74
+nimgrp	[]=	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[]=-procs-all	proc		41
+nimgrp	[]	pylib/Lib/math_patch/ldexp_frexp/float_view.html#[]-procs-all	proc		40
