@@ -1,9 +1,11 @@
 
 import std/macros
 
+# {.noInit.} for TypedArray caused compile-error in Nim 2.0.8 (not in 2.1.9)
 type
-  TypedArray*[T]{.noInit.} = object of JsRoot
-    buffer*: JsRoot
+  TypedArray*[T] = object of JsRoot
+
+func buffer*(self: TypedArray): JsRoot{.importjs: "(#).buffer".}
 
 func capName(s: string): string{.compileTime.} =
   char(s[0].int and ord('_')) & s[1..^1]
