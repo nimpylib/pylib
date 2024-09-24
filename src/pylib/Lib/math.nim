@@ -159,7 +159,6 @@ template impJsOrC(sym, cfloatSym){.dirty.} =
 
 impJsOrC expm1, expm1f
 
-expM frexp
 
 when CLike:
   {.push header: "<math.h>".}
@@ -168,9 +167,12 @@ when CLike:
   {.pop.}
 
 import ./math_patch/ldexp_frexp/ldexp as pure_ldexp
+import ./math_patch/ldexp_frexp/frexp as pure_frexp
 
-func n_ldexp(x: SomeFloat, i: int): float =
-  pure_ldexp.ldexp(x.float, i)
+
+# not very effective, anyway
+func n_ldexp(x: SomeFloat, i: int): float = pure_ldexp.ldexp(x.float, i)
+func n_frexp(x: SomeFloat): (float, int) = pure_frexp.frexp(x.float)
 
 #[
 func js_ldexp(x: SomeFloat, i: int): float =
@@ -191,6 +193,12 @@ func n_ldexp(x: SomeFloat, i: int): float{.used.} =
   when defined(js): js_ldexp(x, i)
   else: round_ldexp(x, i)
 ]#
+
+func frexp*(x: SomeFloat): (float, int) =
+    clikeOr(
+      frexp(x),
+      n_frexp(x)
+    )
 
 func ldexp*(x: SomeFloat, i: int): float =
   # NaNs, zeros and infinities are returned unchanged 
