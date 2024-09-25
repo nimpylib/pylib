@@ -13,7 +13,9 @@
 import std/math
 import std/bitops
 import std/macros
-from ./math_patch/errnoUtils import CLike, prepareRWErrno, setErrno, getErrno, math_is_error
+from ./math_patch/errnoUtils import CLike,
+  prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
+from ./errno import ERANGE, EDOM
 
 when defined(js):
   template impPatch(sym) =
@@ -215,6 +217,52 @@ func frexp*(x: SomeFloat): (float, int) =
       n_frexp(x)
     )
 
+
+when CLike:
+  proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
+  func errnoMsg(errnoCode: cint): string = $c_strerror(errnoCode)
+elif defined(js):
+  func errnoMsg(errnoCode: cint): string{.warning: "not impl, see how math_patch set error".} = ""
+
+func math_is_error(x: SomeFloat, exc: var ref Exception): bool{.exportc.} =
+  ##[Call this when errno != 0, and where x is the result libm
+returned.  This will usually set up an exception and return
+true, but may return false without setting up an exception.]##
+  prepareROErrno
+  result = true  # presumption of guilt
+  assert not isErr0()  # non-zero errno is a precondition for calling
+  if isErr EDOM:
+    exc = newException(ValueError, "math domain error")
+  elif isErr ERANGE:
+    #[ ANSI C generally requires libm functions to set ERANGE
+      on overflow, but also generally *allows* them to set
+      ERANGE on underflow too.  There's no consistency about
+      the latter across platforms.
+      Alas, C99 never requires that errno be set.
+      Here we suppress the underflow errors (libm functions
+      should return a zero on underflow, and +- HUGE_VAL on
+      overflow, so testing the result for zero suffices to
+      distinguish the cases).
+      
+      On some platforms (Ubuntu/ia64) it seems that errno can be
+      set to ERANGE for subnormal results that do *not* underflow
+      to zero.  So to be safe, we'll ignore ERANGE whenever the
+      function result is less than 1.5 in absolute value.
+      
+      bpo-46018: Changed to 1.5 to ensure underflows in expm1()
+      are correctly detected, since the function may underflow
+      toward -1.0 rather than 0.0.
+      ]#
+    if abs(x) < 1.5:
+      result = false
+    else:
+      exc = newException(OverflowDefect,
+                        "math range error")
+  else:
+    # Unexpected math error
+    exc = newException(ValueError, errnoMsg(getErrno()))
+
+
 func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
   ## set exception to `exc` instead of raising it
   ## 
@@ -230,32 +278,28 @@ func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
     # Nim's int is not Python's `LongObject`
     # and we can leave Overflow for Nim to handle
     result = x
-    setErrno 0
+    setErrno0
+  elif i > typeof(i)(high c_int):
+    result = copySign(Inf, x)
+    setErrno ERANGE
+  elif i < typeof(i)(low c_int):
+    # underflow to +-0
+    result = copySign(0.0, x)
+    setErrno0
   else:
-    var exp: c_int
-    if i > typeof(i)(high c_int):
-      result = copySign(Inf, x)
+    setErrno0
+    let exp = cast[c_int](i)  # we have checked range above.
+    result = 
+      clikeOr(
+        when x is float32: ldexpf(x.c_float, exp)
+        else: ldexp(x.c_double, exp),
+        n_ldexp(x, i)
+      )
+    if isinf(result):
       setErrno ERANGE
-      exp = high c_int
-    elif i < typeof(i)(low c_int):
-      # underflow to +-0
-      result = copySign(0.0, x)
-      setErrno 0
-      exp = low c_int
-    else:
-      setErrno 0
-      exp = cast[c_int](i)  # we have checked range above.
-      result = 
-        clikeOr(
-          when x is float32: ldexpf(x.c_float, exp)
-          else: ldexp(x.c_double, exp),
-          n_ldexp(x, i)
-        )
-      if isinf(result):
-        setErrno ERANGE
-    if errno != 0 and math_is_error(x, exc):
-      return
-    exc = nil
+  if not isErr0() and math_is_error(result, exc):
+    return
+  exc = nil
 
 func ldexp*(x: SomeFloat, i: int): float{.raises: [].} =
   ## .. hints:: only set errno
