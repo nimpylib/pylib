@@ -215,6 +215,8 @@ when InJs:
       if err != 0:
         raiseErrnoWithMsg err, errMsg
 else:
+  when not declared(errno):
+    var errno{.importc, header: "<errno.h>".}: cint
   proc newErrnoErr(additionalInfo = ""): owned(ref OSError) =
     newErrnoErr(errno, additionalInfo)
 
