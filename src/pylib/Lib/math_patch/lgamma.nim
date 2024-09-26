@@ -386,9 +386,10 @@ func lgamma*[F: SomeFloat](x: F): F =
   ]##
 
   runnableExamples:
+    from std/math import isNaN
     assert lgamma(1.0) == 0.0
     assert lgamma(Inf) == Inf
-    assert lgamma(NaN) == NaN
+    assert lgamma(NaN).isNaN
   mapRaiseGammaErr x.lgamma result
 
 func stdlibJsLgamma*[F: SomeFloat](x: F): F{.raises: [].} =
