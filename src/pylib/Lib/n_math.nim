@@ -310,7 +310,8 @@ when CLike:
   proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
   func errnoMsg(errnoCode: cint): string = $c_strerror(errnoCode)
 elif defined(js):
-  func errnoMsg(errnoCode: cint): string{.warning: "not impl, see how math_patch set error".} = ""
+  func errnoMsg(errnoCode: cint): string =
+    doAssert false, "unreachable (see errnoUtils.Errno enum shall be count out)"
 
 func math_is_error*(x: SomeFloat, exc: var ref Exception): bool{.exportc.} =
   ##[ inner usage (used by Lib/math).
