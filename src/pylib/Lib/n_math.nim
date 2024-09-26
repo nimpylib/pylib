@@ -197,18 +197,18 @@ template py_math_isclose_impl*(abs) =
 func isclose*(a,b: SomeFloat, rel_tol=1e-09, abs_tol=0.0): bool =
   py_math_isclose_impl(abs=fabs)
 
-template exp_gcd_lcm(sym){.dirty.} =
-  func sym*[I: SomeInteger](x, y: I): I = math.sym(x, y)
-  func sym*[I: SomeInteger](x, y: I, args: varargs[I]): I =
+template reduceGen(sym; Constr){.dirty.} =
+  func sym*[I: Constr](x, y: I): I = math.sym(x, y)
+  func sym*[I: Constr](x, y, z: I, args: varargs[I]): I =
     result = sym(x, y)
+    result = sym(result, z)
     for i in args:
       result = sym(result, i)
 
-exp_gcd_lcm gcd
-exp_gcd_lcm lcm
+reduceGen gcd, SomeInteger
+reduceGen lcm, SomeInteger
 
-aliasFF dist, hypot
-
+reduceGen hypot, SomeFloat
 
 when not defined(js):
   # Those in std/math are not available for JS
@@ -393,7 +393,7 @@ func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
   exc = nil
 
 func ldexp*(x: SomeFloat, i: int): float{.raises: [].} =
-  ## .. hints:: only set errno
+  ## .. hint:: only set errno
   var exc_unused: ref Exception
   ldexp(x, i, exc_unused)
 
