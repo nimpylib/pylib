@@ -31,6 +31,8 @@ import ./trunc, ./sinpi, ./consts
 from ./polevl import polExpd0
 from ./err import mapRaiseGammaErr, GammaError
 
+export GammaError
+
 const
   WC = 4.18938533204672725052e-01    ##  0x3FDACFE390C97D69
 
