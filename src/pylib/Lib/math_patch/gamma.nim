@@ -202,7 +202,7 @@ func gamma*[F: SomeFloat](x: F): F =
       doAssertRaises ValueError: discard gamma arg
     chkValueErr NegInf
     chkValueErr 0.0
-    assert NegInf == 1.0/gamma(-172.5)
+    assert NegInf == 1.0/gamma(-200.5)
   mapRaiseGammaErr x.gamma result
 
 func rGamma*[F: SomeFloat](x: F): F{.raises: [].} =
@@ -210,7 +210,7 @@ func rGamma*[F: SomeFloat](x: F): F{.raises: [].} =
   runnableExamples:
     from std/math import isNaN
     assert isNaN rgamma NegInf
-    assert Inf == 1/rgamma(-172.1)  # never returns -0.0
+    assert Inf == 1/rgamma(-200.5)  # never returns -0.0
   case x.gamma result
   of geGotNegInf:
     result = NaN
