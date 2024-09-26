@@ -108,9 +108,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">expm1
-  <li><a class="reference" href="#expm1%2Ccdouble" title="expm1(arg: cdouble): cdouble">expm1(arg: cdouble): cdouble</a></li>
-<li><a class="reference" href="#expm1%2Cfloat" title="expm1(x: float): float">expm1(x: float): float</a></li>
-<li><a class="reference" href="#expm1%2Cfloat32" title="expm1(x: float32): float32">expm1(x: float32): float32</a></li>
+  <li><a class="reference" href="#expm1%2CF" title="expm1[F: SomeFloat](x: F): F">expm1[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">fabs
@@ -267,7 +265,7 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc"><p>Nim's Python-like math,  but raises no catchable exceptio, using <tt class="docutils literal"><span class="pre"><span class="Identifier">errno</span></span></tt> to report math error. a.k.a. non will be raised (but not for <tt class="docutils literal"><span class="pre"><span class="Identifier">Defect</span></span></tt>s)</p>
+    <p class="module-desc"><p>Nim's Python-like math,  but raises no catchable exception, using <tt class="docutils literal"><span class="pre"><span class="Identifier">errno</span></span></tt> to report math error. a.k.a. non will be raised (but not for <tt class="docutils literal"><span class="pre"><span class="Identifier">Defect</span></span></tt>s)</p>
 <p>which allows fast code.</p>
 <p>For Python-like error handler (exception-based), see <a class="reference external" href="./math.html">Lib/math</a></p>
 <p>Also this is not just a module that wraps Nim's <a class="reference external" href="https://nim-lang.org/docs/math.html">std/math</a>,</p>
@@ -479,34 +477,13 @@ Python's math.comb does not accept negative value for n, k but Nim's std/math.bi
 
 </div>
 <div id="expm1-procs-all">
-  <div id="expm1,cdouble">
-  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2Ccdouble"><span class="Identifier">expm1</span></a><span class="Other">(</span><span class="Identifier">arg</span><span class="Other">:</span> <span class="Identifier">cdouble</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cdouble</span> {.<span class="Identifier">importc</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;math.h&gt;&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-                                    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="expm1,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2CF"><span class="Identifier">expm1</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/n_math.nim#L261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/n_math.nim#L261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="expm1,float">
-  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2Cfloat"><span class="Identifier">expm1</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/n_math.nim#L264" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/n_math.nim#L264" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="expm1,float32">
-  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2Cfloat32"><span class="Identifier">expm1</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float32</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/n_math.nim#L265" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/n_math.nim#L265" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/n_math.nim#L270" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/n_math.nim#L270" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1036,7 +1013,7 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-26 16:31:46 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-26 17:57:03 UTC</small>
       </div>
     </div>
   </div>
