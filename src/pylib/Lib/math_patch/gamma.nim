@@ -23,6 +23,8 @@ from ./polevl import polExpd0
 from ./err import mapRaiseGammaErr, GammaError,
   MAX_GAMMA_X, MIN_GAMMA_X
 
+export GammaError
+
 func smallApprox[T: SomeFloat](x, z: T): T =
   z / ((1.0+( EULER*x )) * x)
 

@@ -56,6 +56,7 @@ template FUNC_math_1a(funcname; fun){.dirty.} =
 template FUNC_math_2(funcname; fun){.dirty.} =
   ## FUNC1 with math_1_body
   func funcname*[F: SomeFloat](x, y: F): F =
+    setErrno0
     result = fun(x, y)
     if isnan(result):
       if not isnan(x) and not isnan(y):
