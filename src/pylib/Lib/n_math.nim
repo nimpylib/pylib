@@ -1,5 +1,5 @@
 ## 
-## Nim's Python-like math,  but raises no catchable exceptio,
+## Nim's Python-like math,  but raises no catchable exception,
 ## using `errno` to report math error.
 ## a.k.a. non will be raised (but not for `Defect`s)
 ## 
@@ -266,9 +266,9 @@ template impJsOrC(sym, cfloatSym, argSym){.dirty.} =
   else:
     {.error: "unreachable".}
 
-impJsOrC expm1, expm1f, x
-export expm1
- 
+impJsOrC expm1, expm1f, native_x
+func expm1*[F: SomeFloat](x: F): F =
+  expm1(native_x=x)
 
 when CLike:
   {.push header: "<math.h>".}
