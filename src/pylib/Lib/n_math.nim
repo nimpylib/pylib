@@ -1,12 +1,24 @@
 ## 
-## This is not only a Python's math-like module that wraps
-## Nim's `std/math`<https://nim-lang.org/docs/math.html>_,
+## Nim's Python-like math,  but raises no catchable exceptio,
+## using `errno` to report math error.
+## a.k.a. non will be raised (but not for `Defect`s)
+## 
+## which allows fast code.
+## 
+## For Python-like error handler (exception-based), see `Lib/math<./math.html>`_
+## 
+## Also
+## this is not just a module that wraps
+## Nim's `std/math<https://nim-lang.org/docs/math.html>`_,
 ## 
 ## but also providing some extensions that Nim's std/math lacks, for example:
 ## 
 ## - JavaScript Backend and Compile-time (Nim VM) support for `ldexp`_, `frexp`_
 ## - JavaScript Backend support for `erf`_, `erfc`_, `gamma`_, `lgamma`_
 ## - `fsum`_, `prod`_, etc.
+## 
+## And fix some non-C99 behavior on some systems,
+## e.g. log(-ve) -> -Inf on Solaris
 ## 
 ## *NOTE*: Currently int is not acceptable when it comes to float about functions
 
@@ -17,9 +29,12 @@ from ./math_patch/errnoUtils import CLike,
   prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
 from ./errno import ERANGE, EDOM
 
+template impPatch(sym) =
+  import ./math_patch/sym
+
 when defined(js):
-  template impPatch(sym) =
-    import ./math_patch/sym
+  template impExpPatch(sym) =
+    impPatch sym
     export sym
 
 template clikeOr(inCLike, b): untyped =
@@ -49,16 +64,6 @@ expUp tau
 expup e
 
 template expM(x) = export math.x
-
-#expM pow  # pylib.nim has exported it
-
-
-expM copysign
-
-template aliasFF(fn, nimfn){.dirty.} =
-  func fn*[F: SomeFloat](x: F): F = nimfn(x)
-
-aliasFF fabs, abs  # system.abs, limited for float only
 
 expM isnan
 
@@ -93,6 +98,66 @@ wrap isinf, c_isinf, n_isinf, js_isinf
 static:
   assert declared isinf
   assert declared isfinite
+
+template c_fmod[F: SomeFloat](x: F, y: F): F =
+  ## equal to `x - x*trunc(x/y)`
+  x mod y  # math.`mod`
+  # nim's math.`mod` does what fmod does.
+  # in C backend, it just `importc` fmod
+
+func pow*[F: SomeFloat](x, y: F): F =
+  #[/*deal directly with IEEE specials, to cope with problems on various
+  platforms whose semantics don't exactly match C99 */]#
+  if not isfinite(x) or not isfinite(y):
+    setErrno0
+    result =
+      if isnan(x):
+        if y == 0.0: 1.0 else: x  # NaN**0 = 1
+      elif isnan(y):
+        if x == 1.0: 1.0 else: y  # 1**NaN = 1
+      elif isinf(x):
+        let odd_y = isfinite(y) and c_fmod(abs(y), 2.0) == 1.0
+        if y > 0.0:
+          if odd_y: x else: abs(x)
+        elif y == 0.0:
+          1.0
+        else:
+          if odd_y: math.copySign(0.0, x) else: 0.0
+      else:
+        assert isinf(y)
+        let abs_x = abs(x)
+        if abs_x == 1.0: 1.0
+        elif y > 0.0 and abs_x > 1.0: y
+        elif y < 0.0 and abs_x < 1.0: -y  # result is +inf
+        else: 0.0
+  else:
+    # let libm handle finite**finite
+    setErrno0
+    result = math.pow(x, y)
+    #[a NaN result should arise only from (-ve)**(finite
+      non-integer); in this case we want to raise ValueError.]#
+    if not isfinite(result):
+      if isnan(result):
+        if isnan(result):
+          setErrno EDOM
+        #[
+          an infinite result here arises either from:
+          (A) (+/-0.)**negative (-> divide-by-zero)
+          (B) overflow of x**y with x and y finite
+        ]#
+        elif isinf(result):
+          if x == 0.0:
+            setErrno EDOM
+          else:
+            setErrno ERANGE
+
+
+expM copysign
+
+template aliasFF(fn, nimfn){.dirty.} =
+  func fn*[F: SomeFloat](x: F): F = nimfn(x)
+
+aliasFF fabs, abs  # system.abs, limited for float only
 
 func chkIntFromFloat(x: float) =
   ## check impl of `PyLong_FromDouble`
@@ -132,8 +197,15 @@ template py_math_isclose_impl*(abs) =
 func isclose*(a,b: SomeFloat, rel_tol=1e-09, abs_tol=0.0): bool =
   py_math_isclose_impl(abs=fabs)
 
-expM gcd
-expM lcm
+template exp_gcd_lcm(sym){.dirty.} =
+  func sym*[I: SomeInteger](x, y: I): I = math.sym(x, y)
+  func sym*[I: SomeInteger](x, y: I, args: varargs[I]): I =
+    result = sym(x, y)
+    for i in args:
+      result = sym(result, i)
+
+exp_gcd_lcm gcd
+exp_gcd_lcm lcm
 
 aliasFF dist, hypot
 
@@ -142,33 +214,49 @@ when not defined(js):
   # Those in std/math are not available for JS
   expM erf
   expM erfc
-
-  expM gamma
-  expM lgamma
 else:
-  impPatch erf
+  impExpPatch erf
   export erfc
-  impPatch gamma
-  impPatch lgamma
+
+impPatch gamma
+impPatch lgamma
+
+func gamma*[F: SomeFloat](x: F): F =
+  let err = x.gamma result
+  case err
+  of geDom, geGotNegInf: setErrno EDOM
+  of geOverFlow: setErrno ERANGE
+  of geUnderFlow, geZeroCantDetSign: discard
+  of geOk: discard
+
+func lgamma*[F: SomeFloat](x: F): F =
+  let err = x.lgamma result
+  case err
+  of geOverFlow, geUnderFlow: doAssert false, "unreachable"
+  of geDom: setErrno EDOM
+  of geGotNegInf: discard  # math_patch.lgamma alreadly returns +inf
+  of geZeroCantDetSign: setErrno EDOM
+  of geOk: discard
 
 expM exp
 
-template impJsOrC(sym, cfloatSym){.dirty.} =
+template impJsOrC(sym, cfloatSym, argSym){.dirty.} =
   when defined(js):
-    func sym*(x: float): float{.importjs: "Math." & astToStr(sym) & "(#)".}
-    func sym*(x: float32): float32 = float32(sym(float x))
+    func sym(argSym: float): float{.importjs: "Math." & astToStr(sym) & "(#)".}
+    func sym(argSym: float32): float32 = float32(sym(float argSym))
   elif CLike:
     {.push header: "<math.h>".}
     func sym(arg: c_double): c_double{.importc.}
     func cfloatSym(arg: c_float): c_float{.importc.}
     {.pop.}
-    func sym*(x: float): float = float sym(arg=c_double(x))
-    func sym*(x: float32): float32 = float32 cfloatSym c_float(x)
+    func sym(argSym: float): float = float sym(arg=c_double(argSym))
+    func sym(argSym: float32): float32 = float32 cfloatSym c_float(argSym)
   else:
     {.error: "unreachable".}
 
-impJsOrC expm1, expm1f
-
+impJsOrC expm1, expm1f, x
+export expm1
+ 
 
 when CLike:
   {.push header: "<math.h>".}
@@ -224,8 +312,10 @@ when CLike:
 elif defined(js):
   func errnoMsg(errnoCode: cint): string{.warning: "not impl, see how math_patch set error".} = ""
 
-func math_is_error(x: SomeFloat, exc: var ref Exception): bool{.exportc.} =
-  ##[Call this when errno != 0, and where x is the result libm
+func math_is_error*(x: SomeFloat, exc: var ref Exception): bool{.exportc.} =
+  ##[ inner usage (used by Lib/math).
+
+  Call this when errno != 0, and where x is the result libm
 returned.  This will usually set up an exception and return
 true, but may return false without setting up an exception.]##
   prepareROErrno
@@ -306,20 +396,104 @@ func ldexp*(x: SomeFloat, i: int): float{.raises: [].} =
   var exc_unused: ref Exception
   ldexp(x, i, exc_unused)
 
-func modf*(x: SomeFloat): tuple[intpart: float, floatpart: float] =
-  splitDecimal x.float
+func modf*[F: SomeFloat](x: F): tuple[intpart: F, floatpart: F] =
+  #[ Though C99 specifies it:
+  /*some platforms don't do the right thing for NaNs and
+  infinities, so we take care of special cases directly. */]#
+  if isinf(x): return (math.copySign(0.0, x), x)
+  if isnan(x): return (x, x)
+  setErrno0
+  result = splitDecimal x
 
-func fmod*(x: SomeNumber, y: SomeNumber): float =
-  ## equal to `x - x*trunc(x/y)`
-  result = x.float mod y.float
+func fmod*[F: SomeFloat](x: F, y: F): F =
+  # fmod(x, +/-Inf) returns x for finite x.
+  if isinf(y) and isfinite(x):
+    return x
+  setErrno0
+  result = c_fmod(x, y)
+  if isnan(result):
+    if isnan(result):
+      if not isnan(x) and not isnan(y):
+        setErrno EDOM
+      else:
+        setErrno0
 
-# nim's math.`mod` alreadly does what fmod does.
-
-func remainder*(x: SomeNumber, y: SomeNumber): float =
+func remainder*[F: SomeFloat](x: F, y: F): F =
+  #[ the simplest but not exact impl:
   let
     fx = y.float
     fy = x.float
   fx - fy * round(fx/fy)
+  ]#
+  # Deal with most common case first.
+  if isfinite(x) and isfinite(y):
+    if y == 0:
+      return NaN
+    let
+      absx = abs(x)
+      absy = abs(y)
+      m = c_fmod(absx, absy)
+    #[        /*
+    Warning: some subtlety here. What we *want* to know at this point is
+    whether the remainder m is less than, equal to, or greater than half
+    of absy. However, we can't do that comparison directly because we
+    can't be sure that 0.5*absy is representable (the multiplication
+    might incur precision loss due to underflow). So instead we compare
+    m with the complement c = absy - m: m < 0.5*absy if and only if m <
+    c, and so on. The catch is that absy - m might also not be
+    representable, but it turns out that it doesn't matter:
+
+    - if m > 0.5*absy then absy - m is exactly representable, by
+      Sterbenz's lemma, so m > c
+    - if m == 0.5*absy then again absy - m is exactly representable
+      and m == c
+    - if m < 0.5*absy then either (i) 0.5*absy is exactly representable,
+      in which case 0.5*absy < absy - m, so 0.5*absy <= c and hence m <
+      c, or (ii) absy is tiny, either subnormal or in the lowest normal
+      binade. Then absy - m is exactly representable and again m < c.
+        */]#
+    let c = absy - m
+    if m < c:
+      result = m
+    elif m > c:
+      result = -c
+    else:
+      #[/*
+      Here absx is exactly halfway between two multiples of absy,
+      and we need to choose the even multiple. x now has the form
+
+          absx = n * absy + m
+
+      for some integer n (recalling that m = 0.5*absy at this point).
+      If n is even we want to return m; if n is odd, we need to
+      return -m.
+
+      So
+
+          0.5 * (absx - m) = (n/2) * absy
+
+      and now reducing modulo absy gives us:
+
+                                        | m, if n is odd
+          fmod(0.5 * (absx - m), absy) = |
+                                        | 0, if n is even
+
+      Now m - 2.0 * fmod(...) gives the desired result: m
+      if n is even, -m if m is odd.
+
+      Note that all steps in fmod(0.5 * (absx - m), absy)
+      will be computed exactly, with no rounding error
+      introduced.*/]#
+      assert m == c
+      result = m - 2.0 * c_fmod(0.5 * (absx - m), absy)
+    return math.copySign(1.0, x) * result
+  
+  # Special values.
+  if isnan(x): return x
+  if isnan(y): return y
+  if isinf(x): return NaN
+  assert isinf(y)
+  result = x
 
 type
   # same as pylib.nim's
@@ -441,13 +615,58 @@ func fsum*[T: SomeFloat](iterable: Iterable[T]): T =
 
   result = hi
 
-expM log
-aliasFF log, ln
 
-expM log2
-expM log10
+template genLog(fun, nimFunc){.dirty.} =
+  ##[
+  /*Various platforms (Solaris, OpenBSD) do nonstandard things for log(0),
+log(-ve), log(NaN).  Here are wrappers for log and log10 that deal with
+special values directly, passing positive non-special values through to
+the system log/log10.*/
+  And, as I tested on Solaris 11.4, using `Sun C 5.13 SunOS_i386 2014/10/20`:
 
-impJsOrC log1p, log1pf
+  log(-ve) -> -Inf,
+  and errno is set to ERANGE (instead of EDOM)!
+  ]##
+  func fun*[F: SomeFloat](x: F): F =
+    if isfinite(x):
+      if x > 0.0:
+        return math.nimFunc(x)
+      setErrno EDOM
+      if x == 0.0:
+          return NegInf  # log(0) = -inf
+      else:
+          return NaN  # log(-ve) = nan
+    elif isnan(x):
+      return x  # log(nan) = nan
+    elif x > 0.0:
+      return x  # log(inf) = inf
+    else:
+      setErrno EDOM
+      return NaN # log(-inf) = nan
+
+genLog log, ln
+func log*[F: SomeFloat](x, base: F): F =
+  let
+    num = log(x)
+    den = log(base)
+  result = num / den
+
+
+genLog log2, log2
+genLog log10, log10
+
+impJsOrC log1p, log1pf, x_native
+
+func log1p*[F: SomeFloat](x: F): F =
+  #[ from CPython/Modules/_math.h _Py_log1p:
+  /*Some platforms (e.g. MacOS X 10.8, see gh-59682) supply a log1p function
+but don't respect the sign of zero:  log1p(-0.0) gives 0.0 instead of
+the correct result of -0.0.
+
+To save fiddling with configure tests and platform checks, we handle the
+special case of zero input directly on all platforms.*/]#
+  if x == 0.0: x  # respect its sign
+  else: log1p(x_native=x)
 
 aliasFF degress, radToDeg
 
@@ -470,7 +689,11 @@ aliasFF atan2, arctan2
 aliasFF atanh, arctanh
 
 
-func comb*(n, k: int): int = binom(n, k)
+func comb*(n, k: int): int =
+  ## .. hint:: Python's math.comb does not accept negative value for n, k
+  ##   but Nim's std/math.binom allows, so this function allows too.
+  ##   For consistent behavior with Python, see `Lib/math.comb<./math.html#comb>`_
+  binom(n, k)
 
 func perm*(n: int): int =
   ## equal to `perm(n,n)`, returns `n!`
@@ -492,7 +715,27 @@ const BitPerByte = 8
 func bit_length(x: SomeInteger): int =
   sizeof(x) * BitPerByte - bitops.countLeadingZeroBits x
 
-func isqrt*[T: SomeNumber](x: T): int =
+func isqrtPositive*(n: Positive): int{.inline.} =
+  ## EXT: isqrt for Positive only,
+  ## as we all know, in Python:
+  ##    - isqrt(0) == 0
+  ##    - isqrt(-int)
+  let c = (n.bit_length() - 1) div 2
+  var
+    a = 1
+    d = 0
+  if c != 0:
+    for s in countdown(c.bit_length() - 1, 0):
+      # Loop invariant: (a-1)**2 < (n >> 2*(c - d)) < (a+1)**2
+      let e = d
+      d = c shr s
+      a = (a shl d - e - 1) + (n shr (2*c) - e - d + 1) div a
+
+  result = a
+  if (a*a > n):
+    result.dec
+
+func isqrt*(n: Natural): int{.raises: [].} =
   runnableExamples:
     assert 2 == isqrt 5
   #[ the following is from CPython 3.10.5 source `Modules/mathmodule.c`:
@@ -518,23 +761,46 @@ func isqrt*[T: SomeNumber](x: T): int =
             a = (a << d - e - 1) + (n >> 2*c - e - d + 1) // a
 
         return a - (a*a > n)]#
-  let n = int(x)
+  if n == 0: 0
+  else: isqrtPositive(n)
 
-  if n < 0:
-    raise newException(ValueError, "isqrt() argument must be nonnegative")
-  if n == 0: return 0
-  let c = (n.bit_length() - 1) div 2
-  var
-    a = 1
-    d = 0
-  if c != 0:
-    for s in countdown(c.bit_length() - 1, 0):
-      # Loop invariant: (a-1)**2 < (n >> 2*(c - d)) < (a+1)**2
-      let e = d
-      d = c shr s
-      a = (a shl d - e - 1) + (n shr (2*c) - e - d + 1) div a
 
-  result = a
-  if (a*a > n):
-    result.dec
+func isqrt*[T: SomeFloat](x: T): int{.raises: [].} =
+  ## .. hint:: assuming x > 0 (raise `RangeDefect` otherwise (if not danger build))
+  ## use math.isqrt if expecting raising `ValueError`
+  let i = Natural(x)
+  isqrt i
+
+when CLike:
+  {.push header: "<math.h>".}
+  proc c_fma(x, y, z: cdouble): cdouble{.importc: "fma".}
+  proc c_fma(x, y, z: cfloat): cfloat{.importc: "fmaf".}
+  {.pop.}
+  func fma*[F: SomeFloat](x, y, z: F, exc: var ref Exception): F{.raises: [].} =
+    ## EXT.
+    result = c_fma(x, y, z)
+
+    # Fast path: if we got a finite result, we're done.
+    if isfinite(result):
+      return result
+    template all3(f): bool =
+      f(x) and f(y) and f(z)
+    template notNaN(x): bool = not isnan(x)
+
+    # Non-finite result. Raise an exception if appropriate, else return r.
+    if isnan(result):
+      if all3 notNaN:
+        # NaN result from non-NaN inputs.
+        exc = newException(ValueError, "invalid operation in fma")
+        return
+    elif all3 isfinite:
+      exc = newException(OverflowDefect, "overflow in fma")
+      return
+  func fma*[F: SomeFloat](x, y, z: F): F{.raises: [].} =
+    ## .. warning:: this fma does not touch errno and exception is discarded
+    var exc_unused: ref Exception
+    fma(x, y, z, exc_unused)
+
+else:
+  func fma*[F: SomeFloat](x: F): F{.error: "not impl for weird target".}
 
