@@ -1,0 +1,2 @@
+nimTitle	sinpi	pylib/Lib/math_patch/sinpi.html	module src/pylib/Lib/math_patch/sinpi		0
+nim	sinpi	pylib/Lib/math_patch/sinpi.html#sinpi,F	proc sinpi[F: SomeFloat](x: F): F		4

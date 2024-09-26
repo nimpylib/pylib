@@ -1,0 +1,67 @@
+nimTitle	n_math	pylib/Lib/n_math.html	module src/pylib/Lib/n_math		0
+nim	nan	pylib/Lib/n_math.html#nan	const nan		69
+nim	inf	pylib/Lib/n_math.html#inf	const inf		69
+nim	pi	pylib/Lib/n_math.html#pi	const pi		69
+nim	tau	pylib/Lib/n_math.html#tau	const tau		69
+nim	e	pylib/Lib/n_math.html#e	const e		69
+nim	isfinite	pylib/Lib/n_math.html#isfinite,SomeFloat	proc isfinite(x: SomeFloat): bool		107
+nim	isinf	pylib/Lib/n_math.html#isinf,SomeFloat	proc isinf(x: SomeFloat): bool		108
+nim	pow	pylib/Lib/n_math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		120
+nim	fabs	pylib/Lib/n_math.html#fabs,F	proc fabs[F: SomeFloat](x: F): F		172
+nim	ceil	pylib/Lib/n_math.html#ceil,SomeFloat	proc ceil(x: SomeFloat): int		189
+nim	floor	pylib/Lib/n_math.html#floor,SomeFloat	proc floor(x: SomeFloat): int		190
+nim	trunc	pylib/Lib/n_math.html#trunc,SomeFloat	proc trunc(x: SomeFloat): int		191
+nim	py_math_isclose_impl	pylib/Lib/n_math.html#py_math_isclose_impl.t	template py_math_isclose_impl(abs)		193
+nim	isclose	pylib/Lib/n_math.html#isclose,SomeFloat,SomeFloat,float,float	proc isclose(a, b: SomeFloat; rel_tol = 1e-9; abs_tol = 0.0): bool		209
+nim	gcd	pylib/Lib/n_math.html#gcd,I,I	proc gcd[I: SomeInteger](x, y: I): I		213
+nim	gcd	pylib/Lib/n_math.html#gcd,I,I,I,varargs[I]	proc gcd[I: SomeInteger](x, y, z: I; args: varargs[I]): I		220
+nim	lcm	pylib/Lib/n_math.html#lcm,I,I	proc lcm[I: SomeInteger](x, y: I): I		213
+nim	lcm	pylib/Lib/n_math.html#lcm,I,I,I,varargs[I]	proc lcm[I: SomeInteger](x, y, z: I; args: varargs[I]): I		221
+nim	hypot	pylib/Lib/n_math.html#hypot,I,I	proc hypot[I: SomeFloat](x, y: I): I		213
+nim	hypot	pylib/Lib/n_math.html#hypot,I,I,I,varargs[I]	proc hypot[I: SomeFloat](x, y, z: I; args: varargs[I]): I		223
+nim	gamma	pylib/Lib/n_math.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		236
+nim	lgamma	pylib/Lib/n_math.html#lgamma,F	proc lgamma[F: SomeFloat](x: F): F		244
+nim	expm1	pylib/Lib/n_math.html#expm1,cdouble	proc expm1(arg: cdouble): cdouble		261
+nim	expm1	pylib/Lib/n_math.html#expm1,float	proc expm1(x: float): float		264
+nim	expm1	pylib/Lib/n_math.html#expm1,float32	proc expm1(x: float32): float32		265
+nim	frexp	pylib/Lib/n_math.html#frexp,SomeFloat	proc frexp(x: SomeFloat): (float, int)		314
+nim	math_is_error	pylib/Lib/n_math.html#math_is_error,SomeFloat,ref.Exception	proc math_is_error(x: SomeFloat; exc: var ref Exception): bool		328
+nim	ldexp	pylib/Lib/n_math.html#ldexp,SomeFloat,int,ref.Exception	proc ldexp(x: SomeFloat; i: int; exc: var ref Exception): float		369
+nim	ldexp	pylib/Lib/n_math.html#ldexp,SomeFloat,int	proc ldexp(x: SomeFloat; i: int): float		407
+nim	modf	pylib/Lib/n_math.html#modf,F	proc modf[F: SomeFloat](x: F): tuple[intpart: F, floatpart: F]		412
+nim	fmod	pylib/Lib/n_math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		421
+nim	remainder	pylib/Lib/n_math.html#remainder,F,F	proc remainder[F: SomeFloat](x: F; y: F): F		434
+nim	prod	pylib/Lib/n_math.html#prod,Iterable[T]	proc prod[T](iterable: Iterable[T]; start = 1.T): T		518
+nim	fsum	pylib/Lib/n_math.html#fsum,Iterable[T: SomeFloat]	proc fsum[T: SomeFloat](iterable: Iterable[T]): T		526
+nim	log	pylib/Lib/n_math.html#log,F	proc log[F: SomeFloat](x: F): F		660
+nim	log	pylib/Lib/n_math.html#log,F,F	proc log[F: SomeFloat](x, base: F): F		661
+nim	log2	pylib/Lib/n_math.html#log2,F	proc log2[F: SomeFloat](x: F): F		668
+nim	log10	pylib/Lib/n_math.html#log10,F	proc log10[F: SomeFloat](x: F): F		669
+nim	log1p	pylib/Lib/n_math.html#log1p,F	proc log1p[F: SomeFloat](x: F): F		673
+nim	degrees	pylib/Lib/n_math.html#degrees,F	proc degrees[F: SomeFloat](x: F): F		684
+nim	radians	pylib/Lib/n_math.html#radians,F	proc radians[F: SomeFloat](x: F): F		686
+nim	asin	pylib/Lib/n_math.html#asin,F	proc asin[F: SomeFloat](x: F): F		696
+nim	asinh	pylib/Lib/n_math.html#asinh,F	proc asinh[F: SomeFloat](x: F): F		697
+nim	acos	pylib/Lib/n_math.html#acos,F	proc acos[F: SomeFloat](x: F): F		698
+nim	acosh	pylib/Lib/n_math.html#acosh,F	proc acosh[F: SomeFloat](x: F): F		699
+nim	atan	pylib/Lib/n_math.html#atan,F	proc atan[F: SomeFloat](x: F): F		700
+nim	atan2	pylib/Lib/n_math.html#atan2,F	proc atan2[F: SomeFloat](x: F): F		701
+nim	atanh	pylib/Lib/n_math.html#atanh,F	proc atanh[F: SomeFloat](x: F): F		702
+nim	comb	pylib/Lib/n_math.html#comb,int,int	proc comb(n, k: int): int		705
+nim	perm	pylib/Lib/n_math.html#perm,int	proc perm(n: int): int		711
+nim	perm	pylib/Lib/n_math.html#perm,Natural,Natural	proc perm(n, k: Natural): int		715
+nim	factorial	pylib/Lib/n_math.html#factorial,Natural	proc factorial(x: Natural): int		722
+nim	isqrtPositive	pylib/Lib/n_math.html#isqrtPositive,Positive	proc isqrtPositive(n: Positive): int		731
+nim	isqrt	pylib/Lib/n_math.html#isqrt,Natural	proc isqrt(n: Natural): int		751
+nim	isqrt	pylib/Lib/n_math.html#isqrt,T	proc isqrt[T: SomeFloat](x: T): int		781
+nim	fma	pylib/Lib/n_math.html#fma,F,F,F,ref.Exception	proc fma[F: SomeFloat](x, y, z: F; exc: var ref Exception): F		792
+nim	fma	pylib/Lib/n_math.html#fma,F,F,F	proc fma[F: SomeFloat](x, y, z: F): F		812
+nimgrp	log	pylib/Lib/n_math.html#log-procs-all	proc		660
+nimgrp	isqrt	pylib/Lib/n_math.html#isqrt-procs-all	proc		751
+nimgrp	fma	pylib/Lib/n_math.html#fma-procs-all	proc		792
+nimgrp	lcm	pylib/Lib/n_math.html#lcm-procs-all	proc		221
+nimgrp	perm	pylib/Lib/n_math.html#perm-procs-all	proc		711
+nimgrp	hypot	pylib/Lib/n_math.html#hypot-procs-all	proc		223
+nimgrp	gcd	pylib/Lib/n_math.html#gcd-procs-all	proc		220
+nimgrp	expm1	pylib/Lib/n_math.html#expm1-procs-all	proc		269
+nimgrp	ldexp	pylib/Lib/n_math.html#ldexp-procs-all	proc		369

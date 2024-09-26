@@ -52,28 +52,6 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#MemoryError" title="MemoryError = OutOfMemDefect">MemoryError</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#e" title="e = 2.718281828459045">e</a></li>
-<li><a class="reference" href="#inf" title="inf = 0x7FF0000000000000'f64">inf</a></li>
-<li><a class="reference" href="#nan" title="nan = 0x7FF7FFFFFFFFFFFF'f64">nan</a></li>
-<li><a class="reference" href="#pi" title="pi = 3.141592653589793">pi</a></li>
-<li><a class="reference" href="#tau" title="tau = 6.283185307179586">tau</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">acos
@@ -97,32 +75,43 @@
 
 </ul>
 <ul class="simple nested-toc-section">atan2
-  <li><a class="reference" href="#atan2%2CF" title="atan2[F: SomeFloat](x: F): F">atan2[F: SomeFloat](x: F): F</a></li>
+  <li><a class="reference" href="#atan2%2CF%2CF" title="atan2[F: SomeFloat](x, y: F): F">atan2[F: SomeFloat](x, y: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">atanh
   <li><a class="reference" href="#atanh%2CF" title="atanh[F: SomeFloat](x: F): F">atanh[F: SomeFloat](x: F): F</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">ceil
-  <li><a class="reference" href="#ceil%2CSomeFloat" title="ceil(x: SomeFloat): int">ceil(x: SomeFloat): int</a></li>
-
-</ul>
 <ul class="simple nested-toc-section">comb
   <li><a class="reference" href="#comb%2Cint%2Cint" title="comb(n, k: int): int">comb(n, k: int): int</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">degress
-  <li><a class="reference" href="#degress%2CF" title="degress[F: SomeFloat](x: F): F">degress[F: SomeFloat](x: F): F</a></li>
+<ul class="simple nested-toc-section">copysign
+  <li><a class="reference" href="#copysign%2CF%2CF" title="copysign[F: SomeFloat](x, y: F): F">copysign[F: SomeFloat](x, y: F): F</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">dist
-  <li><a class="reference" href="#dist%2CF" title="dist[F: SomeFloat](x: F): F">dist[F: SomeFloat](x: F): F</a></li>
+<ul class="simple nested-toc-section">cos
+  <li><a class="reference" href="#cos%2CF" title="cos[F: SomeFloat](x: F): F">cos[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">cosh
+  <li><a class="reference" href="#cosh%2CF" title="cosh[F: SomeFloat](x: F): F">cosh[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">erf
+  <li><a class="reference" href="#erf%2CF" title="erf[F: SomeFloat](x: F): F">erf[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">erfc
+  <li><a class="reference" href="#erfc%2CF" title="erfc[F: SomeFloat](x: F): F">erfc[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">exp
+  <li><a class="reference" href="#exp%2CF" title="exp[F: SomeFloat](x: F): F">exp[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">expm1
-  <li><a class="reference" href="#expm1%2Cfloat" title="expm1(x: float): float">expm1(x: float): float</a></li>
-<li><a class="reference" href="#expm1%2Cfloat32" title="expm1(x: float32): float32">expm1(x: float32): float32</a></li>
+  <li><a class="reference" href="#expm1%2CF" title="expm1[F: SomeFloat](x: F): F">expm1[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">fabs
@@ -130,77 +119,81 @@
 
 </ul>
 <ul class="simple nested-toc-section">factorial
-  <li><a class="reference" href="#factorial%2CNatural" title="factorial(x: Natural): int">factorial(x: Natural): int</a></li>
+  <li><a class="reference" href="#factorial%2Cint" title="factorial(x: int): int">factorial(x: int): int</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">floor
-  <li><a class="reference" href="#floor%2CSomeFloat" title="floor(x: SomeFloat): int">floor(x: SomeFloat): int</a></li>
+<ul class="simple nested-toc-section">fma
+  <li><a class="reference" href="#fma%2CF%2CF%2CF" title="fma[F: SomeFloat](x, y, z: F): F">fma[F: SomeFloat](x, y, z: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">fmod
-  <li><a class="reference" href="#fmod%2CSomeNumber%2CSomeNumber" title="fmod(x: SomeNumber; y: SomeNumber): float">fmod(x: SomeNumber; y: SomeNumber): float</a></li>
+  <li><a class="reference" href="#fmod%2CF%2CF" title="fmod[F: SomeFloat](x: F; y: F): F">fmod[F: SomeFloat](x: F; y: F): F</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">frexp
-  <li><a class="reference" href="#frexp%2CSomeFloat" title="frexp(x: SomeFloat): (float, int)">frexp(x: SomeFloat): (float, int)</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">fsum
-  <li><a class="reference" href="#fsum%2CIterable%5BT%3A%20SomeFloat%5D" title="fsum[T: SomeFloat](iterable: Iterable[T]): T">fsum[T: SomeFloat](iterable: Iterable[T]): T</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">isclose
-  <li><a class="reference" href="#isclose%2CSomeFloat%2CSomeFloat%2Cfloat%2Cfloat" title="isclose(a, b: SomeFloat; rel_tol = 1e-9; abs_tol = 0.0): bool">isclose(a, b: SomeFloat; rel_tol = 1e-9; abs_tol = 0.0): bool</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">isfinite
-  <li><a class="reference" href="#isfinite%2CSomeFloat" title="isfinite(x: SomeFloat): bool">isfinite(x: SomeFloat): bool</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">isinf
-  <li><a class="reference" href="#isinf%2CSomeFloat" title="isinf(x: SomeFloat): bool">isinf(x: SomeFloat): bool</a></li>
+<ul class="simple nested-toc-section">gamma
+  <li><a class="reference" href="#gamma%2CF" title="gamma[F: SomeFloat](x: F): F">gamma[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">isqrt
-  <li><a class="reference" href="#isqrt%2CT" title="isqrt[T: SomeNumber](x: T): int">isqrt[T: SomeNumber](x: T): int</a></li>
+  <li><a class="reference" href="#isqrt%2CI" title="isqrt[I: SomeInteger](x: I): int">isqrt[I: SomeInteger](x: I): int</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">ldexp
   <li><a class="reference" href="#ldexp%2CSomeFloat%2Cint" title="ldexp(x: SomeFloat; i: int): float">ldexp(x: SomeFloat; i: int): float</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">lgamma
+  <li><a class="reference" href="#lgamma%2CF" title="lgamma[F: SomeFloat](x: F): F">lgamma[F: SomeFloat](x: F): F</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">log
-  <li><a class="reference" href="#log%2CF" title="log[F: SomeFloat](x: F): F">log[F: SomeFloat](x: F): F</a></li>
+  <li><a class="reference" href="#log%2CF%2CF" title="log[F: SomeFloat](x, base: F): F">log[F: SomeFloat](x, base: F): F</a></li>
+<li><a class="reference" href="#log%2CF" title="log[F: SomeFloat](x: F): F">log[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">log1p
-  <li><a class="reference" href="#log1p%2Cfloat" title="log1p(x: float): float">log1p(x: float): float</a></li>
-<li><a class="reference" href="#log1p%2Cfloat32" title="log1p(x: float32): float32">log1p(x: float32): float32</a></li>
+  <li><a class="reference" href="#log1p%2CF" title="log1p[F: SomeFloat](x: F): F">log1p[F: SomeFloat](x: F): F</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">modf
-  <li><a class="reference" href="#modf%2CSomeFloat" title="modf(x: SomeFloat): tuple[intpart: float, floatpart: float]">modf(x: SomeFloat): tuple[intpart: float, floatpart: float]</a></li>
+<ul class="simple nested-toc-section">log2
+  <li><a class="reference" href="#log2%2CF" title="log2[F: SomeFloat](x: F): F">log2[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">log10
+  <li><a class="reference" href="#log10%2CF" title="log10[F: SomeFloat](x: F): F">log10[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">perm
-  <li><a class="reference" href="#perm%2CNatural%2CNatural" title="perm(n, k: Natural): int">perm(n, k: Natural): int</a></li>
+  <li><a class="reference" href="#perm%2Cint%2Cint" title="perm(n, k: int): int">perm(n, k: int): int</a></li>
 <li><a class="reference" href="#perm%2Cint" title="perm(n: int): int">perm(n: int): int</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">prod
-  <li><a class="reference" href="#prod%2CIterable%5BT%5D" title="prod[T](iterable: Iterable[T]; start = 1.T): T">prod[T](iterable: Iterable[T]; start = 1.T): T</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">radians
-  <li><a class="reference" href="#radians%2CF" title="radians[F: SomeFloat](x: F): F">radians[F: SomeFloat](x: F): F</a></li>
+<ul class="simple nested-toc-section">pow
+  <li><a class="reference" href="#pow%2CF%2CF" title="pow[F: SomeFloat](x, y: F): F">pow[F: SomeFloat](x, y: F): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">remainder
-  <li><a class="reference" href="#remainder%2CSomeNumber%2CSomeNumber" title="remainder(x: SomeNumber; y: SomeNumber): float">remainder(x: SomeNumber; y: SomeNumber): float</a></li>
+  <li><a class="reference" href="#remainder%2CF%2CF" title="remainder[F: SomeFloat](x, y: F): F">remainder[F: SomeFloat](x, y: F): F</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">trunc
-  <li><a class="reference" href="#trunc%2CSomeFloat" title="trunc(x: SomeFloat): int">trunc(x: SomeFloat): int</a></li>
+<ul class="simple nested-toc-section">sin
+  <li><a class="reference" href="#sin%2CF" title="sin[F: SomeFloat](x: F): F">sin[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">sinh
+  <li><a class="reference" href="#sinh%2CF" title="sinh[F: SomeFloat](x: F): F">sinh[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">sqrt
+  <li><a class="reference" href="#sqrt%2CF" title="sqrt[F: SomeFloat](x: F): F">sqrt[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">tan
+  <li><a class="reference" href="#tan%2CF" title="tan[F: SomeFloat](x: F): F">tan[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">tanh
+  <li><a class="reference" href="#tanh%2CF" title="tanh[F: SomeFloat](x: F): F">tanh[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 
@@ -208,16 +201,7 @@
   </details>
 </li>
 <li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
-    <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">py_math_isclose_impl
-  <li><a class="reference" href="#py_math_isclose_impl.t" title="py_math_isclose_impl(abs)">py_math_isclose_impl(abs)</a></li>
-
-</ul>
-
-    </ul>
-  </details>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
 </li>
 
 </ul>
@@ -229,83 +213,13 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc"><em>NOTE</em>: Currently int is not acceptable when it comes to float about functions</p>
+    <p class="module-desc"><p>Lib/math</p>
+<p>Wrapper around <a class="reference external" href="n_math.html">Lib/n_math</a>, and raises exceptions when math error occurs as CPython behaves. </p>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="err.html">err</a>, <a class="reference external" href="ldexp.html">ldexp</a>, <a class="reference external" href="frexp.html">frexp</a>
-  </dl>
-</div>
-<div class="section" id="7">
-  <h1><a class="toc-backref" href="#7">Types</a></h1>
-  <dl class="item">
-    <div id="MemoryError">
-  <dt><pre><a href="math.html#MemoryError"><span class="Identifier">MemoryError</span></a> <span class="Other">=</span> <span class="Identifier">OutOfMemDefect</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L267" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L267" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-  </dl>
-</div>
-<div class="section" id="10">
-  <h1><a class="toc-backref" href="#10">Consts</a></h1>
-  <dl class="item">
-    <div id="e">
-  <dt><pre><a href="math.html#e"><span class="Identifier">e</span></a> <span class="Other">=</span> <span class="FloatNumber">2.718281828459045</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="inf">
-  <dt><pre><a href="math.html#inf"><span class="Identifier">inf</span></a> <span class="Other">=</span> <span class="FloatNumber">0x7FF0000000000000'f64</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="nan">
-  <dt><pre><a href="math.html#nan"><span class="Identifier">nan</span></a> <span class="Other">=</span> <span class="FloatNumber">0x7FF7FFFFFFFFFFFF'f64</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="pi">
-  <dt><pre><a href="math.html#pi"><span class="Identifier">pi</span></a> <span class="Other">=</span> <span class="FloatNumber">3.141592653589793</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="tau">
-  <dt><pre><a href="math.html#tau"><span class="Identifier">tau</span></a> <span class="Other">=</span> <span class="FloatNumber">6.283185307179586</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
+    <a class="reference external" href="version.html">version</a>, <a class="reference external" href="n_math.html">n_math</a>, <a class="reference external" href="err.html">err</a>, <a class="reference external" href="errnoUtils.html">errnoUtils</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -317,8 +231,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L395" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L395" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -330,8 +244,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L396" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L396" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L99" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L99" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -343,8 +257,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L393" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L393" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -356,8 +270,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L394" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L394" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L101" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L101" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -369,21 +283,21 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L397" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L397" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L102" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L102" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="atan2-procs-all">
-  <div id="atan2,F">
-  <dt><pre><span class="Keyword">func</span> <a href="#atan2%2CF"><span class="Identifier">atan2</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <div id="atan2,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#atan2%2CF%2CF"><span class="Identifier">atan2</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L398" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L398" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L110" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L110" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -395,23 +309,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L399" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L399" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="ceil-procs-all">
-  <div id="ceil,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#ceil%2CSomeFloat"><span class="Identifier">ceil</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
-  <dd>
-    
-    <div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
-unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><span class="pre"><span class="Identifier">int</span></span></tt> and raises errors for nans and infinities</div>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L102" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L102" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L103" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L103" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -419,61 +318,105 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
 </div>
 <div id="comb-procs-all">
   <div id="comb,int,int">
-  <dt><pre><span class="Keyword">func</span> <a href="#comb%2Cint%2Cint"><span class="Identifier">comb</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">,</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#comb%2Cint%2Cint"><span class="Identifier">comb</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">,</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L402" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L402" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L240" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L240" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="degress-procs-all">
-  <div id="degress,F">
-  <dt><pre><span class="Keyword">func</span> <a href="#degress%2CF"><span class="Identifier">degress</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+<div id="copysign-procs-all">
+  <div id="copysign,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#copysign%2CF%2CF"><span class="Identifier">copysign</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L381" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L381" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L112" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L112" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="dist-procs-all">
-  <div id="dist,F">
-  <dt><pre><span class="Keyword">func</span> <a href="#dist%2CF"><span class="Identifier">dist</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+<div id="cos-procs-all">
+  <div id="cos,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#cos%2CF"><span class="Identifier">cos</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L128" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L128" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L114" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L114" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="cosh-procs-all">
+  <div id="cosh,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#cosh%2CF"><span class="Identifier">cosh</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L115" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L115" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="erf-procs-all">
+  <div id="erf,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#erf%2CF"><span class="Identifier">erf</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L117" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L117" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="erfc-procs-all">
+  <div id="erfc,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#erfc%2CF"><span class="Identifier">erfc</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L118" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L118" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="exp-procs-all">
+  <div id="exp,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#exp%2CF"><span class="Identifier">exp</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L120" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L120" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="expm1-procs-all">
-  <div id="expm1,float">
-  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2Cfloat"><span class="Identifier">expm1</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="expm1,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2CF"><span class="Identifier">expm1</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L155" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L155" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
+since Python 3.11</div>
 
-  </dd>
-</div>
-<div id="expm1,float32">
-  <dt><pre><span class="Keyword">func</span> <a href="#expm1%2Cfloat32"><span class="Identifier">expm1</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float32</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L122" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L122" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -485,129 +428,73 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L51" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L51" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L125" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L125" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="factorial-procs-all">
-  <div id="factorial,Natural">
-  <dt><pre><span class="Keyword">func</span> <a href="#factorial%2CNatural"><span class="Identifier">factorial</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="factorial,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#factorial%2Cint"><span class="Identifier">factorial</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L415" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L415" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L148" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L148" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="floor-procs-all">
-  <div id="floor,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#floor%2CSomeFloat"><span class="Identifier">floor</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
+<div id="fma-procs-all">
+  <div id="fma,F,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#fma%2CF%2CF%2CF"><span class="Identifier">fma</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
-    <div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
-unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><span class="pre"><span class="Identifier">int</span></span></tt> and raises errors for nans and infinities</div>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L103" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L103" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L192" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L192" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="fmod-procs-all">
-  <div id="fmod,SomeNumber,SomeNumber">
-  <dt><pre><span class="Keyword">func</span> <a href="#fmod%2CSomeNumber%2CSomeNumber"><span class="Identifier">fmod</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeNumber</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">SomeNumber</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+  <div id="fmod,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#fmod%2CF%2CF"><span class="Identifier">fmod</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
-    equal to <tt class="docutils literal"><span class="pre"><span class="Identifier">x</span> <span class="Operator">-</span> <span class="Identifier">x</span><span class="Operator">*</span><span class="Identifier">trunc</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Operator">/</span><span class="Identifier">y</span><span class="Punctuation">)</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L241" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L241" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L198" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L198" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="frexp-procs-all">
-  <div id="frexp,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#frexp%2CSomeFloat"><span class="Identifier">frexp</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">int</span><span class="Other">)</span></pre></dt>
+<div id="gamma-procs-all">
+  <div id="gamma,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#gamma%2CF"><span class="Identifier">gamma</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L197" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L197" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="fsum-procs-all">
-  <div id="fsum,Iterable[T: SomeFloat]">
-  <dt><pre><span class="Keyword">func</span> <a href="#fsum%2CIterable%5BT%3A%20SomeFloat%5D"><span class="Identifier">fsum</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <span class="Identifier">Iterable</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L271" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L271" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="isclose-procs-all">
-  <div id="isclose,SomeFloat,SomeFloat,float,float">
-  <dt><pre><span class="Keyword">func</span> <a href="#isclose%2CSomeFloat%2CSomeFloat%2Cfloat%2Cfloat"><span class="Identifier">isclose</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">;</span> <span class="Identifier">rel_tol</span> <span class="Other">=</span> <span class="FloatNumber">1e-9</span><span class="Other">;</span> <span class="Identifier">abs_tol</span> <span class="Other">=</span> <span class="FloatNumber">0.0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L122" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L122" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="isfinite-procs-all">
-  <div id="isfinite,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#isfinite%2CSomeFloat"><span class="Identifier">isfinite</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="isinf-procs-all">
-  <div id="isinf,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#isinf%2CSomeFloat"><span class="Identifier">isinf</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L81" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L81" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L129" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L129" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="isqrt-procs-all">
-  <div id="isqrt,T">
-  <dt><pre><span class="Keyword">func</span> <a href="#isqrt%2CT"><span class="Identifier">isqrt</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeNumber</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
+  <div id="isqrt,I">
+  <dt><pre><span class="Keyword">func</span> <a href="#isqrt%2CI"><span class="Identifier">isqrt</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
     
     
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Identifier">assert</span> <span class="DecNumber">2</span> <span class="Operator">==</span> <span class="Identifier">isqrt</span> <span class="DecNumber">5</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L424" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L424" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L143" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L143" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -619,134 +506,197 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L203" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L203" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L157" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L157" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="lgamma-procs-all">
+  <div id="lgamma,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#lgamma%2CF"><span class="Identifier">lgamma</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L130" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L130" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="log-procs-all">
-  <div id="log,F">
+  <div id="log,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#log%2CF%2CF"><span class="Identifier">log</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">base</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L185" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L185" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="log,F">
   <dt><pre><span class="Keyword">func</span> <a href="#log%2CF"><span class="Identifier">log</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L374" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L374" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L182" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L182" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="log1p-procs-all">
-  <div id="log1p,float">
-  <dt><pre><span class="Keyword">func</span> <a href="#log1p%2Cfloat"><span class="Identifier">log1p</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="log1p,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#log1p%2CF"><span class="Identifier">log1p</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L155" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L155" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="log1p,float32">
-  <dt><pre><span class="Keyword">func</span> <a href="#log1p%2Cfloat32"><span class="Identifier">log1p</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float32</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L132" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L132" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="modf-procs-all">
-  <div id="modf,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#modf%2CSomeFloat"><span class="Identifier">modf</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">intpart</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">floatpart</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">]</span></pre></dt>
+<div id="log2-procs-all">
+  <div id="log2,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#log2%2CF"><span class="Identifier">log2</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L238" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L238" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L189" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L189" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="log10-procs-all">
+  <div id="log10,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#log10%2CF"><span class="Identifier">log10</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L190" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L190" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="perm-procs-all">
-  <div id="perm,Natural,Natural">
-  <dt><pre><span class="Keyword">func</span> <a href="#perm%2CNatural%2CNatural"><span class="Identifier">perm</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">,</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="perm,int,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#perm%2Cint%2Cint"><span class="Identifier">perm</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">,</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L408" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L408" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="perm,int">
-  <dt><pre><span class="Keyword">func</span> <a href="#perm%2Cint"><span class="Identifier">perm</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#perm%2Cint"><span class="Identifier">perm</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    equal to <tt class="docutils literal"><span class="pre"><span class="Identifier">perm</span><span class="Punctuation">(</span><span class="Identifier">n</span><span class="Punctuation">,</span><span class="Identifier">n</span><span class="Punctuation">)</span></span></tt>, returns <tt class="docutils literal"><span class="pre"><span class="Identifier">n</span><span class="Operator">!</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L404" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L404" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L230" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L230" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="prod-procs-all">
-  <div id="prod,Iterable[T]">
-  <dt><pre><span class="Keyword">func</span> <a href="#prod%2CIterable%5BT%5D"><span class="Identifier">prod</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <span class="Identifier">Iterable</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">.</span><span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+<div id="pow-procs-all">
+  <div id="pow,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#pow%2CF%2CF"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="radians-procs-all">
-  <div id="radians,F">
-  <dt><pre><span class="Keyword">func</span> <a href="#radians%2CF"><span class="Identifier">radians</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L383" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L383" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L209" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L209" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="remainder-procs-all">
-  <div id="remainder,SomeNumber,SomeNumber">
-  <dt><pre><span class="Keyword">func</span> <a href="#remainder%2CSomeNumber%2CSomeNumber"><span class="Identifier">remainder</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeNumber</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">SomeNumber</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+  <div id="remainder,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#remainder%2CF%2CF"><span class="Identifier">remainder</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L248" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L248" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L133" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L133" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="trunc-procs-all">
-  <div id="trunc,SomeFloat">
-  <dt><pre><span class="Keyword">func</span> <a href="#trunc%2CSomeFloat"><span class="Identifier">trunc</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
+<div id="sin-procs-all">
+  <div id="sin,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#sin%2CF"><span class="Identifier">sin</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
   <dd>
     
-    <div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
-unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><span class="pre"><span class="Identifier">int</span></span></tt> and raises errors for nans and infinities</div>
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L135" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L135" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L104" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L104" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+  </dd>
+</div>
+
+</div>
+<div id="sinh-procs-all">
+  <div id="sinh,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#sinh%2CF"><span class="Identifier">sinh</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="sqrt-procs-all">
+  <div id="sqrt,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#sqrt%2CF"><span class="Identifier">sqrt</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L137" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L137" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="tan-procs-all">
+  <div id="tan,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#tan%2CF"><span class="Identifier">tan</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L138" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L138" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="tanh-procs-all">
+  <div id="tanh,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#tanh%2CF"><span class="Identifier">tanh</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L139" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L139" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -755,25 +705,10 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
 
   </dl>
 </div>
-<div class="section" id="18">
-  <h1><a class="toc-backref" href="#18">Templates</a></h1>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
   <dl class="item">
-    <div id="py_math_isclose_impl-templates-all">
-  <div id="py_math_isclose_impl.t">
-  <dt><pre><span class="Keyword">template</span> <a href="#py_math_isclose_impl.t"><span class="Identifier">py_math_isclose_impl</span></a><span class="Other">(</span><span class="Identifier">abs</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    <p>inner use. Implementation of isclose.</p>
-<p>mixin a, b, isinf, rel_tol, abs_tol</p>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L106" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L106" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-
+    <a href="n_math.html#nan"><span class="Identifier">nan</span></a>, <a href="n_math.html#inf"><span class="Identifier">inf</span></a>, <a href="n_math.html#pi"><span class="Identifier">pi</span></a>, <a href="n_math.html#tau"><span class="Identifier">tau</span></a>, <a href="n_math.html#e"><span class="Identifier">e</span></a>, <a href="n_math.html#ceil,SomeFloat"><span class="Identifier">ceil</span></a>, <a href="n_math.html#floor,SomeFloat"><span class="Identifier">floor</span></a>, <a href="n_math.html#fsum,Iterable[T: SomeFloat]"><span class="Identifier">fsum</span></a>, <a href="n_math.html#trunc,SomeFloat"><span class="Identifier">trunc</span></a>, <a href="n_math.html#frexp,SomeFloat"><span class="Identifier">frexp</span></a>, <a href="n_math.html#modf,F"><span class="Identifier">modf</span></a>, <a href="n_math.html#hypot,I,I"><span class="Identifier">hypot</span></a>, <a href="n_math.html#hypot,I,I,I,varargs[I]"><span class="Identifier">hypot</span></a>, <a href="n_math.html#degrees,F"><span class="Identifier">degrees</span></a>, <a href="n_math.html#radians,F"><span class="Identifier">radians</span></a>, <a href="n_math.html#isfinite,SomeFloat"><span class="Identifier">isfinite</span></a>, <a href="n_math.html#isinf,SomeFloat"><span class="Identifier">isinf</span></a>, <a href="n_math.html#isclose,SomeFloat,SomeFloat,float,float"><span class="Identifier">isclose</span></a>, <a href="n_math.html#prod,Iterable[T]"><span class="Identifier">prod</span></a>, <a href="n_math.html#gcd,I,I,I,varargs[I]"><span class="Identifier">gcd</span></a>, <a href="n_math.html#gcd,I,I"><span class="Identifier">gcd</span></a>, <a href="n_math.html#lcm,I,I"><span class="Identifier">lcm</span></a>, <a href="n_math.html#lcm,I,I,I,varargs[I]"><span class="Identifier">lcm</span></a>
   </dl>
 </div>
 
@@ -783,7 +718,7 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-24 06:57:27 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-26 16:32:17 UTC</small>
       </div>
     </div>
   </div>

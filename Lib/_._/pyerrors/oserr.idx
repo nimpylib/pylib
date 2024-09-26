@@ -21,8 +21,8 @@ nim	tryOsOp	_._/pyerrors/oserr.html#tryOsOp.t,PathLike,	template tryOsOp(p: Path
 nim	errnoMsg	_._/pyerrors/oserr.html#errnoMsg,cint	proc errnoMsg(errnoCode: cint): string		178
 nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,cint,string	proc raiseErrno(errno: cint; additionalInfo = "")		192
 nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T],cint	proc raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)		196
-nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,string	proc raiseErrno(additionalInfo = "")		221
-nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T])		224
+nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,string	proc raiseErrno(additionalInfo = "")		223
+nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T])		226
 nimgrp	raisefilenotfounderror	_._/pyerrors/oserr.html#raiseFileNotFoundError-procs-all	proc		74
 nimgrp	raiseexcwithpath	_._/pyerrors/oserr.html#raiseExcWithPath-procs-all	proc		65
 nimgrp	raiseerrnowithpath	_._/pyerrors/oserr.html#raiseErrnoWithPath-procs-all	proc		196
