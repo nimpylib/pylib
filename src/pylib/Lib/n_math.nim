@@ -29,8 +29,20 @@ from ./math_patch/errnoUtils import CLike,
   prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
 from ./errno import ERANGE, EDOM
 
-template impPatch(sym) =
-  import ./math_patch/sym
+macro impPatch(sym) =
+  #import ./math_patch/sym
+  # HINT: using `template (sym) = import ./math_patch/sym`
+  #  may fail on some platforms like Android (termux) and nimdoc on Ubuntu
+  nnkImportStmt.newTree(
+    infix(
+      nnkPrefix.newTree(ident"./",
+        ident"math_patch"
+      ),
+      "/",
+      sym
+    )
+  )
+
 
 when defined(js):
   template impExpPatch(sym) =
