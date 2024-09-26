@@ -1,6 +1,6 @@
 ## Lib/math
 
-#import ../version
+import ../version
 
 import ./n_math
 export nan
@@ -41,7 +41,7 @@ template math_1_body(x; fun; can_overflow: bool) =
 template FUNC_math_1(funcname; fun; can_overflow: bool){.dirty.} =
   ## FUNC1 with math_1_body
   func funcname*[F: SomeFloat](x: F): F =
-    math_1_body(x)
+    math_1_body(x, can_overflow)
 
 
 template FUNC_math_1a(funcname; fun){.dirty.} =
@@ -98,6 +98,7 @@ FUNC_math_1 asinh, false
 FUNC_math_1 atan,  false
 FUNC_math_1 atanh, false
 
+# pysince(3,11)
 # TODO: cbrt
 
 genDunder ceil
@@ -113,8 +114,10 @@ FUNC_math_1a erf
 FUNC_math_1a erfc
 
 FUNC_math_1 exp,   true
-# TODO: FUNC_math_1 exp2,  true
-FUNC_math_1 expm1, true
+
+func expm1*[F: SomeFloat](x: F): F{.pysince(3,11).} =
+  math_1_body(x, expm1, true)
+
 FUNC_math_1 fabs,  false
 
 genDunder floor
@@ -193,13 +196,17 @@ func fmod*[F: SomeFloat](x: F, y: F): F =
     # not check `isinf(result)` here
     result.checkErrnoAndRaise
 
-# TODO: dist hypot sumprod
+# TODO: dist pysince(3,8)
+
+expN hypot
+
+# TODO: sumprod
 
 func pow*[F: SomeFloat](x, y: F): F =
   result = n_math.pow(x, y)
   result.checkErrnoAndRaise
 
-expN degress
+expN degrees
 expN radians
 
 expN isfinite

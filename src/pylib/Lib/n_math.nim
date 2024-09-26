@@ -669,7 +669,7 @@ special case of zero input directly on all platforms.*/]#
   if x == 0.0: x  # respect its sign
   else: log1p(x_native=x)
 
-aliasFF degress, radToDeg
+aliasFF degrees, radToDeg
 
 aliasFF radians, degToRad
 
