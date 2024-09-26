@@ -1,4 +1,8 @@
 ## Lib/math
+## 
+## Wrapper around `Lib/n_math<n_math.html>`_, and raises exceptions
+## when math error occurs as CPython behaves.
+## 
 
 import ../version
 
