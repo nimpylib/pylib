@@ -52,6 +52,9 @@ template impExpPatch(sym) =
 
 impExpPatch fma
 
+import ./math_impl/vec_op
+export vec_op
+
 
 template aCap(s: var string) =
   let c = s[0]

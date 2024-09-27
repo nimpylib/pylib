@@ -200,7 +200,10 @@ func fmod*[F: SomeFloat](x: F, y: F): F =
     # not check `isinf(result)` here
     result.checkErrnoAndRaise
 
-# TODO: dist pysince(3,8)
+template dist*[T](p, q: T): float {.pysince(3,8).} =
+  runnableExamples:
+    echo dist((1,2,3), (3,4,5))
+  n_math.dist(p, q)
 
 expN hypot
 
