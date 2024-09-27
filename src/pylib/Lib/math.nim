@@ -5,6 +5,8 @@
 ## 
 
 import ../version
+from ./collections/abc import Iterable
+from ../builtins/list_decl import `@`, list
 
 import ./n_math
 export nan
@@ -202,10 +204,24 @@ func fmod*[F: SomeFloat](x: F, y: F): F =
     # not check `isinf(result)` here
     result.checkErrnoAndRaise
 
-template dist*[T](p, q: T): float {.pysince(3,8).} =
-  runnableExamples:
-    echo dist((1,2,3), (3,4,5))
-  n_math.dist(p, q)
+
+proc iterToFloatSeq[T](it: Iterable[T]): seq[float] =
+  for e in it:
+    result.add:
+      when T is SomeFloat: e.float
+      else: e.toFloat
+
+template gen2pointsGetFloat(sym; pypatch: int; listOp; iterOp){.dirty.} =
+  template sym*[T](p, q: OpenarrayOrNimIter[T]): float {.pysince(3,pypatch).} = n_math.sym(p, q)
+  template sym*[T](p, q: list[T]): float {.pysince(3,pypatch).} =
+    bind listOp
+    n_math.sym(listOp p, listOp q)
+  template sym*[T](p, q: Iterable[T]): float {.pysince(3,pypatch).} =
+    bind iterOp
+    n_math.sym(iterOp(p), iterOp(q))
+
+gen2pointsGetFloat dist, 8, `@`,    iterToFloatSeq
+
 
 expN hypot
 

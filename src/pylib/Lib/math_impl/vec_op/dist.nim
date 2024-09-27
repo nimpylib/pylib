@@ -3,54 +3,9 @@
 from std/math import frexp, sqrt
 from std/fenv import minimumPositiveValue
 from ../ldexp import c_ldexp
-from ../patch/fma import c_fma, UNRELIABLE_FMA
 from ../isX import isinf, isnan
-
-type
-  DoubleLength = object
-    hi: float
-    lo: float
-
-when not UNRELIABLE_FMA:
-  proc dl_mul(x: float; y: float): DoubleLength =
-    ##  Algorithm 3.5. Error-free transformation of a product
-    let z = x * y
-    let zz = c_fma(x, y, -z)
-    return DoubleLength(hi: z , lo: zz)
-else:
-  proc dl_split(x: float): DoubleLength =
-    ##
-    ##    The default implementation of dl_mul() depends on the C math library
-    ##    having an accurate fma() function as required by § 7.12.13.1 of the
-    ##    C99 standard.
-    ##
-    ##    The UNRELIABLE_FMA option is provided as a slower but accurate
-    ##    alternative for builds where the fma() function is found wanting.
-    ##    The speed penalty may be modest (17% slower on an Apple M1 Max),
-    ##    so don't hesitate to enable this build option.
-    ##
-    ##    The algorithms are from the T. J. Dekker paper:
-    ##    A Floating-Point Technique for Extending the Available Precision
-    ##    https://csclub.uwaterloo.ca/~pbarfuss/dekker1971.pdf
-    ##
-    ##  Dekker (5.5) and (5.6).
-    let t = x * 134217729.0
-    ##  Veltkamp constant = 2.0 ** 27 + 1
-    let
-      hi = t - (t - x)
-      lo = x - hi
-    result = DoubleLength(hi: hi, lo: lo)
-
-  proc dl_mul(x: float; y: float): DoubleLength =
-    ##  Dekker (5.12) and mul12()
-    let xx = dl_split(x)
-    let yy = dl_split(y)
-    let
-      p = xx.hi * yy.hi
-      q = xx.hi * yy.lo + xx.lo * yy.hi
-      z = p + q
-      zz = p - z + q + xx.lo * yy.lo
-    result = DoubleLength(hi: z, lo: zz)
+from ./niter_types import toSeq, openarray_Check, dist_checkedSameLen, OpenarrayOrNimIter
+from ./private/dl_ops import dl_mul, DoubleLength
 
 proc dl_fast_sum(a: float, b: float): DoubleLength =
   ##  Algorithm 1.1. Compensated summation of two floating-point numbers.
@@ -167,7 +122,6 @@ proc vector_norm[F](n: Py_ssize_t; vec: var openarray[F]; max: F; found_nan: boo
   ##
   ##
   var max_e: c_int
-  var i: Py_ssize_t
   if isinf(max):
     return max
   if found_nan:
@@ -257,24 +211,12 @@ proc math_dist_impl[T](p, q: openarray[T], n: Py_ssize_t): float =
   result = vector_norm(n, diffs, max, found_nan)
 
 
-type SeqOrIter[T] = openarray[T] # TODO
-from std/sequtils import toSeq
-
-template OA_Check(x): bool =
-  x is openarray
-
-func math_dist_impl[T](p, q: SeqOrIter[T]): float =
-  when not OA_Check(p):
-    var p = toSeq(p)
-  when not OA_Check(q):
-    var q = toSeq(q)
-  let
-    m = len(p)
-    n = len(q)
-  if m != n:
-    raise newException(ValueError,
-                    "both points must have the same number of dimensions")
-  math_dist_impl(p, q, n)
+func math_dist_impl[T](p, q: OpenarrayOrNimIter[T]): float =
+  when not openarray_Check(p):
+    let p = toSeq(p)
+  when not openarray_Check(q):
+    let q = toSeq(q)
+  math_dist_impl(p, q, dist_checkedSameLen(p, q))
 
 func dist*[T; I: static[int]](p, q: array[I, T]): float{.raises: [].} =
   math_dist_impl(p, q, I)
