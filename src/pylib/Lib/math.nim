@@ -16,9 +16,6 @@ export e
 from ./math_impl/err import raiseDomainErr, raiseRangeErr
 from ./math_impl/errnoUtils import setErrno0, setErrno, isErr0, EDOM, ERANGE
 
-template raiseDomainErr =
-  raise newException(ValueError, "math domain error")
-
 template checkErrno(result, exc): bool =
   not isErr0() and math_is_error(result, exc)
 

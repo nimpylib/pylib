@@ -29,6 +29,7 @@ from ./math_impl/platformUtils import CLike, clikeOr
 from ./math_impl/errnoUtils import
   prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
 from ./math_impl/ldexp import c_ldexp
+import ./math_impl/frexp as frexpLib
 from ./errno import ERANGE, EDOM
 
 macro impPatch(sym) =
@@ -239,23 +240,6 @@ impJsOrC expm1, expm1f, native_x
 func expm1*[F: SomeFloat](x: F): F =
   expm1(native_x=x)
 
-import ./math_impl/patch/ldexp_frexp/frexp as pure_frexp
-func n_frexp(x: SomeFloat): (float, int) = pure_frexp.frexp(x.float)
-
-func frexpImpl(x: SomeFloat): (float, int){.inline.} =
-  #[ deal with special cases directly, to sidestep platform
-      differences ]#
-  if isnan(x) or isinf(x) or x == 0:
-    return (x, 0)
-  result = math.frexp(x)
-
-func frexp*(x: SomeFloat): (float, int) =
-    clikeOr(
-      frexpImpl(x),
-      n_frexp(x)
-    )
-
-
 when CLike:
   proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
   func errnoMsg(errnoCode: cint): string = $c_strerror(errnoCode)
@@ -303,6 +287,7 @@ true, but may return false without setting up an exception.]##
     # Unexpected math error
     exc = newException(ValueError, errnoMsg(getErrno()))
 
+export frexpLib.frexp
 
 func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
   ## set exception to `exc` instead of raising it

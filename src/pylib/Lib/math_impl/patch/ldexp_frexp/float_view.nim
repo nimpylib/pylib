@@ -26,7 +26,7 @@ else:
   ]#
 
   # fallback for compileTime VM
-  {.push compileTime.}
+
   import std/bitops
   type
     FView[F: SomeFloat] = distinct F
@@ -64,7 +64,7 @@ else:
   gset01gen float64, uint64, uint32, 32
   gset01gen float32, uint32, uint16, 16
 
-  {.pop.} # compileTime
+
 
   template init64FloatView*(FLOAT64_VIEW, UINT32_VIEW) =
     bind initIView
