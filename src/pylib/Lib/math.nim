@@ -99,8 +99,13 @@ FUNC_math_1 asinh, false
 FUNC_math_1 atan,  false
 FUNC_math_1 atanh, false
 
-# pysince(3,11)
-# TODO: cbrt
+func cbrt*[F: SomeFloat](x: F): F{.pysince(3,11).} =
+  runnableExamples:
+    template chk =
+      assert cbrt(-1.0) == -1.0
+    chk()
+    static: chk()
+  math_1_body(x, n_math.cbrt, false)  # check for underflow
 
 genDunder ceil
 

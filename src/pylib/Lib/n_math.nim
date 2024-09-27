@@ -29,8 +29,11 @@ from ./math_impl/platformUtils import CLike, clikeOr
 from ./math_impl/errnoUtils import
   prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
 from ./math_impl/ldexp import c_ldexp
+from ./math_impl/cbrt import cbrt
 import ./math_impl/frexp as frexpLib
 from ./errno import ERANGE, EDOM
+
+export cbrt
 
 macro impPatch(sym) =
   #import ./math_impl/patch/sym
