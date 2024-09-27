@@ -1,6 +1,6 @@
 
 
-const CLike* = defined(c) or defined(cpp) or defined(objc)
+from ./platformUtils import CLike
 
 var staticErrno{.compileTime.}: cint  ## used compile time
 

@@ -13,8 +13,8 @@ export pi
 export tau
 export e
 
-from ./math_patch/err import raiseDomainErr, raiseRangeErr
-from ./math_patch/errnoUtils import CLike, setErrno0, setErrno, isErr0, EDOM, ERANGE
+from ./math_impl/err import raiseDomainErr, raiseRangeErr
+from ./math_impl/errnoUtils import setErrno0, setErrno, isErr0, EDOM, ERANGE
 
 template raiseDomainErr =
   raise newException(ValueError, "math domain error")

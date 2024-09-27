@@ -1,5 +1,5 @@
 
-import ./math_patch/errnoUtils
+import ./math_impl/errnoUtils
 export ERANGE, EDOM
 
 prepareRWErrno

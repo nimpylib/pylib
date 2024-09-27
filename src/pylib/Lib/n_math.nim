@@ -25,18 +25,20 @@
 import std/math
 import std/bitops
 import std/macros
-from ./math_patch/errnoUtils import CLike,
+from ./math_impl/platformUtils import CLike, clikeOr
+from ./math_impl/errnoUtils import
   prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
+from ./math_impl/ldexp import c_ldexp
 from ./errno import ERANGE, EDOM
 
 macro impPatch(sym) =
-  #import ./math_patch/sym
-  # HINT: using `template (sym) = import ./math_patch/sym`
+  #import ./math_impl/patch/sym
+  # HINT: using `template (sym) = import ./math_impl/patch/sym`
   #  may fail on some platforms like Android (termux) and nimdoc on Ubuntu
   nnkImportStmt.newTree(
     infix(
       nnkPrefix.newTree(ident"./",
-        ident"math_patch"
+        ident"math_impl/patch"
       ),
       "/",
       sym
@@ -44,10 +46,9 @@ macro impPatch(sym) =
   )
 
 
-when defined(js):
-  template impExpPatch(sym) =
-    impPatch sym
-    export sym
+template impExpPatch(sym) =
+  impPatch sym
+  export sym
 
 template clikeOr(inCLike, b): untyped =
   # for nimvm-able expr
@@ -77,39 +78,8 @@ expup e
 
 template expM(x) = export math.x
 
-expM isnan
-
-
-func n_isfinite(x: SomeFloat): bool{.used.} =
-  let cls = classify(x)
-  result = cls != fcInf and cls != fcNegInf and cls != fcNan
-
-func n_isinf(x: SomeFloat): bool{.used.} =
-  let cls = classify(x)
-  cls == fcInf or cls == fcNegInf
-
-when defined(js):
-  func js_isfiniteImpl(x: float): bool{.importjs: "Number.isFinite(#)".}
-  func js_isfinite(x: SomeFloat): bool = float(x).js_isfiniteImpl
-  func js_isinf(x: SomeFloat): bool =
-    not x.isnan and not x.js_isfinite
-
-template wrap(sym, c_sym, n_sym, js_sym){.dirty.} =
-  func c_sym(x: c_double|c_float): c_int{.importc: astToStr(sym), header: "<math.h>".}
-  func sym*(x: SomeFloat): bool =
-    when nimvm: n_sym(x)
-    else:
-      when CLike:
-        bool c_sym (when x is float32: x.c_float else: x.c_double)
-      elif defined(js): js_sym x
-      else: n_sym(x)
-
-wrap isfinite, c_isfinite, n_isfinite, js_isfinite
-wrap isinf, c_isinf, n_isinf, js_isinf
-
-static:
-  assert declared isinf
-  assert declared isfinite
+import ./math_impl/isX
+export isX
 
 template c_fmod[F: SomeFloat](x: F, y: F): F =
   ## equal to `x - x*trunc(x/y)`
@@ -246,7 +216,7 @@ func lgamma*[F: SomeFloat](x: F): F =
   case err
   of geOverFlow, geUnderFlow: doAssert false, "unreachable"
   of geDom: setErrno EDOM
-  of geGotNegInf: discard  # math_patch.lgamma alreadly returns +inf
+  of geGotNegInf: discard  # math_impl/patch.lgamma alreadly returns +inf
   of geZeroCantDetSign: setErrno EDOM
   of geOk: discard
 
@@ -270,39 +240,8 @@ impJsOrC expm1, expm1f, native_x
 func expm1*[F: SomeFloat](x: F): F =
   expm1(native_x=x)
 
-when CLike:
-  {.push header: "<math.h>".}
-  proc ldexpf(arg: c_float, exp: c_int): c_float{.importc.}
-  proc ldexp(arg: c_double, exp: c_int): c_double{.importc.}
-  {.pop.}
-
-import ./math_patch/ldexp_frexp/ldexp as pure_ldexp
-import ./math_patch/ldexp_frexp/frexp as pure_frexp
-
-
-# not very effective, anyway
-func n_ldexp(x: SomeFloat, i: int): float = pure_ldexp.ldexp(x.float, i)
+import ./math_impl/patch/ldexp_frexp/frexp as pure_frexp
 func n_frexp(x: SomeFloat): (float, int) = pure_frexp.frexp(x.float)
-
-#[
-func js_ldexp(x: SomeFloat, i: int): float =
-  pure_ldexp.ldexp(x.float, i)
-func round_ldexp(x: SomeFloat, i: int): float =
-  ## a version of `ldexp`_ that's implemented in pure Nim, used by ldexp in weridTarget
-  ##
-  ## translated from
-  ## https://blog.codefrau.net/2014/08/deconstructing-floats-frexp-and-ldexp.html
-  ## which is for JS.
-  ## XXX: Not sure if suitable for Obj-C
-  let steps = min(3, int ceil(abs(i)/1023) )
-  result = x
-  for step in 0..<steps:
-    result *= pow(2, floor((step+i)/steps))
-
-func n_ldexp(x: SomeFloat, i: int): float{.used.} =
-  when defined(js): js_ldexp(x, i)
-  else: round_ldexp(x, i)
-]#
 
 func frexpImpl(x: SomeFloat): (float, int){.inline.} =
   #[ deal with special cases directly, to sidestep platform
@@ -393,11 +332,7 @@ func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
     setErrno0
     let exp = cast[c_int](i)  # we have checked range above.
     result = 
-      clikeOr(
-        when x is float32: ldexpf(x.c_float, exp)
-        else: ldexp(x.c_double, exp),
-        n_ldexp(x, i)
-      )
+      c_ldexp(x, exp)
     if isinf(result):
       setErrno ERANGE
   if not isErr0() and math_is_error(result, exc):

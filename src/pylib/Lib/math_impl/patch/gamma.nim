@@ -20,7 +20,7 @@ import ./consts
 import ./sinpi
 from ./trunc import uncheckedTruncToInt
 from ./polevl import polExpd0
-from ./err import mapRaiseGammaErr, GammaError,
+from ../err import mapRaiseGammaErr, GammaError,
   MAX_GAMMA_X, MIN_GAMMA_X
 
 export GammaError
