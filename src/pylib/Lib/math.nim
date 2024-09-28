@@ -17,7 +17,7 @@ export e
 
 from ./math_impl/err import raiseDomainErr, raiseRangeErr
 from ./math_impl/errnoUtils import setErrno0, setErrno, isErr0, EDOM, ERANGE
-from ./math_impl/vec_op/niter_types import toNimIterator
+from ./math_impl/vec_op/niter_types import toNimIterator, ClosureIter
 
 template checkErrno(result, exc): bool =
   not isErr0() and math_is_error(result, exc)
@@ -212,19 +212,25 @@ proc iterToFloatSeq[T](it: Iterable[T]): seq[float] =
       when T is SomeFloat: e.float
       else: e.toFloat
 
-template gen2pointsGetFloat(sym; pypatch: int; listOp; iterOp){.dirty.} =
-  template sym*[T](p, q: OpenarrayOrNimIter[T]): float {.pysince(3,pypatch).} = n_math.sym(p, q)
+template gen2pointsGetFloat(sym; pypatch: int; listOp; iterOp; oaOp; niterOp){.dirty.} =
   template sym*[T](p, q: list[T]): float {.pysince(3,pypatch).} =
     bind listOp
     n_math.sym(listOp p, listOp q)
   template sym*[T](p, q: Iterable[T]): float {.pysince(3,pypatch).} =
     bind iterOp
-    n_math.sym(iterOp(p), iterOp(q))
-
-gen2pointsGetFloat dist, 8, `@`,    iterToFloatSeq
+    n_math.sym(iterOp[T](p), iterOp[T](q))
+  template sym*[T](p, q: openarray[T]): float {.pysince(3,pypatch).} =
+    bind oaOp
+    n_math.sym(oaOp(p), oaOp(q))
+  template sym*[T](p, q: ClosureIter[T]): float {.pysince(3,pypatch).} =
+    bind niterOp
+    n_math.sym(niterOp(p), niterOp(q))
 
 template asisOp[T](x: T): T = x
-gen2pointsGetFloat sumprod ,12, asisOp, toNimIterator
+
+gen2pointsGetFloat dist,    8,  `@`,    iterToFloatSeq, asisOp, iterToFloatSeq
+
+gen2pointsGetFloat sumprod ,12, toNimIterator, toNimIterator, toNimIterator, asisOp
 
 
 expN hypot

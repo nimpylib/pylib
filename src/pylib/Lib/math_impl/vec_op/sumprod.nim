@@ -2,7 +2,7 @@
 from std/lenientops as mixOps import nil  ## import no symbols directly
 
 from ../isX import isfinite
-from ./niter_types import OpenarrayOrNimIter, toNimIterator
+from ./niter_types import OpenarrayOrNimIter, toNimIterator, ClosureIter
 from ./private/dl_ops import DoubleLength, dl_mul, dl_sum
 
 type TripleLength = object
@@ -33,15 +33,21 @@ template isFloatType(T): bool = T is SomeFloat
 template PyFloat_AS_DOUBLE(x: SomeFloat): float = float x
 template PyLong_AS_DOUBLE(x: SomeInteger or bool): float = float x
 
+template PyNumber_Add[F: SomeNumber](a, b: F): F = system.`+` a, b
 template PyNumber_Add(a, b): untyped = mixOps.`+` a, b
-template Number_iAdd(a, b): untyped = mixOps.`+=` a, b
+
+template Number_iAdd[F: SomeNumber](a, b: F) = system.`+=` a, b
+template Number_iAdd(a, b) = a = mixOps.`+`(a, b)
+
+template PyNumber_Multiply[F: SomeNumber](a, b: F): F = system.`*` a, b
 template PyNumber_Multiply(a, b): untyped = mixOps.`*` a, b
 
 
-template n_next[T](p: iterable[T]): T = p()
-template n_iterStopped(p: iterable): bool = finished p
+template n_next[T](p: ClosureIter[T]): T = p()
+template n_iterStopped(p: ClosureIter): bool = finished p
 
-func math_sumprod_impl[P, Q](p_it: iterable[P]; q_it: iterable[Q]): float =
+
+func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
   ## [clinic input]
   ##
   ## Return the sum of products of values from two iterables p and q.
@@ -145,5 +151,5 @@ func math_sumprod_impl[P, Q](p_it: iterable[P]; q_it: iterable[Q]): float =
     Number_iAdd(result, PyNumber_Multiply(p_i, q_i))
   Ret
 
-func sumprod*[P, Q](p: OpenarrayOrNimIter[P]; q: OpenarrayOrNimIter[Q]): float =
-  math_sumprod_impl(p.toNimIterator[P], q.toNimIterator[Q])
+func sumprod*[P, Q](p: openarray[P]; q: openarray[Q]): float =
+  sumprod(p.toNimIterator[P](), q.toNimIterator[Q]())

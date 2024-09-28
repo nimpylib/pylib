@@ -1,8 +1,10 @@
 
 
-type OpenarrayOrNimIter*[T] = openarray[T] or iterable[T]
+type ClosureIter*[T] = iterator (): T
+#type NimIterator*[T] = ClosureIter[T] or iterable[T]
+type OpenarrayOrNimIter*[T] = openarray[T] or ClosureIter[T]
 
-template toNimIterator*[T](x): iterable[T] =
+template toNimIterator*[T](x): ClosureIter[T] =
   iterator (): T =
     for i in x:
       yield i
