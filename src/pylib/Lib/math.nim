@@ -17,6 +17,7 @@ export e
 
 from ./math_impl/err import raiseDomainErr, raiseRangeErr
 from ./math_impl/errnoUtils import setErrno0, setErrno, isErr0, EDOM, ERANGE
+from ./math_impl/vec_op/niter_types import toNimIterator
 
 template checkErrno(result, exc): bool =
   not isErr0() and math_is_error(result, exc)
@@ -222,10 +223,11 @@ template gen2pointsGetFloat(sym; pypatch: int; listOp; iterOp){.dirty.} =
 
 gen2pointsGetFloat dist, 8, `@`,    iterToFloatSeq
 
+template asisOp[T](x: T): T = x
+gen2pointsGetFloat sumprod ,12, asisOp, toNimIterator
+
 
 expN hypot
-
-# TODO: sumprod
 
 func pow*[F: SomeFloat](x, y: F): F =
   result = n_math.pow(x, y)
