@@ -51,7 +51,8 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#OpenarrayOrNimIter" title="OpenarrayOrNimIter[T] = openArray[T] or iterable[T]">OpenarrayOrNimIter</a></li>
+      <li><a class="reference" href="#ClosureIter" title="ClosureIter[T] = iterator (): T">ClosureIter</a></li>
+<li><a class="reference" href="#OpenarrayOrNimIter" title="OpenarrayOrNimIter[T] = openArray[T] or ClosureIter[T]">OpenarrayOrNimIter</a></li>
 
     </ul>
   </details>
@@ -77,7 +78,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">toNimIterator
-  <li><a class="reference" href="#toNimIterator.t" title="toNimIterator[T](x): iterable[T]">toNimIterator[T](x): iterable[T]</a></li>
+  <li><a class="reference" href="#toNimIterator.t" title="toNimIterator[T](x): ClosureIter[T]">toNimIterator[T](x): ClosureIter[T]</a></li>
 
 </ul>
 
@@ -98,13 +99,23 @@
     <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="OpenarrayOrNimIter">
-  <dt><pre><a href="niter_types.html#OpenarrayOrNimIter"><span class="Identifier">OpenarrayOrNimIter</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Keyword">or</span> <span class="Identifier">iterable</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+    <div id="ClosureIter">
+  <dt><pre><a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">iterator</span> <span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
   <dd>
     
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L3" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L3" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="OpenarrayOrNimIter">
+  <dt><pre><a href="niter_types.html#OpenarrayOrNimIter"><span class="Identifier">OpenarrayOrNimIter</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Keyword">or</span> <a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -120,8 +131,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -139,8 +150,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -148,12 +159,12 @@
 </div>
 <div id="toNimIterator-templates-all">
   <div id="toNimIterator.t">
-  <dt><pre><span class="Keyword">template</span> <a href="#toNimIterator.t"><span class="Identifier">toNimIterator</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">iterable</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#toNimIterator.t"><span class="Identifier">toNimIterator</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">)</span><span class="Other">:</span> <a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L7" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/niter_types.nim#L7" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -169,7 +180,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 06:52:15 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 10:15:00 UTC</small>
       </div>
     </div>
   </div>

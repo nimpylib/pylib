@@ -910,6 +910,10 @@
 <li><a class="reference external"
           data-doc-search-tag="open_close: proc closerange(fd_low, fd_high: int)" href="pylib/Lib/os_impl/posix_like/open_close.html#closerange%2Cint%2Cint">open_close: proc closerange(fd_low, fd_high: int)</a></li>
           </ul></dd>
+<dt><a name="ClosureIter" href="#ClosureIter"><span>ClosureIter:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="niter_types: type ClosureIter" href="pylib/Lib/math_impl/vec_op/niter_types.html#ClosureIter">niter_types: type ClosureIter</a></li>
+          </ul></dd>
 <dt><a name="Collection" href="#Collection"><span>Collection:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="collections_abc: type Collection" href="pylib/collections_abc.html#Collection">collections_abc: type Collection</a></li>
@@ -1166,11 +1170,13 @@
           </ul></dd>
 <dt><a name="dist" href="#dist"><span>dist:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="math: template dist[T](p, q: ClosureIter[T]): float" href="pylib/Lib/math.html#dist.t%2CClosureIter%5BT%5D%2CClosureIter%5BT%5D">math: template dist[T](p, q: ClosureIter[T]): float</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="math: template dist[T](p, q: Iterable[T]): float" href="pylib/Lib/math.html#dist.t%2CIterable%5BT%5D%2CIterable%5BT%5D">math: template dist[T](p, q: Iterable[T]): float</a></li>
           <li><a class="reference external"
           data-doc-search-tag="math: template dist[T](p, q: list[T]): float" href="pylib/Lib/math.html#dist.t%2Clist%5BT%5D%2Clist%5BT%5D">math: template dist[T](p, q: list[T]): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="math: template dist[T](p, q: OpenarrayOrNimIter[T]): float" href="pylib/Lib/math.html#dist.t%2COpenarrayOrNimIter%5BT%5D%2COpenarrayOrNimIter%5BT%5D">math: template dist[T](p, q: OpenarrayOrNimIter[T]): float</a></li>
+          data-doc-search-tag="math: template dist[T](p, q: openArray[T]): float" href="pylib/Lib/math.html#dist.t%2CopenArray%5BT%5D%2CopenArray%5BT%5D">math: template dist[T](p, q: openArray[T]): float</a></li>
           <li><a class="reference external"
           data-doc-search-tag="dist: proc dist[A, B](p, q: (A, B)): float" href="pylib/Lib/math_impl/vec_op/dist.html#dist%2C%2C">dist: proc dist[A, B](p, q: (A, B)): float</a></li>
           <li><a class="reference external"
@@ -3818,13 +3824,17 @@
           </ul></dd>
 <dt><a name="sumprod" href="#sumprod"><span>sumprod:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="math: template sumprod[T](p, q: ClosureIter[T]): float" href="pylib/Lib/math.html#sumprod.t%2CClosureIter%5BT%5D%2CClosureIter%5BT%5D">math: template sumprod[T](p, q: ClosureIter[T]): float</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="math: template sumprod[T](p, q: Iterable[T]): float" href="pylib/Lib/math.html#sumprod.t%2CIterable%5BT%5D%2CIterable%5BT%5D">math: template sumprod[T](p, q: Iterable[T]): float</a></li>
           <li><a class="reference external"
           data-doc-search-tag="math: template sumprod[T](p, q: list[T]): float" href="pylib/Lib/math.html#sumprod.t%2Clist%5BT%5D%2Clist%5BT%5D">math: template sumprod[T](p, q: list[T]): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="math: template sumprod[T](p, q: OpenarrayOrNimIter[T]): float" href="pylib/Lib/math.html#sumprod.t%2COpenarrayOrNimIter%5BT%5D%2COpenarrayOrNimIter%5BT%5D">math: template sumprod[T](p, q: OpenarrayOrNimIter[T]): float</a></li>
+          data-doc-search-tag="math: template sumprod[T](p, q: openArray[T]): float" href="pylib/Lib/math.html#sumprod.t%2CopenArray%5BT%5D%2CopenArray%5BT%5D">math: template sumprod[T](p, q: openArray[T]): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="sumprod: proc sumprod[P, Q](p: OpenarrayOrNimIter[P]; q: OpenarrayOrNimIter[Q]): float" href="pylib/Lib/math_impl/vec_op/sumprod.html#sumprod%2COpenarrayOrNimIter%5BP%5D%2COpenarrayOrNimIter%5BQ%5D">sumprod: proc sumprod[P, Q](p: OpenarrayOrNimIter[P]; q: OpenarrayOrNimIter[Q]): float</a></li>
+          data-doc-search-tag="sumprod: proc sumprod[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float" href="pylib/Lib/math_impl/vec_op/sumprod.html#sumprod%2CClosureIter%5BP%5D%2CClosureIter%5BQ%5D">sumprod: proc sumprod[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="sumprod: proc sumprod[P, Q](p: openArray[P]; q: openArray[Q]): float" href="pylib/Lib/math_impl/vec_op/sumprod.html#sumprod%2CopenArray%5BP%5D%2CopenArray%5BQ%5D">sumprod: proc sumprod[P, Q](p: openArray[P]; q: openArray[Q]): float</a></li>
           </ul></dd>
 <dt><a name="symmetric_difference" href="#symmetric_difference"><span>symmetric_difference:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -3922,7 +3932,7 @@
           </ul></dd>
 <dt><a name="toNimIterator" href="#toNimIterator"><span>toNimIterator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="niter_types: template toNimIterator[T](x): iterable[T]" href="pylib/Lib/math_impl/vec_op/niter_types.html#toNimIterator.t">niter_types: template toNimIterator[T](x): iterable[T]</a></li>
+          data-doc-search-tag="niter_types: template toNimIterator[T](x): ClosureIter[T]" href="pylib/Lib/math_impl/vec_op/niter_types.html#toNimIterator.t">niter_types: template toNimIterator[T](x): ClosureIter[T]</a></li>
           </ul></dd>
 <dt><a name="toNimSlice" href="#toNimSlice"><span>toNimSlice:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -4208,7 +4218,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 06:52:25 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 10:15:10 UTC</small>
       </div>
     </div>
   </div>

@@ -55,7 +55,8 @@
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">sumprod
-  <li><a class="reference" href="#sumprod%2COpenarrayOrNimIter%5BP%5D%2COpenarrayOrNimIter%5BQ%5D" title="sumprod[P, Q](p: OpenarrayOrNimIter[P]; q: OpenarrayOrNimIter[Q]): float">sumprod[P, Q](p: OpenarrayOrNimIter[P]; q: OpenarrayOrNimIter[Q]): float</a></li>
+  <li><a class="reference" href="#sumprod%2CopenArray%5BP%5D%2CopenArray%5BQ%5D" title="sumprod[P, Q](p: openArray[P]; q: openArray[Q]): float">sumprod[P, Q](p: openArray[P]; q: openArray[Q]): float</a></li>
+<li><a class="reference" href="#sumprod%2CClosureIter%5BP%5D%2CClosureIter%5BQ%5D" title="sumprod[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float">sumprod[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float</a></li>
 
 </ul>
 
@@ -83,13 +84,28 @@
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
     <div id="sumprod-procs-all">
-  <div id="sumprod,OpenarrayOrNimIter[P],OpenarrayOrNimIter[Q]">
-  <dt><pre><span class="Keyword">func</span> <a href="#sumprod%2COpenarrayOrNimIter%5BP%5D%2COpenarrayOrNimIter%5BQ%5D"><span class="Identifier">sumprod</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">,</span> <span class="Identifier">Q</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="niter_types.html#OpenarrayOrNimIter"><span class="Identifier">OpenarrayOrNimIter</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">q</span><span class="Other">:</span> <a href="niter_types.html#OpenarrayOrNimIter"><span class="Identifier">OpenarrayOrNimIter</span></a><span class="Other">[</span><span class="Identifier">Q</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+  <div id="sumprod,openArray[P],openArray[Q]">
+  <dt><pre><span class="Keyword">func</span> <a href="#sumprod%2CopenArray%5BP%5D%2CopenArray%5BQ%5D"><span class="Identifier">sumprod</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">,</span> <span class="Identifier">Q</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">P</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">q</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">Q</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L148" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L148" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L154" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L154" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="sumprod,ClosureIter[P],ClosureIter[Q]">
+  <dt><pre><span class="Keyword">func</span> <a href="#sumprod%2CClosureIter%5BP%5D%2CClosureIter%5BQ%5D"><span class="Identifier">sumprod</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">,</span> <span class="Identifier">Q</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p_it</span><span class="Other">:</span> <a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">q_it</span><span class="Other">:</span> <a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">Q</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+  <dd>
+    
+    <p><a class="reference internal" href="#clinic input">clinic input</a></p>
+<p>Return the sum of products of values from two iterables p and q.</p>
+<p>Roughly equivalent to:</p>
+<pre>sum(itertools.starmap(operator.mul, zip(p, q, strict=True)))</pre>
+<p>For float and mixed int/float inputs, the intermediate products and sums are computed with extended precision. <a class="reference internal" href="#clinic start generated code">clinic start generated code</a> <a class="reference internal" href="#clinic end generated code: output=6722dbfe60664554 input=82be54fe26f87e30">clinic end generated code: output=6722dbfe60664554 input=82be54fe26f87e30</a></p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -105,7 +121,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 06:52:15 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 10:15:00 UTC</small>
       </div>
     </div>
   </div>

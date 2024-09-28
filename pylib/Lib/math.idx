@@ -33,17 +33,19 @@ nim	log2	pylib/Lib/math.html#log2,F	proc log2[F: SomeFloat](x: F): F		194
 nim	log10	pylib/Lib/math.html#log10,F	proc log10[F: SomeFloat](x: F): F		195
 nim	fma	pylib/Lib/math.html#fma,F,F,F	proc fma[F: SomeFloat](x, y, z: F): F		197
 nim	fmod	pylib/Lib/math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		203
-nim	dist	pylib/Lib/math.html#dist.t,OpenarrayOrNimIter[T],OpenarrayOrNimIter[T]	template dist[T](p, q: OpenarrayOrNimIter[T]): float		216
-nim	dist	pylib/Lib/math.html#dist.t,list[T],list[T]	template dist[T](p, q: list[T]): float		217
-nim	dist	pylib/Lib/math.html#dist.t,Iterable[T],Iterable[T]	template dist[T](p, q: Iterable[T]): float		220
-nim	sumprod	pylib/Lib/math.html#sumprod.t,OpenarrayOrNimIter[T],OpenarrayOrNimIter[T]	template sumprod[T](p, q: OpenarrayOrNimIter[T]): float		216
-nim	sumprod	pylib/Lib/math.html#sumprod.t,list[T],list[T]	template sumprod[T](p, q: list[T]): float		217
-nim	sumprod	pylib/Lib/math.html#sumprod.t,Iterable[T],Iterable[T]	template sumprod[T](p, q: Iterable[T]): float		220
-nim	pow	pylib/Lib/math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		232
-nim	perm	pylib/Lib/math.html#perm,int	proc perm(n: int): int		253
-nim	perm	pylib/Lib/math.html#perm,int,int	proc perm(n, k: int): int		257
-nim	comb	pylib/Lib/math.html#comb,int,int	proc comb(n, k: int): int		263
+nim	dist	pylib/Lib/math.html#dist.t,list[T],list[T]	template dist[T](p, q: list[T]): float		216
+nim	dist	pylib/Lib/math.html#dist.t,Iterable[T],Iterable[T]	template dist[T](p, q: Iterable[T]): float		219
+nim	dist	pylib/Lib/math.html#dist.t,openArray[T],openArray[T]	template dist[T](p, q: openArray[T]): float		222
+nim	dist	pylib/Lib/math.html#dist.t,ClosureIter[T],ClosureIter[T]	template dist[T](p, q: ClosureIter[T]): float		225
+nim	sumprod	pylib/Lib/math.html#sumprod.t,list[T],list[T]	template sumprod[T](p, q: list[T]): float		216
+nim	sumprod	pylib/Lib/math.html#sumprod.t,Iterable[T],Iterable[T]	template sumprod[T](p, q: Iterable[T]): float		219
+nim	sumprod	pylib/Lib/math.html#sumprod.t,openArray[T],openArray[T]	template sumprod[T](p, q: openArray[T]): float		222
+nim	sumprod	pylib/Lib/math.html#sumprod.t,ClosureIter[T],ClosureIter[T]	template sumprod[T](p, q: ClosureIter[T]): float		225
+nim	pow	pylib/Lib/math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		238
+nim	perm	pylib/Lib/math.html#perm,int	proc perm(n: int): int		259
+nim	perm	pylib/Lib/math.html#perm,int,int	proc perm(n, k: int): int		263
+nim	comb	pylib/Lib/math.html#comb,int,int	proc comb(n, k: int): int		269
 nimgrp	log	pylib/Lib/math.html#log-procs-all	proc		187
-nimgrp	perm	pylib/Lib/math.html#perm-procs-all	proc		253
-nimgrp	sumprod	pylib/Lib/math.html#sumprod-templates-all	template		227
-nimgrp	dist	pylib/Lib/math.html#dist-templates-all	template		224
+nimgrp	perm	pylib/Lib/math.html#perm-procs-all	proc		259
+nimgrp	sumprod	pylib/Lib/math.html#sumprod-templates-all	template		233
+nimgrp	dist	pylib/Lib/math.html#dist-templates-all	template		231
