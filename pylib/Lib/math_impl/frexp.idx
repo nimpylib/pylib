@@ -1,0 +1,7 @@
+nimTitle	frexp	pylib/Lib/math_impl/frexp.html	module src/pylib/Lib/math_impl/frexp		0
+nim	n_frexp	pylib/Lib/math_impl/frexp.html#n_frexp,SomeFloat	proc n_frexp(x: SomeFloat): (float, int)		7
+nim	n_frexp	pylib/Lib/math_impl/frexp.html#n_frexp,SomeFloat,int	proc n_frexp(x: SomeFloat; e: var int): float		8
+nim	frexp	pylib/Lib/math_impl/frexp.html#frexp,SomeFloat	proc frexp(x: SomeFloat): (float, int)		17
+nim	frexp	pylib/Lib/math_impl/frexp.html#frexp,SomeFloat,int	proc frexp(x: SomeFloat; e: var int): float		23
+nimgrp	nfrexp	pylib/Lib/math_impl/frexp.html#n_frexp-procs-all	proc		7
+nimgrp	frexp	pylib/Lib/math_impl/frexp.html#frexp-procs-all	proc		17

@@ -1,0 +1,8 @@
+nimTitle	fma	pylib/Lib/math_impl/patch/fma.html	module src/pylib/Lib/math_impl/patch/fma		0
+nim	UNRELIABLE_FMA	pylib/Lib/math_impl/patch/fma.html#UNRELIABLE_FMA	const UNRELIABLE_FMA		8
+nim	c_fma	pylib/Lib/math_impl/patch/fma.html#c_fma,cdouble,cdouble,cdouble	proc c_fma(x, y, z: cdouble): cdouble		10
+nim	c_fma	pylib/Lib/math_impl/patch/fma.html#c_fma,cfloat,cfloat,cfloat	proc c_fma(x, y, z: cfloat): cfloat		11
+nim	fma	pylib/Lib/math_impl/patch/fma.html#fma,F,F,F,ref.Exception	proc fma[F: SomeFloat](x, y, z: F; exc: var ref Exception): F		21
+nim	fma	pylib/Lib/math_impl/patch/fma.html#fma,F,F,F	proc fma[F: SomeFloat](x, y, z: F): F		41
+nimgrp	fma	pylib/Lib/math_impl/patch/fma.html#fma-procs-all	proc		21
+nimgrp	cfma	pylib/Lib/math_impl/patch/fma.html#c_fma-procs-all	proc		10

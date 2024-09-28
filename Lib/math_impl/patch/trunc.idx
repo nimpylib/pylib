@@ -1,0 +1,2 @@
+nimTitle	trunc	math_impl/patch/trunc.html	module src/pylib/Lib/math_impl/patch/trunc		0
+nim	uncheckedTruncToInt	math_impl/patch/trunc.html#uncheckedTruncToInt,SomeFloat	proc uncheckedTruncToInt[I: SomeInteger](x: SomeFloat): I		2

@@ -1,0 +1,2 @@
+nimTitle	cbrt	math_impl/comptime/cbrt.html	module src/pylib/Lib/math_impl/comptime/cbrt		0
+nim	cbrt	math_impl/comptime/cbrt.html#cbrt,float	proc cbrt(x: float): float		46

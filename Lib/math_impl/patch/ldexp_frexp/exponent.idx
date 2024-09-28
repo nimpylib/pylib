@@ -1,0 +1,2 @@
+nimTitle	exponent	math_impl/patch/ldexp_frexp/exponent.html	module src/pylib/Lib/math_impl/patch/ldexp_frexp/exponent		0
+nim	exponent	math_impl/patch/ldexp_frexp/exponent.html#exponent,float	proc exponent(x: float): BiggestInt		15

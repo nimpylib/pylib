@@ -1,0 +1,4 @@
+nimTitle	dl_ops	math_impl/vec_op/private/dl_ops.html	module src/pylib/Lib/math_impl/vec_op/private/dl_ops		0
+nim	DoubleLength	math_impl/vec_op/private/dl_ops.html#DoubleLength	object DoubleLength		5
+nim	dl_mul	math_impl/vec_op/private/dl_ops.html#dl_mul,float,float	proc dl_mul(x: float; y: float): DoubleLength		39
+nim	dl_sum	math_impl/vec_op/private/dl_ops.html#dl_sum,float,float	proc dl_sum(a, b: float): DoubleLength		51

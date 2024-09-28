@@ -1,0 +1,5 @@
+nimTitle	dist	math_impl/vec_op/dist.html	module src/pylib/Lib/math_impl/vec_op/dist		0
+nim	dist	math_impl/vec_op/dist.html#dist,array[I,T],array[I,T]	proc dist[T; I: static[int]](p, q: array[I, T]): float		221
+nim	dist	math_impl/vec_op/dist.html#dist,,	proc dist[A, B](p, q: (A, B)): float		224
+nim	dist	math_impl/vec_op/dist.html#dist,,_2	proc dist[A, B, C](p, q: (A, B, C)): float		230
+nimgrp	dist	math_impl/vec_op/dist.html#dist-procs-all	proc		221

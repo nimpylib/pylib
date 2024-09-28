@@ -1,0 +1,6 @@
+nimTitle	gamma	pylib/Lib/math_impl/patch/gamma.html	module src/pylib/Lib/math_impl/patch/gamma		0
+nim	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma,T,T	proc gamma[T: SomeFloat](x: T; res: var T): GammaError		194
+nim	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		198
+nim	rGamma	pylib/Lib/math_impl/patch/gamma.html#rGamma,F	proc rGamma[F: SomeFloat](x: F): F		209
+nim	stdlibJsGamma	pylib/Lib/math_impl/patch/gamma.html#stdlibJsGamma,F	proc stdlibJsGamma[F: SomeFloat](x: F): F		222
+nimgrp	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma-procs-all	proc		194

@@ -1,0 +1,3 @@
+nimTitle	ldexp	pylib/Lib/math_impl/ldexp.html	module src/pylib/Lib/math_impl/ldexp		0
+nim	n_ldexp	pylib/Lib/math_impl/ldexp.html#n_ldexp,F,int	proc n_ldexp[F: SomeFloat](x: F; i: int): F		14
+nim	c_ldexp	pylib/Lib/math_impl/ldexp.html#c_ldexp,F,cint	proc c_ldexp[F: SomeFloat](x: F; exp: cint): F		37

@@ -1,0 +1,49 @@
+nimTitle	math	math.html	module src/pylib/Lib/math		0
+nim	acos	math.html#acos,F	proc acos[F: SomeFloat](x: F): F		98
+nim	acosh	math.html#acosh,F	proc acosh[F: SomeFloat](x: F): F		99
+nim	asin	math.html#asin,F	proc asin[F: SomeFloat](x: F): F		100
+nim	asinh	math.html#asinh,F	proc asinh[F: SomeFloat](x: F): F		101
+nim	atan	math.html#atan,F	proc atan[F: SomeFloat](x: F): F		102
+nim	atanh	math.html#atanh,F	proc atanh[F: SomeFloat](x: F): F		103
+nim	cbrt	math.html#cbrt,F	proc cbrt[F: SomeFloat](x: F): F		105
+nim	atan2	math.html#atan2,F,F	proc atan2[F: SomeFloat](x, y: F): F		115
+nim	copysign	math.html#copysign,F,F	proc copysign[F: SomeFloat](x, y: F): F		117
+nim	cos	math.html#cos,F	proc cos[F: SomeFloat](x: F): F		119
+nim	cosh	math.html#cosh,F	proc cosh[F: SomeFloat](x: F): F		120
+nim	erf	math.html#erf,F	proc erf[F: SomeFloat](x: F): F		122
+nim	erfc	math.html#erfc,F	proc erfc[F: SomeFloat](x: F): F		123
+nim	exp	math.html#exp,F	proc exp[F: SomeFloat](x: F): F		125
+nim	expm1	math.html#expm1,F	proc expm1[F: SomeFloat](x: F): F		127
+nim	fabs	math.html#fabs,F	proc fabs[F: SomeFloat](x: F): F		130
+nim	gamma	math.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		134
+nim	lgamma	math.html#lgamma,F	proc lgamma[F: SomeFloat](x: F): F		135
+nim	log1p	math.html#log1p,F	proc log1p[F: SomeFloat](x: F): F		137
+nim	remainder	math.html#remainder,F,F	proc remainder[F: SomeFloat](x, y: F): F		138
+nim	sin	math.html#sin,F	proc sin[F: SomeFloat](x: F): F		140
+nim	sinh	math.html#sinh,F	proc sinh[F: SomeFloat](x: F): F		141
+nim	sqrt	math.html#sqrt,F	proc sqrt[F: SomeFloat](x: F): F		142
+nim	tan	math.html#tan,F	proc tan[F: SomeFloat](x: F): F		143
+nim	tanh	math.html#tanh,F	proc tanh[F: SomeFloat](x: F): F		144
+nim	isqrt	math.html#isqrt,I	proc isqrt[I: SomeInteger](x: I): int		148
+nim	factorial	math.html#factorial,int	proc factorial(x: int): int		153
+nim	ldexp	math.html#ldexp,SomeFloat,int	proc ldexp(x: SomeFloat; i: int): float		162
+nim	log	math.html#log,F	proc log[F: SomeFloat](x: F): F		187
+nim	log	math.html#log,F,F	proc log[F: SomeFloat](x, base: F): F		190
+nim	log2	math.html#log2,F	proc log2[F: SomeFloat](x: F): F		194
+nim	log10	math.html#log10,F	proc log10[F: SomeFloat](x: F): F		195
+nim	fma	math.html#fma,F,F,F	proc fma[F: SomeFloat](x, y, z: F): F		197
+nim	fmod	math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		203
+nim	dist	math.html#dist.t,OpenarrayOrNimIter[T],OpenarrayOrNimIter[T]	template dist[T](p, q: OpenarrayOrNimIter[T]): float		216
+nim	dist	math.html#dist.t,list[T],list[T]	template dist[T](p, q: list[T]): float		217
+nim	dist	math.html#dist.t,Iterable[T],Iterable[T]	template dist[T](p, q: Iterable[T]): float		220
+nim	sumprod	math.html#sumprod.t,OpenarrayOrNimIter[T],OpenarrayOrNimIter[T]	template sumprod[T](p, q: OpenarrayOrNimIter[T]): float		216
+nim	sumprod	math.html#sumprod.t,list[T],list[T]	template sumprod[T](p, q: list[T]): float		217
+nim	sumprod	math.html#sumprod.t,Iterable[T],Iterable[T]	template sumprod[T](p, q: Iterable[T]): float		220
+nim	pow	math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		232
+nim	perm	math.html#perm,int	proc perm(n: int): int		253
+nim	perm	math.html#perm,int,int	proc perm(n, k: int): int		257
+nim	comb	math.html#comb,int,int	proc comb(n, k: int): int		263
+nimgrp	log	math.html#log-procs-all	proc		187
+nimgrp	perm	math.html#perm-procs-all	proc		253
+nimgrp	sumprod	math.html#sumprod-templates-all	template		227
+nimgrp	dist	math.html#dist-templates-all	template		224

@@ -1,0 +1,15 @@
+nimTitle	lgamma	pylib/Lib/math_impl/patch/lgamma.html	module src/pylib/Lib/math_impl/patch/lgamma		0
+nim	lgamma	pylib/Lib/math_impl/patch/lgamma.html#lgamma,F,F	proc lgamma[F: SomeFloat](x: F; res: var F): GammaError		150
+nim	lgamma	pylib/Lib/math_impl/patch/lgamma.html#lgamma,F	proc lgamma[F: SomeFloat](x: F): F		278
+nim	stdlibJsLgamma	pylib/Lib/math_impl/patch/lgamma.html#stdlibJsLgamma,F	proc stdlibJsLgamma[F: SomeFloat](x: F): F		395
+nim	rLgamma	pylib/Lib/math_impl/patch/lgamma.html#rLgamma,F	proc rLgamma[F: SomeFloat](x: F): F		398
+nim	scipyGammaLn	pylib/Lib/math_impl/patch/lgamma.html#scipyGammaLn,F	proc scipyGammaLn[F: SomeFloat](x: F): F		400
+nimgrp	lgamma	pylib/Lib/math_impl/patch/lgamma.html#lgamma-procs-all	proc		150
+heading	Method:	pylib/Lib/math_impl/patch/lgamma.html#methodcolon	  Method:		0
+heading	1. Argument Reduction for 0 < x <= 8	pylib/Lib/math_impl/patch/lgamma.html#methodcolon-Z1dot-argument-reduction-for-0-lt-x-lteq-8	   1. Argument Reduction for 0 &lt; x &lt;= 8		0
+heading	2. A polynomial approximation of lgamma	pylib/Lib/math_impl/patch/lgamma.html#methodcolon-Z2dot-a-polynomial-approximation-of-lgamma	   2. A polynomial approximation of lgamma		0
+heading	3. Rational approximation in the primary interval nim[2,3]	pylib/Lib/math_impl/patch/lgamma.html#methodcolon-Z3dot-rational-approximation-in-the-primary-interval-nim-2-3	   3. Rational approximation in the primary interval <tt class="docutils literal"><span class="pre"><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">3</span><span class="Punctuation">]</span></span></tt>		0
+heading	4. For x>=8, ...	pylib/Lib/math_impl/patch/lgamma.html#methodcolon-Z4dot-for-xgteq8-dotdotdot	   4. For x&gt;=8, ...		0
+heading	5. For negative x, ...	pylib/Lib/math_impl/patch/lgamma.html#methodcolon-Z5dot-for-negative-x-dotdotdot	   5. For negative x, ...		0
+heading	Special Cases	pylib/Lib/math_impl/patch/lgamma.html#special-cases	  Special Cases		0
+heading	Notice	pylib/Lib/math_impl/patch/lgamma.html#notice	  Notice		0

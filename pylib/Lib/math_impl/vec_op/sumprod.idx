@@ -1,0 +1,2 @@
+nimTitle	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html	module src/pylib/Lib/math_impl/vec_op/sumprod		0
+nim	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod,OpenarrayOrNimIter[P],OpenarrayOrNimIter[Q]	proc sumprod[P, Q](p: OpenarrayOrNimIter[P]; q: OpenarrayOrNimIter[Q]): float		148

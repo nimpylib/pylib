@@ -1,0 +1,2 @@
+nimTitle	normalize	pylib/Lib/math_impl/patch/ldexp_frexp/normalize.html	module src/pylib/Lib/math_impl/patch/ldexp_frexp/normalize		0
+nim	normalize	pylib/Lib/math_impl/patch/ldexp_frexp/normalize.html#normalize,float	proc normalize(x: float): (float, int)		6

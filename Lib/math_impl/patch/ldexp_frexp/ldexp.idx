@@ -1,0 +1,2 @@
+nimTitle	ldexp	math_impl/patch/ldexp_frexp/ldexp.html	module src/pylib/Lib/math_impl/patch/ldexp_frexp/ldexp		0
+nim	ldexp	math_impl/patch/ldexp_frexp/ldexp.html#ldexp,float,int	proc ldexp(frac: float; exp: int): float		12

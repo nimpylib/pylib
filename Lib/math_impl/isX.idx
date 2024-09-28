@@ -1,0 +1,3 @@
+nimTitle	isX	math_impl/isX.html	module src/pylib/Lib/math_impl/isX		0
+nim	isinf	math_impl/isX.html#isinf,SomeFloat	proc isinf(x: SomeFloat): bool		34
+nim	isfinite	math_impl/isX.html#isfinite,SomeFloat	proc isfinite(x: SomeFloat): bool		33

@@ -1,4 +1,0 @@
-nimTitle	fromWords	pylib/Lib/math_patch/ldexp_frexp/fromWords.html	module src/pylib/Lib/math_patch/ldexp_frexp/fromWords		0
-nim	fromWords	pylib/Lib/math_patch/ldexp_frexp/fromWords.html#fromWords,uint32,uint32	proc fromWords(high, low: uint32): float		6
-nim	fromWords	pylib/Lib/math_patch/ldexp_frexp/fromWords.html#fromWords,uint16,uint16	proc fromWords(high, low: uint16): float32		13
-nimgrp	fromwords	pylib/Lib/math_patch/ldexp_frexp/fromWords.html#fromWords-procs-all	proc		6

@@ -1,0 +1,5 @@
+nimTitle	niter_types	pylib/Lib/math_impl/vec_op/niter_types.html	module src/pylib/Lib/math_impl/vec_op/niter_types		0
+nim	OpenarrayOrNimIter	pylib/Lib/math_impl/vec_op/niter_types.html#OpenarrayOrNimIter	type OpenarrayOrNimIter		3
+nim	toNimIterator	pylib/Lib/math_impl/vec_op/niter_types.html#toNimIterator.t	template toNimIterator[T](x): iterable[T]		5
+nim	openarray_Check	pylib/Lib/math_impl/vec_op/niter_types.html#openarray_Check.t	template openarray_Check(x): bool		13
+nim	dist_checkedSameLen	pylib/Lib/math_impl/vec_op/niter_types.html#dist_checkedSameLen,T,T	proc dist_checkedSameLen[T](p, q: T): int		16

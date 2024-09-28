@@ -1,0 +1,2 @@
+nimTitle	cbrt	pylib/Lib/math_impl/cbrt.html	module src/pylib/Lib/math_impl/cbrt		0
+nim	cbrt	pylib/Lib/math_impl/cbrt.html#cbrt,F	proc cbrt[F: SomeFloat](x: F): F		24
