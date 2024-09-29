@@ -9,7 +9,7 @@ import ../io_abc
 import ../pystring/strimpl
 #[ TODO:
 import ../pybytes/bytesimpl
-import ./os
+
 func bytes*(self): PyBytes = os.fsencode($self)
 ]#
 
@@ -91,22 +91,26 @@ proc symlink_to*(self; target: string|Path; target_is_directory=false) =
 proc hardlink_to*(self; target: string|Path){.pysince(3,10).} =
   os.link($target, $self)
 
+
+static:assert pathlib.Path is_not string, "this avoids recusive call(dead loop)"
+# following implementations rely on this assertion
+
 proc unlink*(self) =
   ## for missing_ok==False
-  os.unlink $self
+  unlink $self
 
 proc unlink*(self; missing_ok: bool) =
   if not missing_ok:
     self.unlink
     return
   try:
-    os.unlink $self
+    unlink $self
   except FileNotFoundError:
     discard
 
 template reXX(rename){.dirty.} =
   proc rename*(self; target: Path): Path{.discardable.} =
-    os.rename($self, $target)
+    rename($self, $target)
     target
 
   proc rename*(self; target: string): Path{.discardable.} =
@@ -154,7 +158,7 @@ proc touch*(self; mode=0o666, exist_ok=true) =
     let fd = os.open(s, flags, mode)
     os.close(fd)
 
-proc stat*(self): stat_result = os.stat($self)
+proc stat*(self): stat_result = stat($self)
 
 # TODO: stat(..., follow_symlinks), see os
 # and exists
