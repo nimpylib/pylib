@@ -14,6 +14,7 @@ func bytes*(self): PyBytes = os.fsencode($self)
 ]#
 
 import ../builtins/list
+import ../version
 
 import ./n_pathlib
 
@@ -54,6 +55,8 @@ proc Path*[P: PathLike](pathsegments: varargs[P]): types.Path =
 func `/`*(self; p: PathLike): Path = self / Path($p)
 func `/`*(p: PathLike; self): Path = Path($p) / self
 
+func `/=`*(head: var Path, tail: PathLike): Path = head = head / Path($tail)
+
 func joinpath*[P: PathLike](self; pathsegments: varargs[P]): Path =
   result = self
   for i in pathsegments:
@@ -85,8 +88,7 @@ proc readlink*(self): Path = Path os.readlink $self
 proc symlink_to*(self; target: string|Path; target_is_directory=false) =
   os.symlink($self, $target, target_is_directory)
 
-proc hardlink_to*(self; target: string|Path) =
-  ## Added in version 3.10.
+proc hardlink_to*(self; target: string|Path){.pysince(3,10).} =
   os.link($self, $target)
 
 proc unlink*(self) =
