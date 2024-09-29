@@ -2,16 +2,168 @@
 ##  we only tests others
 
 import ./import_utils
-importTestPyLib math
-
+importPyLib math
+pyimport unittest
+from std/unittest import suiteStarted,  TestStatus, testStarted, suiteEnded, checkpoint, fail, TestResult,
+  suite, test, check, expect
 
 const
   NINF = NegInf
 const
   # cached
-  F_INF = float("inf")
-  F_NINF = float("-inf")
-  F_NAN = float("nan")
+  F_INF = Inf
+  F_NINF = NegInf
+  F_NAN = NaN
+
+suite "gamma":
+  test "gamma(-integer)":
+    for i in (-1)..(-1000):
+      check isnan gamma float i
+      # XXX: TODO: PY-DIFF expect DomainError: discard gamma float i
+
+suite "ldexp":
+  proc test_call(): bool =
+    let res = ldexp(1.5, 2)
+    result = res == 6.0
+    if not result:
+      echo "ldexp(", 1.5, ", ", 2, "), expected ", 6.0, " got ", res
+  check test_call()
+  const res = test_call()
+  check res
+
+suite "sumprod":
+  test "array":
+    let a = [1,2,3]
+    check 14.0 == sumprod(a,a)
+
+  test "CPython:test_math.testSumProd":
+    type ARuntimeError = object of CatchableError
+    template sumprod(a, b) = math.sumprod(a, b)
+    def testSumProd():
+
+#[ TODOL Decimal is not implemented (as of 0.9.3)
+        Decimal = decimal.Decimal
+        Fraction = fractions.Fraction
+]#
+
+        # Core functionality
+        #assertEqual(sumprod(iter([10, 20, 30]), (1, 2, 3)), 140)
+        assertEqual(sumprod([1.5, 2.5], [3.5, 4.5]), 16.5)
+        empI = [0]
+        assertEqual(sumprod(empI, empI), 0)
+        assertEqual(sumprod([-1.0], [1.0]), -1)
+        assertEqual(sumprod([1], [-1]), -1)
+
+
+#[ : nim is static-typed
+        # Type preservation and coercion
+        for v in [
+            (10, 20, 30),
+            (1.5, -2.5),
+            (Fraction(3, 5), Fraction(4, 5)),
+            (Decimal(3.5), Decimal(4.5)),
+            (2.5, 10),             # float/int
+            (2.5, Fraction(3, 5)), # float/fraction
+            (25, Fraction(3, 5)),  # int/fraction
+            (25, Decimal(4.5)),    # int/decimal
+        ]:
+            for p, q in [(v, v), (v, v[::-1])]:
+                with subTest(p=p, q=q):
+                    expected = sum(p_i * q_i for p_i, q_i in zip(p, q, strict=True))
+                    actual = sumprod(p, q)
+                    assertEqual(expected, actual)
+                    assertEqual(type(expected), type(actual))
+]#
+
+        # Bad arguments
+        check not compiles(sumprod)               # No args
+        check not compiles(sumprod([0]))           # One arg
+        check not compiles(sumprod([0], [0], [0]))   # Three args
+        check not compiles(sumprod(None, [10]))   # Non-iterable
+        check not compiles(sumprod([10], None))   # Non-iterable
+        check not compiles(sumprod(['x'], [1.0]))
+
+        # Uneven lengths
+        expect(ValueError): discard sumprod([10, 20], [30])
+        expect(ValueError): discard sumprod([10], [20, 30])
+
+        # Overflows
+#[ : nim's int overflow
+        assertEqual(sumprod([10**20], [1]), 10**20)
+        assertEqual(sumprod([1], [10**20]), 10**20)
+
+        assertRaises(OverflowError, sumprod, [10**1000], [1.0])
+        assertRaises(OverflowError, sumprod, [1.0], [10**1000])
+]#
+
+        assertEqual(sumprod([10**3], [10**3]), 10**6)
+  
+
+# SYNTAX-BUG: assertEqual(sumprod([10**7]*10**5, [10**7]*10**5), 10**19)
+
+#[ : static-typed
+        # Error in iterator
+        def raise_after(n):
+            for i in range(n):
+                yield i
+            raise ARuntimeError
+        with assertRaises(ARuntimeError):
+            sumprod(range(10), raise_after(5))
+        with assertRaises(ARuntimeError):
+            sumprod(raise_after(5), range(10))
+]#
+
+#[
+        from test.test_iter import BasicIterClass
+
+        assertEqual(sumprod(BasicIterClass(1), [1]), 0)
+        assertEqual(sumprod([1], BasicIterClass(1)), 0)
+]#
+
+#[ : static-typed TODO
+        # Error in multiplication
+        type
+          MultiplyType = ref object of RootObj
+          BadMultiplyType = object of BadMultiplyType
+
+        method `*`(self: MultiplyType)
+        func BadMultiply: BadMultiplyType = BadMultiplyType 0
+        def `*`(self: BadMultiplyType, other):
+          raise ARuntimeError
+        def `*`(other: auto, self: BadMultiplyType):
+          raise ARuntimeError
+        expect (ARuntimeError):
+            sumprod([10, BadMultiply(), 30], [1, 2, 3])
+        expect (ARuntimeError):
+            sumprod([1, 2, 3], [10, BadMultiply(), 30])
+]#
+
+
+        #[
+        # Error in addition
+        with assertRaises(TypeError):
+            sumprod(['abc', 3], [5, 10])
+        with assertRaises(TypeError):
+            sumprod([5, 10], ['abc', 3])
+        ]#
+
+        # Special values should give the same as the pure python recipe
+        assertEqual(sumprod([10.1, math.inf], [20.2, 30.3]), math.inf)
+        assertEqual(sumprod([10.1, math.inf], [math.inf, 30.3]), math.inf)
+        assertEqual(sumprod([10.1, math.inf], [math.inf, math.inf]), math.inf)
+        assertEqual(sumprod([10.1, -math.inf], [20.2, 30.3]), -math.inf)
+        assertTrue(math.isnan(sumprod([10.1, math.inf], [-math.inf, math.inf])))
+        assertTrue(math.isnan(sumprod([10.1, math.nan], [20.2, 30.3])))
+        assertTrue(math.isnan(sumprod([10.1, math.inf], [math.nan, 30.3])))
+        assertTrue(math.isnan(sumprod([10.1, math.inf], [20.3, math.nan])))
+
+#[ XXX: in nimpylib, result is -7.5 instead of 0.0
+        # Error cases that arose during development
+        assertEqual(
+          sumprod( [-5.0, -5.0, 10.0], [1.5, 4611686018427387904.0, 2305843009213693952.0] ),
+          0.0)
+]#
+    testSumProd()
 
 suite "constants":
   test "nan":
