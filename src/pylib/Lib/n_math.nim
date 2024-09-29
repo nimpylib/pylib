@@ -31,9 +31,11 @@ from ./math_impl/errnoUtils import
 from ./math_impl/ldexp import c_ldexp
 from ./math_impl/cbrt import cbrt
 import ./math_impl/frexp as frexpLib
+import ./math_impl/nextafter_ulp
 from ./errno import ERANGE, EDOM
 
 export cbrt
+export nextafter, ulp
 
 macro impPatch(sym) =
   #import ./math_impl/patch/sym

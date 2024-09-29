@@ -272,7 +272,10 @@ func comb*(n, k: int): int =
     nk = chkValNe k
   n_math.comb(nn, nk)
 
-# TODO: nextafter ulp
+func nextafter*[F: SomeFloat](x, y: F): F{.pysince(3,9).} = n_math.nextafter(x, y)
+func nextafter*[F: SomeFloat](x, y: F; steps: int|uint64): F{.pysince(3,12).} =
+  n_math.nextafter(x, y, steps)
+func ulp*[F: SomeFloat](x: F): F{.pysince(3,9).} = n_math.ulp(x)
 
 expN gcd
 expN lcm

@@ -3,6 +3,7 @@
 
 import ./import_utils
 importPyLib math
+importPyLib sys
 pyimport unittest
 from std/unittest import suiteStarted,  TestStatus, testStarted, suiteEnded, checkpoint, fail, TestResult,
   suite, test, check, expect
@@ -196,6 +197,100 @@ suite "classify":
       not (isfinite(F_NAN))
       not (isfinite(F_INF))
       not (isfinite(F_NINF))
+
+suite "nextafter_ulp":
+  template assertEqualSign(a, b) =
+    let
+      sa = copysign(1.0, a)
+      sb = copysign(1.0, b)
+    check sa == sb
+  template assertIsNaN(x) =
+    check isnan(x)
+  test "nextafter":
+    #@requires_IEEE_754
+    def test_nextafter():
+        # around 2^52 and 2^63
+        assertEqual(math.nextafter(4503599627370496.0, -INF),
+                         4503599627370495.5)
+        assertEqual(math.nextafter(4503599627370496.0, INF),
+                         4503599627370497.0)
+        assertEqual(math.nextafter(9223372036854775808.0, 0.0),
+                         9223372036854774784.0)
+        assertEqual(math.nextafter(-9223372036854775808.0, 0.0),
+                         -9223372036854774784.0)
+
+        # around 1.0
+        assertEqual(math.nextafter(1.0, -INF),
+                         float_fromhex("0x1.fffffffffffffp-1"))
+        assertEqual(math.nextafter(1.0, INF),
+                         float_fromhex("0x1.0000000000001p+0"))
+        assertEqual(math.nextafter(1.0, -INF, steps=1),
+                         float_fromhex("0x1.fffffffffffffp-1"))
+        assertEqual(math.nextafter(1.0, INF, steps=1),
+                         float_fromhex("0x1.0000000000001p+0"))
+        assertEqual(math.nextafter(1.0, -INF, steps=3),
+                         float_fromhex("0x1.ffffffffffffdp-1"))
+        assertEqual(math.nextafter(1.0, INF, steps=3),
+                         float_fromhex("0x1.0000000000003p+0"))
+
+        # x == y: y is returned
+        for steps in range(1, 5):
+            assertEqual(math.nextafter(2.0, 2.0, steps=steps), 2.0)
+            assertEqualSign(math.nextafter(-0.0, +0.0, steps=steps), +0.0)
+            assertEqualSign(math.nextafter(+0.0, -0.0, steps=steps), -0.0)
+
+        # around 0.0
+        smallest_subnormal = sys.float_info.min * sys.float_info.epsilon
+        assertEqual(math.nextafter(+0.0, INF), smallest_subnormal)
+        assertEqual(math.nextafter(-0.0, INF), smallest_subnormal)
+        assertEqual(math.nextafter(+0.0, -INF), -smallest_subnormal)
+        assertEqual(math.nextafter(-0.0, -INF), -smallest_subnormal)
+        assertEqualSign(math.nextafter(smallest_subnormal, +0.0), +0.0)
+        assertEqualSign(math.nextafter(-smallest_subnormal, +0.0), -0.0)
+        assertEqualSign(math.nextafter(smallest_subnormal, -0.0), +0.0)
+        assertEqualSign(math.nextafter(-smallest_subnormal, -0.0), -0.0)
+
+        # around infinity
+        largest_normal = sys.float_info.max
+        assertEqual(math.nextafter(INF, 0.0), largest_normal)
+        assertEqual(math.nextafter(-INF, 0.0), -largest_normal)
+        assertEqual(math.nextafter(largest_normal, INF), INF)
+        assertEqual(math.nextafter(-largest_normal, -INF), -INF)
+
+        # NaN
+        assertIsNaN(math.nextafter(NAN, 1.0))
+        assertIsNaN(math.nextafter(1.0, NAN))
+        assertIsNaN(math.nextafter(NAN, NAN))
+
+        assertEqual(1.0, math.nextafter(1.0, INF, steps=0))
+        expect(ValueError):
+            discard math.nextafter(1.0, INF, steps = -1)
+    test_nextafter()
+  test "ulp":
+    const FLOAT_MAX = high float64
+    #@requires_IEEE_754
+    def test_ulp():
+        assertEqual(math.ulp(1.0), sys.float_info.epsilon)
+        # use int ** int rather than float ** int to not rely on pow() accuracy
+        assertEqual(math.ulp(2.0 ** 52), 1.0)
+        assertEqual(math.ulp(2.0 ** 53), 2.0)
+        assertEqual(math.ulp(2.0 ** 64), 4096.0)
+
+        # min and max
+        assertEqual(math.ulp(0.0),
+                         sys.float_info.min * sys.float_info.epsilon)
+        assertEqual(math.ulp(FLOAT_MAX),
+                         FLOAT_MAX - math.nextafter(FLOAT_MAX, -INF))
+
+        # special cases
+        assertEqual(math.ulp(INF), INF)
+        assertIsNaN(math.ulp(math.nan))
+
+        # negative number: ulp(-x) == ulp(x)
+        for x in [0.0, 1.0, 2.0 ** 52, 2.0 ** 64, INF]:
+            #with subTest(x=x):
+                assertEqual(math.ulp(-x), math.ulp(x))
+    test_ulp()
 
 suite "ldexp":
   test "static":
