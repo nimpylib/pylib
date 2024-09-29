@@ -1,6 +1,6 @@
 nimTitle	ops	pylib/ops.html	module src/pylib/ops		0
 nim	`**`	pylib/ops.html#**.t,T,Natural	template `**`[T](a: T; b: Natural): T		5
-nim	`**`	pylib/ops.html#**.t,T,static[int]	template `**`[T](a: T; b: static[int]): int | float		15
+nim	`**`	pylib/ops.html#**.t,T,static[int]	template `**`[T: SomeNumber](a: T; b: static[int]): int | float		15
 nim	`**`	pylib/ops.html#**.t,T,T	template `**`[T: SomeFloat](a, b: T): T		28
 nim	`**`	pylib/ops.html#**.t,A,B	template `**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A		29
 nim	`**`	pylib/ops.html#**.t,A,B_2	template `**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B		30

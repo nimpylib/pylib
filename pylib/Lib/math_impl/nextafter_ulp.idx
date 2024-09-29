@@ -1,0 +1,5 @@
+nimTitle	nextafter_ulp	pylib/Lib/math_impl/nextafter_ulp.html	module src/pylib/Lib/math_impl/nextafter_ulp		0
+nim	nextafter	pylib/Lib/math_impl/nextafter_ulp.html#nextafter,F,F	proc nextafter[F: SomeFloat](x, y: F): F		14
+nim	nextafter	pylib/Lib/math_impl/nextafter_ulp.html#nextafter,F,F,	proc nextafter[F: SomeFloat](x, y: F; steps: int | uint64): F		20
+nim	ulp	pylib/Lib/math_impl/nextafter_ulp.html#ulp,F	proc ulp[F: SomeFloat](x: F): F		23
+nimgrp	nextafter	pylib/Lib/math_impl/nextafter_ulp.html#nextafter-procs-all	proc		14

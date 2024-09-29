@@ -1,0 +1,4 @@
+nimTitle	nextafter_step	math_impl/nextafter_step.html	module src/pylib/Lib/math_impl/nextafter_step		0
+nim	nextafter	math_impl/nextafter_step.html#nextafter,float,float,uint64	proc nextafter(x, y: float; usteps: uint64): float		5
+nim	nextafter	math_impl/nextafter_step.html#nextafter,float,float,int	proc nextafter(x, y: float; steps: int): float		99
+nimgrp	nextafter	math_impl/nextafter_step.html#nextafter-procs-all	proc		5

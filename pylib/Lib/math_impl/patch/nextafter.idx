@@ -1,0 +1,2 @@
+nimTitle	nextafter	pylib/Lib/math_impl/patch/nextafter.html	module src/pylib/Lib/math_impl/patch/nextafter		0
+nim	nextafter	pylib/Lib/math_impl/patch/nextafter.html#nextafter,F,F	proc nextafter[F](x, y: F): F		43

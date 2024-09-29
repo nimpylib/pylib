@@ -45,7 +45,11 @@ nim	pow	math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		238
 nim	perm	math.html#perm,int	proc perm(n: int): int		259
 nim	perm	math.html#perm,int,int	proc perm(n, k: int): int		263
 nim	comb	math.html#comb,int,int	proc comb(n, k: int): int		269
+nim	nextafter	math.html#nextafter,F,F	proc nextafter[F: SomeFloat](x, y: F): F		275
+nim	nextafter	math.html#nextafter,F,F,	proc nextafter[F: SomeFloat](x, y: F; steps: int | uint64): F		276
+nim	ulp	math.html#ulp,F	proc ulp[F: SomeFloat](x: F): F		278
 nimgrp	log	math.html#log-procs-all	proc		187
 nimgrp	perm	math.html#perm-procs-all	proc		259
+nimgrp	nextafter	math.html#nextafter-procs-all	proc		275
 nimgrp	sumprod	math.html#sumprod-templates-all	template		233
 nimgrp	dist	math.html#dist-templates-all	template		231

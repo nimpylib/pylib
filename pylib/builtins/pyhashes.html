@@ -58,11 +58,11 @@
   <li><a class="reference" href="#hash%2Cfloat" title="hash(x: float): int">hash(x: float): int</a></li>
 <li><a class="reference" href="#hash%2Cint" title="hash(x: int): int">hash(x: int): int</a></li>
 <li><a class="reference" href="#hash%2Cproc" title="hash(x: proc): int">hash(x: proc): int</a></li>
-<li><a class="reference" href="#hash%2CPyComplex" title="hash(x: PyComplex): int">hash(x: PyComplex): int</a></li>
 <li><a class="reference" href="#hash%2CPyDict" title="hash(x: PyDict): int">hash(x: PyDict): int</a></li>
 <li><a class="reference" href="#hash%2CPyList" title="hash(x: PyList): int">hash(x: PyList): int</a></li>
 <li><a class="reference" href="#hash%2CPySet" title="hash(x: PySet): int">hash(x: PySet): int</a></li>
 <li><a class="reference" href="#hash_2" title="hash(x: PyStr | PyBytes): int">hash(x: PyStr | PyBytes): int</a></li>
+<li><a class="reference" href="#hash%2CPyTComplex" title="hash(x: PyTComplex): int">hash(x: PyTComplex): int</a></li>
 <li><a class="reference" href="#hash" title="hash(x: tuple): int">hash(x: tuple): int</a></li>
 
 </ul>
@@ -121,16 +121,6 @@
 
   </dd>
 </div>
-<div id="hash,PyComplex">
-  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyComplex"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="complex.html#PyComplex"><span class="Identifier">PyComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
 <div id="hash,PyDict">
   <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyDict"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: PyDict&quot;</span>.}</pre></dt>
   <dd>
@@ -171,6 +161,16 @@
 
   </dd>
 </div>
+<div id="hash,PyTComplex">
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyTComplex"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 <div id="hash">
   <dt><pre><span class="Keyword">proc</span> <a href="#hash"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
@@ -193,7 +193,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 16:08:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-29 19:10:58 UTC</small>
       </div>
     </div>
   </div>

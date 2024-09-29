@@ -167,6 +167,11 @@
   <li><a class="reference" href="#log10%2CF" title="log10[F: SomeFloat](x: F): F">log10[F: SomeFloat](x: F): F</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">nextafter
+  <li><a class="reference" href="#nextafter%2CF%2CF" title="nextafter[F: SomeFloat](x, y: F): F">nextafter[F: SomeFloat](x, y: F): F</a></li>
+<li><a class="reference" href="#nextafter%2CF%2CF%2C" title="nextafter[F: SomeFloat](x, y: F; steps: int | uint64): F">nextafter[F: SomeFloat](x, y: F; steps: int | uint64): F</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">perm
   <li><a class="reference" href="#perm%2Cint%2Cint" title="perm(n, k: int): int">perm(n, k: int): int</a></li>
 <li><a class="reference" href="#perm%2Cint" title="perm(n: int): int">perm(n: int): int</a></li>
@@ -198,6 +203,10 @@
 </ul>
 <ul class="simple nested-toc-section">tanh
   <li><a class="reference" href="#tanh%2CF" title="tanh[F: SomeFloat](x: F): F">tanh[F: SomeFloat](x: F): F</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">ulp
+  <li><a class="reference" href="#ulp%2CF" title="ulp[F: SomeFloat](x: F): F">ulp[F: SomeFloat](x: F): F</a></li>
 
 </ul>
 
@@ -634,6 +643,33 @@ since Python 3.11</div>
 </div>
 
 </div>
+<div id="nextafter-procs-all">
+  <div id="nextafter,F,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#nextafter%2CF%2CF"><span class="Identifier">nextafter</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
+since Python 3.9</div>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L275" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L275" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="nextafter,F,F,">
+  <dt><pre><span class="Keyword">func</span> <a href="#nextafter%2CF%2CF%2C"><span class="Identifier">nextafter</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">;</span> <span class="Identifier">steps</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">uint64</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
+since Python 3.12</div>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L276" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L276" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="perm-procs-all">
   <div id="perm,int,int">
   <dt><pre><span class="Keyword">func</span> <a href="#perm%2Cint%2Cint"><span class="Identifier">perm</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">,</span> <span class="Identifier">k</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -743,6 +779,21 @@ since Python 3.11</div>
     
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L144" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L144" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="ulp-procs-all">
+  <div id="ulp,F">
+  <dt><pre><span class="Keyword">func</span> <a href="#ulp%2CF"><span class="Identifier">ulp</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span></pre></dt>
+  <dd>
+    
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
+since Python 3.9</div>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math.nim#L278" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math.nim#L278" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -872,7 +923,7 @@ since Python 3.12</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 16:08:44 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-29 19:11:01 UTC</small>
       </div>
     </div>
   </div>

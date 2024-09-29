@@ -94,8 +94,8 @@
   <li><a class="reference" href="#%2A%2A.t%2CA%2CB" title="`**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A">`**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A</a></li>
 <li><a class="reference" href="#%2A%2A.t%2CA%2CB_2" title="`**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B">`**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B</a></li>
 <li><a class="reference" href="#%2A%2A.t%2CT%2CT" title="`**`[T: SomeFloat](a, b: T): T">`**`[T: SomeFloat](a, b: T): T</a></li>
+<li><a class="reference" href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D" title="`**`[T: SomeNumber](a: T; b: static[int]): int | float">`**`[T: SomeNumber](a: T; b: static[int]): int | float</a></li>
 <li><a class="reference" href="#%2A%2A.t%2CT%2CNatural" title="`**`[T](a: T; b: Natural): T">`**`[T](a: T; b: Natural): T</a></li>
-<li><a class="reference" href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D" title="`**`[T](a: T; b: static[int]): int | float">`**`[T](a: T; b: static[int]): int | float</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">**=
@@ -309,6 +309,21 @@
 
   </dd>
 </div>
+<div id="**.t,T,static[int]">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeNumber</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span></pre></dt>
+  <dd>
+    
+    
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">const</span> <span class="Identifier">f</span> <span class="Operator">=</span> <span class="DecNumber">5</span> <span class="Operator">**</span> <span class="Operator">-</span><span class="DecNumber">1</span>  <span class="Comment"># only when the rhs is static[int]</span>
+<span class="Identifier">assert</span> <span class="Identifier">f</span> <span class="Operator">==</span> <span class="FloatNumber">0.2</span>
+<span class="Keyword">const</span> <span class="Identifier">i</span> <span class="Operator">=</span> <span class="DecNumber">5</span> <span class="Operator">**</span> <span class="DecNumber">2</span>
+<span class="Identifier">assert</span> <span class="Identifier">i</span> <span class="Operator">==</span> <span class="Identifier">int</span><span class="Punctuation">(</span><span class="DecNumber">25</span><span class="Punctuation">)</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 <div id="**.t,T,Natural">
   <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CT%2CNatural"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
   <dd>
@@ -322,21 +337,6 @@
   <span class="Comment">## e.g. `5 ** -1`</span></pre>
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="**.t,T,static[int]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span></pre></dt>
-  <dd>
-    
-    
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">const</span> <span class="Identifier">f</span> <span class="Operator">=</span> <span class="DecNumber">5</span> <span class="Operator">**</span> <span class="Operator">-</span><span class="DecNumber">1</span>  <span class="Comment"># only when the rhs is static[int]</span>
-<span class="Identifier">assert</span> <span class="Identifier">f</span> <span class="Operator">==</span> <span class="FloatNumber">0.2</span>
-<span class="Keyword">const</span> <span class="Identifier">i</span> <span class="Operator">=</span> <span class="DecNumber">5</span> <span class="Operator">**</span> <span class="DecNumber">2</span>
-<span class="Identifier">assert</span> <span class="Identifier">i</span> <span class="Operator">==</span> <span class="Identifier">int</span><span class="Punctuation">(</span><span class="DecNumber">25</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -547,7 +547,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-28 16:08:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-29 19:11:01 UTC</small>
       </div>
     </div>
   </div>

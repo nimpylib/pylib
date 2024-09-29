@@ -1,0 +1,3 @@
+nimTitle	pycore_pymath	pylib/builtins/private/pycore_pymath.html	module src/pylib/builtins/private/pycore_pymath		0
+nim	Py_ADJUST_ERANGE1	pylib/builtins/private/pycore_pymath.html#Py_ADJUST_ERANGE1,float	proc Py_ADJUST_ERANGE1(x: float)		9
+nim	Py_ADJUST_ERANGE2	pylib/builtins/private/pycore_pymath.html#Py_ADJUST_ERANGE2,float,float	proc Py_ADJUST_ERANGE2(x, y: float)		37
