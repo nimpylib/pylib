@@ -49,8 +49,8 @@ func repr*(z: PyTComplex): string =
   ## Returns `bj/(a+bj)`/`(a-bj)` for `complex(a, b)`
   ## 
   runnableExamples:
-    assert repr(complex(0.0, 3)) == "3j"  # not "(0+3j)", as in Python
-    assert repr(complex(-0.0, 3)) == "-0+3j"  # not "3j", as in Python
+    assert repr(complex(0.0, 3.0)) == "3j"  # not "(0+3j)", as in Python
+    assert repr(complex(-0.0, 3.0)) == "(-0+3j)" # not "3j", as in Python
 
     assert repr(complex(1.0, 2.0)) == "(1+2j)"  # '.0' is removed as Python's
   let
