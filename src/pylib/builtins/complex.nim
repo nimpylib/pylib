@@ -16,18 +16,20 @@ from ../numTypes/floats/parsefloat import parsePyFloat
 import ../numTypes/utils/stripOpenArray
 import ../version
 
-type PyComplex*[T] = distinct Complex[T]
+type
+  PyTComplex*[T] = distinct Complex[T]  ## generics version of `PyComplex`_
+  PyComplex* = PyTComplex[float]
 
-template toNimComplex*[T](z: PyComplex[T]): Complex[T] =
+template toNimComplex*[T](z: PyTComplex[T]): Complex[T] =
   Complex[T] z
 
 template borrowAttr(expAs, attr){.dirty.} =
   ## borrow postfix, assuming returns T,
   ## and forbid setter
-  template expAs*[T](z: PyComplex[T]): T =
+  template expAs*[T](z: PyTComplex[T]): T =
     bind toNimComplex
     z.toNimComplex.attr
-  template `expAs=`*[T](z: PyComplex[T], _: T){.error:
+  template `expAs=`*[T](z: PyTComplex[T], _: T){.error:
     "AttributeError: readonly attribute".} = discard
 
 borrowAttr imag, im
@@ -42,7 +44,7 @@ func cut2str[T: SomeFloat](x: T): string =
   if result[lm2+1] == '0' and result[lm2] == '.':
     result.setLen lm2
 
-func repr*(z: PyComplex): string =
+func repr*(z: PyTComplex): string =
   ## Returns `bj/(a+bj)`/`(a-bj)` for `complex(a, b)`
   ## 
   runnableExamples:
@@ -73,11 +75,16 @@ func repr*(z: PyComplex): string =
   addImag
   result.add ')'
 
-func `$`*(z: PyComplex): string = repr z
+func `$`*(z: PyTComplex): string = repr z
 
-func complex*[T: SomeFloat](real: T = 0.0, imag: T = 0.0): PyComplex[T] =
+template pycomplex*[T](z: ncomplex.Complex[T]): PyTComplex[T] =
+  ## Convert Nim's Complex in std/complex to PyTComplex
+  bind PyTComplex
+  PyTComplex[T] z
+
+func complex*[T: SomeFloat](real: T = 0.0, imag: T = 0.0): PyTComplex[T] =
   pycomplex ncomplex.complex(real, imag)
-func complex*[T: SomeInteger](real: T = 0, imag: T = 0): PyComplex[BiggestFloat] =
+func complex*[T: SomeInteger](real: T = 0, imag: T = 0): PyComplex =
   pycomplex ncomplex.complex(real.BiggestFloat, imag.BiggestFloat)
 
 type
@@ -86,16 +93,16 @@ type
   HasFloat = concept self
     float(self) is BiggestFloat
 
-template complex*(real, imag: HasFloat): PyComplex[BiggestFloat] =
+template complex*(real, imag: HasFloat): PyComplex =
   bind complex
   complex(float(real), float(imag))
 
-template complex*(real, imag: HasIndex): PyComplex[BiggestFloat]{.
+template complex*(real, imag: HasIndex): PyComplex{.
     pysince(3,8).} =
   bind complex
   complex(obj.index().BiggestFloat, obj.index().BiggestFloat)
 
-func complex*(s: string): PyComplex[BiggestFloat] =
+func complex*(s: string): PyComplex =
   const errMsgPre = "complex() arg is a malformed string, reason: "
   template malformedArg(msg: string) =
     raise newException(ValueError, errMsgPre & msg)
@@ -176,28 +183,28 @@ func complex*(s: string): PyComplex[BiggestFloat] =
     malformedArg("superfluous chars in range " & $(cur..(n+1)))
   result = complex(re, im)
 
-template pycomplex*[T](re: T; im = T(0)): PyComplex[T] =
+template pycomplex*[T](re: T; im = T(0)): PyTComplex[T] =
   ## alias of `complex`.
   ## Useful when import both std/complex and pylib
   complex(re, im)
 
-func abs*[T](z: PyComplex[T]): T = abs(z.toNimComplex)  ## builtins.abs for complex
+func abs*[T](z: PyTComplex[T]): T = abs(z.toNimComplex)  ## builtins.abs for complex
 
-func conjugate*[T](z: PyComplex[T]): PyComplex[T] =
+func conjugate*[T](z: PyTComplex[T]): PyTComplex[T] =
   ## complex.conjugate()
   pycomplex conjugate(z.toNimComplex)
 
-template toNimCall(op; a, b: PyComplex): untyped = op(a.toNimComplex, b.toNimComplex)
+template toNimCall(op; a, b: PyTComplex): untyped = op(a.toNimComplex, b.toNimComplex)
 
-template borrowBin(op) =
+template borrowBin(op){.dirty.} =
   ## borrow binary op
-  template op*(a, b: PyComplex): PyComplex =
+  template op*(a, b: PyTComplex): PyTComplex =
     bind op
     pycomplex(toNimCall(op, a, b))
 
-template borrowBinRetAs(op) =
+template borrowBinRetAs(op){.dirty.} =
   ## borrow binary op, do not care result type
-  template op*(a, b: PyComplex): untyped =
+  template op*(a, b: PyTComplex): untyped =
     bind op
     toNimCall(op, a, b)
 
@@ -211,15 +218,15 @@ borrowBinRetAs `*=`
 borrowBinRetAs `/=`
 borrowBinRetAs `==`
 
-template genMixinOp(op) =
-  template op*[T: SomeFloat](a: T, z: PyComplex[T]): PyComplex[T] =
+template genMixinOp(op){.dirty.} =
+  template op*[T: SomeFloat](a: T, z: PyTComplex[T]): PyTComplex[T] =
     op(complex(a), z)
-  template op*[T: SomeFloat](z: PyComplex[T], a: T): PyComplex[T] =
+  template op*[T: SomeFloat](z: PyTComplex[T], a: T): PyTComplex[T] =
     op(complex(a), z)
     
-  template op*[I: Someinteger, T](a: I, z: PyComplex[T]): PyComplex[T] =
+  template op*[I: Someinteger, T](a: I, z: PyTComplex[T]): PyTComplex[T] =
     op(complex(T(a)), z)
-  template op*[I: SomeInteger, T](z: PyComplex[T], a: I): PyComplex[T] =
+  template op*[I: SomeInteger, T](z: PyTComplex[T], a: I): PyTComplex[T] =
     op(complex(T(a)), z)
 
 genMixinOp `+`
@@ -228,31 +235,31 @@ genMixinOp `*`
 genMixinOp `/`
 
 
-template powImpl[T](self: PyComplex[T], x: ncomplex.Complex[T]): PyComplex[T] =
+template powImpl[T](self: PyTComplex[T], x: ncomplex.Complex[T]): PyTComplex[T] =
   bind pycomplex, toNimComplex
   pycomplex ncomplex_pow.pow(self.toNimComplex, x)
 
-template pow*[T](self: PyComplex[T], x: PyComplex[T]): PyComplex[T] =
+template pow*[T](self: PyTComplex[T], x: PyTComplex[T]): PyTComplex[T] =
   bind powImpl, toNimComplex
   powImpl(self, x.toNimComplex)
 
-func pow*[T](self: PyComplex[T], x: T): PyComplex[T] =
+func pow*[T](self: PyTComplex[T], x: T): PyTComplex[T] =
   bind powImpl
   powImpl(self, ncomplex.complex(x))
 
-template pow*[T](self: PyComplex[T], x: static Natural): PyComplex[T] =
+template pow*[T](self: PyTComplex[T], x: static Natural): PyTComplex[T] =
   bind pycomplex, toNimComplex
   pycomplex ncomplex_pow.powu(self.toNimComplex, x)
 
-template pow*[T](self: PyComplex[T], x: int): PyComplex[T] =
+template pow*[T](self: PyTComplex[T], x: int): PyTComplex[T] =
   bind pycomplex, toNimComplex
   pycomplex ncomplex_pow.pow(self.toNimComplex, x)
 
-template `**`*[T](self: PyComplex[T]; x: T or PyComplex[T] or int): PyComplex[T] =
+template `**`*[T](self: PyTComplex[T]; x: T or PyTComplex[T] or int): PyTComplex[T] =
   bind pow
   pow(self, x)
 
-func `**=`*[T](self: var PyComplex[T]; x: T or PyComplex[T] or int) =
+func `**=`*[T](self: var PyTComplex[T]; x: T or PyTComplex[T] or int) =
   bind `**`
   self = self ** x
 
