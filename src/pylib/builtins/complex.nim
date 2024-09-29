@@ -14,6 +14,7 @@ from std/math import copySign, isNaN
 from ./private/ncomplex_pow import nil
 from ../numTypes/floats/parsefloat import parsePyFloat
 import ../numTypes/utils/stripOpenArray
+from ../noneType import NoneType
 import ../version
 
 type
@@ -243,7 +244,7 @@ template pow*[T](self: PyTComplex[T], x: PyTComplex[T]): PyTComplex[T] =
   bind powImpl, toNimComplex
   powImpl(self, x.toNimComplex)
 
-func pow*[T](self: PyTComplex[T], x: T): PyTComplex[T] =
+template pow*[T](self: PyTComplex[T], x: T): PyTComplex[T] =
   bind powImpl
   powImpl(self, ncomplex.complex(x))
 
@@ -255,13 +256,19 @@ template pow*[T](self: PyTComplex[T], x: int): PyTComplex[T] =
   bind pycomplex, toNimComplex
   pycomplex ncomplex_pow.pow(self.toNimComplex, x)
 
-template `**`*[T](self: PyTComplex[T]; x: T or PyTComplex[T] or int): PyTComplex[T] =
+type ComplexPowSecondParamType[T] = T or PyTComplex[T] or int
+template `**`*[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]): PyTComplex[T] =
   bind pow
   pow(self, x)
 
-func `**=`*[T](self: var PyTComplex[T]; x: T or PyTComplex[T] or int) =
+
+func `**=`*[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T]) =
   bind `**`
   self = self ** x
+
+template pow*[T](self: PyTComplex[T], x: ComplexPowSecondParamType[T], _: NoneType): PyTComplex[T] =
+  bind pow
+  pow(self, x)
 
 func `'j`*(s: static string): PyComplex =
   ## 1+3'j or 1+3'J
