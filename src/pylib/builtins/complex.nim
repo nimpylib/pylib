@@ -261,6 +261,15 @@ template `**`*[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]): PyTComp
   bind pow
   pow(self, x)
 
+const NimHasBindOverloadSymBugForComplexPow* = (NimMajor, NimMinor, NimPatch) < (2,1,9)  # XXX: at least in range (2.0.8, 2.1.9]
+
+when NimHasBindOverloadSymBugForComplexPow:
+  template `**`*[T](self: PyTComplex[T]; x: PyComplex): PyTComplex[T] =
+    bind pow
+    pow(self, x)
+  template `**`*[T](self: PyTComplex[T]; x: int): PyTComplex[T] =
+    bind pow
+    pow(self, x)
 
 func `**=`*[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T]) =
   bind `**`

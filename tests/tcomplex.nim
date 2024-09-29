@@ -138,12 +138,13 @@ suite "complex.__pow__":
         #assertEqual(pow(0, 0+0'j), 1.0)
         #assertEqual(pow(-1, 0+0'j), 1.0)
 
-        assertRaises(ZeroDivisionError, pow, 0+0'j, 1'j)
-        assertRaises(ZeroDivisionError, pow, 0+0'j, -1000)
+        when not NimHasBindOverloadSymBugForComplexPow:
+          assertRaises(ZeroDivisionError, pow, 0+0'j, 1'j)
+          assertRaises(OverflowError, pow, 1e200+1'j, 1e200+1'j)
+          assertRaises(ZeroDivisionError, pow, 0+0'j, -1000)
         assertAlmostEqual(pow(1'j, -1), 1/1'j)
         assertAlmostEqual(pow(1'j, 200), complex(1))
         #assertRaises(ValueError, pow, 1+1'j, 1+1'j, 1+1'j)
-        assertRaises(OverflowError, pow, 1e200+1'j, 1e200+1'j)
         #assertRaises(TypeError, pow, 1'j, None)
         #assertRaises(TypeError, pow, None, 1'j)
         #assertAlmostEqual(pow(1'j, 0.5), 0.7071067811865476+0.7071067811865475'j)
