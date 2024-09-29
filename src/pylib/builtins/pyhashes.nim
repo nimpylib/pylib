@@ -14,7 +14,7 @@ hashable float
 hashable tuple
 hashable proc
 
-proc hash*(x: PyComplex): int = toInt hashes.hash(x.toNimComplex)
+proc hash*(x: PyTComplex): int = toInt hashes.hash(x.toNimComplex)
 proc hash*(x: PyStr|PyBytes): int = toInt hashes.hash($x)
 
 const unhashErr = "TypeError: unhashable type: "
