@@ -76,7 +76,7 @@ suite "sumprod":
 ]#
 
         # Bad arguments
-        check not compiles(sumprod)               # No args
+        check not compiles(sumprod())               # No args
         check not compiles(sumprod([0]))           # One arg
         check not compiles(sumprod([0], [0], [0]))   # Three args
         check not compiles(sumprod(None, [10]))   # Non-iterable
