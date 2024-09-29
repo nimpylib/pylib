@@ -35,16 +35,19 @@ func cut2str[T: SomeFloat](x: T): string =
   # Nim's Complex's elements can only be of float
   result = $x
   # removesuffix('.0')
-  # We know $<float> will be at least 3 chars (e.g. "0.0")
+  # We know $<float> will be at least 3 chars (e.g. "0.0", "inf")
   let lm2 = result.len - 2
   if result[lm2+1] == '0' and result[lm2] == '.':
     result.setLen lm2
 
-func `$`*(z: PyComplex): string =
-  ## Returns `(a+bj)`/`(a-bj)` for `complex(a, b)`
+func repr*(z: PyComplex): string =
+  ## Returns `bj/(a+bj)`/`(a-bj)` for `complex(a, b)`
   ## 
   runnableExamples:
-    assert $complex(1.0, 2.0) == "(1+2j)"  # '.0' is removed as Python's
+    assert repr(complex(0.0, 3)) == "3j"  # not "(0+3j)", as in Python
+    assert repr(complex(-0.0, 3)) == "-0+3j"  # not "3j", as in Python
+
+    assert repr(complex(1.0, 2.0)) == "(1+2j)"  # '.0' is removed as Python's
   let
     real = z.real
     imag = z.imag
@@ -68,10 +71,7 @@ func `$`*(z: PyComplex): string =
   addImag
   result.add ')'
 
-template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
-  ## Convert Nim's Complex in std/complex to PyComplex
-  bind PyComplex
-  PyComplex[T] z
+func `$`*(z: PyComplex): string = repr z
 
 func complex*[T: SomeFloat](real: T = 0.0, imag: T = 0.0): PyComplex[T] =
   pycomplex ncomplex.complex(real, imag)

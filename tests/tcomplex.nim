@@ -94,3 +94,13 @@ suite "complex":
     let z = complex(3.0, -4.0)
     check z.conjugate() == complex(3.0, 4.0)
     check abs(z) == 5.0
+
+suite "complex.__repr__":
+  test "(N+nanj)":
+    # there's once a bug str(complex(1, NaN)) == "(1nanj)"
+  
+    for i in range(1, 4):
+      assertEqual str(complex(float(i), NaN)), "(" + str(i) + "+nanj)"
+  test "real == 0.0":
+    assertEqual str(complex(0.0, NaN)),  "nanj"
+    assertEqual str(complex(-0.0, NaN)), "(-0+nanj)"
