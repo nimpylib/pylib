@@ -86,10 +86,10 @@ proc write_bytes*(self; b: PyBytes) = writeFile $self, $b
 proc readlink*(self): Path = Path os.readlink $self
 
 proc symlink_to*(self; target: string|Path; target_is_directory=false) =
-  os.symlink($self, $target, target_is_directory)
+  os.symlink($target, $self, target_is_directory)
 
 proc hardlink_to*(self; target: string|Path){.pysince(3,10).} =
-  os.link($self, $target)
+  os.link($target, $self)
 
 proc unlink*(self) =
   ## for missing_ok==False
