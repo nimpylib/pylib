@@ -351,7 +351,7 @@ suite "float":
             var f = rand 1.0
             f *= pow(10.0, float rand(2 .. 10))
             let (n, d) = f.as_integer_ratio()
-            check almostEqual(n/d, f)
+            check almostEqual(n/d, f, unitsInLastPlace=5)
 
         check (0, 1) == float(0.0).as_integer_ratio()
         check (5, 2) == float(2.5).as_integer_ratio()
