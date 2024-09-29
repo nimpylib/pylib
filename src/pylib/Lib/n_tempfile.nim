@@ -172,7 +172,9 @@ proc close*(self: TemporaryDirectoryWrapper) =
   try: self.cleanup()
   except Exception: discard
 
-when NimMajor == 1:
-  proc `=destroy`*(self: var TemporaryDirectoryWrapper) = self.close()
-else:
+when (NimMajor, NimMinor, NimPatch) >= (2, 1, 1):
+  ## XXX: FIXED-NIM-BUG: though nimAllowNonVarDestructor is defined at least since 2.0.6,
+  ## it still cannot be compiled till abour 2.1.1
   proc `=destroy`*(self: TemporaryDirectoryWrapper) = self.close()
+else:
+  proc `=destroy`*(self: var TemporaryDirectoryWrapper) = self.close()
