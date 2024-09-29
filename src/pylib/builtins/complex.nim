@@ -10,6 +10,8 @@ runnableExamples:
   assert not (type(complex(1, 2).real) is int)
 
 import std/complex as ncomplex except im, complex
+from std/math import copySign, isNaN
+from ./private/ncomplex_pow import nil
 from ../numTypes/floats/parsefloat import parsePyFloat
 import ../numTypes/utils/stripOpenArray
 import ../version
@@ -225,7 +227,36 @@ genMixinOp `-`
 genMixinOp `*`
 genMixinOp `/`
 
-func `'j`*(s: static string): PyComplex[BiggestFloat]=
+
+template powImpl[T](self: PyComplex[T], x: ncomplex.Complex[T]): PyComplex[T] =
+  bind pycomplex, toNimComplex
+  pycomplex ncomplex_pow.pow(self.toNimComplex, x)
+
+template pow*[T](self: PyComplex[T], x: PyComplex[T]): PyComplex[T] =
+  bind powImpl, toNimComplex
+  powImpl(self, x.toNimComplex)
+
+func pow*[T](self: PyComplex[T], x: T): PyComplex[T] =
+  bind powImpl
+  powImpl(self, ncomplex.complex(x))
+
+template pow*[T](self: PyComplex[T], x: static Natural): PyComplex[T] =
+  bind pycomplex, toNimComplex
+  pycomplex ncomplex_pow.powu(self.toNimComplex, x)
+
+template pow*[T](self: PyComplex[T], x: int): PyComplex[T] =
+  bind pycomplex, toNimComplex
+  pycomplex ncomplex_pow.pow(self.toNimComplex, x)
+
+template `**`*[T](self: PyComplex[T]; x: T or PyComplex[T] or int): PyComplex[T] =
+  bind pow
+  pow(self, x)
+
+func `**=`*[T](self: var PyComplex[T]; x: T or PyComplex[T] or int) =
+  bind `**`
+  self = self ** x
+
+func `'j`*(s: static string): PyComplex =
   ## 1+3'j or 1+3'J
   ## 
   ## NOTE: Nim disallows custom suffixes without `'`.

@@ -12,7 +12,7 @@ template `**`*[T](a: T, b: Natural): T =
   bind `^`
   a ^ b
 
-template `**`*[T](a: T; b: static[int]): int|float =
+template `**`*[T: SomeNumber](a: T; b: static[int]): int|float =
   runnableExamples:
     const f = 5 ** -1  # only when the rhs is static[int]
     assert f == 0.2

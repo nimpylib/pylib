@@ -104,3 +104,144 @@ suite "complex.__repr__":
   test "real == 0.0":
     assertEqual str(complex(0.0, NaN)),  "nanj"
     assertEqual str(complex(-0.0, NaN)), "(-0+nanj)"
+
+
+from std/math import almostEqual
+
+type OverflowError = OverflowDefect
+
+suite "complex.__pow__":
+  template assertAlmostEqual(a, b: float) =
+    check almostEqual(a, b)
+  const sys_maxsize = sizeof system.int
+
+  def assertAlmostEqual(a, b):
+      when isinstance(a, PyComplex):
+          when isinstance(b, PyComplex):
+              assertAlmostEqual(a.real, b.real)
+              assertAlmostEqual(a.imag, b.imag)
+          else:
+              assertAlmostEqual(a.real, b)
+              assertAlmostEqual(a.imag, 0.0)
+      else:
+          when isinstance(b, PyComplex):
+              assertAlmostEqual(a, b.real)
+              assertAlmostEqual(0.0, b.imag)
+          else:
+              assertAlmostEqual(a, b)
+  test "CPython:test_complex.ComplexTest.test_pow":
+    def test_pow():
+        assertAlmostEqual(pow(1+1'j, 0+0'j), 1.0)
+        assertAlmostEqual(pow(0+0'j, 2+0'j), 0.0)
+        assertEqual(pow(0+0'j, 2000+0'j), 0.0'j)
+        # TODO
+        #assertEqual(pow(0, 0+0'j), 1.0)
+        #assertEqual(pow(-1, 0+0'j), 1.0)
+
+        assertRaises(ZeroDivisionError, pow, 0+0'j, 1'j)
+        assertRaises(ZeroDivisionError, pow, 0+0'j, -1000)
+        assertAlmostEqual(pow(1'j, -1), 1/1'j)
+        assertAlmostEqual(pow(1'j, 200), complex(1))
+        #assertRaises(ValueError, pow, 1+1'j, 1+1'j, 1+1'j)
+        assertRaises(OverflowError, pow, 1e200+1'j, 1e200+1'j)
+        #assertRaises(TypeError, pow, 1'j, None)
+        #assertRaises(TypeError, pow, None, 1'j)
+        #assertAlmostEqual(pow(1'j, 0.5), 0.7071067811865476+0.7071067811865475'j)
+
+        a = 3.33+4.43'j
+        c1 = complex(1)
+        assertEqual(a ** 0'j, c1)
+        assertEqual(a ** (0.0+0.0'j), c1)  ## NOTE: `a ** 0.0+0.0'J` will cause compile error
+
+        assertEqual(3'j ** 0'j, c1)
+        assertEqual(3'j ** 0, c1)
+
+        try:
+            discard 0'j ** a
+            fail() # "should fail 0.0 to negative or complex power")
+        except ZeroDivisionError:
+            discard
+
+        try:
+            discard 0'j ** (3-2'j)
+            fail()  # "should fail 0.0 to negative or complex power")
+        except ZeroDivisionError:
+            discard
+
+        # The following is used to exercise certain code paths
+        assertEqual(a ** 105, a ** 105)
+        assertEqual(a ** -105, a ** -105)
+        assertEqual(a ** -30, a ** -30)
+
+        assertEqual(0.0'j ** 0, c1)
+
+        b = 5.1+2.3'j
+        #assertRaises(ValueError, pow, a, b, 0)
+
+        # Check some boundary conditions; some of these used to invoke
+        # undefined behaviour (https://bugs.python.org/issue44698). We're
+        # not actually checking the results of these operations, just making
+        # sure they don't crash (for example when using clang's
+        # UndefinedBehaviourSanitizer).
+        values = [sys_maxsize, sys_maxsize+1, sys_maxsize-1,
+                  -sys_maxsize, -sys_maxsize+1, -sys_maxsize+1]
+        for real in values:
+            for imag in values:
+                #with subTest(real=real, imag=imag):
+                    c = complex(real, imag)
+                    try:
+                        discard c ** real
+                    except OverflowError:
+                        discard
+                    try:
+                        _ = c ** c
+                    except OverflowError:
+                        discard
+    test_pow()
+
+  test "with small integer exponents":
+    def test_pow_with_small_integer_exponents():
+        # Check that small integer exponents are handled identically
+        # regardless of their type.
+        values = [
+            complex(5.0, 12.0),
+            complex(5.0e100, 12.0e100),
+            complex(-4.0, INF),
+            complex(INF, 0.0),
+        ]
+        exponents = [-19, -5, -3, -2, -1, 0, 1, 2, 3, 5, 19]
+        
+        emp0 = complex(0)
+        int_pow = emp0
+        float_pow = int_pow
+        complex_pow = int_pow
+        for value in values:
+            for exponent in exponents:
+                #with subTest(value=value, exponent=exponent):
+                    try:
+                        int_pow = value**exponent
+                    except OverflowError:
+                        int_pow = emp0
+                    try:
+                        float_pow = value**float(exponent)
+                    except OverflowError:
+                        float_pow = emp0
+                    try:
+                        complex_pow = value**complex(exponent)
+                    except OverflowError:
+                        complex_pow = emp0
+                    template assertComplexEqual(a, b) =
+                      if a.real.isNaN or b.real.isNaN or a.imag.isNaN or b.imag.isNaN:
+                        assertEqual(str(a), str(b))
+                        if str(a) != str(b):
+                          echo value
+                          echo exponent
+                      else:
+                        assertEqual(a, b)
+                        if (a) != (b):
+                          echo value
+                          echo exponent
+                    assertComplexEqual(float_pow, int_pow)
+                    assertComplexEqual(complex_pow, int_pow)
+
+    test_pow_with_small_integer_exponents()
