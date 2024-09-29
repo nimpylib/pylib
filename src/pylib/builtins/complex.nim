@@ -48,13 +48,24 @@ func `$`*(z: PyComplex): string =
   let
     real = z.real
     imag = z.imag
+  template addImag = result.add imag.cut2str & 'j'
+  if real == 0.0 and copySign(1.0, real) == 1.0: #  +0.0
+    #[/* Real part is +0.0: just output the imaginary part and do not
+      include parens. */]#
+    addImag
+    return
   result.add '('
-  if real != 0:
-    result.add real.cut2str
-    if imag >= 0:
-      result.add '+'
-    # if negative, `-` will be prefix-ed by `$`
-  result.add imag.cut2str & 'j'
+  result.add real.cut2str
+  template requirePlus(x: float): bool =
+    # act as `PyOS_double_to_string` with flag of `Py_DTSF_SIGN`
+    x >= 0 or x.isNaN
+    # NOTE: CPython's implementation does not care the sign of NaN here,
+    # unconsistent with cases in other places
+    # (CPython is used to caring a lot the sign of NaN)
+  if requirePlus imag:
+    result.add '+'
+  # if negative, `-` will be prefix-ed by `$`
+  addImag
   result.add ')'
 
 template pycomplex*[T](z: ncomplex.Complex[T]): PyComplex[T] =
