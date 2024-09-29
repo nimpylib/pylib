@@ -1,5 +1,4 @@
 
-from std/lenientops as mixOps import nil  ## import no symbols directly
 
 from ../isX import isfinite
 from ./niter_types import OpenarrayOrNimIter, toNimIterator, ClosureIter
@@ -33,15 +32,15 @@ template isFloatType(T): bool = T is SomeFloat
 template PyFloat_AS_DOUBLE(x: SomeFloat): float = float x
 template PyLong_AS_DOUBLE(x: SomeInteger or bool): float = float x
 
-template PyNumber_Add[F: SomeNumber](a, b: F): F = system.`+` a, b
-template PyNumber_Add(a, b): untyped = mixOps.`+` a, b
+#template PyNumber_Add[F: SomeNumber](a, b: F): F = system.`+` a, b
+#template PyNumber_Add(a, b): untyped = mixOps.`+` a, b
 
-template Number_iAdd[F: SomeNumber](a, b: F) = system.`+=` a, b
-template Number_iAdd(a, b) = a = mixOps.`+`(a, b)
+template number_iAdd[F: SomeNumber](a, b: F) = system.`+=` a, b
+template number_iAdd(a: float, b: int) = a += float b
 
-template PyNumber_Multiply[F: SomeNumber](a, b: F): F = system.`*` a, b
-template PyNumber_Multiply(a, b): untyped = mixOps.`*` a, b
-
+template mixin_Multiply_Add[P, Q](res: var float, a: P, b: Q) =
+  mixin `+=`, `*`
+  `+=`(res, `*`(a, b))
 
 template n_next[T](p: ClosureIter[T]): T = p()
 template n_iterStopped(p: ClosureIter): bool = finished p
@@ -60,20 +59,23 @@ func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
   ## and sums are computed with extended precision.
   ## [clinic start generated code]
   ## [clinic end generated code: output=6722dbfe60664554 input=82be54fe26f87e30]
-  var
-    int_path_enabled = true
   const
     p_type_int = isIntegerType(P)
     q_type_int = isIntegerType(Q)
-    mayUse_int_total = p_type_int and q_type_int
-  when mayUse_int_total: 
-    var int_total_in_use = false
-  var
-    flt_path_enabled = true
-    flt_total_in_use = false
-
-  var int_total = 0
-  var flt_total: TripleLength
+    use_int_path = p_type_int and q_type_int
+  when use_int_path: 
+    # we're in static-typed implementation
+    #var int_path_enabled = true
+    #var int_total_in_use = false
+    var int_total = 0
+  else: 
+    const
+      p_type_float = isFloatType(P)
+      q_type_float = isFloatType(Q)
+    # we're in static-typed implementation
+    #var flt_path_enabled = true
+    var flt_total_in_use = false
+    var flt_total: TripleLength
   var
     p_i: P
     q_i: Q
@@ -85,8 +87,6 @@ func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
 
   while true:
     var finished: bool
-    assert(p_it != nil)
-    assert(q_it != nil)
     p_i = n_next(p_it)
     p_stopped = n_iterStopped p_it
     q_i = n_next(q_it)
@@ -94,62 +94,53 @@ func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
     if p_stopped != q_stopped:
       raise newException(ValueError, "Inputs are not the same length")
     finished = p_stopped and q_stopped
-    if int_path_enabled:
-      when mayUse_int_total:
-        if not finished:
-          int_total.inc(p_i * q_i)
-          int_total_in_use = true
-          continue
-      ##  We're finished, or have a non-int
-      int_path_enabled = false
-      when mayUse_int_total:
-        if int_total_in_use:
-          Number_iAdd(result, int_total)
-          int_total = 0
-          ##  An ounce of prevention, ...
-          int_total_in_use = false
-    if flt_path_enabled:
-      block flt_fast_path:
-        if not finished:
-          var
-            flt_p: float
-            flt_q: float
-          const
-            p_type_float = isFloatType(P)
-            q_type_float = isFloatType(Q)
-          when p_type_float and q_type_float:
-            flt_p = PyFloat_AS_DOUBLE(p_i)
-            flt_q = PyFloat_AS_DOUBLE(q_i)
-          elif p_type_float and (q_type_int or bool_Check(q_i)):
-            ##  We care about float/int pairs and int/float pairs because
-            ##                        they arise naturally in several use cases such as price
-            ##                        times quantity, measurements with integer weights, or
-            ##                        data selected by a vector of bools.
-            flt_p = PyFloat_AS_DOUBLE(p_i)
-            flt_q = PyLong_AsDouble(q_i)
-          elif q_type_float and (p_type_int or bool_Check(p_i)):
-            flt_q = PyFloat_AS_DOUBLE(q_i)
-            flt_p = PyLong_AsDouble(p_i)
-          else:
-            break flt_fast_path
-          let new_flt_total = tl_fma(flt_p, flt_q, flt_total)
+    when use_int_path:
+      if not finished:
+        int_total.inc(p_i * q_i)
+        continue
+      # We're finished
+      result.number_iAdd int_total
+      int_total = 0
+      Ret
+    else:
+      template push_flt_total =
+        # We're finished, or got a non-finite value
+        if flt_total_in_use:
+          result.number_iAdd tl_to_d(flt_total)
+          flt_total = tl_zero
+          flt_total_in_use = false
+
+      if not finished:
+        template gen_flt_fast_path(do_p, do_q) =
+          let
+            flt_p = do_p p_i
+            flt_q = do_p q_i
+            new_flt_total = tl_fma(flt_p, flt_q, flt_total)
           if isfinite(new_flt_total.hi):
             flt_total = new_flt_total
             flt_total_in_use = true
             continue
-      ##  We're finished, have a non-float, or got a non-finite value
-      flt_path_enabled = false
-      if flt_total_in_use:
-        Number_iAdd(result, tl_to_d(flt_total))
-        flt_total = tl_zero
-        flt_total_in_use = false
-    when mayUse_int_total: 
-      assert(not int_total_in_use)
-    assert(not flt_total_in_use)
-    if finished:
-      Ret
-    Number_iAdd(result, PyNumber_Multiply(p_i, q_i))
-  Ret
+          push_flt_total
+        when p_type_float and q_type_float:
+          gen_flt_fast_path PyFloat_AS_DOUBLE, PyFloat_AS_DOUBLE
+        elif p_type_float and (q_type_int or bool_Check(q_i)):
+          ##  We care about float/int pairs and int/float pairs because
+          ##  they arise naturally in several use cases such as price
+          ##  times quantity, measurements with integer weights, or
+          ##  data selected by a vector of bools.
+          gen_flt_fast_path PyFloat_AS_DOUBLE, PyLong_AsDouble
+        elif (p_type_int or bool_Check(p_i)) and q_type_float:
+          gen_flt_fast_path PyLong_AsDouble, PyFloat_AS_DOUBLE
+
+        ## not in `flt_fast_path`
+        # We have a non-float value or non-finite
+        # XXX: here no need for nimpylib to check `flt_total`
+        #  as this implementation is static-typed
+        assert not flt_total_in_use
+        result.mixin_Multiply_Add(p_i, q_i)
+      else:
+        push_flt_total
+        Ret
 
 func sumprod*[P, Q](p: openarray[P]; q: openarray[Q]): float =
   sumprod(p.toNimIterator[P](), q.toNimIterator[Q]())
