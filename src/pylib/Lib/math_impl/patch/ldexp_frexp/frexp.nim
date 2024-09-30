@@ -1,11 +1,14 @@
 
 from std/math import isNaN, classify, exp
 
-import ./normalize,
-  ./toWords, ./fromWords, ./assertIsInfinite,
-  ./exponent
+import ../inWordUtilsMapper
 
-from ./consts import CLEAR_EXP_MASK
+wu_import toWords
+wu_import fromWords
+wu_import CLEAR_EXP_MASK from consts
+
+import ./exponent, ./assertIsInfinite, ./normalize
+
 
 const SET_EXP_MASK = 0x3fe00000  ## Exponent equal to 1022 (BIAS-1):
                                  ## 0 01111111110 00000000000000000000 => 1071644672

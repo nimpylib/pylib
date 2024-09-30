@@ -27,8 +27,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ]#
 
-from ./ldexp_frexp/fromWords import fromWords
-from ./ldexp_frexp/toWords import toWords
+import ./inWordUtilsMapper
+
+wu_import fromWords from fromWords
+wu_import toWords from toWords
+
 from std/math import pow, isNaN
 
 const

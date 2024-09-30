@@ -1,8 +1,14 @@
 
 
-import ./consts, ./assertIsInfinite, ./normalize,
-  ./toWords, ./fromWords,
+import  ./assertIsInfinite, ./normalize,
   ./exponent
+
+import ../inWordUtilsMapper
+
+wu_import consts
+wu_import toWords
+wu_import fromWords
+
 from std/math import isnan, copysign
 
 const

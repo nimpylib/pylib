@@ -1,6 +1,10 @@
 
 
-import ./indices, ./float_view, ./consts
+
+import ../inWordUtilsMapper
+wu_import indices
+wu_import float_view
+wu_import consts
 
 const EXP_MASK = 0x7ff00000
 ## FLOAT64_HIGH_WORD_EXPONENT_MASK

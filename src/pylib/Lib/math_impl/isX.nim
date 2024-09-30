@@ -11,8 +11,7 @@ func n_isfinite(x: SomeFloat): bool{.used.} =
   result = cls != fcInf and cls != fcNegInf and cls != fcNan
 
 func n_isinf(x: SomeFloat): bool{.used.} =
-  let cls = classify(x)
-  cls == fcInf or cls == fcNegInf
+  x == Inf or x == NegInf
 
 when defined(js):
   func js_isfiniteImpl(x: float): bool{.importjs: "Number.isFinite(#)".}
