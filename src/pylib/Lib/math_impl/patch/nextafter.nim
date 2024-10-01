@@ -67,4 +67,4 @@ func nextafter*[F](x, y: F): F =
     else:
       lo -= 1
 
-  return fromWords(lo, hi)
+  return fromWords(hi, lo)
