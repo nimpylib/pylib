@@ -57,10 +57,16 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
   ## `dir_fd` is ignored under Windows
   when defined(js):
     var msg: string
+    let
+      p = cstring($path)
+      f = flags.cint
+      m = mode.cint
+    var result_cint: cint
     let err = catchJsErrAsCode msg:
-      openSync(cstring($path), flags.cint, mode.cint)
+      "`result_cint` = openSync(`p`, `f`, `m`)"
     if err != 0:
       raiseErrno err, msg
+    result = int result_cint
   else:
     var fd: cint
     let spath = $path
