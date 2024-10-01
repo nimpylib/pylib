@@ -56,12 +56,16 @@ else:
 macro pwULexp(i; header: string = "<fcntl.h>") =
   ## POSIX/Windows `importc` and export
   ## add prefix underline when `importc` under Windows
-  let
-    strv = i.strVal
-    cn = when DW: '_' & strv else: strv
-    cnn = newLit cn
-  result = quote do:
-    let `i`*{.importc: `cnn`, header: `header`.}: cint
+  when defined(js):
+    result = quote do:
+      let `i`*{.importNode(fs, constants.`i`).}: cint
+  else:
+    let
+      strv = i.strVal
+      cn = when DW: '_' & strv else: strv
+      cnn = newLit cn
+    result = quote do:
+      let `i`*{.importc: `cnn`, header: `header`.}: cint
 
 # TODO: export ones that are OS-dependent
 #  such as https://docs.python.org/3/library/os.html#os.O_DSYNC

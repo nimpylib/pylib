@@ -13,12 +13,17 @@ type
     atime_ns, mtime_ns: int
 
   
+const `ns/s` = 1_000_000_000
+
 when InJs:
   type Time = cdouble
   proc utimesSync(path: cstring, atime, ctime: Time){.importDenoOr(fs, utimesSync).}
   proc lutimesSync(path: cstring, atime, ctime: Time){.importDenoOr(fs, lutimesSync).}
 
-  template stoTime(s: int|float): Time = Time s
+  type TimeTuple = tuple
+    atime, ctime: Time
+  template stoTime[N: int|float](t: (N, N)): TimeTuple = (Time(t[0]), Time(t[1]))
+  template nstoTime(t: (int, int)): TimeTuple = (Time(`ns/s` * t[0]), Time(`ns/s` * t[1]))
   template utimeImpl(mapper; path: PathLike, times; follow_symlinks=true) =
     let
       jsS = cstring $path
@@ -34,7 +39,6 @@ else:
     ## for Positive only
     (x div y, x mod y)
 
-  const `ns/s` = 1_000_000_000
   when defined(windows):
     template stoTime(s: int): times.Time = fromUnix(s)
     template stoTime(s_ns: float): times.Time = fromUnixFloat s_ns
@@ -95,11 +99,11 @@ else:
     if spath.utimeAux(mapTup(times, mapper), follow_symlinks=follow_symlinks):
       raiseExcWithPath path
 
-proc utime*[T; N](path: PathLike[T], times: TimePair[N], follow_symlinks=true){.noWeirdTarget.} =
+proc utime*[T; N](path: PathLike[T], times: TimePair[N], follow_symlinks=true) =
   utimeImpl stoTime, path, times, follow_symlinks
-proc utime*[T](path: PathLike[T], ns: TimeNsPair, follow_symlinks=true){.noWeirdTarget.} =
+proc utime*[T](path: PathLike[T], ns: TimeNsPair, follow_symlinks=true) =
   utimeImpl nstoTime, path, ns, follow_symlinks
-proc utime*[T](path: PathLike[T], follow_symlinks=true){.noWeirdTarget.} =
+proc utime*[T](path: PathLike[T], follow_symlinks=true) =
   let
     nowTime = times.getTime()
     ns = nowTime.toUnix.int * `ns/s` + nowTime.nanosecond

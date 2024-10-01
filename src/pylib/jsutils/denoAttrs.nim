@@ -60,10 +60,14 @@ when defined(js):
   macro importDenoOrProcess*(attr; def) =
     importDenoOrImpl(def, "process", attr)
 
-  proc importNodeImpl(def: NimNode, module, sym: string): NimNode =
+  proc importNodeImpl(def: NimNode, module, symExpr: string): NimNode =
     importByNodeOrDenoImpl(def,
-      "require('" & module & "')." & sym,
-      "(await import('" & module & "'))." & sym
+      "require('" & module & "')." & symExpr,
+      "(await import('" & module & "'))." & symExpr
     )
-  macro importNode*(module, sym; def) =
-    importNodeImpl(def, module.strVal, sym.strVal)
+  macro importNode*(module, symExpr; def) =
+    let ssym = case symExpr.kind
+    of nnkStrLit, nnkRStrLit, nnkTripleStrLit, nnkIdent: symExpr.strVal  # also allows dotExpr
+    of nnkDotExpr: symExpr[0].strVal & '.' & symExpr[1].strVal
+    else: error "invalid nim node type " & $symExpr.kind; ""
+    importNodeImpl(def, module.strVal, ssym)
