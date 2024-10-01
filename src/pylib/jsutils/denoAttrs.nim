@@ -63,7 +63,7 @@ when defined(js):
   proc importNodeImpl(def: NimNode, module, sym: string): NimNode =
     importByNodeOrDenoImpl(def,
       "require('" & module & "')." & sym,
-      "(await import('" & sym & "'))." & sym 
+      "(await import('" & module & "'))." & sym
     )
   macro importNode*(module, sym; def) =
     importNodeImpl(def, module.strVal, sym.strVal)
