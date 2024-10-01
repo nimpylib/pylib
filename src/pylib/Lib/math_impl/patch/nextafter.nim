@@ -1,6 +1,11 @@
 
 ##[
   translated from https://github.com/scijs/nextafter/blob/master/nextafter.js
+
+  And add respect to the sign of zero, e.g.
+
+  nextafter(-0.0, 0.0) == 0.0
+  nextafter(0.0, -0.0) == -0.0
 ]##
 
 #[
@@ -32,7 +37,7 @@ import ./inWordUtilsMapper
 wu_import fromWords from fromWords
 wu_import toWords from toWords
 
-from std/math import pow, isNaN
+from std/math import pow, classify, FloatClass
 
 const
   UINT_MAX = high uint32
@@ -44,11 +49,17 @@ template SMALLEST_DENORM[T](t: typedesc[T]): T =
   else: {.error: "not impl".}  # XXX: rely on from/toWords, currently they're float64 only
 
 func nextafter*[F](x, y: F): F =
-  if isNaN(x) or isNaN(y):
-    return NaN
+  let
+    xFc = classify x
+    yFc = classify y
+  if xFc == fcNan: return x
+  if yFc == fcNan: return y
+  let x0 = x == 0
   if x == y:
+    if x0 and xFc != yFc:  ## x, y is +-0.0 and their signs differ
+      return y
     return x
-  if x == 0:
+  if x0:
     if y < 0:
       return -F.SMALLEST_DENORM
     else:
