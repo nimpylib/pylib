@@ -252,7 +252,7 @@ elif defined(js):
   func errnoMsg(errnoCode: cint): string =
     doAssert false, "unreachable (see errnoUtils.Errno enum shall be count out)"
 
-func math_is_error*(x: SomeFloat, exc: var ref Exception): bool{.exportc.} =
+func math_is_error*(x: SomeFloat, exc: var ref Exception): bool =
   ##[ inner usage (used by Lib/math).
 
   Call this when errno != 0, and where x is the result libm
