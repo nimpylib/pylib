@@ -32,7 +32,7 @@ when defined(js):
       if def[0][0].kind == nnkPragmaExpr:
         def[0][0][1].add JsPragma
       else:
-        def[0][0] = nnkPragmaExpr.newTree(def[0][0], JsPragma)
+        def[0][0] = nnkPragmaExpr.newTree(def[0][0], nnkPragma.newTree JsPragma)
     of RoutineNodes:
       nodeExpr.add "(@)"; denoExpr.add "(@)"  # add pattern for proc's params
       def.addPragma JsPragma
