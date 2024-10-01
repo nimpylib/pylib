@@ -2,7 +2,12 @@
 
 from ./isX import isnan
 
-proc nextafter*(x, y: float;
+from ./platformUtils import clikeOr, CLike
+import ./patch/nextafter_step as nextafter_stepLib
+
+when CLike:
+ # XXX: union only supports Clike backends
+ proc c_nextafter(x, y: float;
                          usteps: uint64): float =
   ## [clinic input]
   ## math.nextafter
@@ -67,20 +72,27 @@ proc nextafter*(x, y: float;
       let res = pun(i: (uy.i and sign_bit) or (usteps - ax))
       return res.f
     else:
-      dec(ux.i, usteps)
+      ux.i -= usteps
       return ux.f
   elif ax > ay: ##  same sign
     if ax - ay >= usteps:
-      dec(ux.i, usteps)
+      ux.i -= usteps
       return ux.f
     else:
       return uy.f
   else:
     if ay - ax >= usteps:
-      inc(ux.i, usteps)
+      ux.i += usteps
       return ux.f
     else:
       return uy.f
+
+func nextafter*(x, y: float;
+                         usteps: uint64): float =
+  clikeOr(
+    c_nextafter(x, y, usteps),
+    nextafter_stepLib.nextafter(x, y, usteps),
+  )
 
 when culonglong is_not uint64:
   proc nextafter*(x, y: float;
