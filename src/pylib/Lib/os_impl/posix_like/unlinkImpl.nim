@@ -7,8 +7,14 @@ export common
 when InJs:
   proc unlinkSync(path: cstring){.importNode(fs, unlinkSync).}
   proc unlinkImpl*(p: PathLike) =
+    let cs = cstring $p
     catchJsErrAndRaise:
-      unlinkSync cstring $p
+      unlinkSync cs
+    #[ XXX: NIM-BUG: if as follows, when JS, 
+      Error: internal error: genTypeInfo(tyUserTypeClassInst)
+    catchJsErrAndRaise:
+      unlinkSync(cstring($p))
+    ]#
 else:
   when defined(windows):
     template deleteFile(file: untyped): untyped  = deleteFileW(file)
