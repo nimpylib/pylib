@@ -216,7 +216,7 @@ template gen2pointsGetFloat(sym; pypatch: int; listOp; iterOp; oaOp; niterOp){.d
   template sym*[T](p, q: list[T]): float {.pysince(3,pypatch).} =
     bind listOp
     n_math.sym(listOp p, listOp q)
-  template sym*[T](p, q: Iterable[T]): float {.pysince(3,pypatch).} =
+  template sym*[T](p, q: (Iterable[T] and not openarray[T])): float {.pysince(3,pypatch).} =
     bind iterOp
     n_math.sym(iterOp[T](p), iterOp[T](q))
   template sym*[T](p, q: openarray[T]): float {.pysince(3,pypatch).} =
@@ -230,7 +230,7 @@ template asisOp[T](x: T): T = x
 
 gen2pointsGetFloat dist,    8,  `@`,    iterToFloatSeq, asisOp, iterToFloatSeq
 
-gen2pointsGetFloat sumprod ,12, toNimIterator, toNimIterator, toNimIterator, asisOp
+gen2pointsGetFloat sumprod ,12, `@`, toNimIterator, asisOp, asisOp
 
 
 expN hypot

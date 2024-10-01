@@ -45,8 +45,7 @@ template mixin_Multiply_Add[P, Q](res: var float, a: P, b: Q) =
 template n_next[T](p: ClosureIter[T]): T = p()
 template n_iterStopped(p: ClosureIter): bool = finished p
 
-
-func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
+template sumprodImplWithDoEach[P, Q](p_i: P, q_i: Q; body) =
   ## [clinic input]
   ##
   ## Return the sum of products of values from two iterables p and q.
@@ -76,28 +75,13 @@ func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
     #var flt_path_enabled = true
     var flt_total_in_use = false
     var flt_total: TripleLength
-  var
-    p_i: P
-    q_i: Q
-  var
-    p_stopped = false
-    q_stopped = false
 
-  template Ret = return  # return result
-
-  while true:
-    var finished: bool
-    p_i = n_next(p_it)
-    p_stopped = n_iterStopped p_it
-    q_i = n_next(q_it)
-    q_stopped = n_iterStopped q_it
-    if p_stopped != q_stopped:
-      raise newException(ValueError, "Inputs are not the same length")
-    finished = p_stopped and q_stopped
+  template Ret{.inject.} = return  # return result
+  template doEach(finished{.inject.}: bool; Continue){.inject.} =
     when use_int_path:
       if not finished:
         int_total.inc(p_i * q_i)
-        continue
+        Continue
       # We're finished
       result.number_iAdd int_total
       int_total = 0
@@ -119,7 +103,7 @@ func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
           if isfinite(new_flt_total.hi):
             flt_total = new_flt_total
             flt_total_in_use = true
-            continue
+            Continue
           push_flt_total
         when p_type_float and q_type_float:
           gen_flt_fast_path PyFloat_AS_DOUBLE, PyFloat_AS_DOUBLE
@@ -142,5 +126,43 @@ func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
         push_flt_total
         Ret
 
+  body
+
+template raiseNotSameLen =
+  raise newException(ValueError, "Inputs are not the same length")
+
+template Continue = continue
+
+func sumprod*[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float =
+  var
+    p_i: P
+    q_i: Q
+  var
+    finished: bool
+    p_stopped = false
+    q_stopped = false
+  sumprodImplWithDoEach(p_i, q_i):
+    while true:
+      p_i = n_next(p_it)
+      p_stopped = n_iterStopped p_it
+      q_i = n_next(q_it)
+      q_stopped = n_iterStopped q_it
+      if p_stopped != q_stopped:
+        raiseNotSameLen
+      finished = p_stopped and q_stopped
+      doEach finished, Continue
+
 func sumprod*[P, Q](p: openarray[P]; q: openarray[Q]): float =
-  sumprod(p.toNimIterator[P](), q.toNimIterator[Q]())
+  ## a faster version for openarray than that for ClosureIter
+  var
+    p_i: P
+    q_i: Q
+  sumprodImplWithDoEach(p_i, q_i):
+    let le = p.len
+    if le != q.len:
+      raiseNotSameLen
+    for i in 0..<le:
+      p_i = p[i]
+      q_i = q[i]
+      doEach finished=false, Continue
+    doEach finished=true, Ret
