@@ -1,7 +1,7 @@
 
 
 when defined(js):
-  from ./common import catchJsErrAsCode
+  from ./common import catchJsErrAsCode, catchJsErrAndRaise, PathLike
   import ./posix_like/jsStat
   template existsWrap(existsX, isX) =
     proc existsX*(d: string): bool =
@@ -20,8 +20,11 @@ when defined(js):
   template gen_getxtime(getxtime) =
     proc getxtime*(p: PathLike): float =
       var s: Stat
-      let err = catchJsErrAndRaise :
-        s = statSync(cstring d)
+      catchJsErrAndRaise:
+        s = statSync(cstring p)
       s.getxtime
+  gen_getxtime getctime
+  gen_getxtime getmtime
+  gen_getxtime getatime
 
 
