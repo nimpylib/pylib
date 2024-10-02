@@ -1,4 +1,6 @@
+
 import std/math
+from ./pyerrors/aritherr import ZeroDivisionError
 
 
 # Power templates for different types of arguments
@@ -57,9 +59,6 @@ template `/`*(x: SomeInteger, y: SomeInteger): float = system.`/`(float(x), floa
 # Nim is static-typed, but `/=` will cause lhs convert from int to float
 # template `/=`*(x: var SomeInteger, y: SomeInteger)  
 
-type
-  ArithmeticError* = object of CatchableError
-  ZeroDivisionError* = object of ArithmeticError
 
 template zeRaise(x) =
   if x == typeof(x)(0):

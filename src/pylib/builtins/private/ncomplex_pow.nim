@@ -6,6 +6,7 @@ from ../../Lib/math_impl/isX import isnan, isinf, isfinite
 from ../../Lib/math_impl/errnoUtils import prepareRWErrno, setErrno, setErrno0, isErr, isErr0,
   ERANGE, EDOM
 from ./pycore_pymath import Py_ADJUST_ERANGE2
+from ../../pyerrors/aritherr import ZeroDivisionError
 
 template opt_ARM64_patch(s) =
   ##  Avoid bad optimization on Windows ARM64 until the compiler is fixed
