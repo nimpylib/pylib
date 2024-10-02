@@ -9,7 +9,7 @@ import pylib/private/trans_imp
 
 impExp pylib,
   noneType, pybool, builtins,
-  numTypes, ops,
+  numTypes, ops, pyerrors,
   pystring, pybytes, pybytearray,
   pysugar
 
