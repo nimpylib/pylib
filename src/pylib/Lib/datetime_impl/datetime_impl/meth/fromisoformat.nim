@@ -42,7 +42,7 @@ func parse_isoformat_date(dtstr; len: int, ymd: var YMD): int =
      -4:  Failed to parse ISO day.
      raises ValueError: Failure in iso_to_ymd]##
   var parsed = 0
-  template parseOr(res: var int; n: int; elseDo) =
+  template parseOr(res: var SomeInteger; n: int; elseDo) =
     parseOr(res, n, parsed, dtstr): elseDo
   ymd.year.parseOr(4):
     return -1
@@ -91,7 +91,7 @@ func parse_hh_mm_ss_ff(arr: openArray[char], hms: var HMS, us: var US,
   let hi = arr.high
   # Parse [HH[:?MM[:?SS]]]
   var idx = 0
-  template parseOr(res: var int, n: int; elseDo) =
+  template parseOr(res: var SomeInteger, n: int; elseDo) =
     parseOr(res, n, idx, arr): elseDo
   template chkBound =
     if idx >= hi:
