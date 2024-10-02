@@ -67,7 +67,13 @@ suite "complex.__init__(str)":
       # See bpo-34087
       assertRaises(ValueError, complex, "\u3053\u3093\u306b\u3061\u306f")
 
-  test "negative_nans_from_string":
+  when not defined(js):
+    # V8 derived JS runtime like node/deno doesn't reservse NANs' bit representation.
+    # when it comes to `Array`, all NANs becomes `NaN` (signbit is 0);
+    # To make it a problem, Nim implements `var` param just by passing arg as an Array.
+    # So we say JS backend cannot confirm the signbit is right.
+    # Here is code demo: https://gist.github.com/litlighilit/e05f3d7c59b69b753f2f77a6ad72467d
+    test "negative_nans_from_string":
       assertEqual(copysign(1.0, complex("nan").real), 1.0)
       assertEqual(copysign(1.0, complex("-nan").real), -1.0)
       assertEqual(copysign(1.0, complex("-nanj").imag), -1.0)
