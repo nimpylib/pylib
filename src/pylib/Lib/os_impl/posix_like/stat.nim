@@ -171,7 +171,8 @@ when defined(js):
         when path is int:
           fstatSync(path.cint)
         else:
-          statSync cstring $path
+          let cs = cstring($path)
+          statSync(cs)
 
 else:
   proc statFor(st: var Stat, path: int|PathLike) =

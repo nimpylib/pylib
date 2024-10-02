@@ -4,6 +4,17 @@ importTestPyLib os
 
 suite "Lib/os with no JS support":
   const fn = "tempfiletest"
+  test "mkdir rmdir":
+    ## XXX: TODO: js's op currently only raises OSError itself
+    const invalidDir = "No one will name such a dir"
+    checkpoint "rmdir"
+    expect FileNotFoundError:
+      os.rmdir(invalidDir)
+
+    checkpoint "mkdir"
+    expect FileNotFoundError:
+      # parent dir is not found
+      os.mkdir(invalidDir + os.sep + "non-file")
   test "open fdopen close":
     
     template open(fd: int, s: string): untyped{.used.} =  # this won't be called

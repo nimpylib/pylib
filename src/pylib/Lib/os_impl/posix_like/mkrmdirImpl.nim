@@ -5,11 +5,13 @@ when InJs:
   proc rmdirSync(path: cstring){.importNode(fs, rmdirSync).}
   proc mkdirSync(path: cstring, mode: cint){.importNode(fs, mkdirSync).}
   proc rawRemoveDir*(dp: PathLike) =
+    let cs = cstring $dp
     catchJsErrAndRaise:
-      rmdirSync cstring $dp
+      rmdirSync(cs)
   proc rawCreateDir*(dp: PathLike, mode=0o777) =
+    let cs = cstring($dp)
     catchJsErrAndRaise:
-      mkdirSync(cstring $dp, cint mode)
+      mkdirSync(cs, cint mode)
 
 else:
   include ./ncommon
