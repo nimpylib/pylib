@@ -16,7 +16,7 @@ template prepareROErrno*{.dirty.} =
   discard
 
 type Errno*{.pure.} = enum
-  EDOM
+  EDOM = 1  # XXX: cannot be 0
   ERANGE
 
 template eno(E) =
