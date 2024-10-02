@@ -17,11 +17,8 @@ else:
     ## 
     ## but most of the nodejs's api is for async...
     {.emit:"""
-  const start = new Date().getTime();
-  let currentTime;
-  do {
-    currentTime = new Date().getTime();
-  } while (currentTime - start < `milsecs`);
+  var __nimpylib_temp_waitTill = new Date(new Date().getTime() + `milsecs`);
+  while (__nimpylib_temp_waitTill >= new Date()){}
     """.}
 template sleep*(s: int|float) =
   ## raises ValueError if s < 0
