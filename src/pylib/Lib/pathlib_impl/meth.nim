@@ -2,9 +2,22 @@
 
 import ./types
 import std/os
+when defined(js):
+  from ../os_impl/osjsPatch import fileExists, dirExists, symlinkExists
+
 import std/strutils
 
 using self: types.Path
+
+func `/`*(self; p: string): Path = self / Path($p)
+func `/`*(p: string; self): Path = Path(p) / self
+
+func `/=`*(head: var Path, tail: string): Path = head = head / tail
+
+func joinpath*[P: string](self; pathsegments: varargs[P]): Path =
+  result = self
+  for i in pathsegments:
+    result = result / i
 
 proc is_relative_to*(self; other: string): bool =
   isRelativeTo($self, other)
@@ -38,16 +51,6 @@ func as_uri*(self): Path =
 func samefile*(self; other_path: string|Path): bool =
   sameFile($self, $other_path)
 
-func `/`*(head: string, tail: Path): Path = Path(head) / tail
-func `/`*(head: Path, tail: string): Path = head / Path(tail)
-
-func `/=`*(head: var Path, tail: string): Path = head = head / Path(tail)
-
-func joinpath*[P: string|Path](self; pathsegments: varargs[P]): Path =
-  result = self
-  for i in pathsegments:
-    result = result / i
-
 proc cwd*(_: typedesc[Path]): Path = Path getCurrentDir()
 proc home*(_: typedesc[Path]): Path = Path getHomeDir()
 
@@ -76,7 +79,10 @@ proc iterdir*(self): IterDirGenerator =
       yield i
   )
 
-proc mkdirParentsExistsOk*(self) =
-  ## EXT.  equal to `path.mkdir(parents=True, exists_ok=True)`
-  createDir $self
+when not defined(js):
+  proc mkdirParentsExistsOk*(self) =
+    ## EXT.  equal to `path.mkdir(parents=True, exists_ok=True)`
+    ##
+    ## not for JS backend
+    createDir $self
 

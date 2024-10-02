@@ -52,10 +52,9 @@ proc Path*[P: PathLike](pathsegments: varargs[P]): types.Path =
   for i in pathsegments:
     result = result / i
 
-func `/`*(self; p: PathLike): Path = self / Path($p)
-func `/`*(p: PathLike; self): Path = Path($p) / self
-
-func `/=`*(head: var Path, tail: PathLike): Path = head = head / Path($tail)
+func `/`*(self; p: PathLike): Path = n_pathlib.`/` self, $p
+func `/`*(p: PathLike; self): Path = n_pathlib.`/` $p, self
+func `/=`*(head: var Path, tail: PathLike): Path = n_pathlib.`/=` head, tail
 
 func joinpath*[P: PathLike](self; pathsegments: varargs[P]): Path =
   result = self
@@ -95,9 +94,6 @@ proc hardlink_to*(self; target: string|Path){.pysince(3,10).} =
 static:assert pathlib.Path is_not string, "this avoids recusive call(dead loop)"
 # following implementations rely on this assertion
 
-proc unlink*(self) =
-  ## for missing_ok==False
-  unlink $self
 
 proc unlink*(self; missing_ok: bool) =
   if not missing_ok:
@@ -124,7 +120,7 @@ proc mkdirParents(self; exist_ok=false) =
   if not exist_ok and existsOrCreateDir $self:
     raiseExcWithPath $self
 
-proc mkdir*(self; mode = 0o777, parents: bool, exist_ok=false) =
+proc mkdir*(self; mode = 0o777; parents, exist_ok=false) =
   if parents:
     self.mkdirParents exist_ok
   else:
@@ -138,27 +134,7 @@ proc mkdir*(self; mode = 0o777, parents: bool, exist_ok=false) =
 
 proc rmdir*(self) = os.rmdir $self
 
-proc touch*(self; mode=0o666, exist_ok=true) =
-    ## Create this file with the given access mode, if it doesn't exist.
-    
-    let s = $self
-    if exist_ok:
-        # First try to bump modification time
-        # Implementation note: GNU touch uses the UTIME_NOW option of
-        # the utimensat() / futimens() functions.
-        try:
-            os.utime(s)
-            return
-        except OSError:
-            # Avoid exception chaining
-            discard
-    var flags = os.O_CREAT | os.O_WRONLY
-    if not exist_ok:
-        flags |= os.O_EXCL
-    let fd = os.open(s, flags, mode)
-    os.close(fd)
 
-proc stat*(self): stat_result = stat($self)
 
 # TODO: stat(..., follow_symlinks), see os
 # and exists
