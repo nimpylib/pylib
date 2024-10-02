@@ -350,7 +350,8 @@ suite "float":
         for _ in range(10000):
             var f = rand 1.0
             f *= pow(10.0, float rand(2 .. 10))
-            let (n, d) = f.as_integer_ratio()
+            #let (n, d) = f.as_integer_ratio()
+            let (n, d) = as_someinteger_ratio[BiggestInt](f) # if using as_integer_ratio when JS, will raise OverflowDefect
             check almostEqual(n/d, f, unitsInLastPlace=5)
 
         check (0, 1) == float(0.0).as_integer_ratio()

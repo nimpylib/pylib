@@ -27,18 +27,22 @@ func as_integer_ratio_check(self: float){.inline.} =
   if fc == fcNan: raise newException(ValueError,
       "cannot convert NaN to integer ratio")
 
-func as_integer_ratio*(self: float,
-                 n: int = high(int) shr (sizeof(int) div 2 * 8)): (int, int) =
+template halfHigh[I]: untyped = high(I) shr (sizeof(I) div 2 * 8)
+
+func as_someinteger_ratio*[I: SomeInteger](self: float,
+                 n = halfHigh[I]): (I, I) =
+  ## EXT.
   ## Calculates the best rational approximation of `x`,
   ## where the denominator is smaller than `n`
-  ## (default is the largest possible `int` for maximal resolution),
+  ## (default is the largest possible `I` for maximal resolution),
   ##
   ## The algorithm is from `toRational` of std/rationals,
+  ## based on `the theory of continued fractions. David Eppstein /
+  ## UC Irvine / 8 Aug 1993<https://ics.uci.edu/~eppstein/numth/frap.c>`_ ,
   ## but raises ValueError or OverflowDefect if x is NaN or Infinity.
   ##
   ##  .. hint:: due to lack of arbitrary length integers,
   ##   its accuracy is not as high as Python's
-
   self.as_integer_ratio_check()
   let
     self_neg = self < 0.0
@@ -48,9 +52,9 @@ func as_integer_ratio*(self: float,
       if self_neg: -self
       else: self
   var
-    m11, m22 = 1
-    m12, m21 = 0
-    ai = int(abs_self)
+    m11, m22: I = 1
+    m12, m21: I = 0
+    ai = I(abs_self)
     x = abs_self
   while m21 * ai + m22 <= n:
     swap m12, m11
@@ -59,11 +63,16 @@ func as_integer_ratio*(self: float,
     m21 = m22 * ai + m21
     if x == float(ai): break # division by zero
     x = 1 / (x - float(ai))
-    if x > float(high(int32)): break # representation failure
-    ai = int(x)
+    if x > float(halfHigh[I]): break # representation failure
+    ai = I(x)
   if self_neg:
     m11 = -m11
   result = (m11, m21)
+
+func as_integer_ratio*(self: float,
+                 n = halfHigh[int]): (int, int) =
+  ## see `as_someinteger_ratio`_
+  as_someinteger_ratio[int] self, n
 
 func checked_as_integer_ratio*(self: float): (int, int) =
   ## EXT.
