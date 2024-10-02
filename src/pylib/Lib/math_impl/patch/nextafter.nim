@@ -41,12 +41,14 @@ from std/math import pow, classify, FloatClass
 
 const
   UINT_MAX = high uint32
-  dbl_SMALLEST_DENORM = pow(2.0, -1074)
-  #flt_SMALLEST_DENORM = pow(2, )
+
+  # 2 ^ (1-BIAS-N_frac)
+  dbl_SMALLEST_DENORM = cast[float64](1u64) ## pow(2.0, -1074) a.k.a.  2^(1 - 1023 - 52)
+  flt_SMALLEST_DENORM = cast[float32](1u32) ## pow(2f,  -149)  a.k.a.  2^(1 - 127  - 23)
 
 template SMALLEST_DENORM[T](t: typedesc[T]): T =
   when T is float64: dbl_SMALLEST_DENORM
-  else: {.error: "not impl".}  # XXX: rely on from/toWords, currently they're float64 only
+  else: flt_SMALLEST_DENORM
 
 func nextafter*[F](x, y: F): F =
   let
