@@ -1,5 +1,8 @@
 
-const SupportIteratorHit = (NimMajor, NimMinor, NimPatch) >= (2, 1, 2)
+const
+  NimVer = (NimMajor, NimMinor, NimPatch)
+  ## ? not sure
+  SupportIteratorHit = NimVer >= (2, 1, 2) and NimVer < (2, 1, 9)
 
 const ItemTypeMode = typeOfIter
 type
