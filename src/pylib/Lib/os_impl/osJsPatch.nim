@@ -1,6 +1,7 @@
 
 
 when defined(js):
+  import std/jsffi
   from ./common import catchJsErrAsCode, catchJsErrAndRaise, PathLike
   import ./posix_like/jsStat
   template existsWrap(existsX, isX) =
@@ -17,14 +18,16 @@ when defined(js):
   # easy to impl getCreationTime, etc.
   # but that'll introduce the conversions between `DateTime`, which is no need,
   # we just impl the used `get?time`
-  template gen_getxtime(getxtime) =
+  func valueOf(obj: Date): c_double{.importcpp.}
+  template gen_getxtime(getxtime, attr) =
     proc getxtime*(p: PathLike): float =
       var s: Stat
+      let cs = cstring($p)
       catchJsErrAndRaise:
-        s = statSync(cstring p)
-      s.getxtime
-  gen_getxtime getctime
-  gen_getxtime getmtime
-  gen_getxtime getatime
+        s = statSync(cs)
+      s.attr.valueOf() / 1000
+  gen_getxtime getctime, ctime
+  gen_getxtime getmtime, mtime
+  gen_getxtime getatime, atime
 
 

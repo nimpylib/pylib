@@ -43,18 +43,18 @@ when InJs:
   impStatIAttr st_blocks, blocks, Blkcnt
   impStatIAttr st_blksize,blksize,Blksize
 
-  func rawValueOf(obj: JsObject): JsObject{.importjs: "(#).valueOf()".}
-  template chkDate(obj: JsObject) =
+  func rawValueOf(obj: Date): c_double{.importjs: "(#).valueOf()".}
+  template chkDate(obj: Date) =
     if obj.isNull:  # may be null on some platform
       raise newException(OSError,
         "get date from stat_result is supported in your platform")
-  func dateToSec(obj: JsObject): float =
+  func dateToSec(obj: Date): float =
     # the number of milliseconds for this date since the epoch
     chkDate obj
-    obj.rawValueOf().to(cdouble).float / 1000
-  func dateToNs(obj: JsObject): BiggestInt =
+    obj.rawValueOf().float / 1000
+  func dateToNs(obj: Date): BiggestInt =
     chkDate obj
-    BiggestInt obj.rawValueOf().to(cdouble)
+    BiggestInt obj.rawValueOf()
 
 
 else:

@@ -1,9 +1,13 @@
 
 when defined(js):
   import std/jsffi
+  import std/jscore
+  type Date* = DateTime
   from ../common import importNode
   const InNode = defined(nodejs)
-  type Stat*#[{.importByNodeOrDeno("require('fs').Stats", "Deno.FileInfo").}]# = JsObject
+  type Stat*#[{.importByNodeOrDeno("require('fs').Stats", "Deno.FileInfo").}]# = ref object of JsObject
+    ## Stat in node, FileInfo in deno
+    ctime*, mtime*, atime*: Date
   using self: Stat
   template impIsXNoNull(isX; isMeth = InNode){.dirty.} =
     ## `is*` is method in NodeJs but attr in Deno.

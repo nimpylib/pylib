@@ -18,8 +18,14 @@ type
     stat_res: ref stat_result
 
 when InJs:
+  type HasIsX = JsObject
+  template impIsX(isX){.dirty.} =
+    func isX(self: HasIsX): bool{.importcpp.}
+  impIsX isFile
+  impIsX isDirectory
+  impIsX isSymbolicLink
   type DirEntry*[T] = ref object of DirEntryImpl[T]
-    statObj: Stat
+    statObj: HasIsX
 else:
   type DirEntry*[T] = ref object of DirEntryImpl[T]
     kind: PathComponent
@@ -102,8 +108,9 @@ template scandirImpl(path){.dirty.} =
   let spath = $path
   when defined(js):
     var dir: Dir
+    let cs = cstring($path)
     catchJsErrAndRaise:
-      dir = opendirSync(cstring $path)
+      dir = opendirSync(cs)
     var dirent: Dirent
     while true:
       dirent = dir.readdirSync()
