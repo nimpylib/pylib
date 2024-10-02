@@ -11,9 +11,12 @@ when defined(js):
     HIGHv = 0; # first index
     LOWv = 1; # second index
 
-  let
-    HIGH* = HIGHv
-    LOW* = LOWv
+  template HIGH*: cint =
+    when nimvm: int(isLittleEndian())
+    else: HIGHv
+  template LOW*: cint =
+    when nimvm: int(not isLittleEndian())
+    else: LOWv
   template accessHighLow*(body) =
     {.noSideEffect.}:
       body
