@@ -11,15 +11,17 @@ when defined(js):
     # in fact flags, mode is optional and accepts cstring, but we don't need such variants here
     proc closeSync(fd: cint){.importjs: "require('fs').closeSync(@)".}
     proc c_close(fd: cint): int =
-      catchJsErrAsCode "require('fs').closeSync(`fd`)"
+      catchJsErrAsCode require("fs").closeSync(fd)
 
     proc c_close(fd: cint, msg: var string): int =
       ## compat close
-      catchJsErrAsCode msg, "require('fs').closeSync(`fd`)"
+      catchJsErrAsCode msg, require("fs").closeSync(fd)
   else:
+    const openNotImpl = "not impl for non-nodejs JS engine"
     proc openSync(path: cstring, flags, mode: cint): cint{.error:
-      "not impl for non-nodejs JS engine".}
+      openNotImpl.}
     # XXX: Deno.openSync returns FsFile instead of integer
+    proc c_close(fd: cint, msg: var string): int{.error: openNotImpl.}
 
 else:
   let EINTR{.importc, header: "<errno.h>".}: cint
@@ -63,7 +65,7 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
       m = mode.cint
     var result_cint: cint
     let err = catchJsErrAsCode msg:
-      "`result_cint` = openSync(`p`, `f`, `m`)"
+      result_cint = openSync(p, f, m)
     if err != 0:
       raiseErrno err, msg
     result = int result_cint
