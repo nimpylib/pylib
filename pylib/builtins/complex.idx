@@ -48,11 +48,11 @@ nim	pow	pylib/builtins/complex.html#pow.t,PyTComplex[T],staticNatural	template p
 nim	pow	pylib/builtins/complex.html#pow.t,PyTComplex[T],int	template pow[T](self: PyTComplex[T]; x: int): PyTComplex[T]		256
 nim	`**`	pylib/builtins/complex.html#**.t,PyTComplex[T],ComplexPowSecondParamType[T]	template `**`[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]): PyTComplex[T]		261
 nim	NimHasBindOverloadSymBugForComplexPow	pylib/builtins/complex.html#NimHasBindOverloadSymBugForComplexPow	const NimHasBindOverloadSymBugForComplexPow		265
-nim	`**`	pylib/builtins/complex.html#**.t,PyTComplex[T],PyComplex	template `**`[T](self: PyTComplex[T]; x: PyComplex): PyTComplex[T]		268
-nim	`**`	pylib/builtins/complex.html#**.t,PyTComplex[T],int	template `**`[T](self: PyTComplex[T]; x: int): PyTComplex[T]		271
-nim	`**=`	pylib/builtins/complex.html#**=,PyTComplex[T],ComplexPowSecondParamType[T]	proc `**=`[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T])		275
-nim	pow	pylib/builtins/complex.html#pow.t,PyTComplex[T],ComplexPowSecondParamType[T],NoneType	template pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]; _: NoneType): PyTComplex[\n    T]		279
-nim	`'j`	pylib/builtins/complex.html#'j,staticstring	proc `'j`(s: static string): PyComplex		283
+nim	`**`	pylib/builtins/complex.html#**.t,PyTComplex[T],PyComplex	template `**`[T](self: PyTComplex[T]; x: PyComplex): PyTComplex[T]		270
+nim	`**`	pylib/builtins/complex.html#**.t,PyTComplex[T],int	template `**`[T](self: PyTComplex[T]; x: int): PyTComplex[T]		273
+nim	`**=`	pylib/builtins/complex.html#**=,PyTComplex[T],ComplexPowSecondParamType[T]	proc `**=`[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T])		277
+nim	pow	pylib/builtins/complex.html#pow.t,PyTComplex[T],ComplexPowSecondParamType[T],NoneType	template pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]; _: NoneType): PyTComplex[\n    T]		281
+nim	`'j`	pylib/builtins/complex.html#'j,staticstring	proc `'j`(s: static string): PyComplex		285
 nimgrp	complex	pylib/builtins/complex.html#complex-procs-all	proc		87
 nimgrp	pycomplex	pylib/builtins/complex.html#pycomplex-templates-all	template		82
 nimgrp	/	pylib/builtins/complex.html#/-templates-all	template		216
