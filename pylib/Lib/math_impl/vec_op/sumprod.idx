@@ -1,4 +1,4 @@
 nimTitle	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html	module src/pylib/Lib/math_impl/vec_op/sumprod		0
-nim	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod,ClosureIter[P],ClosureIter[Q]	proc sumprod[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float		49
-nim	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod,openArray[P],openArray[Q]	proc sumprod[P, Q](p: openArray[P]; q: openArray[Q]): float		145
-nimgrp	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod-procs-all	proc		49
+nim	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod,ClosureIter[P],ClosureIter[Q]	proc sumprod[P, Q](p_it: ClosureIter[P]; q_it: ClosureIter[Q]): float		136
+nim	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod,openArray[P],openArray[Q]	proc sumprod[P, Q](p: openArray[P]; q: openArray[Q]): float		155
+nimgrp	sumprod	pylib/Lib/math_impl/vec_op/sumprod.html#sumprod-procs-all	proc		136

@@ -88,9 +88,9 @@
   <dt><pre><span class="Keyword">func</span> <a href="#sumprod%2CopenArray%5BP%5D%2CopenArray%5BQ%5D"><span class="Identifier">sumprod</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">,</span> <span class="Identifier">Q</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">P</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">q</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">Q</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L145" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L145" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    a faster version for openarray than that for ClosureIter
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L155" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L155" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -98,14 +98,9 @@
   <dt><pre><span class="Keyword">func</span> <a href="#sumprod%2CClosureIter%5BP%5D%2CClosureIter%5BQ%5D"><span class="Identifier">sumprod</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">,</span> <span class="Identifier">Q</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p_it</span><span class="Other">:</span> <a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">P</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">q_it</span><span class="Other">:</span> <a href="niter_types.html#ClosureIter"><span class="Identifier">ClosureIter</span></a><span class="Other">[</span><span class="Identifier">Q</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
   <dd>
     
-    <p><a class="reference internal" href="#clinic input">clinic input</a></p>
-<p>Return the sum of products of values from two iterables p and q.</p>
-<p>Roughly equivalent to:</p>
-<pre>sum(itertools.starmap(operator.mul, zip(p, q, strict=True)))</pre>
-<p>For float and mixed int/float inputs, the intermediate products and sums are computed with extended precision. <a class="reference internal" href="#clinic start generated code">clinic start generated code</a> <a class="reference internal" href="#clinic end generated code: output=6722dbfe60664554 input=82be54fe26f87e30">clinic end generated code: output=6722dbfe60664554 input=82be54fe26f87e30</a></p>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/vec_op/sumprod.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -121,7 +116,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-29 19:31:39 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-02 18:25:02 UTC</small>
       </div>
     </div>
   </div>

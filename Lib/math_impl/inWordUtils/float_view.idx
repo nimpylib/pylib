@@ -1,0 +1,9 @@
+nimTitle	float_view	math_impl/inWordUtils/float_view.html	module src/pylib/Lib/math_impl/inWordUtils/float_view		0
+nim	`[]`	math_impl/inWordUtils/float_view.html#[],VIEW64,range[]	proc `[]`(fv: VIEW64; _: range[0 .. 0]): float64		34
+nim	`[]=`	math_impl/inWordUtils/float_view.html#[]=,VIEW64,range[],float64	proc `[]=`(fv: var VIEW64; _: range[0 .. 0]; f: float64)		37
+nim	`[]`	math_impl/inWordUtils/float_view.html#[],VIEW32,range[]	proc `[]`(fv: VIEW32; _: range[0 .. 0]): float32		34
+nim	`[]=`	math_impl/inWordUtils/float_view.html#[]=,VIEW32,range[],float32	proc `[]=`(fv: var VIEW32; _: range[0 .. 0]; f: float32)		38
+nim	init64FloatView	math_impl/inWordUtils/float_view.html#init64FloatView.t,,	template init64FloatView(FLOAT64_VIEW, UINT32_VIEW)		41
+nim	init32FloatView	math_impl/inWordUtils/float_view.html#init32FloatView.t,,	template init32FloatView(FLOAT32_VIEW, UINT16_VIEW)		45
+nimgrp	[]=	math_impl/inWordUtils/float_view.html#[]=-procs-all	proc		35
+nimgrp	[]	math_impl/inWordUtils/float_view.html#[]-procs-all	proc		34

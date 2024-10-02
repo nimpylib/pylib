@@ -1,0 +1,2 @@
+nimTitle	touch	os_impl/touch.html	module src/pylib/Lib/os_impl/touch		0
+nim	touch	os_impl/touch.html#touch,string,int	proc touch(s: string; mode = 0o000000000666; exist_ok = true)		5

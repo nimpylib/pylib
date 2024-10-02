@@ -1,0 +1,3 @@
+nimTitle	assertIsLittleEndian	math_impl/inWordUtils/assertIsLittleEndian.html	module src/pylib/Lib/math_impl/inWordUtils/assertIsLittleEndian		0
+nim	compileLittleEndian	math_impl/inWordUtils/assertIsLittleEndian.html#compileLittleEndian	const compileLittleEndian		2
+nim	isLittleEndian	math_impl/inWordUtils/assertIsLittleEndian.html#isLittleEndian	proc isLittleEndian(): bool		9

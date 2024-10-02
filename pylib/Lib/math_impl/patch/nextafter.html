@@ -72,11 +72,14 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc">translated from <a class="reference external" href="https://github.com/scijs/nextafter/blob/master/nextafter.js">https://github.com/scijs/nextafter/blob/master/nextafter.js</a> </p>
+    <p class="module-desc"><p>translated from <a class="reference external" href="https://github.com/scijs/nextafter/blob/master/nextafter.js">https://github.com/scijs/nextafter/blob/master/nextafter.js</a></p>
+<p>And add respect to the sign of zero, e.g.</p>
+<p>nextafter(-0.0, 0.0) == 0.0 nextafter(0.0, -0.0) == -0.0 </p>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="ldexp_frexp/fromWords.html">ldexp_frexp/fromWords</a>, <a class="reference external" href="ldexp_frexp/toWords.html">ldexp_frexp/toWords</a>
+    <a class="reference external" href="inWordUtilsMapper.html">inWordUtilsMapper</a>, <a class="reference external" href="../inWordUtils/fromWords.html">../inWordUtils/fromWords</a>, <a class="reference external" href="../inWordUtils/toWords.html">../inWordUtils/toWords</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -88,8 +91,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/patch/nextafter.nim#L43" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/patch/nextafter.nim#L43" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/patch/nextafter.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/patch/nextafter.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -105,7 +108,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-09-29 19:31:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-02 18:24:28 UTC</small>
       </div>
     </div>
   </div>

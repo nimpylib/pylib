@@ -1,0 +1,3 @@
+nimTitle	aritherr	_._/pyerrors/aritherr.html	module src/pylib/pyerrors/aritherr		0
+nim	ArithmeticError	_._/pyerrors/aritherr.html#ArithmeticError	object ArithmeticError		3
+nim	ZeroDivisionError	_._/pyerrors/aritherr.html#ZeroDivisionError	object ZeroDivisionError		4

@@ -1,2 +1,0 @@
-nimTitle	assertIsLittleEndian	pylib/Lib/math_impl/patch/ldexp_frexp/assertIsLittleEndian.html	module src/pylib/Lib/math_impl/patch/ldexp_frexp/assertIsLittleEndian		0
-nim	isLittleEndian	pylib/Lib/math_impl/patch/ldexp_frexp/assertIsLittleEndian.html#isLittleEndian	proc isLittleEndian(): bool		4

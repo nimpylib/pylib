@@ -1,0 +1,4 @@
+nimTitle	fromWords	math_impl/inWordUtils/fromWords.html	module src/pylib/Lib/math_impl/inWordUtils/fromWords		0
+nim	fromWords	math_impl/inWordUtils/fromWords.html#fromWords,uint32,uint32	proc fromWords(high, low: uint32): float		6
+nim	fromWords	math_impl/inWordUtils/fromWords.html#fromWords,uint16,uint16	proc fromWords(high, low: uint16): float32		17
+nimgrp	fromwords	math_impl/inWordUtils/fromWords.html#fromWords-procs-all	proc		6

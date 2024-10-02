@@ -1,0 +1,6 @@
+nimTitle	consts	pylib/Lib/math_impl/inWordUtils/consts.html	module src/pylib/Lib/math_impl/inWordUtils/consts		0
+nim	BIAS	pylib/Lib/math_impl/inWordUtils/consts.html#BIAS	const BIAS		3
+nim	MAX_SUBNORMAL_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MAX_SUBNORMAL_EXPONENT	const MAX_SUBNORMAL_EXPONENT		4
+nim	MIN_SUBNORMAL_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MIN_SUBNORMAL_EXPONENT	const MIN_SUBNORMAL_EXPONENT		5
+nim	MAX_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MAX_EXPONENT	const MAX_EXPONENT		6
+nim	CLEAR_EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#CLEAR_EXP_MASK	const CLEAR_EXP_MASK		8

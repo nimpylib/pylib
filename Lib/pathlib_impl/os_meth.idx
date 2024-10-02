@@ -1,0 +1,4 @@
+nimTitle	os_meth	pathlib_impl/os_meth.html	module src/pylib/Lib/pathlib_impl/os_meth		0
+nim	touch	pathlib_impl/os_meth.html#touch,,int	proc touch(self: Path; mode = 0o000000000666; exist_ok = true)		10
+nim	unlink	pathlib_impl/os_meth.html#unlink	proc unlink(self: Path)		14
+nim	stat	pathlib_impl/os_meth.html#stat	proc stat(self: Path): stat_result		18

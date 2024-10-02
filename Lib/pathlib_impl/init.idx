@@ -1,2 +1,2 @@
 nimTitle	init	pathlib_impl/init.html	module src/pylib/Lib/pathlib_impl/init		0
-nim	Path	pathlib_impl/init.html#Path,varargs[P]	proc Path[P: Path | string](pathsegments: varargs[P]): types.Path		4
+nim	Path	pathlib_impl/init.html#Path,varargs[P]	proc Path[P](pathsegments: varargs[P]): types.Path		4

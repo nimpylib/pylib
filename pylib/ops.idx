@@ -1,36 +1,34 @@
 nimTitle	ops	pylib/ops.html	module src/pylib/ops		0
-nim	`**`	pylib/ops.html#**.t,T,Natural	template `**`[T](a: T; b: Natural): T		5
-nim	`**`	pylib/ops.html#**.t,T,static[int]	template `**`[T: SomeNumber](a: T; b: static[int]): int | float		15
-nim	`**`	pylib/ops.html#**.t,T,T	template `**`[T: SomeFloat](a, b: T): T		28
-nim	`**`	pylib/ops.html#**.t,A,B	template `**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A		29
-nim	`**`	pylib/ops.html#**.t,A,B_2	template `**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B		30
-nim	`**=`	pylib/ops.html#**=.t,SomeNumber,SomeNumber	template `**=`(a: var SomeNumber; b: SomeNumber)		32
-nim	`>>`	pylib/ops.html#>>.t,I,I	template `>>`[I: SomeInteger](a, b: I): I		35
-nim	`<<`	pylib/ops.html#<<.t,I,I	template `<<`[I: SomeInteger](a, b: I): I		36
-nim	`>>=`	pylib/ops.html#>>=.t,I,I	template `>>=`[I: SomeInteger](a, b: I)		38
-nim	`<<=`	pylib/ops.html#<<=.t,I,I	template `<<=`[I: SomeInteger](a, b: I)		39
-nim	`<`	pylib/ops.html#<.t,A,B	template `<`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		43
-nim	`<`	pylib/ops.html#<.t,A,B_2	template `<`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		44
-nim	`<=`	pylib/ops.html#<=.t,A,B	template `<=`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		46
-nim	`<=`	pylib/ops.html#<=.t,A,B_2	template `<=`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		47
-nim	`==`	pylib/ops.html#==.t,A,B	template `==`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		49
-nim	`==`	pylib/ops.html#==.t,A,B_2	template `==`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		50
-nim	`<>`	pylib/ops.html#<>.t,A,B	template `<>`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		52
-nim	`<>`	pylib/ops.html#<>.t,A,B_2	template `<>`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		53
-nim	`/`	pylib/ops.html#/.t,SomeInteger,SomeInteger	template `/`(x: SomeInteger; y: SomeInteger): float		55
-nim	ArithmeticError	pylib/ops.html#ArithmeticError	object ArithmeticError		61
-nim	ZeroDivisionError	pylib/ops.html#ZeroDivisionError	object ZeroDivisionError		62
-nim	`%`	pylib/ops.html#%,T,T	proc `%`[T: SomeNumber](a, b: T): T		68
-nim	`%`	pylib/ops.html#%.t,A,B	template `%`[A: SomeFloat; B: SomeInteger](a: A; b: B): A		77
-nim	`%`	pylib/ops.html#%.t,A,B_2	template `%`[A: SomeInteger; B: SomeFloat](a: A; b: B): B		78
-nim	`%=`	pylib/ops.html#%=.t,SomeNumber,SomeNumber	template `%=`(self: var SomeNumber; x: SomeNumber)		80
-nim	`//`	pylib/ops.html#//,A,B	proc `//`[A, B: SomeFloat | SomeInteger](a: A; b: B): SomeNumber		82
-nim	`//=`	pylib/ops.html#//=.t,A,B	template `//=`[A, B: SomeFloat | SomeInteger](a: var A; b: B)		92
-nim	divmod	pylib/ops.html#divmod,T,T	proc divmod[T: SomeNumber](x, y: T): (T, T)		95
-nim	`==`	pylib/ops.html#==.t,typedesc,typedesc	template `==`(a, b: typedesc): bool		99
-nimgrp	<=	pylib/ops.html#<=-templates-all	template		46
-nimgrp	<	pylib/ops.html#<-templates-all	template		43
-nimgrp	**	pylib/ops.html#**-templates-all	template		5
-nimgrp	<>	pylib/ops.html#<>-templates-all	template		52
-nimgrp	==	pylib/ops.html#==-templates-all	template		49
-nimgrp	%	pylib/ops.html#%-templates-all	template		77
+nim	`**`	pylib/ops.html#**.t,T,Natural	template `**`[T](a: T; b: Natural): T		7
+nim	`**`	pylib/ops.html#**.t,T,static[int]	template `**`[T: SomeNumber](a: T; b: static[int]): int | float		17
+nim	`**`	pylib/ops.html#**.t,T,T	template `**`[T: SomeFloat](a, b: T): T		30
+nim	`**`	pylib/ops.html#**.t,A,B	template `**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A		31
+nim	`**`	pylib/ops.html#**.t,A,B_2	template `**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B		32
+nim	`**=`	pylib/ops.html#**=.t,SomeNumber,SomeNumber	template `**=`(a: var SomeNumber; b: SomeNumber)		34
+nim	`>>`	pylib/ops.html#>>.t,I,I	template `>>`[I: SomeInteger](a, b: I): I		37
+nim	`<<`	pylib/ops.html#<<.t,I,I	template `<<`[I: SomeInteger](a, b: I): I		38
+nim	`>>=`	pylib/ops.html#>>=.t,I,I	template `>>=`[I: SomeInteger](a, b: I)		40
+nim	`<<=`	pylib/ops.html#<<=.t,I,I	template `<<=`[I: SomeInteger](a, b: I)		41
+nim	`<`	pylib/ops.html#<.t,A,B	template `<`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		45
+nim	`<`	pylib/ops.html#<.t,A,B_2	template `<`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		46
+nim	`<=`	pylib/ops.html#<=.t,A,B	template `<=`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		48
+nim	`<=`	pylib/ops.html#<=.t,A,B_2	template `<=`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		49
+nim	`==`	pylib/ops.html#==.t,A,B	template `==`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		51
+nim	`==`	pylib/ops.html#==.t,A,B_2	template `==`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		52
+nim	`<>`	pylib/ops.html#<>.t,A,B	template `<>`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool		54
+nim	`<>`	pylib/ops.html#<>.t,A,B_2	template `<>`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool		55
+nim	`/`	pylib/ops.html#/.t,SomeInteger,SomeInteger	template `/`(x: SomeInteger; y: SomeInteger): float		57
+nim	`%`	pylib/ops.html#%,T,T	proc `%`[T: SomeNumber](a, b: T): T		67
+nim	`%`	pylib/ops.html#%.t,A,B	template `%`[A: SomeFloat; B: SomeInteger](a: A; b: B): A		76
+nim	`%`	pylib/ops.html#%.t,A,B_2	template `%`[A: SomeInteger; B: SomeFloat](a: A; b: B): B		77
+nim	`%=`	pylib/ops.html#%=.t,SomeNumber,SomeNumber	template `%=`(self: var SomeNumber; x: SomeNumber)		79
+nim	`//`	pylib/ops.html#//,A,B	proc `//`[A, B: SomeFloat | SomeInteger](a: A; b: B): SomeNumber		81
+nim	`//=`	pylib/ops.html#//=.t,A,B	template `//=`[A, B: SomeFloat | SomeInteger](a: var A; b: B)		91
+nim	divmod	pylib/ops.html#divmod,T,T	proc divmod[T: SomeNumber](x, y: T): (T, T)		94
+nim	`==`	pylib/ops.html#==.t,typedesc,typedesc	template `==`(a, b: typedesc): bool		98
+nimgrp	<=	pylib/ops.html#<=-templates-all	template		48
+nimgrp	<	pylib/ops.html#<-templates-all	template		45
+nimgrp	**	pylib/ops.html#**-templates-all	template		7
+nimgrp	<>	pylib/ops.html#<>-templates-all	template		54
+nimgrp	==	pylib/ops.html#==-templates-all	template		51
+nimgrp	%	pylib/ops.html#%-templates-all	template		76

@@ -1,4 +1,4 @@
 nimTitle	open_close	os_impl/posix_like/open_close.html	module src/pylib/Lib/os_impl/posix_like/open_close		0
-nim	open	os_impl/posix_like/open_close.html#open,PathLike,int,int,int	proc open(path: PathLike; flags: int; mode = 0o000000000777; dir_fd = -1): int		56
-nim	close	os_impl/posix_like/open_close.html#close,int	proc close(fd: int)		86
-nim	closerange	os_impl/posix_like/open_close.html#closerange,int,int	proc closerange(fd_low, fd_high: int)		96
+nim	open	os_impl/posix_like/open_close.html#open,PathLike,int,int,int	proc open(path: PathLike; flags: int; mode = 0o000000000777; dir_fd = -1): int		58
+nim	close	os_impl/posix_like/open_close.html#close,int	proc close(fd: int)		94
+nim	closerange	os_impl/posix_like/open_close.html#closerange,int,int	proc closerange(fd_low, fd_high: int)		104

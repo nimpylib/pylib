@@ -1,0 +1,4 @@
+nimTitle	indices	math_impl/inWordUtils/indices.html	module src/pylib/Lib/math_impl/inWordUtils/indices		0
+nim	HIGH	math_impl/inWordUtils/indices.html#HIGH	const HIGH		26
+nim	LOW	math_impl/inWordUtils/indices.html#LOW	const LOW		27
+nim	accessHighLow	math_impl/inWordUtils/indices.html#accessHighLow.t	template accessHighLow(body)		29

@@ -34,11 +34,11 @@ nim	log10	pylib/Lib/math.html#log10,F	proc log10[F: SomeFloat](x: F): F		195
 nim	fma	pylib/Lib/math.html#fma,F,F,F	proc fma[F: SomeFloat](x, y, z: F): F		197
 nim	fmod	pylib/Lib/math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		203
 nim	dist	pylib/Lib/math.html#dist.t,list[T],list[T]	template dist[T](p, q: list[T]): float		216
-nim	dist	pylib/Lib/math.html#dist.t,Iterable[T],Iterable[T]	template dist[T](p, q: Iterable[T]): float		219
+nim	dist	pylib/Lib/math.html#dist.t,,	template dist[T](p, q: (Iterable[T] and not openArray[T])): float		219
 nim	dist	pylib/Lib/math.html#dist.t,openArray[T],openArray[T]	template dist[T](p, q: openArray[T]): float		222
 nim	dist	pylib/Lib/math.html#dist.t,ClosureIter[T],ClosureIter[T]	template dist[T](p, q: ClosureIter[T]): float		225
 nim	sumprod	pylib/Lib/math.html#sumprod.t,list[T],list[T]	template sumprod[T](p, q: list[T]): float		216
-nim	sumprod	pylib/Lib/math.html#sumprod.t,Iterable[T],Iterable[T]	template sumprod[T](p, q: Iterable[T]): float		219
+nim	sumprod	pylib/Lib/math.html#sumprod.t,,	template sumprod[T](p, q: (Iterable[T] and not openArray[T])): float		219
 nim	sumprod	pylib/Lib/math.html#sumprod.t,openArray[T],openArray[T]	template sumprod[T](p, q: openArray[T]): float		222
 nim	sumprod	pylib/Lib/math.html#sumprod.t,ClosureIter[T],ClosureIter[T]	template sumprod[T](p, q: ClosureIter[T]): float		225
 nim	pow	pylib/Lib/math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		238
