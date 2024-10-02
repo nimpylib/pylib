@@ -5,15 +5,11 @@ import ../inWordUtilsMapper
 
 wu_import toWords
 wu_import fromWords
-wu_import CLEAR_EXP_MASK from consts
+wu_import consts  # SET_EXP_MASK, CLEAR_EXP_MASK
 
 import ./exponent, ./assertIsInfinite, ./normalize
 
-
-const SET_EXP_MASK = 0x3fe00000  ## Exponent equal to 1022 (BIAS-1):
-                                 ## 0 01111111110 00000000000000000000 => 1071644672
-
-func frexp*(x: float): (float, int) =
+func frexp*[F: SomeFloat](x: F): (F, int) =
   if x == 0.0 or  # also handles -0.0
       x.isNaN or x.isInfinite:
     result = (x, 0)
@@ -22,13 +18,12 @@ func frexp*(x: float): (float, int) =
     X = normalize(x)
     exp = exponent(X[0]) + X[1] + 1
     WORDS = toWords(X[0])
-  var
-    high = WORDS[0]
+  var high = WORDS[0]
   type UI = typeof high
   # Clear the exponent bits within the higher order word:
-  high = high and CLEAR_EXP_MASK.UI
+  high = high and CLEAR_EXP_MASK[F].UI
   # Set the exponent bits within the higher order word to BIAS-1 (1023-1=1022):
-  high = high or SET_EXP_MASK.UI
+  high = high or SET_EXP_MASK[F].UI
   let iexp = int exp
   result = (fromWords(high, WORDS[1]), iexp)
 

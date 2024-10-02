@@ -6,8 +6,6 @@ wu_import indices
 wu_import float_view
 wu_import consts
 
-const EXP_MASK = 0x7ff00000
-## FLOAT64_HIGH_WORD_EXPONENT_MASK
 
 func getHighWord(x: float): uint32 =
   when nimvm:
@@ -20,8 +18,19 @@ func getHighWord(x: float): uint32 =
     accessHighLow:
       result = UINT32_VIEW[HIGH]
 
+func getHighWord(x: float32): uint16 =
+  when nimvm:
+    let u = cast[uint32](x)
+    accessHighLow:
+      result = cast[uint16](u shr 16)
+  else:
+    init32FloatView FLOAT32_VIEW, UINT16_VIEW
+    FLOAT32_VIEW[0] = x
+    accessHighLow:
+      result = UINT16_VIEW[HIGH]
 
-func exponent*(x: float): BiggestInt =
-  var high = getHighWord(x).BiggestInt
-  high = (high and EXP_MASK) shr 20
-  (high - BIAS)
+func exponent*[F: SomeFloat](x: F): BiggestInt =
+  type Res = BiggestInt
+  var high = getHighWord(x).Res
+  high = (high and EXP_MASK[F]()) shr HighWordFracBits[F]
+  (high - Res BIAS F)
