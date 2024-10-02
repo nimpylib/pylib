@@ -1,2 +1,2 @@
 nimTitle	frexp	pylib/Lib/math_impl/patch/ldexp_frexp/frexp.html	module src/pylib/Lib/math_impl/patch/ldexp_frexp/frexp		0
-nim	frexp	pylib/Lib/math_impl/patch/ldexp_frexp/frexp.html#frexp,float	proc frexp(x: float): (float, int)		16
+nim	frexp	pylib/Lib/math_impl/patch/ldexp_frexp/frexp.html#frexp,F	proc frexp[F: SomeFloat](x: F): (F, int)		12

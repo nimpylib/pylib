@@ -592,7 +592,7 @@
           </ul></dd>
 <dt><a name="BIAS" href="#BIAS"><span>BIAS:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="consts: const BIAS" href="math_impl/inWordUtils/consts.html#BIAS">consts: const BIAS</a></li>
+          data-doc-search-tag="consts: template BIAS[F](_: typedesc[F]): F" href="math_impl/inWordUtils/consts.html#BIAS.t%2Ctypedesc%5BF%5D">consts: template BIAS[F](_: typedesc[F]): F</a></li>
           </ul></dd>
 <dt><a name="bin" href="#bin"><span>bin:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -698,7 +698,7 @@
           </ul></dd>
 <dt><a name="CLEAR_EXP_MASK" href="#CLEAR_EXP_MASK"><span>CLEAR_EXP_MASK:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="consts: const CLEAR_EXP_MASK" href="math_impl/inWordUtils/consts.html#CLEAR_EXP_MASK">consts: const CLEAR_EXP_MASK</a></li>
+          data-doc-search-tag="consts: template CLEAR_EXP_MASK[F](): untyped" href="math_impl/inWordUtils/consts.html#CLEAR_EXP_MASK.t">consts: template CLEAR_EXP_MASK[F](): untyped</a></li>
           </ul></dd>
 <dt><a name="CLike" href="#CLike"><span>CLike:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1070,9 +1070,13 @@
           <li><a class="reference external"
           data-doc-search-tag="n_math: proc expm1[F: SomeFloat](x: F): F" href="n_math.html#expm1%2CF">n_math: proc expm1[F: SomeFloat](x: F): F</a></li>
           </ul></dd>
+<dt><a name="EXP_MASK" href="#EXP_MASK"><span>EXP_MASK:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="consts: template EXP_MASK[F](): untyped" href="math_impl/inWordUtils/consts.html#EXP_MASK.t">consts: template EXP_MASK[F](): untyped</a></li>
+          </ul></dd>
 <dt><a name="exponent" href="#exponent"><span>exponent:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="exponent: proc exponent(x: float): BiggestInt" href="math_impl/patch/ldexp_frexp/exponent.html#exponent%2Cfloat">exponent: proc exponent(x: float): BiggestInt</a></li>
+          data-doc-search-tag="exponent: proc exponent[F: SomeFloat](x: F): BiggestInt" href="math_impl/patch/ldexp_frexp/exponent.html#exponent%2CF">exponent: proc exponent[F: SomeFloat](x: F): BiggestInt</a></li>
           </ul></dd>
 <dt><a name="extend" href="#extend"><span>extend:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1202,7 +1206,7 @@
           <li><a class="reference external"
           data-doc-search-tag="frexp: proc frexp(x: SomeFloat; e: var int): float" href="math_impl/frexp.html#frexp%2CSomeFloat%2Cint">frexp: proc frexp(x: SomeFloat; e: var int): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="frexp: proc frexp(x: float): (float, int)" href="math_impl/patch/ldexp_frexp/frexp.html#frexp%2Cfloat">frexp: proc frexp(x: float): (float, int)</a></li>
+          data-doc-search-tag="frexp: proc frexp[F: SomeFloat](x: F): (F, int)" href="math_impl/patch/ldexp_frexp/frexp.html#frexp%2CF">frexp: proc frexp[F: SomeFloat](x: F): (F, int)</a></li>
           </ul></dd>
 <dt><a name="fromisocalendar" href="#fromisocalendar"><span>fromisocalendar:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1421,6 +1425,10 @@
 <dt><a name="HIGH" href="#HIGH"><span>HIGH:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="indices: const HIGH" href="math_impl/inWordUtils/indices.html#HIGH">indices: const HIGH</a></li>
+          </ul></dd>
+<dt><a name="HighWordFracBits" href="#HighWordFracBits"><span>HighWordFracBits:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="consts: template HighWordFracBits[F](): untyped" href="math_impl/inWordUtils/consts.html#HighWordFracBits.t">consts: template HighWordFracBits[F](): untyped</a></li>
           </ul></dd>
 <dt><a name="home" href="#home"><span>home:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1742,7 +1750,7 @@
 <li><a class="reference external"
           data-doc-search-tag="math: proc ldexp(x: SomeFloat; i: int): float" href="math.html#ldexp%2CSomeFloat%2Cint">math: proc ldexp(x: SomeFloat; i: int): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="ldexp: proc ldexp(frac: float; exp: int): float" href="math_impl/patch/ldexp_frexp/ldexp.html#ldexp%2Cfloat%2Cint">ldexp: proc ldexp(frac: float; exp: int): float</a></li>
+          data-doc-search-tag="ldexp: proc ldexp[F: SomeFloat](frac: F; exp: int): F" href="math_impl/patch/ldexp_frexp/ldexp.html#ldexp%2CF%2Cint">ldexp: proc ldexp[F: SomeFloat](frac: F; exp: int): F</a></li>
           <li><a class="reference external"
           data-doc-search-tag="n_math: proc ldexp(x: SomeFloat; i: int): float" href="n_math.html#ldexp%2CSomeFloat%2Cint">n_math: proc ldexp(x: SomeFloat; i: int): float</a></li>
           <li><a class="reference external"
@@ -1876,6 +1884,10 @@
 <li><a class="reference external"
           data-doc-search-tag="iterGen: template makeIterable(Typ)" href="_._/builtins/private/iterGen.html#makeIterable.t">iterGen: template makeIterable(Typ)</a></li>
           </ul></dd>
+<dt><a name="MantissaDigits" href="#MantissaDigits"><span>MantissaDigits:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="consts: template MantissaDigits[F](): untyped" href="math_impl/inWordUtils/consts.html#MantissaDigits.t">consts: template MantissaDigits[F](): untyped</a></li>
+          </ul></dd>
 <dt><a name="map" href="#map"><span>map:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="iters: proc map[T, R](function: proc (x: T): R; iterable: Iterable[T]): Map[T]" href="_._/builtins/iters.html#map%2Cproc%28T%29%2CIterable%5BT%5D">iters: proc map[T, R](function: proc (x: T): R; iterable: Iterable[T]): Map[T]</a></li>
@@ -1910,7 +1922,7 @@
           </ul></dd>
 <dt><a name="MAX_EXPONENT" href="#MAX_EXPONENT"><span>MAX_EXPONENT:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="consts: const MAX_EXPONENT" href="math_impl/inWordUtils/consts.html#MAX_EXPONENT">consts: const MAX_EXPONENT</a></li>
+          data-doc-search-tag="consts: template MAX_EXPONENT[F](_: typedesc[F]): F" href="math_impl/inWordUtils/consts.html#MAX_EXPONENT.t%2Ctypedesc%5BF%5D">consts: template MAX_EXPONENT[F](_: typedesc[F]): F</a></li>
           </ul></dd>
 <dt><a name="max_fold_seconds" href="#max_fold_seconds"><span>max_fold_seconds:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1926,7 +1938,7 @@
           </ul></dd>
 <dt><a name="MAX_SUBNORMAL_EXPONENT" href="#MAX_SUBNORMAL_EXPONENT"><span>MAX_SUBNORMAL_EXPONENT:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="consts: const MAX_SUBNORMAL_EXPONENT" href="math_impl/inWordUtils/consts.html#MAX_SUBNORMAL_EXPONENT">consts: const MAX_SUBNORMAL_EXPONENT</a></li>
+          data-doc-search-tag="consts: template MAX_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F" href="math_impl/inWordUtils/consts.html#MAX_SUBNORMAL_EXPONENT.t%2Ctypedesc%5BF%5D">consts: template MAX_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F</a></li>
           </ul></dd>
 <dt><a name="MAX_UNICODE_val" href="#MAX_UNICODE_val"><span>MAX_UNICODE_val:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -1974,7 +1986,7 @@
           </ul></dd>
 <dt><a name="MIN_SUBNORMAL_EXPONENT" href="#MIN_SUBNORMAL_EXPONENT"><span>MIN_SUBNORMAL_EXPONENT:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="consts: const MIN_SUBNORMAL_EXPONENT" href="math_impl/inWordUtils/consts.html#MIN_SUBNORMAL_EXPONENT">consts: const MIN_SUBNORMAL_EXPONENT</a></li>
+          data-doc-search-tag="consts: template MIN_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F" href="math_impl/inWordUtils/consts.html#MIN_SUBNORMAL_EXPONENT.t%2Ctypedesc%5BF%5D">consts: template MIN_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F</a></li>
           </ul></dd>
 <dt><a name="minute" href="#minute"><span>minute:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -2180,7 +2192,7 @@
           </ul></dd>
 <dt><a name="normalize" href="#normalize"><span>normalize:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="normalize: proc normalize(x: float): (float, int)" href="math_impl/patch/ldexp_frexp/normalize.html#normalize%2Cfloat">normalize: proc normalize(x: float): (float, int)</a></li>
+          data-doc-search-tag="normalize: proc normalize[F: SomeFloat](x: F): (F, int)" href="math_impl/patch/ldexp_frexp/normalize.html#normalize%2CF">normalize: proc normalize[F: SomeFloat](x: F): (F, int)</a></li>
           </ul></dd>
 <dt><a name="normpath" href="#normpath"><span>normpath:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -3068,6 +3080,10 @@
 <li><a class="reference external"
           data-doc-search-tag="errnoUtils: template setErrno0()" href="math_impl/errnoUtils.html#setErrno0.t">errnoUtils: template setErrno0()</a></li>
           </ul></dd>
+<dt><a name="SET_EXP_MASK" href="#SET_EXP_MASK"><span>SET_EXP_MASK:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="consts: template SET_EXP_MASK[F](): untyped" href="math_impl/inWordUtils/consts.html#SET_EXP_MASK.t">consts: template SET_EXP_MASK[F](): untyped</a></li>
+          </ul></dd>
 <dt><a name="set_handle_inheritable" href="#set_handle_inheritable"><span>set_handle_inheritable:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="inheritable: proc set_handle_inheritable(handle: int; inheritable: bool)" href="os_impl/inheritable.html#set_handle_inheritable%2Cint%2Cbool">inheritable: proc set_handle_inheritable(handle: int; inheritable: bool)</a></li>
@@ -3800,7 +3816,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-02 18:47:15 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-02 20:48:23 UTC</small>
       </div>
     </div>
   </div>
