@@ -7,11 +7,13 @@ import ../common
 include ./ncommon
 
 type
-  TimePair*[T: int|float] = tuple
-    atime, mtime: T
-  TimeNsPair* = tuple
-    atime_ns, mtime_ns: int
+  TimePair*[F: SomeFloat] = tuple
+    atime, mtime: F
 
+type NsUnit* = BiggestInt
+
+type TimeNsPair* = tuple
+  atime_ns, mtime_ns: NsUnit
   
 const `ns/s` = 1_000_000_000
 
@@ -23,7 +25,14 @@ when InJs:
   type TimeTuple = tuple
     atime, ctime: Time
   template stoTime[N: int|float](t: (N, N)): TimeTuple = (Time(t[0]), Time(t[1]))
-  template nstoTime(t: (int, int)): TimeTuple = (Time(`ns/s` * t[0]), Time(`ns/s` * t[1]))
+  #[ XXX:
+    We use Time, a.k.a cdouble in intermediate operations because:
+    1. even using BiggestInt and jsBitint64 is on,
+      Nim still treats it as int64 instead of a really bigint,
+      so intermediate overflow may raises by Nim's overflowcheck;
+    2. [l]utimesSync expects cdouble (Js's Number)
+  ]#
+  template nstoTime(t: TimeNsPair): TimeTuple = (Time(`ns/s`) * t[0].Time, Time(`ns/s`) * t[1].Time)
   template utimeImpl(mapper; path: PathLike, times; follow_symlinks=true) =
     let
       jsS = cstring $path
@@ -99,13 +108,16 @@ else:
     if spath.utimeAux(mapTup(times, mapper), follow_symlinks=follow_symlinks):
       raiseExcWithPath path
 
-proc utime*[T; N](path: PathLike[T], times: TimePair[N], follow_symlinks=true) =
+proc utime*[T; F: SomeFloat](path: PathLike[T], times: TimePair[F], follow_symlinks=true) =
   utimeImpl stoTime, path, times, follow_symlinks
 proc utime*[T](path: PathLike[T], ns: TimeNsPair, follow_symlinks=true) =
   utimeImpl nstoTime, path, ns, follow_symlinks
+
+template timeToNs(t: times.Time): NsUnit = nowTime.toUnix.NsUnit * `ns/s` + nowTime.nanosecond.NsUnit
+
 proc utime*[T](path: PathLike[T], follow_symlinks=true) =
   let
     nowTime = times.getTime()
-    ns = nowTime.toUnix.int * `ns/s` + nowTime.nanosecond
+    ns = timeToNs nowTime
     times_tup = (ns, ns)
   utimeImpl nstoTime, path, times_tup, follow_symlinks
