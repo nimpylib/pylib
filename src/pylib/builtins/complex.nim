@@ -16,6 +16,7 @@ from ../numTypes/floats/parsefloat import parsePyFloat
 import ../numTypes/utils/stripOpenArray
 from ../noneType import NoneType
 import ../version
+import ../nimpatch/floatdollar
 
 type
   PyTComplex*[T] = distinct Complex[T]  ## generics version of `PyComplex`_
@@ -38,7 +39,7 @@ borrowAttr real, re
 
 func cut2str[T: SomeFloat](x: T): string =
   # Nim's Complex's elements can only be of float
-  result = $x
+  result = floatdollar.`$` x
   # removesuffix('.0')
   # We know $<float> will be at least 3 chars (e.g. "0.0", "inf")
   let lm2 = result.len - 2
@@ -261,7 +262,7 @@ template `**`*[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]): PyTComp
   bind pow
   pow(self, x)
 
-const NimHasBindOverloadSymBugForComplexPow* = (NimMajor, NimMinor, NimPatch) < (2,1,9)  # XXX: at least in range (2.0.8, 2.1.9]
+const NimHasBindOverloadSymBugForComplexPow* = (NimMajor, NimMinor, NimPatch) <= (2,1,9)  # XXX: at least in range (2.0.8, 2.1.9]
 
 when NimHasBindOverloadSymBugForComplexPow:
   template `**`*[T](self: PyTComplex[T]; x: PyComplex): PyTComplex[T] =

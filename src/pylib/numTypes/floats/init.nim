@@ -3,6 +3,10 @@
 import ./parsefloat
 import ../utils/stripOpenArray
 import ../reimporter
+import ../../nimpatch/floatdollar
+
+proc repr*(x: SomeFloat): string =
+  floatdollar.`$` x
 
 template float*(number: SomeNumber = 0.0): BiggestFloat = BiggestFloat number
 
