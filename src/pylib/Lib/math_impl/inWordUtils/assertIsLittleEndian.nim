@@ -15,7 +15,7 @@ elif defined(nodejs):
       func isLittleEndian*: bool =
         wrapVM:
           {.noSideEffect.}:
-            result = jsLittleEndian
+            jsLittleEndian
     else:
       proc os_endianness(): cstring{.importjs: "require('node:os').endianness()".}
       func isLittleEndian*: bool =

@@ -33,8 +33,8 @@ func frexp*(x: float): (float, int) =
   result = (fromWords(high, WORDS[1]), iexp)
 
 when isMainModule and defined(js):
-  # for test
-  import ./jsTypedArray
+  # for test TypedArray
+  # wu_import jsTypedArray
   # func jsTypedFrexp( x: float ): TypedArray[float64]{.exportc: "frexpFF".} =
   #   let t = frexp(x)
   #   result = newFloat64Array(2)
