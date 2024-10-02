@@ -1,2 +1,4 @@
 
 tempfile
+os_nojs
+pathlib_nojs
