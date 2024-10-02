@@ -39,7 +39,7 @@ suite "sumprod":
 
   test "CPython:test_math.testSumProd":
     type ARuntimeError = object of CatchableError
-    template sumprod(a, b) = math.sumprod(a, b)
+    template sumprod(a, b): untyped = math.sumprod(a, b)
     def testSumProd():
 
 #[ TODOL Decimal is not implemented (as of 0.9.3)
