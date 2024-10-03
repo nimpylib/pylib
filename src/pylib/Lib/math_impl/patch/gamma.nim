@@ -53,10 +53,6 @@ func stirlingApprox[T: SomeFloat](x: T): T =
   return SQRT_TWO_PI * y * w
 
 
-func isNegInteger(normX: SomeFloat): bool =
-  floor(normX) == normX and normX < 0
-
-
 func isEven[F: SomeFloat](positive: F): int =
   ## check if a positive float intpart is even.
   ## returns:
@@ -73,10 +69,15 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     ## set to res & return
     res = st
     return rt
+  let
+    isPositive = x > 0.0
+    ax = if isPositive: x else: -x
+  var axIpart = floor(ax)  # note here p still may be non-finite
+
   case fc
   of fcNan:    ret NaN
   of fcNegInf: ret 0.0, geGotNegInf
-  elif x == 0.0 or x.isNegInteger:
+  elif not isPositive and ax == axIpart:  # 0 -1 -2 ...  (non-positive integer)
     # XXX: though in ieee754 there're both `-0.0` and `0.0`,
     #  we just come along with mainstream like SymPy, R, etc and
     #  simply return NaN and introduce domain error.
@@ -99,8 +100,7 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     block:
       if even == 1: -1.0
       else: 1.0
-  let ax = abs(x)
-  var sign: float
+  var sign: T
   if x < MIN_GAMMA_X:
     # `\lim\limits_{x->-\infty} |\Gamma(x)| != 0`,
     # but for ieee754 float, when x < `MIN_GAMMA_X`,
@@ -109,26 +109,25 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     sign = chkGetSign ax
     ret sign * 0.0, geUnderFlow
   var z: T
-  var p, q: T
-  let isPositive = x > 0.0
   var ix: int
   if ax > 33.0:
     if isPositive:
       ret stirlingApprox(x)
-    p = floor(ax)
 
-    sign = chkGetSign p
+    # axIpart == ax condition has been checked above
+
+    sign = chkGetSign axIpart
 
     # calcuate the delta between nearest integer
-    z = ax - p
+    z = ax - axIpart
     if z > 0.5:
-      p += 1.0
-      z = ax - p
+      axIpart += 1.0
+      z = ax - axIpart
     # now z is in (-0.5, 0.5]
 
     z = ax * sinpi(z)
     if z == 0.0: ret sign * PINF
-    else: ret sign * PI / ( abs(z)*stirlingApprox(q) )
+    else: ret sign * PI / ( abs(z)*stirlingApprox(ax) )
   elif isPositive:
     # then x is in `(0.0, 33.0]`
     template asInt(x: T, res: var int): bool =
@@ -170,7 +169,8 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
 
   # here `x` is in (0.0, 1.0)
 
-  p = x.polExpd0 [
+  let
+   p = x.polExpd0 [
     9.99999999999999996796E-1,
     0.4942148268014971,
     0.20744822764843598,
@@ -178,8 +178,8 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     0.010421379756176158,
     0.0011913514700658638,
     0.00016011952247675185,
-  ]
-  q = x.polExpd0 [
+   ]
+   q = x.polExpd0 [
     1.00000000000000000320E0,
     0.0714304917030273,
     -0.23459179571824335,
@@ -188,7 +188,7 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     -0.004456419138517973,
     0.0005396055804933034,
     -0.000023158187332412014,
-  ]
+   ]
   ret z * p / q
 
 func gamma*[T: SomeFloat](x: T, res: var T): GammaError =
