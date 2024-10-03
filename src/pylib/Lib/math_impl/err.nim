@@ -1,8 +1,46 @@
 
 
 const
-  MAX_GAMMA_X* = 171.62437 
-  MIN_GAMMA_X* = -184.0 
+  MAX_GAMMA_X* = 171.62437695630272  ##[
+    in range of 171.6243769563027{2,3}
+
+    tgamma(171.62437695630272) == 1.7976931348622299e+308
+    tgamma(171.62437695630273) == inf
+
+got via this:
+
+```python
+# in 1/10
+from math import ulp, inf
+from ctypes import cdll, c_double
+tgamma = cdll['libm.so.6'].tgamma
+tgamma.argtypes = (c_double,)
+tgamma.restype = c_double
+Base = 171.6
+pre =    0.1
+x = Base
+while pre > ulp(x):
+    if tgamma(x) == inf:
+        x -= pre
+        pre /= 10
+    x += pre
+print("MAX_GAMMA_X", x)
+print("precision", pre)
+
+.. hint:: CPython's currently only implements
+  as if using MAX_GAMMA_X = 200.0 and MIN_GAMMA_X = -200.0,
+  which volatiles the result above.
+  See `pylib#38<https://github.com/nimpylib/pylib/issues/38>`_ for details.
+
+```
+  ]##
+
+  MIN_GAMMA_X* = -177.7807064574755  ##[
+    in range of -177.780706457475{5,7}
+
+    tgamma(-177.7807064574755) == 5e-324
+    tgamma(-177.7807064574757) == 0.0
+  ]##
 
 # I found stdlib-js/gamma uses following values:
 # 171.61447887182298
