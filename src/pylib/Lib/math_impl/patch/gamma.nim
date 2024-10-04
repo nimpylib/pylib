@@ -20,32 +20,52 @@ import ./consts
 import ./sinpi
 from ./trunc import uncheckedTruncToInt
 from ./polevl import polExpd0
-from ../err import mapRaiseGammaErr, GammaError,
-  MAX_GAMMA_X, MIN_GAMMA_X
+from ../err import mapRaiseGammaErr, GammaError
+from ../gammaXRange import MAX_GAMMA_X, MIN_GAMMA_X
+import ../constsUtils
 
 export GammaError
 
+genWithArg UseSmallApprox, 1.0e-4, 1.0e-9
 func smallApprox[T: SomeFloat](x, z: T): T =
   z / ((1.0+( EULER*x )) * x)
 
-func stirlingApprox[T: SomeFloat](x: T): T =
+
+genWithArg MAX_STIRLING, 26.7, 143.01608
+
+##[ Stirling's formula for the gamma function
+  gamma(x) = sqrt(2 pi) x^(x-.5) exp(-x) ( 1 + 1/x P(1/x) )
+
+For float32:
+  .028 < 1/x < .1
+  relative error < 1.9e-11
+ ]##
+
+func stirlingApprox[F: SomeFloat](x: F): F =
   ## Evaluates the gamma function using Stirling's formula.
   ## The polynomial is valid for 33 <= x <= 172
-  const MAX_STIRLING = 143.01608
 
-  var w, y: T
+  var w, y: F
   w = 1.0 / x
-  w = w.polExpd0 [
-    1.0,
-    0.08333333333334822,
-    0.0034722222160545866,
-    -0.0026813261780578124,
-    -0.00022954996161337813,
-    0.0007873113957930937,
-  ]
+  when F is float32:
+    w = w.polExpd0 [
+      1.0,
+      8.333331788340907E-002,
+      3.473255786154910E-003,
+      -2.705194986674176E-003,
+    ]
+  else:
+    w = w.polExpd0 [
+      1.0,
+      0.08333333333334822,
+      0.0034722222160545866,
+      -0.0026813261780578124,
+      -0.00022954996161337813,
+      0.0007873113957930937,
+    ]
   y = exp(x)
 
-  if x > MAX_STIRLING: # Avoid overflow in pow()
+  if x > MAX_STIRLING F: # Avoid overflow in pow()
     let v = pow(x, ( 0.5*x ) - 0.25)
     y = v * (v/y)
   else:
@@ -64,7 +84,7 @@ func isEven[F: SomeFloat](positive: F): int =
   else: -1
 
 
-func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
+func gammaImpl[F: SomeFloat](x: F, res: var F, fc: FloatClass): GammaError =
   template ret(st; rt=geOk) =
     ## set to res & return
     res = st
@@ -82,13 +102,13 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     #  we just come along with mainstream like SymPy, R, etc and
     #  simply return NaN and introduce domain error.
     ret NaN, geDom
-  elif x > MAX_GAMMA_X:
+  elif x > MAX_GAMMA_X F:
     ret PINF, geOverFlow
   else: discard
 
   # now `x` is a normal, non-zero, non-negative-integer float
 
-  template chkGetSign(ax: T): T =
+  template chkGetSign(ax: F): F =
     ## used for `gamma` with negative value,
     ## panic if `ax` is not positive.
     ##
@@ -100,15 +120,15 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     block:
       if even == 1: -1.0
       else: 1.0
-  var sign: T
-  if x < MIN_GAMMA_X:
+  var sign: F
+  if x < MIN_GAMMA_X F:
     # `\lim\limits_{x->-\infty} |\Gamma(x)| != 0`,
     # but for ieee754 float, when x < `MIN_GAMMA_X`,
     # for any value close to integer(get via `nextafter()`),
     # it just be truncated as zero.
     sign = chkGetSign ax
     ret sign * 0.0, geUnderFlow
-  var z: T
+  var z: F
   var ix: int
   if ax > 33.0:
     if isPositive:
@@ -130,10 +150,10 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     else: ret sign * PI / ( abs(z)*stirlingApprox(ax) )
   elif isPositive:
     # then x is in `(0.0, 33.0]`
-    template asInt(x: T, res: var int): bool =
+    template asInt(x: F, res: var int): bool =
       res = uncheckedTruncToInt[int](x)
       # NIM-BUG: using cast above results in rt-err when JS in `math.fac`
-      res.T == x
+      res.F == x
     const
       NGAMMA_INTEGRAL =  ## length of `fac`'s inner table
         when sizeof(int) == 2: 5
@@ -141,7 +161,7 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
         else: 21
     if x.asInt(ix) and ix < NGAMMA_INTEGRAL:
       # fast-path: `gamma(x) = (x-1)!`, when x is positive integer.
-      ret T fac(ix-1)
+      ret F fac(ix-1)
 
   # Reduce `x`...
   z = 1.0;
@@ -151,13 +171,13 @@ func gammaImpl[T: SomeFloat](x: T, res: var T, fc: FloatClass): GammaError =
     z *= x
 
   while x < 0.0:
-    if x > -1.0e-9:
+    if x > -UseSmallApprox F:
       ret smallApprox(x, z)
     z /= x
     x += 1.0
 
   while x < 2.0:
-    if x < 1.0e-9:
+    if x < UseSmallApprox F:
       ret smallApprox(x, z)
     z /= x
     x += 1.0
