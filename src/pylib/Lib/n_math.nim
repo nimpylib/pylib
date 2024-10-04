@@ -294,7 +294,7 @@ true, but may return false without setting up an exception.]##
 
 export frexpLib.frexp
 
-func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
+func ldexp*[F: SomeFloat](x: F, i: int, exc: var ref Exception): F{.raises: [].} =
   ## set exception to `exc` instead of raising it
   ## 
   ## `exc`:
@@ -328,7 +328,7 @@ func ldexp*(x: SomeFloat, i: int, exc: var ref Exception): float{.raises: [].} =
     return
   exc = nil
 
-func ldexp*(x: SomeFloat, i: int): float{.raises: [].} =
+func ldexp*[F: SomeFloat](x: F, i: int): F{.raises: [].} =
   ## .. hint:: only set errno
   var exc_unused: ref Exception
   ldexp(x, i, exc_unused)
