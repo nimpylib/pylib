@@ -1,0 +1,5 @@
+nimTitle	constsUtils	pylib/Lib/math_impl/constsUtils.html	module src/pylib/Lib/math_impl/constsUtils		0
+nim	genWithArg	pylib/Lib/math_impl/constsUtils.html#genWithArg.t,,,	template genWithArg(sym, v32, v64)		7
+nim	genWithBracket	pylib/Lib/math_impl/constsUtils.html#genWithBracket.t,,,,	template genWithBracket(sym, v32, v64, Ret)		11
+nim	genWithBracket	pylib/Lib/math_impl/constsUtils.html#genWithBracket.t,,,	template genWithBracket(sym, v32, v64)		15
+nimgrp	genwithbracket	pylib/Lib/math_impl/constsUtils.html#genWithBracket-templates-all	template		11

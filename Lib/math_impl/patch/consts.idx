@@ -1,6 +1,6 @@
 nimTitle	consts	math_impl/patch/consts.html	module src/pylib/Lib/math_impl/patch/consts		0
-nim	Pinf	math_impl/patch/consts.html#Pinf	const Pinf		3
-nim	Ninf	math_impl/patch/consts.html#Ninf	const Ninf		4
-nim	EULER	math_impl/patch/consts.html#EULER	const EULER		6
-nim	SQRT_TWO_PI	math_impl/patch/consts.html#SQRT_TWO_PI	const SQRT_TWO_PI		8
-nim	maxSafeInteger	math_impl/patch/consts.html#maxSafeInteger.t,typedesc[SomeFloat]	template maxSafeInteger(F: typedesc[SomeFloat]): F:type		11
+nim	Pinf	math_impl/patch/consts.html#Pinf	const Pinf		5
+nim	Ninf	math_impl/patch/consts.html#Ninf	const Ninf		6
+nim	EULER	math_impl/patch/consts.html#EULER	const EULER		8
+nim	SQRT_TWO_PI	math_impl/patch/consts.html#SQRT_TWO_PI	const SQRT_TWO_PI		10
+nim	maxSafeInteger	math_impl/patch/consts.html#maxSafeInteger.t,typedesc[F]	template maxSafeInteger[F](_: typedesc[F]): F		13

@@ -1,10 +1,10 @@
 nimTitle	consts	pylib/Lib/math_impl/inWordUtils/consts.html	module src/pylib/Lib/math_impl/inWordUtils/consts		0
-nim	BIAS	pylib/Lib/math_impl/inWordUtils/consts.html#BIAS.t,typedesc[F]	template BIAS[F](_: typedesc[F]): F		10
-nim	MAX_SUBNORMAL_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MAX_SUBNORMAL_EXPONENT.t,typedesc[F]	template MAX_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F		11
-nim	MIN_SUBNORMAL_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MIN_SUBNORMAL_EXPONENT.t,typedesc[F]	template MIN_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F		12
-nim	MAX_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MAX_EXPONENT.t,typedesc[F]	template MAX_EXPONENT[F](_: typedesc[F]): F		13
-nim	CLEAR_EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#CLEAR_EXP_MASK.t	template CLEAR_EXP_MASK[F](): untyped		21
-nim	SET_EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#SET_EXP_MASK.t	template SET_EXP_MASK[F](): untyped		26
-nim	EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#EXP_MASK.t	template EXP_MASK[F](): untyped		31
-nim	HighWordFracBits	pylib/Lib/math_impl/inWordUtils/consts.html#HighWordFracBits.t	template HighWordFracBits[F](): untyped		36
-nim	MantissaDigits	pylib/Lib/math_impl/inWordUtils/consts.html#MantissaDigits.t	template MantissaDigits[F](): untyped		37
+nim	BIAS	pylib/Lib/math_impl/inWordUtils/consts.html#BIAS.t,typedesc[F]	template BIAS[F](_: typedesc[F]): F		5
+nim	MAX_SUBNORMAL_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MAX_SUBNORMAL_EXPONENT.t,typedesc[F]	template MAX_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F		6
+nim	MIN_SUBNORMAL_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MIN_SUBNORMAL_EXPONENT.t,typedesc[F]	template MIN_SUBNORMAL_EXPONENT[F](_: typedesc[F]): F		7
+nim	MAX_EXPONENT	pylib/Lib/math_impl/inWordUtils/consts.html#MAX_EXPONENT.t,typedesc[F]	template MAX_EXPONENT[F](_: typedesc[F]): F		8
+nim	CLEAR_EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#CLEAR_EXP_MASK.t	template CLEAR_EXP_MASK[F](): untyped		13
+nim	SET_EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#SET_EXP_MASK.t	template SET_EXP_MASK[F](): untyped		18
+nim	EXP_MASK	pylib/Lib/math_impl/inWordUtils/consts.html#EXP_MASK.t	template EXP_MASK[F](): untyped		23
+nim	HighWordFracBits	pylib/Lib/math_impl/inWordUtils/consts.html#HighWordFracBits.t	template HighWordFracBits[F](): untyped		28
+nim	MantissaDigits	pylib/Lib/math_impl/inWordUtils/consts.html#MantissaDigits.t	template MantissaDigits[F](): untyped		29

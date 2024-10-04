@@ -21,8 +21,8 @@ nim	gamma	n_math.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		211
 nim	lgamma	n_math.html#lgamma,F	proc lgamma[F: SomeFloat](x: F): F		219
 nim	expm1	n_math.html#expm1,F	proc expm1[F: SomeFloat](x: F): F		245
 nim	math_is_error	n_math.html#math_is_error,SomeFloat,ref.Exception	proc math_is_error(x: SomeFloat; exc: var ref Exception): bool		255
-nim	ldexp	n_math.html#ldexp,SomeFloat,int,ref.Exception	proc ldexp(x: SomeFloat; i: int; exc: var ref Exception): float		297
-nim	ldexp	n_math.html#ldexp,SomeFloat,int	proc ldexp(x: SomeFloat; i: int): float		331
+nim	ldexp	n_math.html#ldexp,F,int,ref.Exception	proc ldexp[F: SomeFloat](x: F; i: int; exc: var ref Exception): F		297
+nim	ldexp	n_math.html#ldexp,F,int	proc ldexp[F: SomeFloat](x: F; i: int): F		331
 nim	modf	n_math.html#modf,F	proc modf[F: SomeFloat](x: F): tuple[intpart: F, floatpart: F]		336
 nim	fmod	n_math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		345
 nim	remainder	n_math.html#remainder,F,F	proc remainder[F: SomeFloat](x: F; y: F): F		358

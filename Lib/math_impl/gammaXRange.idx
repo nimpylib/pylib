@@ -1,0 +1,8 @@
+nimTitle	gammaXRange	math_impl/gammaXRange.html	module src/pylib/Lib/math_impl/gammaXRange		0
+nim	MAX_GAMMA_X	math_impl/gammaXRange.html#MAX_GAMMA_X.t,typedesc[F]	template MAX_GAMMA_X[F](_: typedesc[F]): F		48
+nim	MIN_GAMMA_X	math_impl/gammaXRange.html#MIN_GAMMA_X.t,typedesc[F]	template MIN_GAMMA_X[F](_: typedesc[F]): F		50
+heading	MAX_GAMMA_X	math_impl/gammaXRange.html#max-gamma-x	  MAX_GAMMA_X		0
+heading	MIN_GAMMA_X	math_impl/gammaXRange.html#min-gamma-x	  MIN_GAMMA_X		0
+heading	MAX_GAMMA_X	math_impl/gammaXRange.html#max-gamma-x	  MAX_GAMMA_X		0
+heading	MIN_GAMMA_X	math_impl/gammaXRange.html#min-gamma-x	  MIN_GAMMA_X		0
+heading	others	math_impl/gammaXRange.html#others	  others		0

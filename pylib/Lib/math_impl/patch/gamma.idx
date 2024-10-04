@@ -1,6 +1,8 @@
 nimTitle	gamma	pylib/Lib/math_impl/patch/gamma.html	module src/pylib/Lib/math_impl/patch/gamma		0
-nim	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma,T,T	proc gamma[T: SomeFloat](x: T; res: var T): GammaError		194
-nim	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		198
-nim	rGamma	pylib/Lib/math_impl/patch/gamma.html#rGamma,F	proc rGamma[F: SomeFloat](x: F): F		209
-nim	stdlibJsGamma	pylib/Lib/math_impl/patch/gamma.html#stdlibJsGamma,F	proc stdlibJsGamma[F: SomeFloat](x: F): F		222
-nimgrp	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma-procs-all	proc		194
+nim	UseSmallApprox	pylib/Lib/math_impl/patch/gamma.html#UseSmallApprox.t,typedesc[F]	template UseSmallApprox[F](_: typedesc[F]): F		29
+nim	MAX_STIRLING	pylib/Lib/math_impl/patch/gamma.html#MAX_STIRLING.t,typedesc[F]	template MAX_STIRLING[F](_: typedesc[F]): F		34
+nim	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma,T,T	proc gamma[T: SomeFloat](x: T; res: var T): GammaError		214
+nim	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		218
+nim	rGamma	pylib/Lib/math_impl/patch/gamma.html#rGamma,F	proc rGamma[F: SomeFloat](x: F): F		229
+nim	stdlibJsGamma	pylib/Lib/math_impl/patch/gamma.html#stdlibJsGamma,F	proc stdlibJsGamma[F: SomeFloat](x: F): F		242
+nimgrp	gamma	pylib/Lib/math_impl/patch/gamma.html#gamma-procs-all	proc		214

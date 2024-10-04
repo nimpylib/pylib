@@ -164,8 +164,8 @@
 
 </ul>
 <ul class="simple nested-toc-section">ldexp
-  <li><a class="reference" href="#ldexp%2CSomeFloat%2Cint" title="ldexp(x: SomeFloat; i: int): float">ldexp(x: SomeFloat; i: int): float</a></li>
-<li><a class="reference" href="#ldexp%2CSomeFloat%2Cint%2Cref.Exception" title="ldexp(x: SomeFloat; i: int; exc: var ref Exception): float">ldexp(x: SomeFloat; i: int; exc: var ref Exception): float</a></li>
+  <li><a class="reference" href="#ldexp%2CF%2Cint" title="ldexp[F: SomeFloat](x: F; i: int): F">ldexp[F: SomeFloat](x: F; i: int): F</a></li>
+<li><a class="reference" href="#ldexp%2CF%2Cint%2Cref.Exception" title="ldexp[F: SomeFloat](x: F; i: int; exc: var ref Exception): F">ldexp[F: SomeFloat](x: F; i: int; exc: var ref Exception): F</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">lgamma
@@ -682,8 +682,8 @@ assuming x &gt; 0 (raise <tt class="docutils literal"><span class="pre"><span cl
 
 </div>
 <div id="ldexp-procs-all">
-  <div id="ldexp,SomeFloat,int">
-  <dt><pre><span class="Keyword">func</span> <a href="#ldexp%2CSomeFloat%2Cint"><span class="Identifier">ldexp</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="ldexp,F,int">
+  <dt><pre><span class="Keyword">func</span> <a href="#ldexp%2CF%2Cint"><span class="Identifier">ldexp</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     <div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
@@ -694,8 +694,8 @@ only set errno</div>
 
   </dd>
 </div>
-<div id="ldexp,SomeFloat,int,ref.Exception">
-  <dt><pre><span class="Keyword">func</span> <a href="#ldexp%2CSomeFloat%2Cint%2Cref.Exception"><span class="Identifier">ldexp</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">exc</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Keyword">ref</span> <span class="Identifier">Exception</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="ldexp,F,int,ref.Exception">
+  <dt><pre><span class="Keyword">func</span> <a href="#ldexp%2CF%2Cint%2Cref.Exception"><span class="Identifier">ldexp</span></a><span class="Other">[</span><span class="Identifier">F</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">exc</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Keyword">ref</span> <span class="Identifier">Exception</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     <p>set exception to <tt class="docutils literal"><span class="pre"><span class="Identifier">exc</span></span></tt> instead of raising it</p>
@@ -931,7 +931,7 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
 <div class="section" id="19">
   <h1><a class="toc-backref" href="#19">Exports</a></h1>
   <dl class="item">
-    <a href="math_impl/cbrt.html#cbrt,F"><span class="Identifier">cbrt</span></a>, <a href="math_impl/nextafter_ulp.html#nextafter,F,F"><span class="Identifier">nextafter</span></a>, <a href="math_impl/nextafter_ulp.html#nextafter,F,F,"><span class="Identifier">nextafter</span></a>, <a href="math_impl/nextafter_ulp.html#ulp,F"><span class="Identifier">ulp</span></a>, <a href="math_impl/patch/fma.html#UNRELIABLE_FMA"><span class="Identifier">UNRELIABLE_FMA</span></a>, <a href="math_impl/patch/fma.html#fma,F,F,F,ref.Exception"><span class="Identifier">fma</span></a>, <a href="math_impl/patch/fma.html#fma,F,F,F"><span class="Identifier">fma</span></a>, <a href="math_impl/patch/fma.html#c_fma,cdouble,cdouble,cdouble"><span class="Identifier">c_fma</span></a>, <a href="math_impl/patch/fma.html#c_fma,cfloat,cfloat,cfloat"><span class="Identifier">c_fma</span></a>, <a href="math_impl/vec_op/sumprod.html#sumprod,ClosureIter[P],ClosureIter[Q]"><span class="Identifier">sumprod</span></a>, <a href="math_impl/vec_op/dist.html#dist,array[I,T],array[I,T]"><span class="Identifier">dist</span></a>, <a href="math_impl/vec_op/dist.html#dist,,"><span class="Identifier">dist</span></a>, <a href="math_impl/vec_op/sumprod.html#sumprod,openArray[P],openArray[Q]"><span class="Identifier">sumprod</span></a>, <a href="math_impl/vec_op/niter_types.html#OpenarrayOrNimIter"><span class="Identifier">OpenarrayOrNimIter</span></a>, <a href="math_impl/vec_op/dist.html#dist,,_2"><span class="Identifier">dist</span></a>, <a href="math_impl/isX.html#isinf,SomeFloat"><span class="Identifier">isinf</span></a>, <a href="math_impl/isX.html#isfinite,SomeFloat"><span class="Identifier">isfinite</span></a>, <a href="math_impl/frexp.html#frexp,SomeFloat"><span class="Identifier">frexp</span></a>, <a href="math_impl/frexp.html#frexp,SomeFloat,int"><span class="Identifier">frexp</span></a>
+    <a href="math_impl/cbrt.html#cbrt,F"><span class="Identifier">cbrt</span></a>, <a href="math_impl/nextafter_ulp.html#nextafter,F,F"><span class="Identifier">nextafter</span></a>, <a href="math_impl/nextafter_ulp.html#nextafter,F,F,"><span class="Identifier">nextafter</span></a>, <a href="math_impl/nextafter_ulp.html#ulp,F"><span class="Identifier">ulp</span></a>, <a href="math_impl/patch/fma.html#UNRELIABLE_FMA"><span class="Identifier">UNRELIABLE_FMA</span></a>, <a href="math_impl/patch/fma.html#fma,F,F,F,ref.Exception"><span class="Identifier">fma</span></a>, <a href="math_impl/patch/fma.html#fma,F,F,F"><span class="Identifier">fma</span></a>, <a href="math_impl/patch/fma.html#c_fma,cdouble,cdouble,cdouble"><span class="Identifier">c_fma</span></a>, <a href="math_impl/patch/fma.html#c_fma,cfloat,cfloat,cfloat"><span class="Identifier">c_fma</span></a>, <a href="math_impl/vec_op/sumprod.html#sumprod,ClosureIter[P],ClosureIter[Q]"><span class="Identifier">sumprod</span></a>, <a href="math_impl/vec_op/dist.html#dist,array[I,T],array[I,T]"><span class="Identifier">dist</span></a>, <a href="math_impl/vec_op/dist.html#dist,,"><span class="Identifier">dist</span></a>, <a href="math_impl/vec_op/sumprod.html#sumprod,openArray[P],openArray[Q]"><span class="Identifier">sumprod</span></a>, <a href="math_impl/vec_op/niter_types.html#OpenarrayOrNimIter"><span class="Identifier">OpenarrayOrNimIter</span></a>, <a href="math_impl/vec_op/dist.html#dist,,_2"><span class="Identifier">dist</span></a>, <a href="math_impl/isX.html#isinf,SomeFloat"><span class="Identifier">isinf</span></a>, <a href="math_impl/isX.html#isfinite,SomeFloat"><span class="Identifier">isfinite</span></a>, <a href="math_impl/frexp.html#frexp,F"><span class="Identifier">frexp</span></a>, <a href="math_impl/frexp.html#frexp,F,int"><span class="Identifier">frexp</span></a>
   </dl>
 </div>
 
@@ -941,7 +941,7 @@ unlike C/Nim's returning float, Python's returns <tt class="docutils literal"><s
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-03 16:27:38 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-04 23:39:48 UTC</small>
       </div>
     </div>
   </div>

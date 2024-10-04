@@ -1,17 +1,15 @@
 nimTitle	err	pylib/Lib/math_impl/err.html	module src/pylib/Lib/math_impl/err		0
-nim	MAX_GAMMA_X	pylib/Lib/math_impl/err.html#MAX_GAMMA_X	const MAX_GAMMA_X		4
-nim	MIN_GAMMA_X	pylib/Lib/math_impl/err.html#MIN_GAMMA_X	const MIN_GAMMA_X		38
-nim	geOk	pylib/Lib/math_impl/err.html#geOk	GammaError.geOk		55
-nim	geDom	pylib/Lib/math_impl/err.html#geDom	GammaError.geDom		55
-nim	geOverFlow	pylib/Lib/math_impl/err.html#geOverFlow	GammaError.geOverFlow		55
-nim	geUnderFlow	pylib/Lib/math_impl/err.html#geUnderFlow	GammaError.geUnderFlow		55
-nim	geZeroCantDetSign	pylib/Lib/math_impl/err.html#geZeroCantDetSign	GammaError.geZeroCantDetSign		55
-nim	geGotNegInf	pylib/Lib/math_impl/err.html#geGotNegInf	GammaError.geGotNegInf		55
-nim	GammaError	pylib/Lib/math_impl/err.html#GammaError	enum GammaError		55
-nim	raiseDomainErr	pylib/Lib/math_impl/err.html#raiseDomainErr.t	template raiseDomainErr()		72
-nim	raiseDomainErr	pylib/Lib/math_impl/err.html#raiseDomainErr.t,string	template raiseDomainErr(details: string)		76
-nim	raiseRangeErr	pylib/Lib/math_impl/err.html#raiseRangeErr.t	template raiseRangeErr()		80
-nim	raiseRangeErr	pylib/Lib/math_impl/err.html#raiseRangeErr.t,string	template raiseRangeErr(details: string)		84
-nim	mapRaiseGammaErr	pylib/Lib/math_impl/err.html#mapRaiseGammaErr,GammaError	proc mapRaiseGammaErr(err: GammaError)		88
-nimgrp	raisedomainerr	pylib/Lib/math_impl/err.html#raiseDomainErr-templates-all	template		72
-nimgrp	raiserangeerr	pylib/Lib/math_impl/err.html#raiseRangeErr-templates-all	template		80
+nim	geOk	pylib/Lib/math_impl/err.html#geOk	GammaError.geOk		3
+nim	geDom	pylib/Lib/math_impl/err.html#geDom	GammaError.geDom		3
+nim	geOverFlow	pylib/Lib/math_impl/err.html#geOverFlow	GammaError.geOverFlow		3
+nim	geUnderFlow	pylib/Lib/math_impl/err.html#geUnderFlow	GammaError.geUnderFlow		3
+nim	geZeroCantDetSign	pylib/Lib/math_impl/err.html#geZeroCantDetSign	GammaError.geZeroCantDetSign		3
+nim	geGotNegInf	pylib/Lib/math_impl/err.html#geGotNegInf	GammaError.geGotNegInf		3
+nim	GammaError	pylib/Lib/math_impl/err.html#GammaError	enum GammaError		3
+nim	raiseDomainErr	pylib/Lib/math_impl/err.html#raiseDomainErr.t	template raiseDomainErr()		20
+nim	raiseDomainErr	pylib/Lib/math_impl/err.html#raiseDomainErr.t,string	template raiseDomainErr(details: string)		24
+nim	raiseRangeErr	pylib/Lib/math_impl/err.html#raiseRangeErr.t	template raiseRangeErr()		28
+nim	raiseRangeErr	pylib/Lib/math_impl/err.html#raiseRangeErr.t,string	template raiseRangeErr(details: string)		32
+nim	mapRaiseGammaErr	pylib/Lib/math_impl/err.html#mapRaiseGammaErr,GammaError	proc mapRaiseGammaErr(err: GammaError)		36
+nimgrp	raisedomainerr	pylib/Lib/math_impl/err.html#raiseDomainErr-templates-all	template		20
+nimgrp	raiserangeerr	pylib/Lib/math_impl/err.html#raiseRangeErr-templates-all	template		28
