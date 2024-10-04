@@ -14,7 +14,7 @@ import ./patch/ldexp_frexp/ldexp as pure_ldexp
 func n_ldexp*[F: SomeFloat](x: F, i: int): F = F pure_ldexp.ldexp(x.float, i)
 
 #[
-func js_ldexp(x: SomeFloat, i: int): float =
+func js_ldexp[F: SomeFloat](x: F, i: int): F =
   pure_ldexp.ldexp(x.float, i)
 func round_ldexp(x: SomeFloat, i: int): float =
   ## a version of `ldexp`_ that's implemented in pure Nim, used by ldexp in weridTarget
@@ -28,7 +28,7 @@ func round_ldexp(x: SomeFloat, i: int): float =
   for step in 0..<steps:
     result *= pow(2, floor((step+i)/steps))
 
-func n_ldexp(x: SomeFloat, i: int): float{.used.} =
+func n_ldexp[F: SomeFloat](x: F, i: int): F{.used.} =
   when defined(js): js_ldexp(x, i)
   else: round_ldexp(x, i)
 ]#
