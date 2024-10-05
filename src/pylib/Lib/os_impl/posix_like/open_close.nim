@@ -25,6 +25,7 @@ when defined(js):
 
 else:
   let EINTR{.importc, header: "<errno.h>".}: cint
+  var errno{.importc, header: "<errno.h>".}: cint
 
   when defined(windows):
     when defined(nimPreviewSlimSystem):
