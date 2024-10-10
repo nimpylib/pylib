@@ -44,7 +44,10 @@ when defined(nimdoc):
   template descSince(ver: string): string =
     " .. admonition:: since Python " & ver & "\n\n"
   macro pysince*(major, minor: static int, def) =
-    result = addDocImpl(asVersion(major, minor).descSince, def)
+    if def.kind == nnkStmtList:
+      result = def
+    else:
+      result = addDocImpl(asVersion(major, minor).descSince, def)
 
 else:
   template pysince*(major, minor: int, def){.dirty.} =
