@@ -135,9 +135,9 @@ func ceil*(self): int =
 func as_integer_ratio*(self): (FractionInt, FractionInt) =
   (self.numerator, self.denominator)
 
-template conjugate*(self): PyFraction = self
-template real*(self): PyFraction = self
-template imag*(self): int = 0
+template conjugate*(self: PyFraction): PyFraction = self
+template real*(self: PyFraction): PyFraction = self
+template imag*(self: PyFraction): int = 0
 
 func abs*(self): PyFraction =
   self.data.abs.toPyFraction
