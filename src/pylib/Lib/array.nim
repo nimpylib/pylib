@@ -1,10 +1,21 @@
 ## array
 ## 
 ## .. hint:: considering unicode array is deprecated since Python3.3,
-##   and will be removed in Python4,
-##   it's not implemented.
+##   and will be removed in Python3.16,
+##   it's not implemented
+##
+## .. hint:: since python3.13, 'w' (Py_UCS4) array is introduced.
+##   here we use Rune in std/unicode as its item type.
 
+import ../version
 import ../builtins/list
+
+pysince(3,13):
+  import std/unicode
+  type Py_UCS4* = Rune  ## inner
+  import ../pystring/strimpl
+  from ../pyerrors/simperr import TypeError
+  from ../builtins/reprImpl import pyreprImpl
 
 import ../pybytes/bytesimpl
 import ../pybytearray
@@ -51,18 +62,6 @@ func tolist*[T](arr: var PyArray[T]): var PyList[T] = PyList[T] arr
 
 func `==`*[T](arr, other: PyArray[T]): bool = PyList[T](arr) == PyList[T](other)
 
-func `$`*[T](arr: PyArray[T]): string =
-  result = "array('"
-  result.add arr.typecode
-  result.add '\''
-  if arr.len != 0:
-    result.add ", "
-    result.add $PyList[T](arr)
-  result.add ')'
-
-# no need to perform any quote, as there're only integers,
-# so repr can just the same as `__str__`
-func repr*[T](arr: PyArray[T]): string = $arr ## alias for `$arr`
 
 # ISO-C declare `sizeof(char)` is always 1, but not necessarily 8-bit.
 when declared(cuchar):
@@ -163,6 +162,36 @@ func initTypeTable(): Table[char, string]{.compiletime.} =
   for (k, v) in OriginTable:
     result[k] = 'c' & v
     result[ k.toUpperAscii ] = "cu" & v
+  pysince(3, 13):
+    result['w'] = "Py_UCS4"
+
+func initSizeTable(): Table[string, int]{.compiletime.} =
+  result = initTable[string, int] TypeTableSize
+  result["cschar"] = sizeof cchar
+  template genImpl(typS, typ) =
+    result[ typS ] = sizeof typ
+  template genU(typ) =
+    let cbase = astToStr(typ)
+    genImpl cbase, typ
+  template genS(typ) =
+    let
+      cbase = astToStr(typ)
+      base = cbase[1..^1]
+      ubase = "cu" & base
+    genImpl cbase, typ
+    genImpl ubase, typ
+  genS cchar
+  genS cshort
+  genS cint
+  genS clong
+  genS clonglong
+
+  genU cfloat
+  genU cdouble
+  pysince(3, 13):
+    genU Py_UCS4
+const SizeTable = initSizeTable()
+
 
 const CodeTypeMap = initTypeTable()
 
@@ -191,6 +220,41 @@ func buffer_info*[T](arr: PyArray[T]): tuple[
     address: int, length: int] = # maybe the address shall be pointer or ptr T?
   result.address = cast[typeof result.address](arr[0].addr)
   result.length = arr.len
+
+
+template strImplBody[T](arr: PyArray[T], arrToStr) =
+  result = "array('"
+  result.add arr.typecode
+  result.add '\''
+  if arr.len != 0:
+    result.add ", "
+    result.add arrToStr arr
+  result.add ')'
+
+pysince(3, 13):
+  func tounicode*(arr: PyArray[Py_UCS4]): PyStr{.inline.} =
+    ## .. note:: as PyArray here is static-typed,
+    ##   unlike CPython's, no ValueError will be raised
+    unicode.`$` @arr
+  func `$`*(arr: PyArray[Py_UCS4]): string{.inline.} =
+    template repr_tounicode(arr): string = pyreprImpl arr.tounicode()
+    strImplBody arr, repr_tounicode
+
+func `$`*[T](arr: PyArray[T]): string{.inline.} =
+  template normArrToStr(a): string = $PyList[T](arr)
+  strImplBody arr, normArrToStr
+
+# no need to perform any quote, as there're only integers,
+# so repr can just the same as `__str__`
+func repr*[T](arr: PyArray[T]): string = $arr ## alias for `$arr`
+
+pysince(3,13):
+  ## XXX: the `extend` is used by `array(c, ls)`,
+  ##  And Py_UCS4-array's extend is not generic,
+  ## so it must be placed before `array` proc
+  static: assert Py_UCS4 is Rune
+  #static: assert compiles(array('w', "1"))
+  func extend*(self: var PyArray[Py_UCS4], s: PyStr)
 
 proc arrayTypeParse(typecode: char, typeStr: string): NimNode =
   result = newCall(
@@ -259,25 +323,6 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
     ), initializer
   )
   result.add res
-
-func initSizeTable(): Table[string, int] =
-  result = initTable[string, int] TypeTableSize
-  result["cschar"] = sizeof cchar
-  template genS(typ) =
-    let
-      cbase = astToStr(typ)
-      base = cbase[1..^1]
-      ubase = "cu" & base
-    result[ cbase ] = sizeof typ
-    result[ ubase ] = sizeof typ
-  genS cchar
-  genS cshort
-  genS cint
-  genS clong
-  genS clonglong
-  genS cfloat
-  genS cdouble
-const SizeTable = initSizeTable()
 
 template getBitSize(typeStr: string): int =
   let res = SizeTable.getOrDefault(typeStr, -1) * BitPerByte
@@ -398,3 +443,31 @@ wrapMMeth(pop)
 wrapMMeth(pop, i: int)
 wrapMMeth(reverse)
 
+pysince(3,13):
+  wrapMMeth(clear)
+  func `[]=`*(self: var PyArray[Py_UCS4], i: int, v: char){.inline.} =
+    runnableExamples:
+      var a = array('w', "123")
+      a[0] = Rune(65)
+      a[1] = '3'
+    self[i] = Rune v
+  func asRune(s: string): Rune =
+    when not defined(danger):
+      let le = s.runeLen
+      if le != 1:
+        raise newException(TypeError, "array item must be a unicode character, " &
+                     "not a string of length " & $le)
+    s.runeAt 0
+  func `[]=`*(self: var PyArray[Py_UCS4], i: int, v: string){.inline.} =
+    self[i] = v.asRune
+
+  func w_getitem(self: var PyArray[Py_UCS4], i: int): Py_UCS4{.inline.} = self[i]
+  func `[]=`*(self: var PyArray[Py_UCS4], i: int): PyStr{.inline.} = str self.w_getitem i
+  func fromunicode*(self: var PyArray[Py_UCS4], s: PyStr){.inline.} =
+    ## .. note:: as PyArray here is static-typed,
+    ##   unlike CPython's, no ValueError will be raised
+    for r in s.runes:
+      self.append r
+  func extend*(self: var PyArray[Py_UCS4], s: PyStr) = self.fromunicode s
+  func append*(self: var PyArray[Py_UCS4], s: PyStr){.inline.} =
+    self.append s.asRune
