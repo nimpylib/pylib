@@ -423,8 +423,7 @@ macro wrapMMeth(sym: untyped; paramColonExprs: varargs[untyped]) =
   for p in paramColonExprs: ls.add p
   wrapMethImpl(sym, ls)
 
-
-wrapMeth(len, int)
+# len is defined above
 wrapMeth(`[]`, T, i: int)
 wrapMeth(contains, bool, x: T)
 wrapMeth(items, untyped)
@@ -447,6 +446,7 @@ pysince(3,13):
   wrapMMeth(clear)
   func `[]=`*(self: var PyArray[Py_UCS4], i: int, v: char){.inline.} =
     runnableExamples:
+      from std/unicode import Rune
       var a = array('w', "123")
       a[0] = Rune(65)
       a[1] = '3'
