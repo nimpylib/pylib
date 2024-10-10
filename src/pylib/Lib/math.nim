@@ -194,7 +194,7 @@ func log*[F: SomeFloat](x, base: F): F =
 func log2*[F: SomeFloat](x: F): F = loghelper(x, n_math.log2)
 func log10*[F: SomeFloat](x: F): F = loghelper(x, n_math.log10)
 
-func fma*[F: SomeFloat](x, y, z: F): F =
+func fma*[F: SomeFloat](x, y, z: F): F{.pysince(3,13).} =
   var exc: ref Exception
   result = n_math.fma(x, y, z, exc)
   if not exc.isNil:
