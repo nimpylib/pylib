@@ -27,6 +27,11 @@ iterator mitems*[T](arr: var PyArray[T]): var T =
 
 func setLen*[T](arr: var PyArray[T], n: int) = PyList[T](arr).setLen n  # EXT.
 
+func len*[T](arr: PyArray[T]): int = PyList[T](arr).len
+
+# XXX: if use borrow: `Error: borrow with generic parameter is not supported`
+func `@`*[T](arr: PyArray[T]): seq[T]{.inline.} = @(PyList[T](arr))
+
 template itemsize*[T](arr: PyArray[T]): int = sizeof(T)
 
 func newPyArray*[T](): PyArray[T] = PyArray[T] list[T]()
