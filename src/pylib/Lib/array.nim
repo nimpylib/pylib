@@ -60,9 +60,13 @@ func fromlist*[T](arr: var PyArray[T], ls: PyList[T]) =
 func tolist*[T](arr: PyArray[T]): PyList[T] = PyList[T] arr
 func tolist*[T](arr: var PyArray[T]): var PyList[T] = PyList[T] arr
 
+  
 template genCmp(op){.dirty.} =
   func op*[A, B](arr: PyArray[A], other: PyArray[B]): bool{.inline.} =
+    bind checkLenientOps
+    checkLenientOps A, B
     list_decl.op(PyList[A](arr), PyList[B](other))
+
   #[
 XXX: CPython's returns NotImplement for other mixin cmp, but nimpylib doesn't
 go as CPython does, checking NotImplement and then raiseing TypeError,

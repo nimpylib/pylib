@@ -52,7 +52,17 @@ func getPtr*[T](self: var PyList[T], i: Natural|BackwardsIndex): ptr T =
   ## used by Lib/array `frombytes` and `tobytes`.
   self.data.getPtr i
 
+
+template checkLenientOps*(A, B) =
+  ## inner. unstable
+  when defined(pylibNoLenient):
+    when A is_not B:
+      {.error: "once pylibNoLenient is defined, " &
+        " mixin ops between types is forbidden".}
+
 template cmpBody(op, a, b) =
+  bind checkLenientOps
+  checkLenientOps A, B
   const opS = astToStr(op)
   # Shortcut: if the lengths differ, the arrays differ
   when opS == "==":
