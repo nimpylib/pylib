@@ -68,14 +68,17 @@ template cmpBody(op, a, b) =
   # No more items to compare -- compare sizes
   result = op(a.len, b.len)
 
-func `<=`[T](a, b: openarray[T]): bool = cmpBody `<=`, a, b
-func `<`[T](a, b: openarray[T]): bool =  cmpBody `<`,  a, b
+func `<=`[A, B](a: openarray[A], b: openarray[B]): bool = cmpBody `<=`, a, b
+func `<` [A, B](a: openarray[A], b: openarray[B]): bool = cmpBody `<`,  a, b
 
 template genMixCmp(op){.dirty.} =
-  func op*[T](self, o: PyList[T]): bool = op self.asSeq, o.asSeq
-  func op*[T](self: PyList[T], o: seq[T]): bool = self.asSeq op o
-  func op*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq op @o
-  template op*[T](o: seq[T]|openArray[T], self: PyList[T]): bool =
+  func op*[A, B](self: PyList[A], o: PyList[B]): bool{.inline.} =
+    bind op
+    op self.asSeq, o.asSeq
+  func op*[A, B](self: PyList[A], o: openArray[B]): bool{.inline.} =
+    bind op
+    op self.asSeq, o
+  template op*[A, B](o: openArray[A], self: PyList[B]): bool =
     bind op
     op(self, o)
 

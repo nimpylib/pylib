@@ -61,11 +61,22 @@ func tolist*[T](arr: PyArray[T]): PyList[T] = PyList[T] arr
 func tolist*[T](arr: var PyArray[T]): var PyList[T] = PyList[T] arr
 
 template genCmp(op){.dirty.} =
-  func op*[T](arr, other: PyArray[T]): bool{.inline.} =
-    list_decl.op(PyList[T](arr), PyList[T](other))
-  # XXX: CPython's returns NotImplement for other mixin cmp, but nimpylib doesn't
-  # go as CPython does, checking NotImplement and then raiseing TypeError,
-  # so we just leave it not defined
+  func op*[A, B](arr: PyArray[A], other: PyArray[B]): bool{.inline.} =
+    list_decl.op(PyList[A](arr), PyList[B](other))
+  #[
+XXX: CPython's returns NotImplement for other mixin cmp, but nimpylib doesn't
+go as CPython does, checking NotImplement and then raiseing TypeError,
+so we just leave it not defined
+  ]#
+
+#[ CPython has special banches for same-type array: ```
+Fast path:
+  arrays with same types can have their buffers compared directly
+```
+
+That's because Python is dyn-typed whereas C is static-typed and lacks generics.
+In Nim, it's no need to write such a banch on hand thanks to generics.
+]#
 
 genCmp `==`
 genCmp `<=`
