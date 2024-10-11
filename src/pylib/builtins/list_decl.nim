@@ -30,19 +30,55 @@ func newPyList*[T](len=0): PyList[T] = newPyList newSeq[T](len)
 func newPyListOfCap*[T](cap=0): PyList[T] = newPyList newSeqOfCap[T](cap)
 
 iterator items*[T](self: PyList[T]): T =
-  for i in self.data:
-    yield i
+  for i in self.data: yield i
 
 iterator mitems*[T](self: PyList[T]): var T =
   ## EXT.
-  for i in self.data.mitems:
-    yield i
+  for i in self.data.mitems: yield i
+
+iterator pairs*[T](self: PyList[T]): (int, T) =
+  ## EXT. Nim's auto-enumerate
+  for (i, e) in self.data.pairs: yield (i, e)
+
+template getPtr[T](self: seq[T], i: int): ptr T =
+  when NimMajor == 1:
+    self[i].unsafeAddr
+  else:
+    self[i].addr
 
 func getPtr*[T](self: var PyList[T], i: Natural|BackwardsIndex): ptr T =
   ## EXT.
   ## unstable.
   ## used by Lib/array `frombytes` and `tobytes`.
-  when NimMajor == 1:
-    self.data[i].unsafeAddr
-  else:
-    self.data[i].addr
+  self.data.getPtr i
+
+template cmpBody(op, a, b) =
+  const opS = astToStr(op)
+  # Shortcut: if the lengths differ, the arrays differ
+  when opS == "==":
+    if a.len != b.len: return
+  elif opS == "!=":
+    if a.len != b.len: return true
+
+  for i, e in a:
+    if e != b[i]:
+      # We have an item that differs.
+      result = op(e, b[i])
+      return
+  # No more items to compare -- compare sizes
+  result = op(a.len, b.len)
+
+func `<=`[T](a, b: openarray[T]): bool = cmpBody `<=`, a, b
+func `<`[T](a, b: openarray[T]): bool =  cmpBody `<`,  a, b
+
+template genMixCmp(op){.dirty.} =
+  func op*[T](self, o: PyList[T]): bool = op self.asSeq, o.asSeq
+  func op*[T](self: PyList[T], o: seq[T]): bool = self.asSeq op o
+  func op*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq op @o
+  template op*[T](o: seq[T]|openArray[T], self: PyList[T]): bool =
+    bind op
+    op(self, o)
+
+genMixCmp `==`
+genMixCmp `<=`
+genMixCmp `<`

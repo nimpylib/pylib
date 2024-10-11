@@ -74,12 +74,6 @@ func `[]`*[T](self: PyList[T], s: PySlice): PyList[T] =
   for i in pyrange.range(s.start, s.stop, s.step):
     result.append self[i]
 
-func `==`*[T](self: PyList[T], o: PyList[T]): bool = self.asSeq == o.asSeq
-func `==`*[T](self: PyList[T], o: seq[T]): bool = self.asSeq == o
-func `==`*[T](self: PyList[T], o: openArray[T]): bool = self.asSeq == @o
-
-template `==`*[T](o: seq[T], self: PyList[T]): bool = `==`(self, o)
-template `==`*[T](o: openArray[T], self: PyList[T]): bool = `==`(self, o)
 
 
 func reverse*(self: var PyList) = reverse(self.asSeq)

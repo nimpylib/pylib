@@ -60,8 +60,16 @@ func fromlist*[T](arr: var PyArray[T], ls: PyList[T]) =
 func tolist*[T](arr: PyArray[T]): PyList[T] = PyList[T] arr
 func tolist*[T](arr: var PyArray[T]): var PyList[T] = PyList[T] arr
 
-func `==`*[T](arr, other: PyArray[T]): bool = PyList[T](arr) == PyList[T](other)
+template genCmp(op){.dirty.} =
+  func op*[T](arr, other: PyArray[T]): bool{.inline.} =
+    list_decl.op(PyList[T](arr), PyList[T](other))
+  # XXX: CPython's returns NotImplement for other mixin cmp, but nimpylib doesn't
+  # go as CPython does, checking NotImplement and then raiseing TypeError,
+  # so we just leave it not defined
 
+genCmp `==`
+genCmp `<=`
+genCmp `<`
 
 # ISO-C declare `sizeof(char)` is always 1, but not necessarily 8-bit.
 when declared(cuchar):
