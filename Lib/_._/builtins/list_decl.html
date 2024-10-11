@@ -61,7 +61,22 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">@
+      <ul class="simple nested-toc-section"><
+  <li><a class="reference" href="#%3C%2CPyList%5BA%5D%2CopenArray%5BB%5D" title="`&lt;`[A, B](self: PyList[A]; o: openArray[B]): bool">`&lt;`[A, B](self: PyList[A]; o: openArray[B]): bool</a></li>
+<li><a class="reference" href="#%3C%2CPyList%5BA%5D%2CPyList%5BB%5D" title="`&lt;`[A, B](self: PyList[A]; o: PyList[B]): bool">`&lt;`[A, B](self: PyList[A]; o: PyList[B]): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section"><=
+  <li><a class="reference" href="#%3C%3D%2CPyList%5BA%5D%2CopenArray%5BB%5D" title="`&lt;=`[A, B](self: PyList[A]; o: openArray[B]): bool">`&lt;=`[A, B](self: PyList[A]; o: openArray[B]): bool</a></li>
+<li><a class="reference" href="#%3C%3D%2CPyList%5BA%5D%2CPyList%5BB%5D" title="`&lt;=`[A, B](self: PyList[A]; o: PyList[B]): bool">`&lt;=`[A, B](self: PyList[A]; o: PyList[B]): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">==
+  <li><a class="reference" href="#%3D%3D%2CPyList%5BA%5D%2CopenArray%5BB%5D" title="`==`[A, B](self: PyList[A]; o: openArray[B]): bool">`==`[A, B](self: PyList[A]; o: openArray[B]): bool</a></li>
+<li><a class="reference" href="#%3D%3D%2CPyList%5BA%5D%2CPyList%5BB%5D" title="`==`[A, B](self: PyList[A]; o: PyList[B]): bool">`==`[A, B](self: PyList[A]; o: PyList[B]): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">@
   <li><a class="reference" href="#%40%2CPyList%5BT%5D" title="`@`[T](ls: PyList[T]): seq[T]">`@`[T](ls: PyList[T]): seq[T]</a></li>
 
 </ul>
@@ -103,6 +118,10 @@
   <li><a class="reference" href="#mitems.i%2CPyList%5BT%5D" title="mitems[T](self: PyList[T]): var T">mitems[T](self: PyList[T]): var T</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">pairs
+  <li><a class="reference" href="#pairs.i%2CPyList%5BT%5D" title="pairs[T](self: PyList[T]): (int, T)">pairs[T](self: PyList[T]): (int, T)</a></li>
+
+</ul>
 
     </ul>
   </details>
@@ -114,6 +133,30 @@
       <ul class="simple nested-toc-section">asSeq
   <li><a class="reference" href="#asSeq.c%2CPyList%5BT%5D" title="asSeq[T](self: PyList[T]): seq[T]">asSeq[T](self: PyList[T]): seq[T]</a></li>
 <li><a class="reference" href="#asSeq.c%2CPyList%5BT%5D_2" title="asSeq[T](self: var PyList[T]): var seq[T]">asSeq[T](self: var PyList[T]): var seq[T]</a></li>
+
+</ul>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section"><
+  <li><a class="reference" href="#%3C.t%2CopenArray%5BA%5D%2CPyList%5BB%5D" title="`&lt;`[A, B](o: openArray[A]; self: PyList[B]): bool">`&lt;`[A, B](o: openArray[A]; self: PyList[B]): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section"><=
+  <li><a class="reference" href="#%3C%3D.t%2CopenArray%5BA%5D%2CPyList%5BB%5D" title="`&lt;=`[A, B](o: openArray[A]; self: PyList[B]): bool">`&lt;=`[A, B](o: openArray[A]; self: PyList[B]): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">==
+  <li><a class="reference" href="#%3D%3D.t%2CopenArray%5BA%5D%2CPyList%5BB%5D" title="`==`[A, B](o: openArray[A]; self: PyList[B]): bool">`==`[A, B](o: openArray[A]; self: PyList[B]): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">checkLenientOps
+  <li><a class="reference" href="#checkLenientOps.t%2C%2C" title="checkLenientOps(A, B)">checkLenientOps(A, B)</a></li>
 
 </ul>
 
@@ -161,7 +204,76 @@
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="@-procs-all">
+    <div id="&lt;-procs-all">
+  <div id="<,PyList[A],openArray[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%2CPyList%5BA%5D%2CopenArray%5BB%5D"><span class="Identifier">`&lt;`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L88" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L88" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="<,PyList[A],PyList[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%2CPyList%5BA%5D%2CPyList%5BB%5D"><span class="Identifier">`&lt;`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L85" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L85" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="&lt;=-procs-all">
+  <div id="<=,PyList[A],openArray[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%3D%2CPyList%5BA%5D%2CopenArray%5BB%5D"><span class="Identifier">`&lt;=`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L88" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L88" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="<=,PyList[A],PyList[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3C%3D%2CPyList%5BA%5D%2CPyList%5BB%5D"><span class="Identifier">`&lt;=`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L85" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L85" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="==-procs-all">
+  <div id="==,PyList[A],openArray[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3D%3D%2CPyList%5BA%5D%2CopenArray%5BB%5D"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L88" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L88" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==,PyList[A],PyList[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%3D%3D%2CPyList%5BA%5D%2CPyList%5BB%5D"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L85" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L85" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="@-procs-all">
   <div id="@,PyList[T]">
   <dt><pre><span class="Keyword">func</span> <a href="#%40%2CPyList%5BT%5D"><span class="Identifier">`@`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">ls</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
@@ -180,8 +292,8 @@
   <dd>
     
     EXT. unstable. used by Lib/array <tt class="docutils literal"><span class="pre"><span class="Identifier">frombytes</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">tobytes</span></span></tt>.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -284,8 +396,21 @@
   <dd>
     
     EXT.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="pairs-iterators-all">
+  <div id="pairs.i,PyList[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#pairs.i%2CPyList%5BT%5D"><span class="Identifier">pairs</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    EXT. Nim's auto-enumerate
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L39" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L39" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -323,6 +448,64 @@
 
   </dl>
 </div>
+<div class="section" id="18">
+  <h1><a class="toc-backref" href="#18">Templates</a></h1>
+  <dl class="item">
+    <div id="&lt;-templates-all">
+  <div id="<.t,openArray[A],PyList[B]">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3C.t%2CopenArray%5BA%5D%2CPyList%5BB%5D"><span class="Identifier">`&lt;`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">o</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L97" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L97" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="&lt;=-templates-all">
+  <div id="<=.t,openArray[A],PyList[B]">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3C%3D.t%2CopenArray%5BA%5D%2CPyList%5BB%5D"><span class="Identifier">`&lt;=`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">o</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L96" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L96" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="==-templates-all">
+  <div id="==.t,openArray[A],PyList[B]">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2CopenArray%5BA%5D%2CPyList%5BB%5D"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">o</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">self</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L95" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L95" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="checkLenientOps-templates-all">
+  <div id="checkLenientOps.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#checkLenientOps.t%2C%2C"><span class="Identifier">checkLenientOps</span></a><span class="Other">(</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    inner. unstable
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/list_decl.nim#L56" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/list_decl.nim#L56" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+
+  </dl>
+</div>
 
   </div>
 </div>
@@ -330,7 +513,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-11 04:57:36 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-11 16:49:26 UTC</small>
       </div>
     </div>
   </div>
