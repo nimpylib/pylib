@@ -10,7 +10,10 @@
 import ../version
 import ../builtins/list
 
-pysince(3,13):
+template since_has_Py_UCS4(def) =
+  pysince(3, 13): def
+
+since_has_Py_UCS4:
   import std/unicode
   type Py_UCS4* = Rune  ## inner
   import ../pystring/strimpl
@@ -165,7 +168,13 @@ func tofile*[T](arr: var PyArray[T], f: File) =
   for x in arr:
     f.writeBuffer(x.addr, arr.itemsize)
 
-const typecodes* = "bBuhHiIlLqQfd"
+func mkTypecodes: string{.compileTime.} =
+  result = "bBu"
+  since_has_Py_UCS4:
+    result.add 'w'
+  result.add "hHiIlLqQfd"
+
+const typecodes* = mkTypecodes()
 
 # a table that will be used to map, e.g. 'h' to cshort, 'H' to cushort
 const OriginTable = {
@@ -185,7 +194,7 @@ func initTypeTable(): Table[char, string]{.compiletime.} =
   for (k, v) in OriginTable:
     result[k] = 'c' & v
     result[ k.toUpperAscii ] = "cu" & v
-  pysince(3, 13):
+  since_has_Py_UCS4:
     result['w'] = "Py_UCS4"
 
 func initSizeTable(): Table[string, int]{.compiletime.} =
@@ -211,7 +220,7 @@ func initSizeTable(): Table[string, int]{.compiletime.} =
 
   genU cfloat
   genU cdouble
-  pysince(3, 13):
+  since_has_Py_UCS4:
     genU Py_UCS4
 const SizeTable = initSizeTable()
 
@@ -254,7 +263,7 @@ template strImplBody[T](arr: PyArray[T], arrToStr) =
     result.add arrToStr arr
   result.add ')'
 
-pysince(3, 13):
+since_has_Py_UCS4:
   func tounicode*(arr: PyArray[Py_UCS4]): PyStr{.inline.} =
     ## .. note:: as PyArray here is static-typed,
     ##   unlike CPython's, no ValueError will be raised
@@ -271,7 +280,7 @@ func `$`*[T](arr: PyArray[T]): string{.inline.} =
 # so repr can just the same as `__str__`
 func repr*[T](arr: PyArray[T]): string = $arr ## alias for `$arr`
 
-pysince(3,13):
+since_has_Py_UCS4:
   ## XXX: the `extend` is used by `array(c, ls)`,
   ##  And Py_UCS4-array's extend is not generic,
   ## so it must be placed before `array` proc
@@ -467,6 +476,8 @@ wrapMMeth(reverse)
 
 pysince(3,13):
   wrapMMeth(clear)
+
+since_has_Py_UCS4:
   func `[]=`*(self: var PyArray[Py_UCS4], i: int, v: char){.inline.} =
     runnableExamples:
       from std/unicode import Rune
