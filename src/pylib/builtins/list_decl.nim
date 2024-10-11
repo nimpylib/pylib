@@ -46,7 +46,7 @@ template getPtr[T](self: seq[T], i: int): ptr T =
   else:
     self[i].addr
 
-func getPtr*[T](self: var PyList[T], i: Natural|BackwardsIndex): ptr T =
+func getPtr*[T](self: sink PyList[T], i: Natural|BackwardsIndex): ptr T{.inline.} =
   ## EXT.
   ## unstable.
   ## used by Lib/array `frombytes` and `tobytes`.

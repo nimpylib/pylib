@@ -5,7 +5,7 @@ type
   PyBytes* = distinct string
 
 func bytes*(): PyBytes = PyBytes ""
-func bytes*(s: string): PyBytes = PyBytes s  ## XXX: Currently no 
+func bytes*(s: sink string): PyBytes{.inline.} = PyBytes s  ## XXX: Currently no 
                                              ## `encode` and `errors` params
 
 func bytes*(s: openArray[char]): PyBytes =

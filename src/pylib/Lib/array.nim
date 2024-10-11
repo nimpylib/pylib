@@ -107,6 +107,11 @@ when declared(cuchar): {.pop.}
 
 static: assert char is cchar
 
+func getPtr*[T](arr: sink PyArray[T]; i: Natural|BackwardsIndex): ptr T{.inline.} =
+  ## EXT.
+  ## unstable.
+  PyList[T](arr).getPtr i
+
 func frombytes*[C: SomeChar](arr: var PyArray[C], buffer: BytesLike) =
   ## append byte from `buffer` to `arr`
   let alen = arr.len
