@@ -13,9 +13,11 @@ type
 using self: PyByteArray
 using mself: PyByteArray
 
-func newPyByteArray*: PyByteArray = PyByteArray()
-func newPyByteArray*(s: string): PyByteArray = PyByteArray(data: s)
-func newPyByteArray*(len: int): PyByteArray = PyByteArray(data: newString(len))
+func newPyByteArray{.inline.}*: PyByteArray = PyByteArray()
+func newPyByteArray*(s: sink string): PyByteArray{.inline.} = PyByteArray(data: s)
+func newPyByteArray*(len: int): PyByteArray{.inline.} = PyByteArray(data: newString(len))
+
+func bytes*(self: sink PyByteArray): PyBytes{.inline.} = bytes(self.data)
 
 template asNim(self: PyByteArray): string =
   ## returns a mutable var
