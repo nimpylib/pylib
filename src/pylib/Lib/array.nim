@@ -116,28 +116,25 @@ func frombytes*[C: SomeChar](arr: var PyArray[C], buffer: BytesLike) =
   ## append byte from `buffer` to `arr`
   let alen = arr.len
   arr.setLen alen + buffer.len
-  var i = alen
-  for c in buffer.chars:
-    arr[i] = C(c)
-    i.inc
+  when has_copyMem:
+    copyMem(arr.getPtr aLen, buffer.getCharPtr(0), buffer.len)
+  else:
+    var i = alen
+    for c in buffer.chars:
+      arr[i] = C(c)
+      i.inc
 
-func tobytes*(arr: PyArray[SomeChar]): PyBytes = bytes @arr
 
 template getAddr(x): ptr =
   when NimMajor == 1: x.unsafeAddr
   else: x.addr
-
-func getPtr*[T](arr: var PyArray[T]; i: Natural|Natural): ptr T =
-  ## EXT.
-  ## unstable.
-  PyList[T](arr).getPtr i
 
 func frombytes*[T: not SomeChar](arr: var PyArray[T], buffer: BytesLike) =
   ## append byte from `buffer` to `arr`
   runnableExamples:
     when sizeof(cshort) == 2:
       var h = array('h', [1, 2])
-      h.frombytes(bytes("\x05\x00"))
+      h.frombytes(b"\x05\x00")
       when cpuEndian == littleEndian:
         assert h[2] == 5
       else:
@@ -149,29 +146,55 @@ func frombytes*[T: not SomeChar](arr: var PyArray[T], buffer: BytesLike) =
   let aLen = arr.len
   let aMoreLen = bLen div arr.itemsize
   arr.setLen aLen + aMoreLen
-  for i in 0..<aMoreLen:
-    copyMem(arr.getPtr aLen+i, buffer.getCharPtr(i*arr.itemsize), arr.itemsize)
+  when has_copyMem:
+    copyMem(arr.getPtr aLen, buffer.getCharPtr(0), aMoreLen*arr.itemsize)
+  else:
+    var i = alen
+    for c in buffer.chars:
+      arr[i] = cast[C](c)  # So it does not change its binary
+      i.inc
+
+func tobytes*(arr: PyArray[SomeChar]): PyBytes =
+  let
+    bLen = arr.len
+  var ba = bytearray bLen
+  when has_copyMem:
+    copyMem(ba.getCharPtr(0), arr.getPtr(0), bLen)
+  else:
+    var i = alen
+    for c in arr:
+      ba[i] = cast[C](c)  # So it does not change its binary
+      i.inc
+  bytes ba
 
 func tobytes*[T: not SomeChar](arr: PyArray[T]): PyBytes =
   let
     aLen = arr.len
     bLen = aLen * arr.itemsize
   var ba = bytearray bLen
-  for i in 0..<aLen:
-    copyMem(ba.getCharPtr(i * arr.itemsize), arr.getPtr i, arr.itemsize)
+  when has_copyMem:
+    copyMem(ba.getCharPtr(0), arr.getPtr(0), blen)
+  else:
+    var i = alen
+    for c in arr:
+      ba[i] = cast[C](c)  # So it does not change its binary
+      i.inc
   bytes ba
 
 func fromfile*[T](arr: var PyArray[T], f: File, n: int) =
   ## Currrently only for Nim's `File`
-  for _ in 1..n:
-    var item: T
-    f.readBuffer(item.addr, arr.itemsize)
-    arr.append item
+  if n < 0:
+    raise newException(ValueError, "negative count")
+  #when declare(readBuffer):
+  let oldLen = arr.len
+  arr.setLen oldLen + n
+  let readBytes = f.readBuffer(arr.getPtr oldLen, n * arr.itemsize)
+  arr.setLen oldLen + readBytes * arr.itemsize
 
 func tofile*[T](arr: var PyArray[T], f: File) =
   ## Currrently only for Nim's `File`
-  for x in arr:
-    f.writeBuffer(x.addr, arr.itemsize)
+  #when declare(writeBuffer):
+  f.writeBuffer(arr.getPtr(0), arr.len * arr.itemsize)
 
 func mkTypecodes: string{.compileTime.} =
   result = "bBu"
@@ -332,7 +355,7 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
   ## see examples
   runnableExamples:
     assert array('i', [1, 2])[1] == c_int(2)
-    assert array('b', bytes("123"))[2] == c_schar('3')
+    assert array('b', b"123")[2] == c_schar('3')
 
   let
     typeStr = getType typecode
