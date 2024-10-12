@@ -13,7 +13,7 @@ type
 using self: PyByteArray
 using mself: PyByteArray
 
-func newPyByteArray{.inline.}*: PyByteArray = PyByteArray()
+func newPyByteArray*: PyByteArray{.inline.} = PyByteArray()
 func newPyByteArray*(s: sink string): PyByteArray{.inline.} = PyByteArray(data: s)
 func newPyByteArray*(len: int): PyByteArray{.inline.} = PyByteArray(data: newString(len))
 
