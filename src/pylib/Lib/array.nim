@@ -112,6 +112,8 @@ func getPtr*[T](arr: sink PyArray[T]; i: Natural|BackwardsIndex): ptr T{.inline.
   ## unstable.
   PyList[T](arr).getPtr i
 
+const has_copyMem = declared(copyMem)
+
 func frombytes*[C: SomeChar](arr: var PyArray[C], buffer: BytesLike) =
   ## append byte from `buffer` to `arr`
   let alen = arr.len
@@ -185,7 +187,7 @@ func fromfile*[T](arr: var PyArray[T], f: File, n: int) =
   ## This variant is optimitized for Nim's `File`
   if n < 0:
     raise newException(ValueError, "negative count")
-  #when declare(readBuffer):
+  #when declared(readBuffer):
   let oldLen = arr.len
   arr.setLen oldLen + n
   let readBytes = f.readBuffer(arr.getPtr oldLen, n * arr.itemsize)
@@ -193,7 +195,7 @@ func fromfile*[T](arr: var PyArray[T], f: File, n: int) =
 
 func tofile*[T](arr: var PyArray[T], f: File) =
   ## This variant is optimitized for Nim's `File`
-  #when declare(writeBuffer):
+  #when declared(writeBuffer):
   f.writeBuffer(arr.getPtr(0), arr.len * arr.itemsize)
 
 type
@@ -202,7 +204,7 @@ type
   HasWriteBytesLike* = concept self
     self.write(BytesLike)
 
-func fromfile*[T](self: var PyArray[T], f: HasReadNAsBytes, n: int) =
+func fromfile*[T](self: var PyArray[T], f: HasReadNRetBytesLike, n: int) =
   if n < 0:
     raise newException(ValueError, "negative count")
   self.frombytes f.read(n)
