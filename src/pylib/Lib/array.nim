@@ -182,7 +182,7 @@ func tobytes*[T: not SomeChar](arr: PyArray[T]): PyBytes =
   bytes ba
 
 func fromfile*[T](arr: var PyArray[T], f: File, n: int) =
-  ## Currrently only for Nim's `File`
+  ## This variant is optimitized for Nim's `File`
   if n < 0:
     raise newException(ValueError, "negative count")
   #when declare(readBuffer):
@@ -192,9 +192,23 @@ func fromfile*[T](arr: var PyArray[T], f: File, n: int) =
   arr.setLen oldLen + readBytes * arr.itemsize
 
 func tofile*[T](arr: var PyArray[T], f: File) =
-  ## Currrently only for Nim's `File`
+  ## This variant is optimitized for Nim's `File`
   #when declare(writeBuffer):
   f.writeBuffer(arr.getPtr(0), arr.len * arr.itemsize)
+
+type
+  HasReadNRetBytesLike* = concept self
+    self.read(int) is BytesLike
+  HasWriteBytesLike* = concept self
+    self.write(BytesLike)
+
+func fromfile*[T](self: var PyArray[T], f: HasReadNAsBytes, n: int) =
+  if n < 0:
+    raise newException(ValueError, "negative count")
+  self.frombytes f.read(n)
+
+func tofile*[T](self: PyArray[T], f: HasWriteBytesLike) =
+  f.write(self.tobytes())
 
 func mkTypecodes: string{.compileTime.} =
   result = "bBu"
