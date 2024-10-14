@@ -3,13 +3,34 @@ import std/macros
 
 from std/os import parentDir, `/../`
 
-const Dir = currentSourcePath().parentDir
+const
+  wuDirPart = "inWordUtils"
+
+const dunder_file = currentSourcePath()
+when defined(js):
+  from std/strutils import rfind
+  func restrict_parentDir(s: string): string {.compileTime.}=
+    var idx = s.rfind '/'
+    if idx == -1: idx = s.rfind '\\' 
+    assert idx != -1, "unreachable: not abs path from currentSourcePath()"
+    debugEcho  s[0..<idx]
+    s[0..<idx]
+  func inSourceParentDir(lastPart: string): string{.compileTime.} =
+    let sourceDir = dunder_file.restrict_parentDir
+    sourceDir & "/../" & lastPart
+  ## XXX: when JS and nimvm, parentDir and `/../` cannot work
+else:
+  func inSourceParentDir(lastPart: string): string{.compileTime.} =
+    dunder_file.parentDir /../ lastPart
+# NOTE: inSourceParentDir impl is dup in tlib.nim
+
+const wu_Dir = wuDirPart.inSourceParentDir
 
 macro wu_import*(moduleOrfromExpr) =
   ## words utils import
   # possible to add support for varargs, but no need
   let
-    modPre = newLit Dir/../"inWordUtils"
+    modPre = newLit wu_Dir
     slash = ident"/"
   template pre(module): NimNode =
     nnkInfix.newTree(slash, modPre, module)
