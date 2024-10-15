@@ -51,5 +51,27 @@ when defined(nimdoc):
 
 else:
   template pysince*(major, minor: int, def){.dirty.} =
+    bind PyMajor, PyMinor
     when (PyMajor, PyMinor) >= (major, minor):
       def
+
+type MajorMinorVersion = tuple[major, minor: int]
+
+template pysince*[R](ver: MajorMinorVersion, defExpr, elseExpr: R): R =
+  bind PyMajor, PyMinor
+  when (PyMajor, PyMinor) >= ver: defExpr
+  else: elseExpr
+
+template toVer(s: MajorMinorVersion): MajorMinorVersion = s
+func toVer(s: static float): MajorMinorVersion{.compileTime.} =
+  result.major =  int(s)
+  let minorF = 10 * (s - float int(s))
+  assert minorF.int.float - minorF < 1e10,  # 1e10 is a picked not very strictly.
+    "must be in format of major.minor, " & "but got " & $s &
+      " debug: delta=" & $(minorF.int.float - minorF)
+  result.minor =  int minorF
+
+func pysince*[R](ver: static[float|MajorMinorVersion]; defExpr, elseExpr: R): R{.compileTime.} =
+  bind PyMajor, PyMinor, toVer
+  when (PyMajor, PyMinor) >= toVer(ver): defExpr
+  else: elseExpr
