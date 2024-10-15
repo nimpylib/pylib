@@ -6,7 +6,17 @@ import ../version
 import ./sys
 export list, noneType
 
-export n_timeit except newTimer, repeat, print_exc, default_repeat
+pysince(3,3):
+  const TimeItUseTime*{.booldefine: "timeit.usetime".} = true  ## \
+    ## disable this if don't wanna depending on `Lib/time`
+  when TimeItUseTime:
+    import ./time
+
+export n_timeit except newTimer, repeat, print_exc, default_repeat, default_timer
+
+when TimeItUseTime:
+  var default_timer* = pysince(3.3, time.perf_counter, n_timeit.default_timer)
+else: export n_timeit.default_timer
 
 template repeatImpl(xs: varargs[untyped]): untyped = n_timeit.repeat(xs)  ##\
 ## to avoid `repeat`'s repeat param being replaced

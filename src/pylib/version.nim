@@ -71,7 +71,7 @@ func toVer(s: static float): MajorMinorVersion{.compileTime.} =
       " debug: delta=" & $(minorF.int.float - minorF)
   result.minor =  int minorF
 
-func pysince*[R](ver: static[float|MajorMinorVersion]; defExpr, elseExpr: R): R{.compileTime.} =
+func pysince*[R](ver: static[float|MajorMinorVersion]; defExpr, elseExpr: R): R{.inline.} =
   bind PyMajor, PyMinor, toVer
   when (PyMajor, PyMinor) >= toVer(ver): defExpr
   else: elseExpr
