@@ -12,9 +12,11 @@ const
   default_repeat* = 5 ## since python 3.7: default value of `repeat` parameter is changed from 3 to 5.
 
 
-proc default_timer_defval(): float{.nimcall.} =
+proc default_timer_defval(): float =
   ## default value of default_timer
-  getTime().toUnixFloat
+  {.noSideEffect.}:
+    let t = getTime()
+  t.toUnixFloat
 
 var default_timer* = default_timer_defval
 
