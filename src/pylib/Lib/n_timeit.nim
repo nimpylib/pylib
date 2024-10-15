@@ -129,11 +129,10 @@ template timeit*(
   )
 
 
-template repeatImpl(repeatExpr: int; doTimeit): seq[float] =
-  let repeat = repeatExpr
-  var r = newSeq[float](repeat)
-  for i in 0..<repeat:
-    r[i] = doTimeit
+template repeatImpl(repeatExpr: int; doBody): seq[float] =
+  var r = newSeq[float](repeatExpr)
+  for i in 0..r.high:
+    r[i] = doBody
   r
 
 template repeat*(
