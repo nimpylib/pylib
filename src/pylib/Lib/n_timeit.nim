@@ -9,7 +9,7 @@ import std/[
 
 const
   default_number* = 1000000
-  default_repeat* = 5
+  default_repeat* = 5 ## since python 3.7: default value of `repeat` parameter is changed from 3 to 5.
 
 
 proc default_timer_defval(): float{.nimcall.} =
@@ -45,7 +45,7 @@ template timeit*(repetitions: int, statements: untyped) =
 macro exec(s: static[string]) = parseStmt s
 
 type
-  NullaryFunc* = concept self ## Callable[[], Any]
+  NullaryFunc* = concept self ## `Callable[[], Any]`
     self()
   TimeitParam* = string|NullaryFunc
 const NullStmt* = "discard"
@@ -132,7 +132,7 @@ template timeit*(
 template repeatImpl(repeatExpr: int; doTimeit): seq[float] =
   let repeat = repeatExpr
   var r = newSeq[float](repeat)
-  for i in 1..repeat:
+  for i in 0..<repeat:
     r[i] = doTimeit
   r
 
