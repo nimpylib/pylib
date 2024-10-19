@@ -1,4 +1,7 @@
-## from https://www.netlib.org/cephes/ cmath.tgz cbrt.c
+## from https://www.netlib.org/cephes/
+##  cmath.tgz cbrt.c
+## And
+##  single.tgz cbrtf.c
 ##
 ## Cube root
 ##
@@ -43,7 +46,8 @@ from std/math import classify, FloatClass
 from ../frexp import n_frexp
 from ../ldexp import n_ldexp
 
-func cbrt*(x: float): float =
+type F = float32
+func cbrt*(x: F): F =
   let fc = classify x
   if fc != fcNormal and fc != fcSubNormal:
     return x
@@ -70,6 +74,14 @@ func cbrt*(x: float): float =
       9.5438224771509446525043e-1) * result + 1.1399983354717293273738e0) * result +
       4.0238979564544752126924e-1
   ##  exponent divided by 3
+  when F is float64:
+    const
+      c2 = CBRT2
+      c4 = CBRT4
+  else:
+    const
+      c2 = CBRT2I
+      c4 = CBRT4I
 
   var rem: int
   if e >= 0:
@@ -80,15 +92,15 @@ func cbrt*(x: float): float =
       result *= CBRT2
     elif rem == 2:
       result *= CBRT4
-  else:
+  else: # argument less than 1
     e = -e
     rem = e
     e = e div 3
     rem -= 3 * e
     if rem == 1:
-      result *= CBRT2I
+      result *= c2
     elif rem == 2:
-      result *= CBRT4I
+      result *= c4
     e = -e
   ##  multiply by power of 2
 
@@ -96,6 +108,7 @@ func cbrt*(x: float): float =
   ##  Newton iteration
 
   result -= (result - (z / (result * result))) * 0.33333333333333333333
-  result -= (result - (z / (result * result))) * 0.33333333333333333333
+  when F is float64:
+    result -= (result - (z / (result * result))) * 0.33333333333333333333
   if sign < 0:
     result = -result
