@@ -19,7 +19,7 @@ import std/math
 import ./consts
 import ./sinpi
 from ./trunc import uncheckedTruncToInt
-from ./polevl import polExpd0
+from ../polevl import polExpd0
 from ../err import mapRaiseGammaErr, GammaError
 from ../gammaXRange import MAX_GAMMA_X, MIN_GAMMA_X
 import ../constsUtils

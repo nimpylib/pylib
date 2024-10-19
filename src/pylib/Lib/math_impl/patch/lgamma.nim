@@ -28,7 +28,7 @@ is preserved.
 
 from std/math import ln, classify, FloatClass, Pi
 import ./trunc, ./sinpi, ./consts
-from ./polevl import polExpd0
+from ../polevl import polExpd0
 from ../err import mapRaiseGammaErr, GammaError
 
 export GammaError
