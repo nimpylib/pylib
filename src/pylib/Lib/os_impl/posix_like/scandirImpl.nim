@@ -64,6 +64,13 @@ else:
 func repr*(self): string =
   "<DirEntry " & self.name.repr & '>'
 
+func stat*(self): stat_result =
+  if self.stat_res != nil:
+    return self.stat_res[]
+  result = stat(self.path)
+  new self.stat_res
+  self.stat_res[] = result
+
 when InJs:
   func is_symlink*(self): bool = self.statObj.isSymbolicLink()
   template gen_is_x(is_x, jsAttr){.dirty.} =
@@ -80,29 +87,46 @@ when InJs:
   gen_is_x is_file, isFile
   gen_is_x is_dir, isDirectory
 else:
-  template gen_is_x(is_x, pcX, pcLinkToX){.dirty.} =
-    func is_x*(self): bool = 
+  template gen_is_xAux(is_x, chk_pcX, chk_pcLinkToX){.dirty.} =
+    func is_x*(self): bool =
       ## follow_symlinks is True on default.
-      self.kind == pcX or self.kind == pcLinkToX
+      chk_pcX(self) or chk_pcLinkToX self
     func is_x*(self; follow_symlinks: bool): bool =
       ## result is cached. Python's is cached too.
-      result = self.kind == pcX
+      result = chk_pcX self
       if follow_symlinks:
-        return result or self.kind == pcLinkToX
-  gen_is_x is_file, pcFile, pcLinkToFile
-  gen_is_x is_dir, pcDir, pcLinkToDir
-  func is_symlink*(self): bool = 
+        return result or chk_pcLinkToX self
+  template gen_is_x(is_x, pcX, pcLinkToX) =
+    template isPcX(self): bool = self.kind == pcX
+    template isPcLinkX(self): bool = self.kind == pcLinkToX
+    gen_is_xAux(is_x, isPcX, isPcLinkX)
+
+  func is_symlink*(self): bool =
     ## ..warning:: this may differ Python's
     self.kind == pcLinkToDir or self.kind == pcLinkToFile
-
-
-func stat*(self): stat_result =
-  if self.stat_res != nil:
-    return self.stat_res[]
-  let path = joinPath(self.dir[], self.name)
-  result = stat(path)
-  new self.stat_res
-  self.stat_res[] = result
+  when defined(windows):
+    gen_is_x is_file, pcFile, pcLinkToFile
+  else:
+    from std/posix import Mode
+    {.push header: "<sys/stat.h>".}
+    let
+      S_IFMT{.importc.}: Mode
+      S_IFREG{.importc.}: Mode
+    {.pop.}
+    func isFReg(mode: Mode): bool{.inline.} =
+      {.noSideEffect.}:
+        result = (mode and S_IFMT) == S_IFREG
+    func chk_isfile(self: DirEntry): bool{.inline.} =
+      result = self.kind == pcFile
+      if not result: return
+      result = self.stat().st_mode.isFReg
+    func chk_isSymlinkToFile(self: DirEntry): bool{.inline.} =
+      result = self.is_symlink()
+      if not result: return
+      let p = readlink $self.path
+      result = stat(p).st_mode.isFReg
+    gen_is_xAux is_file, chk_isfile, chk_isSymlinkToFile
+  gen_is_x is_dir, pcDir, pcLinkToDir
 
 when defined(js):
   # readdirSync returns array, which might be too expensive.
