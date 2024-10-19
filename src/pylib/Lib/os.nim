@@ -1,20 +1,20 @@
-
 ## see docs.python.org/3/library/os.html
 ## 
 ## Also export everything of std/os
+## 
+## .. warning:: export of std/os will be removed in 0.10.0
 
-import std/os
-export os
+import std/os as std_os
+export std_os
 
-import ./os_impl/[
-  consts, posix_like, subp, utils, path, walkImpl, listdirx,
-]
-when not defined(js):
-  import ./os_impl/[
-    term, inheritable]
-  export term, set_inheritable, get_inheritable
+import ./n_os
+export n_os except scandir, DirEntry
 
-export
-  consts, posix_like, subp, utils, path, walkImpl, listdirx
+import ../version
 
+template scandir*(): untyped{.pysince(3,5).} = n_os.scandir()
+template scandir*[T](p: PathLike[T]): untyped{.pysince(3,5).} = n_os.scandir(p)
+pysince(3,5):
+  export DirEntry
 
+template close*(p: DirEntry){.pysince(3,6).} = discard
