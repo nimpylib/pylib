@@ -10,6 +10,12 @@ when InJs:
     Dir = JsObject  ## fs.Dir
     Dirent = JsObject  ## fs.Dirent
   from ./jsStat import Stat, statSync
+elif defined(posix):
+  import ./links
+when declared(readlink):
+  func func_readlink(x: string): string =
+    {.noSideEffect.}:
+      result = readlink(x)
 
 type
   DirEntryImpl[T] = ref object of RootObj
@@ -64,7 +70,7 @@ when InJs:
     func is_x*(self): bool = 
       ## follow_symlinks is True on default.
       if self.is_symlink():
-        let p = readlink $self.path / $self.name
+        let p = func_readlink $self.path
         statSync(p).jsAttr()
       else:
         self.statObj.jsAttr()
