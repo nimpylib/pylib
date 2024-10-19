@@ -25,11 +25,13 @@
 import std/math
 import std/bitops
 import std/macros
-from ./math_impl/platformUtils import CLike, clikeOr
+from ./math_impl/platformUtils import CLike, clikeOr, impJsOrC
 from ./math_impl/errnoUtils import
   prepareRWErrno, prepareROErrno, setErrno, setErrno0, getErrno, isErr, isErr0
 from ./math_impl/ldexp import c_ldexp
 from ./math_impl/cbrt import cbrt
+import ./math_impl/expm1_log1p
+export expm1_log1p
 import ./math_impl/frexp as frexpLib
 import ./math_impl/nextafter_ulp
 from ./errno import ERANGE, EDOM
@@ -226,24 +228,6 @@ func lgamma*[F: SomeFloat](x: F): F =
   of geOk: discard
 
 expM exp
-
-template impJsOrC(sym, cfloatSym, argSym){.dirty.} =
-  when defined(js):
-    func sym(argSym: float): float{.importjs: "Math." & astToStr(sym) & "(#)".}
-    func sym(argSym: float32): float32 = float32(sym(float argSym))
-  elif CLike:
-    {.push header: "<math.h>".}
-    func sym(arg: c_double): c_double{.importc.}
-    func cfloatSym(arg: c_float): c_float{.importc.}
-    {.pop.}
-    func sym(argSym: float): float = float sym(arg=c_double(argSym))
-    func sym(argSym: float32): float32 = float32 cfloatSym c_float(argSym)
-  else:
-    {.error: "unreachable".}
-
-impJsOrC expm1, expm1f, native_x
-func expm1*[F: SomeFloat](x: F): F =
-  expm1(native_x=x)
 
 when CLike:
   proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
@@ -592,18 +576,6 @@ func log*[F: SomeFloat](x, base: F): F =
 genLog log2, log2
 genLog log10, log10
 
-impJsOrC log1p, log1pf, x_native
-
-func log1p*[F: SomeFloat](x: F): F =
-  #[ from CPython/Modules/_math.h _Py_log1p:
-  /*Some platforms (e.g. MacOS X 10.8, see gh-59682) supply a log1p function
-but don't respect the sign of zero:  log1p(-0.0) gives 0.0 instead of
-the correct result of -0.0.
-
-To save fiddling with configure tests and platform checks, we handle the
-special case of zero input directly on all platforms.*/]#
-  if x == 0.0: x  # respect its sign
-  else: log1p(x_native=x)
 
 aliasFF degrees, radToDeg
 
