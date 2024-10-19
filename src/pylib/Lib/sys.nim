@@ -196,17 +196,20 @@ const
   copyright* = str "MIT"
   #api_version* = NimVersion
 
-let
-  argn = paramCount()
-  argc = argn + 1
-var
-  orig_argv* = newPyListOfCap[PyStr](argc)
-  argv*: PyList[PyStr]
+const
+  hasArgn = declared(paramCount)
+  hasArgs = declared(paramStr)
 
-when not declared(paramStr):
-  ## under shared lib in POSIX, paramStr is not available
-  argv = newPyList[PyStr]()
-else:
+when hasArgn and hasArgs:
+  ## under shared lib in POSIX, paramStr and paramCount are not available
+
+  let
+    argn = paramCount()
+    argc = argn + 1
+  var
+    orig_argv* = newPyListOfCap[PyStr](argc)  ## .. hints:: on
+    argv*: PyList[PyStr]
+
   for i in 0..argn:
     orig_argv.append str paramStr i
   when defined(nimscript):
