@@ -8,5 +8,5 @@ import ./posix_like/[
 export seek_consts except toCSEEK
 export stat except statAttr
 export
-  fdopen, open_close, lseek, truncate, scandirImpl.scandir, mkrmdir, unlink,
+  fdopen, open_close, lseek, truncate, scandirImpl, mkrmdir, unlink,
   rename, isatty, links, utime
