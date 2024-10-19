@@ -12,11 +12,26 @@ elif not defined(nimscript):
   else:
     import std/exitprocs
 
-from std/strutils import join
+from std/strutils import join, escape
 
 # NOTE: `echo`'s newline is `\n`
 template isEchoNL(c: char): bool = c == '\n'
 template isEchoNL(c: string): bool = c == "\n"
+
+template vmPrintStdoutNoNL(msg: string) =
+  when defined(windows):
+    # relay on PowerShell
+    let
+      nmsg = msg.escape.escape("", "")
+      cmd = "powershell -c \"[System.Console]::Write(" & nmsg & ")\""
+  else:
+    let
+      nmsg = escape msg
+      cmd = "echo -n " & nmsg
+  when declared(exec):
+    exec cmd
+  else:
+    discard gorge cmd
 
 proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string="\n",
               file: auto = None, flush=false) =
@@ -26,10 +41,13 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
       " is not supported for " &
       astToStr(backend) & " backend")
   template vmPrintImpl =
-    if file is_not NoneType or not endl.isEchoNL:
-      notImpl "NimScript"
+    if file is_not NoneType:
+      notImpl "NimScript", true
     # We know sys.std* cannot be modified at compile-time
-    echo objects.join sep
+    if not endl.isEchoNL:
+      vmPrintStdoutNoNL(objects.join(sep) & endl)
+    else:
+      echo objects.join sep
     return
   when sep is char:
     let sep = $sep  # strutils.join only accept string sep
