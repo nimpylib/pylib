@@ -12,8 +12,11 @@
 > Write Python in Nim
 
 Nimpylib is a collection of Python-like operators/functions and libraries as well as syntax sugars.
-It can help you to translate your Python program to Nim,
-and gain a better view into different behaviors between Python and Nim.
+
+It helps you to:
+- use Python-like APIs in Nim, without any Python dependency
+- translate your Python program to Nim
+- gain a better view into different behaviors between Python and Nim.
 
 ---
 
@@ -153,7 +156,7 @@ assert timeit(a_little_sleep, number=1000) > 1.0
 
 # Support for Python-like with statements
 # All objects are closed at the end of the with statement
-def t_open():
+def test_open():
   with open("some_file.txt", 'w') as file:
     _ = file.write("hello world!")
 
@@ -163,7 +166,7 @@ def t_open():
       if s == "": break
       print(s)
 
-t_open()
+test_open()
 
 def show_tempfile():
   with NamedTemporaryFile() as file:
@@ -332,22 +335,108 @@ $ nimble test
 
 [Suite] tzinfo
   [OK] fromtimestamp
-[OK] Lib/os
-[OK] os.path
+
+[Suite] gamma
+  [OK] gamma(-integer)
+
+[Suite] ldexp
+
+[Suite] sumprod
+  [OK] array
+  [OK] CPython:test_math.testSumProd
+
+[Suite] constants
+  [OK] nan
+  [OK] inf
+
+[Suite] classify
+  [OK] isinf
+  [OK] isfinite
+
+[Suite] nextafter_ulp
+  [OK] nextafter
+  [OK] ulp
+
+[Suite] ldexp
+  [OK] static
+  [OK] small
+  [OK] non-normal first arg
+  [OK] large second arg
+
+[Suite] Lib/os with no JS support
+  [OK] mkdir rmdir
+  [OK] open fdopen close
+  [OK] get,set_inheritable
+[OK] touch, unlink, is_file
+[OK] Lib/tempfile
 [OK] Lib/time
 [OK] Lib/timeit
-[OK] bytes
-[OK] bytes meth
-[OK] str operations
-[OK] str index
-[OK] str methods
-[OK] str.replace
-[OK] PyStr.maketrans&translate
+
+[Suite] Lib/array
+  [OK] py3.13: 'w' Py_UCS4
+  [OK] bytes
+  [OK] cmp
+
+[Suite] os.path
+  [OK] if export right
+  [OK] getxtime
+[OK] getattr/set/has
+[OK] bytearray
+
+[Suite] bytes
+  [OK] getitem
+  [OK] meth
+  [OK] repr
+
+[Suite] complex.__init__(str)
+  [OK] from str
+  [OK] negative_nans_from_string
+
+[Suite] complex
+  [OK] init
+  [OK] literals
+  [OK] str
+  [OK] op
+
+[Suite] complex.__repr__
+  [OK] (N+nanj)
+  [OK] real == 0.0
+
+[Suite] complex.__pow__
+  [OK] CPython:test_complex.ComplexTest.test_pow
+  [OK] with small integer exponents
+[OK] decorator
+[OK] custom decorator
 [OK] dict
+
+[Suite] float.fromhex
+  [OK] literals
+  [OK] nans
+  [OK] some values
+  [OK] overflow
+  [OK] zeros and underflow
+  [OK] round-half-even
+
+[Suite] float.fromhex and hex
+  [OK] roundtrip
+
+[Suite] float
+  [OK] hex
+  [OK] test_nan_signs
+  [OK] is_integer
+  [OK] as_integer_ratio
+[OK] rewrite in `def`
+[OK] Floor division
+[OK] int.{from,to}_bytes
+[OK] io & with
+[OK] bltin iters
+[OK] iters as iterable
+[OK] iter/next
 [OK] random
 [OK] Lib/string
-[OK] Lib/math
-[OK] Lib/tempfile
+[OK] list shallow
+[OK] list.sort
+[OK] list methods
 [OK] Python-like types
 [OK] divmod
 [OK] pass
@@ -358,28 +447,17 @@ $ nimble test
 [OK] oct()
 [OK] ord()
 [OK] bin()
-[OK] bytearray
-[OK] complex
-[OK] decorator
-[OK] custom decorator
-[OK] rewrite in `def`
-[OK] Floor division
-[OK] io & with
-[OK] iter/next
-[OK] bltin iters
-[OK] iters as iterable
-[OK] list shallow
-[OK] list.sort
-[OK] list methods
-[OK] Range-like Nim procedure
-[OK] set
-[OK] str.format
-[OK] tonim macro
-[OK] unpack macro
-[OK] With statement
-[OK] getattr/set/has
 [OK] Modulo operations
 [OK] int(x[, base])
 [OK] float(str)
-[OK] int.{from,to}_bytes
+[OK] Range-like Nim procedure
+[OK] set
+[OK] str.format
+[OK] str operations
+[OK] str index
+[OK] str methods
+[OK] str.maketrans&translate
+[OK] tonim macro
+[OK] unpack macro
+[OK] With statement
 ```
