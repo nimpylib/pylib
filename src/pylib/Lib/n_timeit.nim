@@ -1,5 +1,6 @@
-## timeit
+## n_timeit: timeit for Nim.
 ## 
+## see `Lib/timeit<timeit.html>`_ for python compatiable APIs
 
 
 import std/[
@@ -12,7 +13,7 @@ const
   default_repeat* = 5 ## since python 3.7: default value of `repeat` parameter is changed from 3 to 5.
 
 
-proc default_timer_defval(): float =
+func default_timer_defval(): float =
   ## default value of default_timer
   {.noSideEffect.}:
     let t = getTime()
