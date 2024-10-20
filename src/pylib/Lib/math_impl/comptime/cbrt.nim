@@ -46,8 +46,7 @@ from std/math import classify, FloatClass
 from ../frexp import n_frexp
 from ../ldexp import n_ldexp
 
-type F = float32
-func cbrt*(x: F): F =
+func cbrt*[F: SomeFloat](x: F): F =
   let fc = classify x
   if fc != fcNormal and fc != fcSubNormal:
     return x
