@@ -123,7 +123,7 @@ else:
     func chk_isSymlinkToFile(self: DirEntry): bool{.inline.} =
       result = self.is_symlink()
       if not result: return
-      let p = readlink $self.path
+      let p = func_readlink $self.path
       result = stat(p).st_mode.isFReg
     gen_is_xAux is_file, chk_isfile, chk_isSymlinkToFile
   gen_is_x is_dir, pcDir, pcLinkToDir
