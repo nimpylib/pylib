@@ -20,8 +20,10 @@ suite "Lib/os with no JS support":
     template open(fd: int, s: string): untyped{.used.} =  # this won't be called
       doAssert false
       io.open(fd, s)
-    let fd = open(fn, O_RDWR|O_CREAT)
+    let fd = open(fn, O_RDWR|O_CREAT|O_TRUNC)
     var f = fdopen(fd, "w+")
+    ## XXX: only "w+" is not enough to make it perform trunc,
+    ##  the fd must be opened with O_TRUNC
     let s = "123"
     f.write(s)
     f.seek(0)
