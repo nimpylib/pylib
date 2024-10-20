@@ -18,8 +18,8 @@ test "set":
     check(len(s & pyset([1,2,3]))==2)
   op()
 
-  def lit():
-    s = pysetLit({1,2,3})
+  proc lit() =
+    let s = pysetLit({1,2,3})
     check(len(s) == 3)
   lit()
     
