@@ -19,8 +19,6 @@ proc parseSignatureMayGenerics*(parser: var PySyntaxProcesser;
       deftype = ident"untyped",
     ): tuple[name: NimNode, params: seq[NimNode]] =
   if parser.supportGenerics:
-    if generics.len == 0:
-      generics = newGenericsTree()
     parseSignature(generics, signature, deftype=deftype)
   else:
     generics = emptyn

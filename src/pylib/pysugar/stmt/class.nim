@@ -226,28 +226,54 @@ For the latter one, as Nim doesn't allow override `SupCls`'s attr (lead to a com
 so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a`)
 (Technologically, it can be implemented via `std/macros` `owner`)
 ]##
-  # TODO: support Python3.12's `class O[T: SubCls]:`
   # We accept "class Shape:" "class Shape():" or  "Class Shape(object):"
   var
     classId = obj
     supCls = ident"RootObj"
     supClsNode = nnkOfInherit.newTree supCls
     defPragmas = @[ident"base"]
-    
-  if obj.kind != nnkIdent:  #  class O([SupCls])
-    classId = obj[0]
-    expectKind obj, nnkCall
-    let supLen = obj.len - 1
-    if supLen == 1:   #  class O(SupCls)
-      supCls = obj[1]
+    generics = emptyn
+  template parseGenerics(n: NimNode) =
+    if parser.supportGenerics:
+      classId = parseGenericParams(generics, n)
+    else:
+      error "generics support is not opened (pysince 3.12)", n
+  if obj.kind != nnkIdent:
+    #  class O([SupCls])
+    if obj.kind == nnkCall:
+      let first = obj[1]
+      case first.kind
+      of nnkBracketExpr:
+        parseGenerics first
+      of nnkIdent, nnkObjectTy:
+        #  class O(...)
+        classId = obj[0]
+      else:
+        error "metaclass/object.__init_subclass__ is not implemented yet, " &
+          "only one positional param is allowed for class, got " &
+          $obj.kind, first
+      let supLen = obj.len - 1
+      if supLen > 1:
+        error "multi-inhert is not allowed in Nim, " &
+          "i.e. only one super class is expected, got " & $supLen
+      elif supLen == 1:
+        #  class O(SupCls)
+        supCls = first
       if supCls.kind != nnkObjectTy: # not `class O(object)`
         supClsNode = nnkOfInherit.newTree supCls
         defPragmas.remove1 ident"base"
-    elif supLen > 1:
-      error "multi-inhert is not allowed in Nim, " &
-        "i.e. only one super class is expected, got " & $supLen
+    elif obj.kind == nnkBracketExpr:
+      parseGenerics obj
+    else:
+      error "unexpected class syntax, got: ", obj
   
   let className = $classId
+  var genericsClassId = classId
+  if generics.len != 0:
+    genericsClassId = nnkBracketExpr.newTree(classId)
+    for i in generics.items():
+      let g = i[0]  # g.kind == nnkIdentDef
+      genericsClassId.add g
   
   result = newStmtList()
   var typDefLs = nnkRecList.newTree()
@@ -270,8 +296,8 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
         continue
       let signature = def[1]
       let deftype = ident"auto"
-      var generics: NimNode
-      let tup = parser.parseSignatureMayGenerics(generics, signature, deftype)
+      var generics_cpy = generics.copyNimTree()
+      let tup = parser.parseSignatureMayGenerics(generics_cpy, signature, deftype)
       var procName = tup.name
       let isConstructor = procName.eqIdent "init"
       if isConstructor:
@@ -286,14 +312,14 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       if isConstructor:
         expectIdent args[1][0], "self"
         args.delete 1
-        args[0] = classId
+        args[0] = genericsClassId
         template construct(): untyped {.dirty.} = 
           var self: type(result)
           new(self)
         beforeBody.add getAst(construct())
       else:
         if args.len > 1 and args[1][0].eqIdent "self":
-          args[1][1] = classId
+          args[1][1] = genericsClassId
       # Function body
       parser.classes.add classId
       var docNode: NimNode
@@ -315,7 +341,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       )
       if isConstructor: procType = nnkProcDef
       let nDef = parser.consumeDecorator(
-          newProc(procName, generics, args, beforeBody, 
+          newProc(procName, generics_cpy, args, beforeBody, 
             procType, pragmas=pragmas.mkPragma)
         )
       defs.add nDef
@@ -328,7 +354,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     else:
       result.add def  # AS-IS
   let ty = nnkRefTy.newTree nnkObjectTy.newTree(emptyn, supClsNode, typDefLs)
-  let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId, emptyn, ty)
+  let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId, generics, ty)
   result.add:
     nnkWhenStmt.newTree(
       nnkElifBranch.newTree(

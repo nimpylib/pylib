@@ -45,6 +45,35 @@ proc splitArrow(signature: NimNode; name_params, restype: var NimNode) =
     name_params = signature[1]
     restype = signature[2]
 
+
+func addGenericParam(generics: var NimNode, it: NimNode) =
+  let typ = case it.kind
+  of nnkIdent:         newIdentDefs(it, emptyn, emptyn)
+  of nnkExprColonExpr: newIdentDefs(it[0], it[1], emptyn)
+  of nnkExprEqExpr:    newIdentDefs(it[0], emptyn, it[1])
+  else:
+    error "The generics format like `T` or `T: int` or `T = int` are supported, " &
+      " things like `T: int = int` cannot be parsed by Nim", it
+  generics.add typ
+
+func newGenericsTree*: NimNode = newNimNode nnkGenericParams
+
+func parseGenericParams*(generics: var NimNode, params: NimNode): NimNode =
+  if generics.len == 0:
+    generics = newGenericsTree()
+  result = params[0]
+  for i in 1..<params.len:
+    generics.addGenericParam params[i]
+  if generics.len == 0:
+    generics = emptyn
+
+func parseBracketGenericParams*(generics: var NimNode, params: NimNode): NimNode =
+  ## returns name
+  expectKind params, nnkBracketExpr
+  parseGenericParams(generics, params)
+
+
+
 proc parseSignature*(
   generics: var NimNode,
   signature: NimNode, deftype = ident"untyped"  
@@ -55,34 +84,20 @@ proc parseSignature*(
     name_params = signature
     restype = deftype
   splitArrow signature, name_params, restype
-
   if name_params.kind == nnkIdent:
     # Nim user may write sth like `def f: xxx`
     error "SyntaxError: expected '(' after function name", name_params
-  var name: NimNode
   let head = name_params[0]
-  if head.kind == nnkBracketExpr:  # generic
-    name = head[0]
-    for i in 1..<head.len:
-      let it = head[i]
-      let typ = case it.kind
-      of nnkIdent:         newIdentDefs(it, emptyn, emptyn)
-      of nnkExprColonExpr: newIdentDefs(it[0], it[1], emptyn)
-      of nnkExprEqExpr:    newIdentDefs(it[0], emptyn, it[1])
-      else:
-        error "The generics format like `T` or `T: int` or `T = int` are supported, " &
-          " things like `T: int = int` cannot be parsed by Nim", it
-      generics.add typ
-  else:
-    name = head
-  if generics.len == 0:
-    generics = emptyn
+  result.name =
+    if head.kind == nnkBracketExpr:  # generic
+      parseGenericParams(generics, head)
+    else: head
   var params = @[restype]
   parseParams(params, name_params, def_argtype=deftype, start=1)
-  result.name = name
+  if generics.len == 0:
+    generics = emptyn
   result.params = params
 
-func newGenericsTree*: NimNode = newNimNode nnkGenericParams
 
 func newProc*(name, generics: NimNode,
     params: openArray[NimNode] = [newEmptyNode()]; body=emptyn, procType = nnkProcDef, pragmas = emptyn): NimNode =
