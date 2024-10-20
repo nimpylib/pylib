@@ -4,9 +4,10 @@
 
  @(#)s_log1p.c 1.3 95/01/18
  Along with:
- /* s_log1pf.c -- float version of s_log1p.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
+ s_log1pf.c -- float version of s_log1p.c.
+ Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
+
+```txt 
 
  ====================================================
  Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
@@ -73,7 +74,10 @@
  compiler will convert from decimal to binary accurately enough
  to produce the hexadecimal values shown.
 
- Note: Assuming log() return accurate answer, the following
+```
+
+ .. note::
+     Assuming log() return accurate answer, the following
  	 algorithm can be used to compute log1p(x) to within a few ULP:
 	
 		u = 1+x;

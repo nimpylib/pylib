@@ -13,7 +13,7 @@
 ## 
 ## but also providing some extensions that Nim's std/math lacks, for example:
 ## 
-## - JavaScript Backend and Compile-time (Nim VM) support for `ldexp`_, `frexp`_
+## - JavaScript Backend and Compile-time (Nim VM) support for `ldexp`, `frexp`, `cbrt`, etc.
 ## - JavaScript Backend support for `erf`_, `erfc`_, `gamma`_, `lgamma`_
 ## - `fsum`_, `prod`_, etc.
 ## 

@@ -20,6 +20,8 @@
  expm1(x)
  Returns exp(x)-1, the exponential of x minus 1.
 
+```
+
  Method
    1. Argument reduction:
     Given x, find r and integer k such that
@@ -104,6 +106,8 @@
  Misc. info.
     For IEEE double
         if x >  7.09782712893383973096e+02 then expm1(x) overflow
+
+```
 
  Constants:
  The hexadecimal values are the intended ones for the following

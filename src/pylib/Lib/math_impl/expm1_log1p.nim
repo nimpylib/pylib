@@ -3,7 +3,7 @@
 .. hint::
   result calculated at compile-time may a little differ those in runtime-time,
   e.g. For log1p: for i in 1..100, x = float(i), the following are results that differs each other:
-  ```
+
 x = 2.0
 ========
 c_log1p(x) = 1.09861228866811
@@ -27,7 +27,7 @@ x = 73.0
 c_log1p(x) = 4.30406509320417
 ct_log1p.log1p(x) = 4.304065093204169
 relative_tol = -2.063580360581673e-16
-  ```
+
 
 ]##
 from ./platformUtils import impJsOrC, clikeOr
