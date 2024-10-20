@@ -9,20 +9,11 @@ template asVersion*(major, minor, patch: int): string =
 func asVersion*(v: (int, int)): string = asVersion(v[0], v[1])
 func asVersion*(v: (int, int, int)): string = asVersion(v[0], v[1], v[2])
 
+import ./versionInfo
+export versionInfo
+
 const
-  Major* = 0
-  Minor* = 9
-  Patch* = 3
   Version* = asVersion(Major, Minor, Patch)
-
-  ReleaseLevel* = "alpha"
-  Serial* = 0
-
-  PyMajor*{.intdefine.} = 3
-  PyMinor*{.intdefine.} = 13
-  PyPatch*{.intdefine.} = 0
-  PyReleaseLevel* = "final"
-  PySerial* = 0
 
 when defined(nimdoc):
   import std/macros
