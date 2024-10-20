@@ -4,37 +4,42 @@ import ./frame
 export frame
 import ./funcSignature
 export funcSignature
+import ./types
+export types
 
 template emptyn: NimNode = newEmptyNode()
 
-type
-  PyFuncBodyProcesser = concept var self  ## One implememted is 
-                                          ## `PyAsgnRewriter` in ./frame
-                                          ## while its parsePyBody is in ./tonim
-    parsePyBodyWithDoc(self, NimNode) is NimNode
-
-
-proc defImpl*(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode
+proc defImpl*(signature, body: NimNode, parser: var PySyntaxProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode
   ## if `signature` is of arrow expr (like f()->int), then def_restype is ignored
-proc asyncImpl*(defsign, body: NimNode, parser: var PyFuncBodyProcesser;
+proc asyncImpl*(defsign, body: NimNode, parser: var PySyntaxProcesser;
   procType=nnkProcDef): NimNode
+
+proc parseSignatureMayGenerics*(parser: var PySyntaxProcesser;
+      generics: var NimNode; signature: NimNode,
+      deftype = ident"untyped",
+    ): tuple[name: NimNode, params: seq[NimNode]] =
+  if parser.supportGenerics:
+    if generics.len == 0:
+      generics = newGenericsTree()
+    parseSignature(generics, signature, deftype=deftype)
+  else:
+    generics = emptyn
+    parseSignatureNoGenerics(signature, deftype=deftype)
+
 
 proc defAux*(signature, body: NimNode,
             deftype = ident"untyped",
-            parser: var PyFuncBodyProcesser;
+            parser: var PySyntaxProcesser;
             procType = nnkTemplateDef, pragmas = emptyn): NimNode =
-
-  let tup = parseSignature(signature, deftype=deftype)
-  let
-    name = tup.name
-    params = tup.params
+  var generics: NimNode
+  let tup = parser.parseSignatureMayGenerics(generics, signature, deftype=deftype)
   let nbody = parser.parsePyBodyWithDoc body
-  newProc(name, params, nbody, procType, pragmas) 
+  result = newProc(tup, generics, nbody, procType, pragmas)
 
-proc defImpl(signature, body: NimNode, parser: var PyFuncBodyProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode =
+proc defImpl(signature, body: NimNode, parser: var PySyntaxProcesser; pragmas = emptyn, deftype = ident"auto", procType=nnkProcDef): NimNode =
   defAux(signature, body, parser=parser, deftype=deftype, procType=procType, pragmas=pragmas)
 
-proc asyncImpl(defsign, body: NimNode; parser: var PyFuncBodyProcesser;
+proc asyncImpl(defsign, body: NimNode; parser: var PySyntaxProcesser;
   procType=nnkProcDef): NimNode =
   let 
     pre = defsign[0]

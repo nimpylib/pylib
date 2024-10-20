@@ -11,6 +11,7 @@ type
     locals: seq[string]
     decorators: seq[Decorator]  # for Py's `@decorator` before `def`
   PyAsgnRewriter* = object
+    supportGenerics*: bool
     frame: PyAsgnFrame
     classes*: seq[NimNode]  ## class type, 
                           ## empty if outside a `class` definition
@@ -20,8 +21,9 @@ proc newPyAsgnFrame*(): PyAsgnFrame =
   new result
   result.parent = nil
 
-proc newPyAsgnRewriter*(): PyAsgnRewriter =
+proc newPyAsgnRewriter*(supportGenerics=false): PyAsgnRewriter =
   result.frame = newPyAsgnFrame()
+  result.supportGenerics = supportGenerics
 
 using mparser: var PyAsgnRewriter
 

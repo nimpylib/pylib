@@ -37,6 +37,8 @@ see codes in `runnableExamples` for more details
 
 import std/macros
 import ./stmt/[pydef, tonim]
+import ./parserWithCfg
+export PySignatureSupportGenerics
 
 macro define*(signature, body): untyped =
   ## almost the same as `def`, but is for `template` instead of `proc`
@@ -46,7 +48,7 @@ macro define*(signature, body): untyped =
   runnableExamples:
     define templ(a): a+1  # note template has no implicit `result` variable
     assert templ(3) == 4
-  var parser = newPyAsgnRewriter()
+  var parser = parserWithDefCfg()
   defAux(signature, body, parser=parser, deftype=ident"untyped", procType=nnkTemplateDef)
 
 macro def*(signature, body): untyped =
@@ -69,7 +71,15 @@ macro def*(signature, body): untyped =
         result = max2(result, i)
       return result
     assert max(1,4,2,5,0) == 5
-  var parser = newPyAsgnRewriter()
+    when PySignatureSupportGenerics:  # pysince 3.13
+      def sub[T](a: T, b: T) -> T:
+        return a - b
+      assert sub(4, 5) == -1
+
+      def f2[A, B](a: A, b: B) -> A:
+        return a + A(b)
+      assert int(2) == f2(1, 1.0)
+  var parser = parserWithDefCfg()
   defImpl(signature, body, parser=parser)
 
 
@@ -88,6 +98,6 @@ macro async*(defsign, body): untyped =
       import std/asyncdispatch
       waitFor af()
       assert 3 == waitFor(afi())
-  var parser = newPyAsgnRewriter()
+  var parser = parserWithDefCfg()
   asyncImpl defsign, body, parser=parser
 

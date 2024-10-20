@@ -45,7 +45,9 @@ proc splitArrow(signature: NimNode; name_params, restype: var NimNode) =
     name_params = signature[1]
     restype = signature[2]
 
-proc parseSignature*(signature: NimNode, deftype = ident"untyped"
+proc parseSignature*(
+  generics: var NimNode,
+  signature: NimNode, deftype = ident"untyped"  
     ): tuple[name: NimNode, params: seq[NimNode]] =
   ## deftype is for both params and result,
   ## but if `signature` is of arrow expr, then restype will be its rhs.
@@ -57,8 +59,51 @@ proc parseSignature*(signature: NimNode, deftype = ident"untyped"
   if name_params.kind == nnkIdent:
     # Nim user may write sth like `def f: xxx`
     error "SyntaxError: expected '(' after function name", name_params
-  let name = name_params[0]
+  var name: NimNode
+  let head = name_params[0]
+  if head.kind == nnkBracketExpr:  # generic
+    name = head[0]
+    for i in 1..<head.len:
+      let it = head[i]
+      let typ = case it.kind
+      of nnkIdent:         newIdentDefs(it, emptyn, emptyn)
+      of nnkExprColonExpr: newIdentDefs(it[0], it[1], emptyn)
+      of nnkExprEqExpr:    newIdentDefs(it[0], emptyn, it[1])
+      else:
+        error "The generics format like `T` or `T: int` or `T = int` are supported, " &
+          " things like `T: int = int` cannot be parsed by Nim", it
+      generics.add typ
+  else:
+    name = head
+  if generics.len == 0:
+    generics = emptyn
   var params = @[restype]
   parseParams(params, name_params, def_argtype=deftype, start=1)
   result.name = name
   result.params = params
+
+func newGenericsTree*: NimNode = newNimNode nnkGenericParams
+
+func newProc*(name, generics: NimNode,
+    params: openArray[NimNode] = [newEmptyNode()]; body=emptyn, procType = nnkProcDef, pragmas = emptyn): NimNode =
+  ## variant that accept generics
+  expectKind generics, {nnkGenericParams, nnkEmpty}
+  newNimNode(procType).add(
+    name,
+    emptyn,
+    generics,
+    nnkFormalParams.newTree(params),
+    pragmas,
+    emptyn,
+    body)
+
+func newProc*(tup: tuple[name: NimNode, params: seq[NimNode]], generics: NimNode,
+    body=emptyn, procType = nnkProcDef, pragmas = emptyn): NimNode =
+  ## variant that accept generics, sleamless to work with parseSignature
+  newProc(tup.name, generics, tup.params, body, procType, pragmas)
+
+proc parseSignatureNoGenerics*(
+  signature: NimNode, deftype = ident"untyped"  
+    ): tuple[name: NimNode, params: seq[NimNode]] =
+  var tmp_generics: NimNode = newGenericsTree()
+  parseSignature(tmp_generics, signature, deftype)
