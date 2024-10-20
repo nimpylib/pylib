@@ -1,5 +1,6 @@
 
 import ./stmt/class
+import ./parserWithCfg
 
 macro class*(obj, body: untyped): untyped = 
   ## wrapper of `classImpl proc<./stmt/tonim.html>`_
@@ -28,5 +29,5 @@ macro class*(obj, body: untyped): untyped =
       def f(self, b: float):
         return super().f(b)
     assert CC().f(2) == 3
-  
-  classImpl(obj, body)
+  var parser = parserWithDefCfg()
+  parser.classImpl(obj, body)

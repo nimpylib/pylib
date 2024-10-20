@@ -1,6 +1,7 @@
 
 import std/macros
-import ./frame, ./funcSignature, ./decorator, ./tonim
+import ./frame, ./funcSignature, ./decorator, ./tonim, ./types
+import ./pydef
 
 template emptyn: NimNode = newEmptyNode()
 
@@ -188,7 +189,7 @@ template mkPragma(pragmas: seq[NimNode]): NimNode =
   if pragmas.len == 0: emptyn
   else: nnkPragma.newNimNode.add pragmas
 
-proc classImpl*(obj, body: NimNode): NimNode = 
+proc classImpl*(parser: var PySyntaxProcesser; obj, body: NimNode): NimNode = 
   ##[ minic Python's `class`.
 
 support `def` for method with nested `def/class` supported
@@ -253,8 +254,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   template addAttr(name; typ=emptyn, defVal=emptyn) =
     typDefLs.add nnkIdentDefs.newTree(name, typ, defVal)
   var defs = newStmtList()
-  var parser = newPyAsgnRewriter()
-  for def in body:
+  for def in items(body):
     var pragmas = defPragmas  # will be set as empty if `isConstruct` or not base
     case def.kind
     of nnkCall: # attr define, e.g. a: int / a: int = 1
@@ -268,8 +268,10 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       if not def[0].eqIdent "def":
         result.add def
         continue
-      let define = def[1]
-      let tup = parseSignature(define, ident"auto")
+      let signature = def[1]
+      let deftype = ident"auto"
+      var generics: NimNode
+      let tup = parser.parseSignatureMayGenerics(generics, signature, deftype)
       var procName = tup.name
       let isConstructor = procName.eqIdent "init"
       if isConstructor:
@@ -313,7 +315,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       )
       if isConstructor: procType = nnkProcDef
       let nDef = parser.consumeDecorator(
-          newProc(procName, args, beforeBody, 
+          newProc(procName, generics, args, beforeBody, 
             procType, pragmas=pragmas.mkPragma)
         )
       defs.add nDef
@@ -327,9 +329,17 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       result.add def  # AS-IS
   let ty = nnkRefTy.newTree nnkObjectTy.newTree(emptyn, supClsNode, typDefLs)
   let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId, emptyn, ty)
-  result.add quote do:
-      when not declared `classId`:
-        `typDef`
+  result.add:
+    nnkWhenStmt.newTree(
+      nnkElifBranch.newTree(
+        prefix(newCall("declaredInScope", classId), "not"),
+        newStmtList typDef
+      )
+    )
+
+  # result.add quote do:
+  #     when not declaredInScope `classId`:
+  #       `typDef`
   result.add defs
   discard parser.classes.pop()
   # Echo generated code
