@@ -5,3 +5,4 @@ type
                                           ## while its parsePyBody is in ./tonim
     parsePyBodyWithDoc(self, NimNode) is NimNode
     self.supportGenerics is bool
+    self.dedentDoc is bool

@@ -47,10 +47,11 @@ proc splitArrow(signature: NimNode; name_params, restype: var NimNode) =
 
 
 func addGenericParam(generics: var NimNode, it: NimNode) =
-  let typ = case it.kind
-  of nnkIdent:         newIdentDefs(it, emptyn, emptyn)
-  of nnkExprColonExpr: newIdentDefs(it[0], it[1], emptyn)
-  of nnkExprEqExpr:    newIdentDefs(it[0], emptyn, it[1])
+  var typ: NimNode
+  case it.kind
+  of nnkIdent:         typ = newIdentDefs(it, emptyn, emptyn)
+  of nnkExprColonExpr: typ = newIdentDefs(it[0], it[1], emptyn)
+  of nnkExprEqExpr:    typ = newIdentDefs(it[0], emptyn, it[1])
   else:
     error "The generics format like `T` or `T: int` or `T = int` are supported, " &
       " things like `T: int = int` cannot be parsed by Nim", it
