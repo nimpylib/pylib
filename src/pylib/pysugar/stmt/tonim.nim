@@ -33,6 +33,14 @@ proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
     res.add newCommentStmtNode($n)
     return true
 
+template parseBodyOnlyLast(ele): NimNode =
+  var subStmt = newNimNode ele.kind
+  let last = ele.len - 1
+  for i in 0..<last:
+    subStmt.add ele[i]
+  subStmt.add mparser.parsePyBody ele[last]
+  subStmt
+
 proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   ## Rewrites statement from Python-favor to Nim
   ## 
@@ -109,28 +117,54 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   of nnkPrefix:
     if not mparser.tryHandleDecorator statement:
       result.add statement
-  else:
-    if statement.len == 0:
-      result.add statement
+  of nnkStmtList:
+    var nStmt = newNimNode statement.kind
+    for e in statement:
+      nStmt.add mparser.parsePyStmt e
+    result.add nStmt
+  of nnkReturnStmt, nnkDiscardStmt:
+    result.add statement
+  of nnkIfStmt, nnkWhenStmt:
+    var nStmt = newNimNode statement.kind
+    for branch in statement:
+      nStmt.add parseBodyOnlyLast branch
+    result.add nStmt
+  of nnkOfBranch, nnkBlockStmt,
+      RoutineNodes:
+    result.add parseBodyOnlyLast statement
+  of nnkTryStmt:
+    var nStmt = newNimNode statement.kind
+    expectKind statement[0], nnkStmtList
+    nStmt.add mparser.parsePyBody statement[0]
+    var excBranch = statement[1]
+    excBranch[1] = mparser.parsePyBody excBranch[1]
+    nStmt.add excBranch
+    result.add nStmt
+  of nnkInfix:
+    result.add statement
+  of nnkCall:
+    if statement[^1].kind == nnkStmtList:
+      result.add parseBodyOnlyLast statement
     else:
-      var nStmt = newNimNode statement.kind
-      template parseBodyOnlyLast(ele) =
-        var subStmt = newNimNode ele.kind
-        let last = ele.len - 1
-        for i in 0..<last:
-          subStmt.add ele[i]
-        subStmt.add mparser.parsePyBody e[last]
-        nStmt.add subStmt
+      result.add statement
+  of nnkForStmt, nnkWhileStmt:
+    result.add parseBodyOnlyLast statement
+  elif statement.len == 0:
+    result.add statement
+  else:
+    # XXX: maybe no use
+    var nStmt = newNimNode statement.kind
 
-      for e in statement:
-        case e.kind
-        # no need to specify `nnkWhileStmt`,
-        # as it's handled by branch of `of nnkSmtList` and `else`
-        of nnkStmtList: nStmt.add mparser.parsePyBody e
-        of nnkOfBranch, nnkElifBranch, nnkElse, nnkForStmt:
-          parseBodyOnlyLast e
-        else: nStmt.add e
-      result.add nStmt
+    for e in statement:
+      case e.kind
+      # no need to specify `nnkWhileStmt`,
+      # as it's handled by branch of `of nnkStmtList` and `else`
+      of nnkStmtList:
+        nStmt.add mparser.parsePyBody e
+      of nnkOfBranch, nnkElifBranch, nnkElse, nnkForStmt:
+        result.add parseBodyOnlyLast e
+      else: nStmt.add e
+    result.add nStmt
 
 
 proc parsePyBody*(mparser; body: NimNode): NimNode =
