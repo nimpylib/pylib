@@ -11,6 +11,7 @@ type
     locals: seq[string]
     decorators: seq[Decorator]  # for Py's `@decorator` before `def`
   PyAsgnRewriter* = object
+    dedentDoc*: bool
     supportGenerics*: bool
     frame: PyAsgnFrame
     classes*: seq[NimNode]  ## class type, 
@@ -21,9 +22,10 @@ proc newPyAsgnFrame*(): PyAsgnFrame =
   new result
   result.parent = nil
 
-proc newPyAsgnRewriter*(supportGenerics=false): PyAsgnRewriter =
+proc newPyAsgnRewriter*(supportGenerics=false, dedentDoc=false): PyAsgnRewriter =
   result.frame = newPyAsgnFrame()
   result.supportGenerics = supportGenerics
+  result.dedentDoc = dedentDoc
 
 using mparser: var PyAsgnRewriter
 

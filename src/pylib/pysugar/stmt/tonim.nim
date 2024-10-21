@@ -23,14 +23,19 @@
 
 import std/macros
 import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator
+import ../../private/inspect_cleandoc
 
 using mparser: var PyAsgnRewriter
 proc parsePyBody*(mparser; body: NimNode): NimNode  # front decl
 proc parsePyBodyWithDoc*(mparser; body: NimNode): NimNode  # front decl
 
-proc tryHandleDocStr(res: var NimNode; n: NimNode): bool =
+proc tryHandleDocStr(res: var NimNode; n: NimNode, dedent=false): bool =
   if n.kind in nnkStrLit..nnkTripleStrLit: 
-    res.add newCommentStmtNode($n)
+    let s = $n
+    res.add newCommentStmtNode(
+      if dedent: `inspect.cleandoc` s
+      else: s
+    )
     return true
 
 template parseBodyOnlyLast(ele): NimNode =
@@ -175,7 +180,7 @@ proc parsePyBody*(mparser; body: NimNode): NimNode =
 proc parsePyBodyWithDoc*(mparser; body: NimNode): NimNode =
   result = newStmtList()
   let start =
-    if result.tryHandleDocStr body[0]: 1
+    if result.tryHandleDocStr(body[0], mparser.dedentDoc): 1
     else: 0
   for i in start..<body.len:
     result.add mparser.parsePyStmt body[i]
@@ -186,7 +191,7 @@ proc parsePyBodyWithDoc*(mparser; body: NimNode, docNode: var NimNode): NimNode 
   result = newStmtList()
   docNode = newStmtList()
   let start =
-    if docNode.tryHandleDocStr body[0]: 1
+    if docNode.tryHandleDocStr(body[0], mparser.dedentDoc): 1
     else: 0
   for i in start..<body.len:
     result.add mparser.parsePyStmt body[i]
