@@ -3,6 +3,8 @@ import std/os
 import std/random
 import std/options
 
+import ./n_os
+
 when defined(js): {.error: "pylib tempfile not support JS currently".}
 import ./io
 
@@ -28,7 +30,7 @@ proc initRandomNameSequence(self: var RandomNameSequence) =
 
 iterator items(self: var RandomNameSequence, times: int): string =
   self.initRandomNameSequence()
-  for _ in 0..times:
+  for _ in 1..times:
     var letters = newString(8)
     for i in 0 ..< 8:
       let c = self.rng.sample(RandChars)
@@ -46,6 +48,122 @@ proc mktemp*(suffix="", prefix=templ, dir = "", checker=fileExists): string =
       return file
   raise newException(OSError, "No usable temporary filename found")
 
+
+proc candidate_tempdir_list(): seq[string] =
+    ##[Generate a list of candidate temporary directories which
+    _get_default_tempdir will try.]##
+
+    # First, try the environment.
+    for envname in ["TMPDIR", "TEMP", "TMP"]:
+        let dirname = getenv(envname)
+        if dirname.len > 0: result.add dirname
+
+    # Failing that, try OS-specific locations.
+    when n_os.name == "nt":
+        result.add [ expandTilde(r"~\AppData\Local\Temp"),
+                     getenv("SYSTEMROOT")/"Temp",
+                     r"c:\temp", r"c:\tmp", r"\temp", r"\tmp" ]
+    else:
+        result.add [ "/tmp", "/var/tmp", "/usr/tmp" ]
+
+    # As a last resort, the current directory.
+    try:
+        result.add n_os.getcwd()
+    except (#[AttributeError, ]# OSError):
+        result.add n_os.curdir
+
+proc init_text_openflags: cint{.inline.} =
+  result = n_os.O_RDWR or n_os.O_CREAT or n_os.O_EXCL
+  when declared(n_os.O_NOFOLLOW):
+    result = result or n_os.O_NOFOLLOW
+
+let
+  text_openflags = init_text_openflags()
+  bin_openflags =
+    when compiles(n_os.O_BINARY): text_openflags or n_os.O_BINARY
+    else: text_openflags
+
+const DWin = defined(windows)
+
+when DWin:
+  const W_OK = 2
+  proc c_access(path: cstring, mode: cint): cint{.importc: "_access", header: "<io.h>".}
+  proc access(path: string, mode: cint): bool =
+    c_access(path.cstring, mode) == 0
+
+
+proc get_default_tempdir(): string =
+    ##[Calculate the default directory to use for temporary files.
+    This routine should be called exactly once.
+
+    We determine whether or not a candidate temp dir is usable by
+    trying to create and write to a file in that directory.  If this
+    is successful, the test file is deleted.  To prevent denial of
+    service, the name of the test file must be randomized.]##
+
+    var namer: RandomNameSequence
+    namer.initRandomNameSequence()
+    var dirlist = candidate_tempdir_list()
+
+    for ori_dir in dirlist:
+        let dir = if ori_dir != n_os.curdir:
+          n_os.path.abspath(ori_dir)
+        else:
+          ori_dir
+        # Try only a few names per directory.
+        for name in namer.items 100:
+            let filename = path.join(dir, name)
+            try:
+                let fd = n_os.open(filename, bin_openflags, 0o600)
+                try:
+                    #  CPython does followings,
+                    #  but I cannot understand why to do so.
+                    # try:
+                    #     write(fd, b"blat")
+                    # finally:
+                    #     n_os.close(fd)
+                    n_os.close(fd)
+                finally:
+                    unlink(filename)
+                return dir
+            except FileExistsError:
+                discard
+            # except PermissionError:
+            except OSError:
+                when defined(windows):
+                  if n_os.path.isdir(dir) and
+                      access(dir, W_OK):
+                    # This exception is thrown when a directory with the chosen name
+                    # already exists on windows.
+                    continue
+                break   # no point trying more names in this directory
+    raiseFileNotFoundError("No usable temporary directory found in " &
+                            $dirlist)
+
+
+when not defined(js) and not defined(nimscript):
+  import std/locks
+  var lock: Lock
+  lock.initLock()
+  template lock_tempdir(body) =
+    withLock lock: body
+else:
+  template lock_tempdir(body) = body
+
+var tempdir*{.threadvar.}: string
+
+proc gettempdir*(): string =
+  ## XXX: TODO: gettempdir() should be considered os.fsencode/fsdecode?
+  if tempdir.len == 0:
+    lock_tempdir:
+      tempdir = get_default_tempdir()
+  return tempdir
+
+proc gettempprefix*(): string =
+  ## Return the default prefix string used by mktemp().
+  ## This is 'tmp' on most systems.]
+  return templ
+
 type SOption = Option[string]
 
 const sNone = none[string]()
@@ -57,7 +175,7 @@ proc sanitize_params(prefix, suffix, dir: SOption): tuple[prefix, suffix, dir: s
   
   result.suffix = suffix.get("")
   result.prefix = prefix.get templ
-  result.dir = dir.get getTempDir()
+  result.dir = dir.get gettempdir()
 
 type
   TemporaryFileCloser*[IO: IOBase] = ref object
