@@ -1,6 +1,22 @@
 
-*.nim text
-*.nimble text
+
+[attr]lfTxt text eol=lf
+# get rid of mess
+[attr]normTxt lfTxt
+
+*.sh       lfTxt
+
+/LICENSE   normTxt
+.gitignore normTxt
+
+*.nim      normTxt
+*.nimble   normTxt
+*.nims     normTxt
+*.py       normTxt
+*.c        normTxt
+*.yml      normTxt
+*.md       normTxt
+*.txt      normTxt      
 
 # Binary data types
 *.aif binary
@@ -28,7 +44,7 @@
 #
 [attr]generated linguist-generated=true diff=generated
 
-/src/pylib/pystring/unicase/*.nim
+/src/pylib/pystring/unicase/*.nim generated
 
 
 # CRLF files
