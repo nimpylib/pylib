@@ -24,6 +24,9 @@ import ../pybytes/bytesimpl
 import ../pybytearray
 export bytesimpl
 
+import ../pybytes/bytesprefix
+export bytesprefix
+
 import std/[macros, strutils, tables]
 import std/endians
 
