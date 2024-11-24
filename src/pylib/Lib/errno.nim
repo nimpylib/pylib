@@ -1,6 +1,6 @@
 
-import ./math_impl/errnoUtils
-export ERANGE, EDOM
+import ./errno_impl/errnoUtils
+export errnoUtils except Errno
 
 prepareRWErrno
 export errno
