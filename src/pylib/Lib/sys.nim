@@ -207,7 +207,11 @@ when hasArgn and hasArgs:
     argn = paramCount()
     argc = argn + 1
   var
-    orig_argv* = newPyListOfCap[PyStr](argc)  ## .. hints:: on
+    orig_argv* = newPyListOfCap[PyStr](argc)  ##\
+      ## .. hint:: rely on
+      ##    `paramCount`<https://nim-lang.org/docs/cmdline.html#paramCount>_ and
+      ##    `paramStr`<https://nim-lang.org/docs/cmdline.html#paramStr%2Cint>_.
+      ##    See their document for availability.
     argv*: PyList[PyStr]
 
   for i in 0..argn:
