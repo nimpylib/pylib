@@ -105,16 +105,16 @@ func items*[K, V](self: PyDict[K ,V]): PyDictItemView[K, V] = result.mapping = s
 
 func toPyDict*[K, V](x: openArray[(K, V)]): PyDict[K, V] =
   # NOTE: in Nim, `{k:v, ...}` is of `array[(type(k), type(v))]`
-  result = newPyDictImpl[K, V](x)
+  result = newPyDict[K, V](x)
   
 func toPyDict*[K, V](x:
   not openArray[(K, V)] and Iterable[(K, V)]): PyDict[K, V] =
-  result = newPyDictImpl[K, V]()
+  result = newPyDict[K, V]()
   for (k, v) in x:
     result[k] = v
 
 func copy*[K, V](self: PyDict[K, V]): PyDict[K, V] =
-  result = newPyDictImpl[K, V](len(self))
+  result = newPyDict[K, V](len(self))
   for k, v in self.items():
     result[k] = v
 
