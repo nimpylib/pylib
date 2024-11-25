@@ -1,6 +1,12 @@
 
-import ./errno_impl/errnoUtils
-export errnoUtils except Errno
+import ../builtins/dict as dictLib
+import ../builtins/dict_decl
+import ../pystring/strimpl
+export strimpl
+export dictLib
 
-prepareRWErrno
-export errno
+import ./n_errno except errorcode
+export n_errno except errorcode
+
+declErrorcodeWith[int, PyStr] newPyDict
+export errorcode

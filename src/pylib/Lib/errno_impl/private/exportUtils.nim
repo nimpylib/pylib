@@ -1,4 +1,6 @@
 
+import ./clike
+import ./loopErrno
 import ./errnos
 export errnos
 
@@ -12,9 +14,9 @@ template eno(E) =
   else:
     const E*: cint = cint ord Errno.E
 
-macro exportEnumOrImportc*() =
+macro exportAllErrnosViaEnumOrImportc*() =
   result = newStmtList()
-  for e in Errno:
+  forErrno e:
     result.add newCall(bindSym"eno", ident symbolName e)    
 
 

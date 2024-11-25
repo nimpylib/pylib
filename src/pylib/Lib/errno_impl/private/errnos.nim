@@ -3,7 +3,7 @@
 import std/enumutils
 
 
-type Errno* = enum
+type Errno*{.pure.} = enum
   E_SUCCESS = "success"  ## inner. unstable.
   E2BIG = "Argument list too long"
   EACCES = "Permission denied"
@@ -138,6 +138,9 @@ type Errno* = enum
   EWOULDBLOCK = "Resource temporarily unavailable"
   EXDEV = "Invalid cross-device link"
   EXFULL = "Exchange full"
+
+static: assert Errno is Ordinal
+const ErrnoCount* = 1 + ord(high Errno) - 1  # exclude E_SUCCESS
 
 func strerror*(e: Errno): string = system.`$` e
 

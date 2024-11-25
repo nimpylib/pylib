@@ -1,41 +1,32 @@
 ## EXT. stable
 
-from ../private/platformUtils import CLike
-import ./private/exportUtils
+import ./private/[exportUtils, errorcodeInit, singleton_errno]
+export errorcodeInit, exportAllErrnosViaEnumOrImportc
 
-exportEnumOrImportc()
-
-var staticErrno{.compileTime.}: cint  ## used compile time
-
-when CLike:
-  var errno{.importc: "errno", header: "<errno.h>".}: cint
-else:
-  var errno{.threadvar.}: cint
-
-template prepareRWErrno*{.dirty.} =
-  discard
+template prepareRWErrno*{.dirty.} = discard
 
 template prepareROErrno*{.dirty.} =
-  discard
+  prepareRWErrno
 
 
-template setErrno*(v: untyped) =
-  {.noSideEffect.}:
-    when nimvm:
-      staticErrno = cint ord Errno.v
-    else:
-      errno = v  # as v, for example, ERANGE, is global `let`
+template setErrno*(v: untyped) = {.noSideEffect.}:
+  bind errno, staticErrno
+  when nimvm:
+    staticErrno = cint ord Errno.v
+  else:
+    errno = v  # as v, for example, ERANGE, is global `let`
 
-template setErrno0* =
-  {.noSideEffect.}:
-    when nimvm:
-      staticErrno = 0
-    else:
-      errno = 0
+template setErrno0* = {.noSideEffect.}:
+  bind errno, staticErrno
+  when nimvm:
+    staticErrno = 0
+  else:
+    errno = 0
 
-template getErrno*(): cint =
+template getErrno*(): cint = {.noSideEffect.}:
+  bind errno, staticErrno
   var res: cint
-  {.noSideEffect.}:
+  block:
     when nimvm:
       res = staticErrno
     else:
