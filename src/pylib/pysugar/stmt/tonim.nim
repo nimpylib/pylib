@@ -5,13 +5,15 @@
 ## In Python using global/nonlocal to declare a new variable is allowed,
 ## but here it may be impossible to implement, as Nim is statically-typed, 
 ## we must know its type when declaring a variable,
-## while getting a type from AST is almostly impossible.
+## while getting a type from AST
+## whose type is `untyped<https://nim-lang.org/docs/system.html#untyped>`_
+## is almostly impossible.
 ## 
 ## ### global/nonlocal only means `not local`, with some limited checks
 ## - Currently using `global name`
-## where name is declared in previous frames is not supported
+##   where name is declared in *previous* frames is not supported
 ## - Currently using `nonlocal name`
-## where name is used for globals is not supported
+##   where name is used for globals is not supported
 
 # TODO: implement Python's nonblock scope
 #
