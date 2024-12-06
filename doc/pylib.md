@@ -23,7 +23,7 @@ Cheatsheet for rough alternative between pylib and Python
 | `import pylib/Lib/LIB`           | `from LIB import *`                  |
 | `from pylib/Lib/LIB import XXX`  | `import LIB; from LIB import XXX`    |
 
----
+------
 
 Wondering how many libs are available in NimPylib?
 
