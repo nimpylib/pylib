@@ -8,11 +8,11 @@ type
 
 func toNimTable*[K, V](self: PyDict[K,V]): var OrderedTable[K, V] = self.data
 
-template newPyDict*[K, V](x: int): untyped =
+func newPyDict*[K, V](x: int): PyDict[K, V]{.inline.} =
   bind initOrderedTable
   PyDict[K, V](data: initOrderedTable[K, V](x))
 
-template newPyDict*[K, V](x: openArray[(K, V)] = []): untyped =
+func newPyDict*[K, V](x: openArray[(K, V)] = []): PyDict[K, V] =
   ## zero or one arg
   ## shall support `[]`, `{k:v, ...}`, `@[(k, v),...]`
   bind toOrderedTable
