@@ -1,58 +1,56 @@
 nimTitle	n_math	n_math.html	module src/pylib/Lib/n_math		0
-nim	nan	n_math.html#nan	const nan		75
-nim	inf	n_math.html#inf	const inf		75
-nim	pi	n_math.html#pi	const pi		75
-nim	tau	n_math.html#tau	const tau		75
-nim	e	n_math.html#e	const e		75
-nim	pow	n_math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		95
-nim	fabs	n_math.html#fabs,F	proc fabs[F: SomeFloat](x: F): F		147
-nim	ceil	n_math.html#ceil,SomeFloat	proc ceil(x: SomeFloat): int		164
-nim	floor	n_math.html#floor,SomeFloat	proc floor(x: SomeFloat): int		165
-nim	trunc	n_math.html#trunc,SomeFloat	proc trunc(x: SomeFloat): int		166
-nim	py_math_isclose_impl	n_math.html#py_math_isclose_impl.t	template py_math_isclose_impl(abs)		168
-nim	isclose	n_math.html#isclose,SomeFloat,SomeFloat,float,float	proc isclose(a, b: SomeFloat; rel_tol = 1e-9; abs_tol = 0.0): bool		184
-nim	gcd	n_math.html#gcd,I,I	proc gcd[I: SomeInteger](x, y: I): I		188
-nim	gcd	n_math.html#gcd,I,I,I,varargs[I]	proc gcd[I: SomeInteger](x, y, z: I; args: varargs[I]): I		195
-nim	lcm	n_math.html#lcm,I,I	proc lcm[I: SomeInteger](x, y: I): I		188
-nim	lcm	n_math.html#lcm,I,I,I,varargs[I]	proc lcm[I: SomeInteger](x, y, z: I; args: varargs[I]): I		196
-nim	hypot	n_math.html#hypot,I,I	proc hypot[I: SomeFloat](x, y: I): I		188
-nim	hypot	n_math.html#hypot,I,I,I,varargs[I]	proc hypot[I: SomeFloat](x, y, z: I; args: varargs[I]): I		198
-nim	gamma	n_math.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		211
-nim	lgamma	n_math.html#lgamma,F	proc lgamma[F: SomeFloat](x: F): F		219
-nim	expm1	n_math.html#expm1,F	proc expm1[F: SomeFloat](x: F): F		245
-nim	math_is_error	n_math.html#math_is_error,SomeFloat,ref.Exception	proc math_is_error(x: SomeFloat; exc: var ref Exception): bool		255
-nim	ldexp	n_math.html#ldexp,F,int,ref.Exception	proc ldexp[F: SomeFloat](x: F; i: int; exc: var ref Exception): F		297
-nim	ldexp	n_math.html#ldexp,F,int	proc ldexp[F: SomeFloat](x: F; i: int): F		331
-nim	modf	n_math.html#modf,F	proc modf[F: SomeFloat](x: F): tuple[intpart: F, floatpart: F]		336
-nim	fmod	n_math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		345
-nim	remainder	n_math.html#remainder,F,F	proc remainder[F: SomeFloat](x: F; y: F): F		358
-nim	prod	n_math.html#prod,Iterable[T]	proc prod[T](iterable: Iterable[T]; start = 1.T): T		442
-nim	fsum	n_math.html#fsum,Iterable[T: SomeFloat]	proc fsum[T: SomeFloat](iterable: Iterable[T]): T		450
-nim	log	n_math.html#log,F	proc log[F: SomeFloat](x: F): F		584
-nim	log	n_math.html#log,F,F	proc log[F: SomeFloat](x, base: F): F		585
-nim	log2	n_math.html#log2,F	proc log2[F: SomeFloat](x: F): F		592
-nim	log10	n_math.html#log10,F	proc log10[F: SomeFloat](x: F): F		593
-nim	log1p	n_math.html#log1p,F	proc log1p[F: SomeFloat](x: F): F		597
-nim	degrees	n_math.html#degrees,F	proc degrees[F: SomeFloat](x: F): F		608
-nim	radians	n_math.html#radians,F	proc radians[F: SomeFloat](x: F): F		610
-nim	asin	n_math.html#asin,F	proc asin[F: SomeFloat](x: F): F		620
-nim	asinh	n_math.html#asinh,F	proc asinh[F: SomeFloat](x: F): F		621
-nim	acos	n_math.html#acos,F	proc acos[F: SomeFloat](x: F): F		622
-nim	acosh	n_math.html#acosh,F	proc acosh[F: SomeFloat](x: F): F		623
-nim	atan	n_math.html#atan,F	proc atan[F: SomeFloat](x: F): F		624
-nim	atan2	n_math.html#atan2,F	proc atan2[F: SomeFloat](x: F): F		625
-nim	atanh	n_math.html#atanh,F	proc atanh[F: SomeFloat](x: F): F		626
-nim	comb	n_math.html#comb,int,int	proc comb(n, k: int): int		629
-nim	perm	n_math.html#perm,int	proc perm(n: int): int		635
-nim	perm	n_math.html#perm,Natural,Natural	proc perm(n, k: Natural): int		639
-nim	factorial	n_math.html#factorial,Natural	proc factorial(x: Natural): int		646
-nim	isqrtPositive	n_math.html#isqrtPositive,Positive	proc isqrtPositive(n: Positive): int		655
-nim	isqrt	n_math.html#isqrt,Natural	proc isqrt(n: Natural): int		675
-nim	isqrt	n_math.html#isqrt,T	proc isqrt[T: SomeFloat](x: T): int		705
-nimgrp	log	n_math.html#log-procs-all	proc		584
-nimgrp	isqrt	n_math.html#isqrt-procs-all	proc		675
-nimgrp	lcm	n_math.html#lcm-procs-all	proc		196
-nimgrp	perm	n_math.html#perm-procs-all	proc		635
-nimgrp	hypot	n_math.html#hypot-procs-all	proc		198
-nimgrp	gcd	n_math.html#gcd-procs-all	proc		195
-nimgrp	ldexp	n_math.html#ldexp-procs-all	proc		297
+nim	nan	n_math.html#nan	const nan		77
+nim	inf	n_math.html#inf	const inf		77
+nim	pi	n_math.html#pi	const pi		77
+nim	tau	n_math.html#tau	const tau		77
+nim	e	n_math.html#e	const e		77
+nim	pow	n_math.html#pow,F,F	proc pow[F: SomeFloat](x, y: F): F		97
+nim	fabs	n_math.html#fabs,F	proc fabs[F: SomeFloat](x: F): F		149
+nim	ceil	n_math.html#ceil,SomeFloat	proc ceil(x: SomeFloat): int		166
+nim	floor	n_math.html#floor,SomeFloat	proc floor(x: SomeFloat): int		167
+nim	trunc	n_math.html#trunc,SomeFloat	proc trunc(x: SomeFloat): int		168
+nim	py_math_isclose_impl	n_math.html#py_math_isclose_impl.t	template py_math_isclose_impl(abs)		170
+nim	isclose	n_math.html#isclose,SomeFloat,SomeFloat,float,float	proc isclose(a, b: SomeFloat; rel_tol = 1e-9; abs_tol = 0.0): bool		186
+nim	gcd	n_math.html#gcd,I,I	proc gcd[I: SomeInteger](x, y: I): I		190
+nim	gcd	n_math.html#gcd,I,I,I,varargs[I]	proc gcd[I: SomeInteger](x, y, z: I; args: varargs[I]): I		197
+nim	lcm	n_math.html#lcm,I,I	proc lcm[I: SomeInteger](x, y: I): I		190
+nim	lcm	n_math.html#lcm,I,I,I,varargs[I]	proc lcm[I: SomeInteger](x, y, z: I; args: varargs[I]): I		198
+nim	hypot	n_math.html#hypot,I,I	proc hypot[I: SomeFloat](x, y: I): I		190
+nim	hypot	n_math.html#hypot,I,I,I,varargs[I]	proc hypot[I: SomeFloat](x, y, z: I; args: varargs[I]): I		200
+nim	gamma	n_math.html#gamma,F	proc gamma[F: SomeFloat](x: F): F		213
+nim	lgamma	n_math.html#lgamma,F	proc lgamma[F: SomeFloat](x: F): F		221
+nim	math_is_error	n_math.html#math_is_error,SomeFloat,ref.Exception	proc math_is_error(x: SomeFloat; exc: var ref Exception): bool		239
+nim	ldexp	n_math.html#ldexp,F,int,ref.Exception	proc ldexp[F: SomeFloat](x: F; i: int; exc: var ref Exception): F		281
+nim	ldexp	n_math.html#ldexp,F,int	proc ldexp[F: SomeFloat](x: F; i: int): F		315
+nim	modf	n_math.html#modf,F	proc modf[F: SomeFloat](x: F): tuple[intpart: F, floatpart: F]		320
+nim	fmod	n_math.html#fmod,F,F	proc fmod[F: SomeFloat](x: F; y: F): F		329
+nim	remainder	n_math.html#remainder,F,F	proc remainder[F: SomeFloat](x: F; y: F): F		342
+nim	prod	n_math.html#prod,Iterable[T]	proc prod[T](iterable: Iterable[T]; start = 1.T): T		426
+nim	fsum	n_math.html#fsum,Iterable[T: SomeFloat]	proc fsum[T: SomeFloat](iterable: Iterable[T]): T		434
+nim	log	n_math.html#log,F	proc log[F: SomeFloat](x: F): F		568
+nim	log	n_math.html#log,F,F	proc log[F: SomeFloat](x, base: F): F		569
+nim	log2	n_math.html#log2,F	proc log2[F: SomeFloat](x: F): F		576
+nim	log10	n_math.html#log10,F	proc log10[F: SomeFloat](x: F): F		577
+nim	degrees	n_math.html#degrees,F	proc degrees[F: SomeFloat](x: F): F		580
+nim	radians	n_math.html#radians,F	proc radians[F: SomeFloat](x: F): F		582
+nim	asin	n_math.html#asin,F	proc asin[F: SomeFloat](x: F): F		592
+nim	asinh	n_math.html#asinh,F	proc asinh[F: SomeFloat](x: F): F		593
+nim	acos	n_math.html#acos,F	proc acos[F: SomeFloat](x: F): F		594
+nim	acosh	n_math.html#acosh,F	proc acosh[F: SomeFloat](x: F): F		595
+nim	atan	n_math.html#atan,F	proc atan[F: SomeFloat](x: F): F		596
+nim	atan2	n_math.html#atan2,F	proc atan2[F: SomeFloat](x: F): F		597
+nim	atanh	n_math.html#atanh,F	proc atanh[F: SomeFloat](x: F): F		598
+nim	comb	n_math.html#comb,int,int	proc comb(n, k: int): int		601
+nim	perm	n_math.html#perm,int	proc perm(n: int): int		607
+nim	perm	n_math.html#perm,Natural,Natural	proc perm(n, k: Natural): int		611
+nim	factorial	n_math.html#factorial,Natural	proc factorial(x: Natural): int		618
+nim	isqrtPositive	n_math.html#isqrtPositive,Positive	proc isqrtPositive(n: Positive): int		627
+nim	isqrt	n_math.html#isqrt,Natural	proc isqrt(n: Natural): int		647
+nim	isqrt	n_math.html#isqrt,T	proc isqrt[T: SomeFloat](x: T): int		677
+nimgrp	log	n_math.html#log-procs-all	proc		568
+nimgrp	isqrt	n_math.html#isqrt-procs-all	proc		647
+nimgrp	lcm	n_math.html#lcm-procs-all	proc		198
+nimgrp	perm	n_math.html#perm-procs-all	proc		607
+nimgrp	hypot	n_math.html#hypot-procs-all	proc		200
+nimgrp	gcd	n_math.html#gcd-procs-all	proc		197
+nimgrp	ldexp	n_math.html#ldexp-procs-all	proc		281

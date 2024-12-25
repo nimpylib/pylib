@@ -1,0 +1,4 @@
+nimTitle	replaceWithCount	_._/stringlib/replaceWithCount.html	module src/pylib/stringlib/replaceWithCount		0
+nim	replace	_._/stringlib/replaceWithCount.html#replace,string,char,char,Natural	proc replace(s: string; sub, by: char; count: Natural): string		6
+nim	replace	_._/stringlib/replaceWithCount.html#replace,string,string,string,Natural	proc replace(s: string; sub, by: string; count: Natural): string		22
+nimgrp	replace	_._/stringlib/replaceWithCount.html#replace-procs-all	proc		6

@@ -1,0 +1,7 @@
+nimTitle	expm1_log1p	math_impl/expm1_log1p.html	module src/pylib/Lib/math_impl/expm1_log1p		0
+nim	log1p	math_impl/expm1_log1p.html#log1p,F	proc log1p[F: SomeFloat](x: F): F		50
+nim	expm1	math_impl/expm1_log1p.html#expm1,F	proc expm1[F: SomeFloat](x: F): F		56
+heading	x = 2.0	math_impl/expm1_log1p.html#x-eq-2dot0	 x = 2.0		0
+heading	x = 13.0	math_impl/expm1_log1p.html#x-eq-13dot0	 x = 13.0		0
+heading	x = 47.0	math_impl/expm1_log1p.html#x-eq-47dot0	 x = 47.0		0
+heading	x = 73.0	math_impl/expm1_log1p.html#x-eq-73dot0	 x = 73.0		0

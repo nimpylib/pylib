@@ -1,31 +1,31 @@
 nimTitle	sys	pylib/Lib/sys.html	module src/pylib/Lib/sys		0
-nim	platform	pylib/Lib/sys.html#platform	const platform		85
-nim	stdin	pylib/Lib/sys.html#stdin	var stdin		98
-nim	stdout	pylib/Lib/sys.html#stdout	var stdout		98
-nim	stderr	pylib/Lib/sys.html#stderr	var stderr		98
-nim	dunder_stdin	pylib/Lib/sys.html#dunder_stdin	let dunder_stdin		110
-nim	dunder_stdout	pylib/Lib/sys.html#dunder_stdout	let dunder_stdout		111
-nim	dunder_stderr	pylib/Lib/sys.html#dunder_stderr	let dunder_stderr		112
-nim	noneStdstream	pylib/Lib/sys.html#noneStdstream.c,NoneType	converter noneStdstream(n: NoneType): typeof(stdout)		113
-nim	exit	pylib/Lib/sys.html#exit,PyStr	proc exit(s: PyStr)		115
-nim	exit	pylib/Lib/sys.html#exit,int	proc exit(c: int)		116
-nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		117
-nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		118
-nim	float_info	pylib/Lib/sys.html#float_info	const float_info		125
-nim	rounds	pylib/Lib/sys.html#rounds.t	template rounds(fi: typeof(float_info)): int		141
-nim	implementation	pylib/Lib/sys.html#implementation	const implementation		173
-nim	version_info	pylib/Lib/sys.html#version_info	const version_info		183
-nim	version	pylib/Lib/sys.html#version	const version		190
-nim	hexversion	pylib/Lib/sys.html#hexversion	const hexversion		191
-nim	maxsize	pylib/Lib/sys.html#maxsize	const maxsize		193
-nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		194
-nim	copyright	pylib/Lib/sys.html#copyright	const copyright		195
-nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		202
-nim	argv	pylib/Lib/sys.html#argv	var argv		203
-nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		241
-nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		251
-nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		255
-nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		265
-nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		346
-nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		115
-nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		251
+nim	platform	pylib/Lib/sys.html#platform	const platform		86
+nim	stdin	pylib/Lib/sys.html#stdin	var stdin		99
+nim	stdout	pylib/Lib/sys.html#stdout	var stdout		99
+nim	stderr	pylib/Lib/sys.html#stderr	var stderr		99
+nim	dunder_stdin	pylib/Lib/sys.html#dunder_stdin	let dunder_stdin		111
+nim	dunder_stdout	pylib/Lib/sys.html#dunder_stdout	let dunder_stdout		112
+nim	dunder_stderr	pylib/Lib/sys.html#dunder_stderr	let dunder_stderr		113
+nim	noneStdstream	pylib/Lib/sys.html#noneStdstream.c,NoneType	converter noneStdstream(n: NoneType): typeof(stdout)		114
+nim	exit	pylib/Lib/sys.html#exit,PyStr	proc exit(s: PyStr)		116
+nim	exit	pylib/Lib/sys.html#exit,int	proc exit(c: int)		117
+nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		118
+nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		119
+nim	float_info	pylib/Lib/sys.html#float_info	const float_info		126
+nim	rounds	pylib/Lib/sys.html#rounds.t	template rounds(fi: typeof(float_info)): int		142
+nim	implementation	pylib/Lib/sys.html#implementation	const implementation		174
+nim	version_info	pylib/Lib/sys.html#version_info	const version_info		184
+nim	version	pylib/Lib/sys.html#version	const version		191
+nim	hexversion	pylib/Lib/sys.html#hexversion	const hexversion		192
+nim	maxsize	pylib/Lib/sys.html#maxsize	const maxsize		194
+nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		195
+nim	copyright	pylib/Lib/sys.html#copyright	const copyright		196
+nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		210
+nim	argv	pylib/Lib/sys.html#argv	var argv		215
+nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		249
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		259
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		263
+nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		273
+nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		354
+nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		116
+nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		259

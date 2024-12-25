@@ -1,0 +1,6 @@
+nimTitle	strfptime	pylib/Lib/time_impl/strfptime.html	module src/pylib/Lib/time_impl/strfptime		0
+nim	strftime	pylib/Lib/time_impl/strfptime.html#strftime,string,struct_time	proc strftime(format: string; st: struct_time): string		7
+nim	strftime	pylib/Lib/time_impl/strfptime.html#strftime,S,struct_time	proc strftime[S](format: S; st: struct_time): S		12
+nim	strftime	pylib/Lib/time_impl/strfptime.html#strftime,string,Some_struct_time_tuple	proc strftime(format: string; st: Some_struct_time_tuple): string		17
+nim	strptime	pylib/Lib/time_impl/strfptime.html#strptime,string,string	proc strptime(s: string; f: string): struct_time		20
+nimgrp	strftime	pylib/Lib/time_impl/strfptime.html#strftime-procs-all	proc		7

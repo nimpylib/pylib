@@ -1,0 +1,3 @@
+nimTitle	loopErrno	pylib/Lib/errno_impl/private/loopErrno.html	module src/pylib/Lib/errno_impl/private/loopErrno		0
+nim	whenDefErrno	pylib/Lib/errno_impl/private/loopErrno.html#whenDefErrno.t,,	template whenDefErrno(err; body)		3
+nim	forErrno	pylib/Lib/errno_impl/private/loopErrno.html#forErrno.t,,	template forErrno(err; body)		12

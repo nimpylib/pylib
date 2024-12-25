@@ -1,0 +1,5 @@
+nimTitle	expm1	pylib/Lib/math_impl/comptime/expm1.html	module src/pylib/Lib/math_impl/comptime/expm1		0
+nim	hugeF	pylib/Lib/math_impl/comptime/expm1.html#hugeF.t	template hugeF[F](): untyped		131
+nim	tinyF	pylib/Lib/math_impl/comptime/expm1.html#tinyF.t	template tinyF[F](): untyped		132
+nim	o_threshold	pylib/Lib/math_impl/comptime/expm1.html#o_threshold.t	template o_threshold[F](): untyped		133
+nim	expm1	pylib/Lib/math_impl/comptime/expm1.html#expm1,F	proc expm1[F: SomeFloat](x: F): F		144

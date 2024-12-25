@@ -1,0 +1,2 @@
+nimTitle	modulename	inspect_impl/modulename.html	module src/pylib/Lib/inspect_impl/modulename		0
+nim	getmodulenameImpl	inspect_impl/modulename.html#getmodulenameImpl,string,string	proc getmodulenameImpl(path: string; res: var string): bool		9

@@ -1,0 +1,5 @@
+nimTitle	polevl	pylib/Lib/math_impl/polevl.html	module src/pylib/Lib/math_impl/polevl		0
+nim	polevl	pylib/Lib/math_impl/polevl.html#polevl,F,openArray[F]	proc polevl[F](x: F; coef: openArray[F]; N = coef.high): F		7
+nim	polExpd	pylib/Lib/math_impl/polevl.html#polExpd.m,F,untyped	macro polExpd[F](x: F; coef: untyped): F		27
+nim	polExpd0	pylib/Lib/math_impl/polevl.html#polExpd0.m,F,untyped	macro polExpd0[F](x: F; rcoef: untyped): F		45
+nim	p1evl	pylib/Lib/math_impl/polevl.html#p1evl,F,openArray[F],typeof(coef.high - 1)	proc p1evl[F](x: F; coef: openArray[F]; N = coef.high - 1): F		58

@@ -1,0 +1,4 @@
+nimTitle	platformUtils	pylib/Lib/private/platformUtils.html	module src/pylib/Lib/private/platformUtils		0
+nim	CLike	pylib/Lib/private/platformUtils.html#CLike	const CLike		2
+nim	clikeOr	pylib/Lib/private/platformUtils.html#clikeOr.t,,	template clikeOr(inCLike, b): untyped		4
+nim	impJsOrC	pylib/Lib/private/platformUtils.html#impJsOrC.t,,,	template impJsOrC(sym, cfloatSym, argSym)		12

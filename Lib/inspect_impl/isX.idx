@@ -1,0 +1,12 @@
+nimTitle	isX	inspect_impl/isX.html	module src/pylib/Lib/inspect_impl/isX		0
+nim	ismodule	inspect_impl/isX.html#ismodule.m,typed	macro ismodule(obj: typed): bool		14
+nim	isclass	inspect_impl/isX.html#isclass.m,typed	macro isclass(obj: typed): bool		15
+nim	ismethod	inspect_impl/isX.html#ismethod.m,typed	macro ismethod(obj: typed): bool		16
+nim	isfunction	inspect_impl/isX.html#isfunction.m,typed	macro isfunction(obj: typed): bool		17
+nim	markcoroutinefunction	inspect_impl/isX.html#markcoroutinefunction.m,T	macro markcoroutinefunction[T](obj: T): T		35
+nim	iscoroutine	inspect_impl/isX.html#iscoroutine.m,typed	macro iscoroutine(obj: typed): bool		50
+nim	iscoroutinefunction	inspect_impl/isX.html#iscoroutinefunction.m,typed	macro iscoroutinefunction(obj: typed): bool		53
+nim	isawaitable	inspect_impl/isX.html#isawaitable.t,typed	template isawaitable(obj: typed): bool		58
+nim	istraceback	inspect_impl/isX.html#istraceback.t,typed	template istraceback(obj: typed): bool		61
+nim	isframe	inspect_impl/isX.html#isframe.t,typed	template isframe(obj: typed): bool		62
+nim	isbuiltin	inspect_impl/isX.html#isbuiltin.m,typed	macro isbuiltin(obj: typed): bool		64

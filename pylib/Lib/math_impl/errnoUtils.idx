@@ -1,11 +1,1 @@
 nimTitle	errnoUtils	pylib/Lib/math_impl/errnoUtils.html	module src/pylib/Lib/math_impl/errnoUtils		0
-nim	prepareRWErrno	pylib/Lib/math_impl/errnoUtils.html#prepareRWErrno.t	template prepareRWErrno()		12
-nim	prepareROErrno	pylib/Lib/math_impl/errnoUtils.html#prepareROErrno.t	template prepareROErrno()		15
-nim	Errno	pylib/Lib/math_impl/errnoUtils.html#Errno	enum Errno		18
-nim	EDOM	pylib/Lib/math_impl/errnoUtils.html#EDOM	let EDOM		24
-nim	ERANGE	pylib/Lib/math_impl/errnoUtils.html#ERANGE	let ERANGE		24
-nim	setErrno	pylib/Lib/math_impl/errnoUtils.html#setErrno.t,untyped	template setErrno(v: untyped)		31
-nim	setErrno0	pylib/Lib/math_impl/errnoUtils.html#setErrno0.t	template setErrno0()		38
-nim	getErrno	pylib/Lib/math_impl/errnoUtils.html#getErrno.t	template getErrno(): cint		45
-nim	isErr	pylib/Lib/math_impl/errnoUtils.html#isErr.t,untyped	template isErr(E: untyped): bool		54
-nim	isErr0	pylib/Lib/math_impl/errnoUtils.html#isErr0.t	template isErr0(): bool		64

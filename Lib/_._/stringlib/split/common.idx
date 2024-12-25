@@ -1,0 +1,8 @@
+nimTitle	common	_._/stringlib/split/common.html	module src/pylib/stringlib/split/common		0
+nim	IsSpaceAt	_._/stringlib/split/common.html#IsSpaceAt	type IsSpaceAt		3
+nim	suf--	_._/stringlib/split/common.html#suf--,int	proc suf--(i: var int): int		5
+nim	STRINGLIB_MUTABLE	_._/stringlib/split/common.html#STRINGLIB_MUTABLE	const STRINGLIB_MUTABLE		10
+nim	norm_maxsplit	_._/stringlib/split/common.html#norm_maxsplit.t,int,	template norm_maxsplit(maxsplit: int; str_len): int		14
+nim	DefSplitCap	_._/stringlib/split/common.html#DefSplitCap	const DefSplitCap		19
+nim	PREPARE_CAP	_._/stringlib/split/common.html#PREPARE_CAP.t	template PREPARE_CAP(maxcount): int		22
+nim	norm_maxsplit	_._/stringlib/split/common.html#norm_maxsplit,int,int,int	proc norm_maxsplit(maxsplit: int; str_len, sep_len: int): int		27

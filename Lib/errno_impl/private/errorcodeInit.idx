@@ -1,0 +1,3 @@
+nimTitle	errorcodeInit	errno_impl/private/errorcodeInit.html	module src/pylib/Lib/errno_impl/private/errorcodeInit		0
+nim	initErrorcodeMap	errno_impl/private/errorcodeInit.html#initErrorcodeMap.m,,,untyped,typed	macro initErrorcodeMap(K, V; res: untyped; initFunc: typed)		10
+nim	declErrorcodeWith	errno_impl/private/errorcodeInit.html#declErrorcodeWith.t,typed	template declErrorcodeWith[K, V](initFunc: typed)		24

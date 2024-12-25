@@ -1,3 +1,1 @@
 nimTitle	platformUtils	pylib/Lib/math_impl/platformUtils.html	module src/pylib/Lib/math_impl/platformUtils		0
-nim	CLike	pylib/Lib/math_impl/platformUtils.html#CLike	const CLike		2
-nim	clikeOr	pylib/Lib/math_impl/platformUtils.html#clikeOr.t,,	template clikeOr(inCLike, b): untyped		4

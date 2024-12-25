@@ -1,2 +1,9 @@
 nimTitle	funcSignature	pylib/pysugar/stmt/funcSignature.html	module src/pylib/pysugar/stmt/funcSignature		0
-nim	parseSignature	pylib/pysugar/stmt/funcSignature.html#parseSignature,NimNode	proc parseSignature(signature: NimNode; deftype = ident"untyped"): tuple[\n    name: NimNode, params: seq[NimNode]]		48
+nim	newGenericsTree	pylib/pysugar/stmt/funcSignature.html#newGenericsTree	proc newGenericsTree(): NimNode		60
+nim	parseGenericParams	pylib/pysugar/stmt/funcSignature.html#parseGenericParams,NimNode,NimNode	proc parseGenericParams(generics: var NimNode; params: NimNode): NimNode		62
+nim	parseBracketGenericParams	pylib/pysugar/stmt/funcSignature.html#parseBracketGenericParams,NimNode,NimNode	proc parseBracketGenericParams(generics: var NimNode; params: NimNode): NimNode		71
+nim	parseSignature	pylib/pysugar/stmt/funcSignature.html#parseSignature,NimNode,NimNode	proc parseSignature(generics: var NimNode; signature: NimNode;\n               deftype = ident"untyped"): tuple[name: NimNode,\n    params: seq[NimNode]]		78
+nim	newProc	pylib/pysugar/stmt/funcSignature.html#newProc,NimNode,NimNode,openArray[NimNode]	proc newProc(name, generics: NimNode; params: openArray[NimNode] = [newEmptyNode()];\n        body = emptyn; procType = nnkProcDef; pragmas = emptyn): NimNode		103
+nim	newProc	pylib/pysugar/stmt/funcSignature.html#newProc,tuple[NimNode,seq[NimNode]],NimNode	proc newProc(tup: tuple[name: NimNode, params: seq[NimNode]]; generics: NimNode;\n        body = emptyn; procType = nnkProcDef; pragmas = emptyn): NimNode		116
+nim	parseSignatureNoGenerics	pylib/pysugar/stmt/funcSignature.html#parseSignatureNoGenerics,NimNode	proc parseSignatureNoGenerics(signature: NimNode; deftype = ident"untyped"): tuple[\n    name: NimNode, params: seq[NimNode]]		121
+nimgrp	newproc	pylib/pysugar/stmt/funcSignature.html#newProc-procs-all	proc		103

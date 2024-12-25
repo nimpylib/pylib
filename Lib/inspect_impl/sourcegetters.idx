@@ -1,0 +1,7 @@
+nimTitle	sourcegetters	inspect_impl/sourcegetters.html	module src/pylib/Lib/inspect_impl/sourcegetters		0
+nim	getfile	inspect_impl/sourcegetters.html#getfile.m,typed	macro getfile(obj: typed): string		5
+nim	getsourcefile	inspect_impl/sourcegetters.html#getsourcefile.t,typed	template getsourcefile(obj: typed): string		13
+nim	getline	inspect_impl/sourcegetters.html#getline.m,typed	macro getline(obj: typed): int		21
+nim	getsourcelinesImpl	inspect_impl/sourcegetters.html#getsourcelinesImpl.t,NimNode,	template getsourcelinesImpl(obj: NimNode; splitlines): untyped		34
+nim	getsource	inspect_impl/sourcegetters.html#getsource.m,typed	macro getsource(obj: typed): string		45
+nim	getdocNoDedentImpl	inspect_impl/sourcegetters.html#getdocNoDedentImpl,NimNode	proc getdocNoDedentImpl(obj: NimNode): string		70

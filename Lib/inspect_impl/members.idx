@@ -1,0 +1,17 @@
+nimTitle	members	inspect_impl/members.html	module src/pylib/Lib/inspect_impl/members		0
+nim	`$`	inspect_impl/members.html#$,Any	proc `$`(t: MemberType): string		7
+nim	GetMemberType	inspect_impl/members.html#GetMemberType	type GetMemberType		52
+nim	GetMembersType	inspect_impl/members.html#GetMembersType	type GetMembersType		53
+nim	GetMembersPredict	inspect_impl/members.html#GetMembersPredict	type GetMembersPredict		54
+nim	getmembers	inspect_impl/members.html#getmembers.i,T	iterator getmembers[T](obj: var T): GetMemberType		55
+nim	getmembers	inspect_impl/members.html#getmembers.i,T,GetMembersPredict	iterator getmembers[T](obj: var T; predict: GetMembersPredict): GetMemberType		59
+nim	getmembersImpl	inspect_impl/members.html#getmembersImpl.t,,,	template getmembersImpl[R](obj; predict; initResult): R		64
+nim	allTrue	inspect_impl/members.html#allTrue.t	template allTrue(_): bool		72
+nim	getmembers	inspect_impl/members.html#getmembers.t	template getmembers(obj): seq		74
+nim	getmembers	inspect_impl/members.html#getmembers.t,,GetMembersPredict	template getmembers(obj; predict: GetMembersPredict): seq		78
+nim	gen_getmembers_static	inspect_impl/members.html#gen_getmembers_static.t	template gen_getmembers_static(prag): untyped		83
+nim	getmembers_static	inspect_impl/members.html#getmembers_static.t,,GetMembersPredict	template getmembers_static(obj; predict: GetMembersPredict): untyped		84
+nim	getmembers_static	inspect_impl/members.html#getmembers_static.t	template getmembers_static(obj): untyped		89
+nimgrp	getmembers	inspect_impl/members.html#getmembers-iterators-all	iterator		55
+nimgrp	getmembers	inspect_impl/members.html#getmembers-templates-all	template		74
+nimgrp	getmembersstatic	inspect_impl/members.html#getmembers_static-templates-all	template		84

@@ -1,0 +1,2 @@
+nimTitle	log1p	math_impl/comptime/log1p.html	module src/pylib/Lib/math_impl/comptime/log1p		0
+nim	log1p	math_impl/comptime/log1p.html#log1p,F	proc log1p[F: SomeFloat](x: F): F		97

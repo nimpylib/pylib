@@ -1,0 +1,2 @@
+nimTitle	rsplit_whitespace	_._/stringlib/split/rsplit_whitespace.html	module src/pylib/stringlib/split/rsplit_whitespace		0
+nim	rsplit_whitespace	_._/stringlib/split/rsplit_whitespace.html#rsplit_whitespace,S,int	proc rsplit_whitespace[S](pystr: S; maxsplit = -1): PyList[S]		46

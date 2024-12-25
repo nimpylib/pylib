@@ -1,7 +1,7 @@
 nimTitle	bytesimpl	_._/pybytes/bytesimpl.html	module src/pylib/pybytes/bytesimpl		0
 nim	PyBytes	_._/pybytes/bytesimpl.html#PyBytes	type PyBytes		5
 nim	bytes	_._/pybytes/bytesimpl.html#bytes	proc bytes(): PyBytes		7
-nim	bytes	_._/pybytes/bytesimpl.html#bytes,string	proc bytes(s: string): PyBytes		8
+nim	bytes	_._/pybytes/bytesimpl.html#bytes,sinkstring	proc bytes(s: sink string): PyBytes		8
 nim	bytes	_._/pybytes/bytesimpl.html#bytes,openArray[char]	proc bytes(s: openArray[char]): PyBytes		11
 nim	bytes	_._/pybytes/bytesimpl.html#bytes,char	proc bytes(c: char): PyBytes		20
 nim	bytes	_._/pybytes/bytesimpl.html#bytes,int	proc bytes(nLen: int): PyBytes		22

@@ -1,0 +1,4 @@
+nimTitle	parserWithCfg	pylib/pysugar/parserWithCfg.html	module src/pylib/pysugar/parserWithCfg		0
+nim	PySignatureSupportGenerics	pylib/pysugar/parserWithCfg.html#PySignatureSupportGenerics	const PySignatureSupportGenerics		7
+nim	PyDedentDocString	pylib/pysugar/parserWithCfg.html#PyDedentDocString	const PyDedentDocString		8
+nim	parserWithDefCfg	pylib/pysugar/parserWithCfg.html#parserWithDefCfg	proc parserWithDefCfg(): PyAsgnRewriter		10

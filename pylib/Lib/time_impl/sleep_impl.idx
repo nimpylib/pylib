@@ -1,0 +1,2 @@
+nimTitle	sleep_impl	pylib/Lib/time_impl/sleep_impl.html	module src/pylib/Lib/time_impl/sleep_impl		0
+nim	sleep	pylib/Lib/time_impl/sleep_impl.html#sleep.t	template sleep(s: int | float)		23

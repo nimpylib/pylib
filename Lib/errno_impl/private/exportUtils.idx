@@ -1,0 +1,2 @@
+nimTitle	exportUtils	errno_impl/private/exportUtils.html	module src/pylib/Lib/errno_impl/private/exportUtils		0
+nim	exportAllErrnosViaEnumOrImportc	errno_impl/private/exportUtils.html#exportAllErrnosViaEnumOrImportc.m	macro exportAllErrnosViaEnumOrImportc()		17

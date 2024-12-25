@@ -2,8 +2,11 @@ nimTitle	dict_decl	pylib/builtins/dict_decl.html	module src/pylib/builtins/dict_
 nim	dict	pylib/builtins/dict_decl.html#dict	type dict		5
 nim	PyDict	pylib/builtins/dict_decl.html#PyDict	type PyDict		7
 nim	toNimTable	pylib/builtins/dict_decl.html#toNimTable,PyDict[K,V]	proc toNimTable[K, V](self: PyDict[K, V]): var OrderedTable[K, V]		9
-nim	newPyDictImpl	pylib/builtins/dict_decl.html#newPyDictImpl.t,int	template newPyDictImpl[K, V](x: int): untyped		11
-nim	newPyDictImpl	pylib/builtins/dict_decl.html#newPyDictImpl.t,openArray[]	template newPyDictImpl[K, V](x: openArray[(K, V)] = []): untyped		15
-nim	getOrDefault	pylib/builtins/dict_decl.html#getOrDefault,PyDict[A,B],A	proc getOrDefault[A, B](t: PyDict[A, B]; key: A): B		21
-nim	emptyPyDict	pylib/builtins/dict_decl.html#emptyPyDict	proc emptyPyDict[K, V](): PyDict[K, V]		24
-nimgrp	newpydictimpl	pylib/builtins/dict_decl.html#newPyDictImpl-templates-all	template		11
+nim	newPyDict	pylib/builtins/dict_decl.html#newPyDict,int	proc newPyDict[K, V](x: int): PyDict[K, V]		11
+nim	newPyDict	pylib/builtins/dict_decl.html#newPyDict,openArray[]	proc newPyDict[K, V](x: openArray[(K, V)] = []): PyDict[K, V]		15
+nim	newPyDictImpl	pylib/builtins/dict_decl.html#newPyDictImpl.t,int	template newPyDictImpl[K, V](x: int): untyped		22
+nim	newPyDictImpl	pylib/builtins/dict_decl.html#newPyDictImpl.t,openArray[]	template newPyDictImpl[K, V](x: openArray[(K, V)] = []): untyped		26
+nim	getOrDefault	pylib/builtins/dict_decl.html#getOrDefault,PyDict[A,B],A	proc getOrDefault[A, B](t: PyDict[A, B]; key: A): B		31
+nim	emptyPyDict	pylib/builtins/dict_decl.html#emptyPyDict	proc emptyPyDict[K, V](): PyDict[K, V]		34
+nimgrp	newpydict	pylib/builtins/dict_decl.html#newPyDict-procs-all	proc		11
+nimgrp	newpydictimpl	pylib/builtins/dict_decl.html#newPyDictImpl-templates-all	template		22

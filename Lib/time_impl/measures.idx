@@ -1,8 +1,8 @@
 nimTitle	measures	time_impl/measures.html	module src/pylib/Lib/time_impl/measures		0
-nim	time	time_impl/measures.html#time	proc time(): float		5
-nim	time_ns	time_impl/measures.html#time_ns	proc time_ns(): int64		9
-nim	process_time	time_impl/measures.html#process_time	proc process_time(): float		16
-nim	monotonic_ns	time_impl/measures.html#monotonic_ns	proc monotonic_ns(): int64		20
-nim	monotonic	time_impl/measures.html#monotonic	proc monotonic(): float		23
-nim	perf_counter	time_impl/measures.html#perf_counter	proc perf_counter(): float		32
-nim	perf_counter_ns	time_impl/measures.html#perf_counter_ns	proc perf_counter_ns(): int64		33
+nim	time	time_impl/measures.html#time	proc time(): float		11
+nim	time_ns	time_impl/measures.html#time_ns	proc time_ns(): int64		16
+nim	process_time	time_impl/measures.html#process_time	proc process_time(): float		24
+nim	monotonic_ns	time_impl/measures.html#monotonic_ns	proc monotonic_ns(): int64		29
+nim	monotonic	time_impl/measures.html#monotonic	proc monotonic(): float		36
+nim	perf_counter	time_impl/measures.html#perf_counter	proc perf_counter(): float		45
+nim	perf_counter_ns	time_impl/measures.html#perf_counter_ns	proc perf_counter_ns(): int64		46

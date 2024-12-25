@@ -1,0 +1,8 @@
+nimTitle	errnoUtils	pylib/Lib/errno_impl/errnoUtils.html	module src/pylib/Lib/errno_impl/errnoUtils		0
+nim	prepareRWErrno	pylib/Lib/errno_impl/errnoUtils.html#prepareRWErrno.t	template prepareRWErrno()		6
+nim	prepareROErrno	pylib/Lib/errno_impl/errnoUtils.html#prepareROErrno.t	template prepareROErrno()		8
+nim	setErrno	pylib/Lib/errno_impl/errnoUtils.html#setErrno.t,untyped	template setErrno(v: untyped)		12
+nim	setErrno0	pylib/Lib/errno_impl/errnoUtils.html#setErrno0.t	template setErrno0()		19
+nim	getErrno	pylib/Lib/errno_impl/errnoUtils.html#getErrno.t	template getErrno(): cint		26
+nim	isErr	pylib/Lib/errno_impl/errnoUtils.html#isErr.t,untyped	template isErr(E: untyped): bool		36
+nim	isErr0	pylib/Lib/errno_impl/errnoUtils.html#isErr0.t	template isErr0(): bool		46

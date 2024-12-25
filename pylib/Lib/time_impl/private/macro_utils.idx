@@ -1,0 +1,12 @@
+nimTitle	macro_utils	pylib/Lib/time_impl/private/macro_utils.html	module src/pylib/Lib/time_impl/private/macro_utils		0
+nim	asgSeqToObj	pylib/Lib/time_impl/private/macro_utils.html#asgSeqToObj.m,typed,typed	macro asgSeqToObj(tup, obj: typed)		71
+nim	declTupleWithNFieldsFrom	pylib/Lib/time_impl/private/macro_utils.html#declTupleWithNFieldsFrom.m,untyped,typedesc,static[int],static[bool]	macro declTupleWithNFieldsFrom(name: untyped; Cls: typedesc; n: static[int];\n                         exported: static[bool] = true)		117
+nim	addFields	pylib/Lib/time_impl/private/macro_utils.html#addFields.m,string,typed,static[int]	macro addFields(res: string; obj: typed; noMoreThan: static[int] = int.high)		137
+nim	csEq	pylib/Lib/time_impl/private/macro_utils.html#csEq	CmpStragy.csEq		170
+nim	csLhs	pylib/Lib/time_impl/private/macro_utils.html#csLhs	CmpStragy.csLhs		170
+nim	csRhs	pylib/Lib/time_impl/private/macro_utils.html#csRhs	CmpStragy.csRhs		170
+nim	csShorter	pylib/Lib/time_impl/private/macro_utils.html#csShorter	CmpStragy.csShorter		170
+nim	CmpStragy	pylib/Lib/time_impl/private/macro_utils.html#CmpStragy	enum CmpStragy		170
+nim	mixinOrderOnFields	pylib/Lib/time_impl/private/macro_utils.html#mixinOrderOnFields.m,typed,typed,,static[CmpStragy]	macro mixinOrderOnFields(lhs, rhs: typed; cmpOp; cmpStragy: static[CmpStragy] = csEq): bool		206
+nim	orderOnFields	pylib/Lib/time_impl/private/macro_utils.html#orderOnFields.m,T,T,	macro orderOnFields[T](a, b: T; cmpOp): bool		215
+nim	cmpOnField	pylib/Lib/time_impl/private/macro_utils.html#cmpOnField.m,typed,typed	macro cmpOnField(a, b: typed): int		257

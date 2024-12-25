@@ -105,7 +105,7 @@
 <li><a class="reference" href="#bytes%2Cchar" title="bytes(c: char): PyBytes">bytes(c: char): PyBytes</a></li>
 <li><a class="reference" href="#bytes%2Cint" title="bytes(nLen: int): PyBytes">bytes(nLen: int): PyBytes</a></li>
 <li><a class="reference" href="#bytes%2CopenArray%5Bchar%5D" title="bytes(s: openArray[char]): PyBytes">bytes(s: openArray[char]): PyBytes</a></li>
-<li><a class="reference" href="#bytes%2Cstring" title="bytes(s: string): PyBytes">bytes(s: string): PyBytes</a></li>
+<li><a class="reference" href="#bytes%2Csinkstring" title="bytes(s: sink string): PyBytes">bytes(s: sink string): PyBytes</a></li>
 <li><a class="reference" href="#bytes_2" title="bytes(self: PyBytes): PyBytes">bytes(self: PyBytes): PyBytes</a></li>
 <li><a class="reference" href="#bytes%2CIterable%5Bchar%5D" title="bytes(x: Iterable[char]): PyBytes">bytes(x: Iterable[char]): PyBytes</a></li>
 <li><a class="reference" href="#bytes%2CIterable%5Bint%5D" title="bytes(x: Iterable[int]): PyBytes">bytes(x: Iterable[int]): PyBytes</a></li>
@@ -443,8 +443,8 @@
 
   </dd>
 </div>
-<div id="bytes,string">
-  <dt><pre><span class="Keyword">func</span> <a href="#bytes%2Cstring"><span class="Identifier">bytes</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="bytes,sinkstring">
+  <dt><pre><span class="Keyword">func</span> <a href="#bytes%2Csinkstring"><span class="Identifier">bytes</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">sink</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     XXX: Currently no <tt class="docutils literal"><span class="pre"><span class="Identifier">encode</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">errors</span></span></tt> params
@@ -684,7 +684,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-11 16:49:24 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-25 20:59:06 UTC</small>
       </div>
     </div>
   </div>

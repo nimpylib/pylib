@@ -1,0 +1,10 @@
+nimTitle	common	math_impl/comptime/common.html	module src/pylib/Lib/math_impl/comptime/common		0
+nim	ln2_hi	math_impl/comptime/common.html#ln2_hi	const ln2_hi		10
+nim	ln2_lo	math_impl/comptime/common.html#ln2_lo	const ln2_lo		11
+nim	getLowWord	math_impl/comptime/common.html#getLowWord.t,float32	template getLowWord(x: float32): uint16		13
+nim	getLowWord	math_impl/comptime/common.html#getLowWord.t,float64	template getLowWord(x: float64): uint32		14
+nim	setHighWord	math_impl/comptime/common.html#setHighWord.t,float,	template setHighWord(x: float; hi)		17
+nim	GET_FLOAT_WORD	math_impl/comptime/common.html#GET_FLOAT_WORD.t,float32	template GET_FLOAT_WORD(x: float32): uint32		20
+nim	GET_FLOAT_WORD	math_impl/comptime/common.html#GET_FLOAT_WORD.t,uint32,float32	template GET_FLOAT_WORD(word: var uint32; x: float32)		21
+nimgrp	Getfloatword	math_impl/comptime/common.html#GET_FLOAT_WORD-templates-all	template		20
+nimgrp	getlowword	math_impl/comptime/common.html#getLowWord-templates-all	template		13

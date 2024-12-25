@@ -1,2 +1,2 @@
 nimTitle	pyraise	pylib/pysugar/stmt/pyraise.html	module src/pylib/pysugar/stmt/pyraise		0
-nim	rewriteRaise	pylib/pysugar/stmt/pyraise.html#rewriteRaise,NimNode	proc rewriteRaise(rStmt: NimNode): NimNode		6
+nim	rewriteRaise	pylib/pysugar/stmt/pyraise.html#rewriteRaise,NimNode	proc rewriteRaise(rStmt: NimNode): NimNode		47

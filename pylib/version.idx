@@ -3,17 +3,9 @@ nim	asVersion	pylib/version.html#asVersion.t,int,int	template asVersion(major, m
 nim	asVersion	pylib/version.html#asVersion.t,int,int,int	template asVersion(major, minor, patch: int): string		6
 nim	asVersion	pylib/version.html#asVersion	proc asVersion(v: (int, int)): string		9
 nim	asVersion	pylib/version.html#asVersion_2	proc asVersion(v: (int, int, int)): string		10
-nim	Major	pylib/version.html#Major	const Major		13
-nim	Minor	pylib/version.html#Minor	const Minor		14
-nim	Patch	pylib/version.html#Patch	const Patch		15
 nim	Version	pylib/version.html#Version	const Version		16
-nim	ReleaseLevel	pylib/version.html#ReleaseLevel	const ReleaseLevel		18
-nim	Serial	pylib/version.html#Serial	const Serial		19
-nim	PyMajor	pylib/version.html#PyMajor	const PyMajor		21
-nim	PyMinor	pylib/version.html#PyMinor	const PyMinor		22
-nim	PyPatch	pylib/version.html#PyPatch	const PyPatch		23
-nim	PyReleaseLevel	pylib/version.html#PyReleaseLevel	const PyReleaseLevel		24
-nim	PySerial	pylib/version.html#PySerial	const PySerial		25
-nim	pysince	pylib/version.html#pysince.m,staticint,staticint,	macro pysince(major, minor: static int; def)		46
+nim	pysince	pylib/version.html#pysince.m,staticint,staticint,	macro pysince(major, minor: static int; def)		37
+nim	pysince	pylib/version.html#pysince.t,MajorMinorVersion,R,R	template pysince[R](ver: MajorMinorVersion; defExpr, elseExpr: R): R		51
+nim	pysince	pylib/version.html#pysince,static[],R,R	proc pysince[R](ver: static[float | MajorMinorVersion]; defExpr, elseExpr: R): R		65
 nimgrp	asversion	pylib/version.html#asVersion-procs-all	proc		9
 nimgrp	asversion	pylib/version.html#asVersion-templates-all	template		3

@@ -1,1 +1,5 @@
 nimTitle	os	os.html	module src/pylib/Lib/os		0
+nim	scandir	os.html#scandir.t	template scandir(): untyped		15
+nim	scandir	os.html#scandir.t,PathLike[T]	template scandir[T](p: PathLike[T]): untyped		16
+nim	close	os.html#close.t,DirEntry	template close(p: DirEntry)		20
+nimgrp	scandir	os.html#scandir-templates-all	template		15

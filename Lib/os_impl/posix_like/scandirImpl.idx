@@ -1,20 +1,20 @@
 nimTitle	scandirImpl	os_impl/posix_like/scandirImpl.html	module src/pylib/Lib/os_impl/posix_like/scandirImpl		0
-nim	DirEntry	os_impl/posix_like/scandirImpl.html#DirEntry	type DirEntry		30
-nim	close	os_impl/posix_like/scandirImpl.html#close,ScandirIterator	proc close(scandirIter: ScandirIterator)		36
-nim	items	os_impl/posix_like/scandirImpl.html#items.i,ScandirIterator[T]	iterator items[T](scandirIter: ScandirIterator[T]): DirEntry[T]		37
-nim	repr	os_impl/posix_like/scandirImpl.html#repr	proc repr(self: DirEntry): string		58
-nim	is_file	os_impl/posix_like/scandirImpl.html#is_file	proc is_file(self: DirEntry): bool		78
-nim	is_file	os_impl/posix_like/scandirImpl.html#is_file,,bool	proc is_file(self: DirEntry; follow_symlinks: bool): bool		86
-nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir	proc is_dir(self: DirEntry): bool		78
-nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir,,bool	proc is_dir(self: DirEntry; follow_symlinks: bool): bool		87
-nim	is_symlink	os_impl/posix_like/scandirImpl.html#is_symlink	proc is_symlink(self: DirEntry): bool		88
-nim	stat	os_impl/posix_like/scandirImpl.html#stat	proc stat(self: DirEntry): stat_result		93
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i,PathLike[T]	iterator scandir[T](path: PathLike[T]): DirEntry[T]		129
-nim	scandirIter	os_impl/posix_like/scandirImpl.html#scandirIter.i,T	iterator scandirIter[T](path: T): DirEntry[T]		130
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i	iterator scandir(): DirEntry[PyStr]		134
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir,PathLike[T]	proc scandir[T](path: PathLike[T]): ScandirIterator[T]		138
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir	proc scandir(): ScandirIterator[PyStr]		143
-nimgrp	isdir	os_impl/posix_like/scandirImpl.html#is_dir-procs-all	proc		87
-nimgrp	isfile	os_impl/posix_like/scandirImpl.html#is_file-procs-all	proc		86
-nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		138
-nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-iterators-all	iterator		129
+nim	DirEntry	os_impl/posix_like/scandirImpl.html#DirEntry	type DirEntry		36
+nim	close	os_impl/posix_like/scandirImpl.html#close,ScandirIterator	proc close(scandirIter: ScandirIterator)		42
+nim	items	os_impl/posix_like/scandirImpl.html#items.i,ScandirIterator[T]	iterator items[T](scandirIter: ScandirIterator[T]): DirEntry[T]		43
+nim	repr	os_impl/posix_like/scandirImpl.html#repr	proc repr(self: DirEntry): string		64
+nim	stat	os_impl/posix_like/scandirImpl.html#stat	proc stat(self: DirEntry): stat_result		67
+nim	is_symlink	os_impl/posix_like/scandirImpl.html#is_symlink	proc is_symlink(self: DirEntry): bool		104
+nim	is_file	os_impl/posix_like/scandirImpl.html#is_file	proc is_file(self: DirEntry): bool		91
+nim	is_file	os_impl/posix_like/scandirImpl.html#is_file,,bool	proc is_file(self: DirEntry; follow_symlinks: bool): bool		128
+nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir	proc is_dir(self: DirEntry): bool		91
+nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir,,bool	proc is_dir(self: DirEntry; follow_symlinks: bool): bool		129
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i,PathLike[T]	iterator scandir[T](path: PathLike[T]): DirEntry[T]		159
+nim	scandirIter	os_impl/posix_like/scandirImpl.html#scandirIter.i,T	iterator scandirIter[T](path: T): DirEntry[T]		160
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i	iterator scandir(): DirEntry[PyStr]		164
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir,PathLike[T]	proc scandir[T](path: PathLike[T]): ScandirIterator[T]		168
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir	proc scandir(): ScandirIterator[PyStr]		173
+nimgrp	isdir	os_impl/posix_like/scandirImpl.html#is_dir-procs-all	proc		129
+nimgrp	isfile	os_impl/posix_like/scandirImpl.html#is_file-procs-all	proc		128
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		168
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-iterators-all	iterator		159

@@ -1,0 +1,5 @@
+nimTitle	errnos	errno_impl/private/errnos.html	module src/pylib/Lib/errno_impl/private/errnos		0
+nim	Errno	errno_impl/private/errnos.html#Errno	enum Errno		6
+nim	ErrnoCount	errno_impl/private/errnos.html#ErrnoCount	const ErrnoCount		143
+nim	strerror	errno_impl/private/errnos.html#strerror,Errno	proc strerror(e: Errno): string		145
+nim	`$`	errno_impl/private/errnos.html#$,Errno	proc `$`(e: Errno): string		147

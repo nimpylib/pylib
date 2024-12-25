@@ -81,7 +81,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">getPtr
-  <li><a class="reference" href="#getPtr%2CPyList%5BT%5D%2C" title="getPtr[T](self: var PyList[T]; i: Natural | BackwardsIndex): ptr T">getPtr[T](self: var PyList[T]; i: Natural | BackwardsIndex): ptr T</a></li>
+  <li><a class="reference" href="#getPtr%2CsinkPyList%5BT%5D%2C" title="getPtr[T](self: sink PyList[T]; i: Natural | BackwardsIndex): ptr T">getPtr[T](self: sink PyList[T]; i: Natural | BackwardsIndex): ptr T</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">newPyList
@@ -287,8 +287,9 @@
 
 </div>
 <div id="getPtr-procs-all">
-  <div id="getPtr,PyList[T],">
-  <dt><pre><span class="Keyword">func</span> <a href="#getPtr%2CPyList%5BT%5D%2C"><span class="Identifier">getPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">Natural</span> <span class="Operator">|</span> <span class="Identifier">BackwardsIndex</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">T</span></pre></dt>
+  <div id="getPtr,sinkPyList[T],">
+  <dt><pre><span class="Keyword">func</span> <a href="#getPtr%2CsinkPyList%5BT%5D%2C"><span class="Identifier">getPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">sink</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">Natural</span> <span class="Operator">|</span> <span class="Identifier">BackwardsIndex</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">T</span> {.
+    <span class="Identifier">inline</span>.}</pre></dt>
   <dd>
     
     EXT. unstable. used by Lib/array <tt class="docutils literal"><span class="pre"><span class="Identifier">frombytes</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">tobytes</span></span></tt>.
@@ -513,7 +514,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-11 16:49:26 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-25 20:59:08 UTC</small>
       </div>
     </div>
   </div>

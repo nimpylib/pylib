@@ -60,6 +60,8 @@
     nil">Decorator</a></li>
 <li><a class="reference" href="#PyAsgnFrame" title="PyAsgnFrame = ref object">PyAsgnFrame</a></li>
 <li><a class="reference" href="#PyAsgnRewriter" title="PyAsgnRewriter = object
+  dedentDoc*: bool
+  supportGenerics*: bool
   classes*: seq[NimNode]     ## class type, 
                              ## empty if outside a `class` definition
   globals*: seq[string]">PyAsgnRewriter</a></li>
@@ -88,7 +90,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">newPyAsgnRewriter
-  <li><a class="reference" href="#newPyAsgnRewriter" title="newPyAsgnRewriter(): PyAsgnRewriter">newPyAsgnRewriter(): PyAsgnRewriter</a></li>
+  <li><a class="reference" href="#newPyAsgnRewriter" title="newPyAsgnRewriter(supportGenerics = false; dedentDoc = false): PyAsgnRewriter">newPyAsgnRewriter(supportGenerics = false; dedentDoc = false): PyAsgnRewriter</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">nonlocalAdd
@@ -159,6 +161,8 @@
 </div>
 <div id="PyAsgnRewriter">
   <dt><pre><a href="frame.html#PyAsgnRewriter"><span class="Identifier">PyAsgnRewriter</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
+  <span class="Identifier">dedentDoc</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bool</span>
+  <span class="Identifier">supportGenerics</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bool</span>
   <span class="Identifier">classes</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">NimNode</span><span class="Other">]</span>     <span class="Comment">## class type, </span>
                              <span class="Comment">## empty if outside a `class` definition</span>
   <span class="Identifier">globals</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
@@ -183,8 +187,8 @@
   <dd>
     
     add ident to current stack frame.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L46" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L46" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -196,8 +200,8 @@
   <dd>
     
     check if ident is in current stack frame.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L45" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L45" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -209,8 +213,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -222,8 +226,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -231,12 +235,13 @@
 </div>
 <div id="newPyAsgnRewriter-procs-all">
   <div id="newPyAsgnRewriter">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newPyAsgnRewriter"><span class="Identifier">newPyAsgnRewriter</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="frame.html#PyAsgnRewriter"><span class="Identifier">PyAsgnRewriter</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newPyAsgnRewriter"><span class="Identifier">newPyAsgnRewriter</span></a><span class="Other">(</span><span class="Identifier">supportGenerics</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">dedentDoc</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="frame.html#PyAsgnRewriter"><span class="Identifier">PyAsgnRewriter</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -248,8 +253,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L59" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L59" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -262,8 +267,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -276,8 +281,8 @@
   <dd>
     
     lookup <tt class="docutils literal"><span class="pre"><span class="Identifier">ident</span></span></tt> throughout all frames but globals.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -289,8 +294,8 @@
   <dd>
     
     pop stack frame
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -302,8 +307,8 @@
   <dd>
     
     push stack frame
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/frame.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/frame.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -319,7 +324,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-10-11 16:48:50 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-25 20:58:13 UTC</small>
       </div>
     </div>
   </div>

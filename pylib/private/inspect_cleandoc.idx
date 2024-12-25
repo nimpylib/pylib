@@ -1,0 +1,2 @@
+nimTitle	inspect_cleandoc	pylib/private/inspect_cleandoc.html	module src/pylib/private/inspect_cleandoc		0
+nim	inspect.cleandoc	pylib/private/inspect_cleandoc.html#inspect.cleandoc,openArray[char]	proc inspect.cleandoc(doc: openArray[char]): string		21

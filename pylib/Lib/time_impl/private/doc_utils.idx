@@ -1,0 +1,6 @@
+nimTitle	doc_utils	pylib/Lib/time_impl/private/doc_utils.html	module src/pylib/Lib/time_impl/private/doc_utils		0
+nim	DocTable	pylib/Lib/time_impl/private/doc_utils.html#DocTable	object DocTable		4
+nim	initDocTable	pylib/Lib/time_impl/private/doc_utils.html#initDocTable,string,openArray[]	proc initDocTable(moduleDoc: string; init: openArray[(string, string)]): DocTable		11
+nim	fetchDoc	pylib/Lib/time_impl/private/doc_utils.html#fetchDoc.m,staticDocTable	macro fetchDoc(tab: static DocTable)		26
+nim	fetchDoc	pylib/Lib/time_impl/private/doc_utils.html#fetchDoc.m,staticDocTable,	macro fetchDoc(tab: static DocTable; def)		31
+nimgrp	fetchdoc	pylib/Lib/time_impl/private/doc_utils.html#fetchDoc-macros-all	macro		26

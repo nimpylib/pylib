@@ -1,0 +1,10 @@
+nimTitle	strip	_._/pystring/strip.html	module src/pylib/pystring/strip		0
+nim	strip	_._/pystring/strip.html#strip,PyStr	proc strip(self: PyStr): PyStr		24
+nim	lstrip	_._/pystring/strip.html#lstrip,PyStr	proc lstrip(self: PyStr): PyStr		25
+nim	rstrip	_._/pystring/strip.html#rstrip,PyStr	proc rstrip(self: PyStr): PyStr		26
+nim	strip	_._/pystring/strip.html#strip,PyStr,PyStr	proc strip(self: PyStr; chars: PyStr): PyStr		29
+nim	lstrip	_._/pystring/strip.html#lstrip,PyStr,PyStr	proc lstrip(self: PyStr; chars: PyStr): PyStr		31
+nim	rstrip	_._/pystring/strip.html#rstrip,PyStr,PyStr	proc rstrip(self: PyStr; chars: PyStr): PyStr		33
+nimgrp	strip	_._/pystring/strip.html#strip-procs-all	proc		24
+nimgrp	lstrip	_._/pystring/strip.html#lstrip-procs-all	proc		25
+nimgrp	rstrip	_._/pystring/strip.html#rstrip-procs-all	proc		26

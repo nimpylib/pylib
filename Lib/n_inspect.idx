@@ -1,0 +1,5 @@
+nimTitle	n_inspect	n_inspect.html	module src/pylib/Lib/n_inspect		0
+nim	getmodulename	n_inspect.html#getmodulename,string	proc getmodulename(obj: string): string		13
+nim	cleandoc	n_inspect.html#cleandoc,string	proc cleandoc(s: string): string		21
+nim	getsourcelines	n_inspect.html#getsourcelines.m,typed	macro getsourcelines(obj: typed): (seq[string], int)		32
+nim	getdoc	n_inspect.html#getdoc.m,typed	macro getdoc(obj: typed): string		35

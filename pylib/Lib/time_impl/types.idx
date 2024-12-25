@@ -1,0 +1,30 @@
+nimTitle	types	pylib/Lib/time_impl/types.html	module src/pylib/Lib/time_impl/types		0
+nim	struct_time	pylib/Lib/time_impl/types.html#struct_time	type struct_time		6
+nim	struct_time_tuple	pylib/Lib/time_impl/types.html#struct_time_tuple	tuple struct_time_tuple		6
+nim	struct_time_tuple10	pylib/Lib/time_impl/types.html#struct_time_tuple10	tuple struct_time_tuple10		6
+nim	struct_time_tuple11	pylib/Lib/time_impl/types.html#struct_time_tuple11	tuple struct_time_tuple11		6
+nim	Some_struct_time_tuple	pylib/Lib/time_impl/types.html#Some_struct_time_tuple	type Some_struct_time_tuple		26
+nim	Some_struct_time	pylib/Lib/time_impl/types.html#Some_struct_time	type Some_struct_time		27
+nim	isUtcZone	pylib/Lib/time_impl/types.html#isUtcZone.t,struct_time	template isUtcZone(st: struct_time): bool		29
+nim	initStructTime	pylib/Lib/time_impl/types.html#initStructTime.t	template initStructTime(): struct_time		33
+nim	initStructTime	pylib/Lib/time_impl/types.html#initStructTime.t,,,,,,,,,,,	template initStructTime(year, mon, mday, hour, min, sec, wday, yday, isdst, zone, gmtoff): struct_time		41
+nim	repr	pylib/Lib/time_impl/types.html#repr,struct_time	proc repr(st: struct_time): string		69
+nim	`==`	pylib/Lib/time_impl/types.html#==,struct_time,struct_time	proc `==`(a, b: struct_time): bool		84
+nim	`==`	pylib/Lib/time_impl/types.html#==,struct_time,struct_time_tuple11	proc `==`(a: struct_time; b: struct_time_tuple11): bool		87
+nim	`==`	pylib/Lib/time_impl/types.html#==,struct_time_tuple11,struct_time	proc `==`(a: struct_time_tuple11; b: struct_time): bool		94
+nim	`<=`	pylib/Lib/time_impl/types.html#<=,struct_time,struct_time	proc `<=`(a, b: struct_time): bool		84
+nim	`<=`	pylib/Lib/time_impl/types.html#<=,struct_time,struct_time_tuple11	proc `<=`(a: struct_time; b: struct_time_tuple11): bool		87
+nim	`<=`	pylib/Lib/time_impl/types.html#<=,struct_time_tuple11,struct_time	proc `<=`(a: struct_time_tuple11; b: struct_time): bool		95
+nim	`<`	pylib/Lib/time_impl/types.html#<,struct_time,struct_time	proc `<`(a, b: struct_time): bool		84
+nim	`<`	pylib/Lib/time_impl/types.html#<,struct_time,struct_time_tuple11	proc `<`(a: struct_time; b: struct_time_tuple11): bool		87
+nim	`<`	pylib/Lib/time_impl/types.html#<,struct_time_tuple11,struct_time	proc `<`(a: struct_time_tuple11; b: struct_time): bool		96
+nim	`==`	pylib/Lib/time_impl/types.html#==,,	proc `==`(st: struct_time; t: tuple): bool		100
+nim	`==`	pylib/Lib/time_impl/types.html#==,,_2	proc `==`(t: tuple; st: struct_time): bool		101
+nim	`<`	pylib/Lib/time_impl/types.html#<,,	proc `<`(st: struct_time; t: tuple): bool		107
+nim	`<`	pylib/Lib/time_impl/types.html#<,,_2	proc `<`(t: tuple; st: struct_time): bool		110
+nim	`<=`	pylib/Lib/time_impl/types.html#<=,,	proc `<=`(st: struct_time; t: tuple): bool		107
+nim	`<=`	pylib/Lib/time_impl/types.html#<=,,_2	proc `<=`(t: tuple; st: struct_time): bool		111
+nimgrp	<=	pylib/Lib/time_impl/types.html#<=-procs-all	proc		95
+nimgrp	<	pylib/Lib/time_impl/types.html#<-procs-all	proc		96
+nimgrp	==	pylib/Lib/time_impl/types.html#==-procs-all	proc		94
+nimgrp	initstructtime	pylib/Lib/time_impl/types.html#initStructTime-templates-all	template		33

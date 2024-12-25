@@ -1,0 +1,20 @@
+nimTitle	inspect	inspect.html	module src/pylib/Lib/inspect		0
+nim	getmembers	inspect.html#getmembers.i,T	iterator getmembers[T](obj: T): GetMemberType		18
+nim	getmembers	inspect.html#getmembers.i,T,GetMembersPredict	iterator getmembers[T](obj: T; predict: GetMembersPredict): GetMemberType		19
+nim	getmembers	inspect.html#getmembers.t	template getmembers(obj): PyList		26
+nim	getmembers	inspect.html#getmembers.t,,GetMembersPredict	template getmembers(obj; predict: GetMembersPredict): PyList		30
+nim	getmembers_static	inspect.html#getmembers_static.t,,GetMembersPredict	template getmembers_static(obj; predict: GetMembersPredict): untyped		34
+nim	getmembers_static	inspect.html#getmembers_static.t	template getmembers_static(obj): untyped		34
+nim	getmodulename	inspect.html#getmodulename.t,PyStr	template getmodulename(obj: PyStr): PyStr		41
+nim	markcoroutinefunction	inspect.html#markcoroutinefunction.t	template markcoroutinefunction(obj): untyped		43
+nim	iscoroutinefunction	inspect.html#iscoroutinefunction.t	template iscoroutinefunction(obj): bool		50
+nim	isawaitable	inspect.html#isawaitable.t	template isawaitable(obj): bool		51
+nim	cleandoc	inspect.html#cleandoc.t,PyStr	template cleandoc(obj: PyStr): PyStr		58
+nim	getfile	inspect.html#getfile.t,untyped	template getfile(obj: untyped): PyStr		59
+nim	getsourcefile	inspect.html#getsourcefile.t,untyped	template getsourcefile(obj: untyped): PyStr		60
+nim	getsource	inspect.html#getsource.t,untyped	template getsource(obj: untyped): PyStr		61
+nim	getdoc	inspect.html#getdoc.t,untyped	template getdoc(obj: untyped): PyStr		62
+nim	getsourcelines	inspect.html#getsourcelines.m,typed	macro getsourcelines(obj: typed): (PyList[string], int)		64
+nimgrp	getmembers	inspect.html#getmembers-iterators-all	iterator		18
+nimgrp	getmembers	inspect.html#getmembers-templates-all	template		26
+nimgrp	getmembersstatic	inspect.html#getmembers_static-templates-all	template		84

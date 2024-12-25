@@ -1,2 +1,2 @@
 nimTitle	inWordUtilsMapper	math_impl/patch/inWordUtilsMapper.html	module src/pylib/Lib/math_impl/patch/inWordUtilsMapper		0
-nim	wu_import	math_impl/patch/inWordUtilsMapper.html#wu_import.m	macro wu_import(moduleOrfromExpr)		8
+nim	wu_import	math_impl/patch/inWordUtilsMapper.html#wu_import.m	macro wu_import(moduleOrfromExpr)		29

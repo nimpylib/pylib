@@ -1,0 +1,3 @@
+nimTitle	singleton_errno	errno_impl/private/singleton_errno.html	module src/pylib/Lib/errno_impl/private/singleton_errno		0
+nim	errno	errno_impl/private/singleton_errno.html#errno	var errno		4
+nim	staticErrno	errno_impl/private/singleton_errno.html#staticErrno	var staticErrno		8
