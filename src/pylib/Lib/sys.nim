@@ -222,7 +222,8 @@ when hasArgn and hasArgs:
         if orig_argv[1] == "e":
           orig_argv[2..^1]
         else:
-          assert orig_argv[1][^5..^1] == ".nims"
+          assert orig_argv[1][^5..^1] == ".nims" or
+            orig_argv[1].startsWith "-"  # [--opt...] --eval:cmd
           orig_argv[1..^1]
   else: argv = list(orig_argv)
 
