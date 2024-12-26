@@ -37,12 +37,16 @@ type PriArgs = openArray[string]
 proc printImpl(objects: PriArgs; sep:char|string=" ", endl:char|string="\n",
               file: auto = None, flush=false) =
   template notImpl(backend; supportEnd=false) =
-    raise newException(OSError, "print with file != None " & 
-      (when supportEnd: "" else: "or endl != '\n'") &
-      " is not supported for " &
-      astToStr(backend) & " backend")
+    const msg = "print with file != None " & 
+        (when supportEnd: "" else: "or endl != '\\n'") &
+        " is not supported for " &
+        astToStr(backend) & " backend"
+    when nimvm:
+      {.error: "not impl: " & msg.}
+    else:
+      raise newException(OSError, msg)
   template vmPrintImpl =
-    if file is_not NoneType:
+    when file is_not NoneType:
       notImpl "NimScript", true
     # We know sys.std* cannot be modified at compile-time
     if not endl.isEchoNL:
