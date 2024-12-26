@@ -1,2 +1,2 @@
 nimTitle	print	pylib/builtins/print.html	module src/pylib/builtins/print		0
-nim	print	pylib/builtins/print.html#print.m,varargs[untyped]	macro print(data: varargs[untyped]): untyped		122
+nim	print	pylib/builtins/print.html#print.m,varargs[untyped]	macro print(data: varargs[untyped]): untyped		128
