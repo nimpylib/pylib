@@ -33,7 +33,8 @@ template vmPrintStdoutNoNL(msg: string) =
   else:
     discard gorge cmd
 
-proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string="\n",
+type PriArgs = openArray[string]
+proc printImpl(objects: PriArgs; sep:char|string=" ", endl:char|string="\n",
               file: auto = None, flush=false) =
   template notImpl(backend; supportEnd=false) =
     raise newException(OSError, "print with file != None " & 
@@ -68,7 +69,7 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
         let toStdout =
           when defined(nodejs):
             proc processStdoutWrite(s: cstring){.importjs: "process.stdout.write(#)".}
-            proc () = processStdoutWrite(cstring(objects.join(sep) & endl))
+            proc (objects: PriArgs) = processStdoutWrite(cstring(objects.join(sep) & endl))
             # XXX: FIXME: this is async on Windows
           else:
             let Deno{.importcpp.}: JsObject
@@ -76,22 +77,22 @@ proc printImpl(objects: openArray[string], sep:char|string=" ", endl:char|string
             if inBorwser:
               if not endl.isEchoNL:
                 notImpl "JavaScript"
-              proc () = console.log("%s", cstring objects.join(sep))
+              proc (objects: PriArgs) = console.log("%s", cstring objects.join(sep))
             else:
               proc denoStdoutWriteSync(s: cstring){.importjs:"Deno.stdout.writeSync(#)".}
-              proc () = denoStdoutWriteSync(cstring(objects.join(sep) & endl))
+              proc (objects: PriArgs) = denoStdoutWriteSync(cstring(objects.join(sep) & endl))
 
         when file is NoneType:
           when compiles(sys.stdout):
             if sys.stdout.isNil:
               return
-          toStdout()
+          toStdout objects
         elif file is File:
-          if file == system.stdout: toStdout()
+          if file == system.stdout: toStdout objects
           else: notImpl "JavaScript", true
         else:
           if file == sys.dunder_stdout:
-            toStdout()
+            toStdout objects
           else: notImpl "JavaScript", true
       else:
         var lockPrint{.global.}: Lock
