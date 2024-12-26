@@ -28,7 +28,7 @@ import ../pybytes/bytesprefix
 export bytesprefix
 
 import std/[macros, strutils, tables]
-import std/endians
+
 
 type
   PyArray*[T] = distinct PyList[T]
@@ -159,14 +159,17 @@ func frombytes*[T: not SomeChar](arr: var PyArray[T], buffer: BytesLike) =
       arr[i] = cast[C](c)  # So it does not change its binary
       i.inc
 
-func tobytes*(arr: PyArray[SomeChar]): PyBytes =
+iterator items*[T](arr: PyArray[T]): T =
+  for i in arr.tolist: yield i
+
+func tobytes*[C: SomeChar](arr: PyArray[C]): PyBytes =
   let
     bLen = arr.len
   var ba = bytearray bLen
   when has_copyMem:
     copyMem(ba.getCharPtr(0), arr.getPtr(0), bLen)
   else:
-    var i = alen
+    var i = 0
     for c in arr:
       ba[i] = cast[C](c)  # So it does not change its binary
       i.inc
@@ -180,7 +183,7 @@ func tobytes*[T: not SomeChar](arr: PyArray[T]): PyBytes =
   when has_copyMem:
     copyMem(ba.getCharPtr(0), arr.getPtr(0), blen)
   else:
-    var i = alen
+    var i = 0
     for c in arr:
       ba[i] = cast[C](c)  # So it does not change its binary
       i.inc
