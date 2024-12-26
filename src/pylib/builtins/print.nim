@@ -28,10 +28,11 @@ template vmPrintStdoutNoNL(msg: string) =
     let
       nmsg = escape msg
       cmd = "echo -n " & nmsg
-  when declared(exec):
+  when declared(exec):  # NimScript
     exec cmd
   else:
-    discard gorge cmd
+    # gorge cannot help as it just returns output
+    notImpl "nimvm"
 
 type PriArgs = openArray[string]
 proc printImpl(objects: PriArgs; sep:char|string=" ", endl:char|string="\n",
