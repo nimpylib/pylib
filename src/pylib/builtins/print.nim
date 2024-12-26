@@ -42,7 +42,7 @@ proc printImpl(objects: PriArgs; sep:char|string=" ", endl:char|string="\n",
         (when supportEnd: "" else: "or endl != '\\n'") &
         " is not supported for " &
         astToStr(backend) & " backend"
-    when nimvm:
+    when defined(nimscript):
       {.error: "not impl: " & msg.}
     else:
       raise newException(OSError, msg)
