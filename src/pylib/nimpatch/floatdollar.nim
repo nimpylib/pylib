@@ -1,6 +1,7 @@
 
 import ./utils
-addPatch((2,2,1), defined(js)):
+const M = int.high
+addPatch((M,M,M), defined(js)):
   from std/math import isNaN
   proc `$`*(x: SomeFloat): string =
     if isNaN(x): "nan"
