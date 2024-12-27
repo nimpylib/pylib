@@ -53,5 +53,14 @@ suite "Lib/array":
     testType  cint
     testType cuint
 
-    testType  clong
-    testType culong
+    #testType  clong
+    #testType culong
+    #[ XXX: NIM-BUG:
+~/.cache/nim/test_array_d/@m..@s..@sbuiltins@slist_decl.nim.c:1394:15: error: incompatible types when assigning to type ‘tySequence__lBgZ7a89beZGYPl8PiANMTA’ from type ‘tySequence__UlOHMDjVW8svdcOWlYMPHA’
+ 1394 | (*T1_).data = colontmpD_;
+      |               ^~~~~~~~~~
+
+T1_ is of seq[int]  (colontmpD_ is of seq[clong])
+Why?
+    
+    ]#
