@@ -9,6 +9,7 @@
 
 import ../version
 import ../builtins/list
+import ./collections/abc
 
 template since_has_Py_UCS4(def) =
   pysince(3, 13): def
@@ -28,6 +29,12 @@ import ../pybytes/bytesprefix
 export bytesprefix
 
 import std/[macros, strutils, tables]
+const JS = defined(js)
+when not JS:
+  import std/endians
+else:
+  from std/typetraits import toSigned, toUnsigned
+  type DataView{.pure.} = object
 
 
 type
@@ -52,12 +59,11 @@ func `@`*[T](arr: PyArray[T]): seq[T]{.inline.} = @(PyList[T](arr))
 template itemsize*[T](arr: PyArray[T]): int = sizeof(T)
 
 func newPyArray*[T](): PyArray[T] = PyArray[T] list[T]()
-template newPyArray*[T](x): PyArray[T] =
+func newPyArray*[T](x: Iterable[T]): PyArray[T]{.inline.} =
   ## unlike `array`_, when `x` is a literal, type conversion is always needed.
   runnableExamples:
     discard newPyArray[cint]([1.cint, 2])
     # or write: array('i', [1, 2])
-  bind list
   PyArray[T] list[T](x)
 
 func fromlist*[T](arr: var PyArray[T], ls: PyList[T]) =
@@ -406,6 +412,8 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
   )
   result.add res
 
+const BitPerByte = 8
+
 template getBitSize(typeStr: string): int =
   let res = SizeTable.getOrDefault(typeStr, -1) * BitPerByte
   assert res > 0, "unknown type " & typeStr
@@ -413,7 +421,6 @@ template getBitSize(typeStr: string): int =
 
 template getBitSizeStr(typ): string = $getBitSize($typ)
 
-const BitPerByte = 8
 
 # calls e.g. swapEndian64
 template swapProcForT(T: NimNode): NimNode =
@@ -421,15 +428,40 @@ template swapProcForT(T: NimNode): NimNode =
 
 template swapByte[C: SomeChar](_: C) = discard  # do nothing
 
+when JS:
+  proc newDataViewOfN(n: int): DataView{.importjs: "new DataView(new ArrayBuffer(#))".}
+  proc getUint[Res; N: static[int]](self: DataView, littleEndian: bool = false): Res =
+    {.emit: [result," = ",self,".getUint" & $N & "(0,",littleEndian,");"].}
+  proc setUint[N: static[int]](self: DataView, x: SomeUnsignedInt, littleEndian: bool = false) =
+    # XXX: if importjs:  Error: cannot generate code for: N
+    static:
+      const Bytes = sizeof(x) * BitPerByte
+      assert Bytes == N, "using setUint" & $N & " on uint" & $Bytes
+    {.emit: [self,".setUint" & $N & "(0,",x,", ",littleEndian,");"].}
+  #proc swapByte(x: )
+
 macro genSwapByte() =
-  template mapper(typ; _): NimNode{.dirty.} =
-    let procId = swapProcForT typ
+  template mapper(typ: NimNode; _): NimNode{.dirty.} =
+    let
+      procId = swapProcForT typ
     quote do:
       when not compiles( (var temp:`typ`; temp.swapByte()) ):
         template swapByte(x: var `typ`) =
-          var tmp: typeof(x)
-          `procId`(tmp.getAddr, x.getAddr)
-          x = tmp
+          when JS:
+            const
+              byteSize = sizeof(`typ`)
+              bitSize = byteSize * BitPerByte
+            var dv = newDataViewOfN byteSize
+            when `typ` is SomeSignedInt:
+              template nx: untyped = cast[`typ`.toUnsigned](x)
+            else:
+              template nx: untyped = x
+            dv.setUint[:bitSize](nx, true)
+            x = dv.getUInt[:`typ`, bitSize]()
+          else:
+            var tmp: typeof(x)
+            `procId`(tmp.getAddr, x.getAddr)
+            x = tmp
   genWithTypeCode mapper
 genSwapByte()
 

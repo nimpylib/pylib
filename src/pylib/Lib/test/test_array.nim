@@ -27,3 +27,31 @@ suite "Lib/array":
     ccmp 'i', [1, 3], `<`, [1, 4]
     ccmp 'i', [1, 3, 2], `<`, [1, 4]
     ccmp 'i', [1, 3, 2], `>`, [1, 3]
+  test "byteswap":
+    const
+      One = 0x01
+      Two = 0x10
+    template safeShl[R](x, n): untyped = (when n == 0: x.R else: x.R shl n)
+  
+    template testType(Typ) =
+      const
+        TypeSize = sizeof(Typ)
+        Shift = 8 * (TypeSize - 1)
+
+      var arr = newPyArray[Typ]()
+      arr.append Typ One
+      arr.append Typ Two
+    
+      arr.byteswap()
+      check arr[0] == One.safeShl[:Typ](Shift)
+      check arr[1] == Two.safeShl[:Typ](Shift)
+    
+  
+    testType  cshort
+    testType cushort
+  
+    testType  cint
+    testType cuint
+
+    testType  clong
+    testType culong
