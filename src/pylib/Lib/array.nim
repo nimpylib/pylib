@@ -58,7 +58,7 @@ func `@`*[T](arr: PyArray[T]): seq[T]{.inline.} = @(PyList[T](arr))
 
 template itemsize*[T](arr: PyArray[T]): int = sizeof(T)
 
-func newPyArray*[T](): PyArray[T] = PyArray[T] list[T]()
+func newPyArray*[T](len=0): PyArray[T] = PyArray[T] newPyList[T](len)
 func newPyArray*[T](x: Iterable[T]): PyArray[T]{.inline.} =
   ## unlike `array`_, when `x` is a literal, type conversion is always needed.
   runnableExamples:
