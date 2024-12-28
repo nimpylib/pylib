@@ -22,12 +22,11 @@ func repr*[T: set|string|openArray](self: PyList[T]): string =
   system.repr self.data.toOpenArray(0, len(self)-1)
 # `repr` defined for other elements' type is in about L160
 
-func newPyList*[T](s: seq[T]): PyList[T] =
-  result = PyList[T](data: s)
-func newPyList*[T](a: openArray[T]): PyList[T] =
-  result = PyList[T](data: @a)
-func newPyList*[T](len=0): PyList[T] = newPyList newSeq[T](len)
-func newPyListOfCap*[T](cap=0): PyList[T] = newPyList newSeqOfCap[T](cap)
+func newPyList*[T](s: seq[T]): PyList[T]{.inline.} = PyList[T](data: s)
+func newPyList*[T](a: openArray[T]): PyList[T]{.inline.} = PyList[T](data: @a)
+func newPyList*[T](len=0): PyList[T]{.inline.} = newPyList newSeq[T](len)
+func newPyListOfCap*[T](cap=0): PyList[T]{.inline.} =
+  newPyList newSeqOfCap[T](cap)
 
 iterator items*[T](self: PyList[T]): T =
   for i in self.data: yield i
