@@ -16,7 +16,7 @@ template eno(E) =
 
 macro exportAllErrnosViaEnumOrImportc*() =
   result = newStmtList()
-  forErrno e:
+  result.forErrno e:
     result.add newCall(bindSym"eno", ident symbolName e)    
 
 
