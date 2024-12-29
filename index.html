@@ -78,7 +78,8 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc">
+    <p class="module-desc"><blockquote class="markdown-quote"><p>Welcome to pylib 0.9.5</p></blockquote>
+
 <h1><a class="toc-backref" id="nim-pylib" href="#nim-pylib">Nim Pylib</a></h1><blockquote class="markdown-quote"><p>Just write Python code in Nim!</p></blockquote>
 
 <h2><a class="toc-backref" id="nim-pylib-import-pylib" href="#nim-pylib-import-pylib">import pylib</a></h2><p>The mostly suggested style is</p>
@@ -96,11 +97,13 @@
 </table><p>---</p>
 <p>Wondering how many libs are available in NimPylib?</p>
 <p>Here are the <a class="reference external" href="Lib/">Lib Docs</a>.</p>
+<div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+<tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">lenientops</span></span></tt> was imported automatically. Compile with -d:pylibNoLenient to disable it if you wish to do int-&gt;float conversions yourself</div>
 </p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="pylib/Lib/timeit.html">pylib/Lib/timeit</a>, <a class="reference external" href="pylib/io.html">pylib/io</a>, <a class="reference external" href="pylib/private/trans_imp.html">pylib/private/trans_imp</a>, <a class="reference external" href="pylib/noneType.html">pylib/noneType</a>, <a class="reference external" href="pylib/pybool.html">pylib/pybool</a>, <a class="reference external" href="pylib/builtins.html">pylib/builtins</a>, <a class="reference external" href="pylib/numTypes.html">pylib/numTypes</a>, <a class="reference external" href="pylib/ops.html">pylib/ops</a>, <a class="reference external" href="pylib/pyerrors.html">pylib/pyerrors</a>, <a class="reference external" href="pylib/pystring.html">pylib/pystring</a>, <a class="reference external" href="pylib/pybytes.html">pylib/pybytes</a>, <a class="reference external" href="pylib/pybytearray.html">pylib/pybytearray</a>, <a class="reference external" href="pylib/pysugar.html">pylib/pysugar</a>
+    <a class="reference external" href="pylib/version.html">pylib/version</a>, <a class="reference external" href="pylib/Lib/timeit.html">pylib/Lib/timeit</a>, <a class="reference external" href="pylib/io.html">pylib/io</a>, <a class="reference external" href="pylib/private/trans_imp.html">pylib/private/trans_imp</a>, <a class="reference external" href="pylib/noneType.html">pylib/noneType</a>, <a class="reference external" href="pylib/pybool.html">pylib/pybool</a>, <a class="reference external" href="pylib/builtins.html">pylib/builtins</a>, <a class="reference external" href="pylib/numTypes.html">pylib/numTypes</a>, <a class="reference external" href="pylib/ops.html">pylib/ops</a>, <a class="reference external" href="pylib/pyerrors.html">pylib/pyerrors</a>, <a class="reference external" href="pylib/pystring.html">pylib/pystring</a>, <a class="reference external" href="pylib/pybytes.html">pylib/pybytes</a>, <a class="reference external" href="pylib/pybytearray.html">pylib/pybytearray</a>, <a class="reference external" href="pylib/pysugar.html">pylib/pysugar</a>
   </dl>
 </div>
 <div class="section" id="18">
@@ -117,8 +120,8 @@
     <p>EXT.</p>
 <p>Mimics Pythons <tt class="docutils literal"><span class="pre">timeit.timeit()</span></tt>, output shows more information than Pythons.</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -140,7 +143,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-28 11:05:51 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-29 19:24:29 UTC</small>
       </div>
     </div>
   </div>
