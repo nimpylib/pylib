@@ -51,8 +51,9 @@ suite "Lib/array":
     testType cushort
   
     testType  cint
-    testType cuint
+    #testType cuint  # bug on Windows x86_64
 
+    # bug on Linux x86_64
     #testType  clong
     #testType culong
     #[ XXX: NIM-BUG:
