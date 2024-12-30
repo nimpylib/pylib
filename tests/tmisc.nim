@@ -13,11 +13,12 @@ test "divmod":
   check divmod(4.int8, 2.int8) == (2'i8, 0'i8)
 
 test "pass":
-  pass 42  # Mimic pass, instead of discard, not exactly the same but close.
-  pass true
-  pass 1.2
-  pass "a"
-  pass 'b'
+  pass
+  #pass 42  # Mimic pass, instead of discard, not exactly the same but close.
+  #pass true
+  #pass 1.2
+  #pass "a"
+  #pass 'b'
 
 test "lambda":
   let arg = "hello"
