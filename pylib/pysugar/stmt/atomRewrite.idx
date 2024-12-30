@@ -1,3 +1,2 @@
 nimTitle	atomRewrite	pylib/pysugar/stmt/atomRewrite.html	module src/pylib/pysugar/stmt/atomRewrite		0
 nim	toPyExpr	pylib/pysugar/stmt/atomRewrite.html#toPyExpr,NimNode	proc toPyExpr(atm: NimNode): NimNode		5
-nim	colonToSlice	pylib/pysugar/stmt/atomRewrite.html#colonToSlice,NimNode	proc colonToSlice(colonExpr: NimNode): NimNode		7
