@@ -8,7 +8,6 @@ import pylib/Lib/tempfile
 # more python-stdlib in pylib/Lib/...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
-pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
 # NOTE: from now on, the following is just valid Python3 code!
 # only add the following to make it Python:

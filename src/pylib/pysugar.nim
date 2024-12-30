@@ -7,6 +7,7 @@ import ./pysugar/[
 
 export pywith, tonim, class, pydef, unpack
 
+# if trying to support `pass expr`:
 # nimv2 somehow has a bug
 # # lib.nim
 # template pass* = discard
@@ -15,7 +16,7 @@ export pywith, tonim, class, pydef, unpack
 # # main.nim
 # import lib
 # pass  # <- Error: ambiguous identifier: 'pass' -- ...
-template pass*(_) = discard ## suport either `pass 42` or `pass`
+template pass* = discard
 
 template lambda*(code: untyped): untyped =
   (proc (): auto = code)  # Mimic Pythons Lambda
