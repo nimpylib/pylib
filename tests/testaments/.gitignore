@@ -1,0 +1,5 @@
+*/*
+/megatest
+!*.nim
+!*.nims
+!*.md

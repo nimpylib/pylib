@@ -12,8 +12,8 @@ proc rewriteSliceInBracket(bracketExpr: NimNode): NimNode =
   result = bracketExpr.copyNimNode
   result.add bracketExpr[0].toPyExpr
   for i in 1..<bracketExpr.len:
+    let ele = bracketExpr[i]
     result.add:
-      let ele = bracketExpr[i]
       if ele.kind == nnkExprColonExpr: colonToSlice ele
       else: ele
 
