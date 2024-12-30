@@ -22,7 +22,7 @@
 # ```
 
 import std/macros
-import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator, ./atomRewrite
+import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator, ./exprRewrite
 import ../../private/inspect_cleandoc
 
 using mparser: var PyAsgnRewriter
