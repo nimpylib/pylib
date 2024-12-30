@@ -1,4 +1,5 @@
 discard """
+  targets: "c js"
   output: '''
 abccd
 1234abccd5\n

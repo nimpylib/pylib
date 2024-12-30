@@ -1,4 +1,5 @@
 discard """
+    targets: "c js"
     output: '''
 [2]
 [1, 3, 4, 34]

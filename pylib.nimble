@@ -14,15 +14,13 @@ skipDirs      = @["examples"]
 
 requires "nim >= 1.6.0"  # ensure `pydef.nim`c's runnableExamples works
 
-task testJs, "Test JS":
-  selfExec "js -r -d:nodejs tests/tester"
-
-task testC, "Test C":
-  selfExec "r --mm:orc tests/tester"
-
 import std/os
-let
-  libDir = srcDir / "pylib/Lib"
+
+proc runTestament(targets = "c") =
+  for path in listDirs("./tests/testaments"):
+    if path.lastPathPart in ["nimcache", "testresults"]:
+      continue
+    exec "testament --targets:" & targets.quoteShell &  " pat " & quoteShell path
 
 func getArgs(taskName: string): seq[string] =
   ## cmdargs: 1 2 3 4 5 -> 1 4 3 2 5
@@ -36,6 +34,23 @@ func getArgs(taskName: string): seq[string] =
   if rargs.len > 1:
     swap rargs[^1], rargs[0] # the file must be the last, others' order don't matter
   return rargs
+
+task testJs, "Test JS":
+  selfExec "js -r -d:nodejs tests/tester"
+  runTestament "js"
+
+task testC, "Test C":
+  selfExec "r --mm:orc tests/tester"
+  runTestament "c"
+
+task testament, "Testament":
+  let args = getArgs "testament"
+  var targets = args.quoteShellCommand
+  if targets.len == 0: targets = "c js"
+  runTestament targets
+
+let
+  libDir = srcDir / "pylib/Lib"
 
 func getSArg(taskName: string): string = quoteShellCommand getArgs taskName
 
