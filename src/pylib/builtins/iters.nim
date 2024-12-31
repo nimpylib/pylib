@@ -105,9 +105,9 @@ func raiseBound(ordLonger: int){.inline.} =
   raise newException(ValueError, 
     "zip() argument " & $ordLonger & " is longer than argument " & $(ordLonger-1))
 
-iterator zip*[A, B](it1: Iterable[A], it2: Iterable[B], strict: static[bool]=false): (A, B){.genIter.} =
+iterator zip*[A, B](it1: Iterable[A], it2: Iterable[B], strict = false): (A, B){.genIter.} =
   template handleBound(ordLonger) =
-    when strict: raiseBound ordLonger
+    if strict: raiseBound ordLonger
     else: break
   when it1.isSizedGetitem[:A]:
     let le = it1.len
@@ -134,8 +134,8 @@ iterator zip*[A, B](it1: Iterable[A], it2: Iterable[B], strict: static[bool]=fal
         yield res
         continue
       if strict:
-        if s1 and not s2: raiseBound 2
-        if s2 and not s1: raiseBound 1
+        if not s2: raiseBound 2
+        if not s1: raiseBound 1
       break
 
 
