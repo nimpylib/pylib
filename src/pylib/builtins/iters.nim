@@ -62,6 +62,8 @@ type Zip[T] = object
   iter: iterator (): T
 makeIterable Zip
 
+func initZip[T](iter: iterator (): T): Zip[T]{.inline.} = Zip[T](iter: iter)  ## used for `zip macro`
+
 #[
 XXX: NIM-BUG:
 
@@ -138,6 +140,100 @@ iterator zip*[A, B](it1: Iterable[A], it2: Iterable[B], strict = false): (A, B){
         if not s1: raiseBound 1
       break
 
+template onlyDefinedWhen(cond: static[bool]; body): untyped =
+  when cond: body
 
-# XXX: worthy to impl? macro zip*[T](iterables_or_strict: varargs[typed])
+# XXX: worthy to impl?
+macro zip*(iterables_or_strict: varargs[untyped]): Zip{.
+    onlyDefinedWhen(not defined(pylibDisableMoreArgsZip)).} =
+  ## `zip(*args, strict=False)`
+  ## 
+  ## ------
+  ## 
+  ## To support its similarity with Python's `zip` function signature,
+  ## this macro signature has to be `varargs[untyped]`.
+  ## 
+  ## So it's designed to be undefined
+  ## when `pylibDisableMoreArgsZip` is defined.
+  let last = iterables_or_strict.last
+  var nIt = iterables_or_strict.len
+  let strict =
+    #if last.getType.typeKind == ntyBool:
+    if last.kind == nnkExprEqExpr:
+      let keyId = last[0].strVal
+      if keyId != "strict":
+        error "TypeError: zip() got an unexpected keyword argument '" &
+          keyId & "'."
+      nIt.dec
+      last[1]
+    else: newLit false
+  template forIts(ele, body) =
+    for i in 0..<nIt:
+      let ele = iterables_or_strict[i]
+      body
 
+  let
+    iter = bindSym"iter"
+    nextImpl = bindSym"nextImpl"
+
+  var resTypeVal = newNimNode nnkTupleConstr
+  forIts e:
+    resTypeVal.add newCall(bindSym"typeof",
+      newCall(bindSym"next", newCall(iter, e))
+    )
+  
+
+  result = newStmtList()
+  let resType = genSym(nskType, "resType")
+  result.add nnkTypeSection.newTree nnkTypeDef.newTree(
+    resType,
+    newEmptyNode(),
+    resTypeVal
+  )
+
+  let raiseBound = bindSym"raiseBound"
+
+  var iterBody = newNimNode nnkStmtList
+
+  ## var res: (A, B,...)
+  let res = ident"res"
+  iterBody.add(nnkVarSection.newTree(
+      newNimNode(nnkIdentDefs).add(res, resType, newNimNode(nnkEmpty))
+  ))  
+
+
+  ## var itors = [iter(it1), iter(it2), ...]
+  var itorsVal = newNimNode nnkBracket
+  forIts e:
+    itorsVal.add newCall(iter, e)
+
+  let itors = ident"itors"
+  iterBody.add newLetStmt(itors, itorsVal)
+
+  ##[
+  # inline-loop each iterators
+  ]##
+  var loopBody = newNimNode nnkStmtList
+  for iVal in 0..<nIt:
+    let i = newLit iVal
+    loopBody.add quote do:
+      if not `nextImpl`(`itors`[`i`], `res`[`i`]):
+        if `strict`: `raiseBound` `i`+1
+        break
+
+  ##[
+   while true:
+     `loop each iterators`
+     yield `res`
+  ]##
+  loopBody.add nnkYieldStmt.newTree res
+
+  iterBody.add nnkWhileStmt.newTree(
+    newLit(true),
+    loopBody
+  )
+
+  let initZip = bindSym"initZip"
+  result.add newCall(initZip, 
+    newProc(params=[resType], body=iterBody, procType=nnkIteratorDef)
+  )

@@ -6,9 +6,13 @@ func capital(s: string): string =
   ## assume s[0].isLowerAscii()
   char(s[0].ord - 32) & s.substr(1)
 
+# XXX: NIM-BUG: do not implememt via `template items`.
+#  otherwise, when `for i in zip...`,
+#  zip object initialization will be
+#  wrongly placed in loop body
 template makeIterable*(Typ){.dirty.} =
-  template items*(x: Typ): untyped =
-    x.iter()
+  iterator items*[T](x: Typ[T]): T =
+    for i in x.iter(): yield i
 
 macro genIter*(def) =
   ## used as pragma
