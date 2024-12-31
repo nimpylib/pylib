@@ -1,3 +1,3 @@
 nimTitle	iterGen	pylib/builtins/private/iterGen.html	module src/pylib/builtins/private/iterGen		0
-nim	makeIterable	pylib/builtins/private/iterGen.html#makeIterable.t	template makeIterable(Typ)		9
-nim	genIter	pylib/builtins/private/iterGen.html#genIter.m	macro genIter(def)		13
+nim	makeIterable	pylib/builtins/private/iterGen.html#makeIterable.t	template makeIterable(Typ)		13
+nim	genIter	pylib/builtins/private/iterGen.html#genIter.m	macro genIter(def)		17

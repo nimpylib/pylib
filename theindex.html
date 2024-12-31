@@ -2866,15 +2866,15 @@
           <li><a class="reference external"
           data-doc-search-tag="iter_next: iterator items[T](self: PyIterator[T]): T" href="pylib/builtins/iter_next.html#items.i%2CPyIterator%5BT%5D">iter_next: iterator items[T](self: PyIterator[T]): T</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="iters: template items(x: Enumerate): untyped" href="pylib/builtins/iters.html#items.t%2CEnumerate">iters: template items(x: Enumerate): untyped</a></li>
+          data-doc-search-tag="iters: iterator items[T](x: Enumerate[T]): T" href="pylib/builtins/iters.html#items.i%2CEnumerate%5BT%5D">iters: iterator items[T](x: Enumerate[T]): T</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="iters: template items(x: Filter): untyped" href="pylib/builtins/iters.html#items.t%2CFilter">iters: template items(x: Filter): untyped</a></li>
+          data-doc-search-tag="iters: iterator items[T](x: Filter[T]): T" href="pylib/builtins/iters.html#items.i%2CFilter%5BT%5D">iters: iterator items[T](x: Filter[T]): T</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="iters: template items(x: Map): untyped" href="pylib/builtins/iters.html#items.t%2CMap">iters: template items(x: Map): untyped</a></li>
+          data-doc-search-tag="iters: iterator items[T](x: Map[T]): T" href="pylib/builtins/iters.html#items.i%2CMap%5BT%5D">iters: iterator items[T](x: Map[T]): T</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="iters: template items(x: Reversed): untyped" href="pylib/builtins/iters.html#items.t%2CReversed">iters: template items(x: Reversed): untyped</a></li>
+          data-doc-search-tag="iters: iterator items[T](x: Reversed[T]): T" href="pylib/builtins/iters.html#items.i%2CReversed%5BT%5D">iters: iterator items[T](x: Reversed[T]): T</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="iters: template items(x: Zip): untyped" href="pylib/builtins/iters.html#items.t%2CZip">iters: template items(x: Zip): untyped</a></li>
+          data-doc-search-tag="iters: iterator items[T](x: Zip[T]): T" href="pylib/builtins/iters.html#items.i%2CZip%5BT%5D">iters: iterator items[T](x: Zip[T]): T</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list_decl: iterator items[T](self: PyList[T]): T" href="pylib/builtins/list_decl.html#items.i%2CPyList%5BT%5D">list_decl: iterator items[T](self: PyList[T]): T</a></li>
           <li><a class="reference external"
@@ -3365,6 +3365,12 @@
           data-doc-search-tag="nextafter: proc nextafter[F](x, y: F): F" href="pylib/Lib/math_impl/patch/nextafter.html#nextafter%2CF%2CF">nextafter: proc nextafter[F](x, y: F): F</a></li>
           <li><a class="reference external"
           data-doc-search-tag="nextafter_step: proc nextafter(x, y: float; usteps: uint64): float" href="pylib/Lib/math_impl/patch/nextafter_step.html#nextafter%2Cfloat%2Cfloat%2Cuint64">nextafter_step: proc nextafter(x, y: float; usteps: uint64): float</a></li>
+          </ul></dd>
+<dt><a name="nextImpl" href="#nextImpl"><span>nextImpl:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="iter_next: proc nextImpl[T](self: PyIterator[T]): Option[T]" href="pylib/builtins/iter_next.html#nextImpl%2CPyIterator%5BT%5D">iter_next: proc nextImpl[T](self: PyIterator[T]): Option[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="iter_next: proc nextImpl[T](self: PyIterator[T]; res: var T): bool" href="pylib/builtins/iter_next.html#nextImpl%2CPyIterator%5BT%5D%2CT">iter_next: proc nextImpl[T](self: PyIterator[T]; res: var T): bool</a></li>
           </ul></dd>
 <dt><a name="n_frexp" href="#n_frexp"><span>n_frexp:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -5342,19 +5348,17 @@
           </ul></dd>
 <dt><a name="zip" href="#zip"><span>zip:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="iters: proc zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): Zip[
-    A]" href="pylib/builtins/iters.html#zip%2CIterable%5BA%5D%2CIterable%5BB%5D%2Cstatic%5Bbool%5D">iters: proc zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): Zip[
-    A]</a></li>
+          data-doc-search-tag="iters: proc zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): Zip[A]" href="pylib/builtins/iters.html#zip%2CIterable%5BA%5D%2CIterable%5BB%5D">iters: proc zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): Zip[A]</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="iters: iterator zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): (A,
-    B)" href="pylib/builtins/iters.html#zip.i%2CIterable%5BA%5D%2CIterable%5BB%5D%2Cstatic%5Bbool%5D">iters: iterator zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): (A,
-    B)</a></li>
+          data-doc-search-tag="iters: iterator zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): (A, B)" href="pylib/builtins/iters.html#zip.i%2CIterable%5BA%5D%2CIterable%5BB%5D">iters: iterator zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): (A, B)</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="iters: macro zip(iterables_or_strict: varargs[untyped]): Zip" href="pylib/builtins/iters.html#zip.m%2Cvarargs%5Buntyped%5D">iters: macro zip(iterables_or_strict: varargs[untyped]): Zip</a></li>
           </ul></dd>
 </dl>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-30 17:05:38 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-31 21:16:48 UTC</small>
       </div>
     </div>
   </div>

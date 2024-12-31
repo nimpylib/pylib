@@ -1,21 +1,22 @@
 nimTitle	iters	pylib/builtins/iters.html	module src/pylib/builtins/iters		0
-nim	items	pylib/builtins/iters.html#items.t,Filter	template items(x: Filter): untyped		34
-nim	filter	pylib/builtins/iters.html#filter,proc(T),Iterable[T]	proc filter[T](comp: proc (arg: T): bool; iter: Iterable[T]): Filter[T]		24
-nim	filter	pylib/builtins/iters.html#filter.i,proc(T),Iterable[T]	iterator filter[T](comp: proc (arg: T): bool; iter: Iterable[T]): T		24
-nim	filter	pylib/builtins/iters.html#filter,NoneType,Iterable[T]	proc filter[T](comp: NoneType; iter: Iterable[T]): Filter[T]		29
-nim	filter	pylib/builtins/iters.html#filter.i,NoneType,Iterable[T]	iterator filter[T](comp: NoneType; iter: Iterable[T]): T		29
-nim	items	pylib/builtins/iters.html#items.t,Enumerate	template items(x: Enumerate): untyped		34
-nim	enumerate	pylib/builtins/iters.html#enumerate,Iterable[T],int	proc enumerate[T](x: Iterable[T]; start = 0): Enumerate[T]		34
-nim	enumerate	pylib/builtins/iters.html#enumerate.i,Iterable[T],int	iterator enumerate[T](x: Iterable[T]; start = 0): (int, T)		34
-nim	items	pylib/builtins/iters.html#items.t,Reversed	template items(x: Reversed): untyped		34
-nim	reversed	pylib/builtins/iters.html#reversed,Sequence[T]	proc reversed[T](x: Sequence[T]): Reversed[T]		40
-nim	reversed	pylib/builtins/iters.html#reversed.i,Sequence[T]	iterator reversed[T](x: Sequence[T]): T		40
-nim	items	pylib/builtins/iters.html#items.t,Map	template items(x: Map): untyped		48
-nim	map	pylib/builtins/iters.html#map,proc(T),Iterable[T]	proc map[T, R](function: proc (x: T): R; iterable: Iterable[T]): Map[T]		50
-nim	map	pylib/builtins/iters.html#map.i,proc(T),Iterable[T]	iterator map[T, R](function: proc (x: T): R; iterable: Iterable[T]): R		51
-nim	items	pylib/builtins/iters.html#items.t,Zip	template items(x: Zip): untyped		62
-nim	zip	pylib/builtins/iters.html#zip,Iterable[A],Iterable[B],static[bool]	proc zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): Zip[\n    A]		68
-nim	zip	pylib/builtins/iters.html#zip.i,Iterable[A],Iterable[B],static[bool]	iterator zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): (A,\n    B)		68
-nimgrp	filter	pylib/builtins/iters.html#filter-procs-all	proc		24
-nimgrp	filter	pylib/builtins/iters.html#filter-iterators-all	iterator		24
-nimgrp	items	pylib/builtins/iters.html#items-templates-all	template		10
+nim	items	pylib/builtins/iters.html#items.i,Filter[T]	iterator items[T](x: Filter[T]): T		38
+nim	filter	pylib/builtins/iters.html#filter,proc(T),Iterable[T]	proc filter[T](comp: proc (arg: T): bool; iter: Iterable[T]): Filter[T]		25
+nim	filter	pylib/builtins/iters.html#filter.i,proc(T),Iterable[T]	iterator filter[T](comp: proc (arg: T): bool; iter: Iterable[T]): T		25
+nim	filter	pylib/builtins/iters.html#filter,NoneType,Iterable[T]	proc filter[T](comp: NoneType; iter: Iterable[T]): Filter[T]		30
+nim	filter	pylib/builtins/iters.html#filter.i,NoneType,Iterable[T]	iterator filter[T](comp: NoneType; iter: Iterable[T]): T		30
+nim	items	pylib/builtins/iters.html#items.i,Enumerate[T]	iterator items[T](x: Enumerate[T]): T		38
+nim	enumerate	pylib/builtins/iters.html#enumerate,Iterable[T],int	proc enumerate[T](x: Iterable[T]; start = 0): Enumerate[T]		35
+nim	enumerate	pylib/builtins/iters.html#enumerate.i,Iterable[T],int	iterator enumerate[T](x: Iterable[T]; start = 0): (int, T)		35
+nim	items	pylib/builtins/iters.html#items.i,Reversed[T]	iterator items[T](x: Reversed[T]): T		38
+nim	reversed	pylib/builtins/iters.html#reversed,Sequence[T]	proc reversed[T](x: Sequence[T]): Reversed[T]		41
+nim	reversed	pylib/builtins/iters.html#reversed.i,Sequence[T]	iterator reversed[T](x: Sequence[T]): T		41
+nim	items	pylib/builtins/iters.html#items.i,Map[T]	iterator items[T](x: Map[T]): T		49
+nim	map	pylib/builtins/iters.html#map,proc(T),Iterable[T]	proc map[T, R](function: proc (x: T): R; iterable: Iterable[T]): Map[T]		51
+nim	map	pylib/builtins/iters.html#map.i,proc(T),Iterable[T]	iterator map[T, R](function: proc (x: T): R; iterable: Iterable[T]): R		52
+nim	items	pylib/builtins/iters.html#items.i,Zip[T]	iterator items[T](x: Zip[T]): T		63
+nim	zip	pylib/builtins/iters.html#zip,Iterable[A],Iterable[B]	proc zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): Zip[A]		110
+nim	zip	pylib/builtins/iters.html#zip.i,Iterable[A],Iterable[B]	iterator zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): (A, B)		110
+nim	zip	pylib/builtins/iters.html#zip.m,varargs[untyped]	macro zip(iterables_or_strict: varargs[untyped]): Zip		148
+nimgrp	filter	pylib/builtins/iters.html#filter-procs-all	proc		25
+nimgrp	filter	pylib/builtins/iters.html#filter-iterators-all	iterator		25
+nimgrp	items	pylib/builtins/iters.html#items-iterators-all	iterator		14

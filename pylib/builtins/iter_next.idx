@@ -1,9 +1,12 @@
 nimTitle	iter_next	pylib/builtins/iter_next.html	module src/pylib/builtins/iter_next		0
-nim	StopIteration	pylib/builtins/iter_next.html#StopIteration	object StopIteration		8
-nim	PyIterator	pylib/builtins/iter_next.html#PyIterator	type PyIterator		9
-nim	newPyIterator	pylib/builtins/iter_next.html#newPyIterator	proc newPyIterator[T](it: iterator (): T): PyIterator[T]		12
-nim	iter	pylib/builtins/iter_next.html#iter,Iterable[T]	proc iter[T](x: Iterable[T]): PyIterator[T]		16
-nim	iter	pylib/builtins/iter_next.html#iter,Iterator[T]	proc iter[T](x: Iterator[T]): PyIterator[T]		25
-nim	items	pylib/builtins/iter_next.html#items.i,PyIterator[T]	iterator items[T](self: PyIterator[T]): T		34
-nim	next	pylib/builtins/iter_next.html#next,PyIterator[T]	proc next[T](self: PyIterator[T]): T		38
-nimgrp	iter	pylib/builtins/iter_next.html#iter-procs-all	proc		16
+nim	StopIteration	pylib/builtins/iter_next.html#StopIteration	object StopIteration		9
+nim	PyIterator	pylib/builtins/iter_next.html#PyIterator	type PyIterator		10
+nim	newPyIterator	pylib/builtins/iter_next.html#newPyIterator	proc newPyIterator[T](it: iterator (): T): PyIterator[T]		13
+nim	iter	pylib/builtins/iter_next.html#iter,Iterable[T]	proc iter[T](x: Iterable[T]): PyIterator[T]		17
+nim	iter	pylib/builtins/iter_next.html#iter,Iterator[T]	proc iter[T](x: Iterator[T]): PyIterator[T]		26
+nim	items	pylib/builtins/iter_next.html#items.i,PyIterator[T]	iterator items[T](self: PyIterator[T]): T		35
+nim	nextImpl	pylib/builtins/iter_next.html#nextImpl,PyIterator[T]	proc nextImpl[T](self: PyIterator[T]): Option[T]		39
+nim	nextImpl	pylib/builtins/iter_next.html#nextImpl,PyIterator[T],T	proc nextImpl[T](self: PyIterator[T]; res: var T): bool		44
+nim	next	pylib/builtins/iter_next.html#next,PyIterator[T]	proc next[T](self: PyIterator[T]): T		49
+nimgrp	iter	pylib/builtins/iter_next.html#iter-procs-all	proc		17
+nimgrp	nextimpl	pylib/builtins/iter_next.html#nextImpl-procs-all	proc		39

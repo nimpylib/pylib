@@ -72,9 +72,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">zip
-  <li><a class="reference" href="#zip%2CIterable%5BA%5D%2CIterable%5BB%5D%2Cstatic%5Bbool%5D" title="zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): Zip[
-    A]">zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): Zip[
-    A]</a></li>
+  <li><a class="reference" href="#zip%2CIterable%5BA%5D%2CIterable%5BB%5D" title="zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): Zip[A]">zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): Zip[A]</a></li>
 
 </ul>
 
@@ -94,6 +92,14 @@
 <li><a class="reference" href="#filter.i%2Cproc%28T%29%2CIterable%5BT%5D" title="filter[T](comp: proc (arg: T): bool; iter: Iterable[T]): T">filter[T](comp: proc (arg: T): bool; iter: Iterable[T]): T</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">items
+  <li><a class="reference" href="#items.i%2CEnumerate%5BT%5D" title="items[T](x: Enumerate[T]): T">items[T](x: Enumerate[T]): T</a></li>
+<li><a class="reference" href="#items.i%2CFilter%5BT%5D" title="items[T](x: Filter[T]): T">items[T](x: Filter[T]): T</a></li>
+<li><a class="reference" href="#items.i%2CMap%5BT%5D" title="items[T](x: Map[T]): T">items[T](x: Map[T]): T</a></li>
+<li><a class="reference" href="#items.i%2CReversed%5BT%5D" title="items[T](x: Reversed[T]): T">items[T](x: Reversed[T]): T</a></li>
+<li><a class="reference" href="#items.i%2CZip%5BT%5D" title="items[T](x: Zip[T]): T">items[T](x: Zip[T]): T</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">map
   <li><a class="reference" href="#map.i%2Cproc%28T%29%2CIterable%5BT%5D" title="map[T, R](function: proc (x: T): R; iterable: Iterable[T]): R">map[T, R](function: proc (x: T): R; iterable: Iterable[T]): R</a></li>
 
@@ -103,9 +109,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">zip
-  <li><a class="reference" href="#zip.i%2CIterable%5BA%5D%2CIterable%5BB%5D%2Cstatic%5Bbool%5D" title="zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): (A,
-    B)">zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict: static[bool] = false): (A,
-    B)</a></li>
+  <li><a class="reference" href="#zip.i%2CIterable%5BA%5D%2CIterable%5BB%5D" title="zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): (A, B)">zip[A, B](it1: Iterable[A]; it2: Iterable[B]; strict = false): (A, B)</a></li>
 
 </ul>
 
@@ -114,14 +118,10 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
+    <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">items
-  <li><a class="reference" href="#items.t%2CEnumerate" title="items(x: Enumerate): untyped">items(x: Enumerate): untyped</a></li>
-<li><a class="reference" href="#items.t%2CFilter" title="items(x: Filter): untyped">items(x: Filter): untyped</a></li>
-<li><a class="reference" href="#items.t%2CMap" title="items(x: Map): untyped">items(x: Map): untyped</a></li>
-<li><a class="reference" href="#items.t%2CReversed" title="items(x: Reversed): untyped">items(x: Reversed): untyped</a></li>
-<li><a class="reference" href="#items.t%2CZip" title="items(x: Zip): untyped">items(x: Zip): untyped</a></li>
+      <ul class="simple nested-toc-section">zip
+  <li><a class="reference" href="#zip.m%2Cvarargs%5Buntyped%5D" title="zip(iterables_or_strict: varargs[untyped]): Zip">zip(iterables_or_strict: varargs[untyped]): Zip</a></li>
 
 </ul>
 
@@ -154,7 +154,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../collections_abc.html">../collections_abc</a>, <a class="reference external" href="../pybool.html">../pybool</a>, <a class="reference external" href="private/iterGen.html">private/iterGen</a>, <a class="reference external" href="../noneType.html">../noneType</a>
+    <a class="reference external" href="../collections_abc.html">../collections_abc</a>, <a class="reference external" href="../pybool.html">../pybool</a>, <a class="reference external" href="private/iterGen.html">private/iterGen</a>, <a class="reference external" href="iter_next.html">iter_next</a>, <a class="reference external" href="../noneType.html">../noneType</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -166,8 +166,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -179,8 +179,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L29" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L29" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -189,8 +189,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -202,8 +202,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L51" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L51" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -215,22 +215,21 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L40" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L40" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="zip-procs-all">
-  <div id="zip,Iterable[A],Iterable[B],static[bool]">
-  <dt><pre><span class="Keyword">func</span> <a href="#zip%2CIterable%5BA%5D%2CIterable%5BB%5D%2Cstatic%5Bbool%5D"><span class="Identifier">zip</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">it1</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">it2</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">strict</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Zip</span><span class="Other">[</span>
-    <span class="Identifier">A</span><span class="Other">]</span></pre></dt>
+  <div id="zip,Iterable[A],Iterable[B]">
+  <dt><pre><span class="Keyword">func</span> <a href="#zip%2CIterable%5BA%5D%2CIterable%5BB%5D"><span class="Identifier">zip</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">it1</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">it2</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">strict</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Zip</span><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L110" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L110" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -248,8 +247,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -261,8 +260,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L29" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L29" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -271,8 +270,61 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="items-iterators-all">
+  <div id="items.i,Enumerate[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CEnumerate%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Enumerate</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/iterGen.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/iterGen.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="items.i,Filter[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CFilter%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Filter</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/iterGen.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/iterGen.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="items.i,Map[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CMap%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Map</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="items.i,Reversed[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CReversed%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Reversed</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/iterGen.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/iterGen.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="items.i,Zip[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CZip%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Zip</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -284,8 +336,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L51" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L51" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L52" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L52" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -297,22 +349,21 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L40" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L40" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="zip-iterators-all">
-  <div id="zip.i,Iterable[A],Iterable[B],static[bool]">
-  <dt><pre><span class="Keyword">iterator</span> <a href="#zip.i%2CIterable%5BA%5D%2CIterable%5BB%5D%2Cstatic%5Bbool%5D"><span class="Identifier">zip</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">it1</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">it2</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span>
-                   <span class="Identifier">strict</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">)</span></pre></dt>
+  <div id="zip.i,Iterable[A],Iterable[B]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#zip.i%2CIterable%5BA%5D%2CIterable%5BB%5D"><span class="Identifier">zip</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">it1</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">it2</span><span class="Other">:</span> <a href="../collections_abc.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">strict</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L110" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L110" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -321,57 +372,20 @@
 
   </dl>
 </div>
-<div class="section" id="18">
-  <h1><a class="toc-backref" href="#18">Templates</a></h1>
+<div class="section" id="17">
+  <h1><a class="toc-backref" href="#17">Macros</a></h1>
   <dl class="item">
-    <div id="items-templates-all">
-  <div id="items.t,Enumerate">
-  <dt><pre><span class="Keyword">template</span> <a href="#items.t%2CEnumerate"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Enumerate</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+    <div id="zip-macros-all">
+  <div id="zip.m,varargs[untyped]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#zip.m%2Cvarargs%5Buntyped%5D"><span class="Identifier">zip</span></a><span class="Other">(</span><span class="Identifier">iterables_or_strict</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Zip</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/iterGen.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/iterGen.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <tt class="docutils literal"><span class="pre"><span class="Identifier">zip</span><span class="Punctuation">(</span><span class="Operator">*</span><span class="Identifier">args</span><span class="Punctuation">,</span> <span class="Identifier">strict</span><span class="Operator">=</span><span class="Identifier">False</span><span class="Punctuation">)</span></span></tt><hr />
+<p>To support its similarity with Python's <tt class="docutils literal"><span class="pre"><span class="Identifier">zip</span></span></tt> function signature, this macro signature has to be <tt class="docutils literal"><span class="pre"><span class="Identifier">varargs</span><span class="Punctuation">[</span><span class="Identifier">untyped</span><span class="Punctuation">]</span></span></tt>.</p>
+<p>So it's designed to be undefined when <tt class="docutils literal"><span class="pre"><span class="Identifier">pylibDisableMoreArgsZip</span></span></tt> is defined.</p>
 
-  </dd>
-</div>
-<div id="items.t,Filter">
-  <dt><pre><span class="Keyword">template</span> <a href="#items.t%2CFilter"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Filter</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/iterGen.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/iterGen.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="items.t,Map">
-  <dt><pre><span class="Keyword">template</span> <a href="#items.t%2CMap"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Map</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L48" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L48" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="items.t,Reversed">
-  <dt><pre><span class="Keyword">template</span> <a href="#items.t%2CReversed"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Reversed</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/iterGen.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/iterGen.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="items.t,Zip">
-  <dt><pre><span class="Keyword">template</span> <a href="#items.t%2CZip"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Zip</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L62" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L62" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/iters.nim#L148" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/iters.nim#L148" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -393,7 +407,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-30 17:05:16 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-31 21:16:26 UTC</small>
       </div>
     </div>
   </div>
