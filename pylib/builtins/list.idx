@@ -27,8 +27,8 @@ nim	clear	pylib/builtins/list.html#clear,PyList	proc clear(self: var PyList)		10
 nim	sort	pylib/builtins/list.html#sort,PyList[T]	proc sort[T](self: var PyList[T]; reverse = false)		115
 nim	sorted	pylib/builtins/list.html#sorted,PyList[T]	proc sorted[T](self: PyList[T]; reverse = false): PyList[T]		119
 nim	`+`	pylib/builtins/list.html#+,PyList[T],openArray[T]	proc `+`[T](self: PyList[T]; x: openArray[T]): PyList[T]		123
-nim	list	pylib/builtins/list.html#list,seq[T]	proc list[T](x: seq[T]): PyList[T]		126
-nim	list	pylib/builtins/list.html#list,openArray[T]	proc list[T](a: openArray[T]): PyList[T]		127
+nim	list	pylib/builtins/list.html#list,sinkseq[T]	proc list[T](x: sink seq[T]): PyList[T]		126
+nim	list	pylib/builtins/list.html#list,sinkopenArray[T]	proc list[T](a: sink openArray[T]): PyList[T]		127
 nim	list	pylib/builtins/list.html#list_2	proc list[T](): PyList[T]		132
 nim	`*`	pylib/builtins/list.html#*,Natural,PyList[T]	proc `*`[T](n: Natural; ls: PyList[T]): PyList[T]		137
 nim	`*`	pylib/builtins/list.html#*.t,PyList[T],Natural	template `*`[T](ls: PyList[T]; n: Natural): PyList[T]		141
