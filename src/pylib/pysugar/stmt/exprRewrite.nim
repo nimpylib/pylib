@@ -3,14 +3,24 @@ import std/macros
 import std/macrocache
 from std/strutils import toLowerAscii, normalize
 import ../../pystring/[strimpl, strprefix]
-import ../../builtins/[list_decl, set, dict]
+import ../../builtins/[list_decl, set, dict, pyslice]
+
+const CollectionSyms = CacheSeq"CollectionSyms"
+static:
+  CollectionSyms.add bindSym"list"
+  CollectionSyms.add bindSym"pyset"
+  CollectionSyms.add bindSym"toPyDict"
+  CollectionSyms.add bindSym"slice"
 
 using e: NimNode
 proc toPyExpr*(atm: NimNode): NimNode
 
+template newSlice(a, b: NimNode): NimNode =
+  newCall(CollectionSyms[3], a, b)
+
 proc colonToSlice(colonExpr: NimNode): NimNode =
   ## a:b -> slice(a,b)
-  newCall(ident"slice", colonExpr[0].toPyExpr, colonExpr[1].toPyExpr)
+  newSlice(colonExpr[0].toPyExpr, colonExpr[1].toPyExpr)
 
 proc rewriteSliceInBracket(bracketExpr: NimNode): NimNode =
   result = bracketExpr.copyNimNode
@@ -18,7 +28,10 @@ proc rewriteSliceInBracket(bracketExpr: NimNode): NimNode =
   for i in 1..<bracketExpr.len:
     let ele = bracketExpr[i]
     result.add:
-      if ele.kind == nnkExprColonExpr: colonToSlice ele
+      let k = ele.kind
+      if k == nnkExprColonExpr: colonToSlice ele
+      elif k == nnkInfix and ele[0].eqIdent":-": # like `ls[1:-1]`
+        newSlice(ele[1].toPyExpr, prefix(ele[2].toPyExpr, "-"))
       else: ele
 
 #[
@@ -108,11 +121,6 @@ template mapEleCall(
     ), res
   )
 
-const CollectionSyms = CacheSeq"CollectionSyms"
-static:
-  CollectionSyms.add bindSym"list"
-  CollectionSyms.add bindSym"pyset"
-  CollectionSyms.add bindSym"toPyDict"
 
 proc toList(e): NimNode = mapEleCall(CollectionSyms[0], e)
 proc toSet (e): NimNode = mapEleCall(CollectionSyms[1], e)
