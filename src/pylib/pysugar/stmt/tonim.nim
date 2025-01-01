@@ -149,7 +149,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     expectKind statement[0], nnkStmtList
     nStmt.add mparser.parsePyBody statement[0]
     var excBranch = statement[1]
-    excBranch[1] = mparser.parsePyBody excBranch[1]
+    excBranch[^1] = mparser.parsePyBody excBranch[^1]
     nStmt.add excBranch
     result.add nStmt
   of nnkInfix:
