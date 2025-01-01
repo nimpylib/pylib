@@ -1,7 +1,7 @@
 
 import std/macros
 from std/strutils import toLowerAscii, normalize
-import ../../translateEscape
+import ../../pystring/strprefix
 
 using e: NimNode
 proc toPyExpr*(atm: NimNode): NimNode
@@ -69,23 +69,9 @@ proc rewriteStrLitCat(e: NimNode): NimNode =
   if not lhs.validStrLit: return e
   result = infix(lhs.toPyExpr, "&", rhs.toPyExpr)
 
-template translateTripleStrLit(e: NimNode): NimNode =
-  ##[
-.. hint:: removePrefix "\p" is performed before this,
-  so we just cannot distinguish the following two cases:
-
-## 1
-```Nim
-"""
-str"""
-```
-
-## 2
-```Nim
-"""str"""
-```
-  ]##
-  newLit translateEscape e.strVal
+func toStr(e): NimNode =
+  result = nnkCallStrLit.newTree(bindSym"u", e)
+  ## NOTE: u"xxx" does perform `translateEscape`
 
 proc toList(e): NimNode = newCall(ident"list", e)
 proc toDict(e): NimNode = newCall(ident"dict", e)
@@ -100,8 +86,14 @@ proc toPyExpr*(atm: NimNode): NimNode =
     rewriteSliceInBracket atm
   of nnkCommand:
     rewriteStrLitCat atm
-  of nnkTripleStrLit:
-    translateTripleStrLit atm
+
+  of nnkTripleStrLit,
+      nnkStrLit, nnkRStrLit:
+    atm.toStr
+  #of nnkCallStrLit:
+  # NOTE: f"xxx" does perform `translateEscape`
+  #  so we don't perform translation here
+
   of nnkBracket:    atm.toList
   of nnkCurly:      atm.toSet
   of nnkTableConstr:atm.toDict
