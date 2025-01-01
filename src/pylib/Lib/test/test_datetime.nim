@@ -97,6 +97,17 @@ suite "datetime":
 
   suite "fromisoformat":
     test "if reversible":
+      let 
+        # XXX: NIM-BUG: if places following in `def` without `let`:
+#[ nim-2.2.0
+error: too few arguments to function  eqcopy___OOZsrcZpylibZ76ibZdatetime95implZtimezone95implZdecl_u375'
+ 1688 |                                         nimlf_(161, "E:\\program\\utils\\pylib\\src\\pylib\\Lib\\datetime_impl\\timezone_impl\\decl.nim");                                      eqcopy___OOZsrcZpylibZ76ibZdatetime95implZtimezone95implZdecl_u375(&v, v_2);
+      |
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+]#
+        tzinfos = [None.noneToTzInfo, datetime.UTC,
+                   timezone(timedelta(hours = -5)),
+                   timezone(timedelta(hours = 2))]
       def test_fromisoformat_datetime():
         # Test that isoformat() is reversible
         base_dates = [
@@ -114,10 +125,6 @@ suite "datetime":
         ]
 
         separators = [' ', 'T']
-
-        tzinfos = [None.noneToTzInfo, datetime.UTC,
-                   timezone(timedelta(hours = -5)),
-                   timezone(timedelta(hours = 2))]
 
         dts = collect:
           for date_tuple in base_dates:
