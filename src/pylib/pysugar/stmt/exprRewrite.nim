@@ -1,7 +1,7 @@
 
 import std/macros
 from std/strutils import toLowerAscii, normalize
-import ../../pystring/strprefix
+import ../../pystring/[strimpl, strprefix]
 
 using e: NimNode
 proc toPyExpr*(atm: NimNode): NimNode
@@ -79,7 +79,10 @@ template asisIfEmpty(e) =
 func getTypeof(e: NimNode): NimNode =
   newCall("typeof", e)
 
-template inferEleTypeCall(initCall, e: NimNode; eleTyp = getTypeof e[0]): NimNode =
+template mapEleCall(
+  initCall, e: NimNode;
+  bracketNode = nnkBracket,
+  ): NimNode =
   #[
    XXX: we infer element type specially for PyComplex,
      because if leaving Nim to do it,
@@ -88,21 +91,44 @@ template inferEleTypeCall(initCall, e: NimNode; eleTyp = getTypeof e[0]): NimNod
      what's more, such a type is even not compatible
      with original `PyTComplex` type (a.k.a. being regarded as a new type)
   ]#
+  e.asisIfEmpty
+  var res = newNimNode bracketNode
+  for i in e:
+    res.add i.toPyExpr
+  let eleTyp = getTypeof res[0]
   newCall(
     nnkBracketExpr.newTree(
       initCall,
       eleTyp
-    ), e
+    ), res
   )
 
 
-proc toList(e): NimNode = e.asisIfEmpty; inferEleTypeCall(ident"list", e)
-proc toDict(e): NimNode = e.asisIfEmpty; inferEleTypeCall(ident"dict", e)
-proc toSet (e): NimNode =
+proc toList(e): NimNode = mapEleCall(ident"list", e)
+proc toSet (e): NimNode = mapEleCall(ident"pyset", e)
+proc toDict(e): NimNode =
   e.asisIfEmpty
-  result = newNimNode nnkBracket
-  e.copyChildrenTo result
-  result = inferEleTypeCall(ident"pyset", result)
+
+  var eles = e.copyNimNode
+  for i in e:
+    var n = i.copyNimNode
+    n.add i[0].toStr
+    n.add i[1].toPyExpr
+    eles.add n
+
+  let
+    ele = eles[0]
+    eleVal = ele[1]
+    eleValTyp = getTypeof eleVal
+
+  newCall(
+    nnkBracketExpr.newTree(
+      ident"toPyDict",
+      bindSym"PyStr",
+      eleValTyp
+    ), eles
+  )
+
 
 proc toPyExpr*(atm: NimNode): NimNode =
   case atm.kind
