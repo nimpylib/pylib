@@ -25,6 +25,8 @@ It helps you to:
 [Lib Docs](https://nimpylib.github.io/pylib/Lib)
 |
 [Wiki about History](https://github.com/nimpylib/pylib/wiki/History)
+|
+[Design Wiki](https://github.com/nimpylib/pylib/wiki/Design)
 
 ## Backends
 
@@ -44,13 +46,12 @@ import pylib
 from pylib/Lib/timeit import timeit
 from pylib/Lib/time import sleep
 from pylib/Lib/sys import nil  # like python's `import sys`
-from pylib/Lib/platform import nil  # like python's `import sys`
+from pylib/Lib/platform import nil  # like python's `import platform`
 import pylib/Lib/tempfile
 # like python's `import tempfile; from tempfile import *`
 # more python-stdlib in pylib/Lib/...
 
 print 42  # print can be used with and without parenthesis too, like Python2.
-pass str("This is a string.") # discard the string. Python doesn't allow this, however
 
 # NOTE: from now on, the following is just valid Python3 code!
 # only add the following to make it Python:
@@ -69,7 +70,7 @@ O.f()
 
 def show_range_list():
   python_like_range = range(0, -10, -2)
-  print(list(python_like_range)) # [0, -2, -4, -6, -8]
+  print(list(python_like_range)[1:-1]) # [-2, -4, -6]
 show_range_list()
 
 # Why using so many `def`s?
@@ -82,6 +83,32 @@ def foo(a: int, b = 1, *args) -> int:
   def add(a, b): return a + b # nesting
   for i in args: print(i)
   return add(a, b)
+
+def show_literals():
+  ls = [1, 2]  # if outside `def`, `ls` will be an Nim's `array`,
+  #   which is fixed size and "pass by value"
+  ls_shallow = ls
+  ls.append(3)
+  assert len(ls_shallow) == 3
+
+  s = {"Rachel", "Zack"}  # if outside `def`, `s` will be an Nim's `set`,
+  #    which only supports small ordinal type as elements
+  s.add("Zack")
+  assert len(s) == 2
+
+  d = {  # if outside `def`, `d` will be an Nim's `array[I, (K, V)]`,
+    #   which even lacks `__getitem__` method
+    'S': "kaneki ken"
+  }
+
+  assert d['S'].title() == "Kaneki Ken"  # if outside `def`,
+  #   all double-quotation marked literals will be Nim's `string`,
+  #     which is more like `bytearray`
+  #   and single-quotation marked literals will be Nim's `char`,
+  #     which repesents a single byte (ASCII character)
+
+show_literals()
+
 
 # python 3.12's type statement
 type Number = float | int  # which is originally supported by nim-lang itself, however ;) 
@@ -96,18 +123,11 @@ def show_unpack():
   data = list(range(3, 15, 2))
   (first, second, *rest, last) = data
   assert (first + second + last) == (3 + 5 + 13)
-  assert list(rest) == list([7, 9, 11])
 
 show_unpack()
 
 if (a := 6) > 5:
   assert a == 6
-
-if (b := 42.0) > 5.0:
-  assert b == 42.0
-
-if (c := "hello") == "hello":
-  assert c == "hello"
 
 print("a".center(9)) # "    a    "
 
@@ -122,21 +142,16 @@ def show_divmod_and_unpack(integer_bytes):
   (kilo, bite) = divmod(integer_bytes, 1_024)
   (mega, kilo) = divmod(kilo, 1_024)
   (giga, mega) = divmod(mega, 1_024)
-  (tera, giga) = divmod(giga, 1_024)
-  (peta, tera) = divmod(tera, 1_024)
-  (exa, peta)  = divmod(peta, 1_024)
-  (zetta, exa) = divmod(exa,  1_024)
-  (yotta, zetta) = divmod(zetta, 1_024)
 show_divmod_and_unpack(2_313_354_324)
 
-let arg = "hello"
-let anon = lambda: arg + " world"
-assert anon() == "hello world"
-
+def lambda_closure(arg):
+  anno = lambda: "hello " + arg
+  return anno()
+assert lambda_closure("world") == "hello world"
 
 print(sys.platform) # "linux"
 
-print(platform.machine) # "amd64"
+print(platform.machine) # "x86_64"
 
 def allAny():
   truty = all([True, True, False])
@@ -235,15 +250,12 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `str` `bytes` `bytearray` `list` `dict` `set` `frozenset()` with their methods
 - [x] Python-like variable unpacking
 - [x] Math with Float and Int mixed like Python.
-- [x] `import antigravity`
 - [x] `lambda:`
 - [x] `class` Python-like OOP with methods and DocStrings (without multi-inheritance)
 - [x] `@classmethod` and `@staticmethod`
 - [x] `with open(fn, [, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
 - [x] `super(...).method(...)`
 - [x] `global/nonlocal` (with some limits)
-- [x] `with tempfile.TemporaryDirectory():` Read, write, append, and `file.read()`.
-- [x] `with tempfile.NamedTemporaryFile() as file:` Read, write, append, and `file.read()`.
 - [x] `timeit()` with Nanoseconds precision
 - [x] `True` / `False`
 - [x] `pass`
@@ -295,7 +307,8 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `unicode()` Python2 like
 - [x] `u"string here"` / `u'a'` Python2 like
 - [x] `b"string here"` / `b'a'`
-- [x] `zip(iterable1, iterable2)`
+- [x] `zip(*iterables, strict=False)`
+- [x] (WIP) standard libraries like `math`, `random`, `datetime`, `os`, `tempfile`
 - More...
 
 
@@ -308,6 +321,13 @@ Uninstall with `nimble uninstall pylib`.
 - [yglukhov/nimpy](https://github.com/yglukhov/nimpy): Python bridge in Nim.
 
 ### Tests
+
+This is one snippest from version 0.9.5:
+
+> as too much tests output is it,
+and it's not suitable to list too much content in README,
+the following demo
+is not likely to be updated from then on.
 
 ```console
 $ nimble test
@@ -363,10 +383,8 @@ $ nimble test
   [OK] non-normal first arg
   [OK] large second arg
 
-[Suite] Lib/os with no JS support
-  [OK] mkdir rmdir
-  [OK] open fdopen close
-  [OK] get,set_inheritable
+[Suite] ErrnoAttributeTests
+  [OK] using_errorcode
 [OK] touch, unlink, is_file
 [OK] Lib/tempfile
 [OK] Lib/time
@@ -376,10 +394,16 @@ $ nimble test
   [OK] py3.13: 'w' Py_UCS4
   [OK] bytes
   [OK] cmp
+  [OK] byteswap
 
 [Suite] os.path
   [OK] if export right
   [OK] getxtime
+
+[Suite] Lib/os with no JS support
+  [OK] mkdir rmdir
+  [OK] open fdopen close
+  [OK] get,set_inheritable
 [OK] getattr/set/has
 [OK] bytearray
 
@@ -425,7 +449,10 @@ $ nimble test
   [OK] test_nan_signs
   [OK] is_integer
   [OK] as_integer_ratio
-[OK] rewrite in `def`
+
+[Suite] rewrite as py stmt
+  [OK] rewrite in `def`
+  [OK] rewrite raise
 [OK] Floor division
 [OK] int.{from,to}_bytes
 [OK] io & with
@@ -451,7 +478,6 @@ $ nimble test
 [OK] int(x[, base])
 [OK] float(str)
 [OK] Range-like Nim procedure
-[OK] set
 [OK] str.format
 [OK] str operations
 [OK] str index
@@ -460,4 +486,20 @@ $ nimble test
 [OK] tonim macro
 [OK] unpack macro
 [OK] With statement
+[OK] generics in func signature
+[OK] generics in class's methods
+[OK] set
+PASS: tests/testaments/builtins/print.nim c                        ( 1.93 sec)
+SKIP: tests/testaments/builtins/print.nim js
+PASS: tests/testaments/builtins/print_ct.nim c                     ( 1.93 sec)
+PASS: tests/testaments/builtins/zip_no_seq.nim c                   ( 1.96 sec)
+PASS: tests/testaments/builtins/zip_more_args.nim c                ( 0.65 sec)
+PASS: tests/testaments/builtins/filter_toseq_deadloop.nim c        ( 0.66 sec)
+Used D:\software\scoop\shims\nim.exe to run the tests. Use --nim to override.
+PASS: tests/testaments/pysugar/colonToSlice.nim c                  ( 2.75 sec)
+SKIP: tests/testaments/pysugar/colonToSlice.nim js
+PASS: tests/testaments/pysugar/strlitCat.nim c                     ( 1.92 sec)
+SKIP: tests/testaments/pysugar/strlitCat.nim js
+PASS: tests/testaments/pysugar/tripleStrTranslate.nim c            ( 0.84 sec)
+PASS: tests/testaments/pysugar/autoSetListDict.nim c               ( 3.40 sec)
 ```
