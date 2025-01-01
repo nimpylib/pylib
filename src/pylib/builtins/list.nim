@@ -123,8 +123,8 @@ func sorted*[T](self: PyList[T], reverse=false): PyList[T] =
 func `+`*[T](self: PyList[T], x: openArray[T]): PyList[T] =
   list(self.asSeq & x)
 
-func list*[T](x: seq[T]): PyList[T] = newPyList x
-func list*[T](a: openArray[T]): PyList[T] = newPyList @a
+func list*[T](x: sink seq[T]): PyList[T] = newPyList x
+func list*[T](a: sink openArray[T]): PyList[T] = newPyList a
 # Impl end
 
 # the following does nothing with how PyList is implemented.
