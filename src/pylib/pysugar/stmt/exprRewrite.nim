@@ -73,12 +73,36 @@ func toStr(e): NimNode =
   result = nnkCallStrLit.newTree(bindSym"u", e)
   ## NOTE: u"xxx" does perform `translateEscape`
 
-proc toList(e): NimNode = newCall(ident"list", e)
-proc toDict(e): NimNode = newCall(ident"dict", e)
+template asisIfEmpty(e) =
+  if e.len == 0: return e
+
+func getTypeof(e: NimNode): NimNode =
+  newCall("typeof", e)
+
+template inferEleTypeCall(initCall, e: NimNode; eleTyp = getTypeof e[0]): NimNode =
+  #[
+   XXX: we infer element type specially for PyComplex,
+     because if leaving Nim to do it,
+     PyComplex (which `= PyTComplex[float]`)
+   will be infered just as PyTComplex.
+     what's more, such a type is even not compatible
+     with original `PyTComplex` type (a.k.a. being regarded as a new type)
+  ]#
+  newCall(
+    nnkBracketExpr.newTree(
+      initCall,
+      eleTyp
+    ), e
+  )
+
+
+proc toList(e): NimNode = e.asisIfEmpty; inferEleTypeCall(ident"list", e)
+proc toDict(e): NimNode = e.asisIfEmpty; inferEleTypeCall(ident"dict", e)
 proc toSet (e): NimNode =
+  e.asisIfEmpty
   result = newNimNode nnkBracket
   e.copyChildrenTo result
-  result = newCall(ident"set", result)
+  result = inferEleTypeCall(ident"pyset", result)
 
 proc toPyExpr*(atm: NimNode): NimNode =
   case atm.kind
