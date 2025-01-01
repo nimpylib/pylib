@@ -3,6 +3,7 @@ import std/macros
 from std/strutils import toLowerAscii, normalize
 import ../../translateEscape
 
+using e: NimNode
 proc toPyExpr*(atm: NimNode): NimNode
 
 proc colonToSlice(colonExpr: NimNode): NimNode =
@@ -86,6 +87,13 @@ str"""
   ]##
   newLit translateEscape e.strVal
 
+proc toList(e): NimNode = newCall(ident"list", e)
+proc toDict(e): NimNode = newCall(ident"dict", e)
+proc toSet (e): NimNode =
+  result = newNimNode nnkBracket
+  e.copyChildrenTo result
+  result = newCall(ident"set", result)
+
 proc toPyExpr*(atm: NimNode): NimNode =
   case atm.kind
   of nnkBracketExpr:
@@ -94,5 +102,8 @@ proc toPyExpr*(atm: NimNode): NimNode =
     rewriteStrLitCat atm
   of nnkTripleStrLit:
     translateTripleStrLit atm
+  of nnkBracket:    atm.toList
+  of nnkCurly:      atm.toSet
+  of nnkTableConstr:atm.toDict
   else:
     atm
