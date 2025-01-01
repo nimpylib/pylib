@@ -81,6 +81,11 @@ template asisIfEmpty(e) =
 func getTypeof(e: NimNode): NimNode =
   newCall("typeof", e)
 
+proc rewriteEachEle(e: NimNode; bracketNode = nnkBracket): NimNode =
+  result = newNimNode bracketNode
+  for i in e:
+    result.add i.toPyExpr
+
 template mapEleCall(
   initCall, e: NimNode;
   bracketNode = nnkBracket,
@@ -94,9 +99,7 @@ template mapEleCall(
      with original `PyTComplex` type (a.k.a. being regarded as a new type)
   ]#
   e.asisIfEmpty
-  var res = newNimNode bracketNode
-  for i in e:
-    res.add i.toPyExpr
+  let res = rewriteEachEle(e, bracketNode)
   let eleTyp = getTypeof res[0]
   newCall(
     nnkBracketExpr.newTree(
@@ -137,7 +140,7 @@ proc toDict(e): NimNode =
   )
 
 
-proc toPyExpr*(atm: NimNode): NimNode =
+template toPyExprImpl(atm: NimNode; toListCb): NimNode =
   case atm.kind
   of nnkBracketExpr:
     rewriteSliceInBracket atm
@@ -151,8 +154,12 @@ proc toPyExpr*(atm: NimNode): NimNode =
   # NOTE: f"xxx" does perform `translateEscape`
   #  so we don't perform translation here
 
-  of nnkBracket:    atm.toList
+  of nnkBracket:    atm.toListCb
   of nnkCurly:      atm.toSet
   of nnkTableConstr:atm.toDict
   else:
     atm
+
+proc toPyExpr*(atm: NimNode): NimNode = toPyExprImpl atm, toList
+proc toPyExprNoList*(atm: NimNode): NimNode = toPyExprImpl atm, rewriteEachEle
+

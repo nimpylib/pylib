@@ -75,17 +75,19 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
         result.add newVarStmt(varName, varValue)
         mparser.add $varName
       
-    let (varName, varValue) = (statement[0], statement[1].toPyExpr)
+    let (varName, varValue) = (statement[0], statement[1])
     case varName.kind
     of nnkIdent:
-      handleVar varName, varValue
+      handleVar varName, varValue.toPyExpr
     of nnkTupleConstr:
-      unpackImplRec(data=varValue, symbols=varName, res=result, receiver=handleVar)
+      # no need to construct list if meeting `nnkBracket`
+      unpackImplRec(data=varValue.toPyExprNoList,
+        symbols=varName, res=result, receiver=handleVar)
     of nnkBracketExpr:
-      result.add newAssignment(varName.toPyExpr, varValue)
+      result.add newAssignment(varName.toPyExpr, varValue.toPyExpr)
     else:
       # varName may be `nnkDotExpr`. e.g.`a.b=1`
-      result.add statement.copyNimNode.add(varName, varValue)
+      result.add statement.copyNimNode.add(varName, varValue.toPyExpr)
   of nnkCommand:
     let preCmd = $statement[0]
     case preCmd
