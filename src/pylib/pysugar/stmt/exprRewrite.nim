@@ -1,7 +1,7 @@
 
 import std/macros
 from std/strutils import toLowerAscii, normalize
-
+import ../../translateEscape
 
 proc toPyExpr*(atm: NimNode): NimNode
 
@@ -68,11 +68,31 @@ proc rewriteStrLitCat(e: NimNode): NimNode =
   if not lhs.validStrLit: return e
   result = infix(lhs.toPyExpr, "&", rhs.toPyExpr)
 
+template translateTripleStrLit(e: NimNode): NimNode =
+  ##[
+.. hint:: removePrefix "\p" is performed before this,
+  so we just cannot distinguish the following two cases:
+
+## 1
+```Nim
+"""
+str"""
+```
+
+## 2
+```Nim
+"""str"""
+```
+  ]##
+  newLit translateEscape e.strVal
+
 proc toPyExpr*(atm: NimNode): NimNode =
   case atm.kind
   of nnkBracketExpr:
     rewriteSliceInBracket atm
   of nnkCommand:
     rewriteStrLitCat atm
+  of nnkTripleStrLit:
+    translateTripleStrLit atm
   else:
     atm
