@@ -66,7 +66,7 @@ func validStrLit(e: NimNode): bool =
   trueIf e.len == 0 and e.isStrLit
   let actStr = e[0].strVal
   trueIf k == nnkCallStrLit and
-    actStr.toLowerAscii in ["f", "fr", "rf"]
+    actStr.toLowerAscii in ["f", "fr", "rf",  "b", "br", "rb",  "u"]
     # no need to worry "r"
   when defined(nimpylibStrlitCatAllowStrformat):
     trueIf k == nnkPrefix and
