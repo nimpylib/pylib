@@ -1,7 +1,9 @@
 
 import std/macros
+import std/macrocache
 from std/strutils import toLowerAscii, normalize
 import ../../pystring/[strimpl, strprefix]
+import ../../builtins/[list_decl, set, dict]
 
 using e: NimNode
 proc toPyExpr*(atm: NimNode): NimNode
@@ -103,9 +105,14 @@ template mapEleCall(
     ), res
   )
 
+const CollectionSyms = CacheSeq"CollectionSyms"
+static:
+  CollectionSyms.add bindSym"list"
+  CollectionSyms.add bindSym"pyset"
+  CollectionSyms.add bindSym"toPyDict"
 
-proc toList(e): NimNode = mapEleCall(ident"list", e)
-proc toSet (e): NimNode = mapEleCall(ident"pyset", e)
+proc toList(e): NimNode = mapEleCall(CollectionSyms[0], e)
+proc toSet (e): NimNode = mapEleCall(CollectionSyms[1], e)
 proc toDict(e): NimNode =
   e.asisIfEmpty
 
@@ -123,7 +130,7 @@ proc toDict(e): NimNode =
 
   newCall(
     nnkBracketExpr.newTree(
-      ident"toPyDict",
+      CollectionSyms[2],
       bindSym"PyStr",
       eleValTyp
     ), eles
