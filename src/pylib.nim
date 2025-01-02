@@ -11,9 +11,17 @@ when not defined(pylibNoLenient):
 when defined(nimdoc):
   from pylib/version import Version
   import std/macros
+  import std/strformat
   macro doc(s: static[string]): untyped = newCommentStmtNode s
 
-  doc "> Welcome to pylib " & Version
+  const
+    RepoUrl = "https://github.com/nimpylib/pylib"
+    ReadmeUrl = RepoUrl & "?tab=readme-ov-file#nimpylib"
+    WikiUrl = RepoUrl & "/wiki"
+  template link(name, url: string): string = "[" & name & "](" & url & ")"
+
+  doc "> Welcome to **NimPyLib** :sub:`" & Version & "`"  # Nim's Markdown is RST-extended
+  doc fmt"""- link to {link("repo", ReadmeUrl)}, {link("wiki", WikiUrl)}"""
   ## .. include:: ../doc/pylib.md
   doc ".. warning:: " & WarnLeniOps
 
