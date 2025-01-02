@@ -1,7 +1,7 @@
 
 import ./pybytes
 export pybytes
-import ./collections_abc
+import ./collections_abc, ./mutSeqSliceOp
 import std/strutils
 
 # Begin impl
@@ -158,3 +158,5 @@ func reverse*(mself) =
   for i in 0 .. hi div 2:
     swap mself.getCharRef(i), mself.getCharRef hi-i
 
+genDelItem PyByteArray
+genNonGenericSetItem PyByteArray, Sequence[int]

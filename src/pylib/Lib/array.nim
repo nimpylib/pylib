@@ -9,6 +9,7 @@
 
 import ../version
 import ../builtins/list
+import ../mutSeqSliceOp
 import ./collections/abc
 
 template since_has_Py_UCS4(def) =
@@ -590,3 +591,6 @@ since_has_Py_UCS4:
   func extend*(self: var PyArray[Py_UCS4], s: PyStr) = self.fromunicode s
   func append*(self: var PyArray[Py_UCS4], s: PyStr){.inline.} =
     self.append s.asRune
+
+genDelItem PyArray
+genGenericSetItem PyArray, Sequence

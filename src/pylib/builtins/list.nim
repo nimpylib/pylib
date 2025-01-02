@@ -9,6 +9,7 @@ from ./iters import enumerate
 import ./private/mathutils
 import ./pyslice, ./pyrange
 import ../collections_abc
+import ../mutSeqSliceOp
 
 export index, count
 
@@ -267,3 +268,6 @@ func sorted*[T, K](x: not Sequence[T] and Iterable[T],
     key: proc (x: T): K, reverse=false): PyList[T] =
   result = newPyList[T]()
   iterSortWithKeyImpl[T, K](result, x, reverse)
+
+genDelItem PyList
+genGenericSetItem PyList, Sequence
