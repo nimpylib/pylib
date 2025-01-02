@@ -33,7 +33,7 @@ jobs:
     - name: "Copy to index.html"
       run: cp ${{ env.deploy-dir }}/${{ github.event.repository.name }}.html ${{ env.deploy-dir }}/index.html
     - name: "CNAME"
-      run: echo ${{ github.event.repository.homepage }} > ${{ env.deploy-dir }}/CNAME
+      run: echo -n ${{ github.event.repository.homepage }} > ${{ env.deploy-dir }}/CNAME
     - name: Deploy documents
       uses: peaceiris/actions-gh-pages@v4
       with:
