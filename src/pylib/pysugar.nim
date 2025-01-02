@@ -27,14 +27,18 @@ template `:=`*(name, value: untyped): untyped =
   (var name = value; name)
 
 macro del*(seqIdx: untyped) =
-  ## - `del ls[idx]` -> `delete(ls, idx)`;
-  ## - `del obj.attr` -> compilation-error. Nim is static-typed,
-  ##  dynamically deleting object's attributes is not allowed.
-  ## 
-  ## Something like `ls[1:3]` is just disallowed in Nim's syntax.
-  ## 
-  ## NOTE: Nim's del(seq, idx) is an O(1) operation, 
-  ##  which moves the last element to `idx`
+  ##[
+ - `del ls[idx]` -> `delitem(ls, idx)`;
+ - `del obj.attr` -> compilation-error. Nim is static-typed,
+  dynamically deleting object's attributes is not allowed.
+ - `del ls[1:3]` (only supported in `def` body)
+ - see [list of unsupported notations](
+https://github.com/nimpylib/pylib/blob/master/doc%2FmustRewriteExtern%2FgetsetitemSliceLit.md)
+  for more details.
+
+ .. note:: Nim's `del(seq, idx)` is an O(1) operation,
+  which moves the last element to `idx`
+  ]##
   result = newCall(newDotExpr(ident"system", ident"del"), seqIdx)
   var seqV, idx: NimNode
   if seqIdx.kind == nnkBracketExpr:
@@ -47,5 +51,5 @@ macro del*(seqIdx: untyped) =
     seqV = seqIdx[1]
     idx = seqIdx[2]
   else:
-    return
+    return  # do not affect Nim system `del ls, idx`
   result = newCall("delitem", seqV, idx)
