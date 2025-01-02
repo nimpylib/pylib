@@ -6,7 +6,7 @@ on:
     branches:
       - master
 env:
-  nim-version: '2.0.4'
+  nim-version: 'stable'
   git-url-arg: --git.url:https://github.com/${{ github.repository }} --git.commit:master
   deploy-dir: .gh-pages
   lib-deploy-dir: .gh-pages/Lib
