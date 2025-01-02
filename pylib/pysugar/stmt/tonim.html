@@ -98,14 +98,11 @@
     
     <p class="module-desc">
 <h2><a class="toc-backref" id="limits" href="#limits">Limits</a></h2>
-<h3><a class="toc-backref" id="limits-globalslashnonlocal-for-nonexisting-variable" href="#limits-globalslashnonlocal-for-nonexisting-variable">global/nonlocal for nonexisting variable</a></h3><p>In Python using global/nonlocal to declare a new variable is allowed, but here it may be impossible to implement, as Nim is statically-typed, we must know its type when declaring a variable, while getting a type from AST is almostly impossible.</p>
+<h3><a class="toc-backref" id="limits-globalslashnonlocal-for-nonexisting-variable" href="#limits-globalslashnonlocal-for-nonexisting-variable">global/nonlocal for nonexisting variable</a></h3><p>In Python using global/nonlocal to declare a new variable is allowed, but here it may be impossible to implement, as Nim is statically-typed, we must know its type when declaring a variable, while getting a type from AST whose type is <a class="reference external" href="https://nim-lang.org/docs/system.html#untyped">untyped</a> is almostly impossible.</p>
 
-<h3><a class="toc-backref" id="limits-globalslashnonlocal-only-means-nimnot-local-with-some-limited-checks" href="#limits-globalslashnonlocal-only-means-nimnot-local-with-some-limited-checks">global/nonlocal only means <tt class="docutils literal"><span class="pre"><span class="Keyword">not</span> <span class="Identifier">local</span></span></tt>, with some limited checks</a></h3><ul class="simple"><li>Currently using <tt class="docutils literal"><span class="pre"><span class="Identifier">global</span> <span class="Identifier">name</span></span></tt></li>
+<h3><a class="toc-backref" id="limits-globalslashnonlocal-only-means-nimnot-local-with-some-limited-checks" href="#limits-globalslashnonlocal-only-means-nimnot-local-with-some-limited-checks">global/nonlocal only means <tt class="docutils literal"><span class="pre"><span class="Keyword">not</span> <span class="Identifier">local</span></span></tt>, with some limited checks</a></h3><ul class="simple"><li>Currently using <tt class="docutils literal"><span class="pre"><span class="Identifier">global</span> <span class="Identifier">name</span></span></tt> where name is declared in <em>previous</em> frames is not supported</li>
+<li>Currently using <tt class="docutils literal"><span class="pre"><span class="Identifier">nonlocal</span> <span class="Identifier">name</span></span></tt> where name is used for globals is not supported</li>
 </ul>
-<p>where name is declared in previous frames is not supported</p>
-<ul class="simple"><li>Currently using <tt class="docutils literal"><span class="pre"><span class="Identifier">nonlocal</span> <span class="Identifier">name</span></span></tt></li>
-</ul>
-<p>where name is used for globals is not supported</p>
 </p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
@@ -123,8 +120,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L29" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L29" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -137,8 +134,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -148,8 +145,8 @@
   <dd>
     
     Rewrites doc-string to <tt class="docutils literal"><span class="pre"><span class="Identifier">CommentStmtNode</span></span></tt> and assign to docNode (as nnkStmtList) and map each stmt with <tt class="docutils literal"><span class="pre"><span class="Identifier">parsePyStmt</span></span></tt>.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L200" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L200" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L202" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L202" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -164,8 +161,8 @@
     <p>Rewrites statement from Python-favor to Nim</p>
 <p>statement shall not be <tt class="docutils literal"><span class="pre"><span class="Identifier">nnkStmtList</span></span></tt></p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L52" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L52" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -183,8 +180,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L211" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L211" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/tonim.nim#L213" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/tonim.nim#L213" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -200,7 +197,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-01 20:50:01 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-02 05:23:04 UTC</small>
       </div>
     </div>
   </div>

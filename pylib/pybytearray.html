@@ -97,7 +97,8 @@
 
 </ul>
 <ul class="simple nested-toc-section">[]=
-  <li><a class="reference" href="#%5B%5D%3D%2C%2CHSlice%5Bint%2CBackwardsIndex%5D%2CBytesLike" title="`[]=`(mself: PyByteArray; i: HSlice[int, BackwardsIndex]; val: BytesLike)">`[]=`(mself: PyByteArray; i: HSlice[int, BackwardsIndex]; val: BytesLike)</a></li>
+  <li><a class="reference" href="#%5B%5D%3D%2CPyByteArray%2CSlice%5Bint%5D%2CSequence%5Bint%5D" title="`[]=`(ms: var PyByteArray; indices: Slice[int]; o: Sequence[int])">`[]=`(ms: var PyByteArray; indices: Slice[int]; o: Sequence[int])</a></li>
+<li><a class="reference" href="#%5B%5D%3D%2C%2CHSlice%5Bint%2CBackwardsIndex%5D%2CBytesLike" title="`[]=`(mself: PyByteArray; i: HSlice[int, BackwardsIndex]; val: BytesLike)">`[]=`(mself: PyByteArray; i: HSlice[int, BackwardsIndex]; val: BytesLike)</a></li>
 <li><a class="reference" href="#%5B%5D%3D%2C%2Cint%2Cint" title="`[]=`(mself: PyByteArray; i: int; val: int)">`[]=`(mself: PyByteArray; i: int; val: int)</a></li>
 <li><a class="reference" href="#%5B%5D%3D%2C%2CSlice%5Bint%5D%2CBytesLike" title="`[]=`(mself: PyByteArray; i: Slice[int]; val: BytesLike)">`[]=`(mself: PyByteArray; i: Slice[int]; val: BytesLike)</a></li>
 
@@ -128,7 +129,9 @@
 
 </ul>
 <ul class="simple nested-toc-section">delitem
-  <li><a class="reference" href="#delitem%2C%2Cint" title="delitem(mself: PyByteArray; i: int)">delitem(mself: PyByteArray; i: int)</a></li>
+  <li><a class="reference" href="#delitem%2CPyByteArray%2CPySlice" title="delitem(ms: var PyByteArray; indices: PySlice)">delitem(ms: var PyByteArray; indices: PySlice)</a></li>
+<li><a class="reference" href="#delitem%2CPyByteArray%2CSlice%5Bint%5D" title="delitem(ms: var PyByteArray; indices: Slice[int])">delitem(ms: var PyByteArray; indices: Slice[int])</a></li>
+<li><a class="reference" href="#delitem%2C%2Cint" title="delitem(mself: PyByteArray; i: int)">delitem(mself: PyByteArray; i: int)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">extend
@@ -223,7 +226,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="pybytes.html">pybytes</a>, <a class="reference external" href="collections_abc.html">collections_abc</a>
+    <a class="reference external" href="pybytes.html">pybytes</a>, <a class="reference external" href="collections_abc.html">collections_abc</a>, <a class="reference external" href="mutSeqSliceOp.html">mutSeqSliceOp</a>
   </dl>
 </div>
 <div class="section" id="7">
@@ -398,7 +401,17 @@
 
 </div>
 <div id="[]=-procs-all">
-  <div id="[]=,,HSlice[int,BackwardsIndex],BytesLike">
+  <div id="[]=,PyByteArray,Slice[int],Sequence[int]">
+  <dt><pre><span class="Keyword">func</span> <a href="#%5B%5D%3D%2CPyByteArray%2CSlice%5Bint%5D%2CSequence%5Bint%5D"><span class="Identifier">`[]=`</span></a><span class="Other">(</span><span class="Identifier">ms</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="pybytearray.html#PyByteArray"><span class="Identifier">PyByteArray</span></a><span class="Other">;</span> <span class="Identifier">indices</span><span class="Other">:</span> <span class="Identifier">Slice</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">o</span><span class="Other">:</span> <a href="collections_abc.html#Sequence"><span class="Identifier">Sequence</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytearray.nim#L162" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytearray.nim#L162" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="[]=,,HSlice[int,BackwardsIndex],BytesLike">
   <dt><pre><span class="Keyword">func</span> <a href="#%5B%5D%3D%2C%2CHSlice%5Bint%2CBackwardsIndex%5D%2CBytesLike"><span class="Identifier">`[]=`</span></a><span class="Other">(</span><span class="Identifier">mself</span><span class="Other">:</span> <a href="pybytearray.html#PyByteArray"><span class="Identifier">PyByteArray</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">HSlice</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">BackwardsIndex</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <a href="pybytearray.html#BytesLike"><span class="Identifier">BytesLike</span></a><span class="Other">)</span></pre></dt>
   <dd>
     
@@ -550,7 +563,29 @@
 
 </div>
 <div id="delitem-procs-all">
-  <div id="delitem,,int">
+  <div id="delitem,PyByteArray,PySlice">
+  <dt><pre><span class="Keyword">func</span> <a href="#delitem%2CPyByteArray%2CPySlice"><span class="Identifier">delitem</span></a><span class="Other">(</span><span class="Identifier">ms</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="pybytearray.html#PyByteArray"><span class="Identifier">PyByteArray</span></a><span class="Other">;</span> <span class="Identifier">indices</span><span class="Other">:</span> <a href="builtins/pyslice.html#PySlice"><span class="Identifier">PySlice</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pybytearray.nim#L161" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pybytearray.nim#L161" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="delitem,PyByteArray,Slice[int]">
+  <dt><pre><span class="Keyword">func</span> <a href="#delitem%2CPyByteArray%2CSlice%5Bint%5D"><span class="Identifier">delitem</span></a><span class="Other">(</span><span class="Identifier">ms</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="pybytearray.html#PyByteArray"><span class="Identifier">PyByteArray</span></a><span class="Other">;</span> <span class="Identifier">indices</span><span class="Other">:</span> <span class="Identifier">Slice</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/mutSeqSliceOp.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/mutSeqSliceOp.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="delitem,,int">
   <dt><pre><span class="Keyword">func</span> <a href="#delitem%2C%2Cint"><span class="Identifier">delitem</span></a><span class="Other">(</span><span class="Identifier">mself</span><span class="Other">:</span> <a href="pybytearray.html#PyByteArray"><span class="Identifier">PyByteArray</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -796,7 +831,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-01 20:50:01 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-02 05:23:04 UTC</small>
       </div>
     </div>
   </div>

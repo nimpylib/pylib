@@ -1,10 +1,10 @@
 nimTitle	tonim	pylib/pysugar/stmt/tonim.html	module src/pylib/pysugar/stmt/tonim		0
-nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody,,NimNode	proc parsePyBody(mparser; body: NimNode): NimNode		29
-nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode): NimNode		30
-nim	parsePyStmt	pylib/pysugar/stmt/tonim.html#parsePyStmt,,NimNode	proc parsePyStmt(mparser; statement: NimNode): NimNode		50
-nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode; docNode: var NimNode): NimNode		200
-nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody.t,NimNode	template parsePyBody(body: NimNode): NimNode		211
-nimgrp	parsepybodywithdoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc-procs-all	proc		30
+nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody,,NimNode	proc parsePyBody(mparser; body: NimNode): NimNode		31
+nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode): NimNode		32
+nim	parsePyStmt	pylib/pysugar/stmt/tonim.html#parsePyStmt,,NimNode	proc parsePyStmt(mparser; statement: NimNode): NimNode		52
+nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode; docNode: var NimNode): NimNode		202
+nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody.t,NimNode	template parsePyBody(body: NimNode): NimNode		213
+nimgrp	parsepybodywithdoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc-procs-all	proc		32
 heading	Limits	pylib/pysugar/stmt/tonim.html#limits	  Limits		0
 heading	global/nonlocal for nonexisting variable	pylib/pysugar/stmt/tonim.html#limits-globalslashnonlocal-for-nonexisting-variable	   global/nonlocal for nonexisting variable		0
 heading	global/nonlocal only means nimnot local, with some limited checks	pylib/pysugar/stmt/tonim.html#limits-globalslashnonlocal-only-means-nimnot-local-with-some-limited-checks	   global/nonlocal only means <tt class="docutils literal"><span class="pre"><span class="Keyword">not</span> <span class="Identifier">local</span></span></tt>, with some limited checks		0

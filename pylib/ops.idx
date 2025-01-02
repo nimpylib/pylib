@@ -32,3 +32,4 @@ nimgrp	**	pylib/ops.html#**-templates-all	template		12
 nimgrp	<>	pylib/ops.html#<>-templates-all	template		82
 nimgrp	==	pylib/ops.html#==-templates-all	template		79
 nimgrp	%	pylib/ops.html#%-templates-all	template		103
+heading	why no nim/= defined?	pylib/ops.html#why-no-nimslasheq-definedqmark	  why no <tt class="docutils literal"><span class="pre"><span class="Operator">/=</span></span></tt> defined?		0
