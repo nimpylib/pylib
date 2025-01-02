@@ -2,8 +2,8 @@
 import std/math
 from ./pyerrors/aritherr import ZeroDivisionError
 
-## ## why no `/=`?
-## For `template `/=`*(x: var SomeInteger, y: SomeInteger)`:
+## ## why no `/=` defined?
+## For `template \`/=\`*(x: var SomeInteger, y: SomeInteger)`:
 ## 
 ## Nim is static-typed, but `/=` will cause lhs convert from int to float
 
