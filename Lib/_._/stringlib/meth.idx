@@ -59,27 +59,27 @@ nim	join	_._/stringlib/meth.html#join,char,openArray[T]	proc join[T](sep: char; 
 nim	join	_._/stringlib/meth.html#join,S,openArray[T]	proc join[T, S](sep: S; a: openArray[T]): S		331
 nim	partition	_._/stringlib/meth.html#partition,S,S	proc partition[S](a: S; sep: S): tuple[before, sep, after: S]		344
 nim	rpartition	_._/stringlib/meth.html#rpartition,S,S	proc rpartition[S](a: S; sep: S): tuple[before, sep, after: S]		345
-nimgrp	isalnum	_._/stringlib/meth.html#isalnum-procs-all	proc		137
-nimgrp	replace	_._/stringlib/meth.html#replace-procs-all	proc		263
-nimgrp	rfind1	_._/stringlib/meth.html#rfind1-procs-all	proc		65
-nimgrp	rfind	_._/stringlib/meth.html#rfind-procs-all	proc		82
-nimgrp	ljust	_._/stringlib/meth.html#ljust-procs-all	proc		199
-nimgrp	startswith	_._/stringlib/meth.html#startsWith-procs-all	proc		43
-nimgrp	center	_._/stringlib/meth.html#center-procs-all	proc		194
-nimgrp	rjust	_._/stringlib/meth.html#rjust-procs-all	proc		201
 nimgrp	join	_._/stringlib/meth.html#join-procs-all	proc		328
+nimgrp	rindex	_._/stringlib/meth.html#rindex-procs-all	proc		104
+nimgrp	find1	_._/stringlib/meth.html#find1-procs-all	proc		47
+nimgrp	rfind	_._/stringlib/meth.html#rfind-procs-all	proc		82
+nimgrp	replace	_._/stringlib/meth.html#replace-procs-all	proc		263
 nimgrp	index1	_._/stringlib/meth.html#index1-procs-all	proc		87
+nimgrp	startswith	_._/stringlib/meth.html#startsWith-procs-all	proc		43
+nimgrp	isdigit	_._/stringlib/meth.html#isdigit-procs-all	proc		136
+nimgrp	index	_._/stringlib/meth.html#index-procs-all	proc		92
 nimgrp	isascii	_._/stringlib/meth.html#isascii-procs-all	proc		113
-nimgrp	isalpha	_._/stringlib/meth.html#isalpha-procs-all	proc		134
+nimgrp	isspace	_._/stringlib/meth.html#isspace-procs-all	proc		135
+nimgrp	rfind1	_._/stringlib/meth.html#rfind1-procs-all	proc		65
+nimgrp	ljust	_._/stringlib/meth.html#ljust-procs-all	proc		199
+nimgrp	rjust	_._/stringlib/meth.html#rjust-procs-all	proc		201
 nimgrp	count	_._/stringlib/meth.html#count-procs-all	proc		13
+nimgrp	isalpha	_._/stringlib/meth.html#isalpha-procs-all	proc		134
+nimgrp	endswith	_._/stringlib/meth.html#endsWith-procs-all	proc		44
+nimgrp	isalnum	_._/stringlib/meth.html#isalnum-procs-all	proc		137
 nimgrp	rindex1	_._/stringlib/meth.html#rindex1-procs-all	proc		98
 nimgrp	zfill	_._/stringlib/meth.html#zfill-procs-all	proc		227
-nimgrp	isspace	_._/stringlib/meth.html#isspace-procs-all	proc		135
-nimgrp	endswith	_._/stringlib/meth.html#endsWith-procs-all	proc		44
-nimgrp	find1	_._/stringlib/meth.html#find1-procs-all	proc		47
-nimgrp	index	_._/stringlib/meth.html#index-procs-all	proc		92
-nimgrp	rindex	_._/stringlib/meth.html#rindex-procs-all	proc		104
+nimgrp	center	_._/stringlib/meth.html#center-procs-all	proc		194
 nimgrp	find	_._/stringlib/meth.html#find-procs-all	proc		81
-nimgrp	isdigit	_._/stringlib/meth.html#isdigit-procs-all	proc		136
 nimgrp	startswith	_._/stringlib/meth.html#startsWith-templates-all	template		43
 nimgrp	endswith	_._/stringlib/meth.html#endsWith-templates-all	template		44

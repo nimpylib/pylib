@@ -54,11 +54,11 @@ nim	`**=`	pylib/builtins/complex.html#**=,PyTComplex[T],ComplexPowSecondParamTyp
 nim	pow	pylib/builtins/complex.html#pow.t,PyTComplex[T],ComplexPowSecondParamType[T],NoneType	template pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]; _: NoneType): PyTComplex[\n    T]		281
 nim	`'j`	pylib/builtins/complex.html#'j,staticstring	proc `'j`(s: static string): PyComplex		285
 nimgrp	complex	pylib/builtins/complex.html#complex-procs-all	proc		87
-nimgrp	pycomplex	pylib/builtins/complex.html#pycomplex-templates-all	template		82
+nimgrp	+	pylib/builtins/complex.html#+-templates-all	template		213
+nimgrp	pow	pylib/builtins/complex.html#pow-templates-all	template		244
+nimgrp	-	pylib/builtins/complex.html#--templates-all	template		214
 nimgrp	/	pylib/builtins/complex.html#/-templates-all	template		216
 nimgrp	**	pylib/builtins/complex.html#**-templates-all	template		261
 nimgrp	*	pylib/builtins/complex.html#*-templates-all	template		215
-nimgrp	-	pylib/builtins/complex.html#--templates-all	template		214
 nimgrp	complex	pylib/builtins/complex.html#complex-templates-all	template		98
-nimgrp	pow	pylib/builtins/complex.html#pow-templates-all	template		244
-nimgrp	+	pylib/builtins/complex.html#+-templates-all	template		213
+nimgrp	pycomplex	pylib/builtins/complex.html#pycomplex-templates-all	template		82

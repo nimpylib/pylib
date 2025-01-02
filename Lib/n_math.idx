@@ -47,10 +47,10 @@ nim	factorial	n_math.html#factorial,Natural	proc factorial(x: Natural): int		618
 nim	isqrtPositive	n_math.html#isqrtPositive,Positive	proc isqrtPositive(n: Positive): int		627
 nim	isqrt	n_math.html#isqrt,Natural	proc isqrt(n: Natural): int		647
 nim	isqrt	n_math.html#isqrt,T	proc isqrt[T: SomeFloat](x: T): int		677
-nimgrp	log	n_math.html#log-procs-all	proc		568
 nimgrp	isqrt	n_math.html#isqrt-procs-all	proc		647
-nimgrp	lcm	n_math.html#lcm-procs-all	proc		198
-nimgrp	perm	n_math.html#perm-procs-all	proc		607
 nimgrp	hypot	n_math.html#hypot-procs-all	proc		200
-nimgrp	gcd	n_math.html#gcd-procs-all	proc		197
+nimgrp	perm	n_math.html#perm-procs-all	proc		607
+nimgrp	log	n_math.html#log-procs-all	proc		568
 nimgrp	ldexp	n_math.html#ldexp-procs-all	proc		281
+nimgrp	lcm	n_math.html#lcm-procs-all	proc		198
+nimgrp	gcd	n_math.html#gcd-procs-all	proc		197

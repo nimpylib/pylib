@@ -7,6 +7,6 @@ nim	ctime	pylib/Lib/time.html#ctime_2	proc ctime(secs: float | int64): PyStr		28
 nim	strftime	pylib/Lib/time.html#strftime,PyStr,Some_struct_time	proc strftime(format: PyStr; st: Some_struct_time): PyStr		31
 nim	strftime	pylib/Lib/time.html#strftime,PyStr	proc strftime(format: PyStr): PyStr		34
 nim	strptime	pylib/Lib/time.html#strptime,PyStr	proc strptime(s: PyStr; format = DefaultTimeFormat): struct_time		38
-nimgrp	ctime	pylib/Lib/time.html#ctime-procs-all	proc		27
 nimgrp	strftime	pylib/Lib/time.html#strftime-procs-all	proc		31
 nimgrp	asctime	pylib/Lib/time.html#asctime-procs-all	proc		19
+nimgrp	ctime	pylib/Lib/time.html#ctime-procs-all	proc		27

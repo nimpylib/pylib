@@ -24,7 +24,7 @@ nim	`<`	time_impl/types.html#<,,	proc `<`(st: struct_time; t: tuple): bool		107
 nim	`<`	time_impl/types.html#<,,_2	proc `<`(t: tuple; st: struct_time): bool		110
 nim	`<=`	time_impl/types.html#<=,,	proc `<=`(st: struct_time; t: tuple): bool		107
 nim	`<=`	time_impl/types.html#<=,,_2	proc `<=`(t: tuple; st: struct_time): bool		111
+nimgrp	==	time_impl/types.html#==-procs-all	proc		94
 nimgrp	<=	time_impl/types.html#<=-procs-all	proc		95
 nimgrp	<	time_impl/types.html#<-procs-all	proc		96
-nimgrp	==	time_impl/types.html#==-procs-all	proc		94
 nimgrp	initstructtime	time_impl/types.html#initStructTime-templates-all	template		33

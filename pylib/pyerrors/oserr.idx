@@ -24,7 +24,7 @@ nim	raiseErrnoWithPath	pylib/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T],
 nim	raiseErrno	pylib/pyerrors/oserr.html#raiseErrno,string	proc raiseErrno(additionalInfo = "")		223
 nim	raiseErrnoWithPath	pylib/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T])		226
 nimgrp	raisefilenotfounderror	pylib/pyerrors/oserr.html#raiseFileNotFoundError-procs-all	proc		74
-nimgrp	raiseexcwithpath	pylib/pyerrors/oserr.html#raiseExcWithPath-procs-all	proc		65
 nimgrp	raiseerrnowithpath	pylib/pyerrors/oserr.html#raiseErrnoWithPath-procs-all	proc		196
 nimgrp	raiseerrno	pylib/pyerrors/oserr.html#raiseErrno-procs-all	proc		192
+nimgrp	raiseexcwithpath	pylib/pyerrors/oserr.html#raiseExcWithPath-procs-all	proc		65
 nimgrp	oserrormsgwithpath	pylib/pyerrors/oserr.html#osErrorMsgWithPath-templates-all	template		42

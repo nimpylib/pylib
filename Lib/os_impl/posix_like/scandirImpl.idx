@@ -14,7 +14,7 @@ nim	scandirIter	os_impl/posix_like/scandirImpl.html#scandirIter.i,T	iterator sca
 nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i	iterator scandir(): DirEntry[PyStr]		164
 nim	scandir	os_impl/posix_like/scandirImpl.html#scandir,PathLike[T]	proc scandir[T](path: PathLike[T]): ScandirIterator[T]		168
 nim	scandir	os_impl/posix_like/scandirImpl.html#scandir	proc scandir(): ScandirIterator[PyStr]		173
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		168
 nimgrp	isdir	os_impl/posix_like/scandirImpl.html#is_dir-procs-all	proc		129
 nimgrp	isfile	os_impl/posix_like/scandirImpl.html#is_file-procs-all	proc		128
-nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		168
 nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-iterators-all	iterator		159

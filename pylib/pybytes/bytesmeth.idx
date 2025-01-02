@@ -54,16 +54,16 @@ nim	expandtabs	pylib/pybytes/bytesmeth.html#expandtabs,PyBytes,int	proc expandta
 nim	join	pylib/pybytes/bytesmeth.html#join,PyBytes,openArray[T]	proc join[T](sep: PyBytes; a: openArray[T]): PyBytes		168
 nim	partition	pylib/pybytes/bytesmeth.html#partition,PyBytes,PyBytes	proc partition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		172
 nim	rpartition	pylib/pybytes/bytesmeth.html#rpartition,PyBytes,PyBytes	proc rpartition(a: PyBytes; sep: PyBytes): tuple[before, sep, after: PyBytes]		175
-nimgrp	contains	pylib/pybytes/bytesmeth.html#contains-procs-all	proc		111
-nimgrp	replace	pylib/pybytes/bytesmeth.html#replace-procs-all	proc		156
+nimgrp	rindex	pylib/pybytes/bytesmeth.html#rindex-procs-all	proc		95
 nimgrp	rfind	pylib/pybytes/bytesmeth.html#rfind-procs-all	proc		89
-nimgrp	ljust	pylib/pybytes/bytesmeth.html#ljust-procs-all	proc		134
+nimgrp	replace	pylib/pybytes/bytesmeth.html#replace-procs-all	proc		156
 nimgrp	startswith	pylib/pybytes/bytesmeth.html#startsWith-procs-all	proc		83
-nimgrp	center	pylib/pybytes/bytesmeth.html#center-procs-all	proc		130
+nimgrp	index	pylib/pybytes/bytesmeth.html#index-procs-all	proc		92
+nimgrp	contains	pylib/pybytes/bytesmeth.html#contains-procs-all	proc		111
+nimgrp	ljust	pylib/pybytes/bytesmeth.html#ljust-procs-all	proc		134
 nimgrp	rjust	pylib/pybytes/bytesmeth.html#rjust-procs-all	proc		136
 nimgrp	count	pylib/pybytes/bytesmeth.html#count-procs-all	proc		17
 nimgrp	endswith	pylib/pybytes/bytesmeth.html#endsWith-procs-all	proc		84
-nimgrp	index	pylib/pybytes/bytesmeth.html#index-procs-all	proc		92
-nimgrp	rindex	pylib/pybytes/bytesmeth.html#rindex-procs-all	proc		95
+nimgrp	center	pylib/pybytes/bytesmeth.html#center-procs-all	proc		130
 nimgrp	find	pylib/pybytes/bytesmeth.html#find-procs-all	proc		86
 nimgrp	*	pylib/pybytes/bytesmeth.html#*-templates-all	template		10

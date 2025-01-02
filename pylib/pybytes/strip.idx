@@ -5,6 +5,6 @@ nim	rstrip	pylib/pybytes/strip.html#rstrip,PyBytes	proc rstrip(self: PyBytes): P
 nim	strip	pylib/pybytes/strip.html#strip,PyBytes,PyBytes	proc strip(self: PyBytes; chars: PyBytes): PyBytes		12
 nim	lstrip	pylib/pybytes/strip.html#lstrip,PyBytes,PyBytes	proc lstrip(self: PyBytes; chars: PyBytes): PyBytes		14
 nim	rstrip	pylib/pybytes/strip.html#rstrip,PyBytes,PyBytes	proc rstrip(self: PyBytes; chars: PyBytes): PyBytes		16
-nimgrp	strip	pylib/pybytes/strip.html#strip-procs-all	proc		5
 nimgrp	lstrip	pylib/pybytes/strip.html#lstrip-procs-all	proc		6
+nimgrp	strip	pylib/pybytes/strip.html#strip-procs-all	proc		5
 nimgrp	rstrip	pylib/pybytes/strip.html#rstrip-procs-all	proc		7

@@ -46,11 +46,11 @@ nim	join	_._/pystring/strmeth.html#join,PyStr,openArray[T]	proc join[T](sep: PyS
 nim	partition	_._/pystring/strmeth.html#partition,PyStr,PyStr	proc partition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		294
 nim	rpartition	_._/pystring/strmeth.html#rpartition,PyStr,PyStr	proc rpartition(a: PyStr; sep: PyStr): tuple[before, sep, after: PyStr]		297
 nimgrp	replace	_._/pystring/strmeth.html#replace-procs-all	proc		278
-nimgrp	ljust	_._/pystring/strmeth.html#ljust-procs-all	proc		256
 nimgrp	startswith	_._/pystring/strmeth.html#startsWith-procs-all	proc		197
-nimgrp	center	_._/pystring/strmeth.html#center-procs-all	proc		252
-nimgrp	rjust	_._/pystring/strmeth.html#rjust-procs-all	proc		258
 nimgrp	isascii	_._/pystring/strmeth.html#isascii-procs-all	proc		225
+nimgrp	ljust	_._/pystring/strmeth.html#ljust-procs-all	proc		256
+nimgrp	rjust	_._/pystring/strmeth.html#rjust-procs-all	proc		258
 nimgrp	count	_._/pystring/strmeth.html#count-procs-all	proc		56
 nimgrp	endswith	_._/pystring/strmeth.html#endsWith-procs-all	proc		198
+nimgrp	center	_._/pystring/strmeth.html#center-procs-all	proc		252
 nimgrp	*	_._/pystring/strmeth.html#*-templates-all	template		49

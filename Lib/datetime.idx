@@ -10,6 +10,6 @@ nim	ctime	datetime.html#ctime	proc ctime(self: datetime): PyStr		34
 nim	`==`	datetime.html#==,tzinfo,NoneType	proc `==`(tzinfo: tzinfo; n: NoneType): bool		36
 nim	`==`	datetime.html#==,timedelta,NoneType	proc `==`(delta: timedelta; n: NoneType): bool		37
 nim	noneToTzInfo	datetime.html#noneToTzInfo.c,NoneType	converter noneToTzInfo(_: NoneType): tzinfo		39
-nimgrp	str	datetime.html#str-procs-all	proc		32
 nimgrp	==	datetime.html#==-procs-all	proc		36
+nimgrp	str	datetime.html#str-procs-all	proc		32
 nimgrp	tzname	datetime.html#tzname-methods-all	method		11

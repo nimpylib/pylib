@@ -3,5 +3,5 @@ nim	n_frexp	pylib/Lib/math_impl/frexp.html#n_frexp,F	proc n_frexp[F: SomeFloat](
 nim	n_frexp	pylib/Lib/math_impl/frexp.html#n_frexp,F,int	proc n_frexp[F: SomeFloat](x: F; e: var int): F		8
 nim	frexp	pylib/Lib/math_impl/frexp.html#frexp,F	proc frexp[F: SomeFloat](x: F): (F, int)		17
 nim	frexp	pylib/Lib/math_impl/frexp.html#frexp,F,int	proc frexp[F: SomeFloat](x: F; e: var int): F		23
-nimgrp	nfrexp	pylib/Lib/math_impl/frexp.html#n_frexp-procs-all	proc		7
 nimgrp	frexp	pylib/Lib/math_impl/frexp.html#frexp-procs-all	proc		17
+nimgrp	nfrexp	pylib/Lib/math_impl/frexp.html#n_frexp-procs-all	proc		7

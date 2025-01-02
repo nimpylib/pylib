@@ -48,8 +48,8 @@ nim	comb	pylib/Lib/math.html#comb,int,int	proc comb(n, k: int): int		269
 nim	nextafter	pylib/Lib/math.html#nextafter,F,F	proc nextafter[F: SomeFloat](x, y: F): F		275
 nim	nextafter	pylib/Lib/math.html#nextafter,F,F,	proc nextafter[F: SomeFloat](x, y: F; steps: int | uint64): F		276
 nim	ulp	pylib/Lib/math.html#ulp,F	proc ulp[F: SomeFloat](x: F): F		278
-nimgrp	log	pylib/Lib/math.html#log-procs-all	proc		187
 nimgrp	perm	pylib/Lib/math.html#perm-procs-all	proc		259
+nimgrp	log	pylib/Lib/math.html#log-procs-all	proc		187
 nimgrp	nextafter	pylib/Lib/math.html#nextafter-procs-all	proc		275
-nimgrp	sumprod	pylib/Lib/math.html#sumprod-templates-all	template		233
 nimgrp	dist	pylib/Lib/math.html#dist-templates-all	template		231
+nimgrp	sumprod	pylib/Lib/math.html#sumprod-templates-all	template		233

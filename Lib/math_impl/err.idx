@@ -11,5 +11,5 @@ nim	raiseDomainErr	math_impl/err.html#raiseDomainErr.t,string	template raiseDoma
 nim	raiseRangeErr	math_impl/err.html#raiseRangeErr.t	template raiseRangeErr()		28
 nim	raiseRangeErr	math_impl/err.html#raiseRangeErr.t,string	template raiseRangeErr(details: string)		32
 nim	mapRaiseGammaErr	math_impl/err.html#mapRaiseGammaErr,GammaError	proc mapRaiseGammaErr(err: GammaError)		36
-nimgrp	raisedomainerr	math_impl/err.html#raiseDomainErr-templates-all	template		20
 nimgrp	raiserangeerr	math_impl/err.html#raiseRangeErr-templates-all	template		28
+nimgrp	raisedomainerr	math_impl/err.html#raiseDomainErr-templates-all	template		20

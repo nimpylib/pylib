@@ -9,7 +9,7 @@ nim	`$`	_._/io_abc.html#$,PathLike	proc `$`(p: PathLike): string		25
 nim	`$`	_._/io_abc.html#$,CanIOOpenT	proc `$`(p: CanIOOpenT): string		29
 nim	pathrepr	_._/io_abc.html#pathrepr,PathLike[PyBytes]	proc pathrepr(p: PathLike[PyBytes]): string		34
 nim	pathrepr	_._/io_abc.html#pathrepr,PathLike[PyStr]	proc pathrepr(p: PathLike[PyStr]): string		35
+nimgrp	fspath	_._/io_abc.html#fspath-procs-all	proc		6
 nimgrp	$	_._/io_abc.html#$-procs-all	proc		25
 nimgrp	pathrepr	_._/io_abc.html#pathrepr-procs-all	proc		34
-nimgrp	fspath	_._/io_abc.html#fspath-procs-all	proc		6
 nimgrp	mappathlike	_._/io_abc.html#mapPathLike-templates-all	template		17

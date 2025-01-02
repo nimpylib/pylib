@@ -24,8 +24,8 @@ nim	`<=`	_._/builtins/list_decl.html#<=.t,openArray[A],PyList[B]	template `<=`[A
 nim	`<`	_._/builtins/list_decl.html#<,PyList[A],PyList[B]	proc `<`[A, B](self: PyList[A]; o: PyList[B]): bool		84
 nim	`<`	_._/builtins/list_decl.html#<,PyList[A],openArray[B]	proc `<`[A, B](self: PyList[A]; o: openArray[B]): bool		87
 nim	`<`	_._/builtins/list_decl.html#<.t,openArray[A],PyList[B]	template `<`[A, B](o: openArray[A]; self: PyList[B]): bool		96
+nimgrp	==	_._/builtins/list_decl.html#==-procs-all	proc		94
 nimgrp	newpylist	_._/builtins/list_decl.html#newPyList-procs-all	proc		25
 nimgrp	<=	_._/builtins/list_decl.html#<=-procs-all	proc		95
 nimgrp	<	_._/builtins/list_decl.html#<-procs-all	proc		96
-nimgrp	==	_._/builtins/list_decl.html#==-procs-all	proc		94
 nimgrp	asseq	_._/builtins/list_decl.html#asSeq-converters-all	converter		11

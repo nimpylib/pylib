@@ -53,11 +53,11 @@ nim	raiseOsOrFileNotFoundError	io.html#raiseOsOrFileNotFoundError,PathLike[T]	pr
 nim	initBufAsPy	io.html#initBufAsPy,File,int	proc initBufAsPy(nfile: var File; buf: int)		640
 nim	open	io.html#open.t,int,static[],int,string,string	template open(file: int; mode: static[string | char] = "r"; buffering: int = -1;\n     encoding: string = DefEncoding; errors: string = DefErrors;\n     newline: string | char = DefNewLine): untyped		683
 nim	open	io.html#open.t,PathLike[S],static[],int,string,string	template open[S](file: PathLike[S]; mode: static[string | char] = "r";\n        buffering: int = -1; encoding: string = DefEncoding;\n        errors: string = DefErrors; newline: string | char = DefNewLine): untyped		701
-nimgrp	readline	io.html#readline-procs-all	proc		241
-nimgrp	write	io.html#write-procs-all	proc		340
-nimgrp	truncate	io.html#truncate-procs-all	proc		389
 nimgrp	raiseosorfilenotfounderror	io.html#raiseOsOrFileNotFoundError-procs-all	proc		631
+nimgrp	write	io.html#write-procs-all	proc		340
+nimgrp	readline	io.html#readline-procs-all	proc		241
 nimgrp	read	io.html#read-procs-all	proc		303
+nimgrp	truncate	io.html#truncate-procs-all	proc		389
 nimgrp	close	io.html#close-methods-all	method		414
 nimgrp	seek	io.html#seek-methods-all	method		123
 nimgrp	open	io.html#open-templates-all	template		683

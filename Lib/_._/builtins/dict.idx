@@ -48,9 +48,9 @@ nim	update	_._/builtins/dict.html#update.m,PyDict,varargs[untyped]	macro update(
 nim	`|`	_._/builtins/dict.html#|,PyDict,PyDict	proc `|`(a, b: PyDict): PyDict		221
 nim	`|=`	_._/builtins/dict.html#|=,PyDict,PyDict	proc `|=`(a, b: PyDict)		229
 nimgrp	contains	_._/builtins/dict.html#contains-procs-all	proc		26
-nimgrp	len	_._/builtins/dict.html#len-procs-all	proc		44
-nimgrp	get	_._/builtins/dict.html#get-procs-all	proc		130
 nimgrp	topydict	_._/builtins/dict.html#toPyDict-procs-all	proc		106
+nimgrp	get	_._/builtins/dict.html#get-procs-all	proc		130
+nimgrp	len	_._/builtins/dict.html#len-procs-all	proc		44
 nimgrp	pop	_._/builtins/dict.html#pop-procs-all	proc		132
 nimgrp	$	_._/builtins/dict.html#$-templates-all	template		40
 nimgrp	repr	_._/builtins/dict.html#repr-templates-all	template		33

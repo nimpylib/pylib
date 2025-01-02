@@ -59,27 +59,27 @@ nim	join	pylib/stringlib/meth.html#join,char,openArray[T]	proc join[T](sep: char
 nim	join	pylib/stringlib/meth.html#join,S,openArray[T]	proc join[T, S](sep: S; a: openArray[T]): S		331
 nim	partition	pylib/stringlib/meth.html#partition,S,S	proc partition[S](a: S; sep: S): tuple[before, sep, after: S]		344
 nim	rpartition	pylib/stringlib/meth.html#rpartition,S,S	proc rpartition[S](a: S; sep: S): tuple[before, sep, after: S]		345
-nimgrp	isalnum	pylib/stringlib/meth.html#isalnum-procs-all	proc		137
-nimgrp	replace	pylib/stringlib/meth.html#replace-procs-all	proc		263
-nimgrp	rfind1	pylib/stringlib/meth.html#rfind1-procs-all	proc		65
-nimgrp	rfind	pylib/stringlib/meth.html#rfind-procs-all	proc		82
-nimgrp	ljust	pylib/stringlib/meth.html#ljust-procs-all	proc		199
-nimgrp	startswith	pylib/stringlib/meth.html#startsWith-procs-all	proc		43
-nimgrp	center	pylib/stringlib/meth.html#center-procs-all	proc		194
-nimgrp	rjust	pylib/stringlib/meth.html#rjust-procs-all	proc		201
 nimgrp	join	pylib/stringlib/meth.html#join-procs-all	proc		328
+nimgrp	rindex	pylib/stringlib/meth.html#rindex-procs-all	proc		104
+nimgrp	find1	pylib/stringlib/meth.html#find1-procs-all	proc		47
+nimgrp	rfind	pylib/stringlib/meth.html#rfind-procs-all	proc		82
+nimgrp	replace	pylib/stringlib/meth.html#replace-procs-all	proc		263
 nimgrp	index1	pylib/stringlib/meth.html#index1-procs-all	proc		87
+nimgrp	startswith	pylib/stringlib/meth.html#startsWith-procs-all	proc		43
+nimgrp	isdigit	pylib/stringlib/meth.html#isdigit-procs-all	proc		136
+nimgrp	index	pylib/stringlib/meth.html#index-procs-all	proc		92
 nimgrp	isascii	pylib/stringlib/meth.html#isascii-procs-all	proc		113
-nimgrp	isalpha	pylib/stringlib/meth.html#isalpha-procs-all	proc		134
+nimgrp	isspace	pylib/stringlib/meth.html#isspace-procs-all	proc		135
+nimgrp	rfind1	pylib/stringlib/meth.html#rfind1-procs-all	proc		65
+nimgrp	ljust	pylib/stringlib/meth.html#ljust-procs-all	proc		199
+nimgrp	rjust	pylib/stringlib/meth.html#rjust-procs-all	proc		201
 nimgrp	count	pylib/stringlib/meth.html#count-procs-all	proc		13
+nimgrp	isalpha	pylib/stringlib/meth.html#isalpha-procs-all	proc		134
+nimgrp	endswith	pylib/stringlib/meth.html#endsWith-procs-all	proc		44
+nimgrp	isalnum	pylib/stringlib/meth.html#isalnum-procs-all	proc		137
 nimgrp	rindex1	pylib/stringlib/meth.html#rindex1-procs-all	proc		98
 nimgrp	zfill	pylib/stringlib/meth.html#zfill-procs-all	proc		227
-nimgrp	isspace	pylib/stringlib/meth.html#isspace-procs-all	proc		135
-nimgrp	endswith	pylib/stringlib/meth.html#endsWith-procs-all	proc		44
-nimgrp	find1	pylib/stringlib/meth.html#find1-procs-all	proc		47
-nimgrp	index	pylib/stringlib/meth.html#index-procs-all	proc		92
-nimgrp	rindex	pylib/stringlib/meth.html#rindex-procs-all	proc		104
+nimgrp	center	pylib/stringlib/meth.html#center-procs-all	proc		194
 nimgrp	find	pylib/stringlib/meth.html#find-procs-all	proc		81
-nimgrp	isdigit	pylib/stringlib/meth.html#isdigit-procs-all	proc		136
 nimgrp	startswith	pylib/stringlib/meth.html#startsWith-templates-all	template		43
 nimgrp	endswith	pylib/stringlib/meth.html#endsWith-templates-all	template		44

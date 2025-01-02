@@ -9,7 +9,7 @@ nim	ctime	n_time.html#ctime	proc ctime(): string		55
 nim	ctime	n_time.html#ctime_2	proc ctime(secs: float | int64): string		57
 nim	strftime	n_time.html#strftime,string	proc strftime(format: string): string		60
 nim	strptime	n_time.html#strptime,string	proc strptime(s: string): struct_time		63
-nimgrp	ctime	n_time.html#ctime-procs-all	proc		55
 nimgrp	asctime	n_time.html#asctime-procs-all	proc		44
+nimgrp	ctime	n_time.html#ctime-procs-all	proc		55
 heading	time for Nim	n_time.html#time-for-nim	 time for Nim		0
 heading	py diff	n_time.html#time-for-nim-py-diff	  py diff		0

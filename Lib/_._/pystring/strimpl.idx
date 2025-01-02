@@ -41,13 +41,13 @@ nim	runes	_._/pystring/strimpl.html#runes.i	iterator runes(self: PyStr): Rune		1
 nim	`and`	_._/pystring/strimpl.html#and.t,PyStr,PyStr	template `and`(a, b: PyStr): PyStr		109
 nim	`or`	_._/pystring/strimpl.html#or.t,PyStr,PyStr	template `or`(a, b: PyStr): PyStr		114
 nim	`not`	_._/pystring/strimpl.html#not.t,PyStr	template `not`(s: PyStr): bool		119
-nimgrp	contains	_._/pystring/strimpl.html#contains-procs-all	proc		39
-nimgrp	+=	_._/pystring/strimpl.html#+=-procs-all	proc		53
-nimgrp	len	_._/pystring/strimpl.html#len-procs-all	proc		57
-nimgrp	str	_._/pystring/strimpl.html#str-procs-all	proc		10
 nimgrp	==	_._/pystring/strimpl.html#==-procs-all	proc		43
+nimgrp	str	_._/pystring/strimpl.html#str-procs-all	proc		10
 nimgrp	+	_._/pystring/strimpl.html#+-procs-all	proc		50
+nimgrp	contains	_._/pystring/strimpl.html#contains-procs-all	proc		39
 nimgrp	[]	_._/pystring/strimpl.html#[]-procs-all	proc		73
+nimgrp	len	_._/pystring/strimpl.html#len-procs-all	proc		57
+nimgrp	+=	_._/pystring/strimpl.html#+=-procs-all	proc		53
 nimgrp	topystr	_._/pystring/strimpl.html#toPyStr-converters-all	converter		35
 nimgrp	str	_._/pystring/strimpl.html#str-templates-all	template		15
 heading	Mimics Python not str -> bool.	_._/pystring/strimpl.html#mimics-python-not-str-minusgt-booldot	 Mimics Python not str -&gt; bool.		0

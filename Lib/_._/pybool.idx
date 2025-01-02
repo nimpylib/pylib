@@ -26,8 +26,8 @@ nim	pybool	_._/pybool.html#pybool.c,bool	converter pybool(x: bool): PyBool		84
 nim	bool	_._/pybool.html#bool,T	proc bool[T](arg: T): PyBool		95
 nim	all	_._/pybool.html#all,Iterable[T]	proc all[T](iter: Iterable[T]): PyBool		97
 nim	any	_._/pybool.html#any,Iterable[T]	proc any[T](iter: Iterable[T]): PyBool		104
-nimgrp	and	_._/pybool.html#and-procs-all	proc		20
-nimgrp	or	_._/pybool.html#or-procs-all	proc		21
-nimgrp	not	_._/pybool.html#not-procs-all	proc		19
 nimgrp	==	_._/pybool.html#==-procs-all	proc		16
+nimgrp	and	_._/pybool.html#and-procs-all	proc		20
+nimgrp	not	_._/pybool.html#not-procs-all	proc		19
+nimgrp	or	_._/pybool.html#or-procs-all	proc		21
 nimgrp	pybool	_._/pybool.html#pybool-converters-all	converter		23

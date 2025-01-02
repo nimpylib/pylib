@@ -19,6 +19,6 @@ nim	`$`	datetime_impl/timezone_impl/decl.html#$,timezone	proc `$`(self: timezone
 nim	repr	datetime_impl/timezone_impl/decl.html#repr.e,tzinfo	method repr(self: tzinfo): string		168
 nim	repr	datetime_impl/timezone_impl/decl.html#repr.e,timezone	method repr(self: timezone): string		174
 nimgrp	newpytimezone	datetime_impl/timezone_impl/decl.html#newPyTimezone-procs-all	proc		67
-nimgrp	repr	datetime_impl/timezone_impl/decl.html#repr-methods-all	method		168
 nimgrp	tonimtimezone	datetime_impl/timezone_impl/decl.html#toNimTimezone-methods-all	method		22
+nimgrp	repr	datetime_impl/timezone_impl/decl.html#repr-methods-all	method		168
 nimgrp	utc	datetime_impl/timezone_impl/decl.html#utc-templates-all	template		62
