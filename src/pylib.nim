@@ -12,6 +12,7 @@ when defined(nimdoc):
   from pylib/version import Version
   import std/macros
   import std/strformat
+  import std/strutils
   macro doc(s: static[string]): untyped = newCommentStmtNode s
 
   template hs(s): string = "https://" & s
@@ -23,10 +24,18 @@ when defined(nimdoc):
 
   const
     homepage{.strdefine.} = hs"nimpylib.github.io/pylib"
+  func stripDoc(s: string): string =
+    result = s
+    var proto: string
+    const sep = "://"
+    let ls = s.split(sep, 1)
+    (proto, result) = (ls[0], ls[1])
+    result.removePrefix"docs."
+    result = proto & sep & result
 
   doc "> Welcome to **NimPyLib** :sub:`" & Version & "`"  # Nim's Markdown is RST-extended
-  doc fmt"""- link to {link("repo", ReadmeUrl)}, {link("wiki", WikiUrl)}
-""" & link("home", homepage)
+  doc fmt"""- link to {link("repo", ReadmeUrl)}, {link("wiki", WikiUrl)}, """ &
+   link("home", stripDoc homepage)
   ## .. include:: ../doc/pylib.md
   doc ".. warning:: " & WarnLeniOps
 
