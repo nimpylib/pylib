@@ -14,14 +14,19 @@ when defined(nimdoc):
   import std/strformat
   macro doc(s: static[string]): untyped = newCommentStmtNode s
 
+  template hs(s): string = "https://" & s
   const
-    RepoUrl = "https://github.com/nimpylib/pylib"
+    RepoUrl = hs"github.com/nimpylib/pylib"
     ReadmeUrl = RepoUrl & "?tab=readme-ov-file#nimpylib"
     WikiUrl = RepoUrl & "/wiki"
   template link(name, url: string): string = "[" & name & "](" & url & ")"
 
+  const
+    homepage{.strdefine.} = hs"nimpylib.github.io/pylib"
+
   doc "> Welcome to **NimPyLib** :sub:`" & Version & "`"  # Nim's Markdown is RST-extended
-  doc fmt"""- link to {link("repo", ReadmeUrl)}, {link("wiki", WikiUrl)}"""
+  doc fmt"""- link to {link("repo", ReadmeUrl)}, {link("wiki", WikiUrl)}
+""" & link("home", homepage)
   ## .. include:: ../doc/pylib.md
   doc ".. warning:: " & WarnLeniOps
 
