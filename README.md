@@ -28,7 +28,7 @@ It helps you to:
 |
 [Design Wiki](https://github.com/nimpylib/pylib/wiki/Design)
 
-## Backends
+### Backends
 
 Thanks to Nim supporting multiply backends, pylib currently officially supports
 to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not tested.
@@ -39,7 +39,7 @@ to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not te
  [here](https://github.com/nimpylib/pylib/blob/master/src/pylib/Lib/test/skipJs.txt))
 is not available for JS backend yet.
 
-# Usage
+## Demo
 
 ```nim
 import pylib
@@ -217,7 +217,7 @@ Nimpylib heavily relies on Nim generics, converters, operator overloading, and e
 Check the [Examples folder](https://github.com/nimpylib/pylib/tree/master/examples) for more examples.
 Have more Macros or Templates for Python-like syntax, send [Pull Request](https://github.com/nimpylib/pylib/pulls).
 
-# Installation
+## Installation
 
 ```shell
 nimble install pylib
@@ -239,12 +239,12 @@ nimble install https://github.com/nimpylib/pylib
 Uninstall with `nimble uninstall pylib`.
 
 
-# Requisites
+## Requisites
 
 - [Nim](https://nim-lang.org)
 
 
-# Supported features
+## Supported features
 
 - [x] F-Strings `f"foo {variable} bar {1 + 2} baz"`
 - [x] `str` `bytes` `bytearray` `list` `dict` `set` `frozenset()` with their methods
@@ -312,7 +312,7 @@ Uninstall with `nimble uninstall pylib`.
 - More...
 
 
-### Other Python-like modules
+## Other Python-like modules
 
 - [serach in nimble](https://nimble.directory/search?query=python)
 - [metacraft-labs/py2nim](https://github.com/metacraft-labs/py2nim): py2nim transpiler in Nim.
@@ -320,7 +320,7 @@ Uninstall with `nimble uninstall pylib`.
 - [juancarlospaco/cpython](https://github.com/juancarlospaco/cpython): invoke Python Standard Library API in Nim.
 - [yglukhov/nimpy](https://github.com/yglukhov/nimpy): Python bridge in Nim.
 
-### Tests
+## Tests
 
 This is one snippest from version 0.9.5:
 
