@@ -129,8 +129,11 @@ template printImpl(objects: PriArgs; sep:char|string=' ', `end`:char|string='\n'
   file: untyped = None, flush=false) = printImpl(objects, sep, `end`, file, flush)
 
 macro print*(data: varargs[untyped]): untyped =
-  ## Print macro identical to Python "print()" function with
-  ## one change: end argument was renamed to endl
+  ## Print macro identical to Python `print()` function.
+  ##
+  ## .. hint::
+  ##   Due to `end` being keyword of Nim,
+  ##   it has to be written as `endl` or **\`end\`** here.
   let printProc = bindSym("printImpl")
   var objects = newTree(nnkBracket)
   var arguments = newTree(nnkArglist)
