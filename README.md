@@ -22,11 +22,13 @@ It helps you to:
 
 [Read Docs](https://nimpylib.github.io/pylib/)
 |
-[Lib Docs](https://nimpylib.github.io/pylib/Lib)
+[Lib Docs][]
 |
 [Wiki about History](https://github.com/nimpylib/pylib/wiki/History)
 |
 [Design Wiki](https://github.com/nimpylib/pylib/wiki/Design)
+
+[Lib Docs]: https://nimpylib.github.io/pylib/Lib
 
 ### Backends
 
@@ -256,7 +258,6 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `with open(fn, [, ...]):` Read, write, append, and `read()`, `seek()`, `tell()`, etc.
 - [x] `super(...).method(...)`
 - [x] `global/nonlocal` (with some limits)
-- [x] `timeit()` with Nanoseconds precision
 - [x] `True` / `False`
 - [x] `pass`
 - [x] `del foo[x]`
@@ -303,14 +304,20 @@ Uninstall with `nimble uninstall pylib`.
 - [x] `str()`
 - [x] `sum()`
 - [x] `!=` and Python1 `<>`
-- [x] `long()` Python2 like
-- [x] `unicode()` Python2 like
+- [x] `long()` Python2 like (deprecated)
 - [x] `u"string here"` / `u'a'` Python2 like
 - [x] `b"string here"` / `b'a'`
 - [x] `zip(*iterables, strict=False)`
-- [x] (WIP) standard libraries like `math`, `random`, `datetime`, `os`, `tempfile`
+- [x] (WIP) standard libraries `math`, `random`, `datetime`, `os`, `tempfile`, `timeit`, ... (see [Lib Docs][] for all supported)
+- [ ] `aiter` `anext` and `await` (yet `async def` is supported)
 - More...
 
+### Features cannot be implemented
+However, due to Nim's AST astrict[^nimInvalidAST], a few syntaxes of Python cannot be implemented.
+
+See [here](doc/mustRewriteExtern/) for details and workaround.
+
+[^nimInvalidAst]: Mostly because they cannot form valid AST in Nim.
 
 ## Other Python-like modules
 
