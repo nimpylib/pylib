@@ -33,7 +33,17 @@ jobs:
     - name: "Copy to index.html"
       run: cp ${{ env.deploy-dir }}/${{ github.event.repository.name }}.html ${{ env.deploy-dir }}/index.html
     - name: "CNAME"
-      run: echo -n $(echo ${{ github.event.repository.homepage }} | grep -oP 'https?://\K[^/]+') > ${{ env.deploy-dir }}/CNAME
+      run: |
+        cname=$(echo ${{ github.event.repository.homepage }} | grep -oP 'https?://\K[^/]+')
+        prefix="docs."
+        # py: if cname.startswith(prefix)
+        # bash: if [[ "${cname}" != $prefix* ]]
+        if [ ${cname##$prefix} = $cname ]; then  
+            cname="${prefix}${cname}"
+        fi
+        echo -n $cname > ${{ env.deploy-dir }}/CNAME
+        # We must re-build CNAME as we use 'peaceiris/actions-gh-pages@v4',
+        # where the old dir (including CNAME) will be purged.
     - name: Deploy documents
       uses: peaceiris/actions-gh-pages@v4
       with:
