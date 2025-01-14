@@ -35,7 +35,7 @@ template vmPrintStdoutNoNL(msg: string) =
     notImpl "nimvm"
 
 type PriArgs = openArray[string]
-proc printImpl(objects: PriArgs; sep:char|string=" ", endl:char|string="\n",
+proc printImpl(objects: PriArgs; sep:char|string=' ', endl:char|string='\n',
               file: auto = None, flush=false) =
   template notImpl(backend; supportEnd=false) =
     const msg = "print with file != None " & 
