@@ -125,6 +125,9 @@ proc printImpl(objects: PriArgs; sep:char|string=' ', endl:char|string='\n',
             when file is File: file.flushFile
             else: file.flush()
 
+template printImpl(objects: PriArgs; sep:char|string=' ', `end`:char|string='\n',
+  file: untyped = None, flush=false) = printImpl(objects, sep, `end`, file, flush)
+
 macro print*(data: varargs[untyped]): untyped =
   ## Print macro identical to Python "print()" function with
   ## one change: end argument was renamed to endl

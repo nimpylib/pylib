@@ -7,12 +7,13 @@ discard """
   batchable: true
 
   output: '''
-341
+34 321
 '''
 """
 
 import pylib
-print(34, endl="")
+print(34, endl=' ')
+print(32, `end`="")
 print(1)
 
 
