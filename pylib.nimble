@@ -117,3 +117,17 @@ task test, "Runs the test suite":
   testBackendsTask()
   # Test all runnableExamples
   testDocAllTask()
+
+task rei, "reinstall, for dev only!":
+  #[ if uninstalling in cwd, may failed with: 
+Could not read package info file in ~/.nimble/pkgs2/pylib-xxx/pylib.nimble;
+  Reading as ini file failed with: 
+    Invalid section: .
+  Evaluating as NimScript file failed with: 
+    ~/.nimble/pkgs2/pylib-xxx/pylib.nimble(4, 32) Error: cannot open file: ./src/pylib/version
+printPkgInfo() failed.
+]#
+  withDir "..":
+    exec "nimble uninstall -y pylib"
+  
+  exec "nimble install"
