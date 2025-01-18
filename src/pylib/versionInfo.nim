@@ -2,7 +2,7 @@
 const
   Major* = 0
   Minor* = 9
-  Patch* = 5
+  Patch* = 6
 
   ReleaseLevel* = "alpha"
   Serial* = 0
