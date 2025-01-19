@@ -162,10 +162,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     if statement[^1].kind == nnkStmtList:
       result.add parseBodyOnlyLast statement
     else:
-      var nStmt = statement.copyNimNode
-      for i in statement:
-        nStmt.add i.toPyExpr
-      result.add nStmt
+      result.add statement.callToPyExpr
   of nnkForStmt, nnkWhileStmt:
     result.add parseBodyOnlyLast statement
   elif statement.len == 0:

@@ -147,13 +147,34 @@ proc toDict(e): NimNode =
     ), eles
   )
 
+proc rewriteEqualMinus(e; k=nnkAsgn): NimNode =
+  ## x==-1 -> x == -1
+  ## x=-1 -> x = -1
+  
+  let lhs = e[1].toPyExpr
+  template rhs: NimNode = newCall("-", e[2].toPyExpr)
+  if e[0].eqIdent"=-":
+    k.newTree lhs, rhs
+  elif e[0].eqIdent"==-":
+    newCall "==", lhs, rhs
+  else: e
 
-template toPyExprImpl(atm: NimNode; toListCb): NimNode =
+proc callToPyExpr*(e): NimNode
+
+template toPyExprImpl(atm: NimNode; toListCb; equalMinusAs=nnkAsgn): NimNode =
   case atm.kind
   of nnkBracketExpr:
     rewriteSliceInBracket atm
   of nnkCommand:
     rewriteStrLitCat atm
+  of nnkCall:
+    callToPyExpr atm
+  of nnkPrefix:
+    nnkPrefix.newTree atm[0], atm[1].toPyExpr
+  of nnkPar:
+    nnkPar.newTree atm[0].toPyExpr
+  of nnkInfix:
+    rewriteEqualMinus atm, equalMinusAs
 
   of nnkTripleStrLit,
       nnkStrLit, nnkRStrLit:
@@ -170,4 +191,13 @@ template toPyExprImpl(atm: NimNode; toListCb): NimNode =
 
 proc toPyExpr*(atm: NimNode): NimNode = toPyExprImpl atm, toList
 proc toPyExprNoList*(atm: NimNode): NimNode = toPyExprImpl atm, rewriteEachEle
+
+proc argInCallToPyExpr(atm: NimNode): NimNode =
+  ## f(x=-1) needs to be rewritten as Call(ExprEqExpr(Ident"x", -1))
+  toPyExprImpl atm, toList, nnkExprEqExpr
+
+proc callToPyExpr*(e): NimNode =
+  result = e.copyNimNode
+  for i in e:
+    result.add i.argInCallToPyExpr
 
