@@ -61,14 +61,18 @@
       <ul class="simple nested-toc-section">getattr
   <li><a class="reference" href="#getattr.m%2C%2Cstatic%5BPyStr%5D" title="getattr(x; attr: static[PyStr]): untyped">getattr(x; attr: static[PyStr]): untyped</a></li>
 <li><a class="reference" href="#getattr.m%2C%2Cstatic%5BPyStr%5D%2C" title="getattr(x; attr: static[PyStr]; default): untyped">getattr(x; attr: static[PyStr]; default): untyped</a></li>
+<li><a class="reference" href="#getattr.m%2C%2Cstatic%5Bstring%5D" title="getattr(x; attr: static[string]): untyped">getattr(x; attr: static[string]): untyped</a></li>
+<li><a class="reference" href="#getattr.m%2C%2Cstatic%5Bstring%5D%2C" title="getattr(x; attr: static[string]; default): untyped">getattr(x; attr: static[string]; default): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">hasattr
   <li><a class="reference" href="#hasattr.m%2C%2Cstatic%5BPyStr%5D" title="hasattr(x; attr: static[PyStr]): bool">hasattr(x; attr: static[PyStr]): bool</a></li>
+<li><a class="reference" href="#hasattr.m%2C%2Cstatic%5Bstring%5D" title="hasattr(x; attr: static[string]): bool">hasattr(x; attr: static[string]): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">setattr
-  <li><a class="reference" href="#setattr.m%2C%2Cstatic%5Bstring%5D%2C" title="setattr(x; attr: static[string]; val)">setattr(x; attr: static[string]; val)</a></li>
+  <li><a class="reference" href="#setattr.m%2C%2Cstatic%5BPyStr%5D%2C" title="setattr(x; attr: static[PyStr]; val)">setattr(x; attr: static[PyStr]; val)</a></li>
+<li><a class="reference" href="#setattr.m%2C%2Cstatic%5Bstring%5D%2C" title="setattr(x; attr: static[string]; val)">setattr(x; attr: static[string]; val)</a></li>
 
 </ul>
 
@@ -101,8 +105,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -111,8 +115,28 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="getattr.m,,static[string]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#getattr.m%2C%2Cstatic%5Bstring%5D"><span class="Identifier">getattr</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">;</span> <span class="Identifier">attr</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="getattr.m,,static[string],">
+  <dt><pre><span class="Keyword">macro</span> <a href="#getattr.m%2C%2Cstatic%5Bstring%5D%2C"><span class="Identifier">getattr</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">;</span> <span class="Identifier">attr</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -124,21 +148,41 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L8" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L8" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="hasattr.m,,static[string]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#hasattr.m%2C%2Cstatic%5Bstring%5D"><span class="Identifier">hasattr</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">;</span> <span class="Identifier">attr</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="setattr-macros-all">
-  <div id="setattr.m,,static[string],">
+  <div id="setattr.m,,static[PyStr],">
+  <dt><pre><span class="Keyword">macro</span> <a href="#setattr.m%2C%2Cstatic%5BPyStr%5D%2C"><span class="Identifier">setattr</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">;</span> <span class="Identifier">attr</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="setattr.m,,static[string],">
   <dt><pre><span class="Keyword">macro</span> <a href="#setattr.m%2C%2Cstatic%5Bstring%5D%2C"><span class="Identifier">setattr</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">;</span> <span class="Identifier">attr</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/attr.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/attr.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -154,7 +198,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-19 03:31:48 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-19 03:41:39 UTC</small>
       </div>
     </div>
   </div>

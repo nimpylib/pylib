@@ -1,6 +1,12 @@
 nimTitle	attr	pylib/builtins/attr.html	module src/pylib/builtins/attr		0
-nim	hasattr	pylib/builtins/attr.html#hasattr.m,,static[PyStr]	macro hasattr(x; attr: static[PyStr]): bool		8
-nim	getattr	pylib/builtins/attr.html#getattr.m,,static[PyStr]	macro getattr(x; attr: static[PyStr]): untyped		12
-nim	getattr	pylib/builtins/attr.html#getattr.m,,static[PyStr],	macro getattr(x; attr: static[PyStr]; default): untyped		15
-nim	setattr	pylib/builtins/attr.html#setattr.m,,static[string],	macro setattr(x; attr: static[string]; val)		22
-nimgrp	getattr	pylib/builtins/attr.html#getattr-macros-all	macro		12
+nim	hasattr	pylib/builtins/attr.html#hasattr.m,,static[string]	macro hasattr(x; attr: static[string]): bool		9
+nim	getattr	pylib/builtins/attr.html#getattr.m,,static[string]	macro getattr(x; attr: static[string]): untyped		13
+nim	getattr	pylib/builtins/attr.html#getattr.m,,static[string],	macro getattr(x; attr: static[string]; default): untyped		16
+nim	setattr	pylib/builtins/attr.html#setattr.m,,static[string],	macro setattr(x; attr: static[string]; val)		26
+nim	hasattr	pylib/builtins/attr.html#hasattr.m,,static[PyStr]	macro hasattr(x; attr: static[PyStr]): bool		9
+nim	getattr	pylib/builtins/attr.html#getattr.m,,static[PyStr]	macro getattr(x; attr: static[PyStr]): untyped		13
+nim	getattr	pylib/builtins/attr.html#getattr.m,,static[PyStr],	macro getattr(x; attr: static[PyStr]; default): untyped		16
+nim	setattr	pylib/builtins/attr.html#setattr.m,,static[PyStr],	macro setattr(x; attr: static[PyStr]; val)		27
+nimgrp	setattr	pylib/builtins/attr.html#setattr-macros-all	macro		23
+nimgrp	hasattr	pylib/builtins/attr.html#hasattr-macros-all	macro		9
+nimgrp	getattr	pylib/builtins/attr.html#getattr-macros-all	macro		13
