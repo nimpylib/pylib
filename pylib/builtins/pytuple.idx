@@ -1,0 +1,2 @@
+nimTitle	pytuple	pylib/builtins/pytuple.html	module src/pylib/builtins/pytuple		0
+nim	items	pylib/builtins/pytuple.html#items.m	macro items(t: tuple): untyped		5

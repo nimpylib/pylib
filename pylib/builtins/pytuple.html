@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>src/pylib/private/trans_imp</title>
+<title>src/pylib/builtins/pytuple</title>
 
 <!-- Google fonts -->
 <link href='https://fonts.googleapis.com/css?family=Lato:400,600,900' rel='stylesheet' type='text/css'/>
@@ -24,7 +24,7 @@
 <body>
   <div class="document" id="documentId">
     <div class="container">
-      <h1 class="title">src/pylib/private/trans_imp</h1>
+      <h1 class="title">src/pylib/builtins/pytuple</h1>
       <div class="row">
   <div class="three columns">
     <div class="theme-select-wrapper">
@@ -55,8 +55,8 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">impExp
-  <li><a class="reference" href="#impExp.m%2C%2Cvarargs%5Buntyped%5D" title="impExp(pre; mods: varargs[untyped])">impExp(pre; mods: varargs[untyped])</a></li>
+      <ul class="simple nested-toc-section">items
+  <li><a class="reference" href="#items.m" title="items(t: tuple): untyped">items(t: tuple): untyped</a></li>
 
 </ul>
 
@@ -68,23 +68,23 @@
 
   </div>
   <div class="nine columns" id="content">
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/private/trans_imp.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/private/trans_imp.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pytuple.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pytuple.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc">import &amp; export helper</p>
+    <p class="module-desc">Currently we just use <tt class="docutils literal"><span class="pre"><span class="Identifier">system</span><span class="Operator">.</span><span class="Keyword">tuple</span></span></tt> for Python's tuple</p>
     <div class="section" id="17">
   <h1><a class="toc-backref" href="#17">Macros</a></h1>
   <dl class="item">
-    <div id="impExp-macros-all">
-  <div id="impExp.m,,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#impExp.m%2C%2Cvarargs%5Buntyped%5D"><span class="Identifier">impExp</span></a><span class="Other">(</span><span class="Identifier">pre</span><span class="Other">;</span> <span class="Identifier">mods</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+    <div id="items-macros-all">
+  <div id="items.m">
+  <dt><pre><span class="Keyword">macro</span> <a href="#items.m"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
-    gen: <tt class="docutils literal"><span class="pre"><span class="Keyword">import</span> <span class="Operator">./</span><span class="Identifier">pre</span><span class="Operator">/</span><span class="Punctuation">[</span><span class="Operator">...</span><span class="Identifier">mods</span><span class="Punctuation">]</span><span class="Punctuation">;</span> <span class="Keyword">export</span> <span class="Operator">...</span><span class="Identifier">mods</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/private/trans_imp.nim#L4" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/private/trans_imp.nim#L4" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pytuple.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pytuple.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -100,7 +100,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-31 23:27:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-31 23:27:53 UTC</small>
       </div>
     </div>
   </div>
