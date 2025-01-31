@@ -6,6 +6,7 @@ import std/hashes
 import std/options
 
 import ../collections_abc
+import ../noneType
 import ./iter_next
 export iter_next.items
 
@@ -55,13 +56,14 @@ template cmpByKey[T](dir, key; a, b: T): T =
 template gen(sym, dir, symName){.dirty.} =
   ## min/max(a, b) is alreadly defined by `system`
   func sym*[T; R](a, b: T; key: PyLibKey[T, R]): T = cmpByKey(dir, key, a, b)
+  func sym*[T](a, b: T; key: NoneType): T = sym(a, b)
 
   func sym*[T](a, b, c: T; args: varargs[T]): T =
     result = sym(sym(a, b), c)
     for i in args: result = sym(result, i)
 
 
-  proc sym*[T](it: Iterable[T]): T =
+  proc sym*[T](it: Iterable[T], key = None): T =
     withoutDefaultImpl sym(result, res.unsafeGet), symName
 
   proc sym*[T; R](it: Iterable[T],
@@ -69,7 +71,7 @@ template gen(sym, dir, symName){.dirty.} =
     withoutDefaultImpl cmpByKey(dir, key, result, res.unsafeGet), symName
 
 
-  proc sym*[T](it: Iterable[T]; default: T): T =
+  proc sym*[T](it: Iterable[T]; default: T, key = None): T =
     withDefaultImpl sym(result, i)
 
   proc sym*[T; R](it: Iterable[T]; default: T;
