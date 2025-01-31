@@ -242,7 +242,7 @@ template iterSortWithKeyImpl[T, K](
   var temp: seq[SortItem[T, K]]
   var mIdx = 0
   for v in source:
-    temp.add SortItem(key: key(v), data:v)
+    temp.add SortItem[typeof(key(v)), typeof(v)](key: key(v), data: v)
     mIdx.inc
   temp.sort(cmp=cmpKey, order=rev2ord(reverse))
   const canSetLen = compiles(target.setLen(1))
@@ -259,12 +259,12 @@ proc sort*[T, K](self: var PyList[T],
   ## list.sort(key, reverse=False)
   seqSortWithKeyImpl[T, K](self, self, reverse, same=true)
 
-func sorted*[T, K](x: Sequence[T],
+proc sorted*[T, K](x: Sequence[T],
     key: proc (x: T): K, reverse=false): PyList[T] =
   result = newPyList[T](len(x))
   seqSortWithKeyImpl[T, K](result, x, reverse, same=false)
 
-func sorted*[T, K](x: not Sequence[T] and Iterable[T],
+proc sorted*[T, K](x: not Sequence[T] and Iterable[T],
     key: proc (x: T): K, reverse=false): PyList[T] =
   result = newPyList[T]()
   iterSortWithKeyImpl[T, K](result, x, reverse)
