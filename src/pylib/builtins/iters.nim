@@ -16,6 +16,7 @@
 import ../collections_abc
 from ../pybool import toBool
 import ./private/iterGen
+import ./iters/mapMacro
 import ./iter_next
 import ../noneType
 export noneType.None
@@ -53,16 +54,24 @@ iterator map*[T, R](function: proc (x: T): R,
   for i in iterable:
     yield function(i)
 
+template genInitor(funcName, Type){.dirty.} =
+  ## used for macro
+  func funcName[T](iter: iterator (): T): Type[T]{.inline.} = Type[T](iter: iter)
+
+genInitor initMap, Map
 #[ XXX: hard to impl, may impl via macro
 iterator map*[T, R](function: proc (xs: varargs[T]): R,
   iterables: varargs[Iterable[T]]): R{.genIter.}
 ]#
+template map*(function: proc, iterables: varargs[typed]): Map =
+  ## `map(f, *iterables)` where iterable has more than one argument
+  bind mapIterBody, initMap
+  initMap(mapIterBody(function, iterables))
 
 type Zip[T] = object
   iter: iterator (): T
 makeIterable Zip
-
-func initZip[T](iter: iterator (): T): Zip[T]{.inline.} = Zip[T](iter: iter)  ## used for `zip macro`
+genInitor initZip, Zip
 
 #[
 XXX: NIM-BUG:
