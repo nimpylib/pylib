@@ -61,9 +61,12 @@ template genInitor(funcName, Type){.dirty.} =
 genInitor initMap, Map
 
 macro map*(function: proc, iterable: typed, iterables: varargs[typed]): Map =
+  ## .. note:: unlike Python, if arguments number does not fit `function`,
+  ##   instead of runtime error compile-time error occurs, in which
+  ##   a generated temporary name `gen_iter_res` will be seen
   let its = nnkBracket.newTree(iterable)
   iterables.copyChildrenTo its
-  newCall(bindSym"initMap", mapIterBodyImpl(function, its))
+  newCall(bindSym"initMap", mapIterBodyImpl(function, its, ident"gen_iter_res"))
 
 type Zip[T] = object
   iter: iterator (): T

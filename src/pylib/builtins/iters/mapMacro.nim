@@ -5,9 +5,11 @@ import ../iter_next
 import ./macroutils
 
 proc mapIterBodyImpl*(f: NimNode #[proc]#,
-    iterables: NimNode #[varargs[typed]#): NimNode =
-
-
+    iterables: NimNode #[varargs[typed]#,
+    res = genSym(nskVar, "res")): NimNode =
+  ## `res`: generated symbol name temporarily storing iteration result
+  ##   and will be used as if `f(*res)` in Python at each loop;
+  ##   do not use `genSym` if wanting simpler err msg for arg num mismatch
   let
     n = iterables.len
     rng = 0..<n
@@ -23,8 +25,6 @@ proc mapIterBodyImpl*(f: NimNode #[proc]#,
     resType.add newCall("typeof", newCall(bindSym"next", it))
   result.add newLetStmt(iters, itersVal)
 
-
-  let res = genSym(nskVar, "res")
   result.add noInitVarDecl(res, resType)
 
   var loopBody = newStmtList()
