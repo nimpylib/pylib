@@ -113,13 +113,21 @@ template gen(sym, dir, symName){.dirty.} =
       let
         obj = args[0]
         res = newCall(symId, kwargs)
+        err = nnkPragma.newTree nnkExprColonExpr.newTree(
+          ident"error",
+          quote do:
+            "TypeError: '" & $typeof(`obj`) & "' object is not iterable"
+        )  # {.error: ... .}
+      # NOTE: do not use `quote do` for pragma directly (like above),        
+      #  which causes error message `lineInfo` pointing here    
+      #  over source code
       return quote do:
         when compiles(`res`):
           # Why not "`obj` of Iterable":
           #   Error (Iterable's generic type has to be explictly written)
           `res`
         else:
-          {.error: "TypeError: '" & $typeof(`obj`) & "' object is not iterable".}
+          `err`
     of 2:
       noDefault kw, symName
 
