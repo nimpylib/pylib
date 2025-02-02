@@ -16,16 +16,7 @@ proc mapIterBodyImpl*(f: NimNode #[proc]#,
   result = newStmtList()
 
   let iters = genSym(nskLet, "iters")
-  var
-    itersVal = newTuple()
-    resType = newTuple()
-  for i in iterables:
-    let it = newCall(bindSym"iter", i)
-    itersVal.add it
-    resType.add newCall("typeof", newCall(bindSym"next", it))
-  result.add newLetStmt(iters, itersVal)
-
-  result.add noInitVarDecl(res, resType)
+  result.addResDecl(iterables, res, iters=iters)
 
   var loopBody = newStmtList()
 
