@@ -30,7 +30,10 @@ template addKeyIfExist(result; kw) =
     result.add nnkExprEqExpr.newTree(keyId, kw[keyId])
 
 type
-  PyLibKey*[T, R] = proc (x: T): R
+  Comparable* = concept a, b
+    ## internal.
+    a < b is bool
+  PyLibKey*[T; C: Comparable] = proc (x: T): C
 
 template withDefaultImpl(resultExpr){.dirty.} =
   result = default
@@ -53,32 +56,40 @@ template cmpByKey[T](dir, key; a, b: T): T =
   if dir(key(a), key(b)): a
   else: b
 
+
 template gen(sym, dir, symName){.dirty.} =
-  ## min/max(a, b) is alreadly defined by `system`
-  func sym*[T; R](a, b: T; key: PyLibKey[T, R]): T = cmpByKey(dir, key, a, b)
-  func sym*[T](a, b: T; key: NoneType): T = sym(a, b)
+  ## min/max(a, b) for builtin types and `not SomeFloat` is alreadly defined by `system`
+  func sym*[T; C](a, b: T; key: PyLibKey[T, C]): T = cmpByKey(dir, key, a, b)
+  func sym*[C: Comparable](a, b: C; key: NoneType): C = sym(a, b)
 
   func sym*[T](a, b, c: T; args: varargs[T]): T =
     result = sym(sym(a, b), c)
     for i in args: result = sym(result, i)
 
 
-  proc sym*[T](it: Iterable[T], key = None): T =
+  proc sym*[C: Comparable](it: Iterable[C], key = None): C =
     withoutDefaultImpl sym(result, res.unsafeGet), symName
 
-  proc sym*[T; R](it: Iterable[T],
-      key: PyLibKey[T, R]): T =
+  proc sym*[T; C](it: Iterable[T],
+      key: PyLibKey[T, C]): T =
     withoutDefaultImpl cmpByKey(dir, key, result, res.unsafeGet), symName
 
 
-  proc sym*[T](it: Iterable[T]; default: T, key = None): T =
+  proc sym*[C: Comparable](it: Iterable[C]; default: C, key = None): C =
     withDefaultImpl sym(result, i)
 
-  proc sym*[T; R](it: Iterable[T]; default: T;
-      key: PyLibKey[T, R]): T =
+  proc sym*[T; C](it: Iterable[T]; default: T;
+      key: PyLibKey[T, C]): T =
     withDefaultImpl cmpByKey(dir, key, result, i)
 
   macro sym*(kwargs: varargs[untyped]): untyped =
+    ## for argument list: `(*args, key)`
+    ## 
+    ## raises *compile-time* `TypeError` when Python does so, in cases:
+    ## 
+    ## - `()`                       # no arg
+    ## - `(arg[, default][, key])`  # only one arg
+    ## - `(*args, default[, key])`  # both args and default are given
     let nka = kwargs.len
 
     var
