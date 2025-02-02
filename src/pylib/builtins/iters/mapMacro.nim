@@ -4,7 +4,10 @@ import ../iter_next
 
 import ./macroutils
 
-macro mapIterBody*(f: proc, iterables: typed): untyped = 
+proc mapIterBodyImpl*(f: NimNode #[proc]#,
+    iterables: NimNode #[varargs[typed]#): NimNode =
+
+
   let
     n = iterables.len
     rng = 0..<n

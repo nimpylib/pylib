@@ -59,14 +59,11 @@ template genInitor(funcName, Type){.dirty.} =
   func funcName[T](iter: iterator (): T): Type[T]{.inline.} = Type[T](iter: iter)
 
 genInitor initMap, Map
-#[ XXX: hard to impl, may impl via macro
-iterator map*[T, R](function: proc (xs: varargs[T]): R,
-  iterables: varargs[Iterable[T]]): R{.genIter.}
-]#
-template map*(function: proc, iterables: varargs[typed]): Map =
-  ## `map(f, *iterables)` where iterable has more than one argument
-  bind mapIterBody, initMap
-  initMap(mapIterBody(function, iterables))
+
+macro map*(function: proc, iterable: typed, iterables: varargs[typed]): Map =
+  let its = nnkBracket.newTree(iterable)
+  iterables.copyChildrenTo its
+  newCall(bindSym"initMap", mapIterBodyImpl(function, its))
 
 type Zip[T] = object
   iter: iterator (): T
