@@ -1,0 +1,2 @@
+nimTitle	mapMacro	_._/builtins/iters/mapMacro.html	module src/pylib/builtins/iters/mapMacro		0
+nim	mapIterBodyImpl	_._/builtins/iters/mapMacro.html#mapIterBodyImpl,NimNode,NimNode	proc mapIterBodyImpl(f: NimNode; iterables: NimNode; res = genSym(nskVar, "res")): NimNode		6

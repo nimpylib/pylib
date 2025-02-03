@@ -1,0 +1,3 @@
+nimTitle	zipMacro	_._/builtins/iters/zipMacro.html	module src/pylib/builtins/iters/zipMacro		0
+nim	raiseZipBound	_._/builtins/iters/zipMacro.html#raiseZipBound,int	proc raiseZipBound(ordLonger: int)		5
+nim	zipIterBodyImpl	_._/builtins/iters/zipMacro.html#zipIterBodyImpl,,NimNode	proc zipIterBodyImpl(iterables: NimNode | seq[NimNode]; strict: NimNode): NimNode		10

@@ -1,0 +1,12 @@
+nimTitle	macroutils	pylib/builtins/iters/macroutils.html	module src/pylib/builtins/iters/macroutils		0
+nim	newTuple	pylib/builtins/iters/macroutils.html#newTuple	proc newTuple(): NimNode		6
+nim	emptyn	pylib/builtins/iters/macroutils.html#emptyn	let emptyn		7
+nim	noInitVarDecl	pylib/builtins/iters/macroutils.html#noInitVarDecl,NimNode,NimNode	proc noInitVarDecl(name, Type: NimNode): NimNode		10
+nim	preferredGenIterResName	pylib/builtins/iters/macroutils.html#preferredGenIterResName	const preferredGenIterResName		14
+nim	addResDecl	pylib/builtins/iters/macroutils.html#addResDecl,NimNode,	proc addResDecl(body: NimNode; iterables: NimNode | seq[NimNode];\n           res = ident preferredGenIterResName; iters = genSym(nskLet, "iters")): NimNode		16
+nim	newLoop	pylib/builtins/iters/macroutils.html#newLoop,NimNode	proc newLoop(body: NimNode): NimNode		33
+nim	newNullaryLambdaIter	pylib/builtins/iters/macroutils.html#newNullaryLambdaIter,NimNode	proc newNullaryLambdaIter(body: NimNode; resType = ident"auto"): NimNode		36
+nim	PreBreakCb	pylib/builtins/iters/macroutils.html#PreBreakCb	type PreBreakCb		39
+nim	addEachIter	pylib/builtins/iters/macroutils.html#addEachIter,NimNode,int,NimNode,NimNode,PreBreakCb	proc addEachIter(loopBody: NimNode; nIt: int; itors, res: NimNode;\n            preBreakCb: PreBreakCb = noopPreBreakCb)		43
+nim	addYield	pylib/builtins/iters/macroutils.html#addYield,NimNode,NimNode	proc addYield(res, dest: NimNode)		55
+nim	addLoopEach	pylib/builtins/iters/macroutils.html#addLoopEach,NimNode,NimNode,,PreBreakCb	proc addLoopEach(loopBody: NimNode; parent: NimNode;\n            iterables: NimNode | seq[NimNode];\n            res = ident preferredGenIterResName;\n            preBreakCb: PreBreakCb = noopPreBreakCb): NimNode		59
