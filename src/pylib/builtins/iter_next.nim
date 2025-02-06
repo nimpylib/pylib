@@ -1,12 +1,12 @@
 ## builtins.iter
 
 import ../collections_abc
+import ../pyerrors/signals
 import std/options
 
 #iterator items*[T](it: PyIterable[T]): T = for i in it.iter: yield i
 
 type
-  StopIteration* = object of CatchableError
   PyIterator*[T] = ref object
     iter: iterator (): T
 
@@ -49,4 +49,5 @@ proc nextImpl*[T](self: PyIterator[T], res: var T): bool{.inline.} =
 proc next*[T](self: PyIterator[T]): T =
   # see manual, sysmte.finished shall validate after a value is getten from iterator.
   if not self.nextImpl result:
-    raise newException(StopIteration, "iterator stop")
+    raise newStopIteration()
+

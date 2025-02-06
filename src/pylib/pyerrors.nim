@@ -3,4 +3,5 @@ import ./private/trans_imp
 
 impExp pyerrors,
   oserr, simperr,
-  rterr, aritherr, unicode_err
+  rterr, signals,
+  aritherr, unicode_err
