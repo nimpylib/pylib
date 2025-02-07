@@ -59,8 +59,9 @@
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#GeneratorExit" title="GeneratorExit = object of CatchableError">GeneratorExit</a></li>
-<li><a class="reference" href="#StopIteration" title="StopIteration[T] = object of CatchableError
-  value*: T                  ## generator return value">StopIteration</a></li>
+<li><a class="reference" href="#StopIteration" title="StopIteration = StopIterationT[NoneType]">StopIteration</a></li>
+<li><a class="reference" href="#StopIterationT" title="StopIterationT[T] = object of CatchableError
+  value*: T                  ## generator return value">StopIterationT</a></li>
 
     </ul>
   </details>
@@ -71,17 +72,17 @@
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">$
   <li><a class="reference" href="#%24%2CStopIteration" title="`$`(self: StopIteration): string">`$`(self: StopIteration): string</a></li>
-<li><a class="reference" href="#%24%2CStopIteration%5BT%5D" title="`$`[T](self: StopIteration[T]): string">`$`[T](self: StopIteration[T]): string</a></li>
+<li><a class="reference" href="#%24%2CStopIterationT" title="`$`(self: StopIterationT): string">`$`(self: StopIterationT): string</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">msg
   <li><a class="reference" href="#msg%2CStopIteration" title="msg(self: StopIteration): string">msg(self: StopIteration): string</a></li>
-<li><a class="reference" href="#msg%2CStopIteration%5BT%5D" title="msg[T](self: StopIteration[T]): string">msg[T](self: StopIteration[T]): string</a></li>
+<li><a class="reference" href="#msg%2CStopIterationT" title="msg(self: StopIterationT): string">msg(self: StopIterationT): string</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">newStopIteration
-  <li><a class="reference" href="#newStopIteration" title="newStopIteration(): StopIteration">newStopIteration(): StopIteration</a></li>
-<li><a class="reference" href="#newStopIteration%2CT" title="newStopIteration[T](value: T): StopIteration[T]">newStopIteration[T](value: T): StopIteration[T]</a></li>
+  <li><a class="reference" href="#newStopIteration" title="newStopIteration(): ref StopIteration">newStopIteration(): ref StopIteration</a></li>
+<li><a class="reference" href="#newStopIteration%2CT" title="newStopIteration[T](value: T): ref StopIterationT[T]">newStopIteration[T](value: T): ref StopIterationT[T]</a></li>
 
 </ul>
 
@@ -113,19 +114,29 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="StopIteration">
-  <dt><pre><a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">CatchableError</span>
-  <span class="Identifier">value</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">T</span>                  <span class="Comment">## generator return value</span></pre></dt>
+  <dt><pre><a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a> <span class="Other">=</span> <a href="signals.html#StopIterationT"><span class="Identifier">StopIterationT</span></a><span class="Other">[</span><a href="../noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">]</span></pre></dt>
   <dd>
     
     <div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
 CPython's StopIteration is not generics, at least as of 3.13</div>
 
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="StopIterationT">
+  <dt><pre><a href="signals.html#StopIterationT"><span class="Identifier">StopIterationT</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">CatchableError</span>
+  <span class="Identifier">value</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">T</span>                  <span class="Comment">## generator return value</span></pre></dt>
+  <dd>
+    
+    EXT. as <tt class="docutils literal"><span class="pre"><span class="Identifier">StopIteraton</span></span></tt>'s <tt class="docutils literal"><span class="pre"><span class="Identifier">value</span></span></tt> was not statically typed in Python, this must be used for those whose <tt class="docutils literal"><span class="pre"><span class="Identifier">value</span></span></tt> is not None
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -139,30 +150,7 @@ CPython's StopIteration is not generics, at least as of 3.13</div>
   <dl class="item">
     <div id="$-procs-all">
   <div id="$,StopIteration">
-  <dt><pre><span class="Keyword">func</span> <a href="#%24%2CStopIteration"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="$,StopIteration[T]">
-  <dt><pre><span class="Keyword">func</span> <a href="#%24%2CStopIteration%5BT%5D"><span class="Identifier">`$`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="msg-procs-all">
-  <div id="msg,StopIteration">
-  <dt><pre><span class="Keyword">func</span> <a href="#msg%2CStopIteration"><span class="Identifier">msg</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#%24%2CStopIteration"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -171,8 +159,8 @@ CPython's StopIteration is not generics, at least as of 3.13</div>
 
   </dd>
 </div>
-<div id="msg,StopIteration[T]">
-  <dt><pre><span class="Keyword">func</span> <a href="#msg%2CStopIteration%5BT%5D"><span class="Identifier">msg</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<div id="$,StopIterationT">
+  <dt><pre><span class="Keyword">func</span> <a href="#%24%2CStopIterationT"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIterationT"><span class="Identifier">StopIterationT</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
@@ -183,24 +171,47 @@ CPython's StopIteration is not generics, at least as of 3.13</div>
 </div>
 
 </div>
-<div id="newStopIteration-procs-all">
-  <div id="newStopIteration">
-  <dt><pre><span class="Keyword">func</span> <a href="#newStopIteration"><span class="Identifier">newStopIteration</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a></pre></dt>
+<div id="msg-procs-all">
+  <div id="msg,StopIteration">
+  <dt><pre><span class="Keyword">func</span> <a href="#msg%2CStopIteration"><span class="Identifier">msg</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="msg,StopIterationT">
+  <dt><pre><span class="Keyword">func</span> <a href="#msg%2CStopIterationT"><span class="Identifier">msg</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="signals.html#StopIterationT"><span class="Identifier">StopIterationT</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="newStopIteration-procs-all">
+  <div id="newStopIteration">
+  <dt><pre><span class="Keyword">func</span> <a href="#newStopIteration"><span class="Identifier">newStopIteration</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ref</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="newStopIteration,T">
-  <dt><pre><span class="Keyword">func</span> <a href="#newStopIteration%2CT"><span class="Identifier">newStopIteration</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#newStopIteration%2CT"><span class="Identifier">newStopIteration</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ref</span> <a href="signals.html#StopIterationT"><span class="Identifier">StopIterationT</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/signals.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/signals.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -216,7 +227,7 @@ CPython's StopIteration is not generics, at least as of 3.13</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-07 07:08:19 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-07 07:48:28 UTC</small>
       </div>
     </div>
   </div>

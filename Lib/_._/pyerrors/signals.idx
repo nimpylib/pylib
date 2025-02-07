@@ -1,12 +1,13 @@
 nimTitle	signals	_._/pyerrors/signals.html	module src/pylib/pyerrors/signals		0
-nim	StopIteration	_._/pyerrors/signals.html#StopIteration	object StopIteration		5
-nim	GeneratorExit	_._/pyerrors/signals.html#GeneratorExit	object GeneratorExit		9
-nim	newStopIteration	_._/pyerrors/signals.html#newStopIteration	proc newStopIteration(): StopIteration		11
-nim	newStopIteration	_._/pyerrors/signals.html#newStopIteration,T	proc newStopIteration[T](value: T): StopIteration[T]		12
-nim	`$`	_._/pyerrors/signals.html#$,StopIteration	proc `$`(self: StopIteration): string		16
-nim	`$`	_._/pyerrors/signals.html#$,StopIteration[T]	proc `$`[T](self: StopIteration[T]): string		17
-nim	msg	_._/pyerrors/signals.html#msg,StopIteration	proc msg(self: StopIteration): string		19
-nim	msg	_._/pyerrors/signals.html#msg,StopIteration[T]	proc msg[T](self: StopIteration[T]): string		20
-nimgrp	msg	_._/pyerrors/signals.html#msg-procs-all	proc		19
-nimgrp	$	_._/pyerrors/signals.html#$-procs-all	proc		16
-nimgrp	newstopiteration	_._/pyerrors/signals.html#newStopIteration-procs-all	proc		11
+nim	StopIterationT	_._/pyerrors/signals.html#StopIterationT	object StopIterationT		5
+nim	StopIteration	_._/pyerrors/signals.html#StopIteration	type StopIteration		9
+nim	GeneratorExit	_._/pyerrors/signals.html#GeneratorExit	object GeneratorExit		12
+nim	newStopIteration	_._/pyerrors/signals.html#newStopIteration	proc newStopIteration(): ref StopIteration		14
+nim	newStopIteration	_._/pyerrors/signals.html#newStopIteration,T	proc newStopIteration[T](value: T): ref StopIterationT[T]		15
+nim	`$`	_._/pyerrors/signals.html#$,StopIteration	proc `$`(self: StopIteration): string		19
+nim	`$`	_._/pyerrors/signals.html#$,StopIterationT	proc `$`(self: StopIterationT): string		20
+nim	msg	_._/pyerrors/signals.html#msg,StopIteration	proc msg(self: StopIteration): string		22
+nim	msg	_._/pyerrors/signals.html#msg,StopIterationT	proc msg(self: StopIterationT): string		23
+nimgrp	msg	_._/pyerrors/signals.html#msg-procs-all	proc		22
+nimgrp	$	_._/pyerrors/signals.html#$-procs-all	proc		19
+nimgrp	newstopiteration	_._/pyerrors/signals.html#newStopIteration-procs-all	proc		14
