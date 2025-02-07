@@ -1,0 +1,9 @@
+nimTitle	asyncs	pylib/collections_abc/asyncs.html	module src/pylib/collections_abc/asyncs		0
+nim	Awaitable	pylib/collections_abc/asyncs.html#Awaitable	type Awaitable		8
+nim	Coroutine	pylib/collections_abc/asyncs.html#Coroutine	type Coroutine		10
+nim	close	pylib/collections_abc/asyncs.html#close,Coroutine	proc close(self: Coroutine)		17
+nim	AsyncIterable	pylib/collections_abc/asyncs.html#AsyncIterable	type AsyncIterable		41
+nim	AsyncIterator	pylib/collections_abc/asyncs.html#AsyncIterator	type AsyncIterator		43
+nim	AsyncGenerator	pylib/collections_abc/asyncs.html#AsyncGenerator	type AsyncGenerator		46
+nim	anext	pylib/collections_abc/asyncs.html#anext.t,AsyncGenerator[T,S,R]	template anext[T, S, R](self: AsyncGenerator[T, S, R]): Awaitable[T]		56
+nim	aclose	pylib/collections_abc/asyncs.html#aclose,AsyncGenerator	proc aclose(self: AsyncGenerator): owned(Future[void])		60

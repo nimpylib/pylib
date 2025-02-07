@@ -1,0 +1,2 @@
+nimTitle	templ	pylib/collections_abc/private/templ.html	module src/pylib/collections_abc/private/templ		0
+nim	closeImpl	pylib/collections_abc/private/templ.html#closeImpl.t,string,	template closeImpl(msg: string; throwBody)		2

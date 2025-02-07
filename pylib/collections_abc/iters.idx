@@ -1,0 +1,3 @@
+nimTitle	iters	pylib/collections_abc/iters.html	module src/pylib/collections_abc/iters		0
+nim	Iterable	pylib/collections_abc/iters.html#Iterable	type Iterable		10
+nim	Iterator	pylib/collections_abc/iters.html#Iterator	type Iterator		22

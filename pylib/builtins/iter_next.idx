@@ -1,5 +1,4 @@
 nimTitle	iter_next	pylib/builtins/iter_next.html	module src/pylib/builtins/iter_next		0
-nim	StopIteration	pylib/builtins/iter_next.html#StopIteration	object StopIteration		9
 nim	PyIterator	pylib/builtins/iter_next.html#PyIterator	type PyIterator		10
 nim	newPyIterator	pylib/builtins/iter_next.html#newPyIterator	proc newPyIterator[T](it: iterator (): T): PyIterator[T]		13
 nim	iter	pylib/builtins/iter_next.html#iter,Iterable[T]	proc iter[T](x: Iterable[T]): PyIterator[T]		17
