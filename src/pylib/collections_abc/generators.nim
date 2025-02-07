@@ -9,7 +9,7 @@ type
       concept self of Iterator[YieldType]
     ## `type( (def _(): yield)() )`
     try: self.send(SendType) is YieldType
-    except StopIteration[ReturnType]: discard
+    except StopIterationT[ReturnType]: discard
     self.throw(CatchableError)
 
 

@@ -1,14 +1,74 @@
+##[
+
+## Coroutine
+
+ref [pep of `Coroutines with async and await syntax`](https://peps.python.org/pep-0492/),
+`Future-like object` is just an alias of `Awaitable`_
+
+```python
+V = 1
+async def f():
+    return V
+
+c: Coroutine[None, None, int] = f()
+
+try: c.send(None)
+except StopIteraion as s: assert V == s.value
+
+try: c.send(None)
+except RuntimeError as e: assert str(e) == "cannot reuse already awaited coroutine"
+
+# Also: V == await f()
+```
+
+
+[pep for Asynchronous Generators](https://peps.python.org/pep-0525/)
+
+## AsyncGenerator
+
+```python
+V = 1
+async def f(): yield V
+ag = f()
+
+ag_asend_obj = ag.asend(None)  #  or `anext(ag)`
+try: ag_asend_obj.send(None)
+except StopIteration as s: assert V == s.value
+
+
+ag_asend_obj = ag.asend(None)  #  or `anext(ag, defval)` if wanting
+# the next `send` raises `StopIteration` and its value to be `defval`
+
+try: ag_asend_obj.send(None)
+except StopAsyncIteration: pass   # iteration end
+
+
+```
+
+for `ag_asend_obj`, ref [link of PyAsyncGenASend](
+https://peps.python.org/pep-0525/#pyasyncgenasend-and-pyasyncgenathrow):
+
+> `PyAsyncGenASend` is a coroutine-like object...
+
+> `PyAsyncGenAThrow` is very similar to `PyAsyncGenASend`.
+The only difference is that `PyAsyncGenAThrow.send()`, when called first time,
+throws an exception into the parent `agen` object
+(instead of pushing a value into it.)
+
+]##
 
 import std/asyncdispatch
 import ../pyerrors/signals
-#import ../builtins/iter_next
+import ../noneType
 import ./private/templ
 
 type
   Awaitable*[T] = concept self
     T is await self
-  Coroutine*[Yield, Send, Return] = concept self of Awaitable[Return]
-    ## `type( (async def _(): pass)() )`
+  Coroutine*[Yield, Send, Return] =
+      concept self of Awaitable[Return]
+    ## `type( (async def _(): return Return() )() )`
+    ## in details: `Coroutine[None, None, Return]`
     self.send(Send) is Yield
     self.throw(CatchableError)
 
@@ -51,7 +111,7 @@ type
       values usable in an async for loop.
     ]##
     self.asend(Send) is Awaitable[Yield]
-    self.athrow(CatchableError) is Awaitable #[void]#
+    self.athrow(CatchableError) is Awaitable[void]
 
 proc anext*[T](self: AsyncGenerator[T]): Awaitable[T]{.inline.} =
   ## this shall be an `async def`

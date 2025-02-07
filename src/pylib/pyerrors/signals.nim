@@ -9,6 +9,7 @@ type
   StopIteration* = StopIterationT[NoneType]
     ## .. note:: CPython's StopIteration is not generics, at least as of 3.13
 
+  StopAsyncIteration* = object of CatchableError
   GeneratorExit* = object of CatchableError
 
 func newStopIteration*(): ref StopIteration = newException(StopIteration, "")
@@ -20,4 +21,4 @@ func `$`*(self: StopIteration): string = ""
 func `$`*(self: StopIterationT): string = $self.value
 
 func msg*(self: StopIteration): string = "StopIteration"
-func msg*(self: StopIterationT): string = "StopIteration" & $self.value
+func msg*(self: StopIterationT): string = "StopIteration: " & $self.value
