@@ -1,5 +1,5 @@
 nimTitle	generators	pylib/collections_abc/generators.html	module src/pylib/collections_abc/generators		0
 nim	Generator	pylib/collections_abc/generators.html#Generator	type Generator		8
-nim	close	pylib/collections_abc/generators.html#close,Generator	proc close(self: Generator)		15
-nim	iter	pylib/collections_abc/generators.html#iter.t,Generator[T,S,R]	template iter[T; S; R](self: Generator[T, S, R]): Iterator[T]		19
-nim	next	pylib/collections_abc/generators.html#next,Generator[T,NoneType,R]	proc next[T; R](self: Generator[T, NoneType, R]): T		20
+nim	close	pylib/collections_abc/generators.html#close,Generator	proc close(self: Generator)		16
+nim	iter	pylib/collections_abc/generators.html#iter.t,Generator[T,S,R]	template iter[T; S; R](self: Generator[T, S, R]): Iterator[T]		20
+nim	next	pylib/collections_abc/generators.html#next,Generator[T,NoneType,R]	proc next[T; R](self: Generator[T, NoneType, R]): T		21
