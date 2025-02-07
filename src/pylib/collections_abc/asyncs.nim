@@ -117,6 +117,20 @@ proc anext*[T](self: AsyncGenerator[T]): Awaitable[T]{.inline.} =
   ## this shall be an `async def`
   self.asend(None)
 
+type anextawaitableobject[T] = object
+  wrapped: AsyncGenerator[T]
+  default_value: T
+
+proc await*[T](self: anextawaitableobject[T]): T = 
+  try:
+    result = await self.wrapped.asend(None)
+  except StopAsyncIteration:
+    #raise newStopIteration(default)
+    result = default
+
+proc anext*[T](self: AsyncGenerator[T], default: T): Awaitable[T]{.inline.} =
+  anextawaitableobject(wrapped: self, default: default)
+
 proc aclose*(self: AsyncGenerator){.async.} =
   closeImpl("asunchronous generator"):
     await self.athrow(GeneratorExit)
