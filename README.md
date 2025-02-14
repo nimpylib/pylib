@@ -13,10 +13,6 @@
 
 Nimpylib is a collection of Python-like operators/functions and libraries as well as syntax sugars.
 
-It helps you to:
-- use Python-like APIs in Nim, without any Python dependency
-- translate your Python program to Nim
-- gain a better view into different behaviors between Python and Nim.
 
 ---
 
@@ -29,6 +25,21 @@ It helps you to:
 [Design Wiki](https://github.com/nimpylib/pylib/wiki/Design)
 
 [Lib Docs]: https://nimpylib.github.io/pylib/Lib
+
+## Why NimPyLib?
+It helps you to:
+- use much Python-like out-of-box API in Nim:
+  - with no need of any Python dependency (neither dynamic library nor binary).
+  - even handy for ones who don't use much Python but want more functions in Nim
+- translate your Python program to Nim:
+  - gaining a right-away speed boot of even 700x
+  - no worry about binary distribution or packaging, just "compile once, distribute everywhere"
+  - rid of many annoying runtime-errors (which are turned to compile-time error)
+- gain a better view into different behaviors between Python and Nim:
+  - `dynamically-typed` vs `statically-typed`
+  - unconvertible syntax from Python to Nim, e.g.
+    [`end` keyword](./doc/mustRewriteExtern/endKeyword.md),
+    [`not in` syntax](./doc/mustRewriteExtern/not-in.md)
 
 ### Backends
 
