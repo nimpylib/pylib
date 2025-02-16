@@ -1,3 +1,5 @@
 nimTitle	pycore_pymath	pylib/builtins/private/pycore_pymath.html	module src/pylib/builtins/private/pycore_pymath		0
-nim	Py_ADJUST_ERANGE1	pylib/builtins/private/pycore_pymath.html#Py_ADJUST_ERANGE1,float	proc Py_ADJUST_ERANGE1(x: float)		9
-nim	Py_ADJUST_ERANGE2	pylib/builtins/private/pycore_pymath.html#Py_ADJUST_ERANGE2,float,float	proc Py_ADJUST_ERANGE2(x, y: float)		37
+nim	Py_ADJUST_ERANGE1	pylib/builtins/private/pycore_pymath.html#Py_ADJUST_ERANGE1,float	proc Py_ADJUST_ERANGE1(x: float)		11
+nim	Py_ADJUST_ERANGE2	pylib/builtins/private/pycore_pymath.html#Py_ADJUST_ERANGE2,float,float	proc Py_ADJUST_ERANGE2(x, y: float)		39
+nim	DOUBLE_IS_LITTLE_ENDIAN_IEEE754	pylib/builtins/private/pycore_pymath.html#DOUBLE_IS_LITTLE_ENDIAN_IEEE754	const DOUBLE_IS_LITTLE_ENDIAN_IEEE754		49
+nim	DOUBLE_IS_BIG_ENDIAN_IEEE754	pylib/builtins/private/pycore_pymath.html#DOUBLE_IS_BIG_ENDIAN_IEEE754	const DOUBLE_IS_BIG_ENDIAN_IEEE754		50

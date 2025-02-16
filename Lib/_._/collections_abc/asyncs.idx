@@ -1,9 +1,14 @@
 nimTitle	asyncs	_._/collections_abc/asyncs.html	module src/pylib/collections_abc/asyncs		0
-nim	Awaitable	_._/collections_abc/asyncs.html#Awaitable	type Awaitable		8
-nim	Coroutine	_._/collections_abc/asyncs.html#Coroutine	type Coroutine		10
-nim	close	_._/collections_abc/asyncs.html#close,Coroutine	proc close(self: Coroutine)		16
-nim	AsyncIterable	_._/collections_abc/asyncs.html#AsyncIterable	type AsyncIterable		40
-nim	AsyncIterator	_._/collections_abc/asyncs.html#AsyncIterator	type AsyncIterator		42
-nim	AsyncGenerator	_._/collections_abc/asyncs.html#AsyncGenerator	type AsyncGenerator		45
-nim	anext	_._/collections_abc/asyncs.html#anext.t,AsyncGenerator[T,S]	template anext[T, S](self: AsyncGenerator[T, S]): Awaitable[T]		56
-nim	aclose	_._/collections_abc/asyncs.html#aclose,AsyncGenerator	proc aclose(self: AsyncGenerator): owned(Future[void])		60
+nim	Awaitable	_._/collections_abc/asyncs.html#Awaitable	type Awaitable		66
+nim	Coroutine	_._/collections_abc/asyncs.html#Coroutine	type Coroutine		68
+nim	close	_._/collections_abc/asyncs.html#close,Coroutine	proc close(self: Coroutine)		76
+nim	AsyncIterable	_._/collections_abc/asyncs.html#AsyncIterable	type AsyncIterable		100
+nim	AsyncIterator	_._/collections_abc/asyncs.html#AsyncIterator	type AsyncIterator		102
+nim	AsyncGenerator	_._/collections_abc/asyncs.html#AsyncGenerator	type AsyncGenerator		105
+nim	anext	_._/collections_abc/asyncs.html#anext,AsyncGenerator[T]	proc anext[T](self: AsyncGenerator[T]): Awaitable[T]		116
+nim	await	_._/collections_abc/asyncs.html#await,anextawaitableobject[T]	proc await[T](self: anextawaitableobject[T]): T		124
+nim	anext	_._/collections_abc/asyncs.html#anext,AsyncGenerator[T],T	proc anext[T](self: AsyncGenerator[T]; default: T): Awaitable[T]		131
+nim	aclose	_._/collections_abc/asyncs.html#aclose,AsyncGenerator	proc aclose(self: AsyncGenerator): owned(Future[void])		134
+nimgrp	anext	_._/collections_abc/asyncs.html#anext-procs-all	proc		116
+heading	Coroutine	_._/collections_abc/asyncs.html#coroutine	  Coroutine		0
+heading	AsyncGenerator	_._/collections_abc/asyncs.html#asyncgenerator	  AsyncGenerator		0

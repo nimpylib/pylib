@@ -1,0 +1,10 @@
+nimTitle	dtoa	pylib/impure/math/dtoa.html	module src/pylib/impure/math/dtoa		0
+nim	ACQUIRE_DTOA_LOCK	pylib/impure/math/dtoa.html#ACQUIRE_DTOA_LOCK,cint	proc ACQUIRE_DTOA_LOCK(n: cint)		14
+nim	FREE_DTOA_LOCK	pylib/impure/math/dtoa.html#FREE_DTOA_LOCK,cint	proc FREE_DTOA_LOCK(n: cint)		15
+nim	getThreadId	pylib/impure/math/dtoa.html#getThreadId	proc getThreadId(): cint		17
+nim	dtoa_r	pylib/impure/math/dtoa.html#dtoa_r,cdouble,cint,cint,cint,cint,cstring,cstring,csize_t	proc dtoa_r(dd: cdouble; mode, ndigits: cint; decpt, sign: var cint;\n       rve: var cstring; buf: cstring; blen: csize_t): cstring		54
+nim	dtoa	pylib/impure/math/dtoa.html#dtoa,cdouble,cint,cint,cint,cint,cstring	proc dtoa(d: cdouble; mode, ndigits: cint; decpt, sign: var cint; rve: var cstring): cstring		63
+nim	strtod	pylib/impure/math/dtoa.html#strtod,cstring,cstring	proc strtod(s00: cstring; se: var cstring): cdouble		71
+nim	strtod	pylib/impure/math/dtoa.html#strtod,cstring,ptr.cstring	proc strtod(s00: cstring; se: ptr cstring): cdouble		77
+nim	freedtoa	pylib/impure/math/dtoa.html#freedtoa,cstring	proc freedtoa(s: cstring)		81
+nimgrp	strtod	pylib/impure/math/dtoa.html#strtod-procs-all	proc		71

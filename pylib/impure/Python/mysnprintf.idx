@@ -1,0 +1,2 @@
+nimTitle	mysnprintf	pylib/impure/Python/mysnprintf.html	module src/pylib/impure/Python/mysnprintf		0
+nim	PyOS_snprintf	pylib/impure/Python/mysnprintf.html#PyOS_snprintf,cstring,	proc PyOS_snprintf(str: cstring; size: csize_t | int): cint		4

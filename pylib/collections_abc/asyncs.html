@@ -51,7 +51,9 @@
       </select>
     </div>
     <ul class="simple simple-toc" id="toc-list">
-  <li>
+  <ul class="simple"><li><a class="reference" id="coroutine_toc" href="#coroutine">Coroutine</a></li>
+<li><a class="reference" id="asyncgenerator_toc" href="#asyncgenerator">AsyncGenerator</a></li>
+</ul><li>
   <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
 </li>
 <li>
@@ -60,7 +62,7 @@
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#AsyncGenerator" title="AsyncGenerator[Yield; Send] = concept selfof AsyncIterator[Yield]
     self.asend(Send) is Awaitable[Yield]
-    self.athrow(CatchableError) is Awaitable">AsyncGenerator</a></li>
+    self.athrow(CatchableError) is Awaitable[void]">AsyncGenerator</a></li>
 <li><a class="reference" href="#AsyncIterable" title="AsyncIterable[T] = concept self
     aiter(self) is AsyncIterator[T]">AsyncIterable</a></li>
 <li><a class="reference" href="#AsyncIterator" title="AsyncIterator[T] = concept selfof AsyncIterable[T]
@@ -82,20 +84,17 @@
   <li><a class="reference" href="#aclose%2CAsyncGenerator" title="aclose(self: AsyncGenerator): owned(Future[void])">aclose(self: AsyncGenerator): owned(Future[void])</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">close
-  <li><a class="reference" href="#close%2CCoroutine" title="close(self: Coroutine)">close(self: Coroutine)</a></li>
+<ul class="simple nested-toc-section">anext
+  <li><a class="reference" href="#anext%2CAsyncGenerator%5BT%5D" title="anext[T](self: AsyncGenerator[T]): Awaitable[T]">anext[T](self: AsyncGenerator[T]): Awaitable[T]</a></li>
+<li><a class="reference" href="#anext%2CAsyncGenerator%5BT%5D%2CT" title="anext[T](self: AsyncGenerator[T]; default: T): Awaitable[T]">anext[T](self: AsyncGenerator[T]; default: T): Awaitable[T]</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">await
+  <li><a class="reference" href="#await%2Canextawaitableobject%5BT%5D" title="await[T](self: anextawaitableobject[T]): T">await[T](self: anextawaitableobject[T]): T</a></li>
 
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
-    <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">anext
-  <li><a class="reference" href="#anext.t%2CAsyncGenerator%5BT%2CS%5D" title="anext[T, S](self: AsyncGenerator[T, S]): Awaitable[T]">anext[T, S](self: AsyncGenerator[T, S]): Awaitable[T]</a></li>
+</ul>
+<ul class="simple nested-toc-section">close
+  <li><a class="reference" href="#close%2CCoroutine" title="close(self: Coroutine)">close(self: Coroutine)</a></li>
 
 </ul>
 
@@ -112,11 +111,47 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc"></p>
+    <p class="module-desc">
+<h2><a class="toc-backref" id="coroutine" href="#coroutine">Coroutine</a></h2><p>ref <a class="reference external" href="https://peps.python.org/pep-0492/">pep of `Coroutines with async and await syntax`</a>, <tt class="docutils literal"><span class="pre"><span class="Identifier">Future</span><span class="Operator">-</span><span class="Identifier">like</span> <span class="Keyword">object</span></span></tt> is just an alias of <a class="reference internal nimdoc" title="type Awaitable" href="#Awaitable">Awaitable</a></p>
+<p><pre class="listing"><span class="Identifier">V</span> <span class="Operator">=</span> <span class="DecNumber">1</span>
+<span class="Keyword">async</span> <span class="Keyword">def</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
+    <span class="Keyword">return</span> <span class="Identifier">V</span>
+
+<span class="Identifier">c</span><span class="Punctuation">:</span> <span class="Identifier">Coroutine</span><span class="Punctuation">[</span><span class="Keyword">None</span><span class="Punctuation">,</span> <span class="Keyword">None</span><span class="Punctuation">,</span> <span class="Identifier">int</span><span class="Punctuation">]</span> <span class="Operator">=</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+
+<span class="Keyword">try</span><span class="Punctuation">:</span> <span class="Identifier">c</span><span class="Operator">.</span><span class="Identifier">send</span><span class="Punctuation">(</span><span class="Keyword">None</span><span class="Punctuation">)</span>
+<span class="Keyword">except</span> <span class="Identifier">StopIteraion</span> <span class="Keyword">as</span> <span class="Identifier">s</span><span class="Punctuation">:</span> <span class="Keyword">assert</span> <span class="Identifier">V</span> <span class="Operator">==</span> <span class="Identifier">s</span><span class="Operator">.</span><span class="Identifier">value</span>
+
+<span class="Keyword">try</span><span class="Punctuation">:</span> <span class="Identifier">c</span><span class="Operator">.</span><span class="Identifier">send</span><span class="Punctuation">(</span><span class="Keyword">None</span><span class="Punctuation">)</span>
+<span class="Keyword">except</span> <span class="Identifier">RuntimeError</span> <span class="Keyword">as</span> <span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Keyword">assert</span> <span class="Identifier">str</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;cannot reuse already awaited coroutine&quot;</span>
+
+<span class="Comment"># Also: V == await f()</span></pre></p>
+<p><a class="reference external" href="https://peps.python.org/pep-0525/">pep for Asynchronous Generators</a></p>
+
+<h2><a class="toc-backref" id="asyncgenerator" href="#asyncgenerator">AsyncGenerator</a></h2><p><pre class="listing"><span class="Identifier">V</span> <span class="Operator">=</span> <span class="DecNumber">1</span>
+<span class="Keyword">async</span> <span class="Keyword">def</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Keyword">yield</span> <span class="Identifier">V</span>
+<span class="Identifier">ag</span> <span class="Operator">=</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+
+<span class="Identifier">ag_asend_obj</span> <span class="Operator">=</span> <span class="Identifier">ag</span><span class="Operator">.</span><span class="Identifier">asend</span><span class="Punctuation">(</span><span class="Keyword">None</span><span class="Punctuation">)</span>  <span class="Comment">#  or `anext(ag)`</span>
+<span class="Keyword">try</span><span class="Punctuation">:</span> <span class="Identifier">ag_asend_obj</span><span class="Operator">.</span><span class="Identifier">send</span><span class="Punctuation">(</span><span class="Keyword">None</span><span class="Punctuation">)</span>
+<span class="Keyword">except</span> <span class="Identifier">StopIteration</span> <span class="Keyword">as</span> <span class="Identifier">s</span><span class="Punctuation">:</span> <span class="Keyword">assert</span> <span class="Identifier">V</span> <span class="Operator">==</span> <span class="Identifier">s</span><span class="Operator">.</span><span class="Identifier">value</span>
+
+
+<span class="Identifier">ag_asend_obj</span> <span class="Operator">=</span> <span class="Identifier">ag</span><span class="Operator">.</span><span class="Identifier">asend</span><span class="Punctuation">(</span><span class="Keyword">None</span><span class="Punctuation">)</span>  <span class="Comment">#  or `anext(ag, defval)` if wanting</span>
+<span class="Comment"># the next `send` raises `StopIteration` and its value to be `defval`</span>
+
+<span class="Keyword">try</span><span class="Punctuation">:</span> <span class="Identifier">ag_asend_obj</span><span class="Operator">.</span><span class="Identifier">send</span><span class="Punctuation">(</span><span class="Keyword">None</span><span class="Punctuation">)</span>
+<span class="Keyword">except</span> <span class="Identifier">StopAsyncIteration</span><span class="Punctuation">:</span> <span class="Keyword">pass</span>   <span class="Comment"># iteration end</span>
+
+</pre></p>
+<p>for <tt class="docutils literal"><span class="pre"><span class="Identifier">ag_asend_obj</span></span></tt>, ref <a class="reference external" href=" https://peps.python.org/pep-0525/#pyasyncgenasend-and-pyasyncgenathrow">link of PyAsyncGenASend</a>:</p>
+<blockquote class="markdown-quote"><p><tt class="docutils literal"><span class="pre"><span class="Identifier">PyAsyncGenASend</span></span></tt> is a coroutine-like object...</p></blockquote>
+<blockquote class="markdown-quote"><p><tt class="docutils literal"><span class="pre"><span class="Identifier">PyAsyncGenAThrow</span></span></tt> is very similar to <tt class="docutils literal"><span class="pre"><span class="Identifier">PyAsyncGenASend</span></span></tt>. The only difference is that <tt class="docutils literal"><span class="pre"><span class="Identifier">PyAsyncGenAThrow</span><span class="Operator">.</span><span class="Identifier">send</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, when called first time, throws an exception into the parent <tt class="docutils literal"><span class="pre"><span class="Identifier">agen</span></span></tt> object (instead of pushing a value into it.)</p></blockquote>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../pyerrors/signals.html">../pyerrors/signals</a>, <a class="reference external" href="private/templ.html">private/templ</a>
+    <a class="reference external" href="../pyerrors/signals.html">../pyerrors/signals</a>, <a class="reference external" href="../noneType.html">../noneType</a>, <a class="reference external" href="private/templ.html">private/templ</a>
   </dl>
 </div>
 <div class="section" id="7">
@@ -125,12 +160,12 @@
     <div id="AsyncGenerator">
   <dt><pre><a href="asyncs.html#AsyncGenerator"><span class="Identifier">AsyncGenerator</span></a><span class="Other">[</span><span class="Identifier">Yield</span><span class="Other">;</span> <span class="Identifier">Send</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">concept</span> <span class="Identifier">self</span><span class="Keyword">of</span> <a href="asyncs.html#AsyncIterator"><span class="Identifier">AsyncIterator</span></a><span class="Other">[</span><span class="Identifier">Yield</span><span class="Other">]</span>
     <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">asend</span><span class="Other">(</span><span class="Identifier">Send</span><span class="Other">)</span> <span class="Identifier">is</span> <a href="asyncs.html#Awaitable"><span class="Identifier">Awaitable</span></a><span class="Other">[</span><span class="Identifier">Yield</span><span class="Other">]</span>
-    <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">athrow</span><span class="Other">(</span><span class="Identifier">CatchableError</span><span class="Other">)</span> <span class="Identifier">is</span> <a href="asyncs.html#Awaitable"><span class="Identifier">Awaitable</span></a></pre></dt>
+    <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">athrow</span><span class="Other">(</span><span class="Identifier">CatchableError</span><span class="Other">)</span> <span class="Identifier">is</span> <a href="asyncs.html#Awaitable"><span class="Identifier">Awaitable</span></a><span class="Other">[</span><span class="Identifier">void</span><span class="Other">]</span></pre></dt>
   <dd>
     
     <tt class="docutils literal"><span class="pre"><span class="Keyword">type</span><span class="Punctuation">(</span> <span class="Punctuation">(</span><span class="Identifier">async</span> <span class="Identifier">_</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Keyword">yield</span><span class="Punctuation">)</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Punctuation">)</span></span></tt> ABC for such a function which returns an asynchronous generator iterator. It looks like a coroutine function defined with async def except that it contains yield expressions for producing a series of values usable in an async for loop. 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L45" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L45" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L105" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L105" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -140,8 +175,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L40" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L40" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -151,8 +186,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L102" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L102" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -162,8 +197,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L8" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L8" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -173,9 +208,9 @@
     <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">throw</span><span class="Other">(</span><span class="Identifier">CatchableError</span><span class="Other">)</span></pre></dt>
   <dd>
     
-    <tt class="docutils literal"><span class="pre"><span class="Keyword">type</span><span class="Punctuation">(</span> <span class="Punctuation">(</span><span class="Identifier">async</span> <span class="Identifier">def</span> <span class="Identifier">_</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">pass</span><span class="Punctuation">)</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Punctuation">)</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <tt class="docutils literal"><span class="pre"><span class="Keyword">type</span><span class="Punctuation">(</span> <span class="Punctuation">(</span><span class="Identifier">async</span> <span class="Identifier">def</span> <span class="Identifier">_</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Keyword">return</span> <span class="Keyword">Return</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Punctuation">)</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Punctuation">)</span></span></tt> in details: <tt class="docutils literal"><span class="pre"><span class="Identifier">Coroutine</span><span class="Punctuation">[</span><span class="Identifier">None</span><span class="Punctuation">,</span> <span class="Identifier">None</span><span class="Punctuation">,</span> <span class="Keyword">Return</span><span class="Punctuation">]</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -191,8 +226,44 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L134" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L134" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="anext-procs-all">
+  <div id="anext,AsyncGenerator[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#anext%2CAsyncGenerator%5BT%5D"><span class="Identifier">anext</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="asyncs.html#AsyncGenerator"><span class="Identifier">AsyncGenerator</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="asyncs.html#Awaitable"><span class="Identifier">Awaitable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    this shall be an <tt class="docutils literal"><span class="pre"><span class="Identifier">async</span> <span class="Identifier">def</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L116" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L116" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="anext,AsyncGenerator[T],T">
+  <dt><pre><span class="Keyword">proc</span> <a href="#anext%2CAsyncGenerator%5BT%5D%2CT"><span class="Identifier">anext</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="asyncs.html#AsyncGenerator"><span class="Identifier">AsyncGenerator</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="asyncs.html#Awaitable"><span class="Identifier">Awaitable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L131" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L131" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="await-procs-all">
+  <div id="await,anextawaitableobject[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#await%2Canextawaitableobject%5BT%5D"><span class="Identifier">await</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">anextawaitableobject</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L124" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L124" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -204,27 +275,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-
-  </dl>
-</div>
-<div class="section" id="18">
-  <h1><a class="toc-backref" href="#18">Templates</a></h1>
-  <dl class="item">
-    <div id="anext-templates-all">
-  <div id="anext.t,AsyncGenerator[T,S]">
-  <dt><pre><span class="Keyword">template</span> <a href="#anext.t%2CAsyncGenerator%5BT%2CS%5D"><span class="Identifier">anext</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">S</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="asyncs.html#AsyncGenerator"><span class="Identifier">AsyncGenerator</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">S</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="asyncs.html#Awaitable"><span class="Identifier">Awaitable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    this shall be an <tt class="docutils literal"><span class="pre"><span class="Identifier">async</span> <span class="Identifier">def</span></span></tt>, here template is used for convenience
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L56" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L56" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/collections_abc/asyncs.nim#L76" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/collections_abc/asyncs.nim#L76" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -240,7 +292,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-07 08:12:40 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-16 21:32:31 UTC</small>
       </div>
     </div>
   </div>

@@ -61,7 +61,7 @@
       <li><a class="reference" href="#Generator" title="Generator[YieldType; SendType; ReturnType] = concept selfof Iterator[YieldType]
     try:
       self.send(SendType) is YieldType
-    except StopIteration[ReturnType]:
+    except StopIterationT[ReturnType]:
       discard
     self.throw(CatchableError)">Generator</a></li>
 
@@ -120,7 +120,7 @@
   <dt><pre><a href="generators.html#Generator"><span class="Identifier">Generator</span></a><span class="Other">[</span><span class="Identifier">YieldType</span><span class="Other">;</span> <span class="Identifier">SendType</span><span class="Other">;</span> <span class="Identifier">ReturnType</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">concept</span> <span class="Identifier">self</span><span class="Keyword">of</span> <a href="iters.html#Iterator"><span class="Identifier">Iterator</span></a><span class="Other">[</span><span class="Identifier">YieldType</span><span class="Other">]</span>
     <span class="Keyword">try</span><span class="Other">:</span>
       <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">send</span><span class="Other">(</span><span class="Identifier">SendType</span><span class="Other">)</span> <span class="Identifier">is</span> <span class="Identifier">YieldType</span>
-    <span class="Keyword">except</span> <a href="../pyerrors/signals.html#StopIteration"><span class="Identifier">StopIteration</span></a><span class="Other">[</span><span class="Identifier">ReturnType</span><span class="Other">]</span><span class="Other">:</span>
+    <span class="Keyword">except</span> <a href="../pyerrors/signals.html#StopIterationT"><span class="Identifier">StopIterationT</span></a><span class="Other">[</span><span class="Identifier">ReturnType</span><span class="Other">]</span><span class="Other">:</span>
       <span class="Keyword">discard</span>
     <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">throw</span><span class="Other">(</span><span class="Identifier">CatchableError</span><span class="Other">)</span></pre></dt>
   <dd>
@@ -192,7 +192,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-07 08:12:40 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-16 21:32:31 UTC</small>
       </div>
     </div>
   </div>

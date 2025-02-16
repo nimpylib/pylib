@@ -1,0 +1,17 @@
+nimTitle	main	pylib/builtins/pyconfig/main.html	module src/pylib/builtins/pyconfig/main		0
+nim	DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754	pylib/builtins/pyconfig/main.html#DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754	const DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754		5
+nim	X87_double_rounding	pylib/builtins/pyconfig/main.html#X87_double_rounding	const X87_double_rounding		19
+nim	HAVE_GCC_ASM_FOR_X87	pylib/builtins/pyconfig/main.html#HAVE_GCC_ASM_FOR_X87	const HAVE_GCC_ASM_FOR_X87		19
+nim	HAVE_GCC_ASM_FOR_MC68881	pylib/builtins/pyconfig/main.html#HAVE_GCC_ASM_FOR_MC68881	const HAVE_GCC_ASM_FOR_MC68881		19
+nim	HAVE_PY_SET_53BIT_PRECISION	pylib/builtins/pyconfig/main.html#HAVE_PY_SET_53BIT_PRECISION.t	template HAVE_PY_SET_53BIT_PRECISION(): bool		90
+nim	Py_SET_53BIT_PRECISION_HEADER	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_HEADER.t	template Py_SET_53BIT_PRECISION_HEADER()		109
+nim	Py_SET_53BIT_PRECISION_START	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_START.t	template Py_SET_53BIT_PRECISION_START()		112
+nim	Py_SET_53BIT_PRECISION_END	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_END.t	template Py_SET_53BIT_PRECISION_END()		117
+nim	HAVE_PY_SET_53BIT_PRECISION	pylib/builtins/pyconfig/main.html#HAVE_PY_SET_53BIT_PRECISION.t_2	template HAVE_PY_SET_53BIT_PRECISION(): bool		161
+nim	Py_SET_53BIT_PRECISION_HEADER	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_HEADER.t_2	template Py_SET_53BIT_PRECISION_HEADER()		163
+nim	Py_SET_53BIT_PRECISION_START	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_START.t_2	template Py_SET_53BIT_PRECISION_START()		165
+nim	Py_SET_53BIT_PRECISION_END	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_END.t_2	template Py_SET_53BIT_PRECISION_END()		173
+nimgrp	Pyset53bitprecisionend	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_END-templates-all	template		117
+nimgrp	Pyset53bitprecisionstart	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_START-templates-all	template		112
+nimgrp	Pyset53bitprecisionheader	pylib/builtins/pyconfig/main.html#Py_SET_53BIT_PRECISION_HEADER-templates-all	template		109
+nimgrp	Havepyset53bitprecision	pylib/builtins/pyconfig/main.html#HAVE_PY_SET_53BIT_PRECISION-templates-all	template		90
