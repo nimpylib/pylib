@@ -1,9 +1,12 @@
 
 import math
-export math.round, math.pow  # pow for float
+export math.pow  # pow for float
 
 import ./modPow
 export modPow.pow
+
+import ./round
+export round.round
 
 func pow*(base, exp, modulo: float): int{.error: 
   "TypeError: pow() 3rd argument not allowed unless all arguments are integers".}
