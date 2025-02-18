@@ -7,13 +7,13 @@ import ../impure/Python/mysnprintf
 # Include/internal/pycore_pymath.h
 
 when compileOption"threads":
-  template createImpl(T, s): untyped = createSharedU(T, s)
+  template allocImpl(T, s): untyped = cast[ptr T](allocShared(s))
   template pyfree(p) = freeShared p
 else:
-  template createImpl(T, s) = createU(T, s)
+  template allocImpl(T, s) = cast[ptr T](alloc(s))
   template pyfree(p) = free p
 
-template pyalloc[T](s): ptr T = createImpl(T, s)
+template pyalloc[T](s): ptr T = allocImpl(T, s)
 template pyallocStr(s): cstring = cast[cstring](pyalloc[cchar](s))
 template pyfreeStr(p) = pyfree cast[ptr cchar](p)
 
