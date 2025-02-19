@@ -3,19 +3,9 @@ from ../Lib/math_impl/errnoUtils import prepareRWErrno, setErrno0, isErr, ERANGE
 import ./pyconfig/main
 import ../impure/math/dtoa
 import ../impure/Python/mysnprintf
+import ../Objects/obmalloc
 
 # Include/internal/pycore_pymath.h
-
-when compileOption"threads":
-  template allocImpl(T, s): untyped = cast[ptr T](allocShared(s))
-  template pyfree(p) = freeShared p
-else:
-  template allocImpl(T, s) = cast[ptr T](alloc(s))
-  template pyfree(p) = free p
-
-template pyalloc[T](s): ptr T = allocImpl(T, s)
-template pyallocStr(s): cstring = cast[cstring](pyalloc[cchar](s))
-template pyfreeStr(p) = pyfree cast[ptr cchar](p)
 
 proc round*(dd: float, ndigits: int): float =
   ##[ /* version of double_round that uses the correctly-rounded string<->double
