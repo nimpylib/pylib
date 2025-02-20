@@ -1,10 +1,12 @@
 
 import ./utils
-const M = int.high
-addPatch((M,M,M), defined(js)):
+addPatch((2,3,1), defined(js)):
   from std/math import isNaN
+  func isFinite(x: float): bool{.importc.} # importjs requires a pattern
   proc `$`*(x: SomeFloat): string =
     if isNaN(x): "nan"
+    elif not isFinite(x):
+      if x > 0: "inf" else: "-inf"
     else: system.`$` x
 
 when not hasBug:
