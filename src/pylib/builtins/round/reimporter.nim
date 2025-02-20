@@ -2,7 +2,7 @@
 template gen(name, lib){.dirty.} =
   template name* = import lib
 
-gen import_pyconfig, ../pyconfig/main
+gen import_pyconfig, ../../pyconfig/main
 gen import_dtoa, ../../impure/math/dtoa
 gen import_obmalloc, ../../Objects/obmalloc
 

@@ -1,7 +1,7 @@
 
 
 from ../../Lib/math_impl/errnoUtils import prepareRWErrno, setErrno, setErrno0, isErr, isErr0, ERANGE, EDOM
-import ../pyconfig/main
+import ../../pyconfig/main
 export DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754
 
 const
