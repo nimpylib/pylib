@@ -1,7 +1,7 @@
 
 
 import std/math   # math.round
-from ../Lib/math_impl/isX import isfinite
+from ./reimporter import isfinite
 
 proc round*(x: float, ndigits: int): float =
   ##[ fallback version, to be used when correctly rounded binary<->decimal

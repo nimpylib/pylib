@@ -3,37 +3,14 @@ import std/fenv
 import std/math   # math.round, classify, FloatClass
 from ../Lib/math_impl/isX import isfinite
 import ./private/pycore_pymath
+import ./round/no_ndigit
+export no_ndigit.round
 
-template chkAsPy[F](x: F) =
-  ## used to keep along with Python's error handle
-  ## check if x can be converted to PyLong
-  template err(f) = raise newException(ValueError, "cannot convert float " & f & " to integer")
-  case x.classify
-  of fcNan: err "NaN"
-  of fcInf, fcNegInf: err "infinity"
-  else: discard
-
-func round*[F: SomeFloat](x: F): F =
-  ## if two multiples are equally close, rounding is done toward the even choice
-  ##   a.k.a.round-to-even
-  ## 
-  ## .. hint:: Nim's `round` in `std/math` just does like C's round
-  ## 
-  runnableExamples:
-    assert round(6.5) == 6
-    assert round(7.5) == 8
-  result = math.round(x)
-  if abs(x-result) == 0.5:
-    # halfway case: round to even
-    result = 2.0*round(x/2.0)
-
-    # return PyLong_FromDouble....
-    result.chkAsPy
 const weirdTarget = defined(nimscript) or defined(js)
 when not weirdTarget and PY_SHORT_FLOAT_REPR:
-  import ./round_PY_SHORT_FLOAT_REPR as impl  # not support JS yet
+  import ./round/PY_SHORT_FLOAT_REPR as impl  # not support JS yet
 else:
-  import ./round_NOT_PY_SHORT_FLOAT_REPR as impl
+  import ./round/NOT_PY_SHORT_FLOAT_REPR as impl
 
 type F = float
 proc round*(x: F, ndigit: int): F =

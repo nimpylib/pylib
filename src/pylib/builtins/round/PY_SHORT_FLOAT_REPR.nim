@@ -1,9 +1,9 @@
 
-from ../Lib/math_impl/errnoUtils import prepareRWErrno, setErrno0, isErr, ERANGE
-import ./pyconfig/main
-import ../impure/math/dtoa
-import ../impure/Python/mysnprintf
-import ../Objects/obmalloc
+import ./reimporter
+
+import_pyconfig
+import_dtoa
+import_obmalloc
 
 # Include/internal/pycore_pymath.h
 
