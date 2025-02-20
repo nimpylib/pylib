@@ -29,9 +29,9 @@ func round*[F: SomeFloat](x: F): F =
 
     # return PyLong_FromDouble....
     result.chkAsPy
-
-when PY_SHORT_FLOAT_REPR:
-  import ./round_PY_SHORT_FLOAT_REPR as impl
+const weirdTarget = defined(nimscript) or defined(js)
+when not weirdTarget and PY_SHORT_FLOAT_REPR:
+  import ./round_PY_SHORT_FLOAT_REPR as impl  # not support JS yet
 else:
   import ./round_NOT_PY_SHORT_FLOAT_REPR as impl
 
