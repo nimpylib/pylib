@@ -2,7 +2,7 @@
   We use origin dtoa.c over Python's
 ]##
 
-import ../../builtins/private/pycore_pymath
+import ../../pyconfig/pycore/pymath
 
 const threads = compileOption("threads")
 when threads:
