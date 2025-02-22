@@ -1,5 +1,5 @@
 
-import ./nitertools
+import ./n_itertools
 import ../builtins/list
 import ../collections_abc
 

@@ -1,7 +1,7 @@
 
 import std/sequtils
 
-template combinationsImpl[T](iterable: seq[T], r: int, initCollectionMayOfCap, addToCollection) =
+template combinationsImpl[T](iterable: openArray[T], r: int, initCollectionMayOfCap, addToCollection) =
   ## translated from
   ## https://docs.python.org/3/library/itertools.html#itertools.combinations
   
@@ -43,7 +43,7 @@ template combinationsImpl[T](iterable: seq[T], r: int, initCollectionMayOfCap, a
       yieldPoolByIndices
 
 
-iterator combinationsSeq*[T](iterable: seq[T], r: int): seq[T] =
+iterator combinationsSeq*[T](iterable: openArray[T], r: int): seq[T] =
   combinationsImpl(iterable, r, newSeqOfCap, add)
 
 
