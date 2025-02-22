@@ -15,7 +15,7 @@
 
 import ../collections_abc
 from ../pybool import toBool
-import ./private/iterGen
+import ../private/iterGen
 import ./iters/[mapMacro, zipMacro]
 import ./iter_next
 import ../noneType
