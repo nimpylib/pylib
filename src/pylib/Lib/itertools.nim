@@ -1,27 +1,29 @@
 
+from std/sequtils import toSeq
 import ./n_itertools
 import ../builtins/list
+import ../private/iterGen
 import ../collections_abc
 
-iterator combinations*[T](iterable: Iterable[T], r: int): PyList[T] =
+template asgnToSeq[T](sequ; it: Iterable[T]){.dirty.} =
+  when compiles(it.toSeq):
+    sequ = it.toSeq
+  else:
+    when compiles(iterable.len):
+      sequ = newSeqOfCap(iterable.len)
+    for i in iterable:
+      sequ.add i
+
+iterator combinations*[T](iterable: Iterable[T], r: int): PyList[T]{.genIter.} =
   ## XXX: yield list instead of tuple
   var sequ: seq[T]
-  when compiles(iterable.len):
-    sequ = newSeqOfCap(iterable.len)
-  for i in iterable:
-    sequ.add i
-  for s in combinationsSeq(sequ, r):
+  asgnToSeq sequ, iterable
+  for s in n_itertools.combinations(sequ, r):
     yield newPyList(s)
 
-type
-  combinationsobject[T] = ref object
-    iter: iterator (): PyList[T]
-
-iterator items*[T](self: combinationsobject[T]): PyList[T] =
-  for i in self.iter: yield i
-
-func combinations*[T](iterable: Iterable[T], r: int): combinationsobject[T] =
-  new result
-  result.iter = iterator () =
-    for i in combinations(iterable, r): yield i
+iterator accumulate*[T](iterable: Iterable[T],
+    binop: BinOp[T] = add[T]; inital = mayZeroDefault(T)): T{.genIter.} =
+  var sequ: seq[T]
+  asgnToSeq sequ, iterable
+  n_itertools.accumulate(sequ, binop, inital)
 
