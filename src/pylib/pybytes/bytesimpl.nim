@@ -1,5 +1,6 @@
 
 import ../collections_abc
+import ../nimpatch/newUninit
 
 type
   PyBytes* = distinct string
@@ -8,13 +9,13 @@ func bytes*(): PyBytes = PyBytes ""
 func bytes*(s: sink string): PyBytes{.inline.} = PyBytes s  ## XXX: Currently no 
                                              ## `encode` and `errors` params
 
-func bytes*(s: openArray[char]): PyBytes =
+func bytes*(s: openArray[char|uint8]): PyBytes =
   ## EXT.
   ## 
   ## Python has no concept of openArray
-  var res = newString s.len
+  var res = newStringUninit s.len
   for i, c in s:
-    res[i] = c
+    res[i] = char(c)
   bytes res
 
 func bytes*(c: char): PyBytes = PyBytes $c
@@ -36,7 +37,7 @@ func getCharPtr*(self; i: Natural|BackwardsIndex): ptr char =
 func add(mself; s: string){.borrow.} # inner use
 func add(mself; s: char){.borrow.}   # inner use
 
-func bytes*(x: Iterable[int]): PyBytes =
+func bytes*(x: Iterable[SomeInteger]): PyBytes =
   for i in x:
     result.add char(i)
 
