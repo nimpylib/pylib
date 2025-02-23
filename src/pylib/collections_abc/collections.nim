@@ -50,6 +50,21 @@ func count*[T](s: Sequence[T], x: T): int =
     if i == x:
       result.inc
 
+template useOr(use, els): untyped =
+  when compiles(use): use
+  else: els
+
+template newSeqMayUninit[T](len): seq[T] =
+  useOr newSeqUninit[T](len), newSeq[T](len)
+
+func `@`*[T](s: Sequence[T]): seq[T]{.noInit, inline.} =
+  ## EXT. stable.
+  result = newSeqMayUninit[T](s.len)
+  var i = 0
+  for ele in s:
+    result[i] = ele
+    i.inc
+
 func append*[T](ms: MutableSequence[T], x: T) =
   ms.insert(ms.len, x)
 
