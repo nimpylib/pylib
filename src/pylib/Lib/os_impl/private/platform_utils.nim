@@ -27,3 +27,8 @@ template platformAvail*(platform; def) =
   ## that can be put within `defined`.
   bind platformAvailImpl
   platformAvailImpl(defined(platform), astToStr(platform), def)
+
+template platformAvailWhen*(platform; cond: static[bool]; def) =
+  bind platformAvailImpl
+  platformAvailImpl(defined(platform) and cond,
+    astToStr(platform) & " when " & astToStr(cond), def)
