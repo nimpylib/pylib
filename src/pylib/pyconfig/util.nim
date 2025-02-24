@@ -25,3 +25,27 @@ template decl_ac_impl(subcmd; variable; defval; code) =
 
 template AC_LINK_IFELSE*(variable, defval, code) = decl_ac_impl('c', variable, defval, code)
 template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl('r', variable, defval, code)
+
+template c_defined*(variable; c_macro: string; headers: openArray = []) =
+  const Pre =
+    static:
+      var pre = "/*INCLUDESECTION*/\n"
+      pre.add "#include <stdlib.h>\n"
+      for h in headers:
+        pre.add "#include "
+        pre.add h
+        pre.add "\n"
+      pre
+  AC_RUN_IFELSE variable, false:
+    {.emit: Pre.}
+    proc main{.noReturn.} = {.emit:
+      """
+    exit(
+  #if defined(""" & c_macro & """)
+      1
+  #else
+      0
+  #endif
+    );
+  """.}
+    main()
