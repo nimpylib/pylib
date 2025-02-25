@@ -112,12 +112,12 @@ func getrandbits_impl[Seq: seq[U8]|string](self; k: int; res: var Seq) =
   res.fromU32s wordarray
 
 genGbls:
-  func randbytes*(self; n: int): string =
+  method randbytes*(self; n: int): string{.base.} =
     ## `return self.getrandbits(n * 8).to_bytes(n, 'little')`
     ## here we use `_random_Random_getrandbits_impl`
     self.getrandbits_impl n*8, result
 
-  func getrandbits*(self; k: int): int =
+  method getrandbits*(self; k: int): int{.base.} =
     ## `_random_Random_getrandbits_impl`
     ## 
     ## .. hint::

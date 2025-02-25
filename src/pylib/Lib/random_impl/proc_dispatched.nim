@@ -1,6 +1,7 @@
 ## functions and methods that can be directly dispatched to `std/random`
 
 import std/random
+import std/options
 import ./gstate
 import ./macroutils
 import ./justLessThanOneConst
@@ -13,8 +14,11 @@ proc getstate*(): PyRandomState = gRand
 proc setstate*(state: PyRandomState) = gRand = state
 
 genGbls:
-  proc seed*(self) = self.setstate initRand()
-  func seed*(self; val: SomeInteger) = rnd.initRand int64 val
+  method seed*(self; val = none(int64)){.base.} =
+    self.setstate(
+      if val.isNone: initRand()
+      else: initRand int64 val.unsafeGet
+    )
 
   func choice*[T](self; data: openArray[T]): T = rnd.sample(data)
 
@@ -28,7 +32,7 @@ genGbls:
 
   #template randrange*[T: SomeInteger](start, stop: T; step: int): T =
 
-  func random*(self): float = rnd.rand justLessThanOne
+  method random*(self): float{.base.} = rnd.rand justLessThanOne
 
   func uniform*(self; a, b: float): float = rnd.rand a..b
   

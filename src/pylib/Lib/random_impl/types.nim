@@ -2,7 +2,7 @@
 import std/random
 
 type
-  PyRandom* = ref object
+  PyRandom* = ref object of RootObj
     state: Rand
 
 template newPyRandom(r: Rand): PyRandom = PyRandom(state: r)
@@ -12,9 +12,9 @@ proc Random*(x: int64): PyRandom = newPyRandom initRand(x)
 
 type PyRandomState* = Rand  ## unstable.
 using self: PyRandom
-proc getstate*(self): PyRandomState = self.state
+method getstate*(self): PyRandomState{.base.} = self.state
 proc getmstate*(self): var PyRandomState =
   ## unstable. inner. Do not use
   self.state
-proc setstate*(self; state: PyRandomState) = self.state = state
+method setstate*(self; state: PyRandomState){.base.} = self.state = state
 

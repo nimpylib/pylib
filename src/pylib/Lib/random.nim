@@ -22,6 +22,9 @@ using self: PyRandom
 export n_random except randbytes, choices, triangular
 
 genGbls:
+  proc seed*(self; _: NoneType) = self.seed()
+  proc seed*(self; val: int64) = self.seed(some(val))
+
   func randbytes*(self; n: int): PyBytes{.pysince(3,9).} =
     bytes n_random.randbytes(self, n)
 
