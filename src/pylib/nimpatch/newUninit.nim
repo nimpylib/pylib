@@ -15,3 +15,7 @@ addPatch((2,1,1), true):
       newSeq[T](len)
   
   proc setLenUninit*[T](s: var seq[T], newlen: Natural) = s.setLen newLen
+
+when (defined(js) or defined(nims)) and
+    not declared(setLenUninit):  # XXX: currently (as of 2.3.1), no such for JS
+  proc setLenUninit*[T](s: var seq[T], newlen: Natural) = s.setLen newLen

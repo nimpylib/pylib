@@ -57,7 +57,10 @@ throws an exception into the parent `agen` object
 
 ]##
 
-import std/asyncdispatch
+
+import std/asyncfutures
+import std/asyncmacro
+
 import ../pyerrors/signals
 import ../noneType
 import ./private/templ
