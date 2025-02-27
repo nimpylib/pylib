@@ -19,10 +19,16 @@ proc key_to_cmp[T, R](k: Key[T, R]): Cmp[T, RI] =
     elif a > b: 1
     else: -1    
 
-  
+##[ NIM-BUG:
+if using `hi=len(a)`:
+system.nim(667, 41)
+`func len*[TOpenArray: openArray|varargs](x: TOpenArray): int {.magic: "LengthOpenArray".}`
+Error: invalid type: 'T' in this context: 'proc (x: openArray[T]): int{.noSideEffect, gcsafe.}' for proc
+]##
+
 template genbi(name, nimName){.dirty.} =
-  proc name*[T](a: openArray[T]; x: T; lo=0; hi=len(a)): int = nimName a[lo..<hi], x
-  proc name*[T, K](a: openArray[T]; x: K; lo=0; hi=len(a); key: Key[T, K]): int =
+  proc name*[T](a: openArray[T]; x: T; lo=0; hi=a.len): int = nimName a[lo..<hi], x
+  proc name*[T, K](a: openArray[T]; x: K; lo=0; hi=a.len; key: Key[T, K]): int =
     nimName a[lo..<hi], x, key_to_cmp key
 
 genbi bisect, lowerBound
