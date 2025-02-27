@@ -1,4 +1,8 @@
 
+import pylib/builtins
+import std/unittest
+
+
 test "int(x[, base])":
   let i = int("12")
   check i == 12
