@@ -22,11 +22,12 @@ func genGblImpl(decl: NimNode): NimNode =
   assert params[1][0].eqIdent "self", $params[1][0]
   params.del 1
 
-  const gName = "gRand"
+  const gName = "gRandom"
   var body = newStmtList nnkBindStmt.newTree(bindSym(gName), name)
   var call = newCall(name, ident(gName))
   for i in 1..<params.len:
-    call.add params[i][0]
+    for j in 0..<params[i].len-2:  # the last two is Type-Ident, Pragma
+      call.add params[i][j]
   body.add call
 
   var gbl = newProc(name.mkExported, params, body, nnkTemplateDef, decl[2])
