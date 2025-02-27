@@ -19,9 +19,11 @@ func int*(a: PyStr|PyBytes): NimInt =
   if ni == 0:
     invalidInt(repr(a), 10)
 
-template int*(a: char): NimInt =
-  bind parseInt
-  parseInt($a)
+func int*(a: char): NimInt =
+  result = system.int(a) -% system.int('0')  # never overflow, so use `-%`
+  if result not_in 0..9:
+    invalidInt(repr(a), 10)
+
 template int*(a: bool): NimInt = (if a: 1 else: 0)
 template int*(f: float): NimInt = system.int(f)
 
