@@ -22,7 +22,7 @@ iterator combinations*[T](iterable: Iterable[T], r: int): PyList[T]{.genIter.} =
     yield newPyList(s)
 
 iterator accumulate*[T](iterable: Iterable[T],
-    binop: BinOp[T] = add[T]; inital = mayZeroDefault(T)): T{.genIter.} =
+    binop: BinOp[T] = binOpAdd; inital = mayZeroDefault(T)): T{.genIter.} =
   var sequ: seq[T]
   asgnToSeq sequ, iterable
   n_itertools.accumulate(sequ, binop, inital)

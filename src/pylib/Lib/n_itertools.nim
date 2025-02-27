@@ -51,9 +51,10 @@ template mayZeroDefault*[T](t: typedesc[T]): T =
   when declared(zeroDefault): zeroDefault(T)
   else: default(T)
 
-proc add*[T](x, y: T): T{.inline.} = x + y
+proc binOpAdd*[T](x, y: T): T = x + y
 type BinOp*[T] = proc (x, y: T): T
-iterator accumulate*[T](iterable: openArray[T], binop: BinOp[T] = add[T]; inital = mayZeroDefault(T)): T =
+iterator accumulate*[T](iterable: openArray[T], binop: BinOp[T] = binOpAdd;
+    inital = mayZeroDefault(T)): T =
   var total = inital
   for i in iterable:
     total = binop(total, i)
