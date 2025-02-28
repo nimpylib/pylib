@@ -90,15 +90,14 @@ func fromU32s(res: var string; wordarray: openArray[uint32]) =
   res = newStringMayUninit wordarray.len * bytePerWord
   res.fromU32sImpl wordarray
 
-func getrandbits_impl[Seq: seq[U8]|string](self; k: int; res: var Seq) =
+func getrandbits_impl(self; k: int): seq[uint32] =
   ## `_random_Random_getrandbits_impl` but returns seq
   if k <= 32:
-    res.fromU32s [genrand_uint32(self) shr (32 - k)]
-    return
+    return @[genrand_uint32(self) shr (32 - k)]
 
   let words = (k - 1) div 32 + 1
 
-  var wordarray = newSeqMayUninit[uint32](words * 4)
+  result = newSeqMayUninit[uint32](words * 4)
 
   var k = k
   template rng: untyped =
@@ -109,16 +108,14 @@ func getrandbits_impl[Seq: seq[U8]|string](self; k: int; res: var Seq) =
     var r = genrand_uint32(self)
     if k < 32:
       r = r shr (32 - k)
-    wordarray[i] = r
+    result[i] = r
     k.dec 32
-
-  res.fromU32s wordarray
 
 genGbls:
   method randbytes*(self; n: int): string{.base.} =
     ## `return self.getrandbits(n * 8).to_bytes(n, 'little')`
     ## here we use `_random_Random_getrandbits_impl`
-    self.getrandbits_impl n*8, result
+    result.fromU32s self.getrandbits_impl n*8
 
   method getrandbits*(self; k: int): int{.base.} =
     ## `_random_Random_getrandbits_impl`
@@ -134,7 +131,7 @@ genGbls:
     assert k < MaxBit
 
     var res: seq[uint8]
-    self.getrandbits_impl k, res
+    res.fromU32s self.getrandbits_impl k
     res.setLen MaxSize
     result = cast[ptr R](res[0].addr)[]
     when PyLittleEndian:
