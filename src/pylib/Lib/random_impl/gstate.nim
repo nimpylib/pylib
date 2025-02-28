@@ -2,7 +2,7 @@
 import ./types
 export types
 
-var gRandom = Random()
+var gRandom* = Random()
 
 template gRand*: untyped =
   bind gRandom, getmstate
