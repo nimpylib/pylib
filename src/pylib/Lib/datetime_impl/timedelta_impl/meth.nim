@@ -92,6 +92,7 @@ const e6int = BiggestInt 1_000_000
 func timedelta*(
     days: FI = 0, seconds: FI = 0, microseconds: FI = 0,
     milliseconds: FI = 0, minutes: FI = 0, hours: FI = 0, weeks: FI = 0): timedelta =
+  bind round  # or js backend will fail due to ambiguous call
   var leftover_us = 0.0
   var x: IntS
   x.accumByFactors(leftover_us,
