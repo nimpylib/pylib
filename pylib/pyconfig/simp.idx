@@ -1,0 +1,3 @@
+nimTitle	simp	pylib/pyconfig/simp.html	module src/pylib/pyconfig/simp		0
+nim	Py_USING_MEMORY_DEBUGGER	pylib/pyconfig/simp.html#Py_USING_MEMORY_DEBUGGER	const Py_USING_MEMORY_DEBUGGER		3
+nim	Py_GIL_DISABLED	pylib/pyconfig/simp.html#Py_GIL_DISABLED	const Py_GIL_DISABLED		4

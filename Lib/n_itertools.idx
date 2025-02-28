@@ -1,0 +1,6 @@
+nimTitle	n_itertools	n_itertools.html	module src/pylib/Lib/n_itertools		0
+nim	combinations	n_itertools.html#combinations.i,openArray[T],int	iterator combinations[T](iterable: openArray[T]; r: int): seq[T]		46
+nim	mayZeroDefault	n_itertools.html#mayZeroDefault.t,typedesc[T]	template mayZeroDefault[T](t: typedesc[T]): T		50
+nim	binOpAdd	n_itertools.html#binOpAdd,T,T	proc binOpAdd[T](x, y: T): T		54
+nim	BinOp	n_itertools.html#BinOp	type BinOp		55
+nim	accumulate	n_itertools.html#accumulate.i,openArray[T],BinOp[T],typeof(mayZeroDefault(T))	iterator accumulate[T](iterable: openArray[T]; binop: BinOp[T] = binOpAdd;\n              inital = mayZeroDefault(T)): T		56

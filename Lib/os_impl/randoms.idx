@@ -1,0 +1,3 @@
+nimTitle	randoms	os_impl/randoms.html	module src/pylib/Lib/os_impl/randoms		0
+nim	urandom	os_impl/randoms.html#urandom,int	proc urandom(size: int): seq[uint8]		48
+nim	getrandom	os_impl/randoms.html#getrandom,int,int	proc getrandom(size: int; flags = 0): seq[uint8]		78

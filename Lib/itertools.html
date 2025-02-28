@@ -58,8 +58,14 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">combinations
-  <li><a class="reference" href="#combinations%2CIterable%5BT%5D%2Cint" title="combinations[T](iterable: Iterable[T]; r: int): combinationsobject[T]">combinations[T](iterable: Iterable[T]; r: int): combinationsobject[T]</a></li>
+      <ul class="simple nested-toc-section">accumulate
+  <li><a class="reference" href="#accumulate%2CIterable%5BT%5D%2CBinOp%5BT%5D%2Ctypeof%28mayZeroDefault%28T%29%29" title="accumulate[T](iterable: Iterable[T]; binop: BinOp[T] = binOpAdd;
+              inital = mayZeroDefault(T)): Accumulate[T]">accumulate[T](iterable: Iterable[T]; binop: BinOp[T] = binOpAdd;
+              inital = mayZeroDefault(T)): Accumulate[T]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">combinations
+  <li><a class="reference" href="#combinations%2CIterable%5BT%5D%2Cint" title="combinations[T](iterable: Iterable[T]; r: int): Combinations[T]">combinations[T](iterable: Iterable[T]; r: int): Combinations[T]</a></li>
 
 </ul>
 
@@ -70,12 +76,19 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#15" id="65">Iterators</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">combinations
+      <ul class="simple nested-toc-section">accumulate
+  <li><a class="reference" href="#accumulate.i%2CIterable%5BT%5D%2CBinOp%5BT%5D%2Ctypeof%28mayZeroDefault%28T%29%29" title="accumulate[T](iterable: Iterable[T]; binop: BinOp[T] = binOpAdd;
+              inital = mayZeroDefault(T)): T">accumulate[T](iterable: Iterable[T]; binop: BinOp[T] = binOpAdd;
+              inital = mayZeroDefault(T)): T</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">combinations
   <li><a class="reference" href="#combinations.i%2CIterable%5BT%5D%2Cint" title="combinations[T](iterable: Iterable[T]; r: int): PyList[T]">combinations[T](iterable: Iterable[T]; r: int): PyList[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">items
-  <li><a class="reference" href="#items.i%2Ccombinationsobject%5BT%5D" title="items[T](self: combinationsobject[T]): PyList[T]">items[T](self: combinationsobject[T]): PyList[T]</a></li>
+  <li><a class="reference" href="#items.i%2CAccumulate%5BT%5D" title="items[T](x: Accumulate[T]): T">items[T](x: Accumulate[T]): T</a></li>
+<li><a class="reference" href="#items.i%2CCombinations%5BT%5D" title="items[T](x: Combinations[T]): T">items[T](x: Combinations[T]): T</a></li>
 
 </ul>
 
@@ -96,20 +109,34 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="nitertools.html">nitertools</a>, <a class="reference external" href="list.html">list</a>, <a class="reference external" href="collections_abc.html">collections_abc</a>
+    <a class="reference external" href="n_itertools.html">n_itertools</a>, <a class="reference external" href="list.html">list</a>, <a class="reference external" href="iterGen.html">iterGen</a>, <a class="reference external" href="collections_abc.html">collections_abc</a>
   </dl>
 </div>
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="combinations-procs-all">
-  <div id="combinations,Iterable[T],int">
-  <dt><pre><span class="Keyword">func</span> <a href="#combinations%2CIterable%5BT%5D%2Cint"><span class="Identifier">combinations</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <a href="iters.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">r</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">combinationsobject</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+    <div id="accumulate-procs-all">
+  <div id="accumulate,Iterable[T],BinOp[T],typeof(mayZeroDefault(T))">
+  <dt><pre><span class="Keyword">func</span> <a href="#accumulate%2CIterable%5BT%5D%2CBinOp%5BT%5D%2Ctypeof%28mayZeroDefault%28T%29%29"><span class="Identifier">accumulate</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <a href="iters.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">binop</span><span class="Other">:</span> <a href="n_itertools.html#BinOp"><span class="Identifier">BinOp</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">binOpAdd</span><span class="Other">;</span>
+                   <span class="Identifier">inital</span> <span class="Other">=</span> <span class="Identifier">mayZeroDefault</span><span class="Other">(</span><span class="Identifier">T</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Accumulate</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="combinations-procs-all">
+  <div id="combinations,Iterable[T],int">
+  <dt><pre><span class="Keyword">func</span> <a href="#combinations%2CIterable%5BT%5D%2Cint"><span class="Identifier">combinations</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <a href="iters.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">r</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Combinations</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -121,27 +148,51 @@
 <div class="section" id="15">
   <h1><a class="toc-backref" href="#15">Iterators</a></h1>
   <dl class="item">
-    <div id="combinations-iterators-all">
+    <div id="accumulate-iterators-all">
+  <div id="accumulate.i,Iterable[T],BinOp[T],typeof(mayZeroDefault(T))">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#accumulate.i%2CIterable%5BT%5D%2CBinOp%5BT%5D%2Ctypeof%28mayZeroDefault%28T%29%29"><span class="Identifier">accumulate</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <a href="iters.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">binop</span><span class="Other">:</span> <a href="n_itertools.html#BinOp"><span class="Identifier">BinOp</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">binOpAdd</span><span class="Other">;</span>
+                       <span class="Identifier">inital</span> <span class="Other">=</span> <span class="Identifier">mayZeroDefault</span><span class="Other">(</span><span class="Identifier">T</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="combinations-iterators-all">
   <div id="combinations.i,Iterable[T],int">
   <dt><pre><span class="Keyword">iterator</span> <a href="#combinations.i%2CIterable%5BT%5D%2Cint"><span class="Identifier">combinations</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">iterable</span><span class="Other">:</span> <a href="iters.html#Iterable"><span class="Identifier">Iterable</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">r</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     XXX: yield list instead of tuple
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="items-iterators-all">
-  <div id="items.i,combinationsobject[T]">
-  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2Ccombinationsobject%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">combinationsobject</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <div id="items.i,Accumulate[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CAccumulate%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Accumulate</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/itertools.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/itertools.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/private/iterGen.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/private/iterGen.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="items.i,Combinations[T]">
+  <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CCombinations%5BT%5D"><span class="Identifier">items</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Combinations</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/private/iterGen.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/private/iterGen.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -157,7 +208,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-19 02:03:13 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-02-28 07:20:09 UTC</small>
       </div>
     </div>
   </div>

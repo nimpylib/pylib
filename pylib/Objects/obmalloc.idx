@@ -1,0 +1,6 @@
+nimTitle	obmalloc	pylib/Objects/obmalloc.html	module src/pylib/Objects/obmalloc		0
+nim	pyfree	pylib/Objects/obmalloc.html#pyfree.t	template pyfree(p)		4
+nim	pyalloc	pylib/Objects/obmalloc.html#pyalloc.t	template pyalloc[T](s): ptr T		10
+nim	pyallocStr	pylib/Objects/obmalloc.html#pyallocStr.t	template pyallocStr(s): cstring		11
+nim	pyfreeStr	pylib/Objects/obmalloc.html#pyfreeStr.t	template pyfreeStr(p)		12
+nim	memcpy	pylib/Objects/obmalloc.html#memcpy.t,ptr.T,ptr.T,int	template memcpy[T](a, b: ptr T; n: int)		14

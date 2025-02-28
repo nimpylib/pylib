@@ -1,0 +1,4 @@
+nimTitle	reimporter	pylib/builtins/round/reimporter.html	module src/pylib/builtins/round/reimporter		0
+nim	import_pyconfig	pylib/builtins/round/reimporter.html#import_pyconfig.t	template import_pyconfig()		5
+nim	import_dtoa	pylib/builtins/round/reimporter.html#import_dtoa.t	template import_dtoa()		6
+nim	import_obmalloc	pylib/builtins/round/reimporter.html#import_obmalloc.t	template import_obmalloc()		7

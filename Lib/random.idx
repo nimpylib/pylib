@@ -1,0 +1,23 @@
+nimTitle	random	random.html	module src/pylib/Lib/random		0
+nim	seed	random.html#seed,,NoneType	proc seed(self: PyRandom; _: NoneType)		25
+nim	seed	random.html#seed.t,NoneType	template seed(_: NoneType)		25
+nim	seed	random.html#seed,,int64	proc seed(self: PyRandom; val: int64)		26
+nim	seed	random.html#seed.t,int64	template seed(val: int64)		26
+nim	randbytes	random.html#randbytes,,int	proc randbytes(self: PyRandom; n: int): PyBytes		28
+nim	randbytes	random.html#randbytes.t,int	template randbytes(n: int): PyBytes		28
+nim	shuffle	random.html#shuffle,,PyList[T]	proc shuffle[T](self: PyRandom; x: var PyList[T])		31
+nim	shuffle	random.html#shuffle.t,PyList[T]	template shuffle[T](x: var PyList[T])		31
+nim	sample	random.html#sample,,Sequence[T],int	proc sample[T](self: PyRandom; population: Sequence[T]; k: int): PyList[T]		34
+nim	sample	random.html#sample.t,Sequence[T],int	template sample[T](population: Sequence[T]; k: int): PyList[T]		34
+nim	sample	random.html#sample,,Sequence[T],int,Sequence[T]	proc sample[T](self: PyRandom; population: Sequence[T]; k: int; counts: Sequence[T]): PyList[\n    T]		37
+nim	sample	random.html#sample.t,Sequence[T],int,Sequence[T]	template sample[T](population: Sequence[T]; k: int; counts: Sequence[T]): PyList[T]		37
+nim	choice	random.html#choice,,Sequence[T]	proc choice[T](self: PyRandom; ls: Sequence[T]): T		40
+nim	choice	random.html#choice.t,Sequence[T]	template choice[T](ls: Sequence[T]): T		40
+nim	choices	random.html#choices,,Sequence[T],int	proc choices[T](self: PyRandom; population: Sequence[T];\n           weights: NoneType | Sequence[T] = None;\n           cum_weights: NoneType | Sequence[T] = None; k = 1): PyList[T]		46
+nim	choices	random.html#choices.t,Sequence[T],int	template choices[T](population: Sequence[T]; weights: NoneType | Sequence[T] = None;\n           cum_weights: NoneType | Sequence[T] = None; k = 1): PyList[T]		46
+nim	triangular	random.html#triangular,,F,F	proc triangular[F: SomeFloat](self: PyRandom; low: F = 0.0; high: F = 1.0;\n                         mode: F | NoneType = None): F		61
+nim	triangular	random.html#triangular.t,F,F	template triangular[F: SomeFloat](low: F = 0.0; high: F = 1.0; mode: F | NoneType = None): F		61
+nimgrp	sample	random.html#sample-procs-all	proc		34
+nimgrp	seed	random.html#seed-procs-all	proc		25
+nimgrp	sample	random.html#sample-templates-all	template		34
+nimgrp	seed	random.html#seed-templates-all	template		25

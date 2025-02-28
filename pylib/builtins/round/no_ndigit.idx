@@ -1,0 +1,2 @@
+nimTitle	no_ndigit	pylib/builtins/round/no_ndigit.html	module src/pylib/builtins/round/no_ndigit		0
+nim	round	pylib/builtins/round/no_ndigit.html#round,F	proc round[F: SomeFloat](x: F): F		13

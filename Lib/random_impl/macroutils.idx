@@ -1,0 +1,3 @@
+nimTitle	macroutils	random_impl/macroutils.html	module src/pylib/Lib/random_impl/macroutils		0
+nim	genGbl	random_impl/macroutils.html#genGbl.m	macro genGbl(decl)		36
+nim	genGbls	random_impl/macroutils.html#genGbls.m	macro genGbls(decls)		38

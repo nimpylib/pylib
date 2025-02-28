@@ -1,0 +1,25 @@
+nimTitle	proc_dispatched	random_impl/proc_dispatched.html	module src/pylib/Lib/random_impl/proc_dispatched		0
+nim	getstate	random_impl/proc_dispatched.html#getstate	proc getstate(): PyRandomState		13
+nim	setstate	random_impl/proc_dispatched.html#setstate,Rand	proc setstate(state: PyRandomState)		14
+nim	seed	random_impl/proc_dispatched.html#seed.e	method seed(self: PyRandom; val = none(int64))		17
+nim	seed	random_impl/proc_dispatched.html#seed.t	template seed(val = none(int64))		17
+nim	choice	random_impl/proc_dispatched.html#choice,,openArray[T]	proc choice[T](self: PyRandom; data: openArray[T]): T		23
+nim	choice	random_impl/proc_dispatched.html#choice.t,openArray[T]	template choice[T](data: openArray[T]): T		23
+nim	genrand_uint32	random_impl/proc_dispatched.html#genrand_uint32	proc genrand_uint32(self: PyRandom): uint32		25
+nim	genrand_uint32	random_impl/proc_dispatched.html#genrand_uint32.t	template genrand_uint32(): uint32		25
+nim	randbelow	random_impl/proc_dispatched.html#randbelow,,T	proc randbelow[T: SomeInteger](self: PyRandom; n: T): T		26
+nim	randbelow	random_impl/proc_dispatched.html#randbelow.t,T	template randbelow[T: SomeInteger](n: T): T		26
+nim	randint	random_impl/proc_dispatched.html#randint,,T,T	proc randint[T: SomeInteger](self: PyRandom; a, b: T): T		28
+nim	randint	random_impl/proc_dispatched.html#randint.t,T,T	template randint[T: SomeInteger](a, b: T): T		28
+nim	randrange	random_impl/proc_dispatched.html#randrange,,T	proc randrange[T: SomeInteger](self: PyRandom; stop: T): T		30
+nim	randrange	random_impl/proc_dispatched.html#randrange.t,T	template randrange[T: SomeInteger](stop: T): T		30
+nim	randrange	random_impl/proc_dispatched.html#randrange,,T,T	proc randrange[T: SomeInteger](self: PyRandom; start, stop: T): T		31
+nim	randrange	random_impl/proc_dispatched.html#randrange.t,T,T	template randrange[T: SomeInteger](start, stop: T): T		31
+nim	random	random_impl/proc_dispatched.html#random.e	method random(self: PyRandom): float		35
+nim	random	random_impl/proc_dispatched.html#random.t	template random(): float		35
+nim	uniform	random_impl/proc_dispatched.html#uniform,,float,float	proc uniform(self: PyRandom; a, b: float): float		37
+nim	uniform	random_impl/proc_dispatched.html#uniform.t,float,float	template uniform(a, b: float): float		37
+nim	guass	random_impl/proc_dispatched.html#guass,,float,float	proc guass(self: PyRandom; mu = 0.0; sigma = 1.0): float		39
+nim	guass	random_impl/proc_dispatched.html#guass.t,float,float	template guass(mu = 0.0; sigma = 1.0): float		39
+nimgrp	randrange	random_impl/proc_dispatched.html#randrange-procs-all	proc		30
+nimgrp	randrange	random_impl/proc_dispatched.html#randrange-templates-all	template		30

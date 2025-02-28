@@ -1,0 +1,4 @@
+nimTitle	bootstrap_hash	_._/pyconfig/bootstrap_hash.html	module src/pylib/pyconfig/bootstrap_hash		0
+nim	have_getrandom	_._/pyconfig/bootstrap_hash.html#have_getrandom	const have_getrandom		19
+nim	have_getrandom_syscall	_._/pyconfig/bootstrap_hash.html#have_getrandom_syscall	const have_getrandom_syscall		19
+nim	py_getrandom	_._/pyconfig/bootstrap_hash.html#py_getrandom	const py_getrandom		12

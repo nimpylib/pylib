@@ -1,3 +1,0 @@
-nimTitle	util	pylib/builtins/pyconfig/util.html	module src/pylib/builtins/pyconfig/util		0
-nim	AC_LINK_IFELSE	pylib/builtins/pyconfig/util.html#AC_LINK_IFELSE.t,,,	template AC_LINK_IFELSE(variable, defval, code)		26
-nim	AC_RUN_IFELSE	pylib/builtins/pyconfig/util.html#AC_RUN_IFELSE.t,,,	template AC_RUN_IFELSE(variable, defval, code)		27

@@ -1,4 +1,2 @@
 nimTitle	round	pylib/builtins/round.html	module src/pylib/builtins/round		0
-nim	round	pylib/builtins/round.html#round,F	proc round[F: SomeFloat](x: F): F		16
-nim	round	pylib/builtins/round.html#round,F,int	proc round(x: F; ndigit: int): F		39
-nimgrp	round	pylib/builtins/round.html#round-procs-all	proc		16
+nim	round	pylib/builtins/round.html#round,F,int	proc round(x: F; ndigit: int): F		16

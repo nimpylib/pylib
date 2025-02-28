@@ -1,14 +1,14 @@
 nimTitle	asyncs	pylib/collections_abc/asyncs.html	module src/pylib/collections_abc/asyncs		0
-nim	Awaitable	pylib/collections_abc/asyncs.html#Awaitable	type Awaitable		66
-nim	Coroutine	pylib/collections_abc/asyncs.html#Coroutine	type Coroutine		68
-nim	close	pylib/collections_abc/asyncs.html#close,Coroutine	proc close(self: Coroutine)		76
-nim	AsyncIterable	pylib/collections_abc/asyncs.html#AsyncIterable	type AsyncIterable		100
-nim	AsyncIterator	pylib/collections_abc/asyncs.html#AsyncIterator	type AsyncIterator		102
-nim	AsyncGenerator	pylib/collections_abc/asyncs.html#AsyncGenerator	type AsyncGenerator		105
-nim	anext	pylib/collections_abc/asyncs.html#anext,AsyncGenerator[T]	proc anext[T](self: AsyncGenerator[T]): Awaitable[T]		116
-nim	await	pylib/collections_abc/asyncs.html#await,anextawaitableobject[T]	proc await[T](self: anextawaitableobject[T]): T		124
-nim	anext	pylib/collections_abc/asyncs.html#anext,AsyncGenerator[T],T	proc anext[T](self: AsyncGenerator[T]; default: T): Awaitable[T]		131
-nim	aclose	pylib/collections_abc/asyncs.html#aclose,AsyncGenerator	proc aclose(self: AsyncGenerator): owned(Future[void])		134
-nimgrp	anext	pylib/collections_abc/asyncs.html#anext-procs-all	proc		116
+nim	Awaitable	pylib/collections_abc/asyncs.html#Awaitable	type Awaitable		69
+nim	Coroutine	pylib/collections_abc/asyncs.html#Coroutine	type Coroutine		71
+nim	close	pylib/collections_abc/asyncs.html#close,Coroutine	proc close(self: Coroutine)		79
+nim	AsyncIterable	pylib/collections_abc/asyncs.html#AsyncIterable	type AsyncIterable		103
+nim	AsyncIterator	pylib/collections_abc/asyncs.html#AsyncIterator	type AsyncIterator		105
+nim	AsyncGenerator	pylib/collections_abc/asyncs.html#AsyncGenerator	type AsyncGenerator		108
+nim	anext	pylib/collections_abc/asyncs.html#anext,AsyncGenerator[T]	proc anext[T](self: AsyncGenerator[T]): Awaitable[T]		119
+nim	await	pylib/collections_abc/asyncs.html#await,anextawaitableobject[T]	proc await[T](self: anextawaitableobject[T]): T		127
+nim	anext	pylib/collections_abc/asyncs.html#anext,AsyncGenerator[T],T	proc anext[T](self: AsyncGenerator[T]; default: T): Awaitable[T]		134
+nim	aclose	pylib/collections_abc/asyncs.html#aclose,AsyncGenerator	proc aclose(self: AsyncGenerator): owned(Future[void])		137
+nimgrp	anext	pylib/collections_abc/asyncs.html#anext-procs-all	proc		119
 heading	Coroutine	pylib/collections_abc/asyncs.html#coroutine	  Coroutine		0
 heading	AsyncGenerator	pylib/collections_abc/asyncs.html#asyncgenerator	  AsyncGenerator		0

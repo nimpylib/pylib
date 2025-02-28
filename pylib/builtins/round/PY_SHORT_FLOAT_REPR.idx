@@ -1,0 +1,2 @@
+nimTitle	PY_SHORT_FLOAT_REPR	pylib/builtins/round/PY_SHORT_FLOAT_REPR.html	module src/pylib/builtins/round/PY_SHORT_FLOAT_REPR		0
+nim	round	pylib/builtins/round/PY_SHORT_FLOAT_REPR.html#round,float,int	proc round(dd: float; ndigits: int): float		10

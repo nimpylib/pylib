@@ -1,0 +1,3 @@
+nimTitle	gstate	random_impl/gstate.html	module src/pylib/Lib/random_impl/gstate		0
+nim	gRandom	random_impl/gstate.html#gRandom	var gRandom		5
+nim	gRand	random_impl/gstate.html#gRand.t	template gRand(): untyped		7

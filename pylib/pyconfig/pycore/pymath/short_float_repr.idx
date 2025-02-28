@@ -1,0 +1,5 @@
+nimTitle	short_float_repr	pylib/pyconfig/pycore/pymath/short_float_repr.html	module src/pylib/pyconfig/pycore/pymath/short_float_repr		0
+nim	WORDS_BIGENDIAN	pylib/pyconfig/pycore/pymath/short_float_repr.html#WORDS_BIGENDIAN	const WORDS_BIGENDIAN		9
+nim	WORDS_LITTLEENDIAN	pylib/pyconfig/pycore/pymath/short_float_repr.html#WORDS_LITTLEENDIAN	const WORDS_LITTLEENDIAN		10
+nim	DOUBLE_IS_LITTLE_ENDIAN_IEEE754	pylib/pyconfig/pycore/pymath/short_float_repr.html#DOUBLE_IS_LITTLE_ENDIAN_IEEE754	const DOUBLE_IS_LITTLE_ENDIAN_IEEE754		13
+nim	DOUBLE_IS_BIG_ENDIAN_IEEE754	pylib/pyconfig/pycore/pymath/short_float_repr.html#DOUBLE_IS_BIG_ENDIAN_IEEE754	const DOUBLE_IS_BIG_ENDIAN_IEEE754		14

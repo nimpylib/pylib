@@ -1,0 +1,2 @@
+nimTitle	format	pylib/builtins/format.html	module src/pylib/builtins/format		0
+nim	format	pylib/builtins/format.html#format,T,	proc format[T](self: T; spec: static[string] | string): PyStr		5

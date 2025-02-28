@@ -1,0 +1,9 @@
+nimTitle	types	random_impl/types.html	module src/pylib/Lib/random_impl/types		0
+nim	PyRandom	random_impl/types.html#PyRandom	type PyRandom		5
+nim	Random	random_impl/types.html#Random	proc Random(): PyRandom		10
+nim	Random	random_impl/types.html#Random,int64	proc Random(x: int64): PyRandom		11
+nim	PyRandomState	random_impl/types.html#PyRandomState	type PyRandomState		13
+nim	getstate	random_impl/types.html#getstate.e	method getstate(self: PyRandom): PyRandomState		15
+nim	getmstate	random_impl/types.html#getmstate	proc getmstate(self: PyRandom): var PyRandomState		16
+nim	setstate	random_impl/types.html#setstate.e,,Rand	method setstate(self: PyRandom; state: PyRandomState)		19
+nimgrp	Random	random_impl/types.html#Random-procs-all	proc		10

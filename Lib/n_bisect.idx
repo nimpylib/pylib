@@ -1,0 +1,20 @@
+nimTitle	n_bisect	n_bisect.html	module src/pylib/Lib/n_bisect		0
+nim	Key	n_bisect.html#Key	type Key		12
+nim	bisect	n_bisect.html#bisect,openArray[T],T,int	proc bisect[T](a: openArray[T]; x: T; lo = 0; hi = a.len): int		30
+nim	bisect	n_bisect.html#bisect,openArray[T],K,int,Key[T,K]	proc bisect[T, K](a: openArray[T]; x: K; lo = 0; hi = a.len; key: Key[T, K]): int		34
+nim	bisect_right	n_bisect.html#bisect_right,openArray[T],T,int	proc bisect_right[T](a: openArray[T]; x: T; lo = 0; hi = a.len): int		30
+nim	bisect_right	n_bisect.html#bisect_right,openArray[T],K,int,Key[T,K]	proc bisect_right[T, K](a: openArray[T]; x: K; lo = 0; hi = a.len; key: Key[T, K]): int		35
+nim	bisect_left	n_bisect.html#bisect_left,openArray[T],T,int	proc bisect_left[T](a: openArray[T]; x: T; lo = 0; hi = a.len): int		30
+nim	bisect_left	n_bisect.html#bisect_left,openArray[T],K,int,Key[T,K]	proc bisect_left[T, K](a: openArray[T]; x: K; lo = 0; hi = a.len; key: Key[T, K]): int		36
+nim	insort_left	n_bisect.html#insort_left,seq[T],T,int,typeof(len(a))	proc insort_left[T](a: var seq[T]; x: T; lo = 0; hi = len(a))		39
+nim	insort_left	n_bisect.html#insort_left,seq[T],K,int,typeof(len(a)),Key[T,K]	proc insort_left[T; K](a: var seq[T]; x: K; lo = 0; hi = len(a); key: Key[T, K])		47
+nim	insort_right	n_bisect.html#insort_right,seq[T],T,int,typeof(len(a))	proc insort_right[T](a: var seq[T]; x: T; lo = 0; hi = len(a))		39
+nim	insort_right	n_bisect.html#insort_right,seq[T],K,int,typeof(len(a)),Key[T,K]	proc insort_right[T; K](a: var seq[T]; x: K; lo = 0; hi = len(a); key: Key[T, K])		48
+nim	insort	n_bisect.html#insort,seq[T],T,int,typeof(len(a))	proc insort[T](a: var seq[T]; x: T; lo = 0; hi = len(a))		39
+nim	insort	n_bisect.html#insort,seq[T],K,int,typeof(len(a)),Key[T,K]	proc insort[T; K](a: var seq[T]; x: K; lo = 0; hi = len(a); key: Key[T, K])		49
+nimgrp	bisectright	n_bisect.html#bisect_right-procs-all	proc		35
+nimgrp	bisectleft	n_bisect.html#bisect_left-procs-all	proc		36
+nimgrp	bisect	n_bisect.html#bisect-procs-all	proc		34
+nimgrp	insortright	n_bisect.html#insort_right-procs-all	proc		48
+nimgrp	insortleft	n_bisect.html#insort_left-procs-all	proc		47
+nimgrp	insort	n_bisect.html#insort-procs-all	proc		49

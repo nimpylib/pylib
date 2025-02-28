@@ -1,0 +1,4 @@
+nimTitle	format_impl	pylib/builtins/private/format_impl.html	module src/pylib/builtins/private/format_impl		0
+nim	format	pylib/builtins/private/format_impl.html#format,T,static[string]	proc format[T](self: T; spec: static[string]): string		4
+nim	format	pylib/builtins/private/format_impl.html#format,T,string	proc format[T](self: T; spec: string): string		9
+nimgrp	format	pylib/builtins/private/format_impl.html#format-procs-all	proc		4
