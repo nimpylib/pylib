@@ -1,47 +1,47 @@
 nimTitle	proc_others	random_impl/proc_others.html	module src/pylib/Lib/random_impl/proc_others		0
 nim	index	random_impl/proc_others.html#index,I	proc index[I: Ordinal](x: I): int		28
-nim	randbytes	random_impl/proc_others.html#randbytes.e,,int	method randbytes(self: PyRandom; n: int): string		119
-nim	randbytes	random_impl/proc_others.html#randbytes.t,int	template randbytes(n: int): string		119
-nim	getrandbits	random_impl/proc_others.html#getrandbits.e,,int	method getrandbits(self: PyRandom; k: int): int		124
-nim	getrandbits	random_impl/proc_others.html#getrandbits.t,int	template getrandbits(k: int): int		124
-nim	randrange	random_impl/proc_others.html#randrange,,I,I,I	proc randrange[I: SomeInteger](self: PyRandom; istart, istop: I; istep: I): I		144
-nim	randrange	random_impl/proc_others.html#randrange.t,I,I,I	template randrange[I: SomeInteger](istart, istop: I; istep: I): I		144
-nim	randrange	random_impl/proc_others.html#randrange,,I,I,I_2	proc randrange[T; I: Indexable[T]](self: PyRandom; start, stop, step: I): T		166
-nim	randrange	random_impl/proc_others.html#randrange.t,I,I,I_2	template randrange[T; I: Indexable[T]](start, stop, step: I): T		166
-nim	choices	random_impl/proc_others.html#choices,,openArray[T],typeof(none(openArray[T])),typeof(none(openArray[T])),int	proc choices[T](self: PyRandom; population: openArray[T];\n           weights = none(openArray[T]); cum_weights = none(openArray[T]); k = 1): seq[\n    T]		170
-nim	choices	random_impl/proc_others.html#choices.t,openArray[T],typeof(none(openArray[T])),typeof(none(openArray[T])),int	template choices[T](population: openArray[T]; weights = none(openArray[T]);\n           cum_weights = none(openArray[T]); k = 1): seq[T]		170
-nim	shuffleImpl	random_impl/proc_others.html#shuffleImpl.t,PyRandom,	template shuffleImpl(self: PyRandom; x)		202
-nim	shuffle	random_impl/proc_others.html#shuffle,,seq[T]	proc shuffle[T](self: PyRandom; x: var seq[T])		211
-nim	shuffle	random_impl/proc_others.html#shuffle.t,seq[T]	template shuffle[T](x: var seq[T])		211
-nim	sample	random_impl/proc_others.html#sample,,openArray[T],int	proc sample[T](self: PyRandom; population: openArray[T]; k: int): seq[T]		214
-nim	sample	random_impl/proc_others.html#sample.t,openArray[T],int	template sample[T](population: openArray[T]; k: int): seq[T]		214
-nim	sample	random_impl/proc_others.html#sample,,openArray[T],int,openArray[T]	proc sample[T](self: PyRandom; population: openArray[T]; k: int; counts: openArray[T]): seq[\n    T]		272
-nim	sample	random_impl/proc_others.html#sample.t,openArray[T],int,openArray[T]	template sample[T](population: openArray[T]; k: int; counts: openArray[T]): seq[T]		272
-nim	triangular	random_impl/proc_others.html#triangular,,F,F	proc triangular[F: SomeFloat](self: PyRandom; low: F = 0.0; high: F = 1.0): F		300
-nim	triangular	random_impl/proc_others.html#triangular.t,F,F	template triangular[F: SomeFloat](low: F = 0.0; high: F = 1.0): F		300
-nim	triangular	random_impl/proc_others.html#triangular,,F,F,F	proc triangular[F: SomeFloat](self: PyRandom; low: F = 0.0; high: F = 1.0; mode: F): F		303
-nim	triangular	random_impl/proc_others.html#triangular.t,F,F,F	template triangular[F: SomeFloat](low: F = 0.0; high: F = 1.0; mode: F): F		303
-nim	normalvariate	random_impl/proc_others.html#normalvariate,,float,float	proc normalvariate(self: PyRandom; mu = 0.0; sigma = 1.0): float		311
-nim	normalvariate	random_impl/proc_others.html#normalvariate.t,float,float	template normalvariate(mu = 0.0; sigma = 1.0): float		311
-nim	lognormalvariate	random_impl/proc_others.html#lognormalvariate,,float,float	proc lognormalvariate(self: PyRandom; mu, sigma: float): float		328
-nim	lognormalvariate	random_impl/proc_others.html#lognormalvariate.t,float,float	template lognormalvariate(mu, sigma: float): float		328
-nim	expovariate	random_impl/proc_others.html#expovariate,,float	proc expovariate(self: PyRandom; lambd = 1.0): float		331
-nim	expovariate	random_impl/proc_others.html#expovariate.t,float	template expovariate(lambd = 1.0): float		331
-nim	vonmisesvariate	random_impl/proc_others.html#vonmisesvariate,,float,float	proc vonmisesvariate(self: PyRandom; mu, kappa: float): float		334
-nim	vonmisesvariate	random_impl/proc_others.html#vonmisesvariate.t,float,float	template vonmisesvariate(mu, kappa: float): float		334
-nim	gammavariate	random_impl/proc_others.html#gammavariate,,float,float	proc gammavariate(self: PyRandom; alpha, beta: float): float		363
-nim	gammavariate	random_impl/proc_others.html#gammavariate.t,float,float	template gammavariate(alpha, beta: float): float		363
-nim	betavariate	random_impl/proc_others.html#betavariate,,float,float	proc betavariate(self: PyRandom; alpha, beta: float): float		422
-nim	betavariate	random_impl/proc_others.html#betavariate.t,float,float	template betavariate(alpha, beta: float): float		422
-nim	paretovariate	random_impl/proc_others.html#paretovariate,,float	proc paretovariate(self: PyRandom; alpha: float): float		455
-nim	paretovariate	random_impl/proc_others.html#paretovariate.t,float	template paretovariate(alpha: float): float		455
-nim	weibullvariate	random_impl/proc_others.html#weibullvariate,,float,float	proc weibullvariate(self: PyRandom; alpha, beta: float): float		462
-nim	weibullvariate	random_impl/proc_others.html#weibullvariate.t,float,float	template weibullvariate(alpha, beta: float): float		462
-nim	binomialvariate	random_impl/proc_others.html#binomialvariate,,float,float	proc binomialvariate(self: PyRandom; n = 1.0; p = 0.5): float		476
-nim	binomialvariate	random_impl/proc_others.html#binomialvariate.t,float,float	template binomialvariate(n = 1.0; p = 0.5): float		476
-nimgrp	triangular	random_impl/proc_others.html#triangular-procs-all	proc		300
-nimgrp	sample	random_impl/proc_others.html#sample-procs-all	proc		214
-nimgrp	randrange	random_impl/proc_others.html#randrange-procs-all	proc		144
-nimgrp	triangular	random_impl/proc_others.html#triangular-templates-all	template		300
-nimgrp	sample	random_impl/proc_others.html#sample-templates-all	template		214
-nimgrp	randrange	random_impl/proc_others.html#randrange-templates-all	template		144
+nim	randbytes	random_impl/proc_others.html#randbytes.e,,int	method randbytes(self: PyRandom; n: int): string		115
+nim	randbytes	random_impl/proc_others.html#randbytes.t,int	template randbytes(n: int): string		115
+nim	getrandbits	random_impl/proc_others.html#getrandbits.e,,int	method getrandbits(self: PyRandom; k: int): int		120
+nim	getrandbits	random_impl/proc_others.html#getrandbits.t,int	template getrandbits(k: int): int		120
+nim	randrange	random_impl/proc_others.html#randrange,,I,I,I	proc randrange[I: SomeInteger](self: PyRandom; istart, istop: I; istep: I): I		140
+nim	randrange	random_impl/proc_others.html#randrange.t,I,I,I	template randrange[I: SomeInteger](istart, istop: I; istep: I): I		140
+nim	randrange	random_impl/proc_others.html#randrange,,I,I,I_2	proc randrange[T; I: Indexable[T]](self: PyRandom; start, stop, step: I): T		162
+nim	randrange	random_impl/proc_others.html#randrange.t,I,I,I_2	template randrange[T; I: Indexable[T]](start, stop, step: I): T		162
+nim	choices	random_impl/proc_others.html#choices,,openArray[T],typeof(none(openArray[T])),typeof(none(openArray[T])),int	proc choices[T](self: PyRandom; population: openArray[T];\n           weights = none(openArray[T]); cum_weights = none(openArray[T]); k = 1): seq[\n    T]		166
+nim	choices	random_impl/proc_others.html#choices.t,openArray[T],typeof(none(openArray[T])),typeof(none(openArray[T])),int	template choices[T](population: openArray[T]; weights = none(openArray[T]);\n           cum_weights = none(openArray[T]); k = 1): seq[T]		166
+nim	shuffleImpl	random_impl/proc_others.html#shuffleImpl.t,PyRandom,	template shuffleImpl(self: PyRandom; x)		198
+nim	shuffle	random_impl/proc_others.html#shuffle,,seq[T]	proc shuffle[T](self: PyRandom; x: var seq[T])		207
+nim	shuffle	random_impl/proc_others.html#shuffle.t,seq[T]	template shuffle[T](x: var seq[T])		207
+nim	sample	random_impl/proc_others.html#sample,,openArray[T],int	proc sample[T](self: PyRandom; population: openArray[T]; k: int): seq[T]		210
+nim	sample	random_impl/proc_others.html#sample.t,openArray[T],int	template sample[T](population: openArray[T]; k: int): seq[T]		210
+nim	sample	random_impl/proc_others.html#sample,,openArray[T],int,openArray[T]	proc sample[T](self: PyRandom; population: openArray[T]; k: int; counts: openArray[T]): seq[\n    T]		268
+nim	sample	random_impl/proc_others.html#sample.t,openArray[T],int,openArray[T]	template sample[T](population: openArray[T]; k: int; counts: openArray[T]): seq[T]		268
+nim	triangular	random_impl/proc_others.html#triangular,,F,F	proc triangular[F: SomeFloat](self: PyRandom; low: F = 0.0; high: F = 1.0): F		296
+nim	triangular	random_impl/proc_others.html#triangular.t,F,F	template triangular[F: SomeFloat](low: F = 0.0; high: F = 1.0): F		296
+nim	triangular	random_impl/proc_others.html#triangular,,F,F,F	proc triangular[F: SomeFloat](self: PyRandom; low: F = 0.0; high: F = 1.0; mode: F): F		299
+nim	triangular	random_impl/proc_others.html#triangular.t,F,F,F	template triangular[F: SomeFloat](low: F = 0.0; high: F = 1.0; mode: F): F		299
+nim	normalvariate	random_impl/proc_others.html#normalvariate,,float,float	proc normalvariate(self: PyRandom; mu = 0.0; sigma = 1.0): float		307
+nim	normalvariate	random_impl/proc_others.html#normalvariate.t,float,float	template normalvariate(mu = 0.0; sigma = 1.0): float		307
+nim	lognormalvariate	random_impl/proc_others.html#lognormalvariate,,float,float	proc lognormalvariate(self: PyRandom; mu, sigma: float): float		324
+nim	lognormalvariate	random_impl/proc_others.html#lognormalvariate.t,float,float	template lognormalvariate(mu, sigma: float): float		324
+nim	expovariate	random_impl/proc_others.html#expovariate,,float	proc expovariate(self: PyRandom; lambd = 1.0): float		327
+nim	expovariate	random_impl/proc_others.html#expovariate.t,float	template expovariate(lambd = 1.0): float		327
+nim	vonmisesvariate	random_impl/proc_others.html#vonmisesvariate,,float,float	proc vonmisesvariate(self: PyRandom; mu, kappa: float): float		330
+nim	vonmisesvariate	random_impl/proc_others.html#vonmisesvariate.t,float,float	template vonmisesvariate(mu, kappa: float): float		330
+nim	gammavariate	random_impl/proc_others.html#gammavariate,,float,float	proc gammavariate(self: PyRandom; alpha, beta: float): float		359
+nim	gammavariate	random_impl/proc_others.html#gammavariate.t,float,float	template gammavariate(alpha, beta: float): float		359
+nim	betavariate	random_impl/proc_others.html#betavariate,,float,float	proc betavariate(self: PyRandom; alpha, beta: float): float		418
+nim	betavariate	random_impl/proc_others.html#betavariate.t,float,float	template betavariate(alpha, beta: float): float		418
+nim	paretovariate	random_impl/proc_others.html#paretovariate,,float	proc paretovariate(self: PyRandom; alpha: float): float		451
+nim	paretovariate	random_impl/proc_others.html#paretovariate.t,float	template paretovariate(alpha: float): float		451
+nim	weibullvariate	random_impl/proc_others.html#weibullvariate,,float,float	proc weibullvariate(self: PyRandom; alpha, beta: float): float		458
+nim	weibullvariate	random_impl/proc_others.html#weibullvariate.t,float,float	template weibullvariate(alpha, beta: float): float		458
+nim	binomialvariate	random_impl/proc_others.html#binomialvariate,,float,float	proc binomialvariate(self: PyRandom; n = 1.0; p = 0.5): float		472
+nim	binomialvariate	random_impl/proc_others.html#binomialvariate.t,float,float	template binomialvariate(n = 1.0; p = 0.5): float		472
+nimgrp	triangular	random_impl/proc_others.html#triangular-procs-all	proc		296
+nimgrp	sample	random_impl/proc_others.html#sample-procs-all	proc		210
+nimgrp	randrange	random_impl/proc_others.html#randrange-procs-all	proc		140
+nimgrp	triangular	random_impl/proc_others.html#triangular-templates-all	template		296
+nimgrp	sample	random_impl/proc_others.html#sample-templates-all	template		210
+nimgrp	randrange	random_impl/proc_others.html#randrange-templates-all	template		140
