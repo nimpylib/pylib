@@ -72,12 +72,12 @@ func fromU32sImpl(res: var seq[U8]|string; wordarray: openArray[uint32]){.inline
     when PyLittleEndian:
       var i = 0
       for u32 in wordarray:
-        unpack u32, result[i], result[i+1], result[i+2], result[i+3]
+        unpack u32, res[i], res[i+1], res[i+2], res[i+3]
         i.inc per
     else:
       for i in countdown(wordarray.high, 0):
         let ii = i * per
-        unpack wordarray[i], result[ii+3], result[ii+2], result[ii+1], result[ii]
+        unpack wordarray[i], res[ii+3], res[ii+2], res[ii+1], res[ii]
 
 func fromU32s(res: var seq[U8]; wordarray: openArray[uint32]) =
   res = newSeqMayUninit[U8] wordarray.len * bytePerWord
