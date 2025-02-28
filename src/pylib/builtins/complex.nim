@@ -102,7 +102,7 @@ template complex*(real, imag: HasFloat): PyComplex =
 template complex*(real, imag: HasIndex): PyComplex{.
     pysince(3,8).} =
   bind complex
-  complex(obj.index().BiggestFloat, obj.index().BiggestFloat)
+  complex(real.index().BiggestFloat, imag.index().BiggestFloat)
 
 func complex*(s: string): PyComplex =
   const errMsgPre = "complex() arg is a malformed string, reason: "
