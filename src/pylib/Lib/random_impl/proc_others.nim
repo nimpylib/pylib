@@ -60,24 +60,27 @@ const PyLittleEndian = cpuEndian == littleEndian
 
 const bytePerWord = 4
 type U8 = uint8 | char
-func fromU32sImpl(res: var seq[U8]|string; wordarray: openArray[uint32]){.inline.} =
+func fromU32sImpl[S: seq[U8]|string](res: var S; wordarray: openArray[uint32]){.inline.} =
   when declared(copyMem):
     copyMem(res[0].addr, wordarray[0].addr, res.len)
   else:
-    template unpack[T: U8|char](u: uint32, a, b, c, d: var T) =
-      d = cast[T](u)
-      c = cast[T](u shr 8)
-      b = cast[T](u shr 16)
-      a = cast[T](u shr 24)
     when PyLittleEndian:
-      var i = 0
-      for u32 in wordarray:
-        unpack u32, res[i], res[i+1], res[i+2], res[i+3]
-        i.inc per
+      template rng: untyped = 0..wordarray.high
+      template `[]=`(res; i, o, v): untyped = res[i + (3 - o)] = v
     else:
-      for i in countdown(wordarray.high, 0):
-        let ii = i * per
-        unpack wordarray[i], res[ii+3], res[ii+2], res[ii+1], res[ii]
+      template rng: untyped = countdown(wordarray.high, 0)
+      template `[]=`(res; i, o, v): untyped = res[i + o] = v
+    for i in rng:
+      let ii = i * bytePerWord
+      #unpack wordarray[i], res[ii+3], res[ii+2], res[ii+1], res[ii]
+      let u = wordarray[i]
+      type T = typeof(res[0])
+      template asgnPart(o) =
+        res[ii, o] = cast[T](u shr (8 * o))
+      asgnPart 0
+      asgnPart 1
+      asgnPart 2
+      asgnPart 3
 
 func fromU32s(res: var seq[U8]; wordarray: openArray[uint32]) =
   res = newSeqMayUninit[U8] wordarray.len * bytePerWord
