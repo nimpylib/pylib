@@ -27,7 +27,10 @@ genGbls:
 
   func randint*[T: SomeInteger](self; a, b: T): T = rnd.rand(a .. b)
 
-  func randrange*[T: SomeInteger](self; stop: T): T = rnd.rand stop
+  func randrange*[T: SomeInteger](self; stop: T): T =
+    if stop < 1:
+      raise newException(ValueError, "empty range for randrange()")
+    rnd.rand stop - 1
   func randrange*[T: SomeInteger](self; start, stop: T): T = rnd.rand start..<stop
 
   #template randrange*[T: SomeInteger](start, stop: T; step: int): T =
