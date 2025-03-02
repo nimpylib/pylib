@@ -13,13 +13,13 @@ nim	randint	random_impl/proc_dispatched.html#randint,,T,T	proc randint[T: SomeIn
 nim	randint	random_impl/proc_dispatched.html#randint.t,T,T	template randint[T: SomeInteger](a, b: T): T		28
 nim	randrange	random_impl/proc_dispatched.html#randrange,,T	proc randrange[T: SomeInteger](self: PyRandom; stop: T): T		30
 nim	randrange	random_impl/proc_dispatched.html#randrange.t,T	template randrange[T: SomeInteger](stop: T): T		30
-nim	randrange	random_impl/proc_dispatched.html#randrange,,T,T	proc randrange[T: SomeInteger](self: PyRandom; start, stop: T): T		31
-nim	randrange	random_impl/proc_dispatched.html#randrange.t,T,T	template randrange[T: SomeInteger](start, stop: T): T		31
-nim	random	random_impl/proc_dispatched.html#random.e	method random(self: PyRandom): float		35
-nim	random	random_impl/proc_dispatched.html#random.t	template random(): float		35
-nim	uniform	random_impl/proc_dispatched.html#uniform,,float,float	proc uniform(self: PyRandom; a, b: float): float		37
-nim	uniform	random_impl/proc_dispatched.html#uniform.t,float,float	template uniform(a, b: float): float		37
-nim	guass	random_impl/proc_dispatched.html#guass,,float,float	proc guass(self: PyRandom; mu = 0.0; sigma = 1.0): float		39
-nim	guass	random_impl/proc_dispatched.html#guass.t,float,float	template guass(mu = 0.0; sigma = 1.0): float		39
+nim	randrange	random_impl/proc_dispatched.html#randrange,,T,T	proc randrange[T: SomeInteger](self: PyRandom; start, stop: T): T		34
+nim	randrange	random_impl/proc_dispatched.html#randrange.t,T,T	template randrange[T: SomeInteger](start, stop: T): T		34
+nim	random	random_impl/proc_dispatched.html#random.e	method random(self: PyRandom): float		38
+nim	random	random_impl/proc_dispatched.html#random.t	template random(): float		38
+nim	uniform	random_impl/proc_dispatched.html#uniform,,float,float	proc uniform(self: PyRandom; a, b: float): float		40
+nim	uniform	random_impl/proc_dispatched.html#uniform.t,float,float	template uniform(a, b: float): float		40
+nim	guass	random_impl/proc_dispatched.html#guass,,float,float	proc guass(self: PyRandom; mu = 0.0; sigma = 1.0): float		42
+nim	guass	random_impl/proc_dispatched.html#guass.t,float,float	template guass(mu = 0.0; sigma = 1.0): float		42
 nimgrp	randrange	random_impl/proc_dispatched.html#randrange-procs-all	proc		30
 nimgrp	randrange	random_impl/proc_dispatched.html#randrange-templates-all	template		30

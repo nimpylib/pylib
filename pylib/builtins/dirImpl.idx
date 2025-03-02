@@ -1,0 +1,5 @@
+nimTitle	dirImpl	pylib/builtins/dirImpl.html	module src/pylib/builtins/dirImpl		0
+nim	dirImpl	pylib/builtins/dirImpl.html#dirImpl.i	iterator dirImpl(o: o:type): string		8
+nim	dir	pylib/builtins/dirImpl.html#dir.i	iterator dir(o: o:type): PyStr		11
+nim	dirImpl	pylib/builtins/dirImpl.html#dirImpl	proc dirImpl(o: o:type): seq[string]		14
+nim	dir	pylib/builtins/dirImpl.html#dir	proc dir(o: o:type): PyList[PyStr]		17
