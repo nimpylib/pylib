@@ -49,7 +49,6 @@ import pylib/private/trans_imp
 impExp pylib,
   noneType, pybool, builtins,
   ops, pyerrors,
-  pystring, pybytes, pybytearray,
   pysugar
 
 
