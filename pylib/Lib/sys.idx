@@ -13,19 +13,19 @@ nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		118
 nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		119
 nim	float_info	pylib/Lib/sys.html#float_info	const float_info		126
 nim	rounds	pylib/Lib/sys.html#rounds.t	template rounds(fi: typeof(float_info)): int		142
-nim	implementation	pylib/Lib/sys.html#implementation	const implementation		174
-nim	version_info	pylib/Lib/sys.html#version_info	const version_info		184
-nim	version	pylib/Lib/sys.html#version	const version		191
-nim	hexversion	pylib/Lib/sys.html#hexversion	const hexversion		192
-nim	maxsize	pylib/Lib/sys.html#maxsize	const maxsize		194
-nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		195
-nim	copyright	pylib/Lib/sys.html#copyright	const copyright		196
-nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		210
-nim	argv	pylib/Lib/sys.html#argv	var argv		215
-nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		250
-nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		260
-nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		264
-nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		274
-nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		355
+nim	implementation	pylib/Lib/sys.html#implementation	const implementation		175
+nim	version_info	pylib/Lib/sys.html#version_info	const version_info		185
+nim	version	pylib/Lib/sys.html#version	const version		192
+nim	hexversion	pylib/Lib/sys.html#hexversion	const hexversion		193
+nim	maxsize	pylib/Lib/sys.html#maxsize	const maxsize		195
+nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		196
+nim	copyright	pylib/Lib/sys.html#copyright	const copyright		197
+nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		211
+nim	argv	pylib/Lib/sys.html#argv	var argv		216
+nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		251
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t	template getsizeof(x): int		261
+nim	getsizeof	pylib/Lib/sys.html#getsizeof.t,,int	template getsizeof(x; default: int): int		265
+nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		275
+nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		356
 nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		116
-nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		260
+nimgrp	getsizeof	pylib/Lib/sys.html#getsizeof-templates-all	template		261
