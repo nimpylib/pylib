@@ -19,4 +19,10 @@ func divmodNear(a, b: int): tuple[q, r: int] =
 
 func round*(x: int, ndigit: int): int =
   if ndigit >= 0: return x
-  x - divmodNear(x, 10 ** -ndigit).r
+  let ndigit = -ndigit
+  var x10: typeof(10 ** ndigit)
+  try:
+    x10 = 10 ** ndigit
+  except OverflowDefect:
+    return 0
+  x - divmodNear(x, x10).r
