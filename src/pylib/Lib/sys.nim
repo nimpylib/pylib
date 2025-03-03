@@ -159,9 +159,10 @@ func int2hex(x: int): int =
 template toHexversion(versionInfo: tuple): int =
   let v = versionInfo
   var res = v[0].int2hex
-  res = res shl 8 + v[1].int2hex
-  res = res shl 8 + v[2].int2hex
-  res
+  res = (res shl 8) or v[1].int2hex
+  res = (res shl 8) or v[2].int2hex
+  res = (res shl 4) or (PyReleaseLevel.int and 0xf)
+  (res shl 4) or (PySerial and 0xf)
 
 const
   implVersion = (
@@ -185,7 +186,7 @@ const
     major: PyMajor,
     minor: PyMinor,
     patch: PyPatch,
-    releaselevel: PyReleaseLevel,
+    releaselevel: str $PyReleaseLevel,
     serial: PySerial
   )
   version* = str asVersion((PyMajor, PyMinor, PyPatch))
