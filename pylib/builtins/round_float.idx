@@ -1,0 +1,2 @@
+nimTitle	round_float	pylib/builtins/round_float.html	module src/pylib/builtins/round_float		0
+nim	round	pylib/builtins/round_float.html#round,F,int	proc round(x: F; ndigit: int): F		16

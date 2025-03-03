@@ -1,0 +1,2 @@
+nimTitle	round_int	pylib/builtins/round_int.html	module src/pylib/builtins/round_int		0
+nim	round	pylib/builtins/round_int.html#round,int,NoneType	proc round(x: int; _: NoneType): int		5

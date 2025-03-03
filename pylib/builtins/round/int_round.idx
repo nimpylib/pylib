@@ -1,0 +1,4 @@
+nimTitle	int_round	pylib/builtins/round/int_round.html	module src/pylib/builtins/round/int_round		0
+nim	round	pylib/builtins/round/int_round.html#round,int	proc round(x: int): int		4
+nim	round	pylib/builtins/round/int_round.html#round,int,int	proc round(x: int; ndigit: int): int		20
+nimgrp	round	pylib/builtins/round/int_round.html#round-procs-all	proc		4
