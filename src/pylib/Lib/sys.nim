@@ -17,6 +17,16 @@ import ../version as libversion
 import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
+
+import ../pyconfig/pycore/pymath
+const float_repr_style* = str(
+  when PY_SHORT_FLOAT_REPR: "short" else: "legacy"
+)  ##\
+## .. note:: when JS, this is "legacy" but
+##   currently `$float` is still of short style.
+##   this only affects other function like `round(float, int)`
+
+
 const weirdTarget = defined(js) or defined(nimscript)
 when defined(js):
   import std/jsffi
