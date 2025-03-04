@@ -3,10 +3,10 @@ import ./import_utils
 importTestPyLib datetime
 
 let
-  ZERO = timedelta(0)
-  MINUTE = timedelta(minutes=1)
+  #ZERO = timedelta(0)
+  #MINUTE = timedelta(minutes=1)
   HOUR = timedelta(hours=1)
-  DAY = timedelta(days=1)
+  #DAY = timedelta(days=1)
   DT = datetime(1970, 1, 1)
 
 template assertEqual(a, b) = check a == b
@@ -407,6 +407,7 @@ error: too few arguments to function  eqcopy___OOZsrcZpylibZ76ibZdatetime95implZ
 
         assertEqual(dt.tzinfo, UTC)
     test_fromisoformat_fails_datetime()
+    test_fromisoformat_utc()
 
 class FixedOffset(tzinfo):
     offset: timedelta
@@ -663,11 +664,11 @@ suite "tzinfo":
     def test_tzinfo_fromtimestamp():
       ts = time.time()
       # Ensure it doesn't require tzinfo (i.e., that this doesn't blow up).
-      base = meth(ts)
+      #base = meth(ts)
       # Try with and without naming the keyword.
       off42 = newFixedOffset(42, "42")
       another = meth(ts, off42)
-      again = meth(ts, tz=off42)
+      #again = meth(ts, tz=off42)
       #assertIs(another.tzinfo, again.tzinfo)
       assertEqual(another.utcoffset(), timedelta(minutes=42))
     test_tzinfo_fromtimestamp()

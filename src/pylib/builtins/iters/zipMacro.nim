@@ -26,7 +26,7 @@ proc zipIterBodyImpl*(iterables: NimNode|seq[NimNode], strict: NimNode
   ##[
   # inline-loop each iterators
   ]##
-  var itorsVal = newTuple()
+
   var loopBody = newStmtList()
   loopBody.addLoopEach(result, iterables, res, preBreakCb=checkBound)
 

@@ -1,7 +1,7 @@
 
-import ./util
 
 when defined(linux):
+  import ./util
   c_defined have_getrandom, "HAVE_GETRANDOM", ["<sys/random.h>"]
   c_defined have_getrandom_syscall, "HAVE_GETRANDOM_SYSCALL", ["<sys/random.h>"]
 else:

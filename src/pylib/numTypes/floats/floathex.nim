@@ -23,7 +23,7 @@ const
   DBL_MAX_EXP = float64.maxExponent
 const
   TOHEX_NBITS = DBL_MANT_DIG + 3 - (DBL_MANT_DIG+2) mod 4
-  HEX_BUF = (TOHEX_NBITS-1)/4+3  # not sure if too long
+  #HEX_BUF = (TOHEX_NBITS-1)/4+3  # not sure if too long
 
 const Py_hexdigits = "0123456789abcdef"
 
@@ -176,7 +176,7 @@ func floatFromhexImpl*(s: string): float =
   template cur: char = s[curIdx]
   template step = curIdx.inc
   template stepi(i) = curIdx.inc i
-  template reset(i) = curIdx = i
+  template resetCur(i) = curIdx = i
 
   # leading whitespace
   while cur.IS_SPACE:
@@ -197,7 +197,7 @@ func floatFromhexImpl*(s: string): float =
     if cur == 'x' or cur == 'X':
       step
     else:
-      reset s_store
+      resetCur s_store
 
   # coefficient: <integer> [. <fraction>]
   let coeff_start = curIdx

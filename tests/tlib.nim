@@ -3,7 +3,7 @@
 #  we shall mainly focus on the cases where Python differs Nim,
 #  and leave the rest to Nim's own stdlib test.
 
-import std/macros
+
 
 import pylib/Lib/[random, string]
 
@@ -24,7 +24,7 @@ test "Lib/string":
 
 const dunder_file = currentSourcePath()
 when defined(js):
-  from std/strutils import rfind
+
   func restrict_parentDir(s: string): string {.compileTime.}=
     var idx = s.rfind '/'
     if idx == -1: idx = s.rfind '\\' 

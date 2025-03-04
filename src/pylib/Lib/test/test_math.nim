@@ -38,7 +38,6 @@ suite "sumprod":
     check 14.0 == sumprod(a,a)
 
   test "CPython:test_math.testSumProd":
-    type ARuntimeError = object of CatchableError
     template sumprod(a, b): untyped = math.sumprod(a, b)
     def testSumProd():
 
@@ -103,6 +102,7 @@ suite "sumprod":
 # SYNTAX-BUG: assertEqual(sumprod([10**7]*10**5, [10**7]*10**5), 10**19)
 
 #[ : static-typed
+        type ARuntimeError = object of CatchableError
         # Error in iterator
         def raise_after(n):
             for i in range(n):

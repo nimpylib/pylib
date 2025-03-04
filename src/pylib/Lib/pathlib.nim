@@ -120,7 +120,7 @@ proc mkdirParents(self; exist_ok=false) =
   if not exist_ok and existsOrCreateDir $self:
     raiseExcWithPath $self
 
-proc mkdir*(self; mode = 0o777; parents, exist_ok=false) =
+proc mkdir*(self; mode = 0o777; parents=false, exist_ok=false) =
   if parents:
     self.mkdirParents exist_ok
   else:

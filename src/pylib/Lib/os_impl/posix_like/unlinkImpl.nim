@@ -45,7 +45,7 @@ else:
             deleteFile(f) != 0:
           return true # success
     else:
-      if unlink(file) == 0'i32: return true  # success
+      if unlink(cstring file) == 0'i32: return true  # success
   proc unlinkImpl*(p: PathLike) =
     if not unlinkAux(p):
       p.raiseExcWithPath()

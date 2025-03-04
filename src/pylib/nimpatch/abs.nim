@@ -1,4 +1,4 @@
-
+{.used.}
 import ./utils
 addPatch((2,1,1), defined(js) and compileOption("jsBigInt64")):
   func abs*[T: SomeSignedInt](x: T): T{.inline.} =

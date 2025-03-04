@@ -27,7 +27,7 @@ template AC_LINK_IFELSE*(variable, defval, code) = decl_ac_impl('c', variable, d
 template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl('r', variable, defval, code)
 
 template c_defined*(variable; c_macro: string; headers: openArray = []) =
-  const Pre =
+  const Pre{.used.} =  # NIM-BUG: must be marked by used pragma
     static:
       var pre = "/*INCLUDESECTION*/\n"
       pre.add "#include <stdlib.h>\n"

@@ -8,7 +8,7 @@ test "Lib/time":
   type Self = object
     t: float
   let self = Self(t: time())
-  template assertEqual(_: Self; a, b) = check a == b
+
   checkpoint "test_conversions"
 
   check int(time.mktime(time.localtime(self.t))) == int(self.t)
