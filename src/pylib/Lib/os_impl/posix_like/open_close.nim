@@ -11,11 +11,11 @@ when defined(js):
     # in fact flags, mode is optional and accepts cstring, but we don't need such variants here
     proc closeSync(fd: cint){.importjs: "require('fs').closeSync(@)".}
     proc c_close(fd: cint): int =
-      catchJsErrAsCode require("fs").closeSync(fd)
+      catchJsErrAsCode closeSync(fd)
 
     proc c_close(fd: cint, msg: var string): int =
       ## compat close
-      catchJsErrAsCode msg, require("fs").closeSync(fd)
+      catchJsErrAsCode msg, closeSync(fd)
   else:
     const openNotImpl = "not impl for non-nodejs JS engine"
     proc openSync(path: cstring, flags, mode: cint): cint{.error:

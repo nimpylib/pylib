@@ -1,11 +1,11 @@
 
 
-from ./isX import isnan
 
 from ./platformUtils import clikeOr, CLike
 import ./patch/nextafter_step as nextafter_stepLib
 
 when CLike:
+ from ./isX import isnan
  # XXX: union only supports Clike backends
  proc c_nextafter(x, y: float;
                          usteps: uint64): float =

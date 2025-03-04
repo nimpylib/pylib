@@ -2,7 +2,6 @@
 import ../common
 import std/macros
 
-type Time64 = int64
 
 #[ XXX: extact from CPython-3.13-alpha/Modules/posix L1829
   /* The CRT of Windows has a number of flaws wrt. its stat() implementation:
@@ -28,10 +27,10 @@ when InJs:
   template impStatTAttr[T](attr; dstAttr) =
     impStatTAttr[T](attr, dstAttr, jsToT)
 
-  template impStatIAttr(attr; dstAttr) = impStatTAttr[cdouble](attr, dstAttr)
   template impStatIAttr(attr; dstAttr; typ) =
     type typ = cdouble
-    impStatIAttr(attr, dstAttr)
+    impStatTAttr[typ](attr, dstAttr)
+  template impStatIAttr(attr; dstAttr) = impStatTAttr[cdouble](attr, dstAttr)
   impStatIAttr st_ino,    ino,    Ino
   impStatIAttr st_mode,   mode,   Mode
   impStatIAttr st_nlink,  nlink,  Nlink
@@ -60,6 +59,7 @@ when InJs:
 else:
   const DWin = defined(windows)
   when DWin:
+    type Time64 = int64
     when defined(nimPreviewSlimSystem):
       import std/widestrs
     type
@@ -101,8 +101,6 @@ macro genTimeGetter(amc: static[char]) =
     js_xtime = ident js_s_xtime
     js_getxtime = ident("get" & js_s_xtime)
   let s_st_xtim = "st_" & amc & "tim"
-  template get(attr: string): NimNode =
-    newDotExpr(x, ident(attr))
   let
     xtim = ident s_st_xtim
     xtime = ident(s_st_xtim & 'e')

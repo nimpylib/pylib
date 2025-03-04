@@ -6,11 +6,13 @@ import ../../timezone_impl/[decl, meth_by_datetime_getter, meth_by_datetime]
 
 import ./time_utils, ./zonename_utils, ./to_seconds_utils
 from ./state_consts import CONST_EPOCH, utc_timezone
-import ./init, ./op
-import ./struct_tm_helper  # cTmToNormCall
+import ./op
 
-proc newDatetime(tm: Tm): datetime =
-  cTmToNormCall(datetime, tm, fold=0)
+when not HAVE_STRUCT_TM_TM_ZONE: 
+  import ./init
+  import ./struct_tm_helper  # cTmToNormCall
+  proc newDatetime(tm: Tm): datetime =
+    cTmToNormCall(datetime, tm, fold=0)
 
 proc getUtcOffset(local_time_tm: Tm, timestamp: time_t): timedelta =
   ## `local_time_tm` shall be getten via `localtime` with `timestamp` as arg

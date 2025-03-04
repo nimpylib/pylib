@@ -32,6 +32,7 @@ template vmPrintStdoutNoNL(msg: string) =
     exec cmd
   else:
     # gorge cannot help as it just returns output
+    discard cmd  ## for lint check: [XDeclaredButNotUsed]
     notImpl "nimvm"
 
 type PriArgs = openArray[string]

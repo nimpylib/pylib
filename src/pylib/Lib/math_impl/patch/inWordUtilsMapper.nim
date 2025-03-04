@@ -1,7 +1,8 @@
 
 import std/macros
 
-from std/os import parentDir, `/../`
+when not defined(js):
+  from std/os import parentDir, `/../`
 
 const
   wuDirPart = "inWordUtils"

@@ -1,9 +1,10 @@
  
 const compileLittleEndian* = cpuEndian == littleEndian
 
-template wrapVM(body): bool =
-  when nimvm: compileLittleEndian
-  else: body
+when defined(js):
+  template wrapVM(body): bool =
+    when nimvm: compileLittleEndian
+    else: body
 
 when not defined(js):
   func isLittleEndian*: bool{.compileTime.} = compileLittleEndian

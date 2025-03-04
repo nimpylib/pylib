@@ -25,8 +25,8 @@ macro initErrorcodeMap*(K, V; res: untyped, initFunc: typed) =
     errName = symbolName e
     errNameNode = newLit errName
     errId = ident errName
-    let addErrnoId = genSym(nskProc, errName)
     when CLike:
+      let addErrnoId = genSym(nskProc, errName)
       # NOTE: just wrap in `res`[`errId`] = `errNameNode` directly in `#ifdef`
       #   doesn't work, as `#ifdef ..  #endif` will not be placed right
       #   around stmt, but

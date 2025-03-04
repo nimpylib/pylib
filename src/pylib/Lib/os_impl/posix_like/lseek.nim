@@ -1,12 +1,14 @@
 
 import ../private/iph_utils
 import ./errnoHandle
-import ./seek_consts
+const weirdTarget = defined(js) or defined(nimscript)
+when not weirdTarget:
+  import ./seek_consts
 
 when MS_WINDOWS:
   proc lseek(fd: cint, offset: int64, origin: cint): int64 {.
     importc: "_lseeki64", header: "<io.h>".}
-else:
+elif not weirdTarget:
   import std/posix
 
 proc lseek*(fd: int, position: int64, whence: int): int64{.noWeirdTarget.} =

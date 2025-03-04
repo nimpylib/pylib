@@ -19,7 +19,7 @@ let
 proc isNotFound*(err: OSErrorCode): bool = err.int == ErrNoent
 
 let jsOs = require("os")
-let platform = $jsOs.platform().to(cstring)
+
 
 proc jsErrnoMsg*(errorCode: OSErrorCode): string =
   let ie = errorCode.int

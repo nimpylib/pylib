@@ -69,5 +69,5 @@ when defined(js):
     let ssym = case symExpr.kind
     of nnkStrLit, nnkRStrLit, nnkTripleStrLit, nnkIdent: symExpr.strVal  # also allows dotExpr
     of nnkDotExpr: symExpr[0].strVal & '.' & symExpr[1].strVal
-    else: error "invalid nim node type " & $symExpr.kind; ""
+    else: error "invalid nim node type " & $symExpr.kind
     importNodeImpl(def, module.strVal, ssym)

@@ -8,7 +8,9 @@
 import std/os
 import std/fenv
 from ../Python/force_ascii_utils import Py_FORCE_UTF8_FS_ENCODING
-when defined(js) or not (Py_FORCE_UTF8_FS_ENCODING or defined(windows)):
+when defined(js) and not defined(nodejs) or
+    not (Py_FORCE_UTF8_FS_ENCODING or defined(windows)) or
+    defined(nimscript):
   import std/strutils # toLowerAscii startsWith
 when defined(nimPreviewSlimSystem):
   import std/assertions
@@ -30,7 +32,7 @@ const float_repr_style* = str(
 const weirdTarget = defined(js) or defined(nimscript)
 when defined(js):
   import std/jsffi
-  import ../jsutils/deno
+  when not defined(nodejs): import ../jsutils/deno
 when not weirdTarget:
   const inFileSystemUtf8os = defined(macosx) or defined(android) or defined(vxworks)
   when not inFileSystemUtf8os:
@@ -49,7 +51,7 @@ export list, strimpl
 # which is defined in Makefile.pre.in L1808 as "$(MACHDEP)"
 # and MACHDEP is defined in configure.ac L313
 
-when not defined(windows):
+when defined(linux) or defined(aix):
   import ./private/platformInfo
 
   template sufBefore(pre: string, ver: (int, int)): string =

@@ -24,7 +24,7 @@ type
 # some error is still defined in ./io.nim
 # as they're currently only used there.
 
-const weirdTarget = defined(nimscript) or defined(js)
+const weirdTarget{.used.} = defined(nimscript) or defined(js)
 when InJs:
   export isNotFound
 elif defined(nimscript):

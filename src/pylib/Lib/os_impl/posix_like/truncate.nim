@@ -1,9 +1,6 @@
 
 import ../common
 
-import ./open_close
-import std/os
-
 when defined(js):
   proc ftruncateSync(file: cint; len: cint){.importNode(fs, ftruncateSync).}
   proc ftruncate*(file: Positive; length: int64) =
@@ -16,6 +13,8 @@ when defined(js):
       catchJsErrAndRaise truncateSync(file.cstring, length.cint)
 
 else:
+  import std/os
+  import ./open_close
   when defined(windows):
     # errno_t _chsize_s(int _FileHandle, __int64 _Size);
     proc chsize_s(fd: cint, size: int64): cint{.importc:"_chsize_s", header:"<io.h>".}

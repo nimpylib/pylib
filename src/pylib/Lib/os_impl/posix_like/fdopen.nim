@@ -1,13 +1,13 @@
 
 ## this module depends on `io` module
 
-import std/macros
 
 when defined(nimdoc) or defined(js) or defined(nimscript):
   template fdopen*(fd: Positive; x: varargs[untyped]): untyped =
     ## not support JS/NimScript backend
     static: doAssert false, "unsupport JS/NimScript backend"
 else:
+  import std/macros
   import ../../../io
   export io  # for open, write,...
 

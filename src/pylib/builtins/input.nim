@@ -2,8 +2,12 @@
 import ./print
 import ../pystring/strimpl
 import ../Lib/sys
-import ../pyerrors/rterr
 
+const hasStdio = declared(sys.stdin) and declared(sys.stdout)
+
+when hasStdio:
+  import ../pyerrors/rterr
+  template lost(std) = raise newException(RuntimeError, "input() lost " & std)
 
 proc inputImpl: PyStr =
   when defined(nimscript):
@@ -65,8 +69,7 @@ proc input*(prompt = str("")): PyStr =
   ##
   ## when on non-nodejs JavaScript backend,
   ## uses `prompt`
-  when declared(sys.stdin) and declared(sys.stdout):
-    template lost(std) = raise newException(RuntimeError, "input() lost " & std)
+  when hasStdio:
     if sys.stdin.isNil: lost "stdin"
     if sys.stdout.isNil: lost "stdout"
   inputImpl prompt
