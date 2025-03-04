@@ -10,7 +10,7 @@ import pylib/Lib/random
 
 import std/unittest
 
-const intOver64b = 31415926535'i64 <= int64 high int
+import ../../utils
 
 var self = 0
 template assertEqual(_: typeof(self); a, b: auto) = check(a == b)
@@ -81,8 +81,7 @@ block test_round:
 
         when intOver64b:
           for huge_n in [2**31-1, 2**31, 
-                2**63-1,
-                # 2**63, 2**100, 10**100
+                # 2**63-1, 2**63, 2**100, 10**100
           ]:
             self.assertEqual(round(8979323, huge_n), 8979323)
 
