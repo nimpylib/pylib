@@ -6,9 +6,14 @@
 
 import std/unittest
 import std/macros
+from ../pyerrors/simperr import TypeError
+export TypeError
 
 type
   TestCase* = ref object of RootObj
+
+func newTestCase*: TestCase = TestCase()
+
 
 macro genSelf(templ) =
   result = newStmtList()
@@ -33,6 +38,15 @@ template assertRaises*(typ: typedesc, cb: typed, va: varargs[untyped]){.genSelf.
     when compiles((let _ = cb(va))): discard cb(va)
     else: cb(va)
 
+template assertRaises*(typ: typedesc[TypeError], cb: typed, va: varargs[untyped]){.genSelf.} =
+  bind expect
+  when compiles((let _ = cb(va))):
+    expect typ: discard cb(va)
+  elif compiles(cb(va)):
+    expect typ: cb(va)
+  else:
+    discard  ## "not compile" is seen as Compile-time TypeError
+
 template assertIs*[T](a, b: T){.genSelf.} =
   bind check
   when T is (pointer|ptr|ref|proc|iterator):
@@ -42,3 +56,34 @@ template assertIs*[T](a, b: T){.genSelf.} =
   else:
     check a.addr == b.addr
 
+template addSkip(reason) = checkpoint reason  ##\
+## XXX: TODO: not really python-like
+
+template skip*(reason; body) =
+  ## EXT.
+  addSkip reason
+
+template skip*(reason: string): untyped =
+  addSkip reason
+  proc (_: proc) = discard
+
+proc asis_id[P: proc](x: P): P = x
+
+template skipIf*(condition: bool, reason: string) =
+  bind asis_id, skip
+  if condition:
+      return skip(reason)
+  return asis_id
+
+template skipIf*(condition: bool, reason: string; body) =
+  addSkip reason
+  if condition:
+    body
+
+template skipUnless*(condition: bool, reason: string) =
+  bind skipIf
+  skipIf(not condition, reason)
+
+template skipUnless*(condition: bool, reason: string; body) =
+  bind skipIf
+  skipIf(not condition, reason, body)
