@@ -41,7 +41,7 @@ type ScandirIterator[T] = ref object
 
 func close*(scandirIter: ScandirIterator) = discard
 iterator items*[T](scandirIter: ScandirIterator[T]): DirEntry[T] =
-  for i in scandirIter.iter:
+  for i in scandirIter.iter():
     yield i
 
 using self: DirEntry
@@ -143,9 +143,11 @@ template scandirImpl(path){.dirty.} =
       dir = opendirSync(cs)
     var dirent: Dirent
     while true:
-      dirent = dir.readdirSync()
-      let de = newDirEntry[T](name = $dirent.name.to(cstring), dir = spath, hasIsFileDir=dirent)
+      dirent = dir.readSync()
       if dirent.isNull: break
+      let de = newDirEntry[T](name = $dirent["name"].to(cstring), dir = spath, hasIsFileDir=dirent)
+      yield de
+    dir.closeSync
 
   else:
     try:
