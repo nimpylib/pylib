@@ -23,7 +23,7 @@ nim	rename	pathlib.html#rename,,Path	proc rename(self: Path; target: Path): Path
 nim	rename	pathlib.html#rename,,string	proc rename(self: Path; target: string): Path		115
 nim	replace	pathlib.html#replace,,Path	proc replace(self: Path; target: Path): Path		108
 nim	replace	pathlib.html#replace,,string	proc replace(self: Path; target: string): Path		116
-nim	mkdir	pathlib.html#mkdir,,int	proc mkdir(self: Path; mode = 0o000000000777; parents, exist_ok = false)		123
+nim	mkdir	pathlib.html#mkdir,,int	proc mkdir(self: Path; mode = 0o000000000777; parents = false; exist_ok = false)		123
 nim	rmdir	pathlib.html#rmdir	proc rmdir(self: Path)		135
 nimgrp	replace	pathlib.html#replace-procs-all	proc		116
 nimgrp	/	pathlib.html#/-procs-all	proc		55

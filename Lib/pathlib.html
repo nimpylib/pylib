@@ -80,7 +80,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">mkdir
-  <li><a class="reference" href="#mkdir%2C%2Cint" title="mkdir(self: Path; mode = 0o000000000777; parents, exist_ok = false)">mkdir(self: Path; mode = 0o000000000777; parents, exist_ok = false)</a></li>
+  <li><a class="reference" href="#mkdir%2C%2Cint" title="mkdir(self: Path; mode = 0o000000000777; parents = false; exist_ok = false)">mkdir(self: Path; mode = 0o000000000777; parents = false; exist_ok = false)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">name
@@ -266,7 +266,7 @@ since Python 3.10</div>
 </div>
 <div id="mkdir-procs-all">
   <div id="mkdir,,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#mkdir%2C%2Cint"><span class="Identifier">mkdir</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pathlib_impl/types.html#Path"><span class="Identifier">Path</span></a><span class="Other">;</span> <span class="Identifier">mode</span> <span class="Other">=</span> <span class="DecNumber">0o000000000777</span><span class="Other">;</span> <span class="Identifier">parents</span><span class="Other">,</span> <span class="Identifier">exist_ok</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#mkdir%2C%2Cint"><span class="Identifier">mkdir</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="pathlib_impl/types.html#Path"><span class="Identifier">Path</span></a><span class="Other">;</span> <span class="Identifier">mode</span> <span class="Other">=</span> <span class="DecNumber">0o000000000777</span><span class="Other">;</span> <span class="Identifier">parents</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">exist_ok</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
     <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">FileExistsError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">,</span> <span class="Identifier">IsADirectoryError</span><span class="Other">,</span>
     <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">,</span> <span class="Identifier">IsADirectoryError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteDirEffect</span><span class="Other">,</span> <span class="Identifier">ReadDirEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -559,7 +559,7 @@ since Python 3.10</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-03 17:56:26 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-06 16:24:07 UTC</small>
       </div>
     </div>
   </div>

@@ -52,10 +52,25 @@
     </div>
     <ul class="simple simple-toc" id="toc-list">
   <li>
+  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
+</li>
+<li>
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#TestCase" title="TestCase = ref object of RootObj">TestCase</a></li>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">newTestCase
+  <li><a class="reference" href="#newTestCase" title="newTestCase(): TestCase">newTestCase(): TestCase</a></li>
+
+</ul>
 
     </ul>
   </details>
@@ -81,12 +96,31 @@
 </ul>
 <ul class="simple nested-toc-section">assertRaises
   <li><a class="reference" href="#assertRaises.t%2CTestCase%2Ctypedesc%2Ctyped%2Cvarargs%5Buntyped%5D" title="assertRaises(self: TestCase; typ: typedesc; cb: typed; va: varargs[untyped])">assertRaises(self: TestCase; typ: typedesc; cb: typed; va: varargs[untyped])</a></li>
+<li><a class="reference" href="#assertRaises.t%2CTestCase%2Ctypedesc%5BTypeError%5D%2Ctyped%2Cvarargs%5Buntyped%5D" title="assertRaises(self: TestCase; typ: typedesc[TypeError]; cb: typed;
+             va: varargs[untyped])">assertRaises(self: TestCase; typ: typedesc[TypeError]; cb: typed;
+             va: varargs[untyped])</a></li>
 <li><a class="reference" href="#assertRaises.t%2Ctypedesc%2Ctyped%2Cvarargs%5Buntyped%5D" title="assertRaises(typ: typedesc; cb: typed; va: varargs[untyped])">assertRaises(typ: typedesc; cb: typed; va: varargs[untyped])</a></li>
+<li><a class="reference" href="#assertRaises.t%2Ctypedesc%5BTypeError%5D%2Ctyped%2Cvarargs%5Buntyped%5D" title="assertRaises(typ: typedesc[TypeError]; cb: typed; va: varargs[untyped])">assertRaises(typ: typedesc[TypeError]; cb: typed; va: varargs[untyped])</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">assertTrue
   <li><a class="reference" href="#assertTrue.t" title="assertTrue(bo)">assertTrue(bo)</a></li>
 <li><a class="reference" href="#assertTrue.t%2CTestCase%2C" title="assertTrue(self: TestCase; bo)">assertTrue(self: TestCase; bo)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">skip
+  <li><a class="reference" href="#skip.t%2Cstring" title="skip(reason: string): untyped">skip(reason: string): untyped</a></li>
+<li><a class="reference" href="#skip.t%2C%2C" title="skip(reason; body)">skip(reason; body)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">skipIf
+  <li><a class="reference" href="#skipIf.t%2Cbool%2Cstring" title="skipIf(condition: bool; reason: string)">skipIf(condition: bool; reason: string)</a></li>
+<li><a class="reference" href="#skipIf.t%2Cbool%2Cstring%2C" title="skipIf(condition: bool; reason: string; body)">skipIf(condition: bool; reason: string; body)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">skipUnless
+  <li><a class="reference" href="#skipUnless.t%2Cbool%2Cstring" title="skipUnless(condition: bool; reason: string)">skipUnless(condition: bool; reason: string)</a></li>
+<li><a class="reference" href="#skipUnless.t%2Cbool%2Cstring%2C" title="skipUnless(condition: bool; reason: string; body)">skipUnless(condition: bool; reason: string; body)</a></li>
 
 </ul>
 
@@ -106,7 +140,13 @@
     <p class="module-desc">Lib/unittest<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
 Currently <tt class="docutils literal"><span class="pre"><span class="Identifier">self</span><span class="Punctuation">:</span> <span class="Identifier">TestCase</span></span></tt> in all functions is only a placeholder, the actual implementation just replies the std/unittest.</div>
 </p>
-    <div class="section" id="7">
+    <div class="section" id="6">
+  <h1><a class="toc-backref" href="#6">Imports</a></h1>
+  <dl class="item">
+    <a class="reference external" href="simperr.html">simperr</a>
+  </dl>
+</div>
+<div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
     <div id="TestCase">
@@ -114,10 +154,29 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
+</div>
+
+  </dl>
+</div>
+<div class="section" id="12">
+  <h1><a class="toc-backref" href="#12">Procs</a></h1>
+  <dl class="item">
+    <div id="newTestCase-procs-all">
+  <div id="newTestCase">
+  <dt><pre><span class="Keyword">func</span> <a href="#newTestCase"><span class="Identifier">newTestCase</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="unittest.html#TestCase"><span class="Identifier">TestCase</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
 </div>
 
   </dl>
@@ -131,8 +190,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -141,8 +200,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -154,8 +213,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -164,8 +223,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -177,8 +236,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -187,8 +246,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -201,8 +260,19 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="assertRaises.t,TestCase,typedesc[TypeError],typed,varargs[untyped]">
+  <dt><pre><span class="Keyword">template</span> <a href="#assertRaises.t%2CTestCase%2Ctypedesc%5BTypeError%5D%2Ctyped%2Cvarargs%5Buntyped%5D"><span class="Identifier">assertRaises</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="unittest.html#TestCase"><span class="Identifier">TestCase</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="simperr.html#TypeError"><span class="Identifier">TypeError</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">cb</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">;</span>
+                      <span class="Identifier">va</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -211,8 +281,18 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="assertRaises.t,typedesc[TypeError],typed,varargs[untyped]">
+  <dt><pre><span class="Keyword">template</span> <a href="#assertRaises.t%2Ctypedesc%5BTypeError%5D%2Ctyped%2Cvarargs%5Buntyped%5D"><span class="Identifier">assertRaises</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="simperr.html#TypeError"><span class="Identifier">TypeError</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">cb</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">;</span> <span class="Identifier">va</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -224,8 +304,8 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -234,8 +314,77 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="skip-templates-all">
+  <div id="skip.t,string">
+  <dt><pre><span class="Keyword">template</span> <a href="#skip.t%2Cstring"><span class="Identifier">skip</span></a><span class="Other">(</span><span class="Identifier">reason</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="skip.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#skip.t%2C%2C"><span class="Identifier">skip</span></a><span class="Other">(</span><span class="Identifier">reason</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    EXT.
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L62" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L62" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="skipIf-templates-all">
+  <div id="skipIf.t,bool,string">
+  <dt><pre><span class="Keyword">template</span> <a href="#skipIf.t%2Cbool%2Cstring"><span class="Identifier">skipIf</span></a><span class="Other">(</span><span class="Identifier">condition</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">reason</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="skipIf.t,bool,string,">
+  <dt><pre><span class="Keyword">template</span> <a href="#skipIf.t%2Cbool%2Cstring%2C"><span class="Identifier">skipIf</span></a><span class="Other">(</span><span class="Identifier">condition</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">reason</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L78" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L78" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="skipUnless-templates-all">
+  <div id="skipUnless.t,bool,string">
+  <dt><pre><span class="Keyword">template</span> <a href="#skipUnless.t%2Cbool%2Cstring"><span class="Identifier">skipUnless</span></a><span class="Other">(</span><span class="Identifier">condition</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">reason</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L83" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L83" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="skipUnless.t,bool,string,">
+  <dt><pre><span class="Keyword">template</span> <a href="#skipUnless.t%2Cbool%2Cstring%2C"><span class="Identifier">skipUnless</span></a><span class="Other">(</span><span class="Identifier">condition</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">reason</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/unittest.nim#L87" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/unittest.nim#L87" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -251,7 +400,7 @@ Currently <tt class="docutils literal"><span class="pre"><span class="Identifier
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-03 17:55:20 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-06 16:22:59 UTC</small>
       </div>
     </div>
   </div>
