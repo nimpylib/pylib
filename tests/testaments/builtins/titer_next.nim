@@ -1,4 +1,8 @@
 
+import pylib/builtins
+
+import std/unittest
+
 test "iter/next":
 
   let ls = list([1])

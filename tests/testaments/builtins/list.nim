@@ -1,4 +1,8 @@
 
+import pylib
+
+import std/unittest
+
 test "list shallow":
   var ls = list([1,2,3])
   var ls1 = ls
