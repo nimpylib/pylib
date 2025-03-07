@@ -23,7 +23,7 @@ template `**`*[T](a: T, b: Natural): T =
   bind `^`
   a ^ b
 
-template `**`*[T: SomeInteger](a: T; b: static[int]): int|float =
+template `**`*[T: SomeInteger](a: T; b: static[int]): T|float =
   ## power for static int `b`
   ## 
   ## so that result type can be inferred:
