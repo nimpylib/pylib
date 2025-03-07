@@ -28,7 +28,7 @@ template platformAvail*(platform; def) =
   bind platformAvailImpl
   platformAvailImpl(defined(platform), astToStr(platform), def)
 
-template platformAvailWhen*(platform; cond: static[bool]; def) =
+template platformAvailWhen*(platform; cond: bool; def) =
   bind platformAvailImpl
   platformAvailImpl(defined(platform) and cond,
     astToStr(platform) & " when " & astToStr(cond), def)
