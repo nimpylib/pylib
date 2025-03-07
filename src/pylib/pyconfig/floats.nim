@@ -1,9 +1,4 @@
 
-from std/strutils import contains
-
-const
-  DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754* = "arm" in hostCPU  ## CPython/configure.ac
-
 
 import ./util
 
@@ -189,5 +184,21 @@ when not declared(Py_SET_53BIT_PRECISION_HEADER):
   
 
 
+# ref: https://www.gnu.org/software/autoconf-archive/ax_c_float_words_bigendian.html
 
+AX_C_FLOAT_WORDS_BIGENDIAN_def DOUBLE_IS_BIG_ENDIAN_IEEE754, DOUBLE_IS_LITTLE_ENDIAN_IEEE754:
+  from std/strutils import contains
+  when "arm" in hostCPU:
+    def DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754  ## CPython/configure.ac
+  else:
+    {.error: """unknown float word ordering.
+You need to manually -d:DOUBLE_IS_BIG_ENDIAN_IEEE754 or -d:DOUBLE_IS_LITTLE_ENDIAN_IEEE754
+or -d:DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754
+""".}
 
+template expAsSym(sym) =
+  const sym* = defined(sym)
+
+expAsSym DOUBLE_IS_BIG_ENDIAN_IEEE754
+expAsSym DOUBLE_IS_LITTLE_ENDIAN_IEEE754
+expAsSym DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754

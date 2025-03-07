@@ -1,17 +1,14 @@
 
-from ../../floats import
-  DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754, X87_DOUBLE_ROUNDING, HAVE_PY_SET_53BIT_PRECISION
+import ../../floats
 export
-  DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754, X87_DOUBLE_ROUNDING, HAVE_PY_SET_53BIT_PRECISION
-
+  X87_DOUBLE_ROUNDING, HAVE_PY_SET_53BIT_PRECISION,
+  DOUBLE_IS_LITTLE_ENDIAN_IEEE754, DOUBLE_IS_BIG_ENDIAN_IEEE754,
+  DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754
 
 const
   WORDS_BIGENDIAN* = cpuEndian == bigEndian
   WORDS_LITTLEENDIAN* =  cpuEndian == littleEndian
 
-  # XXX: not sure if suitable:
-  DOUBLE_IS_LITTLE_ENDIAN_IEEE754* = WORDS_LITTLEENDIAN
-  DOUBLE_IS_BIG_ENDIAN_IEEE754* = WORDS_BIGENDIAN
 
 ##[
  ref https://nim-lang.org/docs/manual.html#types-preminusdefined-floatingminuspoint-types
@@ -31,9 +28,9 @@ const
 # (2) we're on x86 with the rounding precision set to 64-bits
 #     (extended precision), and we don't know how to change
 #     the rounding precision.
-when not DOUBLE_IS_LITTLE_ENDIAN_IEEE754 and
-    not DOUBLE_IS_BIG_ENDIAN_IEEE754 and
-    not DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754:
+when not defined(DOUBLE_IS_LITTLE_ENDIAN_IEEE754) and
+    not defined(DOUBLE_IS_BIG_ENDIAN_IEEE754) and
+    not defined(DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754):
   const PY_SHORT_FLOAT_REPR = false
 
 # Double rounding is symptomatic of use of extended precision on x86.
