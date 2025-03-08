@@ -38,6 +38,8 @@ template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl(RunSubCmd, variab
 
 
 template AX_C_FLOAT_WORDS_BIGENDIAN*(id; doIfTrue, doIfFalse, doIfUnknown) =
+  template handle_option_bool(_; val: bool){.genSym.} =
+    doIfUnknown
   template handle_option_bool(_; val: string){.genSym.} =
     const v = val
     when v == "1": doIfTrue
