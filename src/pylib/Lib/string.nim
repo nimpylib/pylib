@@ -33,9 +33,12 @@ func capwords*(a: StringLike, sep: StringLike): PyStr =
   ##  word using `capitalize`, and join the capitalized words using
   ##  `join`. `sep` is used to split and join the words.
   let ssep = $sep
+  var res = newStringOfCap a.byteLen
   for word in pystring.split(str(a), ssep):
-    result += pystring.capitalize(word)
-    result += ssep
+    res.add pystring.capitalize(word)
+    res.add ssep
+  res.setLen res.len - ssep.len
+  str res
 
 type Template* = distinct string  ##[
   .. hint:: Currently inheriting `Template` is not supported.
