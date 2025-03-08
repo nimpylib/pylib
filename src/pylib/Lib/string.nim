@@ -90,7 +90,7 @@ macro substitute*(templ: Template, mapping: Mapping, kws: varargs[untyped]): PyS
     newVarStmt(seqVar, prefix(arrNode, "@"))
   result = newStmtList()
   result.add seqDef
-  let reprId = ident("repr")
+
   let mappingId = if mapping.kind in {nnkIdent, nnkSym}:
     mapping
   else:
@@ -99,8 +99,8 @@ macro substitute*(templ: Template, mapping: Mapping, kws: varargs[untyped]): PyS
     mapId
   result.add quote do:
     for k in `mappingId`.keys():
-      add `seqVar`, k.`reprId`
-      add `seqVar`, `mappingId`[k].`reprId`
+      add `seqVar`, k
+      add `seqVar`, `mappingId`[k]
   var res = newCall(bindSym("%"), newCall("string", templ), seqVar)
   res = newCall(bindSym"str", res)
   result.add res
