@@ -1,4 +1,4 @@
 nimTitle	utils	_._/nimpatch/utils.html	module src/pylib/nimpatch/utils		0
 nim	NimVersionTuple	_._/nimpatch/utils.html#NimVersionTuple	const NimVersionTuple		2
 nim	JsBigInt64Option	_._/nimpatch/utils.html#JsBigInt64Option	const JsBigInt64Option		4
-nim	addPatch	_._/nimpatch/utils.html#addPatch.t,,bool,untyped	template addPatch(ver: (int, int, int); flag: bool; patchBody: untyped)		6
+nim	addPatch	_._/nimpatch/utils.html#addPatch.t,,untyped,untyped	template addPatch(ver: (int, int, int); flag: untyped; patchBody: untyped)		6

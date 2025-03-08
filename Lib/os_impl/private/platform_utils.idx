@@ -1,3 +1,3 @@
 nimTitle	platform_utils	os_impl/private/platform_utils.html	module src/pylib/Lib/os_impl/private/platform_utils		0
 nim	platformAvail	os_impl/private/platform_utils.html#platformAvail.t,,	template platformAvail(platform; def)		23
-nim	platformAvailWhen	os_impl/private/platform_utils.html#platformAvailWhen.t,,static[bool],	template platformAvailWhen(platform; cond: static[bool]; def)		31
+nim	platformAvailWhen	os_impl/private/platform_utils.html#platformAvailWhen.t,,bool,	template platformAvailWhen(platform; cond: bool; def)		31

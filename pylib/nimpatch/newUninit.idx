@@ -1,4 +1,4 @@
 nimTitle	newUninit	pylib/nimpatch/newUninit.html	module src/pylib/nimpatch/newUninit		0
-nim	FixedVer	pylib/nimpatch/newUninit.html#FixedVer	const FixedVer		8
-nim	BeforeFixedVer	pylib/nimpatch/newUninit.html#BeforeFixedVer	const BeforeFixedVer		9
-nim	hasBug	pylib/nimpatch/newUninit.html#hasBug	const hasBug		11
+nim	FixedVer	pylib/nimpatch/newUninit.html#FixedVer	const FixedVer		12
+nim	BeforeFixedVer	pylib/nimpatch/newUninit.html#BeforeFixedVer	const BeforeFixedVer		13
+nim	hasBug	pylib/nimpatch/newUninit.html#hasBug	const hasBug		16

@@ -1,4 +1,6 @@
 nimTitle	util	_._/pyconfig/util.html	module src/pylib/pyconfig/util		0
-nim	AC_LINK_IFELSE	_._/pyconfig/util.html#AC_LINK_IFELSE.t,,,	template AC_LINK_IFELSE(variable, defval, code)		26
-nim	AC_RUN_IFELSE	_._/pyconfig/util.html#AC_RUN_IFELSE.t,,,	template AC_RUN_IFELSE(variable, defval, code)		27
-nim	c_defined	_._/pyconfig/util.html#c_defined.t,,string,openArray	template c_defined(variable; c_macro: string; headers: openArray = [])		29
+nim	AC_LINK_IFELSE	_._/pyconfig/util.html#AC_LINK_IFELSE.t,,,	template AC_LINK_IFELSE(variable, defval, code)		36
+nim	AC_RUN_IFELSE	_._/pyconfig/util.html#AC_RUN_IFELSE.t,,,	template AC_RUN_IFELSE(variable, defval, code)		37
+nim	AX_C_FLOAT_WORDS_BIGENDIAN	_._/pyconfig/util.html#AX_C_FLOAT_WORDS_BIGENDIAN.t,,,,	template AX_C_FLOAT_WORDS_BIGENDIAN(id; doIfTrue, doIfFalse, doIfUnknown)		40
+nim	AX_C_FLOAT_WORDS_BIGENDIAN_def	_._/pyconfig/util.html#AX_C_FLOAT_WORDS_BIGENDIAN_def.t,,,	template AX_C_FLOAT_WORDS_BIGENDIAN_def(defIfTrue, defIfFalse, doIfUnknown)		64
+nim	c_defined	_._/pyconfig/util.html#c_defined.t,,string,openArray	template c_defined(variable; c_macro: string; headers: openArray = [])		70

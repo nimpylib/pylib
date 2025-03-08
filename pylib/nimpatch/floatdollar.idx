@@ -1,5 +1,5 @@
 nimTitle	floatdollar	pylib/nimpatch/floatdollar.html	module src/pylib/nimpatch/floatdollar		0
-nim	FixedVer	pylib/nimpatch/floatdollar.html#FixedVer	const FixedVer		8
-nim	BeforeFixedVer	pylib/nimpatch/floatdollar.html#BeforeFixedVer	const BeforeFixedVer		9
-nim	hasBug	pylib/nimpatch/floatdollar.html#hasBug	const hasBug		11
+nim	FixedVer	pylib/nimpatch/floatdollar.html#FixedVer	const FixedVer		12
+nim	BeforeFixedVer	pylib/nimpatch/floatdollar.html#BeforeFixedVer	const BeforeFixedVer		13
+nim	hasBug	pylib/nimpatch/floatdollar.html#hasBug	const hasBug		16
 nim	`$`	pylib/nimpatch/floatdollar.html#$,SomeFloat	proc `$`(x: SomeFloat): string		13

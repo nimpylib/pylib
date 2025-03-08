@@ -92,7 +92,7 @@
   <li><a class="reference" href="#%2A%2A.t%2CA%2CB" title="`**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A">`**`[A: SomeFloat; B: SomeInteger](a: A; b: B): A</a></li>
 <li><a class="reference" href="#%2A%2A.t%2CA%2CB_2" title="`**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B">`**`[A: SomeInteger; B: SomeFloat](a: A; b: B): B</a></li>
 <li><a class="reference" href="#%2A%2A.t%2CT%2CT" title="`**`[T: SomeFloat](a, b: T): T">`**`[T: SomeFloat](a, b: T): T</a></li>
-<li><a class="reference" href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D" title="`**`[T: SomeInteger](a: T; b: static[int]): int | float">`**`[T: SomeInteger](a: T; b: static[int]): int | float</a></li>
+<li><a class="reference" href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D" title="`**`[T: SomeInteger](a: T; b: static[int]): T | float">`**`[T: SomeInteger](a: T; b: static[int]): T | float</a></li>
 <li><a class="reference" href="#%2A%2A.t%2CT%2CNatural" title="`**`[T](a: T; b: Natural): T">`**`[T](a: T; b: Natural): T</a></li>
 
 </ul>
@@ -295,7 +295,7 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   </dd>
 </div>
 <div id="**.t,T,static[int]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CT%2Cstatic%5Bint%5D"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span class="Operator">|</span> <span class="Identifier">float</span></pre></dt>
   <dd>
     
     <p>power for static int <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt></p>
@@ -320,7 +320,7 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     <p>power for <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> is a non-static integer:</p>
-<p>only Natural is acceptable unless <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> is static, see <a class="reference internal nimdoc" title="template `**`[T: SomeInteger](a: T; b: static[int]): int | float" href="#**.t,T,static[int]">`**`(a: T; b: static[int])</a></p>
+<p>only Natural is acceptable unless <tt class="docutils literal"><span class="pre"><span class="Identifier">b</span></span></tt> is static, see <a class="reference internal nimdoc" title="template `**`[T: SomeInteger](a: T; b: static[int]): T | float" href="#**.t,T,static[int]">`**`(a: T; b: static[int])</a></p>
 
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">var</span> <span class="Identifier">i</span> <span class="Operator">=</span> <span class="Operator">-</span><span class="DecNumber">1</span>
@@ -542,7 +542,7 @@ this causes overflow silently. Yet Python's int never overflows.</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-06 16:22:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-08 16:16:45 UTC</small>
       </div>
     </div>
   </div>
