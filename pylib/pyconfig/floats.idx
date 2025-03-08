@@ -10,9 +10,9 @@ nim	HAVE_PY_SET_53BIT_PRECISION	pylib/pyconfig/floats.html#HAVE_PY_SET_53BIT_PRE
 nim	Py_SET_53BIT_PRECISION_HEADER	pylib/pyconfig/floats.html#Py_SET_53BIT_PRECISION_HEADER.t_2	template Py_SET_53BIT_PRECISION_HEADER()		158
 nim	Py_SET_53BIT_PRECISION_START	pylib/pyconfig/floats.html#Py_SET_53BIT_PRECISION_START.t_2	template Py_SET_53BIT_PRECISION_START()		160
 nim	Py_SET_53BIT_PRECISION_END	pylib/pyconfig/floats.html#Py_SET_53BIT_PRECISION_END.t_2	template Py_SET_53BIT_PRECISION_END()		168
-nim	DOUBLE_IS_BIG_ENDIAN_IEEE754	pylib/pyconfig/floats.html#DOUBLE_IS_BIG_ENDIAN_IEEE754	const DOUBLE_IS_BIG_ENDIAN_IEEE754		200
-nim	DOUBLE_IS_LITTLE_ENDIAN_IEEE754	pylib/pyconfig/floats.html#DOUBLE_IS_LITTLE_ENDIAN_IEEE754	const DOUBLE_IS_LITTLE_ENDIAN_IEEE754		200
-nim	DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754	pylib/pyconfig/floats.html#DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754	const DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754		200
+nim	DOUBLE_IS_BIG_ENDIAN_IEEE754	pylib/pyconfig/floats.html#DOUBLE_IS_BIG_ENDIAN_IEEE754	const DOUBLE_IS_BIG_ENDIAN_IEEE754		201
+nim	DOUBLE_IS_LITTLE_ENDIAN_IEEE754	pylib/pyconfig/floats.html#DOUBLE_IS_LITTLE_ENDIAN_IEEE754	const DOUBLE_IS_LITTLE_ENDIAN_IEEE754		201
+nim	DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754	pylib/pyconfig/floats.html#DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754	const DOUBLE_IS_ARM_MIXED_ENDIAN_IEEE754		201
 nimgrp	Pyset53bitprecisionend	pylib/pyconfig/floats.html#Py_SET_53BIT_PRECISION_END-templates-all	template		112
 nimgrp	Pyset53bitprecisionstart	pylib/pyconfig/floats.html#Py_SET_53BIT_PRECISION_START-templates-all	template		107
 nimgrp	Pyset53bitprecisionheader	pylib/pyconfig/floats.html#Py_SET_53BIT_PRECISION_HEADER-templates-all	template		104
