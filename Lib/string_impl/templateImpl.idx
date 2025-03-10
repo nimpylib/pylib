@@ -1,0 +1,5 @@
+nimTitle	templateImpl	string_impl/templateImpl.html	module src/pylib/Lib/string_impl/templateImpl		0
+nim	Template	string_impl/templateImpl.html#Template,string	proc Template(s: string): Template		14
+nim	genSubstitute	string_impl/templateImpl.html#genSubstitute.t,,,,	template genSubstitute(M; Key; sym; doExc)		57
+nim	is_valid	string_impl/templateImpl.html#is_valid,Template	proc is_valid(templ: Template): bool		67
+nim	get_identifiersMayDup	string_impl/templateImpl.html#get_identifiersMayDup.i,Template	iterator get_identifiersMayDup(templ: Template): string		68

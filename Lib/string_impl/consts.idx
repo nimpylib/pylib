@@ -1,0 +1,10 @@
+nimTitle	consts	string_impl/consts.html	module src/pylib/Lib/string_impl/consts		0
+nim	ascii_lowercase	string_impl/consts.html#ascii_lowercase	const ascii_lowercase		4
+nim	ascii_uppercase	string_impl/consts.html#ascii_uppercase	const ascii_uppercase		5
+nim	ascii_letters	string_impl/consts.html#ascii_letters	const ascii_letters		6
+nim	digits	string_impl/consts.html#digits	const digits		7
+nim	hexdigits	string_impl/consts.html#hexdigits	const hexdigits		8
+nim	octdigits	string_impl/consts.html#octdigits	const octdigits		9
+nim	punctuation	string_impl/consts.html#punctuation	const punctuation		10
+nim	whitespace	string_impl/consts.html#whitespace	const whitespace		11
+nim	printable	string_impl/consts.html#printable	const printable		12

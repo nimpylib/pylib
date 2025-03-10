@@ -1,0 +1,13 @@
+nimTitle	substituteImpl	string_impl/substituteImpl.html	module src/pylib/Lib/string_impl/substituteImpl		0
+nim	Delimiter	string_impl/substituteImpl.html#Delimiter	const Delimiter		30
+nim	initIgnoreExcHandle	string_impl/substituteImpl.html#initIgnoreExcHandle	proc initIgnoreExcHandle(): ExcHandle		47
+nim	initRaisesExcHandle	string_impl/substituteImpl.html#initRaisesExcHandle	proc initRaisesExcHandle(): ExcHandle		48
+nim	SubsCfg	string_impl/substituteImpl.html#SubsCfg	type SubsCfg		51
+nim	Subs	string_impl/substituteImpl.html#Subs	type Subs		61
+nim	GetIdent	string_impl/substituteImpl.html#GetIdent	type GetIdent		79
+nim	resetSubsCfg	string_impl/substituteImpl.html#resetSubsCfg,SubsCfg	proc resetSubsCfg(cfg: SubsCfg; excHandle = initRaisesExcHandle();\n             delimiter = Delimiter)		87
+nim	initSubsCfg	string_impl/substituteImpl.html#initSubsCfg	proc initSubsCfg(excHandle = initRaisesExcHandle(); delimiter = Delimiter): SubsCfg		91
+nim	handle	string_impl/substituteImpl.html#handle.t,SubsCfg,string,M,	template handle[M](s: SubsCfg; formatstr: string; m: M; lookup)		94
+nim	substituteAux	string_impl/substituteImpl.html#substituteAux,string,M	proc substituteAux[M](templ: string; m: M; excHandle = initRaisesExcHandle();\n                 delimiter = Delimiter): string		129
+nim	isValid	string_impl/substituteImpl.html#isValid,string	proc isValid(templ: string): bool		139
+nim	getIdentifiers	string_impl/substituteImpl.html#getIdentifiers.i,string	iterator getIdentifiers(templ: string): string		145

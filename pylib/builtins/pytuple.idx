@@ -1,2 +1,5 @@
 nimTitle	pytuple	pylib/builtins/pytuple.html	module src/pylib/builtins/pytuple		0
-nim	items	pylib/builtins/pytuple.html#items.m	macro items(t: tuple): untyped		5
+nim	PyTuple	pylib/builtins/pytuple.html#PyTuple	tuple PyTuple		6
+nim	items	pylib/builtins/pytuple.html#items.m	macro items(t: tuple): untyped		8
+nim	repr	pylib/builtins/pytuple.html#repr.t,PyTuple	template repr(self: PyTuple): string		36
+nim	`$`	pylib/builtins/pytuple.html#$.t,PyTuple	template `$`(self: PyTuple): string		23

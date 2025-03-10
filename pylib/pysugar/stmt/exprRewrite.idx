@@ -1,4 +1,4 @@
 nimTitle	exprRewrite	pylib/pysugar/stmt/exprRewrite.html	module src/pylib/pysugar/stmt/exprRewrite		0
 nim	toPyExpr	pylib/pysugar/stmt/exprRewrite.html#toPyExpr,NimNode	proc toPyExpr(atm: NimNode): NimNode		16
-nim	callToPyExpr	pylib/pysugar/stmt/exprRewrite.html#callToPyExpr	proc callToPyExpr(e: NimNode): NimNode		162
-nim	toPyExprNoList	pylib/pysugar/stmt/exprRewrite.html#toPyExprNoList,NimNode	proc toPyExprNoList(atm: NimNode): NimNode		193
+nim	callToPyExpr	pylib/pysugar/stmt/exprRewrite.html#callToPyExpr	proc callToPyExpr(e: NimNode): NimNode		166
+nim	toPyExprNoList	pylib/pysugar/stmt/exprRewrite.html#toPyExprNoList,NimNode	proc toPyExprNoList(atm: NimNode): NimNode		200

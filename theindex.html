@@ -32,15 +32,21 @@
           <li><a class="reference external"
           data-doc-search-tag="dict: template `$`(self: PyDict): string" href="pylib/builtins/dict.html#%24.t%2CPyDict">dict: template `$`(self: PyDict): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: template `$`(view`gensym3: PyDictItemView): string" href="pylib/builtins/dict.html#%24.t%2CPyDictItemView">dict: template `$`(view`gensym3: PyDictItemView): string</a></li>
+          data-doc-search-tag="dict: template `$`(self: PyDictItemView): string" href="pylib/builtins/dict.html#%24.t%2CPyDictItemView">dict: template `$`(self: PyDictItemView): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: template `$`(view`gensym1: PyDictKeyView): string" href="pylib/builtins/dict.html#%24.t%2CPyDictKeyView">dict: template `$`(view`gensym1: PyDictKeyView): string</a></li>
+          data-doc-search-tag="dict: template `$`(self: PyDictKeyView): string" href="pylib/builtins/dict.html#%24.t%2CPyDictKeyView">dict: template `$`(self: PyDictKeyView): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: template `$`(view`gensym2: PyDictValueView): string" href="pylib/builtins/dict.html#%24.t%2CPyDictValueView">dict: template `$`(view`gensym2: PyDictValueView): string</a></li>
+          data-doc-search-tag="dict: template `$`(self: PyDictValueView): string" href="pylib/builtins/dict.html#%24.t%2CPyDictValueView">dict: template `$`(self: PyDictValueView): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="list: template `$`[T](ls: PyList[T]): string" href="pylib/builtins/list.html#%24.t%2CPyList%5BT%5D">list: template `$`[T](ls: PyList[T]): string</a></li>
+          data-doc-search-tag="list: template `$`(self: PyList): string" href="pylib/builtins/list.html#%24.t%2CPyList">list: template `$`(self: PyList): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pyrange: proc `$`[T](rng: PyRange[T]): string" href="pylib/builtins/pyrange.html#%24%2CPyRange%5BT%5D">pyrange: proc `$`[T](rng: PyRange[T]): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="pytuple: template `$`(self: PyTuple): string" href="pylib/builtins/pytuple.html#%24.t%2CPyTuple">pytuple: template `$`(self: PyTuple): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set_decl: template `$`(self: PyFrozenSet): string" href="pylib/builtins/set_decl.html#%24.t%2CPyFrozenSet">set_decl: template `$`(self: PyFrozenSet): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="set_decl: template `$`(self: PySet): string" href="pylib/builtins/set_decl.html#%24.t%2CPySet">set_decl: template `$`(self: PySet): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set_decl: template `$`(self: SomePySet): string" href="pylib/builtins/set_decl.html#%24.t%2CSomePySet">set_decl: template `$`(self: SomePySet): string</a></li>
           <li><a class="reference external"
@@ -2516,6 +2522,12 @@
 <li><a class="reference external"
           data-doc-search-tag="mutSeqSliceOp: template genDelItem(Arr)" href="pylib/mutSeqSliceOp.html#genDelItem.t">mutSeqSliceOp: template genDelItem(Arr)</a></li>
           </ul></dd>
+<dt><a name="genDollarRepr" href="#genDollarRepr"><span>genDollarRepr:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; strProc: typed = asis;
+              linear = false)" href="pylib/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C%2Ctyped">strIter: template genDollarRepr(Coll; start, stop: char | string; strProc: typed = asis;
+              linear = false)</a></li>
+          </ul></dd>
 <dt><a name="Generator" href="#Generator"><span>Generator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="generators: type Generator" href="pylib/collections_abc/generators.html#Generator">generators: type Generator</a></li>
@@ -4508,6 +4520,10 @@
 <li><a class="reference external"
           data-doc-search-tag="complex: type PyTComplex" href="pylib/builtins/complex.html#PyTComplex">complex: type PyTComplex</a></li>
           </ul></dd>
+<dt><a name="PyTuple" href="#PyTuple"><span>PyTuple:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="pytuple: tuple PyTuple" href="pylib/builtins/pytuple.html#PyTuple">pytuple: tuple PyTuple</a></li>
+          </ul></dd>
 <dt><a name="Py_UCS1" href="#Py_UCS1"><span>Py_UCS1:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="char_decl: type Py_UCS1" href="pylib/Python/unicodeobject/char_decl.html#Py_UCS1">char_decl: type Py_UCS1</a></li>
@@ -4738,21 +4754,21 @@
           <li><a class="reference external"
           data-doc-search-tag="dict: template repr(self: PyDict): string" href="pylib/builtins/dict.html#repr.t%2CPyDict">dict: template repr(self: PyDict): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: template repr(view`gensym3: PyDictItemView): string" href="pylib/builtins/dict.html#repr.t%2CPyDictItemView">dict: template repr(view`gensym3: PyDictItemView): string</a></li>
+          data-doc-search-tag="dict: template repr(self: PyDictItemView): string" href="pylib/builtins/dict.html#repr.t%2CPyDictItemView">dict: template repr(self: PyDictItemView): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: template repr(view`gensym1: PyDictKeyView): string" href="pylib/builtins/dict.html#repr.t%2CPyDictKeyView">dict: template repr(view`gensym1: PyDictKeyView): string</a></li>
+          data-doc-search-tag="dict: template repr(self: PyDictKeyView): string" href="pylib/builtins/dict.html#repr.t%2CPyDictKeyView">dict: template repr(self: PyDictKeyView): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: template repr(view`gensym2: PyDictValueView): string" href="pylib/builtins/dict.html#repr.t%2CPyDictValueView">dict: template repr(view`gensym2: PyDictValueView): string</a></li>
+          data-doc-search-tag="dict: template repr(self: PyDictValueView): string" href="pylib/builtins/dict.html#repr.t%2CPyDictValueView">dict: template repr(self: PyDictValueView): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="list: proc repr(ls: PyList[char]): string" href="pylib/builtins/list.html#repr%2CPyList%5Bchar%5D">list: proc repr(ls: PyList[char]): string</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="list: template repr[T](ls: PyList[T]): string" href="pylib/builtins/list.html#repr.t%2CPyList%5BT%5D">list: template repr[T](ls: PyList[T]): string</a></li>
+          data-doc-search-tag="list: template repr(self: PyList): string" href="pylib/builtins/list.html#repr.t%2CPyList">list: template repr(self: PyList): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list_decl: proc repr[T: set | string | openArray](self: PyList[T]): string" href="pylib/builtins/list_decl.html#repr%2CPyList%5BT%3A%20set%20or%20string%20or%20openArray%5D">list_decl: proc repr[T: set | string | openArray](self: PyList[T]): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pyrange: proc repr[T](rng: PyRange[T]): string" href="pylib/builtins/pyrange.html#repr%2CPyRange%5BT%5D">pyrange: proc repr[T](rng: PyRange[T]): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pyslice: proc repr(self: PySlice): string" href="pylib/builtins/pyslice.html#repr%2CPySlice">pyslice: proc repr(self: PySlice): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="pytuple: template repr(self: PyTuple): string" href="pylib/builtins/pytuple.html#repr.t%2CPyTuple">pytuple: template repr(self: PyTuple): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set_decl: template repr(self: PyFrozenSet): string" href="pylib/builtins/set_decl.html#repr.t%2CPyFrozenSet">set_decl: template repr(self: PyFrozenSet): string</a></li>
           <li><a class="reference external"
@@ -5272,7 +5288,7 @@
           </ul></dd>
 <dt><a name="strIterImpl" href="#strIterImpl"><span>strIterImpl:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="strIter: template strIterImpl(it; strProc; start, stop): string" href="pylib/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C">strIter: template strIterImpl(it; strProc; start, stop): string</a></li>
+          data-doc-search-tag="strIter: template strIterImpl(it; strProc: typed; start, stop: char | string; linear = false): string" href="pylib/builtins/private/strIter.html#strIterImpl.t%2C%2Ctyped%2C%2C">strIter: template strIterImpl(it; strProc: typed; start, stop: char | string; linear = false): string</a></li>
           </ul></dd>
 <dt><a name="strptime" href="#strptime"><span>strptime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -5794,7 +5810,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-08 16:31:35 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-10 16:43:57 UTC</small>
       </div>
     </div>
   </div>

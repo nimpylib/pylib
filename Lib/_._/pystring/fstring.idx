@@ -1,0 +1,9 @@
+nimTitle	fstring	_._/pystring/fstring.html	module src/pylib/pystring/fstring		0
+nim	fr	_._/pystring/fstring.html#fr.m	macro fr(pattern: string{lit}): PyStr		29
+nim	Fr	_._/pystring/fstring.html#Fr.m_2	macro Fr(pattern: string{lit}): PyStr		30
+nim	rf	_._/pystring/fstring.html#rf.m	macro rf(pattern: string{lit}): PyStr		31
+nim	Rf	_._/pystring/fstring.html#Rf.m_2	macro Rf(pattern: string{lit}): PyStr		32
+nim	f	_._/pystring/fstring.html#f.t	template f(s: string{lit}): PyStr		34
+heading	Unicode	_._/pystring/fstring.html#unicode	  Unicode		0
+heading	oct	_._/pystring/fstring.html#oct	  oct		0
+heading	multiline	_._/pystring/fstring.html#multiline	  multiline		0

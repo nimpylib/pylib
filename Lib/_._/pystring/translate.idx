@@ -1,0 +1,19 @@
+nimTitle	translate	_._/pystring/translate.html	module src/pylib/pystring/translate		0
+nim	TranslateValType	_._/pystring/translate.html#TranslateValType	type TranslateValType		25
+nim	TranslateAction	_._/pystring/translate.html#TranslateAction	enum TranslateAction		26
+nim	TranslateTableVal	_._/pystring/translate.html#TranslateTableVal	object TranslateTableVal		28
+nim	TranslateTableABC	_._/pystring/translate.html#TranslateTableABC	type TranslateTableABC		34
+nim	TypedTranslateTableABC	_._/pystring/translate.html#TypedTranslateTableABC	type TypedTranslateTableABC		36
+nim	TranslateTable	_._/pystring/translate.html#TranslateTable	type TranslateTable		40
+nim	StrTypedTranslateTable	_._/pystring/translate.html#StrTypedTranslateTable	type StrTypedTranslateTable		41
+nim	repr	_._/pystring/translate.html#repr,TranslateTable	proc repr(table: TranslateTable): string		53
+nim	`$`	_._/pystring/translate.html#$.t,TranslateTable	template `$`(table: TranslateTable): string		71
+nim	translate	_._/pystring/translate.html#translate,PyStr,TranslateTable	proc translate(s: PyStr; table: TranslateTable): PyStr		93
+nim	translate	_._/pystring/translate.html#translate,PyStr,StrTypedTranslateTable	proc translate(s: PyStr; table: StrTypedTranslateTable): PyStr		101
+nim	translate	_._/pystring/translate.html#translate,PyStr,TypedTranslateTableABC[K: TranslateValType]	proc translate[K: TranslateValType](s: PyStr; table: TypedTranslateTableABC[K]): PyStr		105
+nim	translate	_._/pystring/translate.html#translate,PyStr,TranslateTableABC	proc translate(s: PyStr; table: TranslateTableABC): PyStr		113
+nim	maketrans	_._/pystring/translate.html#maketrans.m,typedesc[PyStr],untyped	macro maketrans(_: typedesc[PyStr]; mapOrLit: untyped): TranslateTable		190
+nim	maketrans	_._/pystring/translate.html#maketrans.t,typedesc[PyStr],,	template maketrans(_: typedesc[PyStr]; frm, to): StrTypedTranslateTable		201
+nim	maketrans	_._/pystring/translate.html#maketrans.t,typedesc[PyStr],,,	template maketrans(_: typedesc[PyStr]; frm, to, skip): TranslateTable		214
+nimgrp	translate	_._/pystring/translate.html#translate-procs-all	proc		93
+nimgrp	maketrans	_._/pystring/translate.html#maketrans-templates-all	template		201

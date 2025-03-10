@@ -1,0 +1,3 @@
+nimTitle	translateEscape	_._/translateEscape.html	module src/pylib/translateEscape		0
+nim	translateEscape	_._/translateEscape.html#translateEscape,string	proc translateEscape(pattern: string): string		228
+nim	translateEscapeWithErr	_._/translateEscape.html#translateEscapeWithErr.m,string	macro translateEscapeWithErr(pattern: string): string		233

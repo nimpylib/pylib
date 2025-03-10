@@ -56,15 +56,6 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#Template" title="Template = distinct string">Template</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#ascii_letters" title="ascii_letters = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;">ascii_letters</a></li>
@@ -86,11 +77,16 @@
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">capwords
   <li><a class="reference" href="#capwords%2CStringLike" title="capwords(a: StringLike): PyStr">capwords(a: StringLike): PyStr</a></li>
+<li><a class="reference" href="#capwords%2CStringLike%2CNoneType" title="capwords(a: StringLike; _: NoneType): PyStr">capwords(a: StringLike; _: NoneType): PyStr</a></li>
 <li><a class="reference" href="#capwords%2CStringLike%2CStringLike" title="capwords(a: StringLike; sep: StringLike): PyStr">capwords(a: StringLike; sep: StringLike): PyStr</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">substitute
-  <li><a class="reference" href="#substitute%2CTemplate" title="substitute(templ: Template): PyStr">substitute(templ: Template): PyStr</a></li>
+<ul class="simple nested-toc-section">get_identifiers
+  <li><a class="reference" href="#get_identifiers%2CTemplate" title="get_identifiers(templ: Template): PyList[PyStr]">get_identifiers(templ: Template): PyList[PyStr]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">is_valid
+  <li><a class="reference" href="#is_valid%2CTemplate" title="is_valid(templ: Template): bool">is_valid(templ: Template): bool</a></li>
 
 </ul>
 
@@ -101,7 +97,12 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">substitute
+      <ul class="simple nested-toc-section">safe_substitute
+  <li><a class="reference" href="#safe_substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D" title="safe_substitute(templ: Template; kws: varargs[untyped]): PyStr">safe_substitute(templ: Template; kws: varargs[untyped]): PyStr</a></li>
+<li><a class="reference" href="#safe_substitute.m%2CTemplate%2CMapping%2Cvarargs%5Buntyped%5D" title="safe_substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr">safe_substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">substitute
   <li><a class="reference" href="#substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D" title="substitute(templ: Template; kws: varargs[untyped]): PyStr">substitute(templ: Template; kws: varargs[untyped]): PyStr</a></li>
 <li><a class="reference" href="#substitute.m%2CTemplate%2CMapping%2Cvarargs%5Buntyped%5D" title="substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr">substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr</a></li>
 
@@ -124,31 +125,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="pystring.html">pystring</a>, <a class="reference external" href="abc.html">abc</a>
-  </dl>
-</div>
-<div class="section" id="7">
-  <h1><a class="toc-backref" href="#7">Types</a></h1>
-  <dl class="item">
-    <div id="Template">
-  <dt><pre><a href="string.html#Template"><span class="Identifier">Template</span></a> <span class="Other">=</span> <span class="Keyword">distinct</span> <span class="Identifier">string</span></pre></dt>
-  <dd>
-    
-    <div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
-Currently inheriting <tt class="docutils literal"><span class="pre"><span class="Keyword">Template</span></span></tt> is not supported. (In Python, you can custom formatting via defining subclass of <tt class="docutils literal"><span class="pre"><span class="Keyword">Template</span></span></tt> and overwrite some attributes).</div>
-<div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
-<p>Currently <tt class="docutils literal"><span class="pre"><span class="Identifier">substitute</span></span></tt> is implemented via <tt class="docutils literal"><span class="pre"><span class="Operator">%</span></span></tt> in std/strutils, in which there are two different behaviors from Python's <tt class="docutils literal"><span class="pre"><span class="Keyword">Template</span></span></tt>:</p>
-<p>1. the variables are compared with <tt class="docutils literal"><span class="pre"><span class="Identifier">cmpIgnoreStyle</span></span></tt>, whereas in Python they are compared in 'ignorecase' flag by default.</p>
-<p>2. digit or <tt class="docutils literal"><span class="pre"><span class="Comment">#</span></span></tt> following the dollar (e.g. <tt class="docutils literal"><span class="pre"><span class="Operator">$</span><span class="DecNumber">1</span></span></tt>) is allowed, and will be substituted by variable at such position, whereas in Python such will cause <tt class="docutils literal"><span class="pre"><span class="Identifier">ValueError</span></span></tt>.</p>
-<p>3. for unknown key, <tt class="docutils literal"><span class="pre"><span class="Identifier">substitute</span></span></tt> raises <tt class="docutils literal"><span class="pre"><span class="Identifier">ValueError</span></span></tt> instead of <tt class="docutils literal"><span class="pre"><span class="Identifier">KeyError</span></span></tt> currently.</p>
-</div>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L43" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L43" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
+    <a class="reference external" href="_._/pystring.html">../pystring</a>, <a class="reference external" href="_._/noneType.html">../noneType</a>, <a class="reference external" href="_._/builtins/dict.html">../builtins/dict</a>, <a class="reference external" href="_._/builtins/list.html">../builtins/list</a>, <a class="reference external" href="collections/abc.html">collections/abc</a>, <a class="reference external" href="_._/version.html">../version</a>, <a class="reference external" href="n_string.html">n_string</a>, <a class="reference external" href="string_impl/templateImpl.html">string_impl/templateImpl</a>
   </dl>
 </div>
 <div class="section" id="10">
@@ -159,8 +136,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L10" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L10" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -169,8 +146,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L8" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L8" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -179,8 +156,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -189,8 +166,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -199,8 +176,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -209,8 +186,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -219,8 +196,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -229,8 +206,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -239,8 +216,8 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -252,39 +229,68 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
   <dl class="item">
     <div id="capwords-procs-all">
   <div id="capwords,StringLike">
-  <dt><pre><span class="Keyword">func</span> <a href="#capwords%2CStringLike"><span class="Identifier">capwords</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="strimpl.html#StringLike"><span class="Identifier">StringLike</span></a><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#capwords%2CStringLike"><span class="Identifier">capwords</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#StringLike"><span class="Identifier">StringLike</span></a><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
   <dd>
     
     <p>Mimics Python string.capwords(s) -&gt; str:</p>
 <p>Runs of whitespace characters are replaced by a single space and leading and trailing whitespace are removed.</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string_impl/capwordsImpl.nim#L4" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string_impl/capwordsImpl.nim#L4" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="capwords,StringLike,NoneType">
+  <dt><pre><span class="Keyword">proc</span> <a href="#capwords%2CStringLike%2CNoneType"><span class="Identifier">capwords</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#StringLike"><span class="Identifier">StringLike</span></a><span class="Other">;</span> <span class="Operator">_</span><span class="Other">:</span> <a href="_._/noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="capwords,StringLike,StringLike">
-  <dt><pre><span class="Keyword">func</span> <a href="#capwords%2CStringLike%2CStringLike"><span class="Identifier">capwords</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="strimpl.html#StringLike"><span class="Identifier">StringLike</span></a><span class="Other">;</span> <span class="Identifier">sep</span><span class="Other">:</span> <span class="Identifier">StringLike</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#capwords%2CStringLike%2CStringLike"><span class="Identifier">capwords</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#StringLike"><span class="Identifier">StringLike</span></a><span class="Other">;</span> <span class="Identifier">sep</span><span class="Other">:</span> <span class="Identifier">StringLike</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
   <dd>
     
     <p>Mimics Python string.capwords(s, sep) -&gt; str:</p>
 <p>Split the argument into words using split, capitalize each word using <tt class="docutils literal"><span class="pre"><span class="Identifier">capitalize</span></span></tt>, and join the capitalized words using <tt class="docutils literal"><span class="pre"><span class="Identifier">join</span></span></tt>. <tt class="docutils literal"><span class="pre"><span class="Identifier">sep</span></span></tt> is used to split and join the words.</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L29" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L29" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="substitute-procs-all">
-  <div id="substitute,Template">
-  <dt><pre><span class="Keyword">func</span> <a href="#substitute%2CTemplate"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string.html#Template"><span class="Identifier">Template</span></a><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="get_identifiers-procs-all">
+  <div id="get_identifiers,Template">
+  <dt><pre><span class="Keyword">proc</span> <a href="#get_identifiers%2CTemplate"><span class="Identifier">get_identifiers</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">)</span><span class="Other">:</span> <a href="_._/builtins/list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
+since Python 3.11</div>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="is_valid-procs-all">
+  <div id="is_valid,Template">
+  <dt><pre><span class="Keyword">proc</span> <a href="#is_valid%2CTemplate"><span class="Identifier">is_valid</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span><span class="Other">,</span>
+                                       <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
+since Python 3.11</div>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L46" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L46" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -296,26 +302,47 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
 <div class="section" id="17">
   <h1><a class="toc-backref" href="#17">Macros</a></h1>
   <dl class="item">
-    <div id="substitute-macros-all">
-  <div id="substitute.m,Template,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+    <div id="safe_substitute-macros-all">
+  <div id="safe_substitute.m,Template,varargs[untyped]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#safe_substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">safe_substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
   <dd>
     
-    <tt class="docutils literal"><span class="pre"><span class="Keyword">Template</span><span class="Operator">.</span><span class="Identifier">substitute</span><span class="Punctuation">(</span><span class="Operator">**</span><span class="Identifier">kws</span><span class="Punctuation">)</span></span></tt> 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string_impl/templateImpl.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string_impl/templateImpl.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="safe_substitute.m,Template,Mapping,varargs[untyped]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#safe_substitute.m%2CTemplate%2CMapping%2Cvarargs%5Buntyped%5D"><span class="Identifier">safe_substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <a href="_._/collections_abc/collections.html#Mapping"><span class="Identifier">Mapping</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="substitute-macros-all">
+  <div id="substitute.m,Template,varargs[untyped]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string_impl/templateImpl.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string_impl/templateImpl.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="substitute.m,Template,Mapping,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2CMapping%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <a href="collections.html#Mapping"><span class="Identifier">Mapping</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2CMapping%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <a href="_._/collections_abc/collections.html#Mapping"><span class="Identifier">Mapping</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
   <dd>
     
-    <p><tt class="docutils literal"><span class="pre"><span class="Keyword">Template</span><span class="Operator">.</span><span class="Identifier">substitute</span><span class="Punctuation">(</span><span class="Identifier">mapping</span><span class="Punctuation">,</span> <span class="Operator">**</span><span class="Identifier">kws</span><span class="Punctuation">)</span></span></tt></p>
-<p>where <tt class="docutils literal"><span class="pre"><span class="Identifier">kws</span></span></tt> is preferred if the same key occurs in <tt class="docutils literal"><span class="pre"><span class="Identifier">mapping</span></span></tt></p>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/string.nim#L43" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/string.nim#L43" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -331,7 +358,7 @@ Currently inheriting <tt class="docutils literal"><span class="pre"><span class=
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-08 16:32:00 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-10 16:44:30 UTC</small>
       </div>
     </div>
   </div>

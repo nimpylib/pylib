@@ -1,0 +1,4 @@
+nimTitle	template_decl	string_impl/template_decl.html	module src/pylib/Lib/string_impl/template_decl		0
+nim	Template	string_impl/template_decl.html#Template	type Template		2
+nim	`$`	string_impl/template_decl.html#$,Template	proc `$`(self: Template): string		5
+nim	delimiter	string_impl/template_decl.html#delimiter.e,Template	method delimiter(self: Template): char		7

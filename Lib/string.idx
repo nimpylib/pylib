@@ -1,0 +1,22 @@
+nimTitle	string	string.html	module src/pylib/Lib/string		0
+nim	ascii_lowercase	string.html#ascii_lowercase	const ascii_lowercase		19
+nim	ascii_uppercase	string.html#ascii_uppercase	const ascii_uppercase		19
+nim	ascii_letters	string.html#ascii_letters	const ascii_letters		19
+nim	digits	string.html#digits	const digits		19
+nim	hexdigits	string.html#hexdigits	const hexdigits		19
+nim	octdigits	string.html#octdigits	const octdigits		19
+nim	punctuation	string.html#punctuation	const punctuation		19
+nim	whitespace	string.html#whitespace	const whitespace		19
+nim	printable	string.html#printable	const printable		19
+nim	capwords	string.html#capwords,StringLike	proc capwords(a: StringLike): PyStr		4
+nim	capwords	string.html#capwords,StringLike,StringLike	proc capwords(a: StringLike; sep: StringLike): PyStr		32
+nim	capwords	string.html#capwords,StringLike,NoneType	proc capwords(a: StringLike; _: NoneType): PyStr		35
+nim	substitute	string.html#substitute.m,Template,varargs[untyped]	macro substitute(templ: Template; kws: varargs[untyped]): PyStr		61
+nim	substitute	string.html#substitute.m,Template,Mapping,varargs[untyped]	macro substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		43
+nim	safe_substitute	string.html#safe_substitute.m,Template,varargs[untyped]	macro safe_substitute(templ: Template; kws: varargs[untyped]): PyStr		61
+nim	safe_substitute	string.html#safe_substitute.m,Template,Mapping,varargs[untyped]	macro safe_substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		44
+nim	is_valid	string.html#is_valid,Template	proc is_valid(templ: Template): bool		46
+nim	get_identifiers	string.html#get_identifiers,Template	proc get_identifiers(templ: Template): PyList[PyStr]		49
+nimgrp	capwords	string.html#capwords-procs-all	proc		4
+nimgrp	safesubstitute	string.html#safe_substitute-macros-all	macro		44
+nimgrp	substitute	string.html#substitute-macros-all	macro		43

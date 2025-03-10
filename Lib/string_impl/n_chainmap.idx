@@ -1,0 +1,5 @@
+nimTitle	n_chainmap	string_impl/n_chainmap.html	module src/pylib/Lib/string_impl/n_chainmap		0
+nim	ChainMap	string_impl/n_chainmap.html#ChainMap	object ChainMap		5
+nim	initChainMap	string_impl/n_chainmap.html#initChainMap,Table[K,V],Table[K,V]	proc initChainMap[K, V](a, b: Table[K, V]): ChainMap[K, V]		8
+nim	`[]`	string_impl/n_chainmap.html#[],ChainMap[K,V],K	proc `[]`[K, V](self: ChainMap[K, V]; k: K): V		11
+nim	contains	string_impl/n_chainmap.html#contains,ChainMap[K,V],K	proc contains[K, V](self: ChainMap[K, V]; k: K): bool		15

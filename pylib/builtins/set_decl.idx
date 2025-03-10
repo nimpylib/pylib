@@ -14,17 +14,20 @@ nim	newPyFrozenSet	pylib/builtins/set_decl.html#newPyFrozenSet	proc newPyFrozenS
 nim	incl	pylib/builtins/set_decl.html#incl,SomePySet[H],H	proc incl[H](self: var SomePySet[H]; x: H)		26
 nim	excl	pylib/builtins/set_decl.html#excl,SomePySet[H],H	proc excl[H](self: var SomePySet[H]; x: H)		27
 nim	len	pylib/builtins/set_decl.html#len,SomePySet	proc len(self: SomePySet): int		29
-nim	repr	pylib/builtins/set_decl.html#repr.t,PySet	template repr(self: PySet): string		31
+nim	repr	pylib/builtins/set_decl.html#repr.t,PySet	template repr(self: PySet): string		36
+nim	`$`	pylib/builtins/set_decl.html#$.t,PySet	template `$`(self: PySet): string		31
 nim	repr	pylib/builtins/set_decl.html#repr.t,PyFrozenSet	template repr(self: PyFrozenSet): string		36
-nim	`$`	pylib/builtins/set_decl.html#$.t,SomePySet	template `$`(self: SomePySet): string		41
-nim	clear	pylib/builtins/set_decl.html#clear,PySet	proc clear(self: var PySet): int		45
-nim	`==`	pylib/builtins/set_decl.html#==,SomePySet,SomePySet	proc `==`(self, o: SomePySet): int		46
-nim	`<=`	pylib/builtins/set_decl.html#<=,SomePySet,SomePySet	proc `<=`(self, o: SomePySet): int		47
-nim	`<`	pylib/builtins/set_decl.html#<,SomePySet,SomePySet	proc `<`(self, o: SomePySet): int		48
-nim	contains	pylib/builtins/set_decl.html#contains,SomePySet[H],H	proc contains[H](self: SomePySet[H]; x: H): bool		49
-nim	pop	pylib/builtins/set_decl.html#pop,PySet[H]	proc pop[H](self: var PySet[H]): H		50
-nim	items	pylib/builtins/set_decl.html#items.i,SomePySet[H]	iterator items[H](self: SomePySet[H]): H		51
+nim	`$`	pylib/builtins/set_decl.html#$.t,PyFrozenSet	template `$`(self: PyFrozenSet): string		32
+nim	`$`	pylib/builtins/set_decl.html#$.t,SomePySet	template `$`(self: SomePySet): string		34
+nim	clear	pylib/builtins/set_decl.html#clear,PySet	proc clear(self: var PySet): int		38
+nim	`==`	pylib/builtins/set_decl.html#==,SomePySet,SomePySet	proc `==`(self, o: SomePySet): int		39
+nim	`<=`	pylib/builtins/set_decl.html#<=,SomePySet,SomePySet	proc `<=`(self, o: SomePySet): int		40
+nim	`<`	pylib/builtins/set_decl.html#<,SomePySet,SomePySet	proc `<`(self, o: SomePySet): int		41
+nim	contains	pylib/builtins/set_decl.html#contains,SomePySet[H],H	proc contains[H](self: SomePySet[H]; x: H): bool		42
+nim	pop	pylib/builtins/set_decl.html#pop,PySet[H]	proc pop[H](self: var PySet[H]): H		43
+nim	items	pylib/builtins/set_decl.html#items.i,SomePySet[H]	iterator items[H](self: SomePySet[H]): H		44
 nimgrp	ashashset	pylib/builtins/set_decl.html#asHashSet-procs-all	proc		17
 nimgrp	newpyfrozenset	pylib/builtins/set_decl.html#newPyFrozenSet-procs-all	proc		20
 nimgrp	newpyset	pylib/builtins/set_decl.html#newPySet-procs-all	proc		19
-nimgrp	repr	pylib/builtins/set_decl.html#repr-templates-all	template		31
+nimgrp	$	pylib/builtins/set_decl.html#$-templates-all	template		41
+nimgrp	repr	pylib/builtins/set_decl.html#repr-templates-all	template		36

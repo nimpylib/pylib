@@ -1,0 +1,2 @@
+nimTitle	strops	_._/pystring/strops.html	module src/pylib/pystring/strops		0
+nim	`<>`	_._/pystring/strops.html#<>.t,A,B	template `<>`[A: StringLike; B: StringLike](a: A; b: B): bool		7

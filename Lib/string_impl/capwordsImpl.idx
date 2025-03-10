@@ -1,0 +1,2 @@
+nimTitle	capwordsImpl	string_impl/capwordsImpl.html	module src/pylib/Lib/string_impl/capwordsImpl		0
+nim	genCapwords	string_impl/capwordsImpl.html#genCapwords.t,,,,,,	template genCapwords(Arg, Res, split, split2, capitalize, strip)		3

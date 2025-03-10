@@ -1,0 +1,11 @@
+nimTitle	n_string	n_string.html	module src/pylib/Lib/n_string		0
+nim	capwords	n_string.html#capwords,string	proc capwords(a: string): string		4
+nim	capwords	n_string.html#capwords,string,string	proc capwords(a: string; sep: string): string		15
+nim	substitute	n_string.html#substitute.m,Template,varargs[untyped]	macro substitute(templ: Template; kws: varargs[untyped]): string		61
+nim	substitute	n_string.html#substitute.m,Template,Table,varargs[untyped]	macro substitute(templ: Template; mapping: Table; kws: varargs[untyped]): string		19
+nim	safe_substitute	n_string.html#safe_substitute.m,Template,varargs[untyped]	macro safe_substitute(templ: Template; kws: varargs[untyped]): string		61
+nim	safe_substitute	n_string.html#safe_substitute.m,Template,Table,varargs[untyped]	macro safe_substitute(templ: Template; mapping: Table; kws: varargs[untyped]): string		20
+nim	get_identifiers	n_string.html#get_identifiers,Template	proc get_identifiers(templ: Template): seq[string]		22
+nimgrp	capwords	n_string.html#capwords-procs-all	proc		4
+nimgrp	safesubstitute	n_string.html#safe_substitute-macros-all	macro		20
+nimgrp	substitute	n_string.html#substitute-macros-all	macro		19

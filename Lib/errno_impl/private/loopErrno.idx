@@ -1,3 +1,3 @@
 nimTitle	loopErrno	errno_impl/private/loopErrno.html	module src/pylib/Lib/errno_impl/private/loopErrno		0
 nim	whenDefErrno	errno_impl/private/loopErrno.html#whenDefErrno.t,NimNode,string,	template whenDefErrno(res: NimNode; errnoName: string; body): untyped		14
-nim	forErrno	errno_impl/private/loopErrno.html#forErrno.t,NimNode,,	template forErrno(res: NimNode; err; body)		25
+nim	forErrno	errno_impl/private/loopErrno.html#forErrno.t,NimNode,,	template forErrno(res: NimNode; err; body)		26

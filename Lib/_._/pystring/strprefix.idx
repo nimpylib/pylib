@@ -1,0 +1,4 @@
+nimTitle	strprefix	_._/pystring/strprefix.html	module src/pylib/pystring/strprefix		0
+nim	u	_._/pystring/strprefix.html#u	proc u(s: static[string]{lit}): PyStr		5
+nim	u	_._/pystring/strprefix.html#u_2	proc u(a: char{lit}): PyStr		9
+nimgrp	u	_._/pystring/strprefix.html#u-procs-all	proc		5
