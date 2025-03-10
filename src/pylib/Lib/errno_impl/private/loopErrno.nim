@@ -22,9 +22,14 @@ template whenDefErrno*(res: NimNode; errnoName: string; body): untyped{.dirty.} 
   else:
     body
 
+const ErrnoHigh = high(Errno)
 template forErrno*(res: NimNode; err; body) =
-  bind whenDefErrno, Errno
-  for err{.inject.} in succ(Errno.E_SUCCESS)..high(Errno):
+  bind whenDefErrno, Errno, ErrnoHigh
+  for err{.inject.} in succ(Errno.E_SUCCESS)..ErrnoHigh:
+    # XXX: NIM-BUG: with `bind Errno` above, use `high(Errno)` here makes Nim
+    #  consider Errno as a value instead of a type, thus leading to a warning
+    #[Deprecated since v1.4; there should not be `high(value)`. Use `high(type)`.; high is deprecated]#
+
     #if err == Errno.E_SUCCESS: continue
     result.whenDefErrno symbolName err:
       body

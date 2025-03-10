@@ -1,108 +1,39 @@
 
-import ../pystring
-import ./collections/abc
-from std/strutils import `%`
 import std/macros
+import std/tables
+import ../pystring
+import ../builtins/dict
+import ./collections/abc
 
-const
-  ascii_lowercase* = str "abcdefghijklmnopqrstuvwxyz"
-  ascii_uppercase* = str "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  ascii_letters* = ascii_lowercase + ascii_uppercase
-  digits* = str "0123456789"
-  hexdigits* = str "0123456789abcdefABCDEF"
-  octdigits* = str "01234567"
-  punctuation* = str """!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~"""
-  whitespace* = str " \t\n\r\x0b\x0c"
-  printable* = digits + ascii_letters + punctuation + whitespace
+import ./n_string
+import string_impl/[
+    templateImpl
+]
+export Template, delimiter
+
+template expStr(sym) =
+  const sym* = str n_string.sym
+
+expStr ascii_lowercase
+expStr ascii_uppercase
+expStr ascii_letters
+expStr digits
+expStr hexdigits
+expStr octdigits
+expStr punctuation
+expStr whitespace
+expStr printable
 
 
-func capwords*(a: StringLike): PyStr =
-  ## Mimics Python string.capwords(s) -> str:
-  ## 
-  ## Runs of whitespace characters are replaced by a single space
-  ##  and leading and trailing whitespace are removed.
-  for word in pystring.split(str(a)):
-    result += pystring.capitalize(word)
-    result += ' '
-  result = pystring.strip(result)
+genCapwords StringLike, PyStr,
+  pystring.split, pystring.split, pystring.capitalize, pystring.strip
 
-func capwords*(a: StringLike, sep: StringLike): PyStr =
-  ## Mimics Python string.capwords(s, sep) -> str:
-  ## 
-  ## Split the argument into words using split, capitalize each
-  ##  word using `capitalize`, and join the capitalized words using
-  ##  `join`. `sep` is used to split and join the words.
-  let ssep = $sep
-  var res = newStringOfCap a.byteLen
-  for word in pystring.split(str(a), ssep):
-    res.add pystring.capitalize(word)
-    res.add ssep
-  res.setLen res.len - ssep.len
-  str res
+proc toTable[K, V](ls: Mapping[K, V]): Table[K, V] =
+  ## .. note:: we use `string` as value type internally anyway.
+  result = initTable[K, V](ls.len)
+  for (k, v) in ls.items():
+    result[k] = $v
 
-type Template* = distinct string  ##[
-  .. hint:: Currently inheriting `Template` is not supported.
-    (In Python, you can custom formatting via
-    defining subclass of `Template` and overwrite some attributes).
+genSubstitute(Mapping, PyStr, substitute, raiseKeyError, invalidFormatString)
+genSubstitute(Mapping, PyStr, safe_substitute, noraiseKeyError, supressInvalidFormatString)
 
-  .. warning:: Currently `substitute` is implemented via `%` in std/strutils,
-    in which there are two different behaviors from Python's `Template`:
-      1. the variables are compared with `cmpIgnoreStyle`,
-        whereas in Python they are compared in
-        'ignorecase' flag by default.
-      2. digit or `#` following the dollar (e.g. `$1`) is allowed,
-        and will be substituted by variable at such position,
-        whereas in Python such will cause `ValueError`.
-      3. for unknown key, `substitute` raises `ValueError`
-        instead of `KeyError` currently.
-  ]##
-
-func substitute*(templ: Template): PyStr = str templ
-macro substitute*(templ: Template, kws: varargs[untyped]): PyStr =
-  ## `Template.substitute(**kws)`
-  ## 
-  var arrNode = newNimNode nnkBracket
-  for kw in kws:
-    expectKind kw, nnkExprEqExpr
-    arrNode.add newLit $kw[0]
-    arrNode.add kw[1]
-  result = newCall(bindSym("%"), newCall("string", templ), arrNode)
-  result = newCall(bindSym"str", result)
-
-macro substitute*(templ: Template, mapping: Mapping, kws: varargs[untyped]): PyStr =
-  ## `Template.substitute(mapping, **kws)`
-  ## 
-  ## where `kws` is preferred if the same key occurs in `mapping`
-
-  # nim's `%` in std/strutils uses first key-value pair found,
-  # so put `kws` in the front of seq
-  let seqVar = genSym(nskVar, "subsRes")
-  let seqDef = if kws.len == 0:
-    newNimNode(nnkVarSection).add(
-      nnkIdentDefs.newTree(seqVar,
-        parseExpr"seq[system.string]", newEmptyNode()))
-  else:
-    var arrNode = newNimNode nnkBracket  # will be prefixed with `@` to become a seq
-    for kw in kws:
-      expectKind kw, nnkExprEqExpr
-      arrNode.add newLit $kw[0]
-      arrNode.add newCall("$", kw[1])
-    newVarStmt(seqVar, prefix(arrNode, "@"))
-  result = newStmtList()
-  result.add seqDef
-
-  let mappingId = if mapping.kind in {nnkIdent, nnkSym}:
-    mapping
-  else:
-    let mapId = genSym(nskLet, "mappingIdent")
-    result.add newLetStmt(mapId, mapping)
-    mapId
-  result.add quote do:
-    for k in `mappingId`.keys():
-      add `seqVar`, k
-      add `seqVar`, `mappingId`[k]
-  var res = newCall(bindSym("%"), newCall("string", templ), seqVar)
-  res = newCall(bindSym"str", res)
-  result.add res
-
-  result = newBlockStmt result  # make sure seq is destoryed
