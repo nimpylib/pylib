@@ -6,7 +6,7 @@
 from std/algorithm import reverse, sort, SortOrder, sortedByIt, sorted
 
 from ./iters import enumerate
-import ./private/mathutils
+import ./private/[mathutils, strIter]
 import ./pyslice, ./pyrange
 import ../collections_abc
 import ../mutSeqSliceOp
@@ -160,39 +160,7 @@ proc list*[T](iter: Iterable[T]): PyList[T] =
     for i in iter:
       result.append(i)
 
-template strListImpl[T](ls: PyList[T],
-    strProc #[ :Callable[[T] string] ]#): string =
-  if len(ls) == 0: "[]"
-  else:
-    var result: string
-    result = newStringOfCap(2 + 2*len(ls))
-    result.add "[" & ls[0].strProc
-    for i in 1..<ls.len:
-      result.add ", " & ls[i].strProc
-    result.add ']'
-    result
-
-# system.repr(c: char) returns $int(c)
-func reprChar(c: char): string = '\'' & c & '\''  
-func repr*(ls: PyList[char]): string = strListImpl(ls, reprChar)
-# `repr` for elements is `set|string|openArray` is in about L30
-
-template repr*[T](ls: PyList[T]): string =
-  ## mixin `func repr(T): string`
-  bind strListImpl
-  mixin repr
-  strListImpl(ls, repr)
-
-template `$`*[T](ls: PyList[T]): string =
-  ## The same as `repr` for PyList
-  ## 
-  ## NOTE: CPython's `list`'s `__str__` is itself not defined,
-  ## which is inherted from `object`,
-  ## which will call `obj.__repr__` as fallback.
-  ## This minics it.
-  bind strListImpl
-  mixin repr
-  strListImpl(ls, repr)
+PyList.genDollarRepr '[', ']', linear=true
 
 type
   SortKey[K] = object of RootObj

@@ -30,16 +30,10 @@ proc `[]=`*[A, B](t: PyDict[A, B], key: A, val: sink B) =
 
 using self: PyDict
 
-template repr*(self: PyDict): string{.dirty.} =
-  bind strIterImpl
-  mixin repr
-  template strBy(d; k): string{.dirty.} =
-    k.repr & ": " & d[k].repr
-  strIterImpl self, strBy, '{', '}'
+template strBy(d; k): string{.dirty.} =
+  k.repr & ": " & d[k].repr
 
-template `$`*(self: PyDict): string =
-  bind repr
-  repr self
+PyDict.genDollarRepr '{', '}', strBy
 
 proc len*(self): int =
   ## dict.__len__
@@ -60,18 +54,9 @@ func contains*[K, V](t: PyDictItemView[K, V], x: (K, V)): bool =
   if x[0] in t.mapping:
     return x[1] == t.mapping[x[0]]
 
-template genRepr(typ, prefix) =
-  template repr*(view: typ): string =
-    bind strIterImpl
-    mixin repr
-    strIterImpl view, repr, prefix & "([", "])"
-  template `$`*(view: typ): string =
-    bind repr
-    repr view
-
-genRepr PyDictKeyView,   "dict_keys"
-genRepr PyDictValueView, "dict_values"
-genRepr PyDictItemView,  "dict_items"
+PyDictKeyView.genDollarRepr   "dict_keys([", "])"
+PyDictValueView.genDollarRepr "dict_values([", "])"
+PyDictItemView.genDollarRepr  "dict_items([", "])"
 
 
 iterator keys*[K, V](self: PyDict[K ,V]): K =

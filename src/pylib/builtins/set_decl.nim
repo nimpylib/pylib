@@ -28,15 +28,8 @@ proc excl*[H](self: var SomePySet[H], x: H) = self.data.excl x
 
 func len*(self: SomePySet): int = self.data.len
 
-template repr*(self: PySet): string =
-  bind strIterImpl
-  mixin repr
-  strIterImpl self, repr, '{', '}'
-
-template repr*(self: PyFrozenSet): string =
-  bind strIterImpl
-  mixin repr
-  strIterImpl self, repr, "frozenset({", "})"
+PySet.genDollarRepr '{', '}'
+PyFrozenSet.genDollarRepr "frozenset({", "})"
 
 template `$`*(self: SomePySet): string =
   bind repr
