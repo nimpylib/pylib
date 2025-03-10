@@ -1,6 +1,9 @@
 ## Currently we just use `system.tuple` for Python's tuple
 
 import std/macros
+import ./private/strIter
+
+type PyTuple* = tuple
 
 macro items*(t: tuple): untyped =
   result = newNimNode nnkBracket
@@ -16,6 +19,8 @@ macro items*(t: tuple): untyped =
     for i in 0..<nElem:
       result.add nnkBracketExpr.newTree(t, newLit i)
   result = newCall(ident"items", result)
+
+PyTuple.genDollarRepr '(', ')', linear=true
 
 when isMainModule:
   # not compile:
