@@ -6,7 +6,7 @@ type
     a, b: Table[K, V]
 
 proc initChainMap*[K, V](a, b: Table[K, V]): ChainMap[K, V] =
-  ChainMap(a: a, b: b)
+  ChainMap[K, V](a: a, b: b)
 
 proc `[]`*[K, V](self: ChainMap[K, V], k: K): V =
   if self.a.hasKey(k): self.a[k]

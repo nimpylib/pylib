@@ -16,5 +16,10 @@ genCapwords string, string,
   unicode.split, strutils.split, unicode.capitalize, strutils.strip
 
 
-genSubstitute(Table, string, substitute, raiseKeyError, invalidFormatString)
-genSubstitute(Table, string, safe_substitute, noraiseKeyError, supressInvalidFormatString)
+genSubstitute(Table, string, substitute,      initRaisesExcHandle)
+genSubstitute(Table, string, safe_substitute, initIgnoreExcHandle)
+
+proc get_identifiers*(templ: Template): seq[string] =
+  for i in get_identifiersMayDup(templ):
+    if i not_in result:
+      result.add i
