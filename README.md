@@ -3,11 +3,11 @@
 [![C Test](https://github.com/nimpylib/pylib/workflows/testC/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/testC.yml)
 [![JS Test](https://github.com/nimpylib/pylib/workflows/testJs/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/testJs.yml)
 [![Docs](https://github.com/nimpylib/pylib/workflows/docs/badge.svg)](https://github.com/nimpylib/pylib/actions/workflows/docs.yml)
-![](https://img.shields.io/github/languages/code-size/litlighilit/nimpylib?style=flat)
-[![Commits](https://img.shields.io/github/last-commit/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/commits/)
-<!--![](https://img.shields.io/github/stars/litlighilit/nimpylib?style=flat "Star NimPylib on GitHub!")
-[![Issues](https://img.shields.io/github/issues-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/issues)
-[![PRs](https://img.shields.io/github/issues-pr-raw/litlighilit/nimpylib?style=flat)](https://github.com/nimpylib/pylib/pulls)-->
+![](https://img.shields.io/github/languages/code-size/nimpylib/pylib?style=flat)
+[![Commits](https://img.shields.io/github/last-commit/nimpylib/pylib?style=flat)](https://github.com/nimpylib/pylib/commits/)
+<!--![](https://img.shields.io/github/stars/nimpylib/pylib?style=flat "Star NimPylib on GitHub!")
+[![Issues](https://img.shields.io/github/issues-raw/nimpylib/pylib?style=flat)](https://github.com/nimpylib/pylib/issues)
+[![PRs](https://img.shields.io/github/issues-pr-raw/nimpylib/pylib?style=flat)](https://github.com/nimpylib/pylib/pulls)-->
 
 > Write Python in Nim
 
@@ -47,9 +47,9 @@ Thanks to Nim supporting multiply backends, pylib currently officially supports
 to compile to C and JavaScript [^JS]. C++ and ObjC backends are currently not tested.
 
 [^JS]: Some of features (listed
- [here](https://github.com/nimpylib/pylib/blob/master/tests/skipJs.txt))
+ [here](./tests/skipJs.txt))
  and Libs (listed
- [here](https://github.com/nimpylib/pylib/blob/master/src/pylib/Lib/test/skipJs.txt))
+ [here](./src/pylib/Lib/test/skipJs.txt))
 is not available for JS backend yet.
 
 ## Demo
@@ -227,7 +227,7 @@ print(e.stopit(5))
 
 Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
 
-Check the [Examples folder](https://github.com/nimpylib/pylib/tree/master/examples) for more examples.
+Check the [Examples folder](./examples/) for more examples.
 Have more Macros or Templates for Python-like syntax, send [Pull Request](https://github.com/nimpylib/pylib/pulls).
 
 ## Installation
@@ -326,7 +326,7 @@ Uninstall with `nimble uninstall pylib`.
 ### Features cannot be implemented
 However, due to Nim's AST astrict[^nimInvalidAST], a few syntaxes of Python cannot be implemented.
 
-See [here](doc/mustRewriteExtern/) for details and workaround.
+See [here](./doc/mustRewriteExtern/) for details and workaround.
 
 [^nimInvalidAst]: Mostly because they cannot form valid AST in Nim.
 
