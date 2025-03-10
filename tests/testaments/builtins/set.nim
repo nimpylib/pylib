@@ -1,4 +1,8 @@
 
+import std/unittest
+import pylib/builtins
+import pylib/pysugar
+
 test "set":
   def t_shallow():
     s1 = set([1,2,3])
@@ -22,4 +26,9 @@ test "set":
     let s = pysetLit({1,2,3})
     check(len(s) == 3)
   lit()
-    
+
+  proc stringify() =
+    let s = pysetLit({"1"})
+    check str(s) == "{'1'}"
+
+  stringify()

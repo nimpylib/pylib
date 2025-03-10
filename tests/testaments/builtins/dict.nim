@@ -1,4 +1,7 @@
 
+import pylib/builtins
+import std/unittest
+
 test "dict":
   var d = dict(k=1)
   var dd = d.copy()
@@ -11,6 +14,6 @@ test "dict":
 
   check len(dd) == 1
 
-  # XXX: the following can run outside the unittest
+  # XXX: the following cannot run if included in ../../tester.nim
   # why?
-  #check str(dict([(1,2)])) == str("{1: 2}")
+  check str(dict([(1,2)])) == str("{1: 2}")
