@@ -146,6 +146,10 @@ proc toDict(e): NimNode =
       eleValTyp
     ), eles
   )
+proc toTuple(e): NimNode =
+  result = newNimNode nnkTupleConstr
+  for i in e:
+    result.add i.toPyExpr
 
 proc rewriteEqualMinus(e; k=nnkAsgn): NimNode =
   ## x==-1 -> x == -1
@@ -163,6 +167,8 @@ proc callToPyExpr*(e): NimNode
 
 template toPyExprImpl(atm: NimNode; toListCb; equalMinusAs=nnkAsgn): NimNode =
   case atm.kind
+  of nnkExprEqExpr:
+    nnkExprEqExpr.newTree(atm[0], atm[1].toPyExpr)
   of nnkBracketExpr:
     rewriteSliceInBracket atm
   of nnkCommand:
@@ -186,6 +192,7 @@ template toPyExprImpl(atm: NimNode; toListCb; equalMinusAs=nnkAsgn): NimNode =
   of nnkBracket:    atm.toListCb
   of nnkCurly:      atm.toSet
   of nnkTableConstr:atm.toDict
+  of nnkTupleConstr:atm.toTuple
   else:
     atm
 
