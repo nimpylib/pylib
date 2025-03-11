@@ -1,5 +1,5 @@
 nimTitle	strIter	pylib/builtins/private/strIter.html	module src/pylib/builtins/private/strIter		0
 nim	strIterImpl	pylib/builtins/private/strIter.html#strIterImpl.t,,,,	template strIterImpl(it; strProc; start, stop: char | string; linear = false): string		7
-nim	genDollarRepr	pylib/builtins/private/strIter.html#genDollarRepr.t,,,,	template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)		32
-nim	genDollarRepr	pylib/builtins/private/strIter.html#genDollarRepr.t,,,	template genDollarRepr(Coll; start, stop: char | string; linear = false)		44
-nimgrp	gendollarrepr	pylib/builtins/private/strIter.html#genDollarRepr-templates-all	template		32
+nim	genDollarRepr	pylib/builtins/private/strIter.html#genDollarRepr.t,,,,	template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)		31
+nim	genDollarRepr	pylib/builtins/private/strIter.html#genDollarRepr.t,,,	template genDollarRepr(Coll; start, stop: char | string; linear = false)		43
+nimgrp	gendollarrepr	pylib/builtins/private/strIter.html#genDollarRepr-templates-all	template		31
