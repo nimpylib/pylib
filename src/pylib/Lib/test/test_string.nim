@@ -165,7 +165,23 @@ block TestTemplate:
         self.assertRaises(ValueError, s.is_valid)
         ]#
 
-    def test_get_identifiers(self):
+    #[
+    XXX: NIM-BUG: as of
+      - Nim#1af88a2d20add67e3c376f0bc7144f9a0a843183 (@2.3.1)
+      - pylib#d8e3a84ecc270f43c219e823a88cb137029fd44b (@0.9.7)
+
+    the following code lead Nim compile crash due to "call depth limit reached",
+    the recusive one is `compiler/sigmatch.nim(1269) typeRel`
+    ```nim
+    def f(x): ls = [0]
+    f(0)
+    ```
+
+    One workaround is to mark that argument's type,
+    so does following.
+    ]#
+
+    def test_get_identifiers(self: TestCase):
         ls = ["who", "what"]
 
         s = Template("$who likes to eat a bag of ${what} worth $$100")
