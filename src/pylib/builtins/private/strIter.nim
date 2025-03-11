@@ -12,7 +12,6 @@ template strIterImpl*(it; strProc;
   var result = newStringOfCap(calLen(start) + 3*le + calLen(stop) - 2)
   result.add start
   when linear:
-    result.add start
     result.add ls[0].strProc
     for i in 1..<le:
       result.add ", "
@@ -45,4 +44,4 @@ template genDollarRepr*(Coll; start, stop: char|string;
     linear = false){.dirty.} =
   mixin repr
   genDollarRepr(Coll, start, stop,
-    repr, false)
+    repr, linear)
