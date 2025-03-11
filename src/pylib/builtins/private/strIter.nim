@@ -4,7 +4,7 @@
 template calLen(cs: char): int = 1
 template calLen(cs: string): int = cs.len
 
-template strIterImpl*(it; strProc: typed;
+template strIterImpl*(it; strProc;
     start, stop: char|string; linear = false): string =
   ## requires `iter(it)` and `it.len`
   bind calLen
@@ -29,9 +29,8 @@ template strIterImpl*(it; strProc: typed;
   result.add stop
   result
 
-template asis(x): untyped = x
 template genDollarRepr*(Coll; start, stop: char|string;
-    strProc: typed = asis; linear = false){.dirty.} =
+    strProc; linear = false){.dirty.} =
   bind strIterImpl
   template repr*(self: Coll): string{.dirty.} =
     bind strIterImpl
@@ -41,3 +40,9 @@ template genDollarRepr*(Coll; start, stop: char|string;
   template `$`*(self: Coll): string =
     bind repr
     repr self
+
+template genDollarRepr*(Coll; start, stop: char|string;
+    linear = false){.dirty.} =
+  mixin repr
+  genDollarRepr(Coll, start, stop,
+    repr, false)
