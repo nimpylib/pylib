@@ -32,6 +32,10 @@ template assertTrue*(bo){.genSelf.} =
   bind check
   check bo
 
+template assertFalse*(bo){.genSelf.} =
+  bind check
+  check not bo
+
 template assertRaises*(typ: typedesc, cb: typed, va: varargs[untyped]){.genSelf.} =
   bind expect
   expect typ:
