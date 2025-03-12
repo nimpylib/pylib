@@ -10,13 +10,13 @@ template addPatch*(ver: (int, int, int),
   ##   to get its string represent
   const
     FixedVer* = ver
-    BeforeFixedVer* = NimVersionTuple < FixedVer
-    flagExprRepr = astToStr(flag)
+    BeforeFixedVer* = NimVersionTuple <= FixedVer
     Flag = flag
     hasBug* = BeforeFixedVer and Flag
   when hasBug:
     patchBody
   else:
-    {.warning: currentSourcePath() & " patch takes no effect after " & $FixedVer &
+    const flagExprRepr = astToStr(flag)
+    {.warning: currentSourcePath() & " patch only takes effect before " & $FixedVer &
       " or without flags: " & flagExprRepr.}
   
