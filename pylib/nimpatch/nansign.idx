@@ -1,0 +1,4 @@
+nimTitle	nansign	pylib/nimpatch/nansign.html	module src/pylib/nimpatch/nansign		0
+nim	FixedVer	pylib/nimpatch/nansign.html#FixedVer	const FixedVer		12
+nim	BeforeFixedVer	pylib/nimpatch/nansign.html#BeforeFixedVer	const BeforeFixedVer		13
+nim	hasBug	pylib/nimpatch/nansign.html#hasBug	const hasBug		15

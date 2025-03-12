@@ -1,4 +1,4 @@
 nimTitle	abs	_._/nimpatch/abs.html	module src/pylib/nimpatch/abs		0
 nim	FixedVer	_._/nimpatch/abs.html#FixedVer	const FixedVer		12
 nim	BeforeFixedVer	_._/nimpatch/abs.html#BeforeFixedVer	const BeforeFixedVer		13
-nim	hasBug	_._/nimpatch/abs.html#hasBug	const hasBug		16
+nim	hasBug	_._/nimpatch/abs.html#hasBug	const hasBug		15
