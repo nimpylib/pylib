@@ -1,9 +1,6 @@
 ## Currently we just use `system.tuple` for Python's tuple
 
 import std/macros
-import ./private/strIter
-
-type PyTuple* = tuple
 
 macro items*(t: tuple): untyped =
   result = newNimNode nnkBracket
@@ -20,7 +17,12 @@ macro items*(t: tuple): untyped =
       result.add nnkBracketExpr.newTree(t, newLit i)
   result = newCall(ident"items", result)
 
-PyTuple.genDollarRepr '(', ')', linear=true
+macro len*(t: tuple): int = newLit t.len
+
+when defined(js):
+  import ./private/strIter
+  # XXX: NIM-BUG: as of 2.3.1, `repr (1,)` -> "[Field0 = 1]" when JS
+  genDollarRepr tuple, '(', ')', useIter=false
 
 when isMainModule:
   # not compile:

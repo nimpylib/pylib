@@ -4,21 +4,22 @@
 template calLen(cs: char): int = 1
 template calLen(cs: string): int = cs.len
 
-template strIterImpl*(it; strProc;
-    start, stop: char|string; linear = false): string =
-  ## requires `iter(it)` and `it.len`
+template strIterImpl*(it: typed{atom}; strProc;
+    start, stop: char|string; linear = false; useIter = true): string =
+  ## requires `iter(it)`, `it.len`, `it[int]`
   bind calLen
   let le = it.len
   var result = newStringOfCap(calLen(start) + 3*le + calLen(stop) - 2)
   result.add start
   when linear:
-    result.add ls[0].strProc
-    for i in 1..<le:
-      result.add ", "
-      result.add ls[i].strProc
+    if le != 0:
+      result.add it[0].strProc
+      for i in 1..<le:
+        result.add ", "
+        result.add it[i].strProc
   else:
     var notFirst = false
-    for k in iter(it):
+    for k in (when useIter: iter(it) else: items(it)):
       if likely notFirst:
         result.add ", "
       result.add:
@@ -28,20 +29,31 @@ template strIterImpl*(it; strProc;
   result.add stop
   result
 
-template genDollarRepr*(Coll; start, stop: char|string;
-    strProc; linear = false){.dirty.} =
+template strIterImpl*(itExpr: typed{~atom}; strProc;
+    start, stop: char|string; linear = false; useIter = true): string =
   bind strIterImpl
-  template repr*(self: Coll): string{.dirty.} =
+  let it = itExpr
+  strIterImpl(it, strProc, start, stop, linear, useIter)
+
+template gen(name; strProcType){.dirty.} =
+  template name(Coll; start, stop: char|string;
+      strProc: strProcType; linear = false; useIter = true){.dirty.} =
     bind strIterImpl
-    mixin repr
-    strIterImpl self, strProc, start, stop, linear
+    template repr*(self: Coll): string{.dirty.} =
+      bind strIterImpl
+      strIterImpl self, strProc, start, stop, linear, useIter
 
-  template `$`*(self: Coll): string =
-    bind repr
-    repr self
+    template `$`*(self: Coll): string =
+      bind repr
+      repr self
 
-template genDollarRepr*(Coll; start, stop: char|string;
-    linear = false){.dirty.} =
-  mixin repr
-  genDollarRepr(Coll, start, stop,
-    repr, linear)
+gen genDollarRepr, typed
+gen genDollarReprAux, untyped
+
+template genDollarRepr(Coll; start, stop: char|string;
+    linear = false; useIter = true){.dirty.} =
+  bind genDollarReprAux
+  genDollarReprAux(Coll, start, stop,
+    repr, linear, useIter)
+
+export genDollarRepr
