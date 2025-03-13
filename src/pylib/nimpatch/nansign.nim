@@ -1,8 +1,8 @@
 {.used.}
 import ./utils
-from std/os import quoteShell  # compileTime only
 addPatch((2,3,1), defined(c) or defined(cpp)):
   # fixes in nim-lang/Nim#24774
+  from std/os import quoteShell  # compileTime only
   const HUGE_ENUF = "1e+300"
 
   template use(s: string; optPre: char) =
