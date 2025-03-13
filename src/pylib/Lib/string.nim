@@ -34,11 +34,23 @@ genCapwords StringLike, PyStr,
 
 proc capwords*(a: StringLike; _: NoneType): PyStr = capwords(a)
 
-proc toTable[K, V](ls: Mapping[K, V]): Table[K, V] =
-  ## .. note:: we use `string` as value type internally anyway.
-  result = initTable[K, V](ls.len)
-  for (k, v) in ls.items():
-    result[k] = v
+template genToTab(M){.dirty.} =
+  proc toTable[K, V](ls: M[K, V]): Table[K, V] =
+    ## .. note:: we use `string` as value type internally anyway.
+    result = initTable[K, V](ls.len)
+    for (k, v) in ls.items():
+      result[k] = v
+
+when not defined(js):
+  genToTab Mapping
+else:
+  #[ XXX: NIM-BUG: Error: internal error: genTypeInfo(tyInferred)
+  compiler/jstypes.nim(135) genTypeInfo 
+  context:
+    p.prc.name.s = toTable
+    typ[i] = PyStr
+  ]#
+  genToTab PyDict
 
 genSubstitute(Mapping, PyStr, substitute,      initRaisesExcHandle)
 genSubstitute(Mapping, PyStr, safe_substitute, initIgnoreExcHandle)
