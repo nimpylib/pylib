@@ -34,19 +34,25 @@ template catchJsErrAsCode*(doBody: static string): int =
     res: cint = 0
   {.emit: ["try{", doBody, "} catch(e) {",
       res, " = e.code; }"
+  #" <- for code lint
   ].}
   int -res # nodejs's errno is oppsite?
 
-template catchJsErrAsCode*(doBody: not static[string]): cint =
+template catchJsErrAsCode*(prc: proc ()): cint =
   var res: cint = 0
   block:
-    proc temp = doBody
-    {.emit: ["try{", temp, "();",
+    {.emit: ["try{", prc, "();",
     "} catch(e) {",
         res, """= e.code;
     }
     """].}
+    #"""] <- for code lint
     res
+
+template catchJsErrAsCode*(doBody): cint =
+  bind catchJsErrAsCode
+  proc temp{.genSym.} = doBody
+  catchJsErrAsCode(prc=temp)
 
 template catchJsErrAsCode*(errMsg: var string; doBody: static string): cint =
   var
@@ -58,20 +64,25 @@ template catchJsErrAsCode*(errMsg: var string; doBody: static string): cint =
        jsRes,"""= e.message;
   }
   """].}
+  #"""] <- for code lint
   if res != 0: errMsg = $jsRes
   res
 
-template catchJsErrAsCode*(errMsg: var string; doBody: not static[string]): cint =
+template catchJsErrAsCode*(errMsg: var string; prc: proc): cint =
   var
     jsRes: cstring
     res: cint = 0
   block:
-    proc temp = doBody
-    {.emit: ["try{", temp, """();
+    {.emit: ["try{", prc, """();
     } catch(e) {
     """,res, " = e.code;",
         jsRes,"""= e.message;
     }
     """].}
+    #"""] <- for code lint
     if res != 0: errMsg = $jsRes
     res
+
+template catchJsErrAsCode*(errMsg: var string; doBody): cint =
+  proc temp = doBody
+  catchJsErrAsCode errMsg, prc=temp

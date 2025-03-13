@@ -23,7 +23,7 @@ when defined(js):
     proc getxtime*(p: PathLike): float =
       var s: Stat
       let cs = cstring($p)
-      catchJsErrAndRaise:
+      catchJsErrAndRaise proc() =
         s = statSync(cs)
       s.attr.valueOf() / 1000
   gen_getxtime getctime, ctime
