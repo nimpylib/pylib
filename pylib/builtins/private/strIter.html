@@ -56,12 +56,19 @@
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">genDollarRepr
-  <li><a class="reference" href="#genDollarRepr.t%2C%2C%2C" title="genDollarRepr(Coll; start, stop: char | string; linear = false)">genDollarRepr(Coll; start, stop: char | string; linear = false)</a></li>
-<li><a class="reference" href="#genDollarRepr.t%2C%2C%2C%2C" title="genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)">genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)</a></li>
+  <li><a class="reference" href="#genDollarRepr.t%2C%2C%2C" title="genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)">genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)</a></li>
+<li><a class="reference" href="#genDollarRepr.t%2C%2C%2C%2Ctyped" title="genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;
+              useIter = true)">genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;
+              useIter = true)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">strIterImpl
-  <li><a class="reference" href="#strIterImpl.t%2C%2C%2C%2C" title="strIterImpl(it; strProc; start, stop: char | string; linear = false): string">strIterImpl(it; strProc; start, stop: char | string; linear = false): string</a></li>
+  <li><a class="reference" href="#strIterImpl.t%2C%2C%2C%2C" title="strIterImpl(it: typed{atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string">strIterImpl(it: typed{atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string</a></li>
+<li><a class="reference" href="#strIterImpl.t%2C%2C%2C%2C_2" title="strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string">strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string</a></li>
 
 </ul>
 
@@ -84,23 +91,24 @@
   <dl class="item">
     <div id="genDollarRepr-templates-all">
   <div id="genDollarRepr.t,,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#genDollarRepr.t%2C%2C%2C"><span class="Identifier">genDollarRepr</span></a><span class="Other">(</span><span class="Identifier">Coll</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.<span class="Identifier">dirty</span>.}</pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#genDollarRepr.t%2C%2C%2C"><span class="Identifier">genDollarRepr</span></a><span class="Other">(</span><span class="Identifier">Coll</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span>
+                       <span class="Identifier">useIter</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> {.<span class="Identifier">dirty</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/strIter.nim#L43" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/strIter.nim#L43" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/strIter.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/strIter.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="genDollarRepr.t,,,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#genDollarRepr.t%2C%2C%2C%2C"><span class="Identifier">genDollarRepr</span></a><span class="Other">(</span><span class="Identifier">Coll</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">strProc</span><span class="Other">;</span> <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.
-    <span class="Identifier">dirty</span>.}</pre></dt>
+<div id="genDollarRepr.t,,,,typed">
+  <dt><pre><span class="Keyword">template</span> <a href="#genDollarRepr.t%2C%2C%2C%2Ctyped"><span class="Identifier">genDollarRepr</span></a><span class="Other">(</span><span class="Identifier">Coll</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">strProc</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">;</span>
+                       <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">useIter</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> {.<span class="Identifier">dirty</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/strIter.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/strIter.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/strIter.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/strIter.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -108,12 +116,24 @@
 </div>
 <div id="strIterImpl-templates-all">
   <div id="strIterImpl.t,,,,">
-  <dt><pre><span class="Keyword">template</span> <a href="#strIterImpl.t%2C%2C%2C%2C"><span class="Identifier">strIterImpl</span></a><span class="Other">(</span><span class="Identifier">it</span><span class="Other">;</span> <span class="Identifier">strProc</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#strIterImpl.t%2C%2C%2C%2C"><span class="Identifier">strIterImpl</span></a><span class="Other">(</span><span class="Identifier">it</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">{</span><span class="Identifier">atom</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">strProc</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span>
+                     <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">useIter</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
-    requires <tt class="docutils literal"><span class="pre"><span class="Identifier">iter</span><span class="Punctuation">(</span><span class="Identifier">it</span><span class="Punctuation">)</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">it</span><span class="Operator">.</span><span class="Identifier">len</span></span></tt>
+    requires <tt class="docutils literal"><span class="pre"><span class="Identifier">iter</span><span class="Punctuation">(</span><span class="Identifier">it</span><span class="Punctuation">)</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">it</span><span class="Operator">.</span><span class="Identifier">len</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">it</span><span class="Punctuation">[</span><span class="Identifier">int</span><span class="Punctuation">]</span></span></tt>
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/strIter.nim#L7" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/strIter.nim#L7" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="strIterImpl.t,,,,_2">
+  <dt><pre><span class="Keyword">template</span> <a href="#strIterImpl.t%2C%2C%2C%2C_2"><span class="Identifier">strIterImpl</span></a><span class="Other">(</span><span class="Identifier">itExpr</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">{</span><span class="Operator">~</span><span class="Identifier">atom</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">strProc</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">,</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Operator">|</span> <span class="Identifier">string</span><span class="Other">;</span>
+                     <span class="Identifier">linear</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">useIter</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/strIter.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/strIter.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -129,7 +149,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-12 14:11:25 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:38:52 UTC</small>
       </div>
     </div>
   </div>

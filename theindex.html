@@ -42,8 +42,6 @@
           <li><a class="reference external"
           data-doc-search-tag="pyrange: proc `$`[T](rng: PyRange[T]): string" href="pylib/builtins/pyrange.html#%24%2CPyRange%5BT%5D">pyrange: proc `$`[T](rng: PyRange[T]): string</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="pytuple: template `$`(self: PyTuple): string" href="pylib/builtins/pytuple.html#%24.t%2CPyTuple">pytuple: template `$`(self: PyTuple): string</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="set_decl: template `$`(self: PyFrozenSet): string" href="pylib/builtins/set_decl.html#%24.t%2CPyFrozenSet">set_decl: template `$`(self: PyFrozenSet): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set_decl: template `$`(self: PySet): string" href="pylib/builtins/set_decl.html#%24.t%2CPySet">set_decl: template `$`(self: PySet): string</a></li>
@@ -2528,9 +2526,11 @@
           </ul></dd>
 <dt><a name="genDollarRepr" href="#genDollarRepr"><span>genDollarRepr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false)" href="pylib/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C">strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false)</a></li>
+          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)" href="pylib/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C">strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)" href="pylib/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C%2C">strIter: template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)</a></li>
+          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;
+              useIter = true)" href="pylib/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C%2Ctyped">strIter: template genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;
+              useIter = true)</a></li>
           </ul></dd>
 <dt><a name="Generator" href="#Generator"><span>Generator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -3236,6 +3236,8 @@
           <li><a class="reference external"
           data-doc-search-tag="pyrange: template len[T](rng: PyRange[T]): int" href="pylib/builtins/pyrange.html#len.t%2CPyRange%5BT%5D">pyrange: template len[T](rng: PyRange[T]): int</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="pytuple: macro len(t: tuple): int" href="pylib/builtins/pytuple.html#len.m">pytuple: macro len(t: tuple): int</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="set_decl: proc len(self: SomePySet): int" href="pylib/builtins/set_decl.html#len%2CSomePySet">set_decl: proc len(self: SomePySet): int</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pybytearray: proc len(self: PyByteArray): int" href="pylib/pybytearray.html#len">pybytearray: proc len(self: PyByteArray): int</a></li>
@@ -3637,6 +3639,12 @@
 <dt><a name="newPyList" href="#newPyList"><span>newPyList:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="list_decl: proc newPyList[T](len = 0): PyList[T]" href="pylib/builtins/list_decl.html#newPyList%2Cint">list_decl: proc newPyList[T](len = 0): PyList[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list_decl: proc newPyList(a: sink openArray[char]): PyList[char]" href="pylib/builtins/list_decl.html#newPyList%2CsinkopenArray%5Bchar%5D">list_decl: proc newPyList(a: sink openArray[char]): PyList[char]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list_decl: proc newPyList(a: sink openArray[float]): PyList[float]" href="pylib/builtins/list_decl.html#newPyList%2CsinkopenArray%5Bfloat%5D">list_decl: proc newPyList(a: sink openArray[float]): PyList[float]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list_decl: proc newPyList(a: sink openArray[int]): PyList[int]" href="pylib/builtins/list_decl.html#newPyList%2CsinkopenArray%5Bint%5D">list_decl: proc newPyList(a: sink openArray[int]): PyList[int]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list_decl: proc newPyList[T](a: sink openArray[T]): PyList[T]" href="pylib/builtins/list_decl.html#newPyList%2CsinkopenArray%5BT%5D">list_decl: proc newPyList[T](a: sink openArray[T]): PyList[T]</a></li>
           <li><a class="reference external"
@@ -4526,10 +4534,6 @@
 <li><a class="reference external"
           data-doc-search-tag="complex: type PyTComplex" href="pylib/builtins/complex.html#PyTComplex">complex: type PyTComplex</a></li>
           </ul></dd>
-<dt><a name="PyTuple" href="#PyTuple"><span>PyTuple:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="pytuple: tuple PyTuple" href="pylib/builtins/pytuple.html#PyTuple">pytuple: tuple PyTuple</a></li>
-          </ul></dd>
 <dt><a name="Py_UCS1" href="#Py_UCS1"><span>Py_UCS1:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="char_decl: type Py_UCS1" href="pylib/Python/unicodeobject/char_decl.html#Py_UCS1">char_decl: type Py_UCS1</a></li>
@@ -4773,8 +4777,6 @@
           data-doc-search-tag="pyrange: proc repr[T](rng: PyRange[T]): string" href="pylib/builtins/pyrange.html#repr%2CPyRange%5BT%5D">pyrange: proc repr[T](rng: PyRange[T]): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pyslice: proc repr(self: PySlice): string" href="pylib/builtins/pyslice.html#repr%2CPySlice">pyslice: proc repr(self: PySlice): string</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="pytuple: template repr(self: PyTuple): string" href="pylib/builtins/pytuple.html#repr.t%2CPyTuple">pytuple: template repr(self: PyTuple): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="set_decl: template repr(self: PyFrozenSet): string" href="pylib/builtins/set_decl.html#repr.t%2CPyFrozenSet">set_decl: template repr(self: PyFrozenSet): string</a></li>
           <li><a class="reference external"
@@ -5294,7 +5296,13 @@
           </ul></dd>
 <dt><a name="strIterImpl" href="#strIterImpl"><span>strIterImpl:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="strIter: template strIterImpl(it; strProc; start, stop: char | string; linear = false): string" href="pylib/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C">strIter: template strIterImpl(it; strProc; start, stop: char | string; linear = false): string</a></li>
+          data-doc-search-tag="strIter: template strIterImpl(it: typed{atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string" href="pylib/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C">strIter: template strIterImpl(it: typed{atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="strIter: template strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string" href="pylib/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C_2">strIter: template strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string</a></li>
           </ul></dd>
 <dt><a name="strptime" href="#strptime"><span>strptime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -5816,7 +5824,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-12 14:11:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:39:18 UTC</small>
       </div>
     </div>
   </div>

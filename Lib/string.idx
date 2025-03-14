@@ -12,11 +12,11 @@ nim	capwords	string.html#capwords,StringLike	proc capwords(a: StringLike): PyStr
 nim	capwords	string.html#capwords,StringLike,StringLike	proc capwords(a: StringLike; sep: StringLike): PyStr		32
 nim	capwords	string.html#capwords,StringLike,NoneType	proc capwords(a: StringLike; _: NoneType): PyStr		35
 nim	substitute	string.html#substitute.m,Template,varargs[untyped]	macro substitute(templ: Template; kws: varargs[untyped]): PyStr		61
-nim	substitute	string.html#substitute.m,Template,Mapping,varargs[untyped]	macro substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		43
+nim	substitute	string.html#substitute.m,Template,Mapping,varargs[untyped]	macro substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		55
 nim	safe_substitute	string.html#safe_substitute.m,Template,varargs[untyped]	macro safe_substitute(templ: Template; kws: varargs[untyped]): PyStr		61
-nim	safe_substitute	string.html#safe_substitute.m,Template,Mapping,varargs[untyped]	macro safe_substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		44
-nim	is_valid	string.html#is_valid,Template	proc is_valid(templ: Template): bool		46
-nim	get_identifiers	string.html#get_identifiers,Template	proc get_identifiers(templ: Template): PyList[PyStr]		49
+nim	safe_substitute	string.html#safe_substitute.m,Template,Mapping,varargs[untyped]	macro safe_substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		56
+nim	is_valid	string.html#is_valid,Template	proc is_valid(templ: Template): bool		58
+nim	get_identifiers	string.html#get_identifiers,Template	proc get_identifiers(templ: Template): PyList[PyStr]		61
 nimgrp	capwords	string.html#capwords-procs-all	proc		4
-nimgrp	safesubstitute	string.html#safe_substitute-macros-all	macro		44
-nimgrp	substitute	string.html#substitute-macros-all	macro		43
+nimgrp	safesubstitute	string.html#safe_substitute-macros-all	macro		56
+nimgrp	substitute	string.html#substitute-macros-all	macro		55

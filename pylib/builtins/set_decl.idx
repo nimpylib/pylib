@@ -14,9 +14,9 @@ nim	newPyFrozenSet	pylib/builtins/set_decl.html#newPyFrozenSet	proc newPyFrozenS
 nim	incl	pylib/builtins/set_decl.html#incl,SomePySet[H],H	proc incl[H](self: var SomePySet[H]; x: H)		26
 nim	excl	pylib/builtins/set_decl.html#excl,SomePySet[H],H	proc excl[H](self: var SomePySet[H]; x: H)		27
 nim	len	pylib/builtins/set_decl.html#len,SomePySet	proc len(self: SomePySet): int		29
-nim	repr	pylib/builtins/set_decl.html#repr.t,PySet	template repr(self: PySet): string		34
+nim	repr	pylib/builtins/set_decl.html#repr.t,PySet	template repr(self: PySet): string		42
 nim	`$`	pylib/builtins/set_decl.html#$.t,PySet	template `$`(self: PySet): string		31
-nim	repr	pylib/builtins/set_decl.html#repr.t,PyFrozenSet	template repr(self: PyFrozenSet): string		34
+nim	repr	pylib/builtins/set_decl.html#repr.t,PyFrozenSet	template repr(self: PyFrozenSet): string		42
 nim	`$`	pylib/builtins/set_decl.html#$.t,PyFrozenSet	template `$`(self: PyFrozenSet): string		32
 nim	`$`	pylib/builtins/set_decl.html#$.t,SomePySet	template `$`(self: SomePySet): string		34
 nim	clear	pylib/builtins/set_decl.html#clear,PySet	proc clear(self: var PySet): int		38
@@ -29,5 +29,5 @@ nim	items	pylib/builtins/set_decl.html#items.i,SomePySet[H]	iterator items[H](se
 nimgrp	ashashset	pylib/builtins/set_decl.html#asHashSet-procs-all	proc		17
 nimgrp	newpyfrozenset	pylib/builtins/set_decl.html#newPyFrozenSet-procs-all	proc		20
 nimgrp	newpyset	pylib/builtins/set_decl.html#newPySet-procs-all	proc		19
-nimgrp	$	pylib/builtins/set_decl.html#$-templates-all	template		39
-nimgrp	repr	pylib/builtins/set_decl.html#repr-templates-all	template		34
+nimgrp	$	pylib/builtins/set_decl.html#$-templates-all	template		46
+nimgrp	repr	pylib/builtins/set_decl.html#repr-templates-all	template		42

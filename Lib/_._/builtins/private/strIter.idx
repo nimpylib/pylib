@@ -1,5 +1,7 @@
 nimTitle	strIter	_._/builtins/private/strIter.html	module src/pylib/builtins/private/strIter		0
-nim	strIterImpl	_._/builtins/private/strIter.html#strIterImpl.t,,,,	template strIterImpl(it; strProc; start, stop: char | string; linear = false): string		7
-nim	genDollarRepr	_._/builtins/private/strIter.html#genDollarRepr.t,,,,	template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)		31
-nim	genDollarRepr	_._/builtins/private/strIter.html#genDollarRepr.t,,,	template genDollarRepr(Coll; start, stop: char | string; linear = false)		43
-nimgrp	gendollarrepr	_._/builtins/private/strIter.html#genDollarRepr-templates-all	template		31
+nim	strIterImpl	_._/builtins/private/strIter.html#strIterImpl.t,,,,	template strIterImpl(it: typed{atom}; strProc; start, stop: char | string;\n            linear = false; useIter = true): string		7
+nim	strIterImpl	_._/builtins/private/strIter.html#strIterImpl.t,,,,_2	template strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;\n            linear = false; useIter = true): string		32
+nim	genDollarRepr	_._/builtins/private/strIter.html#genDollarRepr.t,,,,typed	template genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;\n              useIter = true)		50
+nim	genDollarRepr	_._/builtins/private/strIter.html#genDollarRepr.t,,,	template genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)		53
+nimgrp	gendollarrepr	_._/builtins/private/strIter.html#genDollarRepr-templates-all	template		50
+nimgrp	striterimpl	_._/builtins/private/strIter.html#strIterImpl-templates-all	template		7

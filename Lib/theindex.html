@@ -2288,9 +2288,11 @@
           </ul></dd>
 <dt><a name="genDollarRepr" href="#genDollarRepr"><span>genDollarRepr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false)" href="_._/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C">strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false)</a></li>
+          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)" href="_._/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C">strIter: template genDollarRepr(Coll; start, stop: char | string; linear = false; useIter = true)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)" href="_._/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C%2C">strIter: template genDollarRepr(Coll; start, stop: char | string; strProc; linear = false)</a></li>
+          data-doc-search-tag="strIter: template genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;
+              useIter = true)" href="_._/builtins/private/strIter.html#genDollarRepr.t%2C%2C%2C%2Ctyped">strIter: template genDollarRepr(Coll; start, stop: char | string; strProc: typed; linear = false;
+              useIter = true)</a></li>
           </ul></dd>
 <dt><a name="Generator" href="#Generator"><span>Generator:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -3649,6 +3651,12 @@
 <dt><a name="newPyList" href="#newPyList"><span>newPyList:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="list_decl: proc newPyList[T](len = 0): PyList[T]" href="_._/builtins/list_decl.html#newPyList%2Cint">list_decl: proc newPyList[T](len = 0): PyList[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list_decl: proc newPyList(a: sink openArray[char]): PyList[char]" href="_._/builtins/list_decl.html#newPyList%2CsinkopenArray%5Bchar%5D">list_decl: proc newPyList(a: sink openArray[char]): PyList[char]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list_decl: proc newPyList(a: sink openArray[float]): PyList[float]" href="_._/builtins/list_decl.html#newPyList%2CsinkopenArray%5Bfloat%5D">list_decl: proc newPyList(a: sink openArray[float]): PyList[float]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list_decl: proc newPyList(a: sink openArray[int]): PyList[int]" href="_._/builtins/list_decl.html#newPyList%2CsinkopenArray%5Bint%5D">list_decl: proc newPyList(a: sink openArray[int]): PyList[int]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list_decl: proc newPyList[T](a: sink openArray[T]): PyList[T]" href="_._/builtins/list_decl.html#newPyList%2CsinkopenArray%5BT%5D">list_decl: proc newPyList[T](a: sink openArray[T]): PyList[T]</a></li>
           <li><a class="reference external"
@@ -5346,7 +5354,13 @@
           </ul></dd>
 <dt><a name="strIterImpl" href="#strIterImpl"><span>strIterImpl:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="strIter: template strIterImpl(it; strProc; start, stop: char | string; linear = false): string" href="_._/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C">strIter: template strIterImpl(it; strProc; start, stop: char | string; linear = false): string</a></li>
+          data-doc-search-tag="strIter: template strIterImpl(it: typed{atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string" href="_._/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C">strIter: template strIterImpl(it: typed{atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="strIter: template strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string" href="_._/builtins/private/strIter.html#strIterImpl.t%2C%2C%2C%2C_2">strIter: template strIterImpl(itExpr: typed{~atom}; strProc; start, stop: char | string;
+            linear = false; useIter = true): string</a></li>
           </ul></dd>
 <dt><a name="strptime" href="#strptime"><span>strptime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -6066,7 +6080,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-12 14:13:08 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:40:34 UTC</small>
       </div>
     </div>
   </div>
