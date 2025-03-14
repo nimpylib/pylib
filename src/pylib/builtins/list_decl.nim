@@ -24,6 +24,20 @@ func repr*[T: set|string|openArray](self: PyList[T]): string =
 
 func newPyList*[T](s: sink seq[T]): PyList[T]{.inline.} = PyList[T](data: s)
 func newPyList*[T](a: sink openArray[T]): PyList[T]{.inline.} = PyList[T](data: @a)
+
+when true:
+  #[ XXX: NIM-BUG: as of 2.3.1, without following, compile for a module that imports both test_datetime and test_array
+  crashes with C compiler error:
+
+  @m..@s..@sbuiltins@slist_decl.nim.c:1250:15: error: incompatible types when assigning to type ‘tySequence__MkqYvXY8u0yYYH9auGhczBw’ from type ‘tySequence__lBgZ7a89beZGYPl8PiANMTA’
+  1250 | (*T1_).data = at___test95datetime_u2909(a_p0, a_p0Len_0);
+  ]#
+  template gen(T){.dirty.} =
+    func newPyList*(a: sink openArray[T]): PyList[T]{.inline.} = PyList[T](data: @a)
+  gen int
+  gen float
+  gen char
+
 func newPyList*[T](len=0): PyList[T]{.inline.} = newPyList newSeq[T](len)
 func newPyListOfCap*[T](cap=0): PyList[T]{.inline.} =
   newPyList newSeqOfCap[T](cap)
