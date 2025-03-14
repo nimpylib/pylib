@@ -1,13 +1,18 @@
 ##[
- compiletime/log1p.nim 10/19/2024:
-    - translated from and combine s_log1p.c and s_log1pf.c
+compiletime/log1p.nim 2024/10/19:
 
+  - translated from and combine 
+    [s_log1p.c](https://netlib.org/fdlibm/s_log1p.c) and
+    [s_log1pf.c](https://cygwin.com/cgit/newlib-cygwin/plain/newlib/libm/common/sf_log1p.c)
+
+]##
+
+##[
  @(#)s_log1p.c 1.3 95/01/18
  Along with:
  s_log1pf.c -- float version of s_log1p.c.
  Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
-```txt 
 
  ====================================================
  Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
@@ -74,10 +79,8 @@
  compiler will convert from decimal to binary accurately enough
  to produce the hexadecimal values shown.
 
-```
 
- .. note::
-     Assuming log() return accurate answer, the following
+ Note: Assuming log() return accurate answer, the following
  	 algorithm can be used to compute log1p(x) to within a few ULP:
 	
 		u = 1+x;
