@@ -81,7 +81,7 @@ template skipIf*(condition: bool, reason: string) =
 
 template skipIf*(condition: bool, reason: string; body) =
   addSkip reason
-  if condition:
+  if not condition:
     body
 
 template skipUnless*(condition: bool, reason: string) =
