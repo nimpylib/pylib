@@ -16,7 +16,7 @@ type F = float
 proc round*(x: F, ndigit: int): F =
   ##[ translated from CPython/Objects/floatobject.c:double_round
    rounds a finite double to the closest multiple of
-   10**-ndigits; here ndigits is within reasonable bounds (typically, -308 <=
+   `10**-ndigits`; here ndigits is within reasonable bounds (typically, -308 <=
    ndigits <= 323).  Returns a Python float, or sets a Python error and
    returns NULL on failure (OverflowError and memory errors are possible
 

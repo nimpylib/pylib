@@ -8,8 +8,8 @@ import_obmalloc
 # Include/internal/pycore_pymath.h
 
 proc round*(dd: float, ndigits: int): float =
-  ##[ /* version of double_round that uses the correctly-rounded string<->double
-    conversions from Python/dtoa.c */]##
+  ##[ version of double_round that uses the correctly-rounded string<->double
+    conversions from Python/dtoa.c ]##
   const mode = 3
   const MyBufLen = 100
   var

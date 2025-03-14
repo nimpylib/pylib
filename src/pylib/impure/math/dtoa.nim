@@ -56,27 +56,27 @@ proc dtoa_r*(
     mode, ndigits: cint,
     decpt, sign: var cint, rve: var cstring,
     buf: cstring; blen: csize_t
-): cstring {.importc: "dtoa_r", cdecl, discardable.} ##[ char *
-dtoa_r(double dd, int mode, int ndigits, int *decpt, int *sign, char **rve, char *buf, size_t blen)
-]##
+): cstring {.importc: "dtoa_r", cdecl, discardable.} ##[ ```c
+char* dtoa_r(double dd, int mode, int ndigits, int *decpt, int *sign, char **rve, char *buf, size_t blen)
+```]##
 
 proc dtoa*(
     d: cdouble,
     mode, ndigits: cint,
     decpt, sign: var cint, rve: var cstring
-  ): cstring{.importc: "dtoa", cdecl, discardable.} ##[ char *
-dtoa(double d, int mode, int ndigits, int *decpt, int *sign, char **rve)
-]##
+  ): cstring{.importc: "dtoa", cdecl, discardable.} ##[ ```c
+char* dtoa(double d, int mode, int ndigits, int *decpt, int *sign, char **rve)
+```]##
 
 proc strtod*(
   s00: cstring, se: var cstring
-): cdouble{.importc: "strtod", cdecl.} ##[ double
-strtod(const char *s00, char **se)
-]##
+): cdouble{.importc: "strtod", cdecl.} ##[ ```c
+double strtod(const char *s00, char **se)
+```]##
 
 proc strtod*(
   s00: cstring, se: ptr cstring
-): cdouble{.importc: "strtod", cdecl.} ## for strtod(s, nil)
+): cdouble{.importc: "strtod", cdecl.} ## for `strtod(s, nil)`
 
 proc freedtoa*(s: cstring){.importc, cdecl.}
 

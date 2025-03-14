@@ -423,11 +423,11 @@ genGbls:
 
     The mean (expected value) and variance of the random variable are:
 
+      ```python
         E[X] = alpha / (alpha + beta)
         Var[X] = alpha * beta / ((alpha + beta)**2 * (alpha + beta + 1))
-
+      ```
     ]##
-
     ## See
     ## http://mail.python.org/pipermail/python-bugs-list/2001-January/003752.html
     ## for Ivan Frohne's insightful analysis of why the original implementation:
@@ -481,8 +481,10 @@ genGbls:
 
     The mean (expected value) and variance of the random variable are:
 
+      ```
         E[X] = n * p
         Var[x] = n * p * (1 - p)
+      ```
 
     ]###
     # Error check inputs and handle edge cases
