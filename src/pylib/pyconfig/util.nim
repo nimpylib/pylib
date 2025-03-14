@@ -38,14 +38,16 @@ template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl(RunSubCmd, variab
 
 
 template AX_C_FLOAT_WORDS_BIGENDIAN*(id; doIfTrue, doIfFalse, doIfUnknown){.dirty.} =
-  bind decl_ac_implAux, RunSubCmd
-  template handle_option_bool(_; val: bool){.genSym.} =
-    doIfUnknown
-  template handle_option_bool(_; val: string){.genSym.} =
-    const v = val
-    when v == "1": doIfTrue
-    elif v == "0": doIfFalse
-    else: doIfUnknown
+  bind decl_ac_implAux, RunSubCmd, weirdTarget
+  when weirdTarget:
+    template handle_option_bool(_; val: bool){.genSym.} =
+      doIfUnknown
+  else:
+    template handle_option_bool(_; val: string){.genSym.} =
+      const v = val
+      when v == "1": doIfTrue
+      elif v == "0": doIfFalse
+      else: doIfUnknown
 
   decl_ac_implAux handle_option_bool, RunSubCmd, id, false:
     proc floatPatAsStr: cstring =

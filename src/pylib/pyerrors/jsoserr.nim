@@ -18,7 +18,7 @@ let
   ErrIsdir* = econsts.EISDIR.to(cdouble).int
 proc isNotFound*(err: OSErrorCode): bool = err.int == ErrNoent
 
-let jsOs = require("os")
+
 
 
 proc jsErrnoMsg*(errorCode: OSErrorCode): string =
