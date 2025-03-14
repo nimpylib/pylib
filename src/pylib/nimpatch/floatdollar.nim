@@ -1,6 +1,7 @@
 
 import ./utils
 addPatch((2,3,1), defined(js)):
+  # fixes in nim-lang/Nim#24695
   from std/math import isNaN
   func isFinite(x: float): bool{.importc.} # importjs requires a pattern
   proc `$`*(x: SomeFloat): string =
