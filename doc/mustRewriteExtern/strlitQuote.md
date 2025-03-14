@@ -10,6 +10,7 @@ while Nim only allows `"`. (`'` is for character literal)
 
 ## rewrite
 ```
-STRLIT_BEGIN + -> "\"" +
+"'" STR_CONTENT "'" -> "\"" STR_CONTENT_TRANS "\""
 ```
 
+`STR_CONENT_TRANS` =  `STR_CONTENT`.replace('\'', '"')
