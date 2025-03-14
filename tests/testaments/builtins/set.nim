@@ -28,7 +28,7 @@ test "set":
   lit()
 
   proc stringify() =
-    let s = pysetLit({"1"})
+    let s = pysetLit({u"1"})
     check str(s) == "{'1'}"
 
   stringify()
