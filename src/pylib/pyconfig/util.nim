@@ -27,7 +27,7 @@ template decl_ac_implAux(handle; subcmd; variable; defval; code) =
 
 template decl_global(variable; val: bool) =
   const variable* = val
-template decl_global(variable; val: string) = decl_global variable, val == "1"
+template decl_global(variable; val: string) = decl_global variable, val == "0"
 
 template decl_ac_impl(subcmd; variable; defval; code) =
   decl_ac_implAux decl_global, subcmd, variable, defval, code

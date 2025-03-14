@@ -3,9 +3,9 @@
 import ./util
 
 AC_RUN_IFELSE X87_double_rounding, false:
-  # ref "On IEEE 754, test should return 1 if rounding"
+  # ref "On IEEE 754, test should return 0 if rounding"
   # maybe following is enough, but I still put origin C code below
-  import std/fenv;quit int(fegetround()==FE_TONEAREST)
+  import std/fenv;quit int(fegetround()!=FE_TONEAREST)
 #[
  Detect whether system arithmetic is subject to x87-style double
  rounding issues.  The result of this test has little meaning on non
@@ -158,9 +158,9 @@ when HAVE_GCC_ASM_FOR_MC68881:
   template Py_SET_53BIT_PRECISION_HEADER*{.dirty.} =
     var old_fpcr, new_fpcr: c_uint
   template Py_SET_53BIT_PRECISION_START* =
-        asm """ "fmove.l %%fpcr,%0" : "=g" (old_fpcr) """"
+        asm """ "fmove.l %%fpcr,%0" : "=g" (old_fpcr)"""
         # Set double precision / round to nearest.
-        new_fpcr = (old_fpcr and not 0xf0) or 0x80
+        new_fpcr = (old_fpcr and not cuint(0xf0)) or cuint(0x80)
         if new_fpcr != old_fpcr:
           {.emit: """
           __asm__ volatile ("fmove.l %0,%%fpcr" : : "g" (new_fpcr));
