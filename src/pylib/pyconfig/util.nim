@@ -2,7 +2,7 @@
 
 import std/os
 
-const debug{.booldefine.} = false
+
 
 const weirdTarget = defined(js) or defined(nimscript)
 
@@ -20,7 +20,7 @@ template decl_ac_implAux(handle; subcmd; variable; defval; code) =
     when fileExists fp: handle variable, fp.slurp
     else:
       const
-        res = gorgeEx( "nim " & subcmd & " --hints:" & $debug & " --eval:" & quoteShell(astToStr code) )
+        res = gorgeEx( "nim " & subcmd & " --eval:" & quoteShell(astToStr code) )
         resCodeS = $res.exitCode
       fp.writeFile resCodeS
       handle variable, resCodeS
@@ -37,7 +37,8 @@ template AC_LINK_IFELSE*(variable, defval, code) = decl_ac_impl('c', variable, d
 template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl(RunSubCmd, variable, defval, code)
 
 
-template AX_C_FLOAT_WORDS_BIGENDIAN*(id; doIfTrue, doIfFalse, doIfUnknown) =
+template AX_C_FLOAT_WORDS_BIGENDIAN*(id; doIfTrue, doIfFalse, doIfUnknown){.dirty.} =
+  bind decl_ac_implAux, RunSubCmd
   template handle_option_bool(_; val: bool){.genSym.} =
     doIfUnknown
   template handle_option_bool(_; val: string){.genSym.} =
