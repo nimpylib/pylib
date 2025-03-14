@@ -14,7 +14,7 @@ test "decorator":
 
 test "custom decorator":
   type
-    O = ref object
+
     Func = proc(): int
   var glob = 0
 
