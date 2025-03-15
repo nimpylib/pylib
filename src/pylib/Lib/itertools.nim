@@ -1,11 +1,12 @@
 
-from std/sequtils import toSeq
+import std/sequtils  # toSeq
 import ./n_itertools
 import ../builtins/list
 import ../private/iterGen
 import ../collections_abc
 
 template asgnToSeq[T](sequ; it: Iterable[T]){.dirty.} =
+  bind toSeq
   when compiles(it.toSeq):
     sequ = it.toSeq
   else:
