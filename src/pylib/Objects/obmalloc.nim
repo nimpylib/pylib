@@ -3,8 +3,8 @@ when compileOption"threads":
   template allocImpl(T, s): untyped = cast[ptr T](allocShared(s))
   template pyfree(p) = freeShared p
 else:
-  template allocImpl(T, s) = cast[ptr T](alloc(s))
-  template pyfree(p) = free p
+  template allocImpl(T, s): untyped = cast[ptr T](alloc(s))
+  template pyfree(p) = dealloc p
 export pyfree
 
 template pyalloc*[T](s): ptr T = allocImpl(T, s)
