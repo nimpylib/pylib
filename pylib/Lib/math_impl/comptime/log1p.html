@@ -76,10 +76,14 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc">compiletime/log1p.nim 10/19/2024:<ul class="simple"><li>translated from and combine s_log1p.c and s_log1pf.c</li>
+    <p class="module-desc">compiletime/log1p.nim 2024/10/19:<ul class="simple"><li>translated from and combine <a class="reference external" href="https://netlib.org/fdlibm/s_log1p.c">s_log1p.c</a> and <a class="reference external" href="https://cygwin.com/cgit/newlib-cygwin/plain/newlib/libm/common/sf_log1p.c">s_log1pf.c</a></li>
 </ul>
-<p>@(#)s_log1p.c 1.3 95/01/18 Along with: s_log1pf.c -- float version of s_log1p.c. Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.</p>
-<p><pre class="listing">
+<pre>@(#)s_log1p.c 1.3 95/01/18
+Along with:
+s_log1pf.c -- float version of s_log1p.c.
+Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
+
+
 ====================================================
 Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
 Copyright (C) 2024 by litlighilit. All rights reserved.
@@ -94,63 +98,67 @@ double log1p(double x)
 
 Method :
   1. Argument Reduction: find k and f such that
-                        1+x = 2^k * (1+f),
-           where  sqrt(2)/2 &lt; 1+f &lt; sqrt(2) .
-     
+			1+x = 2^k * (1+f),
+	   where  sqrt(2)/2 &lt; 1+f &lt; sqrt(2) .
+
      Note. If k=0, then f=x is exact. However, if k!=0, then f
-        may not be representable exactly. In that case, a correction
-        term is need. Let u=1+x rounded. Let c = (1+x)-u, then
-        log(1+x) - log(u) ~ c/u. Thus, we proceed to compute log(u),
-        and add back the correction term c/u.
-        (Note: when x &gt; 2**53, one can simply return log(x))
-  
+	may not be representable exactly. In that case, a correction
+	term is need. Let u=1+x rounded. Let c = (1+x)-u, then
+	log(1+x) - log(u) ~ c/u. Thus, we proceed to compute log(u),
+	and add back the correction term c/u.
+	(Note: when x &gt; 2**53, one can simply return log(x))
+
   2. Approximation of log1p(f).
-        Let s = f/(2+f) ; based on log(1+f) = log(1+s) - log(1-s)
-                 = 2s + 2/3 s**3 + 2/5 s**5 + .....,
-                 = 2s + s*R
+	Let s = f/(2+f) ; based on log(1+f) = log(1+s) - log(1-s)
+		 = 2s + 2/3 s**3 + 2/5 s**5 + .....,
+	     	 = 2s + s*R
      We use a special Reme algorithm on [0,0.1716] to generate
-        a polynomial of degree 14 to approximate R The maximum error
-        of this polynomial approximation is bounded by 2**-58.45. In
-        other words,
-                        2      4      6      8      10      12      14
-            R(z) ~ Lp1*s +Lp2*s +Lp3*s +Lp4*s +Lp5*s  +Lp6*s  +Lp7*s
-        (the values of Lp1 to Lp7 are listed in the program)
-        and
-            |      2          14          |     -58.45
-            | Lp1*s +...+Lp7*s    -  R(z) | &lt;= 2
-            |                             |
-        Note that 2s = f - s*f = f - hfsq + s*hfsq, where hfsq = f*f/2.
-        In order to guarantee error in log below 1ulp, we compute log
-        by
-                log1p(f) = f - (hfsq - s*(hfsq+R)).
-        
-        3. Finally, log1p(x) = k*ln2 + log1p(f).
-                             = k*ln2_hi+(f-(hfsq-(s*(hfsq+R)+k*ln2_lo)))
-           Here ln2 is split into two floating point number:
-                        ln2_hi + ln2_lo,
-           where n*ln2_hi is always exact for |n| &lt; 2000.
+	a polynomial of degree 14 to approximate R The maximum error
+	of this polynomial approximation is bounded by 2**-58.45. In
+	other words,
+		        2      4      6      8      10      12      14
+	    R(z) ~ Lp1*s +Lp2*s +Lp3*s +Lp4*s +Lp5*s  +Lp6*s  +Lp7*s
+ 	(the values of Lp1 to Lp7 are listed in the program)
+	and
+	    |      2          14          |     -58.45
+	    | Lp1*s +...+Lp7*s    -  R(z) | &lt;= 2
+	    |                             |
+	Note that 2s = f - s*f = f - hfsq + s*hfsq, where hfsq = f*f/2.
+	In order to guarantee error in log below 1ulp, we compute log
+	by
+		log1p(f) = f - (hfsq - s*(hfsq+R)).
+	
+	3. Finally, log1p(x) = k*ln2 + log1p(f).
+		 	     = k*ln2_hi+(f-(hfsq-(s*(hfsq+R)+k*ln2_lo)))
+	   Here ln2 is split into two floating point number:
+			ln2_hi + ln2_lo,
+	   where n*ln2_hi is always exact for |n| &lt; 2000.
 
 Special cases:
-        log1p(x) is NaN with signal if x &lt; -1 (including -INF) ;
-        log1p(+INF) is +INF; log1p(-1) is -INF with signal;
-        log1p(NaN) is that NaN with no signal.
+	log1p(x) is NaN with signal if x &lt; -1 (including -INF) ;
+	log1p(+INF) is +INF; log1p(-1) is -INF with signal;
+	log1p(NaN) is that NaN with no signal.
 
 Accuracy:
-        according to an error analysis, the error is always less than
-        1 ulp (unit in the last place).
+	according to an error analysis, the error is always less than
+	1 ulp (unit in the last place).
 
 Constants:
 The hexadecimal values are the intended ones for the following
 constants. The decimal values may be used, provided that the
 compiler will convert from decimal to binary accurately enough
 to produce the hexadecimal values shown.
-</pre></p>
-<div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
-Assuming log() return accurate answer, the following algorithm can be used to compute log1p(x) to within a few ULP:<pre>u = 1+x;
-if(u==1.0) return x ; else
-           return log(u)*(x/(u-1.0));</pre>
-<pre>See HP-15C Advanced Functions Handbook, p.193.</pre>
-</div>
+
+
+Note: Assuming log() return accurate answer, the following
+	 algorithm can be used to compute log1p(x) to within a few ULP:
+	
+		u = 1+x;
+		if(u==1.0) return x ; else
+			   return log(u)*(x/(u-1.0));
+
+	 See HP-15C Advanced Functions Handbook, p.193.
+</pre>
 </p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
@@ -167,8 +175,8 @@ if(u==1.0) return x ; else
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/comptime/log1p.nim#L97" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/comptime/log1p.nim#L97" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/math_impl/comptime/log1p.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/math_impl/comptime/log1p.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -184,7 +192,7 @@ if(u==1.0) return x ; else
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:39:04 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-15 01:14:32 UTC</small>
       </div>
     </div>
   </div>

@@ -254,17 +254,11 @@
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <pre>Beta distribution.
-
-Conditions on the parameters are alpha &gt; 0 and beta &gt; 0.
-Returned values range between 0 and 1.
-
-The mean (expected value) and variance of the random variable are:
-
- E[X] = alpha / (alpha + beta)
- Var[X] = alpha * beta / ((alpha + beta)**2 * (alpha + beta + 1))
-
-</pre>
+    <p>Beta distribution.</p>
+<p>Conditions on the parameters are alpha &gt; 0 and beta &gt; 0. Returned values range between 0 and 1.</p>
+<p>The mean (expected value) and variance of the random variable are:</p>
+<p><pre class="listing"> <span class="Identifier">E</span><span class="Punctuation">[</span><span class="Identifier">X</span><span class="Punctuation">]</span> <span class="Operator">=</span> <span class="Identifier">alpha</span> <span class="Operator">/</span> <span class="Punctuation">(</span><span class="Identifier">alpha</span> <span class="Operator">+</span> <span class="Identifier">beta</span><span class="Punctuation">)</span>
+ <span class="Identifier">Var</span><span class="Punctuation">[</span><span class="Identifier">X</span><span class="Punctuation">]</span> <span class="Operator">=</span> <span class="Identifier">alpha</span> <span class="Operator">*</span> <span class="Identifier">beta</span> <span class="Operator">/</span> <span class="Punctuation">(</span><span class="Punctuation">(</span><span class="Identifier">alpha</span> <span class="Operator">+</span> <span class="Identifier">beta</span><span class="Punctuation">)</span><span class="Operator">**</span><span class="DecNumber">2</span> <span class="Operator">*</span> <span class="Punctuation">(</span><span class="Identifier">alpha</span> <span class="Operator">+</span> <span class="Identifier">beta</span> <span class="Operator">+</span> <span class="DecNumber">1</span><span class="Punctuation">)</span><span class="Punctuation">)</span></pre> </p>
 
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/random_impl/proc_others.nim#L418" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/random_impl/proc_others.nim#L418" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
@@ -284,7 +278,8 @@ The mean (expected value) and variance of the random variable are:
 <p>sum(random() &lt; p for i in range(n))</p>
 <p>Returns an integer in the range:   0 &lt;= X &lt;= n</p>
 <p>The mean (expected value) and variance of the random variable are:</p>
-<p>E<a class="reference internal" href="#X">X</a> = n * p Var<a class="reference internal" href="#x">x</a> = n * p * (1 - p)</p>
+<p><pre class="listing"><span class="Identifier">E</span><span class="Punctuation">[</span><span class="Identifier">X</span><span class="Punctuation">]</span> <span class="Operator">=</span> <span class="Identifier">n</span> <span class="Operator">*</span> <span class="Identifier">p</span>
+<span class="Keyword">Var</span><span class="Punctuation">[</span><span class="Identifier">x</span><span class="Punctuation">]</span> <span class="Operator">=</span> <span class="Identifier">n</span> <span class="Operator">*</span> <span class="Identifier">p</span> <span class="Operator">*</span> <span class="Punctuation">(</span><span class="DecNumber">1</span> <span class="Operator">-</span> <span class="Identifier">p</span><span class="Punctuation">)</span></pre></p>
 
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/random_impl/proc_others.nim#L472" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/random_impl/proc_others.nim#L472" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
@@ -810,7 +805,7 @@ raises <tt class="docutils literal"><span class="pre"><span class="Identifier">V
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:40:03 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-15 01:15:31 UTC</small>
       </div>
     </div>
   </div>

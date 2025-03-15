@@ -91,17 +91,9 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#round%2CF%2Cint"><span class="Identifier">round</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">F</span><span class="Other">;</span> <span class="Identifier">ndigit</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">F</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <pre>translated from CPython/Objects/floatobject.c:double_round
-rounds a finite double to the closest multiple of
-10**-ndigits; here ndigits is within reasonable bounds (typically, -308 &lt;=
-ndigits &lt;= 323).  Returns a Python float, or sets a Python error and
-returns NULL on failure (OverflowError and memory errors are possible
-
-.. hint::
-variant whose `F` is `float32` is not implemented,
- and won't be unless https://netlib.org/fp/ftoa.c is implemented (
- none as of 2025-02-17)
-</pre>
+    translated from CPython/Objects/floatobject.c:double_round rounds a finite double to the closest multiple of <tt class="docutils literal"><span class="pre"><span class="DecNumber">10</span><span class="Operator">**-</span><span class="Identifier">ndigits</span></span></tt>; here ndigits is within reasonable bounds (typically, -308 &lt;= ndigits &lt;= 323).  Returns a Python float, or sets a Python error and returns NULL on failure (OverflowError and memory errors are possible<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
+</div>
+<p>variant whose <tt class="docutils literal"><span class="pre"><span class="Identifier">F</span></span></tt> is <tt class="docutils literal"><span class="pre"><span class="Identifier">float32</span></span></tt> is not implemented, and won't be unless <a class="reference external" href="https://netlib.org/fp/ftoa.c">https://netlib.org/fp/ftoa.c</a> is implemented ( none as of 2025-02-17) </p>
 
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/round_float.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/round_float.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
@@ -120,7 +112,7 @@ variant whose `F` is `float32` is not implemented,
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:39:01 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-15 01:14:29 UTC</small>
       </div>
     </div>
   </div>

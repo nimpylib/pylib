@@ -133,10 +133,7 @@
                                        <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <pre>char *
-dtoa(double d, int mode, int ndigits, int *decpt, int *sign, char **rve)
-</pre>
-
+    <pre class="listing"><span class="Keyword">char</span><span class="Operator">*</span> <span class="Identifier">dtoa</span><span class="Punctuation">(</span><span class="Keyword">double</span> <span class="Identifier">d</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Identifier">mode</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Identifier">ndigits</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Operator">*</span><span class="Identifier">decpt</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Operator">*</span><span class="Identifier">sign</span><span class="Punctuation">,</span> <span class="Keyword">char</span> <span class="Operator">**</span><span class="Identifier">rve</span><span class="Punctuation">)</span></pre>
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/impure/math/dtoa.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/impure/math/dtoa.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -151,10 +148,7 @@ dtoa(double d, int mode, int ndigits, int *decpt, int *sign, char **rve)
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;dtoa_r&quot;</span><span class="Other">,</span> <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <pre>char *
-dtoa_r(double dd, int mode, int ndigits, int *decpt, int *sign, char **rve, char *buf, size_t blen)
-</pre>
-
+    <pre class="listing"><span class="Keyword">char</span><span class="Operator">*</span> <span class="Identifier">dtoa_r</span><span class="Punctuation">(</span><span class="Keyword">double</span> <span class="Identifier">dd</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Identifier">mode</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Identifier">ndigits</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Operator">*</span><span class="Identifier">decpt</span><span class="Punctuation">,</span> <span class="Keyword">int</span> <span class="Operator">*</span><span class="Identifier">sign</span><span class="Punctuation">,</span> <span class="Keyword">char</span> <span class="Operator">**</span><span class="Identifier">rve</span><span class="Punctuation">,</span> <span class="Keyword">char</span> <span class="Operator">*</span><span class="Identifier">buf</span><span class="Punctuation">,</span> <span class="Identifier">size_t</span> <span class="Identifier">blen</span><span class="Punctuation">)</span></pre>
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/impure/math/dtoa.nim#L54" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/impure/math/dtoa.nim#L54" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -208,7 +202,7 @@ dtoa_r(double dd, int mode, int ndigits, int *decpt, int *sign, char **rve, char
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    for strtod(s, nil)
+    for <tt class="docutils literal"><span class="pre"><span class="Identifier">strtod</span><span class="Punctuation">(</span><span class="Identifier">s</span><span class="Punctuation">,</span> <span class="Keyword">nil</span><span class="Punctuation">)</span></span></tt>
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/impure/math/dtoa.nim#L77" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/impure/math/dtoa.nim#L77" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -219,10 +213,7 @@ dtoa_r(double dd, int mode, int ndigits, int *decpt, int *sign, char **rve, char
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <pre>double
-strtod(const char *s00, char **se)
-</pre>
-
+    <pre class="listing"><span class="Keyword">double</span> <span class="Identifier">strtod</span><span class="Punctuation">(</span><span class="Keyword">const</span> <span class="Keyword">char</span> <span class="Operator">*</span><span class="Identifier">s00</span><span class="Punctuation">,</span> <span class="Keyword">char</span> <span class="Operator">**</span><span class="Identifier">se</span><span class="Punctuation">)</span></pre>
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/impure/math/dtoa.nim#L71" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/impure/math/dtoa.nim#L71" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -240,7 +231,7 @@ strtod(const char *s00, char **se)
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-14 14:39:01 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-15 01:14:29 UTC</small>
       </div>
     </div>
   </div>
