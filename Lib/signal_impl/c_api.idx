@@ -1,2 +1,0 @@
-nimTitle	c_api	signal_impl/c_api.html	module src/pylib/Lib/signal_impl/c_api		0
-nim	PyErr_CheckSignals	signal_impl/c_api.html#PyErr_CheckSignals	proc PyErr_CheckSignals(): int		2
