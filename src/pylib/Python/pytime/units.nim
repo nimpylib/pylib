@@ -1,0 +1,14 @@
+
+const
+  SEC_TO_MS* = 1000
+
+  MS_TO_US* = 1000
+  SEC_TO_US* = SEC_TO_MS * MS_TO_US
+
+  US_TO_NS* = 1000
+  MS_TO_NS* = MS_TO_US * US_TO_NS
+  SEC_TO_NS* = SEC_TO_MS * MS_TO_NS
+
+  NS_TO_MS* = 1000 * 1000
+  NS_TO_US* = 1000
+  NS_TO_100NS* = 100

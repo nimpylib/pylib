@@ -1,52 +1,18 @@
 
 ## translated from CPython/Python/pytime.c
 
-import ./time_t_decl
-export time_t_decl
 import ./platform_utils
 when defined(js):
   import ./js/time
 else:
   import ./struct_tm_decl, ./struct_tm_meth
   import ./errno_decl
-  from ./importer import raiseErrno
+  #from ./importer import raiseErrno
 
-type
-  long* = clong
+import ./importer
+export PyTime_round_t, prTimeout, Timestamp, long
 
-type Timestamp* = int|float
-
-const
-  SEC_TO_US = 1000
-
-
-# pycore_time.h
-# L91
-type
-  PyTime_round_t* = enum  ## _PyTime_round_t
-    prFLoor
-    prCeiling
-    prHalfEven
-    prRoundUp
-
-const prTimeout* = prRoundUp
 import std/math
-
-func round_half_even(x: float): float =
-  result = round(x)
-  if abs(x-result) == 0.5:
-    # halfway case: round to even
-    result = 2.0 * round(x / 2.0)
-
-func round(x: float, round: PyTime_round_t): float =
-  var d{.volatile.}: float
-
-  d = case round
-    of prHalfEven: pytime.round_half_even(x)
-    of prCeiling: ceil(x)
-    of prFLoor: floor(x)
-    of prRoundUp: (if x >= 0: ceil(x) else: floor(x))
-  return d
 
 func float_to_denominator(d: float, sec: var time_t, numerator: var long,
     idenominator: long, round: PyTime_round_t) =
@@ -59,7 +25,7 @@ func float_to_denominator(d: float, sec: var time_t, numerator: var long,
   (intpart, floatpart) = d.splitDecimal
 
   floatpart *= denominator
-  floatpart = pytime.round(floatpart, round)
+  floatpart = round(floatpart, round)
   if floatpart >= denominator:
     floatpart -= denominator
     intpart += 1.0
@@ -98,7 +64,7 @@ func object_to_denominator(obj: Timestamp, sec: var time_t, numerator: var long,
     if d.isnan:
       numerator = 0
       raise newException(ValueError, "Invalid value NaN (not a number)")
-    pytime.float_to_denominator(d, sec, numerator,
+    float_to_denominator(d, sec, numerator,
                                         denominator, round)
   else:
     sec = obj
@@ -110,7 +76,7 @@ func nPyTime_ObjectToTimeval*(
 ) =
   ## PyTime_ObjectToTimeval but raise OverflowDefect instead of returning -1
   ## i.e. returns nothing.
-  pytime.object_to_denominator(obj, sec, usec, SEC_TO_US, round)
+  object_to_denominator(obj, sec, usec, SEC_TO_US, round)
 
 
 when weridTarget:
