@@ -178,8 +178,8 @@ elif not weirdTarget:
   func errnoMsg*(errnoCode: cint): string = $c_strerror(errnoCode)
 
 
-proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
-  result = (ref OSError)(errorCode: errnoCode.int32, msg: errnoMsg(errnoCode))
+proc newErrnoErrT[E: OSError](errnoCode: cint, additionalInfo = ""): owned(ref E) =
+  result = (ref E)(errorCode: errnoCode.int32, msg: errnoMsg(errnoCode))
   if additionalInfo.len > 0:
     if result.msg.len > 0 and result.msg[^1] != '\n': result.msg.add '\n'
     result.msg.add "Additional info: "
@@ -187,6 +187,8 @@ proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
       # don't add trailing `.` etc, which negatively impacts "jump to file" in IDEs.
   if result.msg == "":
     result.msg = "unknown OS error"
+proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
+  newErrnoErrT[OSError](errnoCode, additionalInfo)
 
 
 proc raiseErrno*(errno: cint; additionalInfo = "") =
@@ -217,12 +219,15 @@ when InJs:
 else:
   when not declared(errno):
     var errno{.importc, header: "<errno.h>".}: cint
-  proc newErrnoErr(additionalInfo = ""): owned(ref OSError) =
-    newErrnoErr(errno, additionalInfo)
+  proc newErrnoErrT[E: OSError](additionalInfo = ""): owned(ref E) =
+    newErrnoErrT[E](errno, additionalInfo)
 
+  proc raiseErrnoT*[E: OSError](additionalInfo = "") =
+    ## may raise `E` only
+    raise newErrnoErrT[E](additionalInfo)
   proc raiseErrno*(additionalInfo = "") =
-    ## may raise OSError only
-    raise newErrnoErr(additionalInfo)
+    raiseErrnoT[OSError](additionalInfo)
+
   proc raiseErrnoWithPath*[T](p: PathLike[T]) =
     raiseErrnoWithPath(p)
 
