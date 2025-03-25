@@ -3,6 +3,7 @@ when defined(windows):
   import std/winlean
   export winlean
   let SIGBREAK*{.importc, header: "<signal.h>".}: cint
+  proc sigismember*(a1: var Sigset, a2: cint): cint {.importc, header: "<signal.h>".}
 else:
   import std/posix except EINTR, ERANGE
   export posix except EINTR, ERANGE

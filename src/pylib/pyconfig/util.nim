@@ -1,7 +1,7 @@
 
 
 import std/os
-
+from std/strutils import parseInt
 
 
 const weirdTarget = defined(js) or defined(nimscript)
@@ -11,8 +11,12 @@ when not weirdTarget:
   static:
     createDir cacheDir # noop if cacheDir dirExists
 template cfgCache(fn): string = cacheDir/fn
-
-template decl_ac_implAux(handle; subcmd; variable; defval; code) =
+const
+  nimExePath = getCurrentCompilerExe()
+  nimExeQuotedPath = when declared(quoteShell): nimExePath.quoteShell
+  else: nimExePath.quoteShellWindows  # when JS
+template decl_ac_implAux(handle; subcmd; variable; defval; doWithExecRes; code): untyped =
+  bind nimExeQuotedPath
   when weirdTarget:
     handle variable, defval
   else:
@@ -20,10 +24,21 @@ template decl_ac_implAux(handle; subcmd; variable; defval; code) =
     when fileExists fp: handle variable, fp.slurp
     else:
       const
-        res = gorgeEx( "nim " & subcmd & " --eval:" & quoteShell(astToStr code) )
-        resCodeS = $res.exitCode
+        res = gorgeEx( nimExeQuotedPath & ' ' & subcmd & " --hints:off --eval:" & quoteShell(astToStr code) )
+        resCodeS = doWithExecRes res
       fp.writeFile resCodeS
       handle variable, resCodeS
+
+template decl_ac_implAux(handle; subcmd; variable; defval; code): untyped =
+  template handle_exec_res(res): string{.genSym, used.} = $res.exitCode
+  decl_ac_implAux(handle, subcmd, variable, defval, handle_exec_res, code)
+
+
+template decl_ac_implAuxGetOutput(handle; subcmd; variable; defval: int; code): untyped =
+  template handle_exec_res(res): string{.genSym, used.} =
+    if res.exitCode != 0: $defval
+    else: res.output
+  decl_ac_implAux(handle, subcmd, variable, defval, handle_exec_res, code)
 
 template decl_global(variable; val: bool) =
   const variable* = val
@@ -32,6 +47,30 @@ template decl_global(variable; val: string) = decl_global variable, val == "0"
 template decl_ac_impl(subcmd; variable; defval; code) =
   decl_ac_implAux decl_global, subcmd, variable, defval, code
 const RunSubCmd = 'r'
+
+template handle_int_or_strint(_; val: int|string): int =
+  bind parseInt
+  when val is int: val
+  else: parseInt val
+
+template from_c_int*(variable; defval: int; precode): int =
+  bind handle_int_or_strint
+  decl_ac_implAuxGetOutput(handle_int_or_strint, 'r', variable, defval):
+    precode
+    let variable{.importc, nodecl.}: cint
+    stdout.write variable
+
+template from_c_int*(variable; includeFile: static[string], defval = low(int)): int =
+  ## we know int.low is smaller than low(cint)
+  bind handle_int_or_strint
+  decl_ac_implAuxGetOutput(handle_int_or_strint, 'r', variable, defval):
+    let variable{.importc, header: includeFile.}: cint
+    stdout.write variable
+
+template noop = discard
+template from_c_int*(variable; defvar: int): int =
+  bind noop
+  from_c_int(variable, defvar, noop)
 
 template AC_LINK_IFELSE*(variable, defval, code) = decl_ac_impl('c', variable, defval, code)
 template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl(RunSubCmd, variable, defval, code)
