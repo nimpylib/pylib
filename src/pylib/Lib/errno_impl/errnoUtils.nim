@@ -9,6 +9,13 @@ template prepareROErrno*{.dirty.} =
   prepareRWErrno
 
 
+template setErrnoRaw*(v: cint) = {.noSideEffect.}:
+  bind errno, staticErrno
+  when nimvm:
+    staticErrno = v
+  else:
+    errno = v  # as v, for example, ERANGE, is global `let`
+
 template setErrno*(v: untyped) = {.noSideEffect.}:
   bind errno, staticErrno
   when nimvm:
