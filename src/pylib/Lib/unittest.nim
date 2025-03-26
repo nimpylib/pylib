@@ -22,19 +22,22 @@ macro genSelf(templ) =
   nTempl.params.insert 1, newIdentDefs(ident"self", bindSym"TestCase")
   result.add nTempl
 
-template assertEqual*(a, b){.genSelf.} =
+template gen1(name, op){.dirty.} =
   bind check
-  check a == b
-template assertNotEqual*(a, b){.genSelf.} =
-  bind check
-  check a != b
-template assertTrue*(bo){.genSelf.} =
-  bind check
-  check bo
+  template name*(a){.genSelf.} =
+    check op(a)
 
-template assertFalse*(bo){.genSelf.} =
+template asis[T](a: T): T = a
+template gen1(name){.dirty.} =
+  gen1 name, asis
+
+template gen2(name, op){.dirty.} =
   bind check
-  check not bo
+  template name*(a, b){.genSelf.} =
+    check op(a, b)
+
+gen1 assertFalse, `not`
+gen1 assertTrue
 
 template assertRaises*(typ: typedesc, cb: typed, va: varargs[untyped]){.genSelf.} =
   bind expect
@@ -51,14 +54,36 @@ template assertRaises*(typ: typedesc[TypeError], cb: typed, va: varargs[untyped]
   else:
     discard  ## "not compile" is seen as Compile-time TypeError
 
-template assertIs*[T](a, b: T){.genSelf.} =
+gen2 assertEqual, `==`
+gen2 assertNotEqual, `!=`
+
+gen2 assertIn, `in`
+gen2 assertNotIn, `not_in`
+
+template assertIsOrNotIs[T](a, b: T; op){.genSelf.} =
   bind check
   when T is (pointer|ptr|ref|proc|iterator):
-    check a == b
+    check a op b
   elif a is static or b is static:
-    check a == b
+    check a op b
   else:
-    check a.addr == b.addr
+    check a.addr op b.addr
+
+template assertIs*[T](a, b: T){.genSelf.} =
+  bind assertIsOrNotIs
+  assertIsOrNotIs(a, b, `==`)
+
+template assertIsNot*[T](a, b: T){.genSelf.} =
+  bind assertIsOrNotIs
+  assertIsOrNotIs(a, b, `!=`)
+
+gen2 assertLess, `<`
+gen2 assertLessEqual, `<=`
+gen2 assertGreater, `>`
+gen2 assertGreaterEqual, `>=`
+
+gen2 assertIsInstance, `is`
+gen2 assertNotIsInstance, `is_not`
 
 template addSkip(reason) = checkpoint reason  ##\
 ## XXX: TODO: not really python-like
