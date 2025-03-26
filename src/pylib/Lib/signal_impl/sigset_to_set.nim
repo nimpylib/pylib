@@ -1,9 +1,7 @@
 
 
-import ./[pynsig, pylifecycle]
 import std/sets
-type
-  Set[T] = HashSet[T]
+import ./[pynsig, pylifecycle, abc_set]
 
 proc add_sigset*(res: var Set[int], mask: var Sigset) =
   for sig in cint(1)..<cint(Py_NSIG):
@@ -15,8 +13,8 @@ proc add_sigset*(res: var Set[int], mask: var Sigset) =
            and an invalid signal must have been our fault in constructing
            the loop boundaries.]#
     let signum = int sig
-    res.incl signum
+    res.add signum
 
-proc sigset_to_set*(mask: var Sigset): Set[int] =
+proc sigset_to_set*(mask: var Sigset): HashSet[int] =
   result = initHashSet[int]()
   result.add_sigset mask
