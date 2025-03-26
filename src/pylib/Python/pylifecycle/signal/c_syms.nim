@@ -7,6 +7,11 @@ when defined(windows):
 else:
   import std/posix except EINTR, ERANGE
   export posix except EINTR, ERANGE
+  let
+    ITIMER_REAL*{.importc, header: "<sys/time.h>".}: cint
+    ITIMER_VIRTUAL*{.importc, header: "<sys/time.h>".}: cint
+    ITIMER_PROF*{.importc, header: "<sys/time.h>".}: cint
+
 import ./handler_types
 
 const HAVE_SIGACTION* = declared(sigaction)
