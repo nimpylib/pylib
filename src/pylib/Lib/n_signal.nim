@@ -1,11 +1,12 @@
 
 import std/sets
 import ./signal_impl/[
-  pynsig, signals, signal_util, valid_signals_impl
+  pynsig, signals, signal_util, valid_signals_impl, enums
 ]
 
 let NSIG* = int Py_NSIG
-export signals, signal_util
+export signals, signal_util, enums
+export SIG_DFL, SIG_IGN
 
 when defined(unix):
   import ./signal_impl/unixs

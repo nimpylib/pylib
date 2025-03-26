@@ -29,7 +29,7 @@ AC_LINK_IFELSE HAVE_STRSIGNAL, false:
   proc strsignal(signalnum: cint): cstring {.importc, header: "<string.h>".}
   discard strsignal(0)
 
-const DEF_SIG* = low int  ## we know int.low is smaller than low(cint)
+const DEF_SIG* = -1  ## CPython checks `SIG*` in [0, NSIG)
 when not defined(windows):
   template SIG(sym) =
     const sym* = from_c_int(sym, "<signal.h>", DEF_SIG)
