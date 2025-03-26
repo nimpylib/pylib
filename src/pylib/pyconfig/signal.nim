@@ -28,3 +28,18 @@ const Py_NSIG* = from_c_int(Py_NSIG, 64):
 AC_LINK_IFELSE HAVE_STRSIGNAL, false:
   proc strsignal(signalnum: cint): cstring {.importc, header: "<string.h>".}
   discard strsignal(0)
+
+const DEF_SIG* = low int  ## we know int.low is smaller than low(cint)
+when not defined(windows):
+  template SIG(sym) =
+    const sym* = from_c_int(sym, "<signal.h>", DEF_SIG)
+
+  SIG SIGIOT
+  SIG SIGEMT
+  SIG SIGCLD
+  SIG SIGPWR
+  SIG SIGIO
+  SIG SIGWINCH
+  SIG SIGRTMIN
+  SIG SIGRTMAX
+  SIG SIGSTKFLT
