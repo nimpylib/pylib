@@ -1,4 +1,5 @@
 
-type PySigHandler* = proc (signalnum: int, frame: PFrame){.closure.}
-
-type CSighandler* = proc (signalnum: cint) {.noconv.}  ## PyOS_sighandler_t
+type
+  PySigHandler* = proc (signalnum: int, frame: PFrame){.closure.}
+  CSigHandler* = proc (signalnum: cint) {.noconv.}  ## PyOS_sighandler_t
+  NimSigHandler* = proc (signalnum: int){.nimcall.}
