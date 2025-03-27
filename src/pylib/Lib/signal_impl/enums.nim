@@ -2,7 +2,8 @@
 import std/tables
 import ./pylifecycle except SigInfo
 import ./pynsig
-import ../enum_impl/intEnum
+import ../enum_impl/[intEnum, enumType]
+import ./enums_decl
 
 # ITIMER*  (not enum)
 template Exp(sym) =
@@ -13,17 +14,20 @@ Exp ITIMER_REAL
 Exp ITIMER_VIRTUAL
 Exp ITIMER_PROF
 
-# SIG*
-DeclIntEnumMeth Signals
-export Signals
+template genEnum(name) =
+  GenIntEnumMeth name
+  GenPyEnumInit(name, int, name)
 
-template add_enum[E](sym, val) =
-  let sym* = E.add_member(astToStr(sym), val)
+# SIG*
+genEnum Signals
+
+template add_enum(E, sym, val) =
+  let sym* = enums_decl.E.add_member(astToStr(sym), val)
 
 template add_sig(sym) =
   when declared(sym):
     when sym != DEF_SIG:
-      add_enum[Signals](sym, sym)
+      add_enum(Signals, sym, sym)
 
 when true:  # just convenient for code folding
   add_sig CTRL_C_EVENT
@@ -71,26 +75,26 @@ when true:  # just convenient for code folding
 
 
 # SIG_*
-DeclIntEnumMeth Handlers
-export Handlers
+genEnum Handlers
 
 template add_handler(sym) =
   when declared(sym):
-    add_enum[Handlers](sym, cast[int](sym))
+    add_enum(Handlers, sym, cast[int](sym))
 
 add_handler SIG_DFL
 add_handler SIG_IGN
 
 
 # Sigmasks
-DeclIntEnumMeth Sigmasks
-export Sigmasks
+genEnum Sigmasks
 
 template add_sigmask(sym) =
   when declared(sym):
-    add_enum[Sigmasks](sym, sym)
+    add_enum(Sigmasks, sym, sym)
 
 when not defined(windows):
   add_sigmask SIG_BLOCK
   add_sigmask SIG_UNBLOCK
   add_sigmask SIG_SETMASK
+
+export Signals, Handlers, Sigmasks
