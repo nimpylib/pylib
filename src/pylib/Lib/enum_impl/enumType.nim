@@ -2,14 +2,22 @@
 import std/[hashes, tables, strformat]
 import ../../pyerrors/simperr
 
-template GenPyEnumMeth*(Self, Value: typedesc; genObjMeth = true, nameError = NameError, Str = string){.dirty.} =
+template GenPyEnumInit*(Self, Value: typedesc; sym){.dirty.} =
+  bind `[]`
+  proc sym*(value: Self): Self = value
+  proc sym*(value: Value): Self =
+    `Self.names`.withValue value, name:
+      return `Self.member_map`[name[]]
+    raise newException(ValueError, repr(value) & " is not a valid " & $Self)
+
+template GenPyEnumMeth*(Self; Value: typedesc; genObjMeth = true, genInit = false, nameError = NameError, Str = string){.dirty.} =
   ## XXX: NIM-BUG: as `std/tables` is not working with `bind` once required at compile time,
   ##   `import std/tables` is a must before using this template.
   bind contains, `[]`
   bind hash, Table, Hash, withValue, `[]=`, `$`, items, len, fmt, formatValue
-
-  var `Self.names`{.genSym, compileTime.}: Table[Value, string]  ## self._name_
-  var `Self.member_map`{.genSym, compileTime.}: Table[Str, Self]  ## cls._member_map_
+  var `Self.names`{.compileTime.}: Table[Value, string]  ## self._name_
+  var `Self.member_map`{.compileTime.}: Table[Str, Self]  ## cls._member_map_
+  bind GenPyEnumInit
 
   using self: Self
   using cls: typedesc[Self]
@@ -38,6 +46,8 @@ template GenPyEnumMeth*(Self, Value: typedesc; genObjMeth = true, nameError = Na
     # XXX: Python here also need to handle property and class attribute
     `Self.member_map`[name] = self
   proc add_alias*(self; name: Str) = Self.add_member(name, self)
+  when genInit:
+    GenPyEnumInit(Self, Value, Self)
 
 
   # _simple_enum's convert_class's Enum / IntEnum / StrEnum branch
