@@ -4,6 +4,13 @@ when defined(windows):
   export winlean
   let SIGBREAK*{.importc, header: "<signal.h>".}: cint
   proc sigismember*(a1: var Sigset, a2: cint): cint {.importc, header: "<signal.h>".}
+  let
+    CTRL_C_EVENT*{.importc, header: "<Windows.h>".}: cint
+    CTRL_BREAK_EVENT*{.importc, header: "<Windows.h>".}: cint
+  type Sighandler = proc (a1: cint) {.cdecl.}
+  let
+    SIG_DFL*{.importc, header: "<signal.h>".}: Sighandler
+    SIG_IGN*{.importc, header: "<signal.h>".}: Sighandler
 else:
   import std/posix except EINTR, ERANGE
   export posix except EINTR, ERANGE

@@ -2,9 +2,13 @@
 import ./[pynsig, errutil, state, chk_util, pylifecycle, c_py_handler_cvt]
 import ./pyatomic
 
-export SIG_IGN, SIG_DFL
-
-
+import ./enums
+template toPySigHandler(handler: Handlers): PySigHandler =
+  toPySigHandler case handler:
+  of enums.SIG_DFL:
+    pylifecycle.SIG_DFL
+  of enums.SIG_IGN:
+    pylifecycle.SIG_IGN
 
 proc trip_signal(sig_num: cint){.inline.} =
   Py_atomic_store(Handlers[sig_num].tripped, true)

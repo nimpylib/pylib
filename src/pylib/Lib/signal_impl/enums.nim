@@ -17,14 +17,18 @@ Exp ITIMER_PROF
 DeclIntEnumMeth Signals
 export Signals
 
-using self: Signals
+template add_enum[E](sym, val) =
+  let sym* = E.add_member(astToStr(sym), val)
 
 template add_sig(sym) =
   when declared(sym):
     when sym != DEF_SIG:
-      let sym* = Signals.add_member(astToStr(sym), sym)
+      add_enum[Signals](sym, sym)
 
 when true:  # just convenient for code folding
+  add_sig CTRL_C_EVENT
+  add_sig CTRL_BREAK_EVENT
+
   add_sig SIGHUP
   add_sig SIGINT
   add_sig SIGBREAK
@@ -66,5 +70,27 @@ when true:  # just convenient for code folding
   add_sig SIGSTKFLT
 
 
+# SIG_*
+DeclIntEnumMeth Handlers
+export Handlers
+
+template add_handler(sym) =
+  when declared(sym):
+    add_enum[Handlers](sym, cast[int](sym))
+
+add_handler SIG_DFL
+add_handler SIG_IGN
 
 
+# Sigmasks
+DeclIntEnumMeth Sigmasks
+export Sigmasks
+
+template add_sigmask(sym) =
+  when declared(sym):
+    add_enum[Sigmasks](sym, sym)
+
+when not defined(windows):
+  add_sigmask SIG_BLOCK
+  add_sigmask SIG_UNBLOCK
+  add_sigmask SIG_SETMASK
