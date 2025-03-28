@@ -1,5 +1,5 @@
 
-import ./[pynsig, errutil, state, chk_util, pylifecycle, c_py_handler_cvt]
+import ./[pynsig, errutil, state, chk_util, pylifecycle, c_py_handler_cvt, frames]
 import ./pyatomic
 
 import ./enums
@@ -16,6 +16,10 @@ proc trip_signal(sig_num: cint){.inline.} =
   # CPython has to handle Exeption in C level
   # but here we're in Nim, so no need
 
+  # We minic `_PyErr_CheckSignalsTstate` here
+  assert not Handlers[sig_num].fn.isNil
+  Handlers[sig_num].fn(sig_num, getFrameOrNil(2))
+
 
 proc signal_handler(sig_num: cint){.noconv.} =
   let save_errno = getErrno()
@@ -23,11 +27,14 @@ proc signal_handler(sig_num: cint){.noconv.} =
   trip_signal(sig_num)
 
   when not HAVE_SIGACTION:
-    when declared(SIGCHLD):
-      #[To avoid infinite recursion, this signal remains
+    #[To avoid infinite recursion, this signal remains
        reset until explicit re-instated.
        Don't clear the 'func' field as it is our pointer
        to the Python handler...]#
+    when declared(SIGCHLD):
+      #[If the handler was not set up with sigaction, reinstall it.
+        See Python/pylifecycle.c for the implementation of PyOS_setsig
+        which makes this true.  See also issue8354.]#
       if sig_num != SIGCHLD:
         PyOS_setsig(sig_num, signal_handler)
     else:
