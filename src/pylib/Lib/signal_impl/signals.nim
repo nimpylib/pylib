@@ -94,3 +94,6 @@ proc signal_get_set_handlers(state: signal_state_t) =
 
 signal_get_set_handlers signal_global_state
 
+proc set_wakeup_signal*(signalnum: int): int =
+  ## XXX: currently `-1` is always returned
+  -1
