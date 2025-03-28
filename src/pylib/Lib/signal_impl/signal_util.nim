@@ -1,5 +1,5 @@
-
-import ./[state, chk_util, pylifecycle, pynsig]
+import ../../private/iph_utils
+import ./[state, chk_util, pylifecycle, pynsig, c_api]
 
 when HAVE_STRSIGNAL:
   import ./errutil
@@ -44,3 +44,14 @@ proc strsignal*(signalnum: int): string =
       else: DEF
     else: DEF
 
+
+proc c_raise*(signalnum: cint): cint {.importc: "raise", header: "<signal.h>".}
+
+proc raise_signal*(signalnum: int) =
+  let signalnum = cast[cint](signalnum)
+  var err: cint
+  with_Py_SUPPRESS_IPH:
+    err = c_raise(signalnum)
+  if err != 0:
+    raiseErrno()
+  PyErr_CheckSignalsAndRaises()
