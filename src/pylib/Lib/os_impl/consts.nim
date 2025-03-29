@@ -2,6 +2,8 @@
 import std/os
 import std/macros
 import ./common
+import ../../pyconfig/os_consts
+export os_consts
 
 ## SEEK_* is in ./posix_like/seek_c
 
@@ -67,8 +69,6 @@ macro pwULexp(i; header: string = "<fcntl.h>") =
     result = quote do:
       let `i`*{.importc: `cnn`, header: `header`.}: cint
 
-# TODO: export ones that are OS-dependent
-#  such as https://docs.python.org/3/library/os.html#os.O_DSYNC
 pwULexp O_RDONLY
 pwULexp O_WRONLY
 pwULexp O_RDWR
@@ -90,8 +90,28 @@ when DW:
 
   uLexp O_BINARY
   uLexp O_NOINHERIT
-else:
-  pwULexp O_CLOEXEC  # no underline: `importc: "O_CLOEXEC"`
+  uLexp O_SHORT_LIVED
+  pwULexp O_TEMPORARY
+  pwULexp O_RANDOM
+  pwULexp O_SEQUENTIAL
+  pwULexp O_TEXT
+elif defined(unix):
+  # no underline: `importc: "O_*"`
+  pwULexp O_DSYNC
+  pwULexp O_RSYNC
+  pwULexp O_SYNC
+  pwULexp O_NDELAY
+  pwULexp O_NONBLOCK
+  pwULexp O_NOCTTY
+  pwULexp O_CLOEXEC
+
+when defined(macos):
+  pwULexp O_EVTONLY
+  pwULexp O_FSYNC
+  pwULexp O_SYMLINK
+  pwULexp O_NOFOLLOW_ANY
+
+
 
 template `|`*(a,b: cint): cint = a or b
 template `|=`*(a,b: cint) = a = a or b
