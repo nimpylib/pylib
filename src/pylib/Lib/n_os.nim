@@ -1,7 +1,7 @@
 
 import ../private/trans_imp
 impExp os_impl,
-  consts, posix_like, subp, utils, path, walkImpl, listdirx, randoms
+  consts, posix_like, subp, utils, path, walkImpl, listdirx, randoms, waits
 
 when not defined(js):
   import ./os_impl/[
