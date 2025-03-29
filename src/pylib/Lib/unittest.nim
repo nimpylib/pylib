@@ -88,6 +88,11 @@ gen2 assertNotIsInstance, `is_not`
 template addSkip(reason) = checkpoint reason  ##\
 ## XXX: TODO: not really python-like
 
+template skipTest*(reason: string){.genSelf.} =
+  bind skip
+  addSkip reason
+  skip()
+
 template skip*(reason; body) =
   ## EXT.
   addSkip reason
