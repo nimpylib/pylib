@@ -1,4 +1,6 @@
 import ../../private/iph_utils
+import ../../pyconfig/ver
+import ./siginfo_decl
 import ./[state, chk_util, pylifecycle, pynsig, c_api]
 
 when HAVE_STRSIGNAL:
@@ -55,3 +57,15 @@ proc raise_signal*(signalnum: int) =
   if err != 0:
     raiseErrno()
   PyErr_CheckSignalsAndRaises()
+
+when defined(linux) and not (
+    defined(android) and ANDROID_API < 31):
+  proc syscall(sysno: cint): cint {.varargs, importc: "syscall", header: "<sys/syscall.h>".}
+  let NR_pidfd_send_signal{.importc: "__NR_pidfd_send_signal", header: "<unistd.h>".}: cint
+  # SYS_pidfd_send_signal is its newer name
+  proc pidfd_send_signal*(pid: int, sig: int,
+      siginfo: struct_siginfo = nil, flags = 0) =
+    let pid = cint(pid)
+    let sig = cint(sig)
+    if syscall(NR_pidfd_send_signal, pid, sig, nil, flags) < 0:
+      raiseErrno()

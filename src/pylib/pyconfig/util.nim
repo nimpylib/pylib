@@ -1,8 +1,8 @@
 
 
 import std/os
-from std/strutils import parseInt
-
+from std/strutils import parseInt, strip
+import std/macros
 
 const weirdTarget = defined(js) or defined(nimscript)
 
@@ -59,6 +59,13 @@ template from_c_int*(variable; defval: int; precode): int =
     precode
     let variable{.importc, nodecl.}: cint
     stdout.write variable
+
+macro from_c_int_underlined*(variable: static[string]; defval: int): int =
+  let pureVar = variable.strip(chars = {'_'})
+  let pureVarId = newLit pureVar
+  result = quote do:
+    from_c_int(`variable`, `defval`):
+      {.emit: ["/*VARSECTION*/\n#define ", `pureVarId`, " ", `variable`].}
 
 template from_c_int*(variable; includeFile: static[string], defval = low(int)): int =
   ## we know int.low is smaller than low(cint)
