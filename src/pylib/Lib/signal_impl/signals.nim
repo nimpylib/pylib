@@ -86,8 +86,12 @@ proc signal_get_set_handlers(state: signal_state_t) =
     set_handler(signum, fn)
   
   # Install Python SIGINT handler which raises KeyboardInterrupt
-  let sigint_func = get_handler(SIGINT)
-  if sigint_func == state.default_handler:
+  
+  template installIntHandler(sigint_func): bool{.dirty.} =
+    when not defined(pylibUseNimIntHandler): true
+    else: get_handler(SIGINT) == state.default_handler
+
+  if installIntHandler(sigint_func):
     let int_handler = default_int_handler
     set_handler(SIGINT, int_handler)
     discard PyOS_setsig(SIGINT, signal_handler)
