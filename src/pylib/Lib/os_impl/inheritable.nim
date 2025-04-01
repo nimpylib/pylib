@@ -10,9 +10,8 @@ const
 when MS_WINDOWS:
   import std/winlean
   from std/os import raiseOSError
-  proc Py_get_osfhandle_noraise(fd: int): Handle =
-    with_Py_SUPPRESS_IPH:
-      result = get_osfhandle FileHandle fd
+  import ../util/get_osfhandle
+
 else:
   import std/posix
   const SupportIoctlInheritCtl = (defined(linux) or defined(bsd)) and
