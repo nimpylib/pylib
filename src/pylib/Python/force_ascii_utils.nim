@@ -10,7 +10,7 @@ const
     Use UTF-8 as the filesystem encoding.
       See PyUnicode_DecodeFSDefaultAndSize(), PyUnicode_EncodeFSDefault(),
       Py_DecodeLocale() and Py_EncodeLocale().]##
-  Py_FORCE_UTF8_FS_ENCODING* = Py_FORCE_UTF8_LOCALE or defined(macos)
+  Py_FORCE_UTF8_FS_ENCODING* = Py_FORCE_UTF8_LOCALE or defined(macosx)
 
 when not (Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
   import ../private/encoding_norm

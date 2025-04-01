@@ -105,7 +105,7 @@ elif defined(unix):
   pwULexp O_NOCTTY
   pwULexp O_CLOEXEC
 
-when defined(macos):
+when defined(macosx):
   pwULexp O_EVTONLY
   pwULexp O_FSYNC
   pwULexp O_SYMLINK
