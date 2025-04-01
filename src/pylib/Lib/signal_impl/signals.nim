@@ -65,7 +65,8 @@ proc signal*(signalnum: int, handler: PySigHandler): PySigHandler{.discardable.}
   result = get_handler(signalnum)
   set_handler(signalnum, handler)
 
-proc signal*(signalnum: int, handler: CSigHandler|NimSigHandler): PySigHandler{.discardable.} =
+proc signal*(signalnum: int, handler: CSigHandler|NimSigHandler|Handlers
+): PySigHandler{.discardable.} =
   signal(signalnum, handler.toPySighandler)
 
 
