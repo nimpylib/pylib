@@ -11,9 +11,12 @@ export TypeError
 
 import ./case_py/[
   types,
-  util
+  util,
+  prc_main,
+  prc_cleanup,
+  meth,
 ]
-export types
+export types, meth, prc_main, prc_cleanup
 
 template gen1(name, op){.dirty.} =
   bind check
