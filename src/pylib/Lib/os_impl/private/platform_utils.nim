@@ -32,3 +32,11 @@ template platformAvailWhen*(platform; cond: bool; def) =
   bind platformAvailImpl
   platformAvailImpl(defined(platform) and cond,
     astToStr(platform) & " when " & astToStr(cond), def)
+
+template platformUnavail*(platform; def) =
+  bind platformAvailImpl
+  platformAvailImpl(not defined(platform), "not " & astToStr(platform), def)
+
+template platformNoJs*(def) =
+  bind platformUnavail
+  platformUnavail(js, def)
