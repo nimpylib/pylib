@@ -1,0 +1,2 @@
+nimTitle	sigsetCvt	signal_impl/sigsetCvt.html	module src/pylib/Lib/signal_impl/sigsetCvt		0
+nim	fromIterable	signal_impl/sigsetCvt.html#fromIterable.t,Sigset,	template fromIterable(result: var Sigset; obj)		17

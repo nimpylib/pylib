@@ -1,0 +1,6 @@
+nimTitle	ops	_._/Python/pytime/ops.html	module src/pylib/Python/pytime/ops		0
+nim	iadd	_._/Python/pytime/ops.html#iadd,PyTime,PyTime	proc iadd(t1: var PyTime; t2: PyTime): bool		5
+nim	add	_._/Python/pytime/ops.html#add,PyTime,PyTime	proc add(t1, t2: PyTime): PyTime		17
+nim	divide_round_up	_._/Python/pytime/ops.html#divide_round_up,PyTime,PyTime	proc divide_round_up(t, k: PyTime): PyTime		22
+nim	divide	_._/Python/pytime/ops.html#divide,PyTime,PyTime,PyTime_round_t	proc divide(t, k: PyTime; round: PyTime_round_t): PyTime		34
+nim	divmod	_._/Python/pytime/ops.html#divmod,PyTime,PyTime,PyTime,PyTime	proc divmod(t, k: PyTime; pq, pr: var PyTime): bool		56

@@ -1,0 +1,9 @@
+nimTitle	state	signal_impl/state.html	module src/pylib/Lib/signal_impl/state		0
+nim	DWin	signal_impl/state.html#DWin	const DWin		5
+nim	signal_state_t	signal_impl/state.html#signal_state_t	object signal_state_t		13
+nim	initPySignal	signal_impl/state.html#initPySignal,bool	proc initPySignal(install_signal_handlers: bool)		41
+nim	signal_global_state	signal_impl/state.html#signal_global_state.t	template signal_global_state(): signal_state_t		46
+nim	Handlers	signal_impl/state.html#Handlers.t	template Handlers(): untyped		56
+nim	get_handler	signal_impl/state.html#get_handler,cint	proc get_handler(i: cint): PySigHandler		92
+nim	set_handler	signal_impl/state.html#set_handler,cint,PySigHandler	proc set_handler(i: cint; fn: PySigHandler)		94
+nim	PySignal_Fini	signal_impl/state.html#PySignal_Fini	proc PySignal_Fini()		116

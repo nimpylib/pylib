@@ -1,0 +1,4 @@
+nimTitle	enums_decl	signal_impl/enums_decl.html	module src/pylib/Lib/signal_impl/enums_decl		0
+nim	Signals	signal_impl/enums_decl.html#Signals	type Signals		3
+nim	Handlers	signal_impl/enums_decl.html#Handlers	type Handlers		3
+nim	Sigmasks	signal_impl/enums_decl.html#Sigmasks	type Sigmasks		3

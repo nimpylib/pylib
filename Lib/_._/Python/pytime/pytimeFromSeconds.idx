@@ -1,0 +1,2 @@
+nimTitle	pytimeFromSeconds	_._/Python/pytime/pytimeFromSeconds.html	module src/pylib/Python/pytime/pytimeFromSeconds		0
+nim	fromSecondsObject	_._/Python/pytime/pytimeFromSeconds.html#fromSecondsObject,,Timestamp,	proc fromSecondsObject(tp; obj: Timestamp; round: PyTime_round_t)		36

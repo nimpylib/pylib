@@ -1,0 +1,2 @@
+nimTitle	chk_util	_._/Python/pylifecycle/signal/chk_util.html	module src/pylib/Python/pylifecycle/signal/chk_util		0
+nim	ifInvalidOnVcc	_._/Python/pylifecycle/signal/chk_util.html#ifInvalidOnVcc.t,cint,	template ifInvalidOnVcc(signalnum: cint; handleExc)		2

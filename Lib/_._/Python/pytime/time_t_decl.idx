@@ -1,0 +1,5 @@
+nimTitle	time_t_decl	_._/Python/pytime/time_t_decl.html	module src/pylib/Python/pytime/time_t_decl		0
+nim	time_t	_._/Python/pytime/time_t_decl.html#time_t	type time_t		14
+nim	SIZEOF_TIME_T	_._/Python/pytime/time_t_decl.html#SIZEOF_TIME_T	const SIZEOF_TIME_T		22
+nim	PY_TIME_T_MAX	_._/Python/pytime/time_t_decl.html#PY_TIME_T_MAX	const PY_TIME_T_MAX		23
+nim	PY_TIME_T_MIN	_._/Python/pytime/time_t_decl.html#PY_TIME_T_MIN	const PY_TIME_T_MIN		24

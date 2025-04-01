@@ -1,0 +1,3 @@
+nimTitle	intEnum	enum_impl/intEnum.html	module src/pylib/Lib/enum_impl/intEnum		0
+nim	GenIntEnumMeth	enum_impl/intEnum.html#GenIntEnumMeth.t,typedesc	template GenIntEnumMeth(Self: typedesc; Int = int; genObjMeth = true; genInit = false)		7
+nim	DeclIntEnumMeth	enum_impl/intEnum.html#DeclIntEnumMeth.t	template DeclIntEnumMeth(Self; Int = int; genObjMeth = true; genInit = false)		12

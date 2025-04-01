@@ -1,0 +1,3 @@
+nimTitle	deadline	_._/Python/pytime/deadline.html	module src/pylib/Python/pytime/deadline		0
+nim	PyDeadline_Init	_._/Python/pytime/deadline.html#PyDeadline_Init,PyTime	proc PyDeadline_Init(timeout: PyTime): PyTime		5
+nim	PyDeadline_Get	_._/Python/pytime/deadline.html#PyDeadline_Get,PyTime	proc PyDeadline_Get(deadline: PyTime): PyTime		9

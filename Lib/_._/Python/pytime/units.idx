@@ -1,0 +1,10 @@
+nimTitle	units	_._/Python/pytime/units.html	module src/pylib/Python/pytime/units		0
+nim	SEC_TO_MS	_._/Python/pytime/units.html#SEC_TO_MS	const SEC_TO_MS		3
+nim	MS_TO_US	_._/Python/pytime/units.html#MS_TO_US	const MS_TO_US		5
+nim	SEC_TO_US	_._/Python/pytime/units.html#SEC_TO_US	const SEC_TO_US		6
+nim	US_TO_NS	_._/Python/pytime/units.html#US_TO_NS	const US_TO_NS		8
+nim	MS_TO_NS	_._/Python/pytime/units.html#MS_TO_NS	const MS_TO_NS		9
+nim	SEC_TO_NS	_._/Python/pytime/units.html#SEC_TO_NS	const SEC_TO_NS		10
+nim	NS_TO_MS	_._/Python/pytime/units.html#NS_TO_MS	const NS_TO_MS		12
+nim	NS_TO_US	_._/Python/pytime/units.html#NS_TO_US	const NS_TO_US		13
+nim	NS_TO_100NS	_._/Python/pytime/units.html#NS_TO_100NS	const NS_TO_100NS		14

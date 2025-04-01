@@ -1,0 +1,20 @@
+nimTitle	waits	os_impl/waits.html	module src/pylib/Lib/os_impl/waits		0
+nim	WCOREDUMP	os_impl/waits.html#WCOREDUMP,int	proc WCOREDUMP(status: int): bool		48
+nim	WIFCONTINUED	os_impl/waits.html#WIFCONTINUED,int	proc WIFCONTINUED(status: int): bool		49
+nim	WIFSTOPPED	os_impl/waits.html#WIFSTOPPED,int	proc WIFSTOPPED(status: int): bool		50
+nim	WIFSIGNALED	os_impl/waits.html#WIFSIGNALED,int	proc WIFSIGNALED(status: int): bool		51
+nim	WIFEXITED	os_impl/waits.html#WIFEXITED,int	proc WIFEXITED(status: int): bool		52
+nim	WEXITSTATUS	os_impl/waits.html#WEXITSTATUS,int	proc WEXITSTATUS(status: int): bool		53
+nim	WTERMSIG	os_impl/waits.html#WTERMSIG,int	proc WTERMSIG(status: int): bool		54
+nim	WSTOPSIG	os_impl/waits.html#WSTOPSIG,int	proc WSTOPSIG(status: int): bool		55
+nim	WCONTINUED	os_impl/waits.html#WCONTINUED	let WCONTINUED		59
+nim	WEXITED	os_impl/waits.html#WEXITED	let WEXITED		59
+nim	WSTOPPED	os_impl/waits.html#WSTOPPED	let WSTOPPED		59
+nim	WUNTRACED	os_impl/waits.html#WUNTRACED	let WUNTRACED		59
+nim	WNOHANG	os_impl/waits.html#WNOHANG	let WNOHANG		59
+nim	WNOWAIT	os_impl/waits.html#WNOWAIT	let WNOWAIT		59
+nim	waitpid	os_impl/waits.html#waitpid,int,int	proc waitpid(pid: int; options: int): tuple[pid: int, status: int]		74
+nim	wait	os_impl/waits.html#wait	proc wait(): tuple[pid: int, status: int]		84
+nim	wait3	os_impl/waits.html#wait3,int	proc wait3(options: int): tuple[pid: int, status: int, rusage: struct_rusage]		102
+nim	wait4	os_impl/waits.html#wait4,int,int	proc wait4(pid: int; options: int): tuple[pid: int, status: int,\n                                     rusage: struct_rusage]		110
+nim	waitstatus_to_exitcode	os_impl/waits.html#waitstatus_to_exitcode,int	proc waitstatus_to_exitcode(status: int): int		118

@@ -1,0 +1,10 @@
+nimTitle	types	_._/Python/pytime/types.html	module src/pylib/Python/pytime/types		0
+nim	long	_._/Python/pytime/types.html#long	type long		6
+nim	Timestamp	_._/Python/pytime/types.html#Timestamp	type Timestamp		9
+nim	PyTime	_._/Python/pytime/types.html#PyTime	type PyTime		10
+nim	prFLoor	_._/Python/pytime/types.html#prFLoor	PyTime_round_t.prFLoor		15
+nim	prCeiling	_._/Python/pytime/types.html#prCeiling	PyTime_round_t.prCeiling		15
+nim	prHalfEven	_._/Python/pytime/types.html#prHalfEven	PyTime_round_t.prHalfEven		15
+nim	prRoundUp	_._/Python/pytime/types.html#prRoundUp	PyTime_round_t.prRoundUp		15
+nim	PyTime_round_t	_._/Python/pytime/types.html#PyTime_round_t	enum PyTime_round_t		15
+nim	prTimeout	_._/Python/pytime/types.html#prTimeout	const prTimeout		21

@@ -1,0 +1,8 @@
+nimTitle	os_consts	_._/pyconfig/os_consts.html	module src/pylib/pyconfig/os_consts		0
+nim	O_ASYNC	_._/pyconfig/os_consts.html#O_ASYNC	const O_ASYNC		7
+nim	O_DIRECT	_._/pyconfig/os_consts.html#O_DIRECT	const O_DIRECT		7
+nim	O_DIRECTORY	_._/pyconfig/os_consts.html#O_DIRECTORY	const O_DIRECTORY		7
+nim	O_NOFOLLOW	_._/pyconfig/os_consts.html#O_NOFOLLOW	const O_NOFOLLOW		7
+nim	O_NOATIME	_._/pyconfig/os_consts.html#O_NOATIME	const O_NOATIME		7
+nim	O_PATH	_._/pyconfig/os_consts.html#O_PATH	const O_PATH		7
+nim	O_TMPFILE	_._/pyconfig/os_consts.html#O_TMPFILE	const O_TMPFILE		7

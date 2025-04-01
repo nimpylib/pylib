@@ -19,12 +19,13 @@ nim	pathsAsOne	_._/pyerrors/oserr.html#pathsAsOne,PathLike[T],PathLike[T],string
 nim	raiseExcWithPath2	_._/pyerrors/oserr.html#raiseExcWithPath2,PathLike,PathLike	proc raiseExcWithPath2(src, dst: PathLike)		161
 nim	tryOsOp	_._/pyerrors/oserr.html#tryOsOp.t,PathLike,	template tryOsOp(p: PathLike; body)		164
 nim	errnoMsg	_._/pyerrors/oserr.html#errnoMsg,cint	proc errnoMsg(errnoCode: cint): string		178
-nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,cint,string	proc raiseErrno(errno: cint; additionalInfo = "")		192
-nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T],cint	proc raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)		196
-nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,string	proc raiseErrno(additionalInfo = "")		223
-nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T])		226
+nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,cint,string	proc raiseErrno(errno: cint; additionalInfo = "")		194
+nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T],cint	proc raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)		198
+nim	raiseErrnoT	_._/pyerrors/oserr.html#raiseErrnoT,string	proc raiseErrnoT[E: OSError](additionalInfo = "")		225
+nim	raiseErrno	_._/pyerrors/oserr.html#raiseErrno,string	proc raiseErrno(additionalInfo = "")		228
+nim	raiseErrnoWithPath	_._/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T])		231
 nimgrp	raisefilenotfounderror	_._/pyerrors/oserr.html#raiseFileNotFoundError-procs-all	proc		74
-nimgrp	raiseerrnowithpath	_._/pyerrors/oserr.html#raiseErrnoWithPath-procs-all	proc		196
-nimgrp	raiseerrno	_._/pyerrors/oserr.html#raiseErrno-procs-all	proc		192
+nimgrp	raiseerrnowithpath	_._/pyerrors/oserr.html#raiseErrnoWithPath-procs-all	proc		198
+nimgrp	raiseerrno	_._/pyerrors/oserr.html#raiseErrno-procs-all	proc		194
 nimgrp	raiseexcwithpath	_._/pyerrors/oserr.html#raiseExcWithPath-procs-all	proc		65
 nimgrp	oserrormsgwithpath	_._/pyerrors/oserr.html#osErrorMsgWithPath-templates-all	template		42

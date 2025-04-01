@@ -65,9 +65,15 @@
 <li><a class="reference" href="#O_APPEND" title="O_APPEND {.importc: &quot;O_APPEND&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_APPEND</a></li>
 <li><a class="reference" href="#O_CLOEXEC" title="O_CLOEXEC {.importc: &quot;O_CLOEXEC&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_CLOEXEC</a></li>
 <li><a class="reference" href="#O_CREAT" title="O_CREAT {.importc: &quot;O_CREAT&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_CREAT</a></li>
+<li><a class="reference" href="#O_DSYNC" title="O_DSYNC {.importc: &quot;O_DSYNC&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_DSYNC</a></li>
 <li><a class="reference" href="#O_EXCL" title="O_EXCL {.importc: &quot;O_EXCL&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_EXCL</a></li>
+<li><a class="reference" href="#O_NDELAY" title="O_NDELAY {.importc: &quot;O_NDELAY&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_NDELAY</a></li>
+<li><a class="reference" href="#O_NOCTTY" title="O_NOCTTY {.importc: &quot;O_NOCTTY&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_NOCTTY</a></li>
+<li><a class="reference" href="#O_NONBLOCK" title="O_NONBLOCK {.importc: &quot;O_NONBLOCK&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_NONBLOCK</a></li>
 <li><a class="reference" href="#O_RDONLY" title="O_RDONLY {.importc: &quot;O_RDONLY&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_RDONLY</a></li>
 <li><a class="reference" href="#O_RDWR" title="O_RDWR {.importc: &quot;O_RDWR&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_RDWR</a></li>
+<li><a class="reference" href="#O_RSYNC" title="O_RSYNC {.importc: &quot;O_RSYNC&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_RSYNC</a></li>
+<li><a class="reference" href="#O_SYNC" title="O_SYNC {.importc: &quot;O_SYNC&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_SYNC</a></li>
 <li><a class="reference" href="#O_TRUNC" title="O_TRUNC {.importc: &quot;O_TRUNC&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_TRUNC</a></li>
 <li><a class="reference" href="#O_WRONLY" title="O_WRONLY {.importc: &quot;O_WRONLY&quot;, header: &quot;&lt;fcntl.h&gt;&quot;.}: cint">O_WRONLY</a></li>
 <li><a class="reference" href="#pardir" title="pardir = str ParDir">pardir</a></li>
@@ -118,7 +124,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="common.html">common</a>
+    <a class="reference external" href="common.html">common</a>, <a class="reference external" href="../../pyconfig/os_consts.html">../../pyconfig/os_consts</a>
   </dl>
 </div>
 <div class="section" id="9">
@@ -129,8 +135,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -139,8 +145,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -149,8 +155,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -159,8 +165,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -169,8 +175,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -179,8 +185,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -189,8 +195,18 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="O_DSYNC">
+  <dt><pre><a href="consts.html#O_DSYNC"><span class="Identifier">O_DSYNC</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;O_DSYNC&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;fcntl.h&gt;&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -199,8 +215,38 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="O_NDELAY">
+  <dt><pre><a href="consts.html#O_NDELAY"><span class="Identifier">O_NDELAY</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;O_NDELAY&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;fcntl.h&gt;&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="O_NOCTTY">
+  <dt><pre><a href="consts.html#O_NOCTTY"><span class="Identifier">O_NOCTTY</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;O_NOCTTY&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;fcntl.h&gt;&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="O_NONBLOCK">
+  <dt><pre><a href="consts.html#O_NONBLOCK"><span class="Identifier">O_NONBLOCK</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;O_NONBLOCK&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;fcntl.h&gt;&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -209,8 +255,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -219,8 +265,28 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="O_RSYNC">
+  <dt><pre><a href="consts.html#O_RSYNC"><span class="Identifier">O_RSYNC</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;O_RSYNC&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;fcntl.h&gt;&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="O_SYNC">
+  <dt><pre><a href="consts.html#O_SYNC"><span class="Identifier">O_SYNC</span></a> {.<span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;O_SYNC&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;fcntl.h&gt;&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -229,8 +295,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -239,8 +305,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -249,8 +315,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -259,8 +325,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -269,8 +335,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -285,8 +351,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -295,8 +361,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -307,8 +373,8 @@
     &quot;nt&quot; when windows, &quot;posix&quot; when posix;<div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
 when in neither Windows nor POSIX, os.name will be defined as <tt class="docutils literal"><span class="pre"><span class="Identifier">str</span><span class="Punctuation">(</span><span class="Identifier">hostOS</span><span class="Punctuation">)</span></span></tt> iff <tt class="docutils literal"><span class="pre"><span class="Identifier">pylibOsName</span></span></tt> is defined when compiling</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -324,8 +390,8 @@ when in neither Windows nor POSIX, os.name will be defined as <tt class="docutil
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L96" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L96" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L116" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L116" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -337,8 +403,8 @@ when in neither Windows nor POSIX, os.name will be defined as <tt class="docutil
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L97" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L97" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/consts.nim#L117" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/consts.nim#L117" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -354,7 +420,7 @@ when in neither Windows nor POSIX, os.name will be defined as <tt class="docutil
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-25 16:01:18 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:27:56 UTC</small>
       </div>
     </div>
   </div>

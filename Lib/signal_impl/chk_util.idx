@@ -1,0 +1,2 @@
+nimTitle	chk_util	signal_impl/chk_util.html	module src/pylib/Lib/signal_impl/chk_util		0
+nim	chkSigRng	signal_impl/chk_util.html#chkSigRng	proc chkSigRng(signalnum: cint | int)		4

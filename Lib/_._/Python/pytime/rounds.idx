@@ -1,0 +1,3 @@
+nimTitle	rounds	_._/Python/pytime/rounds.html	module src/pylib/Python/pytime/rounds		0
+nim	round_half_even	_._/Python/pytime/rounds.html#round_half_even,float	proc round_half_even(x: float): float		5
+nim	round	_._/Python/pytime/rounds.html#round,float,PyTime_round_t	proc round(x: float; round: PyTime_round_t): float		11

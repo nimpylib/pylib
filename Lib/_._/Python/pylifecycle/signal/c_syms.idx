@@ -1,0 +1,7 @@
+nimTitle	c_syms	_._/Python/pylifecycle/signal/c_syms.html	module src/pylib/Python/pylifecycle/signal/c_syms		0
+nim	ITIMER_REAL	_._/Python/pylifecycle/signal/c_syms.html#ITIMER_REAL	let ITIMER_REAL		18
+nim	ITIMER_VIRTUAL	_._/Python/pylifecycle/signal/c_syms.html#ITIMER_VIRTUAL	let ITIMER_VIRTUAL		19
+nim	ITIMER_PROF	_._/Python/pylifecycle/signal/c_syms.html#ITIMER_PROF	let ITIMER_PROF		20
+nim	HAVE_SIGACTION	_._/Python/pylifecycle/signal/c_syms.html#HAVE_SIGACTION	const HAVE_SIGACTION		24
+nim	sigaction	_._/Python/pylifecycle/signal/c_syms.html#sigaction,cint,ptr.Sigaction,Sigaction	proc sigaction(a1: cint; a2: ptr Sigaction; a3: var Sigaction): cint		26
+nim	c_signal	_._/Python/pylifecycle/signal/c_syms.html#c_signal,cint,CSigHandler	proc c_signal(a1: cint; a2: CSigHandler): CSigHandler		29

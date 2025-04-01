@@ -1,0 +1,110 @@
+nimTitle	enums	signal_impl/enums.html	module src/pylib/Lib/signal_impl/enums		0
+nim	ITIMER_REAL	signal_impl/enums.html#ITIMER_REAL	let ITIMER_REAL		11
+nim	ITIMER_VIRTUAL	signal_impl/enums.html#ITIMER_VIRTUAL	let ITIMER_VIRTUAL		11
+nim	ITIMER_PROF	signal_impl/enums.html#ITIMER_PROF	let ITIMER_PROF		11
+nim	value	signal_impl/enums.html#value	proc value(self: Signals): int		24
+nim	name	signal_impl/enums.html#name	proc name(self: Signals): string		26
+nim	repr	signal_impl/enums.html#repr	proc repr(self: Signals): string		28
+nim	`$`	signal_impl/enums.html#$	proc `$`(self: Signals): string		35
+nim	hash	signal_impl/enums.html#hash	proc hash(self: Signals): Hash		37
+nim	`==`	signal_impl/enums.html#==,,Signals	proc `==`(self: Signals; other: Signals): bool		39
+nim	add_alias	signal_impl/enums.html#add_alias,,string	proc add_alias(self: Signals; name: string)		48
+nim	add_member	signal_impl/enums.html#add_member,typedesc[Signals],string,int	proc add_member(enum_class: typedesc[Signals]; name: string; value: int): Signals		54
+nim	`[]`	signal_impl/enums.html#[],,string	proc `[]`(cls: cls:type; name: string): Signals		68
+nim	len	signal_impl/enums.html#len	proc len(cls: cls:type): int		69
+nim	items	signal_impl/enums.html#items.i	iterator items(cls: cls:type): Signals		70
+nim	contains	signal_impl/enums.html#contains.t,,Signals	template contains(cls; value: Signals): bool		73
+nim	contains	signal_impl/enums.html#contains,,int	proc contains(cls: cls:type; value: int): bool		9
+nim	toInt	signal_impl/enums.html#toInt.c,Signals	converter toInt(self: Signals): int		18
+nim	Signals	signal_impl/enums.html#Signals,Signals	proc Signals(value: Signals): Signals		7
+nim	Signals	signal_impl/enums.html#Signals,int	proc Signals(value: int): Signals		22
+nim	SIGHUP	signal_impl/enums.html#SIGHUP	let SIGHUP		25
+nim	SIGINT	signal_impl/enums.html#SIGINT	let SIGINT		25
+nim	SIGQUIT	signal_impl/enums.html#SIGQUIT	let SIGQUIT		25
+nim	SIGILL	signal_impl/enums.html#SIGILL	let SIGILL		25
+nim	SIGTRAP	signal_impl/enums.html#SIGTRAP	let SIGTRAP		25
+nim	SIGIOT	signal_impl/enums.html#SIGIOT	let SIGIOT		25
+nim	SIGABRT	signal_impl/enums.html#SIGABRT	let SIGABRT		25
+nim	SIGFPE	signal_impl/enums.html#SIGFPE	let SIGFPE		25
+nim	SIGKILL	signal_impl/enums.html#SIGKILL	let SIGKILL		25
+nim	SIGBUS	signal_impl/enums.html#SIGBUS	let SIGBUS		25
+nim	SIGSEGV	signal_impl/enums.html#SIGSEGV	let SIGSEGV		25
+nim	SIGSYS	signal_impl/enums.html#SIGSYS	let SIGSYS		25
+nim	SIGPIPE	signal_impl/enums.html#SIGPIPE	let SIGPIPE		25
+nim	SIGALRM	signal_impl/enums.html#SIGALRM	let SIGALRM		25
+nim	SIGTERM	signal_impl/enums.html#SIGTERM	let SIGTERM		25
+nim	SIGUSR1	signal_impl/enums.html#SIGUSR1	let SIGUSR1		25
+nim	SIGUSR2	signal_impl/enums.html#SIGUSR2	let SIGUSR2		25
+nim	SIGCLD	signal_impl/enums.html#SIGCLD	let SIGCLD		25
+nim	SIGCHLD	signal_impl/enums.html#SIGCHLD	let SIGCHLD		25
+nim	SIGPWR	signal_impl/enums.html#SIGPWR	let SIGPWR		25
+nim	SIGIO	signal_impl/enums.html#SIGIO	let SIGIO		25
+nim	SIGURG	signal_impl/enums.html#SIGURG	let SIGURG		25
+nim	SIGWINCH	signal_impl/enums.html#SIGWINCH	let SIGWINCH		25
+nim	SIGPOLL	signal_impl/enums.html#SIGPOLL	let SIGPOLL		25
+nim	SIGSTOP	signal_impl/enums.html#SIGSTOP	let SIGSTOP		25
+nim	SIGTSTP	signal_impl/enums.html#SIGTSTP	let SIGTSTP		25
+nim	SIGCONT	signal_impl/enums.html#SIGCONT	let SIGCONT		25
+nim	SIGTTIN	signal_impl/enums.html#SIGTTIN	let SIGTTIN		25
+nim	SIGTTOU	signal_impl/enums.html#SIGTTOU	let SIGTTOU		25
+nim	SIGVTALRM	signal_impl/enums.html#SIGVTALRM	let SIGVTALRM		25
+nim	SIGPROF	signal_impl/enums.html#SIGPROF	let SIGPROF		25
+nim	SIGXCPU	signal_impl/enums.html#SIGXCPU	let SIGXCPU		25
+nim	SIGXFSZ	signal_impl/enums.html#SIGXFSZ	let SIGXFSZ		25
+nim	SIGRTMIN	signal_impl/enums.html#SIGRTMIN	let SIGRTMIN		25
+nim	SIGRTMAX	signal_impl/enums.html#SIGRTMAX	let SIGRTMAX		25
+nim	SIGSTKFLT	signal_impl/enums.html#SIGSTKFLT	let SIGSTKFLT		25
+nim	value	signal_impl/enums.html#value_2	proc value(self: Handlers): int		24
+nim	name	signal_impl/enums.html#name_2	proc name(self: Handlers): string		26
+nim	repr	signal_impl/enums.html#repr_2	proc repr(self: Handlers): string		28
+nim	`$`	signal_impl/enums.html#$_2	proc `$`(self: Handlers): string		35
+nim	hash	signal_impl/enums.html#hash_2	proc hash(self: Handlers): Hash		37
+nim	`==`	signal_impl/enums.html#==,,Handlers	proc `==`(self: Handlers; other: Handlers): bool		39
+nim	add_alias	signal_impl/enums.html#add_alias,,string_2	proc add_alias(self: Handlers; name: string)		48
+nim	add_member	signal_impl/enums.html#add_member,typedesc[Handlers],string,int	proc add_member(enum_class: typedesc[Handlers]; name: string; value: int): Handlers		54
+nim	`[]`	signal_impl/enums.html#[],,string_2	proc `[]`(cls: cls:type; name: string): Handlers		68
+nim	len	signal_impl/enums.html#len_2	proc len(cls: cls:type): int		69
+nim	items	signal_impl/enums.html#items.i_2	iterator items(cls: cls:type): Handlers		70
+nim	contains	signal_impl/enums.html#contains.t,,Handlers	template contains(cls; value: Handlers): bool		73
+nim	contains	signal_impl/enums.html#contains,,int_2	proc contains(cls: cls:type; value: int): bool		9
+nim	toInt	signal_impl/enums.html#toInt.c,Handlers	converter toInt(self: Handlers): int		18
+nim	Handlers	signal_impl/enums.html#Handlers,Handlers	proc Handlers(value: Handlers): Handlers		7
+nim	Handlers	signal_impl/enums.html#Handlers,int	proc Handlers(value: int): Handlers		78
+nim	SIG_DFL	signal_impl/enums.html#SIG_DFL	let SIG_DFL		25
+nim	SIG_IGN	signal_impl/enums.html#SIG_IGN	let SIG_IGN		25
+nim	value	signal_impl/enums.html#value_3	proc value(self: Sigmasks): int		24
+nim	name	signal_impl/enums.html#name_3	proc name(self: Sigmasks): string		26
+nim	repr	signal_impl/enums.html#repr_3	proc repr(self: Sigmasks): string		28
+nim	`$`	signal_impl/enums.html#$_3	proc `$`(self: Sigmasks): string		35
+nim	hash	signal_impl/enums.html#hash_3	proc hash(self: Sigmasks): Hash		37
+nim	`==`	signal_impl/enums.html#==,,Sigmasks	proc `==`(self: Sigmasks; other: Sigmasks): bool		39
+nim	add_alias	signal_impl/enums.html#add_alias,,string_3	proc add_alias(self: Sigmasks; name: string)		48
+nim	add_member	signal_impl/enums.html#add_member,typedesc[Sigmasks],string,int	proc add_member(enum_class: typedesc[Sigmasks]; name: string; value: int): Sigmasks		54
+nim	`[]`	signal_impl/enums.html#[],,string_3	proc `[]`(cls: cls:type; name: string): Sigmasks		68
+nim	len	signal_impl/enums.html#len_3	proc len(cls: cls:type): int		69
+nim	items	signal_impl/enums.html#items.i_3	iterator items(cls: cls:type): Sigmasks		70
+nim	contains	signal_impl/enums.html#contains.t,,Sigmasks	template contains(cls; value: Sigmasks): bool		73
+nim	contains	signal_impl/enums.html#contains,,int_3	proc contains(cls: cls:type; value: int): bool		9
+nim	toInt	signal_impl/enums.html#toInt.c,Sigmasks	converter toInt(self: Sigmasks): int		18
+nim	Sigmasks	signal_impl/enums.html#Sigmasks,Sigmasks	proc Sigmasks(value: Sigmasks): Sigmasks		7
+nim	Sigmasks	signal_impl/enums.html#Sigmasks,int	proc Sigmasks(value: int): Sigmasks		89
+nim	SIG_BLOCK	signal_impl/enums.html#SIG_BLOCK	let SIG_BLOCK		25
+nim	SIG_UNBLOCK	signal_impl/enums.html#SIG_UNBLOCK	let SIG_UNBLOCK		25
+nim	SIG_SETMASK	signal_impl/enums.html#SIG_SETMASK	let SIG_SETMASK		25
+nimgrp	==	signal_impl/enums.html#==-procs-all	proc		39
+nimgrp	$	signal_impl/enums.html#$-procs-all	proc		35
+nimgrp	Signals	signal_impl/enums.html#Signals-procs-all	proc		22
+nimgrp	Handlers	signal_impl/enums.html#Handlers-procs-all	proc		78
+nimgrp	contains	signal_impl/enums.html#contains-procs-all	proc		74
+nimgrp	repr	signal_impl/enums.html#repr-procs-all	proc		28
+nimgrp	[]	signal_impl/enums.html#[]-procs-all	proc		68
+nimgrp	addalias	signal_impl/enums.html#add_alias-procs-all	proc		48
+nimgrp	len	signal_impl/enums.html#len-procs-all	proc		69
+nimgrp	value	signal_impl/enums.html#value-procs-all	proc		24
+nimgrp	name	signal_impl/enums.html#name-procs-all	proc		26
+nimgrp	Sigmasks	signal_impl/enums.html#Sigmasks-procs-all	proc		89
+nimgrp	addmember	signal_impl/enums.html#add_member-procs-all	proc		54
+nimgrp	hash	signal_impl/enums.html#hash-procs-all	proc		37
+nimgrp	items	signal_impl/enums.html#items-iterators-all	iterator		70
+nimgrp	toint	signal_impl/enums.html#toInt-converters-all	converter		10
+nimgrp	contains	signal_impl/enums.html#contains-templates-all	template		73

@@ -1,0 +1,3 @@
+nimTitle	sigset_to_set	signal_impl/sigset_to_set.html	module src/pylib/Lib/signal_impl/sigset_to_set		0
+nim	add_sigset	signal_impl/sigset_to_set.html#add_sigset,Set[int],Sigset	proc add_sigset(res: var Set[int]; mask: var Sigset)		6
+nim	sigset_to_set	signal_impl/sigset_to_set.html#sigset_to_set,Sigset	proc sigset_to_set(mask: var Sigset): HashSet[int]		18

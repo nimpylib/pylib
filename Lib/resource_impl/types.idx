@@ -1,0 +1,3 @@
+nimTitle	types	resource_impl/types.html	module src/pylib/Lib/resource_impl/types		0
+nim	struct_rusage	resource_impl/types.html#struct_rusage	type struct_rusage		5
+nim	toPyObject	resource_impl/types.html#toPyObject,Rusage	proc toPyObject(rusage: Rusage): struct_rusage		26

@@ -1,0 +1,2 @@
+nimTitle	pytimeAsTimeval	_._/Python/pytime/pytimeAsTimeval.html	module src/pylib/Python/pytime/pytimeAsTimeval		0
+nim	asTimeval	_._/Python/pytime/pytimeAsTimeval.html#asTimeval,,	proc asTimeval(t: PyTime; round: PyTime_round_t): Timeval		58

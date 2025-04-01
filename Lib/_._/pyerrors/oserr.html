@@ -96,6 +96,10 @@
 <li><a class="reference" href="#raiseErrno%2Ccint%2Cstring" title="raiseErrno(errno: cint; additionalInfo = &quot;&quot;)">raiseErrno(errno: cint; additionalInfo = &quot;&quot;)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">raiseErrnoT
+  <li><a class="reference" href="#raiseErrnoT%2Cstring" title="raiseErrnoT[E: OSError](additionalInfo = &quot;&quot;)">raiseErrnoT[E: OSError](additionalInfo = &quot;&quot;)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">raiseErrnoWithPath
   <li><a class="reference" href="#raiseErrnoWithPath%2CPathLike%5BT%5D" title="raiseErrnoWithPath[T](p: PathLike[T])">raiseErrnoWithPath[T](p: PathLike[T])</a></li>
 <li><a class="reference" href="#raiseErrnoWithPath%2CPathLike%5BT%5D%2Ccint" title="raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)">raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)</a></li>
@@ -274,9 +278,9 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrno%2Cstring"><span class="Identifier">raiseErrno</span></a><span class="Other">(</span><span class="Identifier">additionalInfo</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    may raise OSError only
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L223" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L223" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L228" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L228" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -286,8 +290,21 @@
   <dd>
     
     may raise OSError only
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L192" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L192" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L194" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L194" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="raiseErrnoT-procs-all">
+  <div id="raiseErrnoT,string">
+  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrnoT%2Cstring"><span class="Identifier">raiseErrnoT</span></a><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">additionalInfo</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    may raise <tt class="docutils literal"><span class="pre"><span class="Identifier">E</span></span></tt> only
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L225" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L225" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -299,8 +316,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L226" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L226" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -309,8 +326,8 @@
   <dd>
     
     raises OSError or its SubError. refer to errno even under Windows.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L196" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L196" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L198" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L198" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -474,7 +491,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-03-25 16:02:55 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:29:45 UTC</small>
       </div>
     </div>
   </div>

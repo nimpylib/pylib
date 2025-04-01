@@ -1,0 +1,6 @@
+nimTitle	signal_util	signal_impl/signal_util.html	module src/pylib/Lib/signal_impl/signal_util		0
+nim	getsignal	signal_impl/signal_util.html#getsignal,int	proc getsignal(signalnum: int): PySigHandler		12
+nim	strsignal	signal_impl/signal_util.html#strsignal,int	proc strsignal(signalnum: int): string		16
+nim	c_raise	signal_impl/signal_util.html#c_raise,cint	proc c_raise(signalnum: cint): cint		50
+nim	raise_signal	signal_impl/signal_util.html#raise_signal,int	proc raise_signal(signalnum: int)		52
+nim	pidfd_send_signal	signal_impl/signal_util.html#pidfd_send_signal,int,int,struct_siginfo,int	proc pidfd_send_signal(pid: int; sig: int; siginfo: struct_siginfo = nil; flags = 0)		66

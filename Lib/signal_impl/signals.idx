@@ -1,0 +1,6 @@
+nimTitle	signals	signal_impl/signals.html	module src/pylib/Lib/signal_impl/signals		0
+nim	signal	signal_impl/signals.html#signal,int,PySigHandler	proc signal(signalnum: int; handler: PySigHandler): PySigHandler		54
+nim	signal	signal_impl/signals.html#signal,int,	proc signal(signalnum: int; handler: CSigHandler | NimSigHandler | Handlers): PySigHandler		69
+nim	default_int_handler	signal_impl/signals.html#default_int_handler,int,PFrame	proc default_int_handler(signalnum: int; frame: PFrame)		74
+nim	set_wakeup_signal	signal_impl/signals.html#set_wakeup_signal,int	proc set_wakeup_signal(signalnum: int): int		103
+nimgrp	signal	signal_impl/signals.html#signal-procs-all	proc		54

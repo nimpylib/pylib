@@ -1,0 +1,3 @@
+nimTitle	abc_set	signal_impl/abc_set.html	module src/pylib/Lib/signal_impl/abc_set		0
+nim	add	signal_impl/abc_set.html#add,SomeSet[int],int	proc add(self: var SomeSet[int]; i: int)		3
+nim	Set	signal_impl/abc_set.html#Set	type Set		5

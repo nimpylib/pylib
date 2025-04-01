@@ -1,0 +1,2 @@
+nimTitle	monotonic	_._/Python/pytime/monotonic.html	module src/pylib/Python/pytime/monotonic		0
+nim	monotonicRaw	_._/Python/pytime/monotonic.html#monotonicRaw,PyTime	proc monotonicRaw(res: var PyTime): bool		10

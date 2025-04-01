@@ -1,7 +1,7 @@
 nimTitle	inheritable	os_impl/inheritable.html	module src/pylib/Lib/os_impl/inheritable		0
-nim	get_handle_inheritable	os_impl/inheritable.html#get_handle_inheritable,int	proc get_handle_inheritable(handle: int): bool		55
-nim	set_handle_inheritable	os_impl/inheritable.html#set_handle_inheritable,int,bool	proc set_handle_inheritable(handle: int; inheritable: bool)		58
-nim	get_inheritable	os_impl/inheritable.html#get_inheritable,int	proc get_inheritable(fd: int): bool		73
-nim	Py_set_inheritable	os_impl/inheritable.html#Py_set_inheritable,int,bool,ptr.int	proc Py_set_inheritable(fd: int; inheritable: bool; atomic_flag_works: ptr int): int		182
-nim	set_inheritableImpl	os_impl/inheritable.html#set_inheritableImpl,int,bool	proc set_inheritableImpl(fd: int; inheritable: bool)		186
-nim	set_inheritable	os_impl/inheritable.html#set_inheritable,int,	proc set_inheritable(fd: int; inheritable: int | bool)		190
+nim	get_handle_inheritable	os_impl/inheritable.html#get_handle_inheritable,int	proc get_handle_inheritable(handle: int): bool		54
+nim	set_handle_inheritable	os_impl/inheritable.html#set_handle_inheritable,int,bool	proc set_handle_inheritable(handle: int; inheritable: bool)		57
+nim	get_inheritable	os_impl/inheritable.html#get_inheritable,int	proc get_inheritable(fd: int): bool		72
+nim	Py_set_inheritable	os_impl/inheritable.html#Py_set_inheritable,int,bool,ptr.int	proc Py_set_inheritable(fd: int; inheritable: bool; atomic_flag_works: ptr int): int		181
+nim	set_inheritableImpl	os_impl/inheritable.html#set_inheritableImpl,int,bool	proc set_inheritableImpl(fd: int; inheritable: bool)		185
+nim	set_inheritable	os_impl/inheritable.html#set_inheritable,int,	proc set_inheritable(fd: int; inheritable: int | bool)		189

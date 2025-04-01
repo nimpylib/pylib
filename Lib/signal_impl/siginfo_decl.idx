@@ -1,0 +1,10 @@
+nimTitle	siginfo_decl	signal_impl/siginfo_decl.html	module src/pylib/Lib/signal_impl/siginfo_decl		0
+nim	struct_siginfo	signal_impl/siginfo_decl.html#struct_siginfo	type struct_siginfo		4
+nim	si_signo	signal_impl/siginfo_decl.html#si_signo,struct_siginfo	proc si_signo(self: struct_siginfo): auto		10
+nim	si_code	signal_impl/siginfo_decl.html#si_code,struct_siginfo	proc si_code(self: struct_siginfo): auto		11
+nim	si_errno	signal_impl/siginfo_decl.html#si_errno,struct_siginfo	proc si_errno(self: struct_siginfo): auto		12
+nim	si_pid	signal_impl/siginfo_decl.html#si_pid,struct_siginfo	proc si_pid(self: struct_siginfo): auto		13
+nim	si_uid	signal_impl/siginfo_decl.html#si_uid,struct_siginfo	proc si_uid(self: struct_siginfo): auto		14
+nim	si_status	signal_impl/siginfo_decl.html#si_status,struct_siginfo	proc si_status(self: struct_siginfo): auto		16
+nim	si_band	signal_impl/siginfo_decl.html#si_band,struct_siginfo	proc si_band(self: struct_siginfo): auto		17
+nim	fill_siginfo	signal_impl/siginfo_decl.html#fill_siginfo,SigInfo	proc fill_siginfo(si: SigInfo): struct_siginfo		20

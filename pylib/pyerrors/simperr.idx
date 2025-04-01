@@ -2,3 +2,4 @@ nimTitle	simperr	pylib/pyerrors/simperr.html	module src/pylib/pyerrors/simperr		
 nim	TypeError	pylib/pyerrors/simperr.html#TypeError	object TypeError		3
 nim	SystemExit	pylib/pyerrors/simperr.html#SystemExit	object SystemExit		4
 nim	AttributeError	pylib/pyerrors/simperr.html#AttributeError	object AttributeError		5
+nim	NameError	pylib/pyerrors/simperr.html#NameError	object NameError		6

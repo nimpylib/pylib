@@ -1,0 +1,3 @@
+nimTitle	enumType	enum_impl/enumType.html	module src/pylib/Lib/enum_impl/enumType		0
+nim	GenPyEnumInit	enum_impl/enumType.html#GenPyEnumInit.t,typedesc,typedesc,	template GenPyEnumInit(Self, Value: typedesc; sym)		5
+nim	GenPyEnumMeth	enum_impl/enumType.html#GenPyEnumMeth.t,,typedesc	template GenPyEnumMeth(Self; Value: typedesc; genObjMeth = true; genInit = false;\n              nameError = NameError; Str = string)		13
