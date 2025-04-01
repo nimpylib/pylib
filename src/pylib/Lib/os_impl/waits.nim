@@ -1,8 +1,7 @@
 
-import ../n_errno
-import ../signal_impl/c_api
 import ../resource_impl/types
 from ./common import raiseErrno
+import ./util/handle_signal
 
 const DWin = defined(windows)
 when DWin:
@@ -63,18 +62,8 @@ when not DWin:
 
 
 template waitX_impl[R](res, status: untyped; resExpr){.dirty.} =
-  var async_err: int
   decl_STATUS_INIT(status)
-
-  while true:
-    res = resExpr
-    if res >= 0 or isErr(EINTR):
-      break
-    async_err = PyErr_CheckSignals()
-    if async_err != 0:
-      break
-  if res < 0:
-    raiseErrno()
+  initVal_with_handle_signal(res, resExpr)
 
 when declared(c_waitpid):
   proc waitpid*(pid: int, options: int): tuple[pid: int, status: int] =
