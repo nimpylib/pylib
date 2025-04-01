@@ -2,7 +2,7 @@
 import ../resource_impl/types
 from ./common import raiseErrno
 import ./util/handle_signal
-
+import ./private/platform_utils
 const DWin = defined(windows)
 when DWin:
   import ../../private/iph_utils  # with_Py_SUPPRESS_IPH
@@ -17,7 +17,7 @@ when DWin:
     with_Py_SUPPRESS_IPH:
       result = cwait(status, pid, options)
   template handle_status(res: Res): int = status shl 8
-  template decl_WAIT_STATUS(status; val: cint = 0) =
+  template decl_STATUS_INIT(status; val: cint = 0) =
     var status: WAIT_TYPE = val
 
 elif defined(unix):
@@ -32,8 +32,13 @@ elif defined(unix):
   
   proc WAIT_STATUS_INT(status: WAIT_TYPE): cint{.inline.} =
     {.emit: [result, "= WAIT_STATUS_INT(", status, ")"].}
+else:
+  type Res = cint
+  type WAIT_TYPE = cint
+  template decl_STATUS_INIT(status; val: cint = 0) =
+    var status: WAIT_TYPE = val
 
-when not DWin:
+when not DWin and not defined(js) and not defined(nimscript):
   template genW(name){.dirty.} =
     proc name(status: WAIT_TYPE): cint{.importc, header: "<sys/wait.h>".}
     proc name*(status: int): bool =
@@ -66,7 +71,7 @@ template waitX_impl[R](res, status: untyped; resExpr){.dirty.} =
   initVal_with_handle_signal(res, resExpr)
 
 when declared(c_waitpid):
-  proc waitpid*(pid: int, options: int): tuple[pid: int, status: int] =
+  proc waitpid*(pid: int, options: int): tuple[pid: int, status: int]{.platformNoJs.} =
     let
       options = options.cint
       pid = pid.cint
@@ -76,13 +81,13 @@ when declared(c_waitpid):
 
 when not DWin:
   proc wait(status: var WAIT_TYPE): Res{.importc, header: "<sys/wait.h>".}
-  proc wait*(): tuple[pid: int, status: int] =
+  proc wait*(): tuple[pid: int, status: int]{.platformNoJs.} =
     var res: Pid
     waitX_impl[Pid](res, status, wait(status))
     (res.int, WAIT_STATUS_INT status)
 
   proc wait_helper(pid: Pid, status: cint, rusage: var posix.RUsage):
-      tuple[pid: int, status: int, rusage: struct_rusage] =
+      tuple[pid: int, status: int, rusage: struct_rusage]{.platformNoJs.} =
     if pid == -1:
       raiseErrno()
     
@@ -94,7 +99,7 @@ when not DWin:
     (pid.int, status.int, res)
 
   proc wait3(status: var WAIT_TYPE, options: cint, rusage: var posix.RUsage): Res{.importc, header: "<sys/wait.h>".}
-  proc wait3*(options: int): tuple[pid: int, status: int, rusage: struct_rusage] =
+  proc wait3*(options: int): tuple[pid: int, status: int, rusage: struct_rusage]{.platformNoJs.} =
     var
       res: Pid
       ru: posix.RUsage
@@ -102,7 +107,7 @@ when not DWin:
     wait_helper(res, WAIT_STATUS_INT(status), ru)
 
   proc wait4(pid: Pid, status: var WAIT_TYPE, options: cint, rusage: var posix.RUsage): Res{.importc, header: "<sys/wait.h>".}
-  proc wait4*(pid: int, options: int): tuple[pid: int, status: int, rusage: struct_rusage] =
+  proc wait4*(pid: int, options: int): tuple[pid: int, status: int, rusage: struct_rusage]{.platformNoJs.} =
     var
       res: Pid
       ru: posix.RUsage
@@ -110,7 +115,7 @@ when not DWin:
     waitX_impl[Pid](res, status, wait4(pid, status, options.cint, ru))
     wait_helper(res, WAIT_STATUS_INT(status), ru)
 
-proc waitstatus_to_exitcode*(status: int): int =
+proc waitstatus_to_exitcode*(status: int): int{.platformNoJs.} =
   when not defined(windows):
     decl_STATUS_INIT(wait_status, status.cint)
     var exitcode: cint
