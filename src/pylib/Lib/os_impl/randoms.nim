@@ -8,7 +8,7 @@ else:
 
 import ../../nimpatch/newUninit
 import ../../pyconfig/bootstrap_hash
-
+import ./private/defined_macros
 #[
 ## | Targets              | Implementation        | set errno
 ## | :---                 | ----:                 | :---
@@ -33,7 +33,7 @@ import ../../pyconfig/bootstrap_hash
 ## .. _/dev/urandom: https://en.wikipedia.org/wiki//dev/random
 ]#
 
-const mayUseDevUrandom = not defined(js) and not defined(windows)
+const mayUseDevUrandom = not defined(js) and not MS_WINDOWS
 when mayUseDevUrandom:
   import ../errno_impl/errnoUtils
   {.define: ImportErrnoUtils.}

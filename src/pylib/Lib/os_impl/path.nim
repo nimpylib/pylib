@@ -48,7 +48,7 @@ psExp normpath, normalizedPath
 func relpath*[T](p: PathLike[T], start=curdir): T =
   mapPathLike[T] relativePath($p, $start)
 
-when defined(js):
+when InJS:
   export getatime, getmtime, getctime
 else:
   template expFRetTAsF(nam, nimProc){.dirty.} =

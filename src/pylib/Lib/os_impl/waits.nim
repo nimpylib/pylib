@@ -3,13 +3,13 @@ import ../resource_impl/types
 from ./common import raiseErrno
 import ./util/handle_signal
 import ./private/platform_utils
-const DWin = defined(windows)
-when DWin:
+import ./private/defined_macros
+when MS_WINDOWS:
   import ../../private/iph_utils  # with_Py_SUPPRESS_IPH
 else:
   from std/posix import Pid
 
-when DWin:
+when MS_WINDOWS:
   type Res = int
   type WAIT_TYPE = cint
   proc cwait(termstat: var cint, pid: cint, options: cint): Res{.importc: "_cwait", header: "<process.h>".}
@@ -38,7 +38,7 @@ else:
   template decl_STATUS_INIT(status; val: cint = 0) =
     var status: WAIT_TYPE = val
 
-when not DWin and not defined(js) and not defined(nimscript):
+when not MS_WINDOWS and not defined(js) and not defined(nimscript):
   template genW(name){.dirty.} =
     proc name(status: WAIT_TYPE): cint{.importc, header: "<sys/wait.h>".}
     proc name*(status: int): bool =
@@ -79,7 +79,7 @@ when declared(c_waitpid):
     waitX_impl[Res](res, status, c_waitpid(pid, status, options))
     (res.int, handle_status(status))
 
-when not DWin:
+when not MS_WINDOWS:
   proc wait(status: var WAIT_TYPE): Res{.importc, header: "<sys/wait.h>".}
   proc wait*(): tuple[pid: int, status: int]{.platformNoJs.} =
     var res: Pid
@@ -116,7 +116,7 @@ when not DWin:
     wait_helper(res, WAIT_STATUS_INT(status), ru)
 
 proc waitstatus_to_exitcode*(status: int): int{.platformNoJs.} =
-  when not defined(windows):
+  when not MS_WINDOWS:
     decl_STATUS_INIT(wait_status, status.cint)
     var exitcode: cint
     if bool WIFEXITED(wait_status):

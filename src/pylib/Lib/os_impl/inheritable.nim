@@ -1,11 +1,8 @@
 
 # XXX: this shall work `when defined(freertos) or defined(zephyr)`
 #  but is is meaningful?
-import ./private/[platform_utils, iph_utils]
+import ./private/[platform_utils, iph_utils, defined_macros]
 import ../../pyerrors/oserr
-
-const
-  MS_WINDOWS = defined(windows)
 
 when MS_WINDOWS:
   import std/winlean

@@ -4,7 +4,7 @@
 CPython/Include/internal/pycore_fileutils.h
 ]##
 
-const MS_WINDOWS* = defined(windows)
+const MS_WINDOWS = defined(windows)
 
 when MS_WINDOWS and defined(vcc):
   let MSC_VER{.importc: "_MSC_VER", nodecl.}: cint

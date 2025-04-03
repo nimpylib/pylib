@@ -8,7 +8,7 @@ when defined(windows):
 else:
   import std/posix
 
-const InJs* = defined(js)
+const InJs = defined(js)
 when InJs:
   import ./jsoserr
 

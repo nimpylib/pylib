@@ -1,5 +1,5 @@
 
-import ../private/iph_utils
+import ../private/[iph_utils, defined_macros]
 import ./errnoHandle
 const weirdTarget = defined(js) or defined(nimscript)
 when not weirdTarget:
