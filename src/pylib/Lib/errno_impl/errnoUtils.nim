@@ -30,15 +30,13 @@ template setErrno0* = {.noSideEffect.}:
   else:
     errno = 0
 
-template getErrno*(): cint = {.noSideEffect.}:
+proc getErrno*(): cint = {.noSideEffect.}:
   bind errno, staticErrno
-  var res: cint
   block:
     when nimvm:
-      res = staticErrno
+      result = staticErrno
     else:
-      res = errno
-  res
+      result = errno
 
 template isErr*(E: untyped): bool =
   bind getErrno

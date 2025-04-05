@@ -14,6 +14,7 @@ when InJs:
 
 import ../io_abc
 import ../private/backendMark
+import ../Lib/errno_impl/errnoUtils
 export OSErrorCode
 type
   FileNotFoundError* = object of OSError
@@ -62,8 +63,9 @@ else:
 func newOSErrorWithMsg(err: OSErrorCode, msg: string): owned(ref OSError) =
   (ref OSError)(errorCode: err.int32, msg: msg)
 
-func raiseExcWithPath*(fp: PathLike, exc: typedesc, err: OSErrorCode) =
-  raise newException(exc, fp.osErrorMsgWithPath(err))
+proc raiseExcWithPath*(fp: PathLike, exc: typedesc, err: OSErrorCode,
+    osErrorMsgCb: proc = osErrorMsg) =
+  raise newException(exc, fp.osErrorMsgWithPath(err, osErrorMsgCb))
 
 func raiseExcWithPath*(fp: PathLike, exc: typedesc, err: OSErrorCode, additionalInfo: string) =
   var msg = fp.osErrorMsgWithPath(err)
@@ -94,7 +96,7 @@ when defined(nimscript):
     ErrExist = NON_ERR_CODE
     ErrNoent = NON_ERR_CODE
     ErrIsdir = NON_ERR_CODE
-elif InJs: discard
+elif InJs: discard  # those are defined in ./jsoserr
 else:
 
   when defined(windows):
@@ -169,17 +171,17 @@ template tryOsOp*(p: PathLike, body) =
 
 when InJs:
   proc errnoMsgOSErr(errnoCode: OSErrorCode): string = jsErrnoMsg(errnoCode)
-  proc errnoMsg*(errnoCode: cint): string = jsErrnoMsg(errnoCode.OSErrorCode)
+  proc errnoMsg*(errno: cint): string = jsErrnoMsg(errno.OSErrorCode)
 elif not weirdTarget:
   proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
 
   func errnoMsgOSErr(errnoCode: OSErrorCode): string = $c_strerror(errnoCode.cint)
 
-  func errnoMsg*(errnoCode: cint): string = $c_strerror(errnoCode)
+  func errnoMsg*(errno: cint): string = $c_strerror(errno)
 
 
-proc newErrnoErrT[E: OSError](errnoCode: cint, additionalInfo = ""): owned(ref E) =
-  result = (ref E)(errorCode: errnoCode.int32, msg: errnoMsg(errnoCode))
+proc newErrnoErrT[E: OSError](errno=getErrno(), additionalInfo = ""): owned(ref E) =
+  result = (ref E)(errorCode: errno.int32, msg: errnoMsg(errno))
   if additionalInfo.len > 0:
     if result.msg.len > 0 and result.msg[^1] != '\n': result.msg.add '\n'
     result.msg.add "Additional info: "
@@ -187,20 +189,29 @@ proc newErrnoErrT[E: OSError](errnoCode: cint, additionalInfo = ""): owned(ref E
       # don't add trailing `.` etc, which negatively impacts "jump to file" in IDEs.
   if result.msg == "":
     result.msg = "unknown OS error"
-proc newErrnoErr(errnoCode: cint, additionalInfo = ""): owned(ref OSError) =
-  newErrnoErrT[OSError](errnoCode, additionalInfo)
+proc newErrnoErr(errno=getErrno(), additionalInfo = ""): owned(ref OSError) =
+  newErrnoErrT[OSError](errno, additionalInfo)
 
-
-proc raiseErrno*(errno: cint; additionalInfo = "") =
+proc raiseErrno*(errno=getErrno(); additionalInfo = "") =
   ## may raise OSError only
   raise newErrnoErr(errno, additionalInfo)
 
-proc raiseErrnoWithPath*[T](p: PathLike[T]; errno: cint) =
+proc newErrnoErr*[E: OSError](additionalInfo: string): owned(ref E) =
+  newErrnoErrT[E](additionalInfo = additionalInfo)
+
+proc raiseErrnoT*[E: OSError](additionalInfo: string) =
+  raise newErrnoErrT[E](additionalInfo = additionalInfo)
+
+proc raiseErrno*(additionalInfo: string) =
+  raiseErrnoT[OSError](additionalInfo)
+
+
+proc raiseErrnoWithPath*[T](p: PathLike[T]; errno = getErrno()) =
   ## raises OSError or its SubError.
   ## refer to errno even under Windows.
   let errCode = errno.OSErrorCode
   template rErr(exc) =
-    p.raiseExcWithPath(exc, errCode)
+    p.raiseExcWithPath(exc, errCode, errnoMsgOSErr)
   errMap errCode, rErr, errnoMsgOSErr
 
 when InJs:
@@ -210,25 +221,22 @@ when InJs:
       raise newException(exc, errMsg)
     template msgDiscardCode(_): string = errMsg
     errMap errCode, rErr, msgDiscardCode
-  template catchJsErrAndRaise*(doSth) =
+
+  template catchJsErrAndDo(doSth; doErr) =
       var errMsg = ""
       let err = catchJsErrAsCode errMsg:
         doSth
-      if err != 0:
-        raiseErrnoWithMsg err, errMsg
-else:
-  when not declared(errno):
-    var errno{.importc, header: "<errno.h>".}: cint
-  proc newErrnoErrT[E: OSError](additionalInfo = ""): owned(ref E) =
-    newErrnoErrT[E](errno, additionalInfo)
+      if err != 0: doErr err, errMsg
+  template catchJsErrAndRaise*(doSth) =
+    bind catchJsErrAndDo, raiseErrnoWithMsg
+    template doErr(err, errMsg) =
+      raiseErrnoWithMsg err, errMsg
+    catchJsErrAndDo doSth, doErr
 
-  proc raiseErrnoT*[E: OSError](additionalInfo = "") =
-    ## may raise `E` only
-    raise newErrnoErrT[E](additionalInfo)
-  proc raiseErrno*(additionalInfo = "") =
-    raiseErrnoT[OSError](additionalInfo)
-
-  proc raiseErrnoWithPath*[T](p: PathLike[T]) =
-    raiseErrnoWithPath(p)
+  template catchJsErrAndSetErrno*(doSth) =
+    bind catchJsErrAndDo, setErrnoRaw
+    template doErr(err, errMsg) =
+      setErrnoRaw err
+    catchJsErrAndDo doSth, doErr
 
 
