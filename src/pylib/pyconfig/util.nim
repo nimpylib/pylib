@@ -1,7 +1,7 @@
 
 
 import std/os
-from std/strutils import parseInt, strip
+from std/strutils import parseInt, strip, multiReplace
 import std/macros
 
 const weirdTarget = defined(js) or defined(nimscript)
@@ -60,12 +60,34 @@ template from_c_int*(variable; defval: int; precode): int =
     let variable{.importc, nodecl.}: cint
     stdout.write variable
 
+proc from_c_int_expr(cacheName, cexpr: string; defval: NimNode): NimNode =
+  let pureVarId = newLit cacheName
+  result = quote do:
+    from_c_int(`cexpr`, `defval`):
+      {.emit: ["/*VARSECTION*/\n#define ", `pureVarId`, " ", `cexpr`, '\n'].}
+
 macro from_c_int_underlined*(variable: static[string]; defval: int): int =
   let pureVar = variable.strip(chars = {'_'})
-  let pureVarId = newLit pureVar
-  result = quote do:
-    from_c_int(`variable`, `defval`):
-      {.emit: ["/*VARSECTION*/\n#define ", `pureVarId`, " ", `variable`].}
+  from_c_int_expr(pureVar, variable, defval)
+
+macro from_c_int_expr*(cExpr: static[string]; defval: int): int =
+  let pureVar = cExpr.multiReplace(
+    ("_", ""),
+    ("(", "%28"),
+    (")", "%29"),
+    (" ", "%20"),
+    (",", "%2C"),
+    ("<", "%3C"),
+    (">", "%3E"),
+    (":", "%3A"),
+    ("\"", "%22"),
+    ("/", "%2F"),
+    ("\\", "%5C"),
+    ("|", "%7C"),
+    ("?", "%3F"),
+    ("*", "%2A"),
+  )
+  from_c_int_expr(pureVar, cExpr, defval)
 
 template from_c_int*(variable; includeFile: static[string], defval = low(int)): int =
   ## we know int.low is smaller than low(cint)
@@ -141,3 +163,30 @@ template c_defined*(variable; c_macro: string; headers: openArray = []) =
     );
   """.}
     main()
+
+template AC_CHECK_FUNC*(res, function) =
+  ## export const HAVE_`function`
+  AC_LINK_IFELSE res, false:
+    {.emit: [
+      "/*INCLUDESECTION*/\n",
+      "#undef " & astToStr(function) & '\n',
+      """/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined __stub_`function` || defined __stub___`function`
+choke me
+#endif
+"""
+    ].}  #""" <- for code lint
+    proc function(): cchar{.importc, header: "<limits.h>".}
+    discard function()
+
+template AC_CHECK_FUNC*(function) =
+  AC_CHECK_FUNC(`HAVE function`, function)
+
+
+macro AC_CHECK_FUNCS*(functions: varargs[untyped]): untyped =
+  result = newStmtList()
+  for fun in functions:
+    result.add quote do:
+      AC_CHECK_FUNC(`fun`)
