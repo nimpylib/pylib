@@ -17,12 +17,20 @@ type
   py_rlimit* = tuple
     rlim_cur: int
     rlim_max: int
+  py_rlimit_abc = concept self
+    self.len is int
+    self[int] is int
 
 # XXX: NIM-BUG: rlim_cur and rlim_max are int over unsigned in std/posix
 
 proc py2rlimit(limits: py_rlimit, rl_out: var RLimit) =
   rl_out.rlim_cur = limits.rlim_cur
   rl_out.rlim_max = limits.rlim_max
+
+proc py2rlimit(limits: py_rlimit_abc, rl_out: var RLimit) =
+  assert limits.len == 2
+  rl_out.rlim_cur = limits[0]
+  rl_out.rlim_max = limits[1]
 
 proc rlimit2py(rl_in: RLimit): py_rlimit = (rl_in.rlim_cur, rl_in.rlim_max)
 
@@ -41,7 +49,7 @@ proc getrlimit*(resource: int): py_rlimit =
 
 proc raise_inval =
   raise newException(ValueError, "current limit exceeds maximum limit")
-proc setrlimit*(resource: int, limits: py_rlimit) =
+proc setrlimit*(resource: int, limits: py_rlimit_abc) =
   var rl: RLimit
   py2rlimit(limits, rl)
   if setrlimit(checked_resource(resource), rl) == -1:
@@ -64,7 +72,7 @@ when HAVE_PRLIMIT:
       raiseErrno()
     rlimit2py(old_limit)
 
-  proc prlimit*(pid: int, resource: int, limits: py_rlimit): py_rlimit{.discardable.} =
+  proc prlimit*(pid: int, resource: int, limits: py_rlimit_abc): py_rlimit{.discardable.} =
     let
       pid = Pid pid
       resource = checked_resource(resource)
