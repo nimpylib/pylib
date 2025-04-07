@@ -184,9 +184,9 @@ else:
           stat(cstring path.fspath, st)
     if ret != 0.cint:
       when path is int:
-        raiseErrno($path)
+        raiseErrnoWithPath $path
       else:
-        path.raiseErrnoWithPath()
+        raiseErrnoWithPath path
 
 template statAttr*(path: PathLike|int, attr: untyped): untyped =
   ## stat(`path`).`attr`

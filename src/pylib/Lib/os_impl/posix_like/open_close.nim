@@ -65,10 +65,8 @@ proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
       f = flags.cint
       m = mode.cint
     var result_cint: cint
-    let err = catchJsErrAsCode msg:
+    catchJsErrAndRaise:
       result_cint = openSync(p, f, m)
-    if err != 0:
-      raiseErrno err, msg
     result = int result_cint
   else:
     var fd: cint
@@ -100,7 +98,7 @@ proc close*(fd: int) =
       raise newException(OSError, msg & ", close fd: " & $fd)
   else:
     if c_close(fd.cint) == -1.cint:
-      raiseErrno("close fd: " & $fd)
+      raiseErrno()
 
 proc closerange*(fd_low, fd_high: int) =
   for fd in fd_low..<fd_high:

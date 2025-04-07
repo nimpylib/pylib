@@ -60,7 +60,7 @@ proc toTimeval(obj: float): Timeval =
   t.fromSecondsObject(obj, prCeiling)
   t.asTimeval(prCeiling)
 
-type ItimerError* = object of OSError
+type ItimerError* = object of PyOSError
 
 proc setitimer*(which: int, seconds: float; interval=0.0): tuple[delay, interval: float] =
   var n: ItimerVal  

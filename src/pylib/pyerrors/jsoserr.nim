@@ -6,20 +6,14 @@ else:
 
 const
   InNodeJs* = defined(nodejs)
-import std/jsffi
-when InNodeJs:
-  let econsts = require("constants")
-else:
-  let econsts{.importjs: """(await import("node:constants")).errno""".}: JsObject
 
+import ../jsutils/consts
+
+const DEF_INT = low(int)
 let
-  ErrExist* = econsts.EEXIST.to(cdouble).int
-  ErrNoent* = econsts.ENOENT.to(cdouble).int
-  ErrIsdir* = econsts.EISDIR.to(cdouble).int
-proc isNotFound*(err: OSErrorCode): bool = err.int == ErrNoent
-
-
-
+  ErrExist* = from_js_const(EEXIST, DEF_INT)
+  ErrNoent* = from_js_const(ENOENT, DEF_INT)
+  ErrIsdir* = from_js_const(EISDIR, DEF_INT)
 
 proc jsErrnoMsg*(errorCode: OSErrorCode): string =
   let ie = errorCode.int

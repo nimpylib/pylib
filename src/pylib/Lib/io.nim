@@ -65,7 +65,7 @@ type
     file: File # Python does not have this field, but we can use, as here's Nim
 
 type
-  UnsupportedOperation* = object of OSError # and ValueError
+  UnsupportedOperation* = object of PyOSError # and ValueError
 
 converter toUnderFile(f: IOBase): File = f.file
 

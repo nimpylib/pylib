@@ -6,7 +6,7 @@ import ./posix_like/scandirImpl
 import ./path
 
 type
-  OnErrorCb* = proc (e: ref OSError)
+  OnErrorCb* = proc (e: ref PyOSError)
   WalkTup[T] = tuple[dirpath: T, dirnames, filenames: PyList[T]]
   ## used for type conversion
   
@@ -96,7 +96,7 @@ iterator walk*[T](top: PathLike[T], topdown=True,
                       break
                 except OSError as error:
                     if onerror != shallIgnore:
-                        onerror(error)
+                        onerror(newPyOSError(error.errorCode.cint, error.msg))
                     cont = True
                     break
                 let isdir =

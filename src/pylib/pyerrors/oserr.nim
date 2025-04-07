@@ -1,4 +1,11 @@
+##[
+See CPython's Objects/exceptions.c
 
+`OSError_new`(a.k.a. `OSError.__new__`) will returns a subclass of OSError,
+via lookup in `state->errnomap`, which is initialized by `_PyExc_InitState`,
+
+where key-value pairs are inserted via `ADD_ERRNO` macro.
+]##
 when NimMajor > 1:
   import std/oserrors
 else:
@@ -16,29 +23,15 @@ import ../io_abc
 import ../private/backendMark
 import ../Lib/errno_impl/errnoUtils
 export OSErrorCode
-type
-  FileNotFoundError* = object of OSError
-  FileExistsError* = object of OSError
-  NotADirectoryError* = object of OSError
-  IsADirectoryError* = object of OSError
+import ./oserr/[
+  types as oserrors_types, errmap, oserror_new, init as oserrors_init, oserror_str
+]
+export oserrors_types, oserror_str, oserrors_init
+when defined(windows):
+  import ./oserr/PC_errmap
 
-# some error is still defined in ./io.nim
-# as they're currently only used there.
 
 const weirdTarget{.used.} = defined(nimscript) or defined(js)
-when InJs:
-  export isNotFound
-elif defined(nimscript):
-  proc isNotFound*(err: OSErrorCode): bool{.error: "not implement for NimScript backend".}
-else:
-  when defined(windows):
-    proc isNotFound*(err: OSErrorCode): bool = 
-      let i = err.int
-      i == ERROR_FILE_NOT_FOUND or i == ERROR_PATH_NOT_FOUND
-    const ERROR_DIRECTORY_NOT_SUPPORTED = 336
-  else:
-    let enoent = ENOENT.int
-    proc isNotFound*(err: OSErrorCode): bool = err.int == enoent  
 
 template osErrorMsgWithPath*(fp: PathLike, err: OSErrorCode, osErrorMsgCb): string =
   ## always suffixed with a `\n`
@@ -60,9 +53,6 @@ else:
     bind osErrorMsgWithPath, osErrorMsg
     osErrorMsgWithPath(fp, err, osErrorMsg)
 
-func newOSErrorWithMsg(err: OSErrorCode, msg: string): owned(ref OSError) =
-  (ref OSError)(errorCode: err.int32, msg: msg)
-
 proc raiseExcWithPath*(fp: PathLike, exc: typedesc, err: OSErrorCode,
     osErrorMsgCb: proc = osErrorMsg) =
   raise newException(exc, fp.osErrorMsgWithPath(err, osErrorMsgCb))
@@ -73,83 +63,14 @@ func raiseExcWithPath*(fp: PathLike, exc: typedesc, err: OSErrorCode, additional
   msg.add additionalInfo
   raise newException(exc, msg)
 
-func raiseFileNotFoundError*(fp: PathLike) =
-  ## with static msg: "No such file or directory"
-  raise newException(FileNotFoundError, 
-      "No such file or directory: " & fp.pathrepr)
-
-func raiseFileNotFoundError*(fp: PathLike, err: OSErrorCode) =
-  ## under Windows, both ERROR_FILE_NOT_FOUND and ERROR_PATH_NOT_FOUND
-  ## lead to FileNotFoundError, at pass `err` to distinguish them
-  fp.raiseExcWithPath(FileNotFoundError, err)
-
 template noWeirdTarget*(def) =
   bind noWeirdBackend
   noWeirdBackend(def)
 
-const CONST_E = defined(windows) or compiles(static(EEXIST))
-# in posix_other_const.nim, E* is declared as `var`
-
-when defined(nimscript):
-  const
-    NON_ERR_CODE = -1  # no errCode shall match this
-    ErrExist = NON_ERR_CODE
-    ErrNoent = NON_ERR_CODE
-    ErrIsdir = NON_ERR_CODE
-elif InJs: discard  # those are defined in ./jsoserr
-else:
-
-  when defined(windows):
-    const
-      ERROR_ALREADY_EXISTS = 183
-      ErrExist = {ERROR_FILE_EXISTS, ERROR_ALREADY_EXISTS}
-      ErrNoent = {ERROR_PATH_NOT_FOUND, ERROR_FILE_NOT_FOUND}
-      ErrIsdir = ERROR_DIRECTORY_NOT_SUPPORTED
-  elif CONST_E:
-    const
-      ErrExist = EEXIST
-      ErrNoent = ENOENT
-      ErrIsdir = EISDIR
-  else:
-     let
-      ErrExist = EEXIST
-      ErrNoent = ENOENT
-      ErrIsdir = EISDIR
-
-
-func raiseFileExistsError*(fp: PathLike) =
-    fp.raiseExcWithPath(FileExistsError, ErrExist.OSErrorCode)
-
-# symbol used in case stmt's `of` branch must be constants
-when CONST_E:
-  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb:typed=osErrorMsg) =
-    case system.int(oserr)
-    of ErrExist:
-      rErr FileExistsError
-    of ErrNoent:
-      rErr FileNotFoundError
-    of ErrIsdir:
-      rErr IsADirectoryError
-    else:
-      raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
-else:
-  template errMap(oserr: OSErrorCode, rErr; osErrorMsgCb:typed=osErrorMsg) =
-    let ierr = oserr.int
-    if ierr == ErrExist:
-      rErr FileExistsError
-    elif ierr == ErrNoent:
-      rErr FileNotFoundError
-    elif ierr == ErrIsdir:
-      rErr IsADirectoryError
-    else:
-      raise newOSErrorWithMsg(oserr, osErrorMsgCb(oserr))
-    
 
 proc raiseExcWithPath*(p: PathLike, errCode: OSErrorCode){.sideEffect.} =
   ## raises OSError or its one of SubError type
-  template rErr(exc) =
-    p.raiseExcWithPath(exc, errCode)
-  errMap errCode, rErr
+  raise OSError_new[oserrors_types.PyOSError](true, errCode.cint, p.fspath)
 
 proc raiseExcWithPath*(p: PathLike){.sideEffect.} =
   let oserr = osLastError()
@@ -191,57 +112,35 @@ template tryOsOp*(p1, p2: PathLike, body) =
   pathsAsOne(p1, p2).tryOsOp body
 
 when InJs:
-  proc errnoMsgOSErr(errnoCode: OSErrorCode): string = jsErrnoMsg(errnoCode)
   proc errnoMsg*(errno: cint): string = jsErrnoMsg(errno.OSErrorCode)
 elif not weirdTarget:
   proc c_strerror(code: cint): cstring{.importc: "strerror", header: "<string.h>".}
 
-  func errnoMsgOSErr(errnoCode: OSErrorCode): string = $c_strerror(errnoCode.cint)
-
   func errnoMsg*(errno: cint): string = $c_strerror(errno)
 
+proc newErrnoErrT[E: PyOSError](errno=getErrno(), strerr: string): owned(ref PyOSError) =
+  OSError_new[E](false, errno, strerr)
+proc newErrnoErrT[E: PyOSError](errno=getErrno()): owned(ref PyOSError) =
+  newErrnoErrT[E](errno, errnoMsg(errno))
 
-proc newErrnoErrT[E: OSError](errno=getErrno(), additionalInfo = ""): owned(ref E) =
-  result = (ref E)(errorCode: errno.int32, msg: errnoMsg(errno))
-  if additionalInfo.len > 0:
-    if result.msg.len > 0 and result.msg[^1] != '\n': result.msg.add '\n'
-    result.msg.add "Additional info: "
-    result.msg.add additionalInfo
-      # don't add trailing `.` etc, which negatively impacts "jump to file" in IDEs.
-  if result.msg == "":
-    result.msg = "unknown OS error"
-proc newErrnoErr(errno=getErrno(), additionalInfo = ""): owned(ref OSError) =
-  newErrnoErrT[OSError](errno, additionalInfo)
+proc newErrnoErr(errno=getErrno()): owned(ref PyOSError) =
+  newErrnoErrT[oserrors_types.PyOSError](errno)
 
-proc raiseErrno*(errno=getErrno(); additionalInfo = "") =
-  ## may raise OSError only
-  raise newErrnoErr(errno, additionalInfo)
+proc raiseErrno*(errno=getErrno()) =
+  ## may raise subclass of OSError
+  raise newErrnoErr(errno)
 
-proc newErrnoErr*[E: OSError](additionalInfo: string): owned(ref E) =
-  newErrnoErrT[E](additionalInfo = additionalInfo)
-
-proc raiseErrnoT*[E: OSError](additionalInfo: string) =
-  raise newErrnoErrT[E](additionalInfo = additionalInfo)
-
-proc raiseErrno*(additionalInfo: string) =
-  raiseErrnoT[OSError](additionalInfo)
-
+proc raiseErrnoT*[T: PyOSError](errno=getErrno()) =
+  raise newErrnoErrT[T](errno)
 
 proc raiseErrnoWithPath*[T](p: PathLike[T]; errno = getErrno()) =
   ## raises OSError or its SubError.
   ## refer to errno even under Windows.
-  let errCode = errno.OSErrorCode
-  template rErr(exc) =
-    p.raiseExcWithPath(exc, errCode, errnoMsgOSErr)
-  errMap errCode, rErr, errnoMsgOSErr
+  raise OSError_new[oserrors_types.PyOSError](false, errno, errnoMsg(errno), p.fspath)
 
 when InJs:
   proc raiseErrnoWithMsg*(errno: cint, errMsg: string) =
-    let errCode = errno.OSErrorCode
-    template rErr(exc) =
-      raise newException(exc, errMsg)
-    template msgDiscardCode(_): string = errMsg
-    errMap errCode, rErr, msgDiscardCode
+    raise OSError_new[oserrors_types.PyOSError](false, errno, errMsg, fillMsg=false)
 
   template catchJsErrAndDo(doSth; doErr) =
       var errMsg = ""

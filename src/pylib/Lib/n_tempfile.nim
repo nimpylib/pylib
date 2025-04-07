@@ -137,7 +137,7 @@ proc get_default_tempdir(): string =
                     # already exists on windows.
                     continue
                 break   # no point trying more names in this directory
-    raiseFileNotFoundError("No usable temporary directory found in " &
+    raise newException(FileNotFoundError, "No usable temporary directory found in " &
                             $dirlist)
 
 
