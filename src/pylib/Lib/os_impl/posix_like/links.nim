@@ -317,5 +317,5 @@ else:
       raiseExcWithPath2(src, dst)
 
   proc link*[T](src, dst: PathLike[T]) =
-    pathsAsOne(src, dst).tryOsOp:
+    tryOsOp(src, dst):
       createHardlink($src, $dst)

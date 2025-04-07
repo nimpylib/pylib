@@ -64,7 +64,7 @@ proc getsize*[T](filename: PathLike[T]): int =
   int statAttr(filename, st_size)
 
 func samefile*(a, b: PathLike): bool =
-  tryOsOp(pathsAsOne(a, b)): result = samefile(a.fspath, b.fspath)
+  tryOsOp(a, b): result = samefile(a.fspath, b.fspath)
 
 template split2Via(p, fn) =
   let t = fn $p

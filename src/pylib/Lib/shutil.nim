@@ -89,11 +89,10 @@ template copyGen(pyname, impl) =
     let
       ssrc = $src
       sdst = $dst
-      pth = pathsAsOne(src, dst)
       cpOptions = if follow_symlinks: {cfSymlinkFollow} else: {cfSymlinkAsIs}
     if sameFile(ssrc, sdst):
       raise newException(SameFileError, pth)
-    pth.tryOsOp: impl(ssrc, sdst, options=cpOptions)
+    tryOsOp(src, dst): impl(ssrc, sdst, options=cpOptions)
 
 copyGen copyfile, copyFileImpl
 
