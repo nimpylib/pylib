@@ -4,6 +4,7 @@ import std/random
 import std/options
 
 import ./n_os
+import ../pyerrors/oserr
 
 when defined(js): {.error: "pylib tempfile not support JS currently".}
 import ./io
@@ -23,7 +24,7 @@ var name_sequence{.threadvar.}: RandomNameSequence
 const RandChars = "abcdefghijklmnopqrstuvwxyz0123456789_"
 
 proc initRandomNameSequence(self: var RandomNameSequence) =
-  let cur_pid = getCurrentProcessId()
+  let cur_pid = n_os.getpid()
   if cur_pid != self.rng_pid:
     self.rng = initRand()
     self.rng_pid = cur_pid
@@ -46,7 +47,7 @@ proc mktemp*(suffix="", prefix=templ, dir = "", checker=fileExists): string =
     let file = dir / prefix & name & suffix
     if not checker file:
       return file
-  raise newException(OSError, "No usable temporary filename found")
+  raise newException(FileNotFoundError, "No usable temporary filename found")
 
 
 proc candidate_tempdir_list(): seq[string] =
@@ -279,11 +280,9 @@ proc TemporaryDirectory*(suffix=sNone, prefix=sNone, dir=sNone, ignore_cleanup_e
 
 proc cleanup*(self: TemporaryDirectoryWrapper) =
   if self.delete:
-    try:
+    tryOsOp not self.ignore_cleanup_errors:
       removeDir self.name
-    except OSError:
-      if not self.ignore_cleanup_errors:
-        raise # XXX: see Py's TemporaryDirectory._rmtree for real impl
+    # XXX: see Py's TemporaryDirectory._rmtree for real impl
 
 proc close*(self: TemporaryDirectoryWrapper) =
   ## used to be called in `with` stmt (Python's doesn't have this)
