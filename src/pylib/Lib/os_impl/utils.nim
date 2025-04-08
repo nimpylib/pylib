@@ -28,9 +28,8 @@ proc makedirs*[T](d: PathLike[T], mode=0o777, exists_ok=false) =
     if omitNext:
       omitNext = false
     else:
-      if not exists_ok and dirExists(p):
-        raiseFileExistsError mapPathLike[T] p
-      mkdir(p)
+      p.tryOsOp not exists_ok or not dirExists(p):
+        mkdir(p, mode)
 
 proc removedirs*(d: PathLike) =
   let dir = $d
