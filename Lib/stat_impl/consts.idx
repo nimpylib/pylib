@@ -1,0 +1,2 @@
+nimTitle	consts	stat_impl/consts.html	module src/pylib/Lib/stat_impl/consts		0
+nim	S_IMODE_val	stat_impl/consts.html#S_IMODE_val	const S_IMODE_val		19

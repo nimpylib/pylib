@@ -1,5 +1,1 @@
 nimTitle	platform_utils	os_impl/private/platform_utils.html	module src/pylib/Lib/os_impl/private/platform_utils		0
-nim	platformAvail	os_impl/private/platform_utils.html#platformAvail.t,,	template platformAvail(platform; def)		23
-nim	platformAvailWhen	os_impl/private/platform_utils.html#platformAvailWhen.t,,bool,	template platformAvailWhen(platform; cond: bool; def)		31
-nim	platformUnavail	os_impl/private/platform_utils.html#platformUnavail.t,,	template platformUnavail(platform; def)		36
-nim	platformNoJs	os_impl/private/platform_utils.html#platformNoJs.t	template platformNoJs(def)		40

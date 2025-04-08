@@ -134,8 +134,8 @@ As of version 2015f max fold in IANA database is 23 hours at 1969-09-30 13:00:00
   <dl class="item">
     <div id="local-procs-all">
   <div id="local,BiggestInt">
-  <dt><pre><span class="Keyword">proc</span> <a href="#local%2CBiggestInt"><span class="Identifier">local</span></a><span class="Other">(</span><span class="Identifier">u</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-                                        <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#local%2CBiggestInt"><span class="Identifier">local</span></a><span class="Other">(</span><span class="Identifier">u</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                        <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     never returns -1, unlike CPython, but may raises OverflowDefect
@@ -149,7 +149,7 @@ As of version 2015f max fold in IANA database is 23 hours at 1969-09-30 13:00:00
 <div id="local_to_seconds-procs-all">
   <div id="local_to_seconds,int,int,int,int,int,int,int">
   <dt><pre><span class="Keyword">proc</span> <a href="#local_to_seconds%2Cint%2Cint%2Cint%2Cint%2Cint%2Cint%2Cint"><span class="Identifier">local_to_seconds</span></a><span class="Other">(</span><span class="Identifier">year</span><span class="Other">,</span> <span class="Identifier">month</span><span class="Other">,</span> <span class="Identifier">day</span><span class="Other">,</span> <span class="Identifier">hour</span><span class="Other">,</span> <span class="Identifier">minute</span><span class="Other">,</span> <span class="Identifier">second</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">fold</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     never returns -1, unlike CPython, but may raises OverflowDefect
@@ -184,7 +184,7 @@ As of version 2015f max fold in IANA database is 23 hours at 1969-09-30 13:00:00
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:29:10 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-08 15:01:27 UTC</small>
       </div>
     </div>
   </div>

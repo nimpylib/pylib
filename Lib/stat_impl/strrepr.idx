@@ -1,0 +1,4 @@
+nimTitle	strrepr	stat_impl/strrepr.html	module src/pylib/Lib/stat_impl/strrepr		0
+nim	filemode	stat_impl/strrepr.html#filemode,Mode	proc filemode(omode: Mode): string		38
+nim	filemode	stat_impl/strrepr.html#filemode,int	proc filemode(omode: int): string		45
+nimgrp	filemode	stat_impl/strrepr.html#filemode-procs-all	proc		38

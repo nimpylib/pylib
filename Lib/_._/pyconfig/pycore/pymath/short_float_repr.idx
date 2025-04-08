@@ -1,0 +1,3 @@
+nimTitle	short_float_repr	_._/pyconfig/pycore/pymath/short_float_repr.html	module src/pylib/pyconfig/pycore/pymath/short_float_repr		0
+nim	WORDS_BIGENDIAN	_._/pyconfig/pycore/pymath/short_float_repr.html#WORDS_BIGENDIAN	const WORDS_BIGENDIAN		9
+nim	WORDS_LITTLEENDIAN	_._/pyconfig/pycore/pymath/short_float_repr.html#WORDS_LITTLEENDIAN	const WORDS_LITTLEENDIAN		10

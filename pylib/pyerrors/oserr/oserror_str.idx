@@ -1,0 +1,2 @@
+nimTitle	oserror_str	pylib/pyerrors/oserr/oserror_str.html	module src/pylib/pyerrors/oserr/oserror_str		0
+nim	`$`	pylib/pyerrors/oserr/oserror_str.html#$,ref.PyOSError	proc `$`(self: ref PyOSError): string		5

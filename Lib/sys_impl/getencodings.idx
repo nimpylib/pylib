@@ -1,0 +1,3 @@
+nimTitle	getencodings	sys_impl/getencodings.html	module src/pylib/Lib/sys_impl/getencodings		0
+nim	getdefaultencoding	sys_impl/getencodings.html#getdefaultencoding	proc getdefaultencoding(): string		30
+nim	getfilesystemencoding	sys_impl/getencodings.html#getfilesystemencoding	proc getfilesystemencoding(): string		111

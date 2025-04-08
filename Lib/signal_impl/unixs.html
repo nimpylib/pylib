@@ -58,7 +58,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#ItimerError" title="ItimerError = object of OSError">ItimerError</a></li>
+      <li><a class="reference" href="#ItimerError" title="ItimerError = object of PyOSError">ItimerError</a></li>
 <li><a class="reference" href="#ItimerVal" title="ItimerVal {.importc: &quot;struct itimerval&quot;, header: &quot;&lt;sys/time.h&gt;&quot;.} = object">ItimerVal</a></li>
 
     </ul>
@@ -151,7 +151,7 @@
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
     <div id="ItimerError">
-  <dt><pre><a href="unixs.html#ItimerError"><span class="Identifier">ItimerError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">OSError</span></pre></dt>
+  <dt><pre><a href="unixs.html#ItimerError"><span class="Identifier">ItimerError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="../_._/pyerrors/oserr/oserror_decl.html#PyOSError"><span class="Identifier">PyOSError</span></a></pre></dt>
   <dd>
     
     
@@ -191,8 +191,8 @@
 </div>
 <div id="getitimer-procs-all">
   <div id="getitimer,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getitimer%2Cint"><span class="Identifier">getitimer</span></a><span class="Other">(</span><span class="Identifier">which</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">delay</span><span class="Other">,</span> <span class="Identifier">interval</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">]</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ItimerError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#getitimer%2Cint"><span class="Identifier">getitimer</span></a><span class="Other">(</span><span class="Identifier">which</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">delay</span><span class="Other">,</span> <span class="Identifier">interval</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -218,7 +218,7 @@
 </div>
 <div id="pthread_kill-procs-all">
   <div id="pthread_kill,uint,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#pthread_kill%2Cuint%2Cint"><span class="Identifier">pthread_kill</span></a><span class="Other">(</span><span class="Identifier">thread_id</span><span class="Other">:</span> <span class="Identifier">uint</span><span class="Other">;</span> <span class="Identifier">signalnum</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#pthread_kill%2Cuint%2Cint"><span class="Identifier">pthread_kill</span></a><span class="Other">(</span><span class="Identifier">thread_id</span><span class="Other">:</span> <span class="Identifier">uint</span><span class="Other">;</span> <span class="Identifier">signalnum</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -232,7 +232,7 @@
 </div>
 <div id="pthread_sigmask-procs-all">
   <div id="pthread_sigmask,int,Sigset">
-  <dt><pre><span class="Keyword">proc</span> <a href="#pthread_sigmask%2Cint%2CSigset"><span class="Identifier">pthread_sigmask</span></a><span class="Other">(</span><span class="Identifier">how</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">mask</span><span class="Other">:</span> <span class="Identifier">Sigset</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Set</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#pthread_sigmask%2Cint%2CSigset"><span class="Identifier">pthread_sigmask</span></a><span class="Other">(</span><span class="Identifier">how</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">mask</span><span class="Other">:</span> <span class="Identifier">Sigset</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Set</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -247,7 +247,7 @@
 <div id="setitimer-procs-all">
   <div id="setitimer,int,float,float">
   <dt><pre><span class="Keyword">proc</span> <a href="#setitimer%2Cint%2Cfloat%2Cfloat"><span class="Identifier">setitimer</span></a><span class="Other">(</span><span class="Identifier">which</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">seconds</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">;</span> <span class="Identifier">interval</span> <span class="Other">=</span> <span class="FloatNumber">0.0</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span>
-    <span class="Identifier">delay</span><span class="Other">,</span> <span class="Identifier">interval</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">ItimerError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">delay</span><span class="Other">,</span> <span class="Identifier">interval</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
                               <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -261,7 +261,7 @@
 </div>
 <div id="siginterrupt-procs-all">
   <div id="siginterrupt,int,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#siginterrupt%2Cint%2Cint"><span class="Identifier">siginterrupt</span></a><span class="Other">(</span><span class="Identifier">signalnum</span><span class="Other">,</span> <span class="Identifier">flag</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#siginterrupt%2Cint%2Cint"><span class="Identifier">siginterrupt</span></a><span class="Other">(</span><span class="Identifier">signalnum</span><span class="Other">,</span> <span class="Identifier">flag</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -275,7 +275,7 @@
 </div>
 <div id="sigpending-procs-all">
   <div id="sigpending">
-  <dt><pre><span class="Keyword">proc</span> <a href="#sigpending"><span class="Identifier">sigpending</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Set</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#sigpending"><span class="Identifier">sigpending</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Set</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -301,7 +301,7 @@
 </div>
 <div id="sigwait-procs-all">
   <div id="sigwait,Sigset">
-  <dt><pre><span class="Keyword">proc</span> <a href="#sigwait%2CSigset"><span class="Identifier">sigwait</span></a><span class="Other">(</span><span class="Identifier">sigset</span><span class="Other">:</span> <span class="Identifier">Sigset</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#sigwait%2CSigset"><span class="Identifier">sigwait</span></a><span class="Other">(</span><span class="Identifier">sigset</span><span class="Other">:</span> <span class="Identifier">Sigset</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -314,8 +314,8 @@
 </div>
 <div id="sigwaitinfo-procs-all">
   <div id="sigwaitinfo,Sigset">
-  <dt><pre><span class="Keyword">proc</span> <a href="#sigwaitinfo%2CSigset"><span class="Identifier">sigwaitinfo</span></a><span class="Other">(</span><span class="Identifier">sigset</span><span class="Other">:</span> <span class="Identifier">Sigset</span><span class="Other">)</span><span class="Other">:</span> <a href="siginfo_decl.html#struct_siginfo"><span class="Identifier">struct_siginfo</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#sigwaitinfo%2CSigset"><span class="Identifier">sigwaitinfo</span></a><span class="Other">(</span><span class="Identifier">sigset</span><span class="Other">:</span> <span class="Identifier">Sigset</span><span class="Other">)</span><span class="Other">:</span> <a href="siginfo_decl.html#struct_siginfo"><span class="Identifier">struct_siginfo</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -335,7 +335,7 @@
     <div id="toSigset-converters-all">
   <div id="toSigset.c,openArray[int]">
   <dt><pre><span class="Keyword">converter</span> <a href="#toSigset.c%2CopenArray%5Bint%5D"><span class="Identifier">toSigset</span></a><span class="Other">(</span><span class="Identifier">oa</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sigset</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -356,7 +356,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:28:28 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-08 15:00:23 UTC</small>
       </div>
     </div>
   </div>

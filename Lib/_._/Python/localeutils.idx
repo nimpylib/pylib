@@ -1,0 +1,5 @@
+nimTitle	localeutils	_._/Python/localeutils.html	module src/pylib/Python/localeutils		0
+nim	LC_ALL	_._/Python/localeutils.html#LC_ALL	let LC_ALL		4
+nim	LC_CTYPE	_._/Python/localeutils.html#LC_CTYPE	let LC_CTYPE		5
+nim	c_setlocale	_._/Python/localeutils.html#c_setlocale,cint,cstring	proc c_setlocale(category: cint; v: cstring): cstring		6
+nim	setlocale	_._/Python/localeutils.html#setlocale.t,,string	template setlocale(category; v: string): cstring		9

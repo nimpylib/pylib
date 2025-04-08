@@ -1,0 +1,12 @@
+nimTitle	isXImpl	stat_impl/isXImpl.html	module src/pylib/Lib/stat_impl/isXImpl		0
+nim	int_AsMode_t	stat_impl/isXImpl.html#int_AsMode_t,int	proc int_AsMode_t(value: int): Mode		5
+nim	S_ISDIR	stat_impl/isXImpl.html#S_ISDIR.t,Mode	template S_ISDIR(mode`gensym0: Mode): bool		14
+nim	S_ISCHR	stat_impl/isXImpl.html#S_ISCHR.t,Mode	template S_ISCHR(mode`gensym1: Mode): bool		15
+nim	S_ISREG	stat_impl/isXImpl.html#S_ISREG.t,Mode	template S_ISREG(mode`gensym2: Mode): bool		16
+nim	S_ISBLK	stat_impl/isXImpl.html#S_ISBLK.t,Mode	template S_ISBLK(mode`gensym3: Mode): bool		18
+nim	S_ISFIFO	stat_impl/isXImpl.html#S_ISFIFO.t,Mode	template S_ISFIFO(mode`gensym4: Mode): bool		19
+nim	S_ISLNK	stat_impl/isXImpl.html#S_ISLNK.t,Mode	template S_ISLNK(mode`gensym5: Mode): bool		20
+nim	S_ISSOCK	stat_impl/isXImpl.html#S_ISSOCK.t,Mode	template S_ISSOCK(mode`gensym6: Mode): bool		21
+nim	S_ISDOOR	stat_impl/isXImpl.html#S_ISDOOR.t,Mode	template S_ISDOOR(mode: Mode): bool		24
+nim	S_ISPORT	stat_impl/isXImpl.html#S_ISPORT.t,Mode	template S_ISPORT(mode: Mode): bool		25
+nim	S_ISWHT	stat_impl/isXImpl.html#S_ISWHT.t,Mode	template S_ISWHT(mode: Mode): bool		26

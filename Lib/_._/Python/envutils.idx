@@ -1,0 +1,4 @@
+nimTitle	envutils	_._/Python/envutils.html	module src/pylib/Python/envutils		0
+nim	setenvOverwrite	_._/Python/envutils.html#setenvOverwrite,string,string	proc setenvOverwrite(key, val: string): bool		10
+nim	c_getenv	_._/Python/envutils.html#c_getenv,cstring	proc c_getenv(v: cstring): cstring		17
+nim	Py_SetLocaleFromEnv	_._/Python/envutils.html#Py_SetLocaleFromEnv,cint	proc Py_SetLocaleFromEnv(category: cint): cstring		22

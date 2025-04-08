@@ -1,0 +1,2 @@
+nimTitle	stat	stat.html	module src/pylib/Lib/stat		0
+nim	filemode	stat.html#filemode	proc filemode(omode: int | Mode): PyStr		10

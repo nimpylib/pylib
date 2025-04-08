@@ -1,0 +1,5 @@
+nimTitle	platformInfo	private/platformInfo.html	module src/pylib/Lib/private/platformInfo		0
+nim	platform.system	private/platformInfo.html#platform.system	const platform.system		18
+nim	ac_md_release	private/platformInfo.html#ac_md_release	proc ac_md_release(): string		38
+nim	uname_release_major	private/platformInfo.html#uname_release_major	proc uname_release_major(): string		53
+nim	platform.version	private/platformInfo.html#platform.version	proc platform.version(): string		57

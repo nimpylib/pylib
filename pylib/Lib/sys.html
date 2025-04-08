@@ -60,20 +60,6 @@
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#argv" title="argv: PyList[PyStr]">argv</a></li>
 <li><a class="reference" href="#orig_argv" title="orig_argv = newPyListOfCap(argc)">orig_argv</a></li>
-<li><a class="reference" href="#stderr" title="stderr = newNoEncTextIO(stderr, &quot;&lt;stderr&gt;&quot;, DefNewLine)">stderr</a></li>
-<li><a class="reference" href="#stdin" title="stdin = newNoEncTextIO(stdin, &quot;&lt;stdin&gt;&quot;, DefNewLine)">stdin</a></li>
-<li><a class="reference" href="#stdout" title="stdout = newNoEncTextIO(stdout, &quot;&lt;stdout&gt;&quot;, DefNewLine)">stdout</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#9" id="59">Lets</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#dunder_stderr" title="dunder_stderr = stderr">dunder_stderr</a></li>
-<li><a class="reference" href="#dunder_stdin" title="dunder_stdin = stdin">dunder_stdin</a></li>
-<li><a class="reference" href="#dunder_stdout" title="dunder_stdout = stdout">dunder_stdout</a></li>
 
     </ul>
   </details>
@@ -84,14 +70,10 @@
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#byteorder" title="byteorder = &quot;little&quot;">byteorder</a></li>
 <li><a class="reference" href="#copyright" title="copyright = &quot;MIT&quot;">copyright</a></li>
-<li><a class="reference" href="#float_info" title="float_info = (max: 1.7976931348623157e+308, max_exp: 1024, max_10_exp: 308,
-              min: 2.2250738585072014e-308, min_exp: -1021, min_10_exp: -307,
-              dig: 15, mant_dig: 53, epsilon: 2.220446049250313e-16, radix: 2)">float_info</a></li>
-<li><a class="reference" href="#float_repr_style" title="float_repr_style = &quot;short&quot;">float_repr_style</a></li>
 <li><a class="reference" href="#hexversion" title="hexversion = 51577072">hexversion</a></li>
-<li><a class="reference" href="#implementation" title="implementation = (&quot;pynim&quot;, (0, 9, 7, &quot;alpha&quot;, 0), 591856, false)">implementation</a></li>
+<li><a class="reference" href="#implementation" title="implementation = (&quot;pynim&quot;, (0, 9, 8, &quot;alpha&quot;, 0), 51577072, false)">implementation</a></li>
 <li><a class="reference" href="#maxsize" title="maxsize = 9223372036854775807'i64">maxsize</a></li>
-<li><a class="reference" href="#platform" title="platform: PyStr = &quot;linux&quot;">platform</a></li>
+<li><a class="reference" href="#platform" title="platform = &quot;linux&quot;">platform</a></li>
 <li><a class="reference" href="#version" title="version = &quot;3.13.0&quot;">version</a></li>
 <li><a class="reference" href="#version_info" title="version_info = (3, 13, 0, &quot;final&quot;, 0)">version_info</a></li>
 
@@ -103,9 +85,7 @@
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">exit
-  <li><a class="reference" href="#exit%2Cint" title="exit(c: int)">exit(c: int)</a></li>
-<li><a class="reference" href="#exit%2CPyStr" title="exit(s: PyStr)">exit(s: PyStr)</a></li>
-<li><a class="reference" href="#exit%2CNoneType" title="exit(x: NoneType)">exit(x: NoneType)</a></li>
+  <li><a class="reference" href="#exit%2CNoneType" title="exit(x: NoneType)">exit(x: NoneType)</a></li>
 <li><a class="reference" href="#exit%2CT" title="exit[T](obj: T)">exit[T](obj: T)</a></li>
 
 </ul>
@@ -123,31 +103,10 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#16" id="66">Converters</a></summary>
-    <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">noneStdstream
-  <li><a class="reference" href="#noneStdstream.c%2CNoneType" title="noneStdstream(n: NoneType): typeof(stdout)">noneStdstream(n: NoneType): typeof(stdout)</a></li>
-
-</ul>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">executable
   <li><a class="reference" href="#executable.t" title="executable(): PyStr">executable(): PyStr</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">getsizeof
-  <li><a class="reference" href="#getsizeof.t" title="getsizeof(x): int">getsizeof(x): int</a></li>
-<li><a class="reference" href="#getsizeof.t%2C%2Cint" title="getsizeof(x; default: int): int">getsizeof(x; default: int): int</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">rounds
-  <li><a class="reference" href="#rounds.t" title="rounds(fi: typeof(float_info)): int">rounds(fi: typeof(float_info)): int</a></li>
 
 </ul>
 
@@ -166,11 +125,11 @@
     
     <p class="module-desc">Lib/sys<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
 if not defined <tt class="docutils literal"><span class="pre"><span class="Identifier">pylibConfigIsolated</span></span></tt>, this module will call <tt class="docutils literal"><span class="pre"><span class="Identifier">setlocale</span><span class="Punctuation">(</span><span class="Identifier">LC_CTYPE</span><span class="Punctuation">,</span> <span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span></span></tt>, a.k.a. changing locale to user's configure, just as CPython's initialization.</div>
-under shared lib in POSIX, paramStr and paramCount are not available</p>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../Python/force_ascii_utils.html">../Python/force_ascii_utils</a>, <a class="reference external" href="../version.html">../version</a>, <a class="reference external" href="../builtins/list.html">../builtins/list</a>, <a class="reference external" href="../noneType.html">../noneType</a>, <a class="reference external" href="../pystring/strimpl.html">../pystring/strimpl</a>, <a class="reference external" href="../pyconfig/pycore/pymath.html">../pyconfig/pycore/pymath</a>, <a class="reference external" href="../Python/fileutils.html">../Python/fileutils</a>, <a class="reference external" href="../Python/envutils.html">../Python/envutils</a>, <a class="reference external" href="../Python/localeutils.html">../Python/localeutils</a>, <a class="reference external" href="private/platformInfo.html">private/platformInfo</a>, <a class="reference external" href="io.html">io</a>
+    <a class="reference external" href="../builtins/list.html">../builtins/list</a>, <a class="reference external" href="../noneType.html">../noneType</a>, <a class="reference external" href="../pystring/strimpl.html">../pystring/strimpl</a>, <a class="reference external" href="n_sys.html">n_sys</a>, <a class="reference external" href="sys_impl/genplatform.html">sys_impl/genplatform</a>, <a class="reference external" href="sys_impl/geninfos.html">sys_impl/geninfos</a>, <a class="reference external" href="sys_impl/genargs.html">sys_impl/genargs</a>
   </dl>
 </div>
 <div class="section" id="8">
@@ -181,8 +140,8 @@ under shared lib in POSIX, paramStr and paramCount are not available</p>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L228" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L228" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/genargs.nim#L39" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/genargs.nim#L39" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -192,74 +151,8 @@ under shared lib in POSIX, paramStr and paramCount are not available</p>
     
     
  .. hint:: rely on <tt class="docutils literal"><span class="pre"><span class="Identifier">paramCount</span></span></tt>&lt;<a class="reference external" href="https://nim-lang.org/docs/cmdline.html#paramCount">https://nim-lang.org/docs/cmdline.html#paramCount</a>&gt;_ and <tt class="docutils literal"><span class="pre"><span class="Identifier">paramStr</span></span></tt>&lt;<a class="reference external" href="https://nim-lang.org/docs/cmdline.html#paramStr%2Cint">https://nim-lang.org/docs/cmdline.html#paramStr%2Cint</a>&gt;_. See their document for availability.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L223" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L223" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="stderr">
-  <dt><pre><a href="sys.html#stderr"><span class="Identifier">stderr</span></a> <span class="Other">=</span> <span class="Identifier">newNoEncTextIO</span><span class="Other">(</span><span class="Identifier">stderr</span><span class="Other">,</span> <span class="StringLit">&quot;&lt;stderr&gt;&quot;</span><span class="Other">,</span> <a href="io.html#DefNewLine"><span class="Identifier">DefNewLine</span></a><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L111" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L111" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="stdin">
-  <dt><pre><a href="sys.html#stdin"><span class="Identifier">stdin</span></a> <span class="Other">=</span> <span class="Identifier">newNoEncTextIO</span><span class="Other">(</span><span class="Identifier">stdin</span><span class="Other">,</span> <span class="StringLit">&quot;&lt;stdin&gt;&quot;</span><span class="Other">,</span> <a href="io.html#DefNewLine"><span class="Identifier">DefNewLine</span></a><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L111" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L111" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="stdout">
-  <dt><pre><a href="sys.html#stdout"><span class="Identifier">stdout</span></a> <span class="Other">=</span> <span class="Identifier">newNoEncTextIO</span><span class="Other">(</span><span class="Identifier">stdout</span><span class="Other">,</span> <span class="StringLit">&quot;&lt;stdout&gt;&quot;</span><span class="Other">,</span> <a href="io.html#DefNewLine"><span class="Identifier">DefNewLine</span></a><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L111" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L111" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-  </dl>
-</div>
-<div class="section" id="9">
-  <h1><a class="toc-backref" href="#9">Lets</a></h1>
-  <dl class="item">
-    <div id="dunder_stderr">
-  <dt><pre><a href="sys.html#dunder_stderr"><span class="Identifier">dunder_stderr</span></a> <span class="Other">=</span> <a href="sys.html#stderr"><span class="Identifier">stderr</span></a></pre></dt>
-  <dd>
-    
-    __stderr__
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L125" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L125" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="dunder_stdin">
-  <dt><pre><a href="sys.html#dunder_stdin"><span class="Identifier">dunder_stdin</span></a> <span class="Other">=</span> <a href="sys.html#stdin"><span class="Identifier">stdin</span></a></pre></dt>
-  <dd>
-    
-    __stdin__
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L123" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L123" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="dunder_stdout">
-  <dt><pre><a href="sys.html#dunder_stdout"><span class="Identifier">dunder_stdout</span></a> <span class="Other">=</span> <a href="sys.html#stdout"><span class="Identifier">stdout</span></a></pre></dt>
-  <dd>
-    
-    __stdout__
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L124" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L124" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/genargs.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/genargs.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -274,8 +167,8 @@ under shared lib in POSIX, paramStr and paramCount are not available</p>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L208" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L208" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -284,31 +177,8 @@ under shared lib in POSIX, paramStr and paramCount are not available</p>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L209" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L209" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="float_info">
-  <dt><pre><a href="sys.html#float_info"><span class="Identifier">float_info</span></a> <span class="Other">=</span> <span class="Other">(</span><span class="Identifier">max</span><span class="Other">:</span> <span class="FloatNumber">1.7976931348623157e+308</span><span class="Other">,</span> <span class="Identifier">max_exp</span><span class="Other">:</span> <span class="DecNumber">1024</span><span class="Other">,</span> <span class="Identifier">max_10_exp</span><span class="Other">:</span> <span class="DecNumber">308</span><span class="Other">,</span>
-              <span class="Identifier">min</span><span class="Other">:</span> <span class="FloatNumber">2.2250738585072014e-308</span><span class="Other">,</span> <span class="Identifier">min_exp</span><span class="Other">:</span> <span class="DecNumber">-1021</span><span class="Other">,</span> <span class="Identifier">min_10_exp</span><span class="Other">:</span> <span class="DecNumber">-307</span><span class="Other">,</span>
-              <span class="Identifier">dig</span><span class="Other">:</span> <span class="DecNumber">15</span><span class="Other">,</span> <span class="Identifier">mant_dig</span><span class="Other">:</span> <span class="DecNumber">53</span><span class="Other">,</span> <span class="Identifier">epsilon</span><span class="Other">:</span> <span class="FloatNumber">2.220446049250313e-16</span><span class="Other">,</span> <span class="Identifier">radix</span><span class="Other">:</span> <span class="DecNumber">2</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    float_info.rounds is defined as a <tt class="docutils literal"><span class="pre"><span class="Identifier">getter</span></span></tt>, see <a class="reference internal nimdoc" title="template rounds(fi: typeof(float_info)): int" href="#rounds.t">rounds</a>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L138" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L138" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="float_repr_style">
-  <dt><pre><a href="sys.html#float_repr_style"><span class="Identifier">float_repr_style</span></a> <span class="Other">=</span> <span class="StringLit">&quot;short&quot;</span></pre></dt>
-  <dd>
-    
-    
- .. note:: when JS, this is &quot;legacy&quot; but currently <tt class="docutils literal"><span class="pre"><span class="Operator">$</span><span class="Identifier">float</span></span></tt> is still of short style. this only affects other function like <tt class="docutils literal"><span class="pre"><span class="Identifier">round</span><span class="Punctuation">(</span><span class="Identifier">float</span><span class="Punctuation">,</span> <span class="Identifier">int</span><span class="Punctuation">)</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L58" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L58" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -317,18 +187,18 @@ under shared lib in POSIX, paramStr and paramCount are not available</p>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L205" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L205" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L54" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L54" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="implementation">
-  <dt><pre><a href="sys.html#implementation"><span class="Identifier">implementation</span></a> <span class="Other">=</span> <span class="Other">(</span><span class="StringLit">&quot;pynim&quot;</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">9</span><span class="Other">,</span> <span class="DecNumber">7</span><span class="Other">,</span> <span class="StringLit">&quot;alpha&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="DecNumber">591856</span><span class="Other">,</span> <span class="DecNumber">false</span><span class="Other">)</span></pre></dt>
+  <dt><pre><a href="sys.html#implementation"><span class="Identifier">implementation</span></a> <span class="Other">=</span> <span class="Other">(</span><span class="StringLit">&quot;pynim&quot;</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">9</span><span class="Other">,</span> <span class="DecNumber">8</span><span class="Other">,</span> <span class="StringLit">&quot;alpha&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="DecNumber">51577072</span><span class="Other">,</span> <span class="DecNumber">false</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L187" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L187" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L47" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L47" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -337,21 +207,21 @@ under shared lib in POSIX, paramStr and paramCount are not available</p>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L207" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L207" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L56" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L56" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="platform">
-  <dt><pre><a href="sys.html#platform"><span class="Identifier">platform</span></a><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> <span class="Other">=</span> <span class="StringLit">&quot;linux&quot;</span></pre></dt>
+  <dt><pre><a href="sys.html#platform"><span class="Identifier">platform</span></a> <span class="Other">=</span> <span class="StringLit">&quot;linux&quot;</span></pre></dt>
   <dd>
     
     <div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
 the value is standalone for bare system</div>
 <p>and haiku/netbsd appended with major version instead of &quot;unknown&quot;. In short, this won't be &quot;unknown&quot; as Python does.</p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/genplatform.nim#L58" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/genplatform.nim#L58" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -360,8 +230,8 @@ the value is standalone for bare system</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L204" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L204" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -370,8 +240,8 @@ the value is standalone for bare system</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L197" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L197" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/geninfos.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/geninfos.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -382,33 +252,13 @@ the value is standalone for bare system</div>
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
     <div id="exit-procs-all">
-  <div id="exit,int">
-  <dt><pre><span class="Keyword">func</span> <a href="#exit%2Cint"><span class="Identifier">exit</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L129" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L129" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="exit,PyStr">
-  <dt><pre><span class="Keyword">proc</span> <a href="#exit%2CPyStr"><span class="Identifier">exit</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L128" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L128" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="exit,NoneType">
+  <div id="exit,NoneType">
   <dt><pre><span class="Keyword">func</span> <a href="#exit%2CNoneType"><span class="Identifier">exit</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="../noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L130" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L130" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -419,8 +269,8 @@ the value is standalone for bare system</div>
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
 this does not raise SystemExit, which differs Python's</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L131" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L131" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -431,11 +281,9 @@ this does not raise SystemExit, which differs Python's</div>
   <dt><pre><span class="Keyword">proc</span> <a href="#getdefaultencoding"><span class="Identifier">getdefaultencoding</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <p>Return the current default encoding used by the Unicode implementation.</p>
-<p>Always &quot;utf-8&quot; in Nim</p>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L287" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L287" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -447,28 +295,8 @@ this does not raise SystemExit, which differs Python's</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L368" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L368" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-
-  </dl>
-</div>
-<div class="section" id="16">
-  <h1><a class="toc-backref" href="#16">Converters</a></h1>
-  <dl class="item">
-    <div id="noneStdstream-converters-all">
-  <div id="noneStdstream.c,NoneType">
-  <dt><pre><span class="Keyword">converter</span> <a href="#noneStdstream.c%2CNoneType"><span class="Identifier">noneStdstream</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="../noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">typeof</span><span class="Other">(</span><span class="Identifier">stdout</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L126" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L126" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L27" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L27" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -493,44 +321,8 @@ this does not raise SystemExit, which differs Python's</div>
 <li>otherwise, it's the path of current app/exe.</li>
 </ul>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L263" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L263" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="getsizeof-templates-all">
-  <div id="getsizeof.t">
-  <dt><pre><span class="Keyword">template</span> <a href="#getsizeof.t"><span class="Identifier">getsizeof</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L273" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L273" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="getsizeof.t,,int">
-  <dt><pre><span class="Keyword">template</span> <a href="#getsizeof.t%2C%2Cint"><span class="Identifier">getsizeof</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
-  <dd>
-    
-    may be used when <tt class="docutils literal"><span class="pre"><span class="Identifier">sizeof</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">)</span></span></tt> is a compile-error e.g. <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span> <span class="Identifier">sizeof</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">:</span> <span class="Identifier">O</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">int</span><span class="Punctuation">{</span><span class="Operator">.</span><span class="Identifier">error</span><span class="Operator">.</span><span class="Punctuation">}</span></span></tt> for <tt class="docutils literal"><span class="pre"><span class="Identifier">O</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L277" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L277" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="rounds-templates-all">
-  <div id="rounds.t">
-  <dt><pre><span class="Keyword">template</span> <a href="#rounds.t"><span class="Identifier">rounds</span></a><span class="Other">(</span><span class="Identifier">fi</span><span class="Other">:</span> <span class="Identifier">typeof</span><span class="Other">(</span><span class="Identifier">float_info</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
-  <dd>
-    
-    not available when nimscript
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys.nim#L154" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys.nim#L154" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/sys_impl/genargs.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/sys_impl/genargs.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -546,7 +338,7 @@ this does not raise SystemExit, which differs Python's</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:27:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-08 14:59:52 UTC</small>
       </div>
     </div>
   </div>

@@ -1,0 +1,4 @@
+nimTitle	sizes	pylib/Lib/sys_impl/sizes.html	module src/pylib/Lib/sys_impl/sizes		0
+nim	getsizeof	pylib/Lib/sys_impl/sizes.html#getsizeof.t	template getsizeof(x): int		2
+nim	getsizeof	pylib/Lib/sys_impl/sizes.html#getsizeof.t,,int	template getsizeof(x; default: int): int		6
+nimgrp	getsizeof	pylib/Lib/sys_impl/sizes.html#getsizeof-templates-all	template		2

@@ -1,2 +1,2 @@
 nimTitle	handle_signal	os_impl/util/handle_signal.html	module src/pylib/Lib/os_impl/util/handle_signal		0
-nim	initVal_with_handle_signal	os_impl/util/handle_signal.html#initVal_with_handle_signal.t,R,	template initVal_with_handle_signal[R](res: var R; resExpr)		6
+nim	initVal_with_handle_signal	os_impl/util/handle_signal.html#initVal_with_handle_signal.t,R,	template initVal_with_handle_signal[R](res: var R; resExpr)		7

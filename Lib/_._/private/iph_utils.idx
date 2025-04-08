@@ -1,3 +1,2 @@
 nimTitle	iph_utils	_._/private/iph_utils.html	module src/pylib/private/iph_utils		0
-nim	MS_WINDOWS	_._/private/iph_utils.html#MS_WINDOWS	const MS_WINDOWS		7
 nim	with_Py_SUPPRESS_IPH	_._/private/iph_utils.html#with_Py_SUPPRESS_IPH.t	template with_Py_SUPPRESS_IPH(body)		33

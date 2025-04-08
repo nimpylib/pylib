@@ -1,0 +1,16 @@
+nimTitle	types	_._/pyerrors/oserr/types.html	module src/pylib/pyerrors/oserr/types		0
+nim	BlockingIOError	_._/pyerrors/oserr/types.html#BlockingIOError	object BlockingIOError		6
+nim	ConnectionError	_._/pyerrors/oserr/types.html#ConnectionError	object ConnectionError		6
+nim	ChildProcessError	_._/pyerrors/oserr/types.html#ChildProcessError	object ChildProcessError		6
+nim	BrokenPipeError	_._/pyerrors/oserr/types.html#BrokenPipeError	object BrokenPipeError		6
+nim	ConnectionAbortedError	_._/pyerrors/oserr/types.html#ConnectionAbortedError	object ConnectionAbortedError		6
+nim	ConnectionRefusedError	_._/pyerrors/oserr/types.html#ConnectionRefusedError	object ConnectionRefusedError		6
+nim	ConnectionResetError	_._/pyerrors/oserr/types.html#ConnectionResetError	object ConnectionResetError		6
+nim	FileExistsError	_._/pyerrors/oserr/types.html#FileExistsError	object FileExistsError		6
+nim	FileNotFoundError	_._/pyerrors/oserr/types.html#FileNotFoundError	object FileNotFoundError		6
+nim	IsADirectoryError	_._/pyerrors/oserr/types.html#IsADirectoryError	object IsADirectoryError		6
+nim	NotADirectoryError	_._/pyerrors/oserr/types.html#NotADirectoryError	object NotADirectoryError		6
+nim	InterruptedError	_._/pyerrors/oserr/types.html#InterruptedError	object InterruptedError		6
+nim	PermissionError	_._/pyerrors/oserr/types.html#PermissionError	object PermissionError		6
+nim	ProcessLookupError	_._/pyerrors/oserr/types.html#ProcessLookupError	object ProcessLookupError		6
+nim	TimeoutError	_._/pyerrors/oserr/types.html#TimeoutError	object TimeoutError		6

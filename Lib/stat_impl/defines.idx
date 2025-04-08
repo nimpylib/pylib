@@ -1,0 +1,4 @@
+nimTitle	defines	stat_impl/defines.html	module src/pylib/Lib/stat_impl/defines		0
+nim	DW	stat_impl/defines.html#DW	const DW		3
+nim	APPLE	stat_impl/defines.html#APPLE	const APPLE		4
+nim	SYS_STAT_H	stat_impl/defines.html#SYS_STAT_H	const SYS_STAT_H		6

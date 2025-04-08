@@ -1,10 +1,10 @@
 nimTitle	funcs	resource_impl/funcs.html	module src/pylib/Lib/resource_impl/funcs		0
 nim	getrusage	resource_impl/funcs.html#getrusage,int	proc getrusage(who: int): struct_rusage		8
 nim	py_rlimit	resource_impl/funcs.html#py_rlimit	tuple py_rlimit		17
-nim	checked_resource	resource_impl/funcs.html#checked_resource,int	proc checked_resource(resource: int): cint		31
-nim	getrlimit	resource_impl/funcs.html#getrlimit,int	proc getrlimit(resource: int): py_rlimit		36
-nim	setrlimit	resource_impl/funcs.html#setrlimit,int,py_rlimit	proc setrlimit(resource: int; limits: py_rlimit)		44
-nim	prlimit	resource_impl/funcs.html#prlimit,int,int	proc prlimit(pid: int; resource: int): py_rlimit		57
-nim	prlimit	resource_impl/funcs.html#prlimit,int,int,py_rlimit	proc prlimit(pid: int; resource: int; limits: py_rlimit): py_rlimit		67
-nim	getpagesize	resource_impl/funcs.html#getpagesize	proc getpagesize(): int		82
-nimgrp	prlimit	resource_impl/funcs.html#prlimit-procs-all	proc		57
+nim	checked_resource	resource_impl/funcs.html#checked_resource,int	proc checked_resource(resource: int): cint		39
+nim	getrlimit	resource_impl/funcs.html#getrlimit,int	proc getrlimit(resource: int): py_rlimit		44
+nim	setrlimit	resource_impl/funcs.html#setrlimit,int,py_rlimit_abc	proc setrlimit(resource: int; limits: py_rlimit_abc)		52
+nim	prlimit	resource_impl/funcs.html#prlimit,int,int	proc prlimit(pid: int; resource: int): py_rlimit		65
+nim	prlimit	resource_impl/funcs.html#prlimit,int,int,py_rlimit_abc	proc prlimit(pid: int; resource: int; limits: py_rlimit_abc): py_rlimit		75
+nim	getpagesize	resource_impl/funcs.html#getpagesize	proc getpagesize(): int		90
+nimgrp	prlimit	resource_impl/funcs.html#prlimit-procs-all	proc		65

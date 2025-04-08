@@ -1,0 +1,12 @@
+nimTitle	n_sys	n_sys.html	module src/pylib/Lib/n_sys		0
+nim	platform	n_sys.html#platform	const platform		58
+nim	version_info	n_sys.html#version_info	const version_info		33
+nim	implementation	n_sys.html#implementation	const implementation		47
+nim	version	n_sys.html#version	const version		53
+nim	hexversion	n_sys.html#hexversion	const hexversion		54
+nim	maxsize	n_sys.html#maxsize	const maxsize		56
+nim	byteorder	n_sys.html#byteorder	const byteorder		57
+nim	copyright	n_sys.html#copyright	const copyright		58
+nim	orig_argv	n_sys.html#orig_argv	var orig_argv		34
+nim	argv	n_sys.html#argv	var argv		39
+nim	executable	n_sys.html#executable.t	template executable(): string		61

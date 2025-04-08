@@ -1,0 +1,4 @@
+nimTitle	fenvs	pylib/Lib/sys_impl/fenvs.html	module src/pylib/Lib/sys_impl/fenvs		0
+nim	float_repr_style	pylib/Lib/sys_impl/fenvs.html#float_repr_style	const float_repr_style		6
+nim	float_info	pylib/Lib/sys_impl/fenvs.html#float_info	const float_info		15
+nim	rounds	pylib/Lib/sys_impl/fenvs.html#rounds.t	template rounds(fi: typeof(float_info)): int		31

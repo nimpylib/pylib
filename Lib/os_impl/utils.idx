@@ -3,4 +3,4 @@ nim	getcwd	os_impl/utils.html#getcwd	proc getcwd(): PyStr		18
 nim	getcwdb	os_impl/utils.html#getcwdb	proc getcwdb(): PyBytes		19
 nim	chdir	os_impl/utils.html#chdir,PathLike	proc chdir(s: PathLike)		20
 nim	makedirs	os_impl/utils.html#makedirs,PathLike[T],int	proc makedirs[T](d: PathLike[T]; mode = 0o000000000777; exists_ok = false)		22
-nim	removedirs	os_impl/utils.html#removedirs,PathLike	proc removedirs(d: PathLike)		35
+nim	removedirs	os_impl/utils.html#removedirs,PathLike	proc removedirs(d: PathLike)		34

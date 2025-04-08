@@ -1,0 +1,2 @@
+nimTitle	genargs	pylib/Lib/sys_impl/genargs.html	module src/pylib/Lib/sys_impl/genargs		0
+nim	genArgs	pylib/Lib/sys_impl/genargs.html#genArgs.t,,,,,	template genArgs(St, Ls; S; lsCopy, lsOfCap)		23

@@ -4,6 +4,6 @@ nim	prepareROErrno	errno_impl/errnoUtils.html#prepareROErrno.t	template prepareR
 nim	setErrnoRaw	errno_impl/errnoUtils.html#setErrnoRaw.t,cint	template setErrnoRaw(v: cint)		12
 nim	setErrno	errno_impl/errnoUtils.html#setErrno.t,untyped	template setErrno(v: untyped)		19
 nim	setErrno0	errno_impl/errnoUtils.html#setErrno0.t	template setErrno0()		26
-nim	getErrno	errno_impl/errnoUtils.html#getErrno.t	template getErrno(): cint		33
-nim	isErr	errno_impl/errnoUtils.html#isErr.t,untyped	template isErr(E: untyped): bool		43
-nim	isErr0	errno_impl/errnoUtils.html#isErr0.t	template isErr0(): bool		53
+nim	getErrno	errno_impl/errnoUtils.html#getErrno	proc getErrno(): cint		33
+nim	isErr	errno_impl/errnoUtils.html#isErr.t,untyped	template isErr(E: untyped): bool		41
+nim	isErr0	errno_impl/errnoUtils.html#isErr0.t	template isErr0(): bool		51

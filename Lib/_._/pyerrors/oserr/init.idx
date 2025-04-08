@@ -1,0 +1,5 @@
+nimTitle	init	_._/pyerrors/oserr/init.html	module src/pylib/pyerrors/oserr/init		0
+nim	newPyOSError	_._/pyerrors/oserr/init.html#newPyOSError,cint,string,string,cint,string	proc newPyOSError(myerrno: cint; strerr: string; filename = ""; winerror: cint = 0;\n             filename2 = ""): ref PyOSError		11
+nim	PyOSError	_._/pyerrors/oserr/init.html#PyOSError,cint,string,string,cint,string	proc PyOSError(myerrno: cint; strerr: string; filename = ""; winerror: cint = 0;\n          filename2 = ""): ref PyOSError		12
+nim	newBlockingIOError	_._/pyerrors/oserr/init.html#newBlockingIOError,cint,string,int,cint,string	proc newBlockingIOError(myerrno: cint; strerr: string; filename = 0;\n                   winerror: cint = 0; filename2 = ""): ref PyOSError		11
+nim	BlockingIOError	_._/pyerrors/oserr/init.html#BlockingIOError,cint,string,int,cint,string	proc BlockingIOError(myerrno: cint; strerr: string; filename = 0; winerror: cint = 0;\n                filename2 = ""): ref PyOSError		12

@@ -1,0 +1,3 @@
+nimTitle	genplatform	pylib/Lib/sys_impl/genplatform.html	module src/pylib/Lib/sys_impl/genplatform		0
+nim	getPlatform	pylib/Lib/sys_impl/genplatform.html#getPlatform	proc getPlatform(): string		21
+nim	genPlatform	pylib/Lib/sys_impl/genplatform.html#genPlatform.t	template genPlatform(S)		53

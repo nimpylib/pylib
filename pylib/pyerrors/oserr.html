@@ -56,75 +56,37 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#FileExistsError" title="FileExistsError = object of OSError">FileExistsError</a></li>
-<li><a class="reference" href="#FileNotFoundError" title="FileNotFoundError = object of OSError">FileNotFoundError</a></li>
-<li><a class="reference" href="#IsADirectoryError" title="IsADirectoryError = object of OSError">IsADirectoryError</a></li>
-<li><a class="reference" href="#NotADirectoryError" title="NotADirectoryError = object of OSError">NotADirectoryError</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
-    <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#InJs" title="InJs = false">InJs</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">errnoMsg
-  <li><a class="reference" href="#errnoMsg%2Ccint" title="errnoMsg(errnoCode: cint): string">errnoMsg(errnoCode: cint): string</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">isNotFound
-  <li><a class="reference" href="#isNotFound%2COSErrorCode" title="isNotFound(err: OSErrorCode): bool">isNotFound(err: OSErrorCode): bool</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">pathsAsOne
-  <li><a class="reference" href="#pathsAsOne%2CPathLike%5BT%5D%2CPathLike%5BT%5D%2Cstring" title="pathsAsOne[T](a, b: PathLike[T]; sep = &quot; -&gt; &quot;): string">pathsAsOne[T](a, b: PathLike[T]; sep = &quot; -&gt; &quot;): string</a></li>
+  <li><a class="reference" href="#errnoMsg%2Ccint" title="errnoMsg(errno: cint): string">errnoMsg(errno: cint): string</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">raiseErrno
-  <li><a class="reference" href="#raiseErrno%2Cstring" title="raiseErrno(additionalInfo = &quot;&quot;)">raiseErrno(additionalInfo = &quot;&quot;)</a></li>
-<li><a class="reference" href="#raiseErrno%2Ccint%2Cstring" title="raiseErrno(errno: cint; additionalInfo = &quot;&quot;)">raiseErrno(errno: cint; additionalInfo = &quot;&quot;)</a></li>
+  <li><a class="reference" href="#raiseErrno" title="raiseErrno(errno = getErrno())">raiseErrno(errno = getErrno())</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">raiseErrnoT
-  <li><a class="reference" href="#raiseErrnoT%2Cstring" title="raiseErrnoT[E: OSError](additionalInfo = &quot;&quot;)">raiseErrnoT[E: OSError](additionalInfo = &quot;&quot;)</a></li>
+  <li><a class="reference" href="#raiseErrnoT" title="raiseErrnoT[T: PyOSError](errno = getErrno())">raiseErrnoT[T: PyOSError](errno = getErrno())</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">raiseErrnoWithPath
-  <li><a class="reference" href="#raiseErrnoWithPath%2CPathLike%5BT%5D" title="raiseErrnoWithPath[T](p: PathLike[T])">raiseErrnoWithPath[T](p: PathLike[T])</a></li>
-<li><a class="reference" href="#raiseErrnoWithPath%2CPathLike%5BT%5D%2Ccint" title="raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)">raiseErrnoWithPath[T](p: PathLike[T]; errno: cint)</a></li>
+  <li><a class="reference" href="#raiseErrnoWithPath%2CPathLike%5BT%5D" title="raiseErrnoWithPath[T](p: PathLike[T]; errno = getErrno())">raiseErrnoWithPath[T](p: PathLike[T]; errno = getErrno())</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">raiseExcWithPath
-  <li><a class="reference" href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode" title="raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode)">raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode)</a></li>
-<li><a class="reference" href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode%2Cstring" title="raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;
+  <li><a class="reference" href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode%2Cstring" title="raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;
                  additionalInfo: string)">raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;
                  additionalInfo: string)</a></li>
+<li><a class="reference" href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode%2Cproc" title="raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;
+                 osErrorMsgCb: proc = osErrorMsg)">raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;
+                 osErrorMsgCb: proc = osErrorMsg)</a></li>
 <li><a class="reference" href="#raiseExcWithPath%2CPathLike" title="raiseExcWithPath(p: PathLike)">raiseExcWithPath(p: PathLike)</a></li>
 <li><a class="reference" href="#raiseExcWithPath%2CPathLike%2COSErrorCode" title="raiseExcWithPath(p: PathLike; errCode: OSErrorCode)">raiseExcWithPath(p: PathLike; errCode: OSErrorCode)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">raiseExcWithPath2
   <li><a class="reference" href="#raiseExcWithPath2%2CPathLike%2CPathLike" title="raiseExcWithPath2(src, dst: PathLike)">raiseExcWithPath2(src, dst: PathLike)</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">raiseFileExistsError
-  <li><a class="reference" href="#raiseFileExistsError%2CPathLike" title="raiseFileExistsError(fp: PathLike)">raiseFileExistsError(fp: PathLike)</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">raiseFileNotFoundError
-  <li><a class="reference" href="#raiseFileNotFoundError%2CPathLike" title="raiseFileNotFoundError(fp: PathLike)">raiseFileNotFoundError(fp: PathLike)</a></li>
-<li><a class="reference" href="#raiseFileNotFoundError%2CPathLike%2COSErrorCode" title="raiseFileNotFoundError(fp: PathLike; err: OSErrorCode)">raiseFileNotFoundError(fp: PathLike; err: OSErrorCode)</a></li>
 
 </ul>
 
@@ -145,7 +107,10 @@
 
 </ul>
 <ul class="simple nested-toc-section">tryOsOp
-  <li><a class="reference" href="#tryOsOp.t%2CPathLike%2C" title="tryOsOp(p: PathLike; body)">tryOsOp(p: PathLike; body)</a></li>
+  <li><a class="reference" href="#tryOsOp.t%2CPathLike%2CPathLike%2C" title="tryOsOp(p1, p2: PathLike; body)">tryOsOp(p1, p2: PathLike; body)</a></li>
+<li><a class="reference" href="#tryOsOp.t%2CPathLike%2C" title="tryOsOp(p: PathLike; body)">tryOsOp(p: PathLike; body)</a></li>
+<li><a class="reference" href="#tryOsOp.t%2CPathLike%2Cbool%2C" title="tryOsOp(p: PathLike; raiseCond: bool; body)">tryOsOp(p: PathLike; raiseCond: bool; body)</a></li>
+<li><a class="reference" href="#tryOsOp.t%2Cbool%2C" title="tryOsOp(raiseCond: bool; body)">tryOsOp(raiseCond: bool; body)</a></li>
 
 </ul>
 
@@ -162,73 +127,14 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc"></p>
+    <p class="module-desc"><p>See CPython's Objects/exceptions.c</p>
+<p><tt class="docutils literal"><span class="pre"><span class="Identifier">OSError_new</span></span></tt>(a.k.a. <tt class="docutils literal"><span class="pre"><span class="Identifier">OSError</span><span class="Operator">.</span><span class="Identifier">__new__</span></span></tt>) will returns a subclass of OSError, via lookup in <tt class="docutils literal"><span class="pre"><span class="Identifier">state</span><span class="Operator">-&gt;</span><span class="Identifier">errnomap</span></span></tt>, which is initialized by <tt class="docutils literal"><span class="pre"><span class="Identifier">_PyExc_InitState</span></span></tt>,</p>
+<p>where key-value pairs are inserted via <tt class="docutils literal"><span class="pre"><span class="Identifier">ADD_ERRNO</span></span></tt> macro. </p>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../io_abc.html">../io_abc</a>, <a class="reference external" href="../private/backendMark.html">../private/backendMark</a>
-  </dl>
-</div>
-<div class="section" id="7">
-  <h1><a class="toc-backref" href="#7">Types</a></h1>
-  <dl class="item">
-    <div id="FileExistsError">
-  <dt><pre><a href="oserr.html#FileExistsError"><span class="Identifier">FileExistsError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">OSError</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="FileNotFoundError">
-  <dt><pre><a href="oserr.html#FileNotFoundError"><span class="Identifier">FileNotFoundError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">OSError</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="IsADirectoryError">
-  <dt><pre><a href="oserr.html#IsADirectoryError"><span class="Identifier">IsADirectoryError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">OSError</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="NotADirectoryError">
-  <dt><pre><a href="oserr.html#NotADirectoryError"><span class="Identifier">NotADirectoryError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">OSError</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-  </dl>
-</div>
-<div class="section" id="10">
-  <h1><a class="toc-backref" href="#10">Consts</a></h1>
-  <dl class="item">
-    <div id="InJs">
-  <dt><pre><a href="oserr.html#InJs"><span class="Identifier">InJs</span></a> <span class="Other">=</span> <span class="DecNumber">false</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L11" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L11" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
+    <a class="reference external" href="../io_abc.html">../io_abc</a>, <a class="reference external" href="../private/backendMark.html">../private/backendMark</a>, <a class="reference external" href="../Lib/errno_impl/errnoUtils.html">../Lib/errno_impl/errnoUtils</a>, <a class="reference external" href="oserr/types.html">oserr/types</a>, <a class="reference external" href="oserr/errmap.html">oserr/errmap</a>, <a class="reference external" href="oserr/oserror_new.html">oserr/oserror_new</a>, <a class="reference external" href="oserr/init.html">oserr/init</a>, <a class="reference external" href="oserr/oserror_str.html">oserr/oserror_str</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -236,75 +142,38 @@
   <dl class="item">
     <div id="errnoMsg-procs-all">
   <div id="errnoMsg,cint">
-  <dt><pre><span class="Keyword">func</span> <a href="#errnoMsg%2Ccint"><span class="Identifier">errnoMsg</span></a><span class="Other">(</span><span class="Identifier">errnoCode</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#errnoMsg%2Ccint"><span class="Identifier">errnoMsg</span></a><span class="Other">(</span><span class="Identifier">errno</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L178" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L178" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="isNotFound-procs-all">
-  <div id="isNotFound,OSErrorCode">
-  <dt><pre><span class="Keyword">proc</span> <a href="#isNotFound%2COSErrorCode"><span class="Identifier">isNotFound</span></a><span class="Other">(</span><span class="Identifier">err</span><span class="Other">:</span> <span class="Identifier">OSErrorCode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L40" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L40" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="pathsAsOne-procs-all">
-  <div id="pathsAsOne,PathLike[T],PathLike[T],string">
-  <dt><pre><span class="Keyword">func</span> <a href="#pathsAsOne%2CPathLike%5BT%5D%2CPathLike%5BT%5D%2Cstring"><span class="Identifier">pathsAsOne</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">sep</span> <span class="Other">=</span> <span class="StringLit">&quot; -&gt; &quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
-  <dd>
-    
-    used when there are two pathes that needs to be reported in error message. called by <a class="reference internal nimdoc" title="proc raiseExcWithPath2(src, dst: PathLike)" href="#raiseExcWithPath2,PathLike,PathLike">raiseExcWithPath2</a>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L119" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L119" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="raiseErrno-procs-all">
-  <div id="raiseErrno,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrno%2Cstring"><span class="Identifier">raiseErrno</span></a><span class="Other">(</span><span class="Identifier">additionalInfo</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="raiseErrno">
+  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrno"><span class="Identifier">raiseErrno</span></a><span class="Other">(</span><span class="Identifier">errno</span> <span class="Other">=</span> <span class="Identifier">getErrno</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L228" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L228" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="raiseErrno,cint,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrno%2Ccint%2Cstring"><span class="Identifier">raiseErrno</span></a><span class="Other">(</span><span class="Identifier">errno</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">additionalInfo</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    may raise OSError only
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L194" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L194" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    may raise subclass of OSError
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L129" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L129" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="raiseErrnoT-procs-all">
-  <div id="raiseErrnoT,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrnoT%2Cstring"><span class="Identifier">raiseErrnoT</span></a><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">additionalInfo</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span></pre></dt>
+  <div id="raiseErrnoT">
+  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrnoT"><span class="Identifier">raiseErrnoT</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <a href="oserr/oserror_decl.html#PyOSError"><span class="Identifier">PyOSError</span></a><span class="Other">]</span><span class="Other">(</span><span class="Identifier">errno</span> <span class="Other">=</span> <span class="Identifier">getErrno</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
   <dd>
     
-    may raise <tt class="docutils literal"><span class="pre"><span class="Identifier">E</span></span></tt> only
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L225" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L225" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L133" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L133" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -312,46 +181,37 @@
 </div>
 <div id="raiseErrnoWithPath-procs-all">
   <div id="raiseErrnoWithPath,PathLike[T]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrnoWithPath%2CPathLike%5BT%5D"><span class="Identifier">raiseErrnoWithPath</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="raiseErrnoWithPath,PathLike[T],cint">
-  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrnoWithPath%2CPathLike%5BT%5D%2Ccint"><span class="Identifier">raiseErrnoWithPath</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">errno</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#raiseErrnoWithPath%2CPathLike%5BT%5D"><span class="Identifier">raiseErrnoWithPath</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">errno</span> <span class="Other">=</span> <span class="Identifier">getErrno</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
   <dd>
     
     raises OSError or its SubError. refer to errno even under Windows.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L198" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L198" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="raiseExcWithPath-procs-all">
-  <div id="raiseExcWithPath,PathLike,typedesc,OSErrorCode">
-  <dt><pre><span class="Keyword">func</span> <a href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode"><span class="Identifier">raiseExcWithPath</span></a><span class="Other">(</span><span class="Identifier">fp</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">exc</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">;</span> <span class="Identifier">err</span><span class="Other">:</span> <span class="Identifier">OSErrorCode</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L65" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L65" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="raiseExcWithPath,PathLike,typedesc,OSErrorCode,string">
+  <div id="raiseExcWithPath,PathLike,typedesc,OSErrorCode,string">
   <dt><pre><span class="Keyword">func</span> <a href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode%2Cstring"><span class="Identifier">raiseExcWithPath</span></a><span class="Other">(</span><span class="Identifier">fp</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">exc</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">;</span> <span class="Identifier">err</span><span class="Other">:</span> <span class="Identifier">OSErrorCode</span><span class="Other">;</span>
                       <span class="Identifier">additionalInfo</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="raiseExcWithPath,PathLike,typedesc,OSErrorCode,proc">
+  <dt><pre><span class="Keyword">proc</span> <a href="#raiseExcWithPath%2CPathLike%2Ctypedesc%2COSErrorCode%2Cproc"><span class="Identifier">raiseExcWithPath</span></a><span class="Other">(</span><span class="Identifier">fp</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">exc</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">;</span> <span class="Identifier">err</span><span class="Other">:</span> <span class="Identifier">OSErrorCode</span><span class="Other">;</span>
+                      <span class="Identifier">osErrorMsgCb</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">=</span> <span class="Identifier">osErrorMsg</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L56" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L56" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -360,8 +220,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L152" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L152" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -370,8 +230,8 @@
   <dd>
     
     raises OSError or its one of SubError type
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L146" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L146" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L71" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L71" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -383,44 +243,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L161" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L161" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="raiseFileExistsError-procs-all">
-  <div id="raiseFileExistsError,PathLike">
-  <dt><pre><span class="Keyword">func</span> <a href="#raiseFileExistsError%2CPathLike"><span class="Identifier">raiseFileExistsError</span></a><span class="Other">(</span><span class="Identifier">fp</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L118" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L118" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="raiseFileNotFoundError-procs-all">
-  <div id="raiseFileNotFoundError,PathLike">
-  <dt><pre><span class="Keyword">func</span> <a href="#raiseFileNotFoundError%2CPathLike"><span class="Identifier">raiseFileNotFoundError</span></a><span class="Other">(</span><span class="Identifier">fp</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    with static msg: &quot;No such file or directory&quot;
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="raiseFileNotFoundError,PathLike,OSErrorCode">
-  <dt><pre><span class="Keyword">func</span> <a href="#raiseFileNotFoundError%2CPathLike%2COSErrorCode"><span class="Identifier">raiseFileNotFoundError</span></a><span class="Other">(</span><span class="Identifier">fp</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">err</span><span class="Other">:</span> <span class="Identifier">OSErrorCode</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    under Windows, both ERROR_FILE_NOT_FOUND and ERROR_PATH_NOT_FOUND lead to FileNotFoundError, at pass <tt class="docutils literal"><span class="pre"><span class="Identifier">err</span></span></tt> to distinguish them
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L84" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L84" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -438,8 +262,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L84" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L84" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -451,8 +275,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L58" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L58" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L52" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L52" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -461,21 +285,51 @@
   <dd>
     
     always suffixed with a <tt class="docutils literal"><span class="pre"><span class="Operator">\</span><span class="Identifier">n</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="tryOsOp-templates-all">
-  <div id="tryOsOp.t,PathLike,">
+  <div id="tryOsOp.t,PathLike,PathLike,">
+  <dt><pre><span class="Keyword">template</span> <a href="#tryOsOp.t%2CPathLike%2CPathLike%2C"><span class="Identifier">tryOsOp</span></a><span class="Other">(</span><span class="Identifier">p1</span><span class="Other">,</span> <span class="Identifier">p2</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L110" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L110" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="tryOsOp.t,PathLike,">
   <dt><pre><span class="Keyword">template</span> <a href="#tryOsOp.t%2CPathLike%2C"><span class="Identifier">tryOsOp</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L164" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L164" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L93" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L93" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="tryOsOp.t,PathLike,bool,">
+  <dt><pre><span class="Keyword">template</span> <a href="#tryOsOp.t%2CPathLike%2Cbool%2C"><span class="Identifier">tryOsOp</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="../io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">;</span> <span class="Identifier">raiseCond</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="tryOsOp.t,bool,">
+  <dt><pre><span class="Keyword">template</span> <a href="#tryOsOp.t%2Cbool%2C"><span class="Identifier">tryOsOp</span></a><span class="Other">(</span><span class="Identifier">raiseCond</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyerrors/oserr.nim#L104" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyerrors/oserr.nim#L104" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -491,7 +345,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:27:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-08 14:59:46 UTC</small>
       </div>
     </div>
   </div>

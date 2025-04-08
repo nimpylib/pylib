@@ -1,0 +1,4 @@
+nimTitle	defined_macros	pylib/Lib/os_impl/private/defined_macros.html	module src/pylib/Lib/os_impl/private/defined_macros		0
+nim	MS_WINDOWS	pylib/Lib/os_impl/private/defined_macros.html#MS_WINDOWS	const MS_WINDOWS		2
+nim	ms_windows	pylib/Lib/os_impl/private/defined_macros.html#ms_windows_2	const ms_windows		4
+nim	InJs	pylib/Lib/os_impl/private/defined_macros.html#InJs	const InJs		8

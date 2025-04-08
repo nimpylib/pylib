@@ -1,0 +1,4 @@
+nimTitle	exits	sys_impl/exits.html	module src/pylib/Lib/sys_impl/exits		0
+nim	exit	sys_impl/exits.html#exit,string	proc exit(s: string)		2
+nim	exit	sys_impl/exits.html#exit,int	proc exit(c: int)		3
+nimgrp	exit	sys_impl/exits.html#exit-procs-all	proc		2

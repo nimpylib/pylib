@@ -1,0 +1,7 @@
+nimTitle	stdio	sys_impl/stdio.html	module src/pylib/Lib/sys_impl/stdio		0
+nim	stdin	sys_impl/stdio.html#stdin	var stdin		11
+nim	stdout	sys_impl/stdio.html#stdout	var stdout		11
+nim	stderr	sys_impl/stdio.html#stderr	var stderr		11
+nim	dunder_stdin	sys_impl/stdio.html#dunder_stdin	let dunder_stdin		23
+nim	dunder_stdout	sys_impl/stdio.html#dunder_stdout	let dunder_stdout		24
+nim	dunder_stderr	sys_impl/stdio.html#dunder_stderr	let dunder_stderr		25

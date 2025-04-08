@@ -85,11 +85,11 @@
 </ul>
 <ul class="simple nested-toc-section">prlimit
   <li><a class="reference" href="#prlimit%2Cint%2Cint" title="prlimit(pid: int; resource: int): py_rlimit">prlimit(pid: int; resource: int): py_rlimit</a></li>
-<li><a class="reference" href="#prlimit%2Cint%2Cint%2Cpy_rlimit" title="prlimit(pid: int; resource: int; limits: py_rlimit): py_rlimit">prlimit(pid: int; resource: int; limits: py_rlimit): py_rlimit</a></li>
+<li><a class="reference" href="#prlimit%2Cint%2Cint%2Cpy_rlimit_abc" title="prlimit(pid: int; resource: int; limits: py_rlimit_abc): py_rlimit">prlimit(pid: int; resource: int; limits: py_rlimit_abc): py_rlimit</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">setrlimit
-  <li><a class="reference" href="#setrlimit%2Cint%2Cpy_rlimit" title="setrlimit(resource: int; limits: py_rlimit)">setrlimit(resource: int; limits: py_rlimit)</a></li>
+  <li><a class="reference" href="#setrlimit%2Cint%2Cpy_rlimit_abc" title="setrlimit(resource: int; limits: py_rlimit_abc)">setrlimit(resource: int; limits: py_rlimit_abc)</a></li>
 
 </ul>
 
@@ -139,8 +139,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L39" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L39" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -152,8 +152,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L82" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L82" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L90" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L90" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -161,13 +161,13 @@
 </div>
 <div id="getrlimit-procs-all">
   <div id="getrlimit,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getrlimit%2Cint"><span class="Identifier">getrlimit</span></a><span class="Other">(</span><span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#getrlimit%2Cint"><span class="Identifier">getrlimit</span></a><span class="Other">(</span><span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -175,7 +175,7 @@
 </div>
 <div id="getrusage-procs-all">
   <div id="getrusage,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getrusage%2Cint"><span class="Identifier">getrusage</span></a><span class="Other">(</span><span class="Identifier">who</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="types.html#struct_rusage"><span class="Identifier">struct_rusage</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#getrusage%2Cint"><span class="Identifier">getrusage</span></a><span class="Other">(</span><span class="Identifier">who</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="types.html#struct_rusage"><span class="Identifier">struct_rusage</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -190,37 +190,36 @@
 <div id="prlimit-procs-all">
   <div id="prlimit,int,int">
   <dt><pre><span class="Keyword">proc</span> <a href="#prlimit%2Cint%2Cint"><span class="Identifier">prlimit</span></a><span class="Other">(</span><span class="Identifier">pid</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a> {.<span class="Identifier">discardable</span><span class="Other">,</span>
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L65" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L65" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="prlimit,int,int,py_rlimit">
-  <dt><pre><span class="Keyword">proc</span> <a href="#prlimit%2Cint%2Cint%2Cpy_rlimit"><span class="Identifier">prlimit</span></a><span class="Other">(</span><span class="Identifier">pid</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">limits</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a><span class="Other">)</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="prlimit,int,int,py_rlimit_abc">
+  <dt><pre><span class="Keyword">proc</span> <a href="#prlimit%2Cint%2Cint%2Cpy_rlimit_abc"><span class="Identifier">prlimit</span></a><span class="Other">(</span><span class="Identifier">pid</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">limits</span><span class="Other">:</span> <span class="Identifier">py_rlimit_abc</span><span class="Other">)</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a> {.
+    <span class="Identifier">discardable</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L67" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L67" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="setrlimit-procs-all">
-  <div id="setrlimit,int,py_rlimit">
-  <dt><pre><span class="Keyword">proc</span> <a href="#setrlimit%2Cint%2Cpy_rlimit"><span class="Identifier">setrlimit</span></a><span class="Other">(</span><span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">limits</span><span class="Other">:</span> <a href="funcs.html#py_rlimit"><span class="Identifier">py_rlimit</span></a><span class="Other">)</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="setrlimit,int,py_rlimit_abc">
+  <dt><pre><span class="Keyword">proc</span> <a href="#setrlimit%2Cint%2Cpy_rlimit_abc"><span class="Identifier">setrlimit</span></a><span class="Other">(</span><span class="Identifier">resource</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">limits</span><span class="Other">:</span> <span class="Identifier">py_rlimit_abc</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/resource_impl/funcs.nim#L52" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/resource_impl/funcs.nim#L52" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -236,7 +235,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:28:47 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-08 15:00:42 UTC</small>
       </div>
     </div>
   </div>

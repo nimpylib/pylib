@@ -76,7 +76,7 @@
 <li><a class="reference" href="#RawIOBase" title="RawIOBase = ref object of IOBase">RawIOBase</a></li>
 <li><a class="reference" href="#TextIOWrapper" title="TextIOWrapper = ref object of NoEncTextIOWrapper
   ## do not use string, so is always valid">TextIOWrapper</a></li>
-<li><a class="reference" href="#UnsupportedOperation" title="UnsupportedOperation = object of OSError">UnsupportedOperation</a></li>
+<li><a class="reference" href="#UnsupportedOperation" title="UnsupportedOperation = object of PyOSError">UnsupportedOperation</a></li>
 
     </ul>
   </details>
@@ -350,7 +350,7 @@
   </dd>
 </div>
 <div id="UnsupportedOperation">
-  <dt><pre><a href="io.html#UnsupportedOperation"><span class="Identifier">UnsupportedOperation</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">OSError</span></pre></dt>
+  <dt><pre><a href="io.html#UnsupportedOperation"><span class="Identifier">UnsupportedOperation</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="../pyerrors/oserr/oserror_decl.html#PyOSError"><span class="Identifier">PyOSError</span></a></pre></dt>
   <dd>
     
     
@@ -743,7 +743,7 @@
 </div>
 <div id="truncate-procs-all">
   <div id="truncate,IOBase">
-  <dt><pre><span class="Keyword">proc</span> <a href="#truncate%2CIOBase"><span class="Identifier">truncate</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="io.html#IOBase"><span class="Identifier">IOBase</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#truncate%2CIOBase"><span class="Identifier">truncate</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="io.html#IOBase"><span class="Identifier">IOBase</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
                                    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -763,7 +763,7 @@
 </div>
 <div id="truncate,IOBase,int64">
   <dt><pre><span class="Keyword">proc</span> <a href="#truncate%2CIOBase%2Cint64"><span class="Identifier">truncate</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="io.html#IOBase"><span class="Identifier">IOBase</span></a><span class="Other">;</span> <span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">int64</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> {.<span class="Identifier">discardable</span><span class="Other">,</span>
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -980,7 +980,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-01 21:27:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-08 14:59:52 UTC</small>
       </div>
     </div>
   </div>

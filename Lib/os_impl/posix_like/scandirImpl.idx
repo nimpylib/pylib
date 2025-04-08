@@ -9,12 +9,12 @@ nim	is_file	os_impl/posix_like/scandirImpl.html#is_file	proc is_file(self: DirEn
 nim	is_file	os_impl/posix_like/scandirImpl.html#is_file,,bool	proc is_file(self: DirEntry; follow_symlinks: bool): bool		128
 nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir	proc is_dir(self: DirEntry): bool		91
 nim	is_dir	os_impl/posix_like/scandirImpl.html#is_dir,,bool	proc is_dir(self: DirEntry; follow_symlinks: bool): bool		129
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i,PathLike[T]	iterator scandir[T](path: PathLike[T]): DirEntry[T]		161
-nim	scandirIter	os_impl/posix_like/scandirImpl.html#scandirIter.i,T	iterator scandirIter[T](path: T): DirEntry[T]		162
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i	iterator scandir(): DirEntry[PyStr]		166
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir,PathLike[T]	proc scandir[T](path: PathLike[T]): ScandirIterator[T]		170
-nim	scandir	os_impl/posix_like/scandirImpl.html#scandir	proc scandir(): ScandirIterator[PyStr]		175
-nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		170
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i,PathLike[T]	iterator scandir[T](path: PathLike[T]): DirEntry[T]		158
+nim	scandirIter	os_impl/posix_like/scandirImpl.html#scandirIter.i,T	iterator scandirIter[T](path: T): DirEntry[T]		159
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir.i	iterator scandir(): DirEntry[PyStr]		163
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir,PathLike[T]	proc scandir[T](path: PathLike[T]): ScandirIterator[T]		167
+nim	scandir	os_impl/posix_like/scandirImpl.html#scandir	proc scandir(): ScandirIterator[PyStr]		172
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-procs-all	proc		167
 nimgrp	isdir	os_impl/posix_like/scandirImpl.html#is_dir-procs-all	proc		129
 nimgrp	isfile	os_impl/posix_like/scandirImpl.html#is_file-procs-all	proc		128
-nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-iterators-all	iterator		161
+nimgrp	scandir	os_impl/posix_like/scandirImpl.html#scandir-iterators-all	iterator		158

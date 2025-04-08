@@ -1,0 +1,2 @@
+nimTitle	geninfos	sys_impl/geninfos.html	module src/pylib/Lib/sys_impl/geninfos		0
+nim	genInfos	sys_impl/geninfos.html#genInfos.t,,	template genInfos(S; cache_tag_val)		28

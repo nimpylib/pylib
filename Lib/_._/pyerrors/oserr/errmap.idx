@@ -1,0 +1,7 @@
+nimTitle	errmap	_._/pyerrors/oserr/errmap.html	module src/pylib/pyerrors/oserr/errmap		0
+nim	decl_c_int	_._/pyerrors/oserr/errmap.html#decl_c_int.t,,,	template decl_c_int(name, includeFile; defval)		20
+nim	errnomap	_._/pyerrors/oserr/errmap.html#errnomap	var errnomap		28
+nim	default_oserror	_._/pyerrors/oserr/errmap.html#default_oserror	proc default_oserror(): ref PyOSError		29
+nim	ESHUTDOWN	_._/pyerrors/oserr/errmap.html#ESHUTDOWN	const ESHUTDOWN		21
+nim	ENOTCAPABLE	_._/pyerrors/oserr/errmap.html#ENOTCAPABLE	const ENOTCAPABLE		21
+nim	WSAETIMEDOUT	_._/pyerrors/oserr/errmap.html#WSAETIMEDOUT	const WSAETIMEDOUT		21
