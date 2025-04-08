@@ -150,13 +150,10 @@ template scandirImpl(path){.dirty.} =
     dir.closeSync
 
   else:
-    try:
+    tryOsOp(spath):
       for t in walkDir(spath, relative=true, checkDir=true):
         let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
         yield de
-    except OSError as e:
-      let oserr = e.errorCode.OSErrorCode
-      path.raiseExcWithPath(oserr)
 
 iterator scandir*[T](path: PathLike[T]): DirEntry[T] = scandirImpl path
 iterator scandirIter*[T](path: T): DirEntry[T]{.closure.} =

@@ -242,13 +242,8 @@ else:
 
 
   proc readlink*[T](path: PathLike[T]): T =
-    try: result = mapPathLike[T] readlinkImpl $path
-    except OSError as e:
-      let errCode = e.errorCode.OSErrorCode
-      if errCode.isNotFound:
-        path.raiseFileNotFoundError()
-      # XXX: may be other errors?
-      raise
+    tryOsOp(path):
+      result = mapPathLike[T] readlinkImpl $path
 
   when defined(windows):
     proc check_dir(src_resolved: string): bool =
