@@ -6,10 +6,9 @@ import ../consts
 
 when defined(js):
   when defined(nodejs):
-    import std/jsffi
-    proc openSync(path: cstring, flags, mode: cint): cint{.importjs: "require('fs').openSync(@)".}
+    proc openSync(path: cstring, flags, mode: cint): cint{.importNode(fs, openSync).}
     # in fact flags, mode is optional and accepts cstring, but we don't need such variants here
-    proc closeSync(fd: cint){.importjs: "require('fs').closeSync(@)".}
+    proc closeSync(fd: cint){.importNode(fs, closeSync).}
     proc c_close(fd: cint): int =
       catchJsErrAsCode closeSync(fd)
 
