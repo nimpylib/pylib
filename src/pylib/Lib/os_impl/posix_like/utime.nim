@@ -19,8 +19,8 @@ const `ns/s` = 1_000_000_000
 
 when InJs:
   type Time = cdouble
-  proc utimesSync(path: cstring, atime, ctime: Time){.importDenoOr(fs, utimesSync).}
-  proc lutimesSync(path: cstring, atime, ctime: Time){.importDenoOr(fs, lutimesSync).}
+  proc utimesSync(path: cstring, atime, ctime: Time){.importDenoOrNodeMod(fs, utimesSync).}
+  proc lutimesSync(path: cstring, atime, ctime: Time){.importDenoOrNodeMod(fs, lutimesSync).}
 
   type TimeTuple = tuple
     atime, ctime: Time

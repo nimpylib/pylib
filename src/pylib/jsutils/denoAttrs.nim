@@ -42,7 +42,8 @@ when defined(js):
   macro importByNodeOrDeno*(node, deno: static[string]; def) =
     ## pragma
     importByNodeOrDenoImpl(def, nodeExpr=node, denoExpr=deno)
-  proc importDenoOrImpl(def: NimNode; objInNode: string; denoAttr, nodeAttr: NimNode): NimNode =
+  proc importDenoOrImpl(def: NimNode; objInNode: string;
+      denoAttr: NimNode, nodeAttr=denoAttr): NimNode =
     let
       denoAttr = repr denoAttr
       nodeAttr = repr nodeAttr
@@ -50,8 +51,6 @@ when defined(js):
       nodeExpr=objInNode&'.'&nodeAttr,
       denoExpr="Deno."&denoAttr
     )
-  macro importDenoOr*(objInNode, attr; def) =
-    importDenoOrImpl(def, $objInNode, attr, attr)
 
   func requireExpr(module: string): string = "require('" & module & "')"
   macro importDenoOrNodeMod*(modInNode, attr; def) =
