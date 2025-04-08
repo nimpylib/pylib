@@ -27,7 +27,7 @@ template catchJsErrAsCode*(doBody: static string): int =
   var
     res: cint = 0
   {.emit: ["try{", doBody, "} catch(e) {",
-      res, " = e.code; }"
+      res, " = -e.errno; }"
   #" <- for code lint
   ].}
   int -res # nodejs's errno is oppsite?
@@ -37,7 +37,7 @@ template catchJsErrAsCode*(prc: proc ()): cint =
   block:
     {.emit: ["try{", prc, "();",
     "} catch(e) {",
-        res, """= e.code;
+        res, """= -e.errno;
     }
     """].}
     #"""] <- for code lint
@@ -54,7 +54,7 @@ template catchJsErrAsCode*(errMsg: var string; doBody: static string): cint =
     res: cint = 0
   {.emit: ["try{", doBody, """
   } catch(e) {
-  """, res,  "= e.code;",
+  """, res,  "= -e.errno;",
        jsRes,"""= e.message;
   }
   """].}
@@ -69,7 +69,7 @@ template catchJsErrAsCode*(errMsg: var string; prc: proc): cint =
   block:
     {.emit: ["try{", prc, """();
     } catch(e) {
-    """,res, " = e.code;",
+    """,res, " = -e.errno;",
         jsRes,"""= e.message;
     }
     """].}
