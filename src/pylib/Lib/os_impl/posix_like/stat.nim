@@ -89,6 +89,10 @@ else:
     {.pop.}
   else:
     import std/posix
+  
+  when HAVEfstatatRUNTIME and not declared(fstatat):
+    proc fstatat(dir_fd: cint, path: cstring, st: var Stat,
+               flag: cint): cint{.importc, header: "<fcntl.h>".}
 
 type
   stat_result* = ref object
@@ -171,22 +175,14 @@ when defined(js):
         else:
           let cs = cstring($path)
           statSync(cs)
-
-else:
-  proc statFor(st: var Stat, path: int|PathLike) =
-    let ret =
-      when path is int:
-        fstat(path.cint, st)
-      else:
-        when DWin:
-          wstat( newWideCString(path.fspath), st)
-        else:
-          stat(cstring path.fspath, st)
-    if ret != 0.cint:
-      when path is int:
-        raiseErrnoWithPath $path
-      else:
-        raiseErrnoWithPath path
+  proc lstatAux(st: var Stat, fd: int) =
+    catchJsErrAndRaise:
+      st = fstatSync(fd.cint)
+  proc lstatAux(st: var Stat, path: PathLike) =
+    catchJsErrAndRaise:
+      st = block:
+        let cs = cstring($path)
+        lstatSync(cs)
 
 template statAttr*(path: PathLike|int, attr: untyped): untyped =
   ## stat(`path`).`attr`
@@ -194,22 +190,426 @@ template statAttr*(path: PathLike|int, attr: untyped): untyped =
   st.statFor path
   st.attr
 
-template statAux: stat_result =
+
+when DWin:
+  const secs_between_epochs = 11644473600'i64 # Seconds between 1.1.1601 and 1.1.1970
+
+  proc FILE_TIME_to_time_t_nsec(in_ptr: FILETIME, time_out: var Time, nsec_out: var cint) =
+    let i = cast[int64](in_ptr)
+    nsec_out = cint((i mod 10_000_000) * 100) # FILETIME is in units of 100 nsec.
+    time_out = Time((i div 10_000_000) - secs_between_epochs)
+
+  proc LARGE_INTEGER_to_time_t_nsec(in_ptr: LARGE_INTEGER, time_out: var Time, nsec_out: var cint) =
+    nsec_out = cint((in_ptr.QuadPart mod 10_000_000) * 100) # FILETIME is in units of 100 nsec.
+    time_out = Time((in_ptr.QuadPart div 10_000_000) - secs_between_epochs)
+
+
+  template M(i): Mode = cast[Mode](i)
+  proc attributes_to_mode(attr: DWORD): Mode =
+    result =
+      if (attr and DWORD FILE_ATTRIBUTE_DIRECTORY) != 0:
+        result or S_IFDIR.M or 0o111 # IFEXEC for user, group, other
+      else:
+        result or S_IFREG.M
+    result =
+      if (attr and DWORD FILE_ATTRIBUTE_READONLY) != 0:
+        result or 0o444
+      else:
+        result or 0o666
+
+
+  type id_128_to_ino = object
+    case split: bool
+    of false:
+      id: FILE_ID_128
+    of true:
+      st_ino: uint64
+      st_ino_high: uint64
+
+  proc Py_attribute_data_to_stat(info: var BY_HANDLE_FILE_INFORMATION, reparse_tag: ULONG,
+                  basic_info: ptr FILE_BASIC_INFO, id_info: ptr FILE_ID_INFO,
+                  result: var Stat) =
+
+    result = Stat()
+    result.st_mode = attributes_to_mode(info.dwFileAttributes)
+    result.st_size = (int64(info.nFileSizeHigh) shl 32) + int64(info.nFileSizeLow)
+    result.st_dev = (if not id_info.isNil: id_info.VolumeSerialNumber.Dev else: info.dwVolumeSerialNumber.Dev)
+    #result.st_rdev = 0
+
+    if not basic_info.isNil:
+      LARGE_INTEGER_to_time_t_nsec(basic_info.CreationTime, result.st_birthtime, result.st_birthtime_nsec)
+      LARGE_INTEGER_to_time_t_nsec(basic_info.ChangeTime, result.st_ctime, result.st_ctime_nsec)
+      LARGE_INTEGER_to_time_t_nsec(basic_info.LastWriteTime, result.st_mtime, result.st_mtime_nsec)
+      LARGE_INTEGER_to_time_t_nsec(basic_info.LastAccessTime, result.st_atime, result.st_atime_nsec)
+    else:
+      FILE_TIME_to_time_t_nsec(info.ftCreationTime, result.st_birthtime, result.st_birthtime_nsec)
+      FILE_TIME_to_time_t_nsec(info.ftLastWriteTime, result.st_mtime, result.st_mtime_nsec)
+      FILE_TIME_to_time_t_nsec(info.ftLastAccessTime, result.st_atime, result.st_atime_nsec)
+
+    result.st_nlink = info.nNumberOfLinks
+
+    if not id_info.isNil:
+      var file_id: id_128_to_ino
+      file_id.id = id_info.FileId
+      file_id.split = true
+      result.st_ino = file_id.st_ino
+      result.st_ino_high = file_id.st_ino_high
+
+    if result.st_ino == 0 and result.st_ino_high == 0:
+      result.st_ino = (uint64(info.nFileIndexHigh) shl 32) + uint64(info.nFileIndexLow)
+
+    if (info.dwFileAttributes and DWORD FILE_ATTRIBUTE_REPARSE_POINT) != 0 and (reparse_tag == ULONG IO_REPARSE_TAG_SYMLINK):
+      result.st_mode = (result.st_mode and not Mode S_IFMT_val) or S_IFLNK.Mode
+
+    result.st_file_attributes = info.dwFileAttributes
+
+  proc Py_stat_basic_info_to_stat(info: var FILE_STAT_BASIC_INFORMATION, result: var Stat) =
+    result = Stat()
+    result.st_mode = attributes_to_mode(info.FileAttributes)
+    result.st_size = info.EndOfFile.QuadPart
+    LARGE_INTEGER_to_time_t_nsec(info.CreationTime, result.st_birthtime, result.st_birthtime_nsec)
+    LARGE_INTEGER_to_time_t_nsec(info.ChangeTime, result.st_ctime, result.st_ctime_nsec)
+    LARGE_INTEGER_to_time_t_nsec(info.LastWriteTime, result.st_mtime, result.st_mtime_nsec)
+    LARGE_INTEGER_to_time_t_nsec(info.LastAccessTime, result.st_atime, result.st_atime_nsec)
+    result.st_nlink = info.NumberOfLinks
+    result.st_dev = info.VolumeSerialNumber.QuadPart.Dev
+
+    var file_id: id_128_to_ino
+    file_id.id = info.FileId128
+    file_id.split = true
+    result.st_ino = file_id.st_ino
+    result.st_ino_high = file_id.st_ino_high
+
+    result.st_reparse_tag = info.ReparseTag
+    if (info.FileAttributes and DWORD FILE_ATTRIBUTE_REPARSE_POINT) != 0 and
+        info.ReparseTag == ULONG IO_REPARSE_TAG_SYMLINK:
+      result.st_mode = (result.st_mode and not Mode S_IFMT_val) or S_IFLNK.Mode
+
+    result.st_file_attributes = info.FileAttributes
+
+    case info.DeviceType
+    of FILE_DEVICE_DISK, FILE_DEVICE_VIRTUAL_DISK, FILE_DEVICE_DFS,
+        FILE_DEVICE_CD_ROM, FILE_DEVICE_CONTROLLER, FILE_DEVICE_DATALINK:
+      discard
+    of FILE_DEVICE_DISK_FILE_SYSTEM, FILE_DEVICE_CD_ROM_FILE_SYSTEM, FILE_DEVICE_NETWORK_FILE_SYSTEM:
+      result.st_mode = (result.st_mode and not Mode S_IFMT_val) or 0x6000.Mode
+    of FILE_DEVICE_CONSOLE, FILE_DEVICE_NULL, FILE_DEVICE_KEYBOARD,
+        FILE_DEVICE_MODEM, FILE_DEVICE_MOUSE, FILE_DEVICE_PARALLEL_PORT,
+        FILE_DEVICE_PRINTER, FILE_DEVICE_SCREEN, FILE_DEVICE_SERIAL_PORT,
+        FILE_DEVICE_SOUND:
+      result.st_mode = (result.st_mode and not Mode S_IFMT_val) or S_IFCHR.Mode
+    of FILE_DEVICE_NAMED_PIPE:
+      result.st_mode = (result.st_mode and not Mode S_IFMT_val) or S_IFIFO.Mode
+    else:
+      if (info.FileAttributes and DWORD FILE_ATTRIBUTE_DIRECTORY) != 0:
+        result.st_mode = (result.st_mode and not Mode S_IFMT_val) or S_IFDIR.Mode
+
+when DWin:
+  proc findDataToFileInfo(pFileData: WIN32_FIND_DATAW,
+                          info: var BY_HANDLE_FILE_INFORMATION,
+                          reparseTag: var ULONG) =
+    info = BY_HANDLE_FILE_INFORMATION()
+    info.dwFileAttributes = pFileData.dwFileAttributes
+    info.ftCreationTime = pFileData.ftCreationTime
+    info.ftLastAccessTime = pFileData.ftLastAccessTime
+    info.ftLastWriteTime = pFileData.ftLastWriteTime
+    info.nFileSizeHigh = pFileData.nFileSizeHigh
+    info.nFileSizeLow = pFileData.nFileSizeLow
+    if (pFileData.dwFileAttributes and DWORD FILE_ATTRIBUTE_REPARSE_POINT) != 0:
+      reparseTag = pFileData.dwReserved0
+    else:
+      reparseTag = 0
+
+  template `==`(wc: Utf16Char, c: char): bool = cast[uint16](wc) == uint16(c)
+  template L(c: char): Utf16Char = Utf16Char(c)
+  template L(s: string): WideCString = newWideCString(s)
+  proc attributesFromDir(pszFile: WideCString,
+                         info: var BY_HANDLE_FILE_INFORMATION,
+                         reparseTag: var ULONG): bool =
+    var hFindFile: HANDLE
+    var fileData: WIN32_FIND_DATAW
+    var filename = pszFile
+    var n = pszFile.len
+    if n > 0 and (pszFile[n - 1] == '\\' or pszFile[n - 1] == '/'):
+      filename = cast[WideCString](alloc((n + 1) * sizeof(filename[0])))
+      if filename.isNil:
+        setLastError(ERROR_NOT_ENOUGH_MEMORY)
+        return false
+      copyMem(filename, pszFile, n+1)
+      while n > 0 and (filename[n - 1] == '\\' or filename[n - 1] == '/'):
+        filename[n - 1] = L'\0'
+        dec n
+      if n == 0 or (n == 1 and filename[1] == ':'):
+        dealloc(filename)
+        return false
+    hFindFile = FindFirstFileW(filename, fileData)
+    if pszFile != filename:
+      dealloc(filename)
+    if hFindFile == INVALID_HANDLE_VALUE:
+      return false
+    findClose(hFindFile)
+    findDataToFileInfo(fileData, info, reparseTag)
+    return true
+
+  proc wcsrchr(wcs: WideCString, c: Utf16Char): WideCString{.importc, header: "<wchar.h>".}
+  proc wcsicmp(s1, s2: WideCString): int{.importc, header: "<wchar.h>".}
+
+  proc updateStModeFromPath(path: LPCWSTR, attr: DWORD,
+                            status: var Stat) =
+    if (attr and DWORD FILE_ATTRIBUTE_DIRECTORY) == 0:
+      let fileExtension = wcsrchr(path, L'.')
+      if not fileExtension.isNil:
+        if wcsicmp(fileExtension, L".exe") == 0 or
+           wcsicmp(fileExtension, L".bat") == 0 or
+           wcsicmp(fileExtension, L".cmd") == 0 or
+           wcsicmp(fileExtension, L".com") == 0:
+          status.st_mode = status.st_mode or 0o111
+
+  proc win32_xstat_slow_impl(path: LPCWSTR, status: var Stat,
+                          traverse: bool): int =
+
+    var traverse = traverse
+
+    var hFile: HANDLE
+    var fileInfo: BY_HANDLE_FILE_INFORMATION
+    var basicInfo: FILE_BASIC_INFO
+    var pBasicInfo: ptr FILE_BASIC_INFO = nil
+    var idInfo: FILE_ID_INFO
+    var pIdInfo: ptr FILE_ID_INFO = nil
+    var tagInfo: FILE_ATTRIBUTE_TAG_INFO
+    var fileType, error: DWORD
+    var isUnhandledTag = false
+    var retval = 0
+    template goto_cleanup =
+      if hFile != INVALID_HANDLE_VALUE:
+        error = if retval != 0: GetLastError() else: 0
+        if closeHandle(hFile) == 0:
+          retval = -1
+        elif retval != 0:
+          SetLastError(error)
+      return retval
+
+    var access = DWORD FILE_READ_ATTRIBUTES
+    var flags = DWORD FILE_FLAG_BACKUP_SEMANTICS
+    if not traverse:
+      flags = flags or DWORD FILE_FLAG_OPEN_REPARSE_POINT
+
+    hFile = CreateFileW(path, access, 0, nil, OPEN_EXISTING, flags, 0)
+    if hFile == INVALID_HANDLE_VALUE:
+      error = GetLastError()
+      case error
+      of ERROR_ACCESS_DENIED, ERROR_SHARING_VIOLATION:
+        if not attributesFromDir(path, fileInfo, tagInfo.ReparseTag):
+          return -1
+      of ERROR_INVALID_PARAMETER:
+        hFile = CreateFileW(path, access or GENERIC_READ,
+                            FILE_SHARE_READ or FILE_SHARE_WRITE, nil,
+                            OPEN_EXISTING, flags, 0)
+        if hFile == INVALID_HANDLE_VALUE:
+          return -1
+      of ERROR_CANT_ACCESS_FILE:
+        if traverse:
+          traverse = false
+          isUnhandledTag = true
+          hFile = CreateFileW(path, access, 0, nil, OPEN_EXISTING,
+                              flags or FILE_FLAG_OPEN_REPARSE_POINT, 0)
+        if hFile == INVALID_HANDLE_VALUE:
+          return -1
+      else:
+        return -1
+
+    if hFile != INVALID_HANDLE_VALUE:
+      fileType = GetFileType(hFile)
+      if fileType != FILE_TYPE_DISK:
+        if fileType == FILE_TYPE_UNKNOWN and getLastError() != 0:
+          retval = -1
+          goto_cleanup
+        let fileAttributes = GetFileAttributesW(path)
+        status = Stat()
+        if fileAttributes != INVALID_FILE_ATTRIBUTES and
+           (fileAttributes and FILE_ATTRIBUTE_DIRECTORY) != 0:
+          status.st_mode = M S_IFDIR
+        elif fileType == FILE_TYPE_CHAR:
+          status.st_mode = M S_IFCHR
+        elif fileType == FILE_TYPE_PIPE:
+          status.st_mode = M S_IFIFO
+        goto_cleanup
+
+      if not traverse:
+        if not GetFileInformationByHandleEx(hFile, FILE_INFO_BY_HANDLE_CLASS.FileAttributeTagInfo,
+                                            tagInfo):
+          retval = -1
+          goto_cleanup
+
+      if not GetFileInformationByHandle(hFile, fileInfo) or
+         not GetFileBasicInformationByHandleEx(hFile, basicInfo):
+        retval = -1
+        goto_cleanup
+
+      pBasicInfo = addr basicInfo
+      if GetFileInformationByHandleEx(hFile, FILE_INFO_BY_HANDLE_CLASS.FileIdInfo, idInfo):
+        pIdInfo = addr idInfo
+
+    Py_attribute_data_to_stat(fileInfo, tagInfo.ReparseTag, pBasicInfo, pIdInfo, status)
+    updateStModeFromPath(path, fileInfo.dwFileAttributes, status)
+
+    goto_cleanup
+
+
+  proc win32_xstat_impl(path: LPCWSTR, status: var Stat, traverse: bool): int =
+    var statInfo: FILE_STAT_BASIC_INFORMATION
+    if Py_GetFileInformationByName(path, FileStatBasicByNameInfo, addr statInfo, sizeof(statInfo).DWORD):
+      if (statInfo.FileAttributes and DWORD FILE_ATTRIBUTE_REPARSE_POINT) == 0 or
+        (not traverse and IsReparseTagNameSurrogate(statInfo.ReparseTag)):
+        Py_stat_basic_info_to_stat(statInfo, status)
+        updateStModeFromPath(path, statInfo.FileAttributes, status)
+        return 0
+    else:
+      case GetLastError()
+      of ERROR_FILE_NOT_FOUND, ERROR_PATH_NOT_FOUND, ERROR_NOT_READY, ERROR_BAD_NET_NAME:
+        # These errors aren't worth retrying with the slow path
+        return -1
+      #of ERROR_NOT_SUPPORTED: # Indicates the API couldn't be loaded
+      else:
+        discard
+
+    return win32_xstat_slow_impl(path, status, traverse)
+
+  proc win32_xstat(path: WideCString, status: var Stat, traverse: bool): int =
+    #[Protocol violation: we explicitly clear errno, instead of
+      setting it to a POSIX error. Callers should use GetLastError.]#
+    result = win32_xstat_impl(path, status, traverse)
+    setErrno0
+
+    # ctime is only deprecated from 3.12, so we copy birthtime across
+    status.st_ctime = status.st_birthtime
+    status.st_ctime_nsec = status.st_birthtime_nsec
+
+
+  template  STATf(p, s): untyped = win32_xstat(newWideCString p, s, true)
+  template LSTAT(p, s): untyped = win32_xstat(newWideCString p, s, false)
+  template FSTAT(p, s): untyped = Py_fstat_noraise(p, s)
+elif InJs:
+  template  STATf(p, s): untyped = statAux(p, s)
+  template LSTAT(p, s): untyped = lstatAux(p, s)
+  template FSTAT(p, s): untyped = fstatAux(p, s)
+else:
+  template  STATf(p, s): untyped = posix.stat(p, s)
+  template LSTAT(p, s): untyped = posix.lstat(p, s)
+  template FSTAT(p, s): untyped = posix.fstat(p, s)
+
+proc Py_fstat_noraise*(fd: int, status: var Stat): int =
+  ## EXT.
+  ## 
+  ## fileutils.c `_Py_fstat_noraise`
+  when DWin:
+    var
+      info: BY_HANDLE_FILE_INFORMATION
+      basicInfo: FILE_BASIC_INFO
+      idInfo: FILE_ID_INFO
+      pIdInfo = addr idInfo
+      
+      h = Py_get_osfhandle_noraise(fd)
+
+    if h == INVALID_HANDLE_VALUE:
+      #[ errno is already set by _get_osfhandle, but we also set
+          the Win32 error for callers who expect that]#
+      setLastError ERROR_INVALID_HANDLE
+      return -1
+
+    status = Stat()
+
+    let typ = GetFileType(h)
+    if typ == FILE_TYPE_UNKNOWN:
+      let error = cint getLastError()
+      if error != 0:
+        setErrnoRaw winerror_to_errno error
+        return -1
+      # else: valid but unknown file
+    
+    if typ != FILE_TYPE_DISK:
+      if typ == FILE_TYPE_CHAR:
+        status.st_mode = M S_IFCHR
+      elif typ == FILE_TYPE_PIPE:
+        status.st_mode = M S_IFIFO
+      return 0
+    
+    if GetFileInformationByHandle(h, info) == FALSE or
+      !GetFileBasicInformationByHandleEx(h, basicInfo):
+      #[The Win32 error is already set, but we also set errno for
+        callers who expect it]#
+      setErrnoRaw winerror_to_errno cint getLastError()
+      return -1
+
+    if !GetFileBasicInformationByHandleEx(h, basicInfo):
+      # Failed to get FileIdInfo, so do not pass it along
+      pIdInfo = nil
+    
+    Py_attribute_data_to_stat(info, 0, addr basicInfo, pIdInfo, status)
+    return 0
+  else:
+    int posix.fstat(cint fd, status)
+
+proc Py_fstat*(fd: int, status: var Stat) =
+  ## EXT.
+  ## 
+  ## fileutils.c `_Py_fstat`
+  if Py_fstat_noraise(fd, status) != 0:
+    raiseOSError osLastError()
+
+proc do_stat_impl[T](result: var Stat; function_name: string, path: PathLike[T]|int, dir_fd: int, follow_symlinks: bool) =
+  when HAVE_FSTATAT:
+    var fstatat_unavailable = false
+  var st{.noInit.}: Stat
+  when NO_FOLLOW_SYMLINKS:
+    if follow_symlinks_specified(function_name, follow_symlinks):
+      return
+  template doStat =
+    result = STATf(path, st)
+  template doFstatat =
+    when HAVE_FSTATAT:
+      if dir_fd != DEFAULT_DIR_FD or not follow_symlinks:
+        when HAVE_FSTATAT_RUNTIME:
+          result = fstatat(dir_fd, path, st,
+            if follow_symlinks: 0 else: AT_SYMLINK_NOFOLLOW)
+        else:
+          fstat_unavailable = true
+      else:
+        doStat
+    else:
+      doStat
+
+  let path_fd = (when path is int: path else: -1)
+  if function_name == "stat":
+    if path_and_dir_fd_invalid("stat", path, dir_fd) or
+        dir_fd_and_fd_invalid("stat", dir_fd, path_fd) or
+        fd_and_follow_symlinks_invalid("stat", path_fd, follow_symlinks):
+      return
+  if path_fd != -1:
+    result = FSTAT(path_fd, st)
+  else:
+    when DWin:
+      if follow_symlinks:
+        result = STATf(path, st)
+      else:
+        result = LSTAT(path, st)
+    else:
+      when HAVE_LSTAT:
+        if not follow_symlinks and dir_fd == DEFAULT_DIR_FD:
+          result = LSTAT(path, st)
+        else:
+          doFstatat
+      else:
+        doFstatat
+
+proc do_stat[T](function_name: string, path: PathLike[T]|int, dir_fd = DEFAULT_DIR_FD, follow_symlinks = true): stat_result =
   var st{.noinit.}: Stat
   st.statFor path
   to_result st
 
-proc stat*(path: int): stat_result = statAux
-proc stat*[T](path: PathLike[T]): stat_result =
-  ## .. warning:: Under Windows, it's just a wrapper over `_wstat`,
-  ##   so this differs from Python's `os.stat` either in prototype
-  ##   (the `follow_symlinks` param is not supported) and some items of result.
-  ##   For details, see https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stat-functions
-  runnableExamples:
-    let s = stat(".")
-    when defined(windows):
-      # _stat's result: st_gid, st_uid is always zero.
-      template zero(x) = assert x.int == 0
-      zero s.st_gid
-      zero s.st_uid
-  statAux
+proc stat*[T](path: PathLike[T], dir_fd = DEFAULT_DIR_FD, follow_symlinks = true): stat_result =
+  do_stat("stat", path, dir_fd, follow_symlinks)
+
+proc lstat*[T](path: PathLike[T], dir_fd = DEFAULT_DIR_FD): stat_result =
+  do_stat("lstat", path, dir_fd, false)
+

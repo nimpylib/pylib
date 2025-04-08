@@ -13,14 +13,14 @@ when defined(js):
   template decl_c_int*(name, _; defval) =
     let name* = from_js_const(name, defval)
   {.pragma: ErrnoMapAttr.}
-  template ifNotDef(name, body) =
+  template ifHasErr(name, body) =
     if name != DEF_INT: body
 else:
   import ../../pyconfig/util
   template decl_c_int*(name, includeFile; defval) =
     const name* = from_c_int(name, includeFile, defval)
   {.pragma: ErrnoMapAttr, compileTime.}
-  template ifNotDef(name, body) =
+  template ifHasErr(name, body) =
     when name != DEF_INT: body
 
 {.pragma: OSErrorInitAttrs, nimcall, noSideEffect.}
@@ -29,11 +29,35 @@ var errnomap*{.ErrnoMapAttr.}: Table[cint, proc(): ref PyOSError{.OSErrorInitAtt
 proc default_oserror*(): ref PyOSError{.OSErrorInitAttrs.} =
   new PyOSError
 
+template decl_err(err){.dirty.} =
+  decl_c_int(err, "<errno.h>", DEF_INT)
+
+template decl_err_cint(err){.dirty.} =
+  when declared(err):
+    export err
+  else:
+    const `n err` = from_c_int(name, "<errno.h>", DEF_INT)
+    ifHasErr `n err`:
+      const err*: cint = cast[cint](`n err`)
+
+decl_err_cint E2BIG
+decl_err_cint ENOEXEC
+decl_err_cint EBADF
+decl_err_cint ENOMEM
+decl_err_cint EXDEV
+decl_err_cint EMFILE
+decl_err_cint ENOSPC
+decl_err_cint ENOTEMPTY
+decl_err_cint EILSEQ
+decl_err_cint EINVAL
+
 when true: # PyExc_InitState
     template ADD_ERRNO(exc, err){.dirty.} =
         when not declared(err):
-          decl_c_int(err, "<errno.h>", DEF_INT)
-        ifNotDef err:
+          decl_err(err)
+        else:
+          export err
+        ifHasErr err:
            errnomap[cast[cint](err)] = proc(): ref PyOSError = new exc
 # The following is just copied from CPython's PyExc_InitState AS-IS.
 
