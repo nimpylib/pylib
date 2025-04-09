@@ -7,7 +7,7 @@ import ../../pyerrors/oserr
 when MS_WINDOWS:
   import std/winlean
   from std/os import raiseOSError
-  import ../util/get_osfhandle
+  import ./util/get_osfhandle
 
 else:
   import std/posix
