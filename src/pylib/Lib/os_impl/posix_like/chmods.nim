@@ -40,14 +40,8 @@ else: # MS_WINDOWS and not JS
     ERROR_INVALID_HANDLE = 6
   import std/widestrs
   import ../../stat_impl/consts
-  type
-    FILE_INFO_BY_HANDLE_CLASS{.pure.} = enum
-      FileBasicInfo = cint(0)  # to avoid conflict with FILE_BASIC_INFO type
-      # ...
 
-  proc GetFileInformationByHandleEx(
-    hfile: Handle, infoClass: FILE_INFO_BY_HANDLE_CLASS, lpBuffer: pointer, dwBufferSize: DWORD
-  ): bool {.importc, header: "<winbase.h>".}
+
   proc SetFileInformationByHandle(
     hfile: Handle, infoClass: FILE_INFO_BY_HANDLE_CLASS, lpBuffer: pointer, dwBufferSize: DWORD
   ): bool {.importc, header: "<fileapi.h>".}
@@ -63,8 +57,7 @@ else: # MS_WINDOWS and not JS
 
   proc win32_hchmod(hfile: Handle, mode: int): bool =
     var info: FILE_BASIC_INFO
-    if not GetFileInformationByHandleEx(hfile, FILE_INFO_BY_HANDLE_CLASS.FileBasicInfo,
-      addr info, DWORD sizeof(info)):
+    if not GetFileBasicInformationByHandleEx(hfile, info):
       return false
     if (mode and S_IWRITE) != 0:
       info.FileAttributes = info.FileAttributes and (not FILE_ATTRIBUTE_READONLY)

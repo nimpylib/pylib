@@ -20,6 +20,7 @@ when defined(js):
   impIsXNoNull isFile
   impIsXNoNull isSymbolicLink
 
-  proc statSync*(p: cstring): Stat{.importNode(fs, statSync).}
+  proc statSync*(p: cstring): Stat{.importDenoOrNodeMod(fs, statSync).}
   proc fstatSync*(fd: cint): Stat{.importNode(fs, fstatSync).}
+  proc lstatSync*(p: cstring): Stat{.importDenoOrNodeMod(fs, lstatSync).}
 

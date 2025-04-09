@@ -1,5 +1,23 @@
 
+from std/os import raiseOSError, osLastError
+
 import ../common
+import ./pyCfg
+import ../util/handle_signal
+
+when not InJS:
+  importConfig [
+    stats,
+    os
+  ]
+else:
+  template decl(f, val) =
+    const `HAVE f` = val
+  decl lstat, true
+  decl fstatat, false
+
+const NO_FOLLOW_SYMLINKS = not (HAVE_FSTATAT or HAVE_LSTAT or useMS_WINDOWSproc)
+import ./chkarg
 import std/macros
 
 
@@ -59,40 +77,60 @@ when InJs:
 else:
   const DWin = defined(windows)
   when DWin:
-    type Time64 = int64
+    import ../util/[
+      mywinlean, getFileInfo]
+    import ../../../pyerrors/oserr/PC_errmap
+    import ../../errno_impl/errnoUtils
+    import ../../n_stat
+    import ../../stat_impl/consts
+    import ../util/get_osfhandle
+    #type Time64 = int64
     when defined(nimPreviewSlimSystem):
       import std/widestrs
     type
-      Dev{.importc: "_dev_t", header: "<sys/types.h>".} = c_uint
-      Ino = c_ushort
-      Mode = c_ushort
-      Nlink = c_short
-      Uid = c_short
-      Gid = c_short
-      Off = int64
+      Dev = uint64
+      Ino = uint64
+      Mode = cushort
+      Nlink = cuint  ## CPython uses cint, but BY_HANDLE_FILE_INFORMATION.nNumberOfLinks is unsigned
+      Uid = cint
+      Gid = cint
+      Rdev = uint32
+      Size = int64
+      Time{.importc: "time_t", header: "<time.h>".} = int64  ## int32 ifdef _USE_32BIT_TIME_T
+      Nsec = cint
+      FileAttributes = uint32
+      ReparseTag = uint32
+      InoHigh = uint64
 
-    {.push header: "<sys/stat.h>".}
-    type
-      Stat{.importc: "struct _stat64".} = object
+      Stat = object
+        st_dev*: Dev
         st_ino*: Ino
         st_mode*: Mode
         st_nlink*: Nlink
         st_uid*: Uid
         st_gid*: Gid
-        st_dev*: Dev  ## same as st_rdev on Windows
-        st_size*: Off
-        st_atime*: Time64
-        st_mtime*: Time64
-        st_ctime*: Time64
-    proc wstat(p: WideCString, res: var Stat): cint{.importc: "_wstat64".}
-    proc fstat(fd: cint, res: var Stat): cint{.importc: "_fstat64".}
-    {.pop.}
+        st_rdev*: Rdev
+        st_size*: Size
+        st_atime*: Time
+        st_atime_nsec*: Nsec
+        st_mtime*: Time
+        st_mtime_nsec*: Nsec
+        st_ctime*: Time
+        st_ctime_nsec*: Nsec
+        st_birthtime*: Time
+        st_birthtime_nsec*: Nsec
+        st_file_attributes: FileAttributes
+        st_reparse_tag: ReparseTag
+        st_ino_high: InoHigh
   else:
     import std/posix
   
   when HAVEfstatatRUNTIME and not declared(fstatat):
     proc fstatat(dir_fd: cint, path: cstring, st: var Stat,
                flag: cint): cint{.importc, header: "<fcntl.h>".}
+    template fstatat(dir_fd: int, path: cstring, st: var Stat,
+        flag: int): cint =
+      fstatat(cint dir_fd, path, st, cint flag)
 
 type
   stat_result* = ref object
@@ -166,8 +204,8 @@ func `[]`*(self: stat_result, i: int): BiggestInt =
 func to_result(s: sink Stat): stat_result =
   result = stat_result(data: s)
 
-when defined(js):
-  proc statFor(st: var Stat, path: int|PathLike) =
+when InJs:
+  proc statAux(st: var Stat, path: int|PathLike) =
     catchJsErrAndRaise:
       st =
         when path is int:
@@ -187,7 +225,7 @@ when defined(js):
 template statAttr*(path: PathLike|int, attr: untyped): untyped =
   ## stat(`path`).`attr`
   var st{.noinit.}: Stat
-  st.statFor path
+  statAux st, path
   st.attr
 
 
@@ -494,9 +532,9 @@ elif InJs:
   template LSTAT(p, s): untyped = lstatAux(p, s)
   template FSTAT(p, s): untyped = fstatAux(p, s)
 else:
-  template  STATf(p, s): untyped = posix.stat(p, s)
-  template LSTAT(p, s): untyped = posix.lstat(p, s)
-  template FSTAT(p, s): untyped = posix.fstat(p, s)
+  template  STATf(p, s): untyped = posix.stat(cstring p, s)
+  template LSTAT(p, s): untyped = posix.lstat(cstring p, s)
+  template FSTAT(p, s): untyped = posix.fstat(cint p, s)
 
 proc Py_fstat_noraise*(fd: int, status: var Stat): int =
   ## EXT.
@@ -557,27 +595,27 @@ proc Py_fstat*(fd: int, status: var Stat) =
   if Py_fstat_noraise(fd, status) != 0:
     raiseOSError osLastError()
 
-proc do_stat_impl[T](result: var Stat; function_name: string, path: PathLike[T]|int, dir_fd: int, follow_symlinks: bool) =
+proc do_stat_impl(result: var Stat; function_name: string, path: string|int, dir_fd: int, follow_symlinks: bool) =
   when HAVE_FSTATAT:
     var fstatat_unavailable = false
-  var st{.noInit.}: Stat
+  var res: cint
   when NO_FOLLOW_SYMLINKS:
     if follow_symlinks_specified(function_name, follow_symlinks):
       return
   template doStat =
-    result = STATf(path, st)
+    res = STATf(path, result)
   template doFstatat =
     when HAVE_FSTATAT:
       if dir_fd != DEFAULT_DIR_FD or not follow_symlinks:
         when HAVE_FSTATAT_RUNTIME:
-          result = fstatat(dir_fd, path, st,
+          res = fstatat(dir_fd, cstring path, result,
             if follow_symlinks: 0 else: AT_SYMLINK_NOFOLLOW)
         else:
           fstat_unavailable = true
       else:
-        doStat
+        doStat()
     else:
-      doStat
+      doStat()
 
   let path_fd = (when path is int: path else: -1)
   if function_name == "stat":
@@ -585,31 +623,46 @@ proc do_stat_impl[T](result: var Stat; function_name: string, path: PathLike[T]|
         dir_fd_and_fd_invalid("stat", dir_fd, path_fd) or
         fd_and_follow_symlinks_invalid("stat", path_fd, follow_symlinks):
       return
+  let path = (when path is int :"" else: path)
   if path_fd != -1:
-    result = FSTAT(path_fd, st)
+    res = FSTAT(path_fd, result)
   else:
     when DWin:
       if follow_symlinks:
-        result = STATf(path, st)
+        res = STATf(path, result)
       else:
-        result = LSTAT(path, st)
+        res = LSTAT(path, result)
     else:
       when HAVE_LSTAT:
         if not follow_symlinks and dir_fd == DEFAULT_DIR_FD:
-          result = LSTAT(path, st)
+          res = LSTAT(path, result)
         else:
           doFstatat
       else:
         doFstatat
 
-proc do_stat[T](function_name: string, path: PathLike[T]|int, dir_fd = DEFAULT_DIR_FD, follow_symlinks = true): stat_result =
+template withSt(body): stat_result{.dirty.} =
+  bind to_result, Stat
   var st{.noinit.}: Stat
-  st.statFor path
+  body
   to_result st
 
+proc do_stat(function_name: string, path: string|int, dir_fd = DEFAULT_DIR_FD, follow_symlinks = true): stat_result =
+  withSt:
+    st.do_stat_impl(function_name, path, dir_fd, follow_symlinks)
+
 proc stat*[T](path: PathLike[T], dir_fd = DEFAULT_DIR_FD, follow_symlinks = true): stat_result =
+  do_stat("stat", $path, dir_fd, follow_symlinks)
+
+proc stat*(path: int, dir_fd = DEFAULT_DIR_FD, follow_symlinks = true): stat_result =
   do_stat("stat", path, dir_fd, follow_symlinks)
 
 proc lstat*[T](path: PathLike[T], dir_fd = DEFAULT_DIR_FD): stat_result =
-  do_stat("lstat", path, dir_fd, false)
+  do_stat("lstat", $path, dir_fd, false)
 
+
+proc fstat*(fd: int): stat_result =
+  let fd = cint fd
+  var res: cint
+  withSt:
+    initVal_with_handle_signal(res, FSTAT(fd, st))
