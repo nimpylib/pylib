@@ -32,6 +32,16 @@ template gen2(name, op){.dirty.} =
   template name*(a, b){.genSelf.} =
     check op(a, b)
 
+export fail
+template fail*(self: TestCase) =
+  bind fail
+  fail()
+
+template fail*(msg: string){.genSelf.} =
+  bind fail, checkpoint
+  checkpoint msg
+  fail()
+
 gen1 assertFalse, `not`
 gen1 assertTrue
 
