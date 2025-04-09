@@ -63,3 +63,16 @@ proc consumeDecorator*(mparser; procDef: NimNode): NimNode =
   let blk = newBlockStmt blkExpr
   result = newLetStmt(procName, blk)
 
+proc extractDottedCalledDecorator*(decorator: NimNode): NimNode =
+  ## Extract dotted call from `decorator`.
+  ## e.g. `@a.b.c(1, 2)` -> `a.b.c(1, 2)`
+  ## 
+  ## .. note:: Currently `decorator` is to be modified in place, while result is still returned
+  expectKind decorator, nnkCall
+  expectMinLen decorator, 2
+  result = decorator
+  var cur = decorator
+  while cur[0].kind != nnkPrefix:
+    cur = cur[0]
+  assert cur[0][0].eqIdent "@"
+  cur[0] = cur[0][1]

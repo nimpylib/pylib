@@ -120,6 +120,9 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       # TODO: impl by define such class in global but mangling its name
       # It has to be global as  class's def is implemented via `method`,
       # which is only allowed at global scope 
+    of "@":
+      # dotted called decorator, e.g. @unittest.skipIf(COND, MSG)
+      mparser.pushDecorator extractDottedCalledDecorator statement
     else:
       var cmd = newNimNode nnkCommand
       for i in statement:
