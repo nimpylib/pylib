@@ -1,5 +1,7 @@
 
 import ../common
+import ./pyCfg
+importConfig os
 
 template getProcName(): string =
   when declared(getFrame):
@@ -24,6 +26,10 @@ proc argument_unavailable_error*(function_name: string, argument_name: string) =
 
 proc argument_unavailable_error*(argument_name: string) =
   argument_unavailable_error(getProcName(1), argument_name)
+
+using follow_symlinks: bool
+using dir_fd, fd: int
+using path: PathLike|int
 
 using follow_symlinks: bool
 using dir_fd, fd: int
