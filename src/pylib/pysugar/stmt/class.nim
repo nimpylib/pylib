@@ -243,24 +243,25 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   if obj.kind != nnkIdent:
     #  class O([SupCls])
     if obj.kind == nnkCall:
-      let first = obj[1]
-      case first.kind
-      of nnkBracketExpr:
-        parseGenerics first
-      of nnkIdent, nnkObjectTy:
-        #  class O(...)
-        classId = obj[0]
+      if obj[0].kind == nnkBracketExpr:
+        parseGenerics obj[0]
       else:
-        error "metaclass/object.__init_subclass__ is not implemented yet, " &
-          "only one positional param is allowed for class, got " &
-          $obj.kind, first
+        let arg = obj[1]
+        case arg.kind
+        of nnkIdent, nnkObjectTy, nnkDotExpr, nnkBracketExpr:
+          #  class O(...)
+          classId = obj[0]
+        else:
+          error "metaclass/object.__init_subclass__ is not implemented yet, " &
+            "only one positional param is allowed for class, got " &
+            $obj.kind & " whose 1st node kind is " & $arg.kind, arg
       let supLen = obj.len - 1
       if supLen > 1:
         error "multi-inhert is not allowed in Nim, " &
           "i.e. only one super class is expected, got " & $supLen
       elif supLen == 1:
         #  class O(SupCls)
-        supCls = first
+        supCls = obj[1]
       if supCls.kind != nnkObjectTy: # not `class O(object)`
         supClsNode = nnkOfInherit.newTree supCls
         defPragmas.remove1 ident"base"
