@@ -356,7 +356,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
 
     of nnkStrLit, nnkRStrLit, nnkTripleStrLit:
       result.add newCommentStmtNode $def
-    of nnkPrefix:
+    of nnkPrefix, nnkDotExpr:
       if not parser.tryHandleDecorator def:
         result.add def
     else:
