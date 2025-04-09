@@ -1,5 +1,9 @@
 name: testC
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+on: [pull_request]
 env:
   nim-version: 'stable'
 jobs:
