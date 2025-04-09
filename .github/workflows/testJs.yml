@@ -1,11 +1,18 @@
 name: testJs
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'feat-*'
+    paths:
+      - 'src/**'
+      - './*.nimble'
+      - 'tests/**'
+  pull_request:
 env:
   nim-version: 'stable'
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "! contains(github.event.head_commit.message, '[skip ci]')"
     steps:
     - uses: actions/checkout@v4
     - name: Cache nimble
