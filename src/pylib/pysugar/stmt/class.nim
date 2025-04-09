@@ -173,6 +173,8 @@ then you will find it compile but `O.f()` gives `0` instead of `3`
   template clsType: NimNode =
     nnkBracketExpr.newTree(ident"typedesc", curClass())
   
+  if decor.name.len != 0:
+    return false
   case $decor.name
   of "staticmethod":
     purgeBase()
@@ -283,9 +285,14 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   for def in items(body):
     var pragmas = defPragmas  # will be set as empty if `isConstruct` or not base
     case def.kind
-    of nnkCall: # attr define, e.g. a: int / a: int = 1
-      let tup = parseDeclWithType(def)
-      addAttr tup.name, tup.typ, tup.val
+    of nnkCall:
+      # - attr define, e.g. a: int / a: int = 1
+      # - dotted called decorator, e.g. @unittest.skipIf(COND, MSG)
+      if def.len == 2 and def[0].kind == nnkIdent:
+        let tup = parseDeclWithType(def)
+        addAttr tup.name, tup.typ, tup.val
+      else:
+        parser.pushDecorator extractDottedCalledDecorator def
     of nnkAsgn:  #  a = 1
       addAttr def[0], emptyn, def[1]
     of nnkCommand:  # TODO: support async
