@@ -10,7 +10,7 @@ proc pushDecorator*(mparser; item: NimNode) =
   ## parse `@<item>`
   var dec: Decorator
   case item.kind
-  of nnkIdent:
+  of nnkIdent, nnkDotExpr:
     dec = Decorator(name: item, called: false)
   of nnkCall:
     dec = Decorator(name: item[0], called: true, args: item[1..^1])
@@ -29,6 +29,17 @@ proc tryHandleDecorator*(mparser; statement: NimNode): bool =
     let item = statement[1]
     mparser.pushDecorator item
     return true
+  elif statement.kind == nnkDotExpr:
+    #[  @module.decorator ->
+DotExpr
+  Prefix
+    Ident "@"
+    Ident "module"
+  Ident "decorator"]#
+    let pre = statement[0]
+    if pre.kind == nnkPrefix and pre[0].eqIdent "@":
+      mparser.pushDecorator newDotExpr(pre[1], statement[1])
+      return true
 
 proc unpackCall(callee: NimNode, arg: seq[NimNode]): NimNode =
   result = newCall callee
