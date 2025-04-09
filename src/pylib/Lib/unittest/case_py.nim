@@ -109,18 +109,22 @@ template skip*(reason: string): untyped =
 
 proc asis_id[P: proc](x: P): P = x
 
-template skipIf*(condition: bool, reason: string) =
+template skipIf*(condition: bool, reason: string): proc =
   bind asis_id, skip
-  if condition:
-      return skip(reason)
-  return asis_id
+  if condition: skip(reason)
+  else: asis_id
+
+template doIf(cond: bool; body) =
+  if cond: body
+template doIf(cond: static bool; body) =
+  when cond: body
 
 template skipIf*(condition: bool, reason: string; body) =
+  bind doIf
   addSkip reason
-  if not condition:
-    body
+  doIf not condition, body
 
-template skipUnless*(condition: bool, reason: string) =
+template skipUnless*(condition: bool, reason: string): proc =
   bind skipIf
   skipIf(not condition, reason)
 
