@@ -2,7 +2,7 @@ discard """
   action: "run"
   targets: "c js"
 
-  output: ""
+  # output: ""  this test also uses unittest.task
 """
 
 import pylib/builtins # /[round, attr]
@@ -12,7 +12,7 @@ import pylib/builtins/[pyrange, complex, format]
 import pylib/numTypes/floats
 
 import pylib/Lib/[unittest, math, random, sys]
-
+import std/unittest as std_unittest
 import ../../utils
 
 when intOver64b:
@@ -74,7 +74,7 @@ block:
 ]#
     unittest.skipUnless(getattr(sys, "float_repr_style", "") == "short",
                          "applies only when using short float repr style"):
-    # def test_previous_round_bugs(self):
+      test "previous_round_bugs":
         self.assertEqual(round(562949953421312.5, 1),
                           562949953421312.5)
     
@@ -96,7 +96,7 @@ block:
 
     unittest.skipUnless(getattr(sys, "float_repr_style", "") == "short",
                          "applies only when using short float repr style"):
-    #def test_matches_float_format(self):
+      test "matches_float_format":
         # round should give the same results as float formatting
         proc chk(x: float) =
             self.assertEqual(float(format(x, ".0f")), round(x, 0))
