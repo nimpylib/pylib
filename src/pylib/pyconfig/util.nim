@@ -5,7 +5,7 @@ from std/strutils import parseInt, strip, multiReplace
 import std/macros
 
 const weirdTarget = defined(js) or defined(nimscript)
-
+const pylibDebug = defined(pylibDebugPyConfig)
 const cacheDir = currentSourcePath()/../".cfgcache"
 when not weirdTarget:
   static:
@@ -24,13 +24,19 @@ template decl_ac_implAux(handle; subcmd; variable; defval; doWithExecRes; code):
     when fileExists fp: handle variable, fp.slurp
     else:
       const
-        res = gorgeEx( nimExeQuotedPath & ' ' & subcmd & " --hints:off --eval:" & quoteShell(astToStr code) )
+        scode = astToStr code
+        res = gorgeEx( nimExeQuotedPath & ' ' & subcmd & " --hints:"&(when pylibDebug: "on" else: "off")&" --eval:" & quoteShell(scode) )
         resCodeS = doWithExecRes res
+      when pylibDebug:
+        static:echo scode
       fp.writeFile resCodeS
       handle variable, resCodeS
 
 template decl_ac_implAux(handle; subcmd; variable; defval; code): untyped =
-  template handle_exec_res(res): string{.genSym, used.} = $res.exitCode
+  template handle_exec_res(res): string{.genSym, used.} =
+    when pylibDebug:
+      echo res.output
+    $res.exitCode
   decl_ac_implAux(handle, subcmd, variable, defval, handle_exec_res, code)
 
 
@@ -64,7 +70,7 @@ proc from_c_int_expr(cacheName, cexpr: string; defval: NimNode): NimNode =
   let pureVarId = newLit cacheName
   result = quote do:
     from_c_int(`cexpr`, `defval`):
-      {.emit: ["/*VARSECTION*/\n#define ", `pureVarId`, " ", `cexpr`, '\n'].}
+      {.emit: ["/*VARSECTION*/\n#define ", `pureVarId`, " ", `cexpr`, "\n"].}
 
 macro from_c_int_underlined*(variable: static[string]; defval: int): int =
   let pureVar = variable.strip(chars = {'_'})
@@ -167,18 +173,20 @@ template c_defined*(variable; c_macro: string; headers: openArray = []) =
 template AC_CHECK_FUNC*(res, function) =
   ## export const HAVE_`function`
   AC_LINK_IFELSE res, false:
+    const fname{.inject.} = astToStr(function)
     {.emit: [
       "/*INCLUDESECTION*/\n",
-      "#undef " & astToStr(function) & '\n',
+      "#include <limits.h>\n",
+      "#undef ", fname, "\n",
       """/* The GNU C library defines this for functions which it implements
     to always fail with ENOSYS.  Some functions are actually named
     something starting with __ and the normal name is an alias.  */
-#if defined __stub_`function` || defined __stub___`function`
+#if defined __stub_""", fname, " || defined __stub___", fname, "\n", """
 choke me
 #endif
 """
     ].}  #""" <- for code lint
-    proc function(): cchar{.importc, header: "<limits.h>".}
+    proc function(): cchar{.importc, cdecl.}
     discard function()
 
 template AC_CHECK_FUNC*(function) =

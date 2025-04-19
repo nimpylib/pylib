@@ -34,7 +34,7 @@ macro initErrorcodeMap*(K, V; res: untyped, initFunc: typed) =
       #  so we use a proc.
       result.add quote do:
         proc `addErrnoId`(){.inline.} =
-          {.emit: "\n#ifdef " & `errNameNode` & '\n'.}
+          {.emit: "\n#ifdef " & `errNameNode` & "\n".}
           `res`[`errId`] = `errNameNode`
           {.emit: "\n#endif\n".}
       result.add newCall(addErrnoId)
