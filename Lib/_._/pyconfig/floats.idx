@@ -1,7 +1,7 @@
 nimTitle	floats	_._/pyconfig/floats.html	module src/pylib/pyconfig/floats		0
-nim	X87_double_rounding	_._/pyconfig/floats.html#X87_double_rounding	const X87_double_rounding		44
-nim	HAVE_GCC_ASM_FOR_X87	_._/pyconfig/floats.html#HAVE_GCC_ASM_FOR_X87	const HAVE_GCC_ASM_FOR_X87		44
-nim	HAVE_GCC_ASM_FOR_MC68881	_._/pyconfig/floats.html#HAVE_GCC_ASM_FOR_MC68881	const HAVE_GCC_ASM_FOR_MC68881		44
+nim	X87_double_rounding	_._/pyconfig/floats.html#X87_double_rounding	const X87_double_rounding		50
+nim	HAVE_GCC_ASM_FOR_X87	_._/pyconfig/floats.html#HAVE_GCC_ASM_FOR_X87	const HAVE_GCC_ASM_FOR_X87		50
+nim	HAVE_GCC_ASM_FOR_MC68881	_._/pyconfig/floats.html#HAVE_GCC_ASM_FOR_MC68881	const HAVE_GCC_ASM_FOR_MC68881		50
 nim	HAVE_PY_SET_53BIT_PRECISION	_._/pyconfig/floats.html#HAVE_PY_SET_53BIT_PRECISION.t	template HAVE_PY_SET_53BIT_PRECISION(): bool		85
 nim	Py_SET_53BIT_PRECISION_HEADER	_._/pyconfig/floats.html#Py_SET_53BIT_PRECISION_HEADER.t	template Py_SET_53BIT_PRECISION_HEADER()		104
 nim	Py_SET_53BIT_PRECISION_START	_._/pyconfig/floats.html#Py_SET_53BIT_PRECISION_START.t	template Py_SET_53BIT_PRECISION_START()		107

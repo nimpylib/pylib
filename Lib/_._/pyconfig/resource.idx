@@ -1,5 +1,5 @@
 nimTitle	resource	_._/pyconfig/resource.html	module src/pylib/pyconfig/resource		0
 nim	SIZEOF_RLIMIT_T	_._/pyconfig/resource.html#SIZEOF_RLIMIT_T	const SIZEOF_RLIMIT_T		4
-nim	HAVE_PRLIMIT	_._/pyconfig/resource.html#HAVE_PRLIMIT	const HAVE_PRLIMIT		44
-nim	HAVE_GETPAGESIZE	_._/pyconfig/resource.html#HAVE_GETPAGESIZE	const HAVE_GETPAGESIZE		44
-nim	HAVE_SYSCONF_PAGE_SIZE	_._/pyconfig/resource.html#HAVE_SYSCONF_PAGE_SIZE	const HAVE_SYSCONF_PAGE_SIZE		44
+nim	HAVE_PRLIMIT	_._/pyconfig/resource.html#HAVE_PRLIMIT	const HAVE_PRLIMIT		50
+nim	HAVE_GETPAGESIZE	_._/pyconfig/resource.html#HAVE_GETPAGESIZE	const HAVE_GETPAGESIZE		50
+nim	HAVE_SYSCONF_PAGE_SIZE	_._/pyconfig/resource.html#HAVE_SYSCONF_PAGE_SIZE	const HAVE_SYSCONF_PAGE_SIZE		50

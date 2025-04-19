@@ -1,6 +1,6 @@
 nimTitle	signal	_._/pyconfig/signal.html	module src/pylib/pyconfig/signal		0
 nim	Py_NSIG	_._/pyconfig/signal.html#Py_NSIG	const Py_NSIG		3
-nim	HAVE_STRSIGNAL	_._/pyconfig/signal.html#HAVE_STRSIGNAL	const HAVE_STRSIGNAL		44
+nim	HAVE_STRSIGNAL	_._/pyconfig/signal.html#HAVE_STRSIGNAL	const HAVE_STRSIGNAL		50
 nim	DEF_SIG	_._/pyconfig/signal.html#DEF_SIG	const DEF_SIG		32
 nim	SIGIOT	_._/pyconfig/signal.html#SIGIOT	const SIGIOT		35
 nim	SIGEMT	_._/pyconfig/signal.html#SIGEMT	const SIGEMT		35
