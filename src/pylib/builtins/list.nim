@@ -44,7 +44,15 @@ func `[]=`*[T](self: var PyList[T], s: BackwardsIndex, x: T) =
 proc list*[T](iter: Iterable[T]): PyList[T] # front decl
 func `[]=`*[T](self: var PyList[T], s: HSlice, x: Iterable[T]) =
   self[s] = list(x)
+
+
+func normSlice(s: PySlice, le: int): PySlice =
+  template norm(idx: int): untyped =
+    (if idx < 0: le+idx else: idx)
+  slice(s.start.norm, s.stop.norm, s.step)
+
 func `[]=`*[T](self: var PyList[T], s: PySlice, x: Sequence[T]) =
+  let s = normSlice(s, self.len)
   if s.step == 1:
     self[s.toNimSlice] = x
     return
@@ -63,12 +71,17 @@ func `[]=`*[T](self: var PyList[T], s: PySlice,
   for i in x: sequ.add i
   self[s] = sequ
 
+func append*[T](self: var PyList[T], x: T) = self.asSeq.add x
+func `+=`*[T](self: var PyList[T], ls: openArray[T]) = self.asSeq.add ls
+func `+=`*[T](self: var PyList[T], ls: PyList[T]) = self += ls.asSeq
+
 func `[]`*[T](self: PyList[T], s: HSlice): PyList[T] =
   newPyList system.`[]`(self.asSeq, s)
 func `[]`*[T](self: PyList[T], s: BackwardsIndex): T =
   system.`[]`(self.asSeq, s)
 # PySlice1 is handled by: converter -> Slice
 func `[]`*[T](self: PyList[T], s: PySlice): PyList[T] =
+  let s = normSlice(s, self.len)
   if s.step == 1:
     return self[s.toNimSlice]
   result = newPyList[T]()
@@ -78,10 +91,6 @@ func `[]`*[T](self: PyList[T], s: PySlice): PyList[T] =
 
 
 func reverse*(self: var PyList) = reverse(self.asSeq)
-
-func append*[T](self: var PyList[T], x: T) = self.asSeq.add x
-func `+=`*[T](self: var PyList[T], ls: openArray[T]) = self.asSeq.add ls
-func `+=`*[T](self: var PyList[T], ls: PyList[T]) = self += ls.asSeq
 
 func pop*[T](self: var PyList[T]): T{.discardable.} = self.asSeq.pop()
 func pop*[T](self: var PyList[T], index: int): T{.discardable.} =

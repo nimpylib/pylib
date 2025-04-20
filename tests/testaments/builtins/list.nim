@@ -58,3 +58,14 @@ test "list methods":
         ls[slice(0, 2, 2)] = range(4)
       
 
+test "list slice":
+  def emptySlice():
+    ls = [1,2,3,4]
+    return ls[1:-1]
+  check emptySlice() == [2,3]
+
+  def s():
+    ls = [1,2,3,4]
+    return ls[-4:-1]
+  check s() == [1,2,3]
+
