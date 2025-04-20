@@ -56,7 +56,7 @@
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#PyOSError" title="PyOSError = object of system.OSError
-  errno*: cint
+  errno* {.exportc: &quot;myerrno&quot;.}: cint
   strerror*, filename*, filename2*: string
   when defined(windows):
     winerror*: cint          ## Windows-specific error code
@@ -81,7 +81,7 @@
   <dl class="item">
     <div id="PyOSError">
   <dt><pre><a href="oserror_decl.html#PyOSError"><span class="Identifier">PyOSError</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">system</span><span class="Other">.</span><span class="Identifier">OSError</span>
-  <span class="Identifier">errno</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">errno</span><span class="Operator">*</span> {.<span class="Identifier">exportc</span><span class="Other">:</span> <span class="StringLit">&quot;myerrno&quot;</span>.}<span class="Other">:</span> <span class="Identifier">cint</span>
   <span class="Identifier">strerror</span><span class="Operator">*</span><span class="Other">,</span> <span class="Identifier">filename</span><span class="Operator">*</span><span class="Other">,</span> <span class="Identifier">filename2</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">string</span>
   <span class="Keyword">when</span> <span class="Identifier">defined</span><span class="Other">(</span><span class="Identifier">windows</span><span class="Other">)</span><span class="Other">:</span>
     <span class="Identifier">winerror</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>          <span class="Comment">## Windows-specific error code</span>
@@ -104,7 +104,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-19 20:11:55 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 04:52:23 UTC</small>
       </div>
     </div>
   </div>
