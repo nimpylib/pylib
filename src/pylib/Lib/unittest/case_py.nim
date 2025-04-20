@@ -119,7 +119,7 @@ template skip*(reason; body) =
 
 template skip*(reason: string): untyped =
   bind skip, fmtSkip
-  template temp(p: proc) =
+  proc temp(p: proc) =
     test fmtSkip(astToStr(p), reason):
       skip()
   temp
