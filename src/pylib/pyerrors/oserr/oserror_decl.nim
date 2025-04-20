@@ -1,7 +1,7 @@
 
 type PyOSError* = object of system.OSError
   ## Python-compatible OSError
-  errno*: cint
+  errno*{.exportc: "myerrno".}: cint
   strerror*,
     filename*,
     filename2*: string
