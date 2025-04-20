@@ -1,4 +1,5 @@
 nimTitle	decorator	pylib/pysugar/stmt/decorator.html	module src/pylib/pysugar/stmt/decorator		0
 nim	pushDecorator	pylib/pysugar/stmt/decorator.html#pushDecorator,,NimNode	proc pushDecorator(mparser; item: NimNode)		9
 nim	tryHandleDecorator	pylib/pysugar/stmt/decorator.html#tryHandleDecorator,,NimNode	proc tryHandleDecorator(mparser; statement: NimNode): bool		21
-nim	consumeDecorator	pylib/pysugar/stmt/decorator.html#consumeDecorator,,NimNode	proc consumeDecorator(mparser; procDef: NimNode): NimNode		46
+nim	consumeDecorator	pylib/pysugar/stmt/decorator.html#consumeDecorator,,NimNode	proc consumeDecorator(mparser; procDef: NimNode): NimNode		57
+nim	extractDottedCalledDecorator	pylib/pysugar/stmt/decorator.html#extractDottedCalledDecorator,NimNode	proc extractDottedCalledDecorator(decorator: NimNode): NimNode		77

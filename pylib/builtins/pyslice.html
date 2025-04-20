@@ -93,6 +93,10 @@
 <li><a class="reference" href="#slice%2Cint" title="slice(stop: int): PySlice1">slice(stop: int): PySlice1</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">toNimSlice
+  <li><a class="reference" href="#toNimSlice%2CPySlice1" title="toNimSlice(s: PySlice1): Slice[int]">toNimSlice(s: PySlice1): Slice[int]</a></li>
+
+</ul>
 
     </ul>
   </details>
@@ -101,8 +105,8 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#16" id="66">Converters</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">toNimSlice
-  <li><a class="reference" href="#toNimSlice.c%2CPySlice1" title="toNimSlice(s: PySlice1): Slice[int]">toNimSlice(s: PySlice1): Slice[int]</a></li>
+      <ul class="simple nested-toc-section">toPySlice
+  <li><a class="reference" href="#toPySlice.c%2CPySlice1" title="toPySlice(s: PySlice1): PySlice">toPySlice(s: PySlice1): PySlice</a></li>
 
 </ul>
 
@@ -199,8 +203,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyslice.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyslice.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyslice.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyslice.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -212,8 +216,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyslice.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyslice.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyslice.nim#L39" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyslice.nim#L39" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -253,16 +257,28 @@
 </div>
 
 </div>
+<div id="toNimSlice-procs-all">
+  <div id="toNimSlice,PySlice1">
+  <dt><pre><span class="Keyword">proc</span> <a href="#toNimSlice%2CPySlice1"><span class="Identifier">toNimSlice</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="pyslice.html#PySlice1"><span class="Identifier">PySlice1</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Slice</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/pyslice.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/pyslice.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 
   </dl>
 </div>
 <div class="section" id="16">
   <h1><a class="toc-backref" href="#16">Converters</a></h1>
   <dl class="item">
-    <div id="toNimSlice-converters-all">
-  <div id="toNimSlice.c,PySlice1">
-  <dt><pre><span class="Keyword">converter</span> <a href="#toNimSlice.c%2CPySlice1"><span class="Identifier">toNimSlice</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="pyslice.html#PySlice1"><span class="Identifier">PySlice1</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Slice</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+    <div id="toPySlice-converters-all">
+  <div id="toPySlice.c,PySlice1">
+  <dt><pre><span class="Keyword">converter</span> <a href="#toPySlice.c%2CPySlice1"><span class="Identifier">toPySlice</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="pyslice.html#PySlice1"><span class="Identifier">PySlice1</span></a><span class="Other">)</span><span class="Other">:</span> <a href="pyslice.html#PySlice"><span class="Identifier">PySlice</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -283,7 +299,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 04:50:02 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 15:56:49 UTC</small>
       </div>
     </div>
   </div>

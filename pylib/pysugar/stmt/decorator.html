@@ -62,6 +62,10 @@
   <li><a class="reference" href="#consumeDecorator%2C%2CNimNode" title="consumeDecorator(mparser; procDef: NimNode): NimNode">consumeDecorator(mparser; procDef: NimNode): NimNode</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">extractDottedCalledDecorator
+  <li><a class="reference" href="#extractDottedCalledDecorator%2CNimNode" title="extractDottedCalledDecorator(decorator: NimNode): NimNode">extractDottedCalledDecorator(decorator: NimNode): NimNode</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">pushDecorator
   <li><a class="reference" href="#pushDecorator%2C%2CNimNode" title="pushDecorator(mparser; item: NimNode)">pushDecorator(mparser; item: NimNode)</a></li>
 
@@ -105,8 +109,24 @@
   <span class="Punctuation">`</span><span class="Identifier">procDef</span><span class="Punctuation">`</span>
   <span class="Identifier">decorator</span><span class="Punctuation">(</span><span class="Operator">...</span> <span class="Punctuation">(</span><span class="Punctuation">`</span><span class="Identifier">procDef</span><span class="Punctuation">`</span><span class="Punctuation">)</span><span class="Punctuation">)</span></pre></p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/decorator.nim#L46" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/decorator.nim#L46" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/decorator.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/decorator.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="extractDottedCalledDecorator-procs-all">
+  <div id="extractDottedCalledDecorator,NimNode">
+  <dt><pre><span class="Keyword">proc</span> <a href="#extractDottedCalledDecorator%2CNimNode"><span class="Identifier">extractDottedCalledDecorator</span></a><span class="Other">(</span><span class="Identifier">decorator</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">NimNode</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Extract dotted call from <tt class="docutils literal"><span class="pre"><span class="Identifier">decorator</span></span></tt>. e.g. <tt class="docutils literal"><span class="pre"><span class="Operator">@</span><span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">b</span><span class="Operator">.</span><span class="Identifier">c</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">)</span></span></tt> -&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">.</span><span class="Identifier">b</span><span class="Operator">.</span><span class="Identifier">c</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">2</span><span class="Punctuation">)</span></span></tt><div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
+Currently <tt class="docutils literal"><span class="pre"><span class="Identifier">decorator</span></span></tt> is to be modified in place, while result is still returned</div>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/decorator.nim#L77" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/decorator.nim#L77" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -149,7 +169,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 04:50:29 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 15:57:17 UTC</small>
       </div>
     </div>
   </div>

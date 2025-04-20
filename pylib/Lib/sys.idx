@@ -1,4 +1,5 @@
 nimTitle	sys	pylib/Lib/sys.html	module src/pylib/Lib/sys		0
+nim	float_repr_style	pylib/Lib/sys.html#float_repr_style	const float_repr_style		16
 nim	platform	pylib/Lib/sys.html#platform	const platform		58
 nim	version_info	pylib/Lib/sys.html#version_info	const version_info		33
 nim	implementation	pylib/Lib/sys.html#implementation	const implementation		47
@@ -10,8 +11,8 @@ nim	copyright	pylib/Lib/sys.html#copyright	const copyright		58
 nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		34
 nim	argv	pylib/Lib/sys.html#argv	var argv		39
 nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		61
-nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		27
-nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		28
-nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		30
-nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		34
-nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		30
+nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		28
+nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		29
+nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		31
+nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		35
+nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		31
