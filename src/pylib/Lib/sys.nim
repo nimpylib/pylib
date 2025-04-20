@@ -13,6 +13,7 @@ import ./n_sys
 export n_sys except float_repr_style, platform, getencodings
 
 import ./sys_impl/[genplatform, geninfos, genargs]
+const float_repr_style* = str(n_sys.float_repr_style)
 genPlatform(str)
 genInfos(str, None)
 genArgs PyStr, PyList, str, list, newPyListOfCap
