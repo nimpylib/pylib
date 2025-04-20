@@ -32,9 +32,9 @@ converter toPySlice*(s: PySlice1): PySlice =
   result = PySlice(start: s.start, stop: s.stop, step: 1)
 
 proc toNimSlice*(s: PySlice1): Slice[int] =
-  assert result.a >= 0 and result.b >= 0
   result.b = s.stop - 1
   result.a = s.start
+  assert result.a >= 0 and result.b >= 0
 
 func repr*(self: PySlice): string =
   result = "slice(" & $self.start & ", "
