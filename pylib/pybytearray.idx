@@ -42,7 +42,7 @@ nim	delitem	pylib/pybytearray.html#delitem,,int	proc delitem(mself: PyByteArray;
 nim	clear	pylib/pybytearray.html#clear	proc clear(mself: PyByteArray)		142
 nim	`*=`	pylib/pybytearray.html#*=,,int	proc `*=`(mself: PyByteArray; n: int)		144
 nim	reverse	pylib/pybytearray.html#reverse	proc reverse(mself: PyByteArray)		156
-nim	delitem	pylib/pybytearray.html#delitem,PyByteArray,Slice[int]	proc delitem(ms: var PyByteArray; indices: Slice[int])		15
+nim	delitem	pylib/pybytearray.html#delitem,PyByteArray,Slice[int]	proc delitem(ms: var PyByteArray; indices: Slice[int])		13
 nim	delitem	pylib/pybytearray.html#delitem,PyByteArray,PySlice	proc delitem(ms: var PyByteArray; indices: PySlice)		161
 nim	`[]=`	pylib/pybytearray.html#[]=,PyByteArray,Slice[int],Sequence[int]	proc `[]=`(ms: var PyByteArray; indices: Slice[int]; o: Sequence[int])		162
 nimgrp	delitem	pylib/pybytearray.html#delitem-procs-all	proc		138

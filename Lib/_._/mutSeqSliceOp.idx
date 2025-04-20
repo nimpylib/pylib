@@ -1,5 +1,5 @@
 nimTitle	mutSeqSliceOp	_._/mutSeqSliceOp.html	module src/pylib/mutSeqSliceOp		0
-nim	genDelItem	_._/mutSeqSliceOp.html#genDelItem.t	template genDelItem(Arr)		13
-nim	bodySetItem	_._/mutSeqSliceOp.html#bodySetItem.t	template bodySetItem(Arr)		29
-nim	genGenericSetItem	_._/mutSeqSliceOp.html#genGenericSetItem.t,,	template genGenericSetItem(Arr, Arr2)		34
-nim	genNonGenericSetItem	_._/mutSeqSliceOp.html#genNonGenericSetItem.t,,	template genNonGenericSetItem(Arr, Arr2)		39
+nim	genDelItem	_._/mutSeqSliceOp.html#genDelItem.t	template genDelItem(Arr)		11
+nim	bodySetItem	_._/mutSeqSliceOp.html#bodySetItem.t	template bodySetItem(Arr)		41
+nim	genGenericSetItem	_._/mutSeqSliceOp.html#genGenericSetItem.t,,	template genGenericSetItem(Arr, Arr2)		63
+nim	genNonGenericSetItem	_._/mutSeqSliceOp.html#genNonGenericSetItem.t,,	template genNonGenericSetItem(Arr, Arr2)		68
