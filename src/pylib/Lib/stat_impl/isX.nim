@@ -3,7 +3,8 @@ import ./isXImpl
 import ./[consts, types]
 
 template makeSIsFuncTemplate(name: untyped) {.dirty.} =
-  proc `S_IS name`*(omode: int): bool=
+  export isXImpl.`S_IS name`
+  proc `S_IS name`*(omode: int): bool =
     `S_IS name` int_AsMode_t(omode)
 
 # Generate S_IS* functions
@@ -25,10 +26,10 @@ proc S_IMODE*(omode: int): int =
 
 # const stat_S_IMODE_doc = "Return the portion of the file's mode that can be set by os.chmod()."
 
-proc S_IFMT_impl(omode: Mode): int =
+proc S_IFMT*(omode: Mode): int =
   int(omode and Mode S_IFMT_val)
 
 proc S_IFMT*(omode: int): int =
-  S_IFMT_impl(int_AsMode_t(omode))
+  S_IFMT(int_AsMode_t(omode))
 
 # const stat_S_IFMT_doc = "Return the portion of the file's mode that describes the file type."
