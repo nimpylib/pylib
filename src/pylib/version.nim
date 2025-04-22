@@ -14,9 +14,37 @@ export versionInfo
 
 const
   Version* = asVersion(Major, Minor, Patch)
+template exportSincePy*(major, minor: int, sym: typed) =
+  bind PyMajor, PyMinor
+  when (PyMajor, PyMinor) >= (major, minor):
+    export sym
+
+import std/macros
+proc newCallFrom(sym, params: NimNode): NimNode =
+  result = newCall(sym)
+  for i in 1..<params.len:
+    result.add params[i][0]
+
+proc templWrapExportSincePyImpl(major, minor: int, sym: NimNode): NimNode =
+  let emptyn = newEmptyNode()
+  result = newNimNode nnkTemplateDef
+  let
+    impl = sym.getImpl()
+    params = impl[3]
+  var nparams = params.copyNimTree
+  nparams[0] = bindSym"untyped"
+  result.add(
+    postfix(sym, "*"), emptyn, # term rewrite
+    impl[2], nparams,
+    emptyn, emptyn, # pragma, preversed
+    newStmtList sym.newCallFrom params
+  )
+
+macro templWrapExportSincePy*(major, minor: static int, sym: typed) =
+  ## generate `template sym*(...): untyped = sym(...)`
+  templWrapExportSincePyImpl(major, minor, sym)
 
 when defined(nimdoc):
-  import std/macros
   func preappendDoc(body: NimNode, doc: string) =
     let first = body[0]
     if first.kind == nnkCommentStmt:
@@ -34,17 +62,47 @@ when defined(nimdoc):
       ##   as diagnosis tools like dumpTree just omit doc node of non-proc node
   template descSince(ver: string): string =
     " .. admonition:: since Python " & ver & "\n\n"
+  func addDocImpl(major, minor: int; def: NimNode): NimNode =
+    addDocImpl(asVersion(major, minor).descSince, def)
   macro pysince*(major, minor: static int, def) =
     if def.kind == nnkStmtList:
       result = def
     else:
-      result = addDocImpl(asVersion(major, minor).descSince, def)
+      result = addDocImpl(major, minor, def)
+
+  proc genWrapCall(sym: NimNode): NimNode =
+    result = sym.getImpl()         
+    var call = sym.newCallFrom result.params
+    case result.kind
+    of nnkIteratorDef:
+      call = quote do:
+        for i in `call`: yield i
+    of nnkMacroDef, nnkTemplateDef:
+      var nres = newNimNode nnkTemplateDef
+      nres.add postfix(ident result[0].strVal, "*") # get rid of
+      #    Error: cannot use symbol of kind 'macro' as a 'template
+      for i in 1..<result.len-1:  # skip body
+        nres.add result[i]
+      nres.add newEmptyNode()
+      result = nres
+    else: discard
+    result.body = newStmtList call
+
+  macro wrapExportSincePy*(major, minor: static int, sym: typed) =
+    if sym.typeKind == ntyProc:  # includes template, macro
+      let def = sym.genWrapCall()
+      result = addDocImpl(major, minor, def)
+    else:
+      result = newCall(bindSym"exportSincePy", major.newLit, minor.newLit, sym)
 
 else:
   template pysince*(major, minor: int, def){.dirty.} =
     bind PyMajor, PyMinor
     when (PyMajor, PyMinor) >= (major, minor):
       def
+  template wrapExportSincePy*(major, minor: int, sym: typed) =
+    bind exportSincePy
+    exportSincePy(major, minor, sym)
 
 type MajorMinorVersion = tuple[major, minor: int]
 
