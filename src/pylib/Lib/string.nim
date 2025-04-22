@@ -55,8 +55,7 @@ else:
 genSubstitute(Mapping, PyStr, substitute,      initRaisesExcHandle)
 genSubstitute(Mapping, PyStr, safe_substitute, initIgnoreExcHandle)
 
-proc is_valid*(templ: Template): bool{.pysince(3,11).} =
-  templateImpl.is_valid(templ)
+wrapExportSincePy(3,11, is_valid)
 
 proc get_identifiers*(templ: Template): PyList[PyStr]{.pysince(3,11).} =
   result = newPyList[PyStr]()

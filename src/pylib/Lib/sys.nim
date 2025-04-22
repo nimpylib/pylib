@@ -8,11 +8,16 @@
 import ../builtins/list
 import ../noneType
 import ../pystring/strimpl
+import ../version as verionLib
 
 import ./n_sys
-export n_sys except float_repr_style, platform, getencodings
+export n_sys except float_repr_style, platform, getencodings, addaudithook, audit
 
 import ./sys_impl/[genplatform, geninfos, genargs]
+
+wrapExportSincePy(3,8, addaudithook)
+wrapExportSincePy(3,8, audit)
+
 const float_repr_style* = str(n_sys.float_repr_style)
 genPlatform(str)
 genInfos(str, None)

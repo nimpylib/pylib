@@ -40,15 +40,10 @@ template wrapPyStr1(fun; T){.dirty.} =
 
 wrapPyStr1 getmodulename, PyStr
 
-template markcoroutinefunction*(obj): untyped{.pysince(3,12).} =
- isX.markcoroutinefunction(obj)
+wrapExportSincePy(3,12, markcoroutinefunction)
 
-template defPredSince(sym, maj, min){.dirty.} =
-  template sym*(obj): bool{.pysince(maj, min).} =
-    isX.sym(obj)
-
-defPredSince iscoroutinefunction, 3,5
-defPredSince isawaitable, 3,5
+wrapExportSincePy(3,5, iscoroutinefunction)
+wrapExportSincePy(3,5, isawaitable)
 
 # isasyncgenfunction 3.6
 
