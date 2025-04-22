@@ -16,6 +16,7 @@ impExp sys_impl,
   stdio,
   exits,
   getencodings,
-  sizes
+  sizes,
+  auditImpl
 
 
