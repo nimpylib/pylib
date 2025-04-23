@@ -1,4 +1,5 @@
 
+import ../Lib/sys
 template id*(x): int =
   runnableExamples:
     let a = 1.0
@@ -8,7 +9,10 @@ template id*(x): int =
     block:
       var a,b = 1
       assert id(a) != id(b)
+  bind audit
+  sys.audit("builtins.id", x)
   cast[int](
-    when NimMajor > 1: x.addr
+    when x is ref|ptr|proc|pointer: x
+    elif NimMajor > 1: x.addr
     else: x.unsafeAddr
   )

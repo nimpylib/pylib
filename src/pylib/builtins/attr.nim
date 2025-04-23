@@ -1,6 +1,7 @@
 
 import std/macros
 import ../pystring/strimpl
+import ../Lib/sys_impl/auditImpl/macrohelper
 
 proc newDotExpr(x: NimNode, attr: string): NimNode =
   newDotExpr(x, ident attr)
@@ -11,17 +12,26 @@ template gen(S){.dirty.} =
     newCall("compiles", dot)
   
   macro getattr*(x; attr: static[S]): untyped =
-    newDotExpr(x, attr)
+    result = newStmtWithAudit(
+      "object.__getattr__",  # sys.audit("object.__getattr__", attr)
+      attr.newLit)
+    result.add newDotExpr(x, attr)
   
   macro getattr*(x; attr: static[S], default): untyped =
+    result = newStmtWithAudit(
+      "object.__getattr__",  # sys.audit("object.__getattr__", attr)
+      attr.newLit)
     let val = newDotExpr(x, attr)
     let attrS = newLit attr
-    result = quote do:
+    result.add quote do:
       when not hasattr(`x`, `attrS`): `default`
       else: `val`
   
   macro setattr*(x; attr: static[S], val) =
-    newAssignment(newDotExpr(x, attr), val)
+    result = newStmtWithAudit(
+      "object.__setattr__",  # sys.audit("object.__setattr__", attr, val)
+      attr.newLit, val)
+    result.add newAssignment(newDotExpr(x, attr), val)
   
 gen string
 gen PyStr

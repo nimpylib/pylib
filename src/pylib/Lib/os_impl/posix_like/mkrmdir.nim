@@ -6,8 +6,12 @@ import ./mkrmdirImpl
 proc mkdir*(p: PathLike, mode=0o777, dir_fd: int){.error: "not implement".}
 proc rmdir*(p: PathLike, dir_fd: int){.error: "not implement".}
 
-proc rmdir*(path: PathLike) = rawRemoveDir(path)
-proc mkdir*(p: PathLike, mode=0o777) = rawCreateDir(p, mode)
+proc rmdir*(path: PathLike) =
+  sys.audit("os.rmdir", path, -1)
+  rawRemoveDir(path)
+proc mkdir*(p: PathLike, mode=0o777) =
+  sys.audit("os.mkdir", p, mode, -1)
+  rawCreateDir(p, mode)
 
 #[ A version of `mkdir` that does not support `mode` 
 proc mkdir*(p: PathLike, mode: int){.error: "not implement".}

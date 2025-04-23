@@ -40,14 +40,17 @@ iterator items(self: var RandomNameSequence, times: int): string =
 
 const templ* = "tmp"  # Py's `tempfile.template`
 
-proc mktemp*(suffix="", prefix=templ, dir = "", checker=fileExists): string =
-  ## User-callable function to return a unique temporary file/dir name.  The
-  ##  file/dir is not created.
+proc mktempWithChecker(suffix="", prefix=templ, dir = "", checker: proc (s: string): bool=fileExists): string =
   for name in name_sequence.items(times=TMP_MAX):
     let file = dir / prefix & name & suffix
     if not checker file:
       return file
   raise newException(FileNotFoundError, "No usable temporary filename found")
+
+proc mktemp*(suffix="", prefix=templ, dir = ""): string =
+  ## User-callable function to return a unique temporary file/dir name.  The
+  ##  file/dir is not created.
+  mktempWithChecker(suffix, prefix, dir, fileExists)
 
 
 proc candidate_tempdir_list(): seq[string] =
@@ -259,9 +262,14 @@ type TemporaryDirectoryWrapper* = object
   name*: string
   ignore_cleanup_errors, delete: bool
 
+proc auditThenDirExists(s: string): bool =
+  sys.audit("tempfile.mkdtemp", s)
+  dirExists(s)
+
 proc mkdtemp*(suffix=sNone, prefix=sNone, dir=sNone): string =
   let tup = sanitize_params(prefix=prefix, suffix=suffix, dir=dir)
-  mktemp(dir=tup.dir, suffix=tup.suffix, prefix=tup.prefix, checker=dirExists)
+  mktempWithChecker(dir=tup.dir, suffix=tup.suffix, prefix=tup.prefix,
+    checker=auditThenDirExists)
 
 proc TemporaryDirectory*(suffix=sNone, prefix=sNone, dir=sNone, ignore_cleanup_errors=False,
      delete=True): TemporaryDirectoryWrapper =

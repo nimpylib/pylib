@@ -83,6 +83,7 @@ proc chmod*(
   when not (HAVE_FCHMODAT or HAVE_FCHMOD or useMS_WINDOWSproc):
     if follow_symlinks_specified(follow_symlinks):
       return
+  sys.audit("os.chmod", path, mode, dir_fd)
   when useMS_WINDOWSproc:
     var res = false
     if path is int:
@@ -184,6 +185,7 @@ proc chmod*(
 
 when HAVE_FCHMOD or useMS_WINDOWSproc:
   proc fchmod*(fd: int, mode: int) =
+    sys.audit("os.chmod", fd, mode, -1)
     when useMS_WINDOWSproc:
       if not win32_fchmod(fd, mode):
         raiseErrno()
@@ -194,6 +196,7 @@ when HAVE_FCHMOD or useMS_WINDOWSproc:
 
 when HAVE_LCHMOD or useMS_WINDOWSproc:
   proc lchmod*(path: string, mode: int) =
+    sys.audit("os.chmod", path, mode, -1)
     when useMS_WINDOWSproc:
       if not win32_lchmod(newWideCString(path), mode):
         raiseErrnoWithPath path

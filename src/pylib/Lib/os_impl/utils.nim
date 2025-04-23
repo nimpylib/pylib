@@ -12,12 +12,16 @@ when InJs:
   proc getcwd*(): PyStr = str cwd()
   proc getcwdb*(): PyBytes = bytes cwd()
   proc chdir(d: cstring){.importDenoOrProcess(chdir).}
-  proc chdir*(s: PathLike) = chdir cstring $s
+  proc chdirImpl(s: PathLike) = chdir cstring $s
 
 else:
   proc getcwd*(): PyStr = str getCurrentDir()
   proc getcwdb*(): PyBytes = bytes getCurrentDir()
-  proc chdir*(s: PathLike) = setCurrentDir $s
+  proc chdirImpl(s: PathLike) = setCurrentDir $s
+
+proc chdir*(s: PathLike) =
+  sys.audit("os.chdir", s)
+  chdirImpl(s)
 
 proc makedirs*[T](d: PathLike[T], mode=0o777, exists_ok=false) =
   let dir = $d

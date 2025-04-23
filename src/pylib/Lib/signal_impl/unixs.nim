@@ -10,6 +10,7 @@ import ./[
   sigset_to_set,
   siginfo_decl
 ]
+import ../sys_impl/auditImpl as sys
 export Sigset
 export siginfo_decl except fill_siginfo
 import ../../Python/pytime/[deadline, pytimeFromSeconds, pytimeAsTimeval]
@@ -18,6 +19,7 @@ proc alarm*(seconds: int): int = int alarm seconds.cint
 proc pause*(): int = int posix.pause()
 
 proc pthread_kill*(thread_id: uint, signalnum: int) =
+  sys.audit("signal.pthread_kill", thread_id, signalnum)
   let err = pthread_kill(Pthread thread_id, cint signalnum)
   if err != 0:
     raiseErrno()

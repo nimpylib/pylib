@@ -16,6 +16,7 @@ else:
     result = c_rename(cstring $src, cstring $dst) == 0.cint
 
 proc rename*[T](src, dst: PathLike[T]) =
+  sys.audit("os.rename", src, dst, -1, -1)
   if not internal_rename(src, dst, false):
     raiseExcWithPath2(src, dst)
 

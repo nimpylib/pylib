@@ -135,6 +135,7 @@ when defined(js):
   proc readSync(self: Dir): Dirent{.importcpp.}
 
 template scandirImpl(path){.dirty.} =
+  sys.audit("os.scandir", path)
   let spath = $path
   when defined(js):
     var dir: Dir

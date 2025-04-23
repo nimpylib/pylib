@@ -11,6 +11,7 @@ import ../version
 import ../builtins/list
 import ../mutSeqSliceOp
 import ./collections/abc
+import ./sys_impl/auditImpl/macrohelper
 
 template since_has_Py_UCS4(def) =
   pysince(3, 13): def
@@ -395,10 +396,12 @@ macro array*(typecode: static[char], initializer: typed): PyArray =
   let
     typ = initializer.getTypeInst
     # not use getType, which returns concrete impl
+  result = newStmtWithAudit(
+    "array.__new__",  # sys.audit("array.__new__", typecode, initializer)
+    typecode.newLit, initializer)
   if typ.typeKind == ntyArray:
-    result = baseInitCall.add initializer.parseArrInitLit(typeStr)
+    result.add baseInitCall.add initializer.parseArrInitLit(typeStr)
     return
-  result = newStmtList()
   let res = genSym(nskVar, "arrayNewRes")
   result.add newVarStmt(
     res,

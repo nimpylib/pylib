@@ -45,6 +45,7 @@ export DefErrors, LookupError
 import ../pystring/[strimpl, strbltins]
 import ../pybytes/[bytesimpl, bytesbltins]
 import ./warnings
+import ./sys_impl/auditImpl as sys
 
 const
   SEEK_SET* = 0
@@ -675,6 +676,7 @@ template openImpl(result: untyped;
       encoding = encoding1, errors=errors1, newline=newline1, resMode=nmode)
   
   var nfile: File
+  sys.audit("open", file, smode)  ## XXX: PY-DIFF: 3rd arg shall be flags
   when file is int:
     let succ = openNoNonInhertFlag(nfile, FileHandle file, mode=nmode)
   else:

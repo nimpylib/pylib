@@ -109,8 +109,10 @@ else:
       raiseExcWithPath path
 
 proc utime*[T; F: SomeFloat](path: PathLike[T], times: TimePair[F], follow_symlinks=true) =
+  sys.audit("os.utime", path, times, None, -1)
   utimeImpl stoTime, path, times, follow_symlinks
 proc utime*[T](path: PathLike[T], ns: TimeNsPair, follow_symlinks=true) =
+  sys.audit("os.utime", path, None, ns, -1)
   utimeImpl nstoTime, path, ns, follow_symlinks
 
 template timeToNs(t: times.Time): NsUnit = nowTime.toUnix.NsUnit * `ns/s` + nowTime.nanosecond.NsUnit
@@ -120,4 +122,5 @@ proc utime*[T](path: PathLike[T], follow_symlinks=true) =
     nowTime = times.getTime()
     ns = timeToNs nowTime
     times_tup = (ns, ns)
+  sys.audit("os.utime", path, None, times_tup, -1)
   utimeImpl nstoTime, path, times_tup, follow_symlinks

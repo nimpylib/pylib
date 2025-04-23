@@ -57,6 +57,7 @@ else:
 
 proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
   ## `dir_fd` is ignored under Windows
+  sys.audit("open", path, mode, flags)
   when defined(js):
     var msg: string
     let

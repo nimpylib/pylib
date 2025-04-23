@@ -69,8 +69,9 @@ proc input*(prompt = str("")): PyStr =
   ##
   ## when on non-nodejs JavaScript backend,
   ## uses `prompt`
+  sys.audit("builtins.input", prompt)
   when hasStdio:
     if sys.stdin.isNil: lost "stdin"
     if sys.stdout.isNil: lost "stdout"
   inputImpl prompt
-  
+

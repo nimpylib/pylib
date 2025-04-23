@@ -1,8 +1,5 @@
 
-
-const config_should_audit =
-  not defined(release) or defined(pylibSysAudit)
-
+import ./cfg
 when config_should_audit:
   include ./yesImpl
 else:

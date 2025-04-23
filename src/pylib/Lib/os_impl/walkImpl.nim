@@ -64,6 +64,7 @@ type ScanDir[T] = iterator (path: T): DirEntry[T]{.closure.}
 # translated from CPython-3.13-alpha/Lib/os.py L284
 iterator walk*[T](top: PathLike[T], topdown=True,
       onerror=shallIgnore, followlinks=False): WalkRes[T] =
+    sys.audit("os.walk", top, topdown, onerror, followlinks)
     var stack = newUnionList[T, WalkRes[T]]()
     stack.append(fspath(top))
       

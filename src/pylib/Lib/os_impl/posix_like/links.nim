@@ -11,7 +11,7 @@ when InJs:
       res = readlinkSync(cstring p)
     $res
   proc symlinkSync(target, path, `type`: cstring){.importNode(fs, symlinkSync).}
-  proc symlink*[T](src, dst: PathLike[T], target_is_directory = false) =
+  proc symlinkImpl[T](src, dst: PathLike[T], target_is_directory = false) =
     catchJsErrAndRaise:
       symlinkSync(
         cstring $dst, cstring $dst,
@@ -19,7 +19,7 @@ when InJs:
       )
 
   proc linkSync(target, path, `type`: cstring){.importNode(fs, linkSync).}
-  proc link*[T](src, dst: PathLike[T]) =
+  proc linkImpl[T](src, dst: PathLike[T]) =
     catchJsErrAndRaise:
       linkSync(
         cstring $dst, cstring $dst,
@@ -305,12 +305,20 @@ else:
       if c_symlinkat(src.cstring, dir_fd.cint, dst.cstring) != 0:
         raiseExcWithPath2(src, dst)
 
-  proc symlink*[T](src, dst: PathLike[T], target_is_directory = false) =
+  proc symlinkImpl[T](src, dst: PathLike[T], target_is_directory = false) =
     # std/os createSymlink on Windows will raise OSError if 
     # SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE is not supported yet
     if os_symlink_impl($src, $dst, target_is_directory):
       raiseExcWithPath2(src, dst)
 
-  proc link*[T](src, dst: PathLike[T]) =
+  proc linkImpl[T](src, dst: PathLike[T]) =
     tryOsOp(src, dst):
       createHardlink($src, $dst)
+
+proc symlink*[T](src, dst: PathLike[T], target_is_directory = false) =
+  sys.audit("os.symlink", src, dst, -1)
+  symlinkImpl(src, dst, target_is_directory)
+
+proc link*[T](src, dst: PathLike[T]) =
+  sys.audit("os.link", src, dst, -1, -1)
+  linkImpl(src, dst)

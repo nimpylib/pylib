@@ -1,9 +1,9 @@
 
-
+import ./common
 when not defined(js):
   proc c_system(cmd: cstring): cint{.importc: "system", header: "<stdlib.h>".}
 
-func system*(cmd: string): int{.discardable.} =
+proc system*(cmd: string): int{.discardable.} =
   ## os.system
   runnableExamples:
     const
@@ -12,6 +12,7 @@ func system*(cmd: string): int{.discardable.} =
       e2null = "echo 1 >" & mydevnull
     assert system(e2null) == 0
 
+  sys.audit("os.system", cmd)
   when defined(js):
     let jsStr = cmd.cstring
     var res: c_int

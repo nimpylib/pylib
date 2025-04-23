@@ -3,12 +3,12 @@ import ../common
 
 when defined(js):
   proc ftruncateSync(file: cint; len: cint){.importNode(fs, ftruncateSync).}
-  proc ftruncate*(file: Positive; length: int64) =
+  proc ftruncateImpl(file: Positive; length: Natural) =
     catchJsErrAndRaise ftruncateSync(file.cint, length.cint)
   proc truncateSync(file: cstring; len: cint){.importNode(fs, truncateSync).}
-  proc truncate*(file: CanIOOpenT; length: int64) =
+  proc truncateImpl(file: CanIOOpenT; length: Natural) =
     when file is int:
-      ftruncate file, length
+      ftruncateImpl file, length
     else:
       catchJsErrAndRaise truncateSync(file.cstring, length.cint)
 
@@ -21,24 +21,32 @@ else:
   else:
     import std/posix
 
-  template ftruncateImpl(file: Positive, length: int64): cint =
+  template ftruncateImplAux(file: Positive, length: int64): cint =
     when defined(windows):
       chsize_s(file.cint, length)
     else:
       posix.ftruncate(file.cint, length.Off)
 
-  proc ftruncate*(file: Positive, length: int64) =
-      let err = ftruncateImpl(file, length)
+  proc ftruncateImpl(file: Positive, length: int64) =
+      let err = ftruncateImplAux(file, length)
       if err.int != 0:
         raiseErrno err
 
-  proc truncate*(file: CanIOOpenT, length: Natural) =
+  proc truncateImpl(file: CanIOOpenT, length: Natural) =
     when file is int:
-      ftruncate file, length
+      ftruncateImpl file, length
     else:
       let fd = open(file, os.O_WDONLY)
       let err = ftruncateImpl(fd, length)
       if 0 != err:
         file.raiseErrnoWithPath err
       close(fd)
+
+proc ftruncate*(file: Positive, length: Natural) =
+  sys.audit("os.truncate", file, length)
+  ftruncateImpl(file, length)
+
+proc truncate*(file: CanIOOpenT, length: Natural) =
+  sys.audit("os.truncate", file, length)
+  truncateImpl(file, length)
 

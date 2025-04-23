@@ -2,6 +2,7 @@
 import ./types
 import std/posix except EINVAL, EPERM
 import ../n_errno
+import ../sys_impl/auditImpl as sys
 import ../../pyerrors/oserr
 from ./csyms import HAVE_PRLIMIT, HAVE_GETPAGESIZE, HAVE_SYSCONF_PAGE_SIZE
 
@@ -63,8 +64,9 @@ proc setrlimitWrap(resource: int, rl: var RLimit) =
 template setrlimit*[T: py_rlimit_abc|py_rlimit](resource: int, limits: T) =
   ## this is defined as `template`.
   ## Because if being `proc`, py_rlimit_abc match cannot work
-  bind py2rlimit, setrlimitWrap
+  bind py2rlimit, setrlimitWrap, audit
   mixin len, `[]`
+  sys.audit("resource.setrlimit", resource, limits)
   var rl: RLimit
   py2rlimit(limits, rl)
   setrlimitWrap(resource, rl)
@@ -100,6 +102,7 @@ when HAVE_PRLIMIT:
     let
       tpid = Pid pid
       tresource = checked_resource(resource)
+    sys.audit("resource.prlimit", pid, resource, limits)
     var new_limit: RLimit
     py2rlimit(limits, new_limit)
     prlimitWrap(tpid, tresource, new_limit)

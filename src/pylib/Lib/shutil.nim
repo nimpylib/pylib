@@ -20,6 +20,7 @@ proc get_terminal_size*(fallback=(80, 24)): terminal_size =
 import std/os
 when defined(posix):
   import std/posix
+import ./sys_impl/auditImpl as sys
 import ../pyerrors/oserr
 import ../io_abc
 
@@ -86,6 +87,7 @@ template copyFileImpl(src, dst: string; options: CopyFlag) =
 
 template copyGen(pyname, impl) =
   proc pyname*[T](src, dst: PathLike[T], follow_symlinks=true) =
+    sys.audit("shutil.copyfile", src, dst)
     let
       ssrc = $src
       sdst = $dst
