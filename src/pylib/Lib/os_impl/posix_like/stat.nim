@@ -119,8 +119,8 @@ else:
         st_ctime_nsec*: Nsec
         st_birthtime*: Time
         st_birthtime_nsec*: Nsec
-        st_file_attributes: FileAttributes
-        st_reparse_tag: ReparseTag
+        st_file_attributes*: FileAttributes
+        st_reparse_tag*: ReparseTag
         st_ino_high: InoHigh
   else:
     import std/posix
