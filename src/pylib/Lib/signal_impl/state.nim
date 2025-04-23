@@ -23,7 +23,7 @@ proc signal_install_handlers() =
       discard PyOS_setsig(sig, SIG_IGN)
   ignIfDecl SIGPIPE
   ignIfDecl SIGXFZ
-  ignIfDecl SIGXFS
+  ignIfDecl SIGXFSZ
 
 proc initPySignal(state: var signal_state_t, install_signal_handlers: bool) =
   state.default_handler = SIG_DFL.toPySighandler
