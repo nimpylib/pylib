@@ -26,7 +26,7 @@ when InJs:
       )
 else:
   when defined(windows):
-    import std/winlean
+    import ../util/mywinlean
     type
       LPVOID = pointer
       LPDWORD = ptr DWORD
@@ -158,9 +158,6 @@ else:
           result.add chr(0xFFFD shr 6 and ones(6) or 0b10_0000_00)
           result.add chr(0xFFFD and ones(6) or 0b10_0000_00)
 
-    const
-      IO_REPARSE_TAG_SYMLINK = ULONG 0xA000000C
-      IO_REPARSE_TAG_MOUNT_POINT = ULONG 0xA0000003
     # _Py_MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
 
     const REPARSE_BUFSIZE = 16 * 1024

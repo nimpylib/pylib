@@ -114,6 +114,9 @@ definition are defined on these versions of macOS.]#
 #const stat_filemode_doc = "Convert a file's mode to a string of the form '-rwxrwxrwx'"
 
 when DW:
+  import ../os_impl/util/mywinlean
+  template exp(name) =
+    const name* = int(mywinlean.name)
   template impExp(name) =
     let 
       `c name`{.importc: astToStr(name), header: WINNT_H.}: cint
@@ -138,6 +141,6 @@ when DW:
   impExp(FILE_ATTRIBUTE_TEMPORARY)
   impExp(FILE_ATTRIBUTE_VIRTUAL)
 
-  impExp(IO_REPARSE_TAG_SYMLINK)
-  impExp(IO_REPARSE_TAG_MOUNT_POINT)
+  exp(IO_REPARSE_TAG_SYMLINK)
+  exp(IO_REPARSE_TAG_MOUNT_POINT)
   #impExp(IO_REPARSE_TAG_APPEXECLINK)
