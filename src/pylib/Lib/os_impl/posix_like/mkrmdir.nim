@@ -3,8 +3,40 @@
 import ../common
 import ./mkrmdirImpl
 
+import ./pyCfg
+import ./chkarg
+
+when not InJS:
+  importConfig [
+    os
+  ]
+else:
+  template decl(f, val) =
+    const `HAVE f` = val
+  decl unlinkat, false
+
+proc rmdir*(p: PathLike, dir_fd: int) =
+  sys.audit("os.rmdir", p, dir_fd)
+  var res: cint
+  when HAVE_UNLINKAT:
+    var unlinkat_unavailable = false
+    if dir_fd != DEFAULT_DIR_FD:
+      when HAVE_UNLINKAT_RUNTIME:
+        res = unlinkat(dir_fd.cint, cstring $p, AT_REMOVEDIR)
+      else:
+        unlinkat_unavailable = true
+        res = -1
+    else:
+      rawRemoveDir(p)
+  else:
+    rawRemoveDir(p)
+  when HAVE_UNLINKAT:
+    if unlinkat_unavailable:
+      argument_unavailable_error("dir_fd")
+  if res != 0:
+    raiseExcWithPath(p)
+
 proc mkdir*(p: PathLike, mode=0o777, dir_fd: int){.error: "not implement".}
-proc rmdir*(p: PathLike, dir_fd: int){.error: "not implement".}
 
 proc rmdir*(path: PathLike) =
   sys.audit("os.rmdir", path, -1)
