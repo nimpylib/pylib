@@ -4,7 +4,7 @@ import ../common
 import ./stat
 
 when not InJs:
-  import ../../stat_impl/isX
+  import ../../n_stat
 import ./pyCfg
 importConfig [os]
 when HAVE_FDOPENDIR:
@@ -152,6 +152,11 @@ else:
       isLinkToFile $self.path
     gen_is_xAux is_file, chk_isfile, chk_isSymlinkToFile
   gen_is_x is_dir, pcDir, pcLinkToDir
+
+proc is_junction*(self): bool =
+  when not defined(windows): false
+  else:
+    stat(self).st_reparse_tag == IO_REPARSE_TAG_MOUNT_POINT
 
 when defined(js):
   # readdirSync returns array, which might be too expensive.
