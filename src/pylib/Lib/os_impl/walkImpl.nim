@@ -61,9 +61,14 @@ template append[A, B](ls: UnionList[A, B], x: B) =
 
 type ScanDir[T] = iterator (path: T): DirEntry[T]{.closure.}
 
+type WalkSymlinksAsFiles = distinct proc(){.noconv.}
+converter toBool(self: WalkSymlinksAsFiles): bool{.used.} = true
+let walk_symlinks_as_files* = WalkSymlinksAsFiles proc(){.noconv.} = discard ## _walk_symlinks_as_files
+
 # translated from CPython-3.13-alpha/Lib/os.py L284
 iterator walk*[T](top: PathLike[T], topdown=True,
-      onerror=shallIgnore, followlinks=False): WalkRes[T] =
+      onerror=shallIgnore, followlinks: bool|WalkSymlinksAsFiles=False
+    ): WalkRes[T] =
     sys.audit("os.walk", top, topdown, onerror, followlinks)
     var stack = newUnionList[T, WalkRes[T]]()
     stack.append(fspath(top))
@@ -102,7 +107,10 @@ iterator walk*[T](top: PathLike[T], topdown=True,
                     break
                 let isdir =
                   try:
-                    entry.is_dir()
+                    when followlinks is WalkSymlinksAsFiles:
+                      entry.is_dir(follow_symlinks=True) and not entry.is_junction()
+                    else:
+                      entry.is_dir()
                   except OSError:
                     # If is_dir() raises an OSError, consider the entry not to
                     # be a directory, same behaviour as os.path.isdir().
