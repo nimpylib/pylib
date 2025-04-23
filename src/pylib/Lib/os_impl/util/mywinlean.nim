@@ -3,7 +3,7 @@ import std/winlean except DWORD, ULONG
 export winlean except DWORD, ULONG,
   OPEN_EXISTING, FILE_SHARE_READ, FILE_SHARE_WRITE,
   FILE_FLAG_OPEN_REPARSE_POINT, FILE_ATTRIBUTE_DIRECTORY,
-  BY_HANDLE_FILE_INFORMATION
+  BY_HANDLE_FILE_INFORMATION, FILE_ATTRIBUTE_REPARSE_POINT
 import ./get_osfhandle
 export get_osfhandle
 type
@@ -60,7 +60,7 @@ typedef union _LARGE_INTEGER {
 
   WCHAR* = uint16
 
-  WIN32_FIND_DATAW*{.pure, importc, header: "<minwinbase.h>".} = object
+  WIN32_FIND_DATAW*{.importc, header: "<minwinbase.h>".} = object
     dwFileAttributes*: DWORD
     ftCreationTime*: FILETIME
     ftLastAccessTime*: FILETIME
@@ -75,7 +75,7 @@ typedef union _LARGE_INTEGER {
     dwCreatorType*: DWORD ## Obsolete. Do not use.
     wFinderFlags*: WORD ## Obsolete. Do not use.
 
-  BY_HANDLE_FILE_INFORMATION*{.pure, importc, header: "<fileapi.h>".} = object
+  BY_HANDLE_FILE_INFORMATION*{.importc, header: "<fileapi.h>".} = object
     dwFileAttributes*: DWORD
     ftCreationTime*: FILETIME
     ftLastAccessTime*: FILETIME
@@ -87,9 +87,8 @@ typedef union _LARGE_INTEGER {
     nFileIndexHigh*: DWORD
     nFileIndexLow*: DWORD
 
-  FILE_ATTRIBUTE_TAG_INFO*{.pure, importc, header: "<winbase.h>".} = object
+  FILE_ATTRIBUTE_TAG_INFO*{.importc, header: "<winbase.h>".} = object
     FileAttributes*, ReparseTag*: DWORD
-
 const
   ERROR_INVALID_HANDLE* = 6
   ERROR_NOT_ENOUGH_MEMORY* = 8
@@ -204,3 +203,6 @@ proc CreateFileW*(
 
 proc IsReparseTagNameSurrogate*(tag: DWORD): BOOL {.
     importc, header: "<winnt.h>".}
+
+proc FindClose*(hFindFile: Handle): BOOL{.discardable,
+  importc, header: "<fileapi.h>".}
