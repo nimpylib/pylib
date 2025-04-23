@@ -27,10 +27,13 @@ proc py2rlimit(limits: py_rlimit, rl_out: var RLimit) =
   rl_out.rlim_cur = limits.rlim_cur
   rl_out.rlim_max = limits.rlim_max
 
-proc py2rlimit(limits: py_rlimit_abc, rl_out: var RLimit) =
+template py2rlimit[T](limits: T{atom}, rl_out: var RLimit) =
   assert limits.len == 2
   rl_out.rlim_cur = limits[0]
   rl_out.rlim_max = limits[1]
+template py2rlimit[T](limits: T, rl_out: var RLimit) =
+  let li = limits
+  py2rlimit(li, rl_out)
 
 proc rlimit2py(rl_in: RLimit): py_rlimit = (rl_in.rlim_cur, rl_in.rlim_max)
 
@@ -49,14 +52,22 @@ proc getrlimit*(resource: int): py_rlimit =
 
 proc raise_inval =
   raise newException(ValueError, "current limit exceeds maximum limit")
-proc setrlimit*(resource: int, limits: py_rlimit_abc) =
-  var rl: RLimit
-  py2rlimit(limits, rl)
+
+proc setrlimitWrap(resource: int, rl: var RLimit) =
   if setrlimit(checked_resource(resource), rl) == -1:
     if isErr(EINVAL): raise_inval()
     elif isErr(EPERM):
       raise newException(ValueError, "not allowed to raise maximum limit")
     raiseErrno()
+
+template setrlimit*[T: py_rlimit_abc|py_rlimit](resource: int, limits: T) =
+  ## this is defined as `template`.
+  ## Because if being `proc`, py_rlimit_abc match cannot work
+  bind py2rlimit, setrlimitWrap
+  mixin len, `[]`
+  var rl: RLimit
+  py2rlimit(limits, rl)
+  setrlimitWrap(resource, rl)
 
 when HAVE_PRLIMIT:
   proc prlimit(pid: Pid, resource: cint, new_limit: ptr RLimit, old_limit: var RLimit): cint {.
@@ -72,21 +83,29 @@ when HAVE_PRLIMIT:
       raiseErrno()
     rlimit2py(old_limit)
 
-  proc prlimit*(pid: int, resource: int, limits: py_rlimit_abc): py_rlimit{.discardable.} =
-    let
-      pid = Pid pid
-      resource = checked_resource(resource)
-    var old_limit, new_limit: RLimit
-    
-    py2rlimit(limits, new_limit)
+  proc prlimitWrap(pid: Pid, resource: cint, new_limit: var RLimit): py_rlimit{.discardable.} =
+    var old_limit: RLimit
     if prlimit(pid, resource, addr new_limit, old_limit) == -1:
       if isErr(EINVAL): raise_inval()
       raiseErrno()
-    
     rlimit2py(old_limit)
 
+  template prlimit*[T: py_rlimit_abc|py_rlimit](pid: int, resource: int, limits: T): py_rlimit =
+    ## discardable.
+    ## 
+    ## this is defined as `template`.
+    ## Because if being `proc`, py_rlimit_abc match cannot work
+    bind Pid, checked_resource, RLimit, py2rlimit, prlimitWrap
+    mixin len, `[]`
+    let
+      tpid = Pid pid
+      tresource = checked_resource(resource)
+    var new_limit: RLimit
+    py2rlimit(limits, new_limit)
+    prlimitWrap(tpid, tresource, new_limit)
+
 when HAVE_GETPAGESIZE:
-  proc c_getpagesize(): cint{.importc, header: "<unistd.h>".}
+  proc c_getpagesize(): cint{.importc: "getpagesize", header: "<unistd.h>".}
   proc getpagesize*(): int = int c_getpagesize()
 elif HAVE_SYSCONF_PAGE_SIZE:
   let SC_PAGE_SIZE{.importc, header: "<unistd.h>".}: cint
