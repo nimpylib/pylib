@@ -1,0 +1,5 @@
+
+
+import ./flagsImpl/values
+
+genFlagsObj()

@@ -17,6 +17,7 @@ impExp sys_impl,
   exits,
   getencodings,
   sizes,
+  flagsImpl,
   auditImpl
 
 
