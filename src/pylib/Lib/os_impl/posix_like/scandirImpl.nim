@@ -3,6 +3,14 @@ import std/os
 import ../common
 import ./stat
 
+when not InJs:
+  import ../../stat_impl/isX
+import ./pyCfg
+importConfig [os]
+when HAVE_FDOPENDIR:
+  when HAVE_FDOPENDIR_RUNTIME:
+    import ../../errno_impl/errnoUtils
+
 when InJs:
   import std/jsffi
   import ./links
@@ -12,6 +20,7 @@ when InJs:
   from ./jsStat import Stat, statSync
 elif defined(posix):
   import ./links
+  import std/posix except S_ISREG, S_ISDIR, S_ISLNK
 when declared(readlink):
   func func_readlink(x: string): string =
     {.noSideEffect.}:
@@ -19,8 +28,10 @@ when declared(readlink):
 
 type
   DirEntryImpl[T] = ref object of RootObj
-    name*: T
-    path*: T
+    when T is int:
+      name*, path*: PyStr
+    else:
+      name*, path*: T
     stat_res: ref stat_result
 
 when InJs:
@@ -35,11 +46,18 @@ when InJs:
 else:
   type DirEntry*[T] = ref object of DirEntryImpl[T]
     kind: PathComponent
-
+const havePDir = declared(Dir)
 type ScandirIterator[T] = ref object
+    when havePDir:
+      when T is int:
+        dirp: ptr Dir
     iter: iterator(): DirEntry[T]
 
 func close*(scandirIter: ScandirIterator) = discard
+func close*(scandirIter: ScandirIterator[int]) =
+  when havePDir and not InJs:
+    discard closedir scandirIter.dirp
+    scandirIter.dirp = nil
 iterator items*[T](scandirIter: ScandirIterator[T]): DirEntry[T] =
   for i in scandirIter.iter():
     yield i
@@ -59,11 +77,15 @@ when InJs:
     result.path = mapPathLike[T] joinPath(dir, name)
     result.statObj = hasIsFileDir
 else:
-  proc newDirEntry[T](name: string, dir: string, kind: PathComponent
+  proc newDirEntry[T](name: string, dir: string|int, kind: PathComponent
   ): DirEntry[T] =
     new result
-    result.name = mapPathLike[T] name
-    result.path = mapPathLike[T] joinPath(dir, name)
+    when T is int:
+      result.name = str name
+      result.path = result.name
+    else:
+      result.name = mapPathLike[T] name
+      result.path = mapPathLike[T](joinPath(dir, name))
     result.kind = kind
 
 func repr*(self): string =
@@ -113,24 +135,21 @@ else:
   when defined(windows):
     gen_is_x is_file, pcFile, pcLinkToFile
   else:
-    from std/posix import Mode
-    {.push header: "<sys/stat.h>".}
-    let
-      S_IFMT{.importc.}: Mode
-      S_IFREG{.importc.}: Mode
-    {.pop.}
     func isFReg(mode: Mode): bool{.inline.} =
       {.noSideEffect.}:
-        result = (mode and S_IFMT) == S_IFREG
+        result = mode.S_ISREG
     func chk_isfile(self: DirEntry): bool{.inline.} =
       result = self.kind == pcFile
       if not result: return
       result = self.stat().st_mode.isFReg
+    func isLinkToFile(path: string; dir_fd=DEFAULT_DIR_FD): bool{.inline.} =
+      let p = func_readlink path
+      {.noSideEffect.}:
+        result = stat(p, dir_fd=dir_fd).st_mode.isFReg
     func chk_isSymlinkToFile(self: DirEntry): bool{.inline.} =
       result = self.is_symlink()
       if not result: return
-      let p = func_readlink $self.path
-      result = stat(p).st_mode.isFReg
+      isLinkToFile $self.path
     gen_is_xAux is_file, chk_isfile, chk_isSymlinkToFile
   gen_is_x is_dir, pcDir, pcLinkToDir
 
@@ -140,29 +159,97 @@ when defined(js):
   proc closeSync(self: Dir){.importcpp.}
   proc readSync(self: Dir): Dirent{.importcpp.}
 
+when HAVE_FDOPENDIR:
+  when HAVE_FDOPENDIR_RUNTIME:
+    when not declared(fdopendir):
+      proc fdopendir*(fd: cint): ptr Dir{.importc, header: "<dirent.h>".}
+    const HAVE_DIRENT_D_TYPE = compiles(Dirent().d_type)
+
+    proc nimPCKindFromDirent(dir_fd: int, name: string, direntp: ptr Dirent): PathComponent =
+      ## Determine the PathComponent kind based on the Dirent structure.
+      when HAVE_DIRENT_D_TYPE:
+        case direntp.d_type
+        of DT_DIR:
+          return pcDir
+        of DT_REG:
+          return pcFile
+        of DT_LNK:
+          return pcLinkToFile  # Assuming symbolic links are treated as links to files
+        of DT_UNKNOWN:
+          discard  # Fall back to stat if d_type is unknown
+        else:
+          discard  # Unsupported d_type, fallback to stat
+      # If d_type is not available, fallback to stat
+      let st = stat(name, dir_fd=dir_fd)
+      if S_ISDIR(st.st_mode):
+        return pcDir
+      elif S_ISREG(st.st_mode):
+        return pcFile
+      elif S_ISLNK(st.st_mode):
+        if isLinkToFile(name, dir_fd=dir_fd):
+          return pcLinkToFile
+        else:
+          return pcLinkToDir
+      else:
+        doAssert false, "unreachable"
+
+template eScandirType =
+  {.error: "TypeError:" &
+  "scandir: path should be string, bytes, os.PathLike or None, not int".}
 template scandirImpl(path){.dirty.} =
   sys.audit("os.scandir", path)
-  let spath = $path
-  when defined(js):
-    var dir: Dir
-    let cs = cstring($path)
-    catchJsErrAndRaise:
-      dir = opendirSync(cs)
-    var dirent: Dirent
-    while true:
-      dirent = dir.readSync()
-      if dirent.isNull: break
-      let de = newDirEntry[T](name = $dirent["name"].to(cstring), dir = spath, hasIsFileDir=dirent)
-      yield de
-    dir.closeSync
-
+  when path is int:
+    when HAVE_FDOPENDIR:
+      when HAVE_FDOPENDIR_RUNTIME:
+        var dirp = fdopendir(cint path)
+        if dirp.isNil:
+          raiseErrnoWithPath($path)
+        # ScandirIterator_iternext
+        while true:
+          setErrno0()
+          var direntp = dirp.readdir()
+          if direntp.isNil:
+            if isErr0():
+              break
+            raiseErrnoWithPath($path)
+          let cname = direntp.d_name
+          let is_dot = cname[0] == '.' and (
+            cname[1] == '\0' or (cname[1] == '.' and cname[2] == '\0')
+          )
+          if not is_dot:
+            let name = $cname
+            let de = newDirEntry[T](name = name, dir = path,
+              kind=nimPCKindFromDirent(path, name, direntp))
+            yield de
+      else:
+        eScandirType
+    else:
+      eScandirType
   else:
-    tryOsOp(spath):
-      for t in walkDir(spath, relative=true, checkDir=true):
-        let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
+    let spath = $path
+    when defined(js):
+      var dir: Dir
+      let cs = cstring($path)
+      catchJsErrAndRaise:
+        dir = opendirSync(cs)
+      var dirent: Dirent
+      while true:
+        dirent = dir.readSync()
+        if dirent.isNull: break
+        let de = newDirEntry[T](name = $dirent["name"].to(cstring), dir = spath, hasIsFileDir=dirent)
         yield de
+      dir.closeSync
+
+    else:
+      tryOsOp(spath):
+        for t in walkDir(spath, relative=true, checkDir=true):
+          let de = newDirEntry[T](name = t.path, dir = spath, kind = t.kind)
+          yield de
 
 iterator scandir*[T](path: PathLike[T]): DirEntry[T] = scandirImpl path
+iterator scandir*(path: int): DirEntry[int] =
+  type T = int
+  scandirImpl path
 iterator scandirIter*[T](path: T): DirEntry[T]{.closure.} =
   ## used by os.walk
   scandirImpl path
@@ -171,10 +258,16 @@ iterator scandir*(): DirEntry[PyStr] =
   for de in scandir[PyStr](str('.')):
     yield de
 
-proc scandir*[T](path: PathLike[T]): ScandirIterator[T] =
+template scandirProcImpl(path){.dirty.} =
   new result
   result.iter = iterator(): DirEntry[T] =
-    for de in scandir[T](path): yield de
+    for de in scandir(path): yield de
+
+proc scandir*[T](path: PathLike[T]): ScandirIterator[T] =
+  scandirProcImpl(path)
+proc scandir*(path: int): ScandirIterator[int] =
+  type T = int
+  scandirProcImpl(path)
 
 proc scandir*(): ScandirIterator[PyStr] =
   scandir[PyStr](str('.'))

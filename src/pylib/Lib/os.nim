@@ -17,6 +17,7 @@ import ../version
 
 template scandir*(): untyped{.pysince(3,5).} = n_os.scandir()
 template scandir*[T](p: PathLike[T]): untyped{.pysince(3,5).} = n_os.scandir(p)
+template scandir*(p: int): untyped{.pysince(3,5).} = n_os.scandir(p)
 pysince(3,5):
   export DirEntry
 
