@@ -23,7 +23,7 @@ proc chdir*(s: PathLike) =
   sys.audit("os.chdir", s)
   chdirImpl(s)
 
-proc makedirs*[T](d: PathLike[T], mode=0o777, exists_ok=false) =
+proc makedirs*[T](d: PathLike[T], mode=0o777, exist_ok=false) =
   let dir = $d
   if dir == "":
     return
@@ -32,7 +32,7 @@ proc makedirs*[T](d: PathLike[T], mode=0o777, exists_ok=false) =
     if omitNext:
       omitNext = false
     else:
-      p.tryOsOp not exists_ok or not dirExists(p):
+      p.tryOsOp not exist_ok or not dirExists(p):
         mkdir(p, mode)
 
 proc removedirs*(d: PathLike) =
