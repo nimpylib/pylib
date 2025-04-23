@@ -1,5 +1,5 @@
 
-from ./csyms import SIZEOF_RLIMIT_T
+from ./csyms import SIZEOF_RLIMIT_T, RUSAGE_BOTH, RUSAGE_THREAD
 
 const RLIM_INFINITY* =
   when SIZEOF_RLIMIT_T == 8:
@@ -13,6 +13,9 @@ template wrap(name){.dirty.} =
 template wrap(name, os){.dirty.} =
   when defined(os):
     wrap(name)
+template wrapIfE(name){.dirty.} =
+  when declared(name) and name != low(int):
+    const name* = int name
 
 wrap(RLIMIT_CORE)
 wrap(RLIMIT_CPU)
@@ -40,5 +43,5 @@ when defined(freebsd):
 
 wrap(RUSAGE_SELF)
 wrap(RUSAGE_CHILDREN)
-wrap(RUSAGE_BOTH)
-wrap(RUSAGE_THREAD)
+wrapIfE(RUSAGE_BOTH)
+wrapIfE(RUSAGE_THREAD)

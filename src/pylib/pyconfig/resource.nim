@@ -1,6 +1,10 @@
 
 import ./util
 
+const
+  RUSAGE_BOTH* = from_c_int(RUSAGE_BOTH, "<sys/resource.h>")
+  RUSAGE_THREAD* = from_c_int(RUSAGE_THREAD, "<sys/resource.h>")
+
 const SIZEOF_RLIMIT_T* = from_c_int(SIZEOF_RLIMIT_T, 8):
   {.emit: """/*INCLUDESECTION*/
 #include <sys/resource.h>
