@@ -38,6 +38,8 @@ export FileNotFoundError
 
 import ./os_impl/posix_like/truncate
 import ./os_impl/posix_like/isatty
+import ./signal_impl/state
+discard signal_global_state
 import ./ncodec
 export DefErrors, LookupError
 import ../pystring/[strimpl, strbltins]
@@ -69,7 +71,12 @@ type
 
 converter toUnderFile(f: IOBase): File = f.file
 
-proc flush*(f: IOBase) = f.flushFile()
+proc c_fflush(f: File): cint {.
+  importc: "fflush", header: "<stdio.h>".}
+proc flush*(f: IOBase) =
+  let ret = f.c_fflush()
+  if ret != 0:
+    raiseErrno()
 
 func tell*(f: IOBase): int64 = f.getFilePos()
 
