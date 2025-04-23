@@ -62,7 +62,7 @@ proc copyfileobj*(s, d: File, length=COPY_BUFSIZE) =
   copyfileobjImpl(s, d, length)
 
 type
-  Error = object of OSError  ## python's shutil.Error
+  Error = object of PyOSError  ## python's shutil.Error
   SameFileError* = object of Error
 template copyFileImpl(src, dst: string; options: CopyFlag) =
   ## called by copyfile
