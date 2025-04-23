@@ -99,3 +99,6 @@ func join*[T](a, b, c: PathLike[T], ps: varargs[PathLike[T]]): T =
   for p in ps:
     result = mapPathLike[T] joinPath(result, p.fspath)
   
+proc samestat*(s1, s2: stat_result): bool =
+   return (s1.st_ino == s2.st_ino and
+            s1.st_dev == s2.st_dev)
