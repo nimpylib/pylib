@@ -44,6 +44,11 @@ iterator items*[T](scandirIter: ScandirIterator[T]): DirEntry[T] =
   for i in scandirIter.iter():
     yield i
 
+template enter*(self: ScandirIterator): ScandirIterator = self
+template exit*(self: ScandirIterator; args: varargs[untyped]) =
+  bind close
+  self.close()
+
 using self: DirEntry
 
 when InJs:
@@ -64,10 +69,11 @@ else:
 func repr*(self): string =
   "<DirEntry " & self.name.repr & '>'
 
-func stat*(self): stat_result =
+proc stat*(self; follow_symlinks=true): stat_result =
+  static: assert not compiles(self.dir_fd) # currently impl assumes no dir_fd
   if self.stat_res != nil:
     return self.stat_res[]
-  result = stat(self.path)
+  result = stat(self.path, follow_symlinks=follow_symlinks)
   new self.stat_res
   self.stat_res[] = result
 
