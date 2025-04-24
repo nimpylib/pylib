@@ -20,9 +20,10 @@ makeSIsFuncTemplate(PORT)
 makeSIsFuncTemplate(WHT)
 
 
+proc S_IMODE*(omode: Mode): int =
+  int(omode and S_IMODE_val)
 proc S_IMODE*(omode: int): int =
-  let mode = int_AsMode_t(omode)
-  int(mode and S_IMODE_val)
+   S_IMODE(int_AsMode_t(omode))
 
 # const stat_S_IMODE_doc = "Return the portion of the file's mode that can be set by os.chmod()."
 
