@@ -1,9 +1,14 @@
 
 import std/math
 from ./pyerrors/aritherr import ZeroDivisionError
+import ./numTypes/ints/bitops
 
 ## ## why no `/=` defined?
-## For `template \`/=\`*(x: var SomeInteger, y: SomeInteger)`:
+## For
+## 
+## ```Nim
+## template `/=`*(x: var SomeInteger, y: SomeInteger)
+## ```
 ## 
 ## Nim is static-typed, but `/=` will cause lhs convert from int to float
 
@@ -44,6 +49,9 @@ template `**`*[T: SomeInteger](a: T; b: static[int]): T|float =
     bind `^`
     a ^ b  # returns int
 
+# must after a ^ b
+exportIntBitOps()
+
 template `**`*[T: SomeFloat](a, b: T): T =
   bind pow
   pow(a, b)
@@ -57,16 +65,6 @@ template `**`*[A: SomeInteger; B: SomeFloat](a: A, b: B): B =
 template `**=`*(a: var SomeNumber, b: SomeNumber) =
   bind `**`
   a = a**b
-
-# Currently `shr` is also `arithm shr`, but it used to be `logic shr`
-template `>>`*[I: SomeInteger](a, b: I): I = ashr a, b
-template `<<`*[I: SomeInteger](a, b: I): I =
-  ## .. warning:: this causes overflow silently.
-  ##  Yet Python's int never overflows.
-  a shl b
-
-template `>>=`*[I: SomeInteger](a, b: I) = a = a shr b
-template `<<=`*[I: SomeInteger](a, b: I) = a = a shl b
 
 # Comparasion operators. We only need 3 of them :<, <=, ==.
 # Other comparasion operators are just shortcuts to these
