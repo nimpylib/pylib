@@ -20,13 +20,6 @@ func `not`*(self): PyBool{.borrow.}
 genBin `and`
 genBin `or`
 
-converter pybool*[T](x: T): PyBool # forward decl
-func `not`*[T: not PyBool and not bool](nself: T): PyBool = not nself.pybool
-func `and`*[T: not PyBool and not bool](nself, npyb: T): T =
-  if nself.pybool: npyb else: nself
-func `or` *[T: not PyBool and not bool](nself, npyb: T): T =
-  if nself.pybool: nself else: npyb
-
 func repr*(self): string =
   ## Returns "True" or "False"
   if bool(self == True): "True"
@@ -67,9 +60,9 @@ template toBool*[T](arg: T): bool =
   # If we have len proc for this object
   when compiles(arg.len):
     arg.len > 0
+  elif T is SomeNumber:
   # If we can compare if it's not 0
-  elif compiles(arg != 0):
-    arg != 0
+    arg != 0  # works for NaN
   # If we can compare if it's greater than 0
   elif compiles(arg > 0):
     arg > 0 or arg < 0
@@ -91,6 +84,12 @@ converter pybool*[T](x: T): PyBool =
   ## which, however, is desired, as if any is convertible to bool, 
   ## then there'll be ## compile-error for `repr(<list>)`
   PyBool toBool x
+
+func `not`*[T](nself: T): PyBool = not nself.pybool
+func `and`*[T](nself, npyb: T): T =
+  if nself.pybool: npyb else: nself
+func `or` *[T](nself, npyb: T): T =
+  if nself.pybool: nself else: npyb
 
 proc bool*[T](arg: T): PyBool = pybool(arg)  ## Alias for `pybool`_
 
