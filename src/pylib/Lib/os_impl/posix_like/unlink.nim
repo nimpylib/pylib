@@ -4,11 +4,10 @@ import ./pyCfg
 import ./chkarg
 import ../private/iph_utils
 
-when not InJS:
-  importConfig [
-    os
-  ]
-else:
+importConfig [
+  os
+]
+when InJs:
   template decl(f, val) =
     const `HAVE f` = val
   decl unlinkat, false

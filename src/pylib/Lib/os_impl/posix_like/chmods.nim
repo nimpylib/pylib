@@ -2,12 +2,11 @@
 import ../common
 import ../../errno_impl/errnoUtils
 import ./pyCfg
-when not InJS:
-  importConfig [
-    chmods,
-    os
-  ]
-else:
+importConfig [
+  chmods,
+  os
+]
+when InJs:
   template decl(f, val) =
     const `HAVE f` = val
   decl chmod, true

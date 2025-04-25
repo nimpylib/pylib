@@ -5,12 +5,11 @@ import ../common
 import ./pyCfg
 import ../util/handle_signal
 
-when not InJS:
-  importConfig [
-    stats,
-    os
-  ]
-else:
+importConfig [
+  stats,
+  os
+]
+when InJS:
   template decl(f, val) =
     const `HAVE f` = val
   decl lstat, true
@@ -31,6 +30,7 @@ import std/macros
 TODO: impl our own stat... Get rid of `_wstat`
 ]#
 
+const DWin = defined(windows)
 when InJs:
   import std/jsffi
   import ./jsStat
@@ -75,7 +75,6 @@ when InJs:
 
 
 else:
-  const DWin = defined(windows)
   when DWin:
     import ../util/[
       mywinlean, getFileInfo]
@@ -205,15 +204,15 @@ func to_result(s: sink Stat): stat_result =
   result = stat_result(data: s)
 
 when InJs:
-  proc statAux(st: var Stat, path: int|PathLike) =
+  proc statAux(st: var Stat, path: int|string) =
     catchJsErrAndRaise:
       st =
         when path is int:
           fstatSync(path.cint)
         else:
-          let cs = cstring($path)
+          let cs = cstring(path)
           statSync(cs)
-  proc lstatAux(st: var Stat, fd: int) =
+  proc fstatAux(st: var Stat, fd: int) =
     catchJsErrAndRaise:
       st = fstatSync(fd.cint)
   proc lstatAux(st: var Stat, path: PathLike) =
@@ -494,7 +493,7 @@ when DWin:
     goto_cleanup
 
 
-  proc win32_xstat_impl(path: LPCWSTR, status: var Stat, traverse: bool): int =
+  proc win32_xstat_impl(path: LPCWSTR, status: var Stat, traverse: bool): cint =
     var statInfo: FILE_STAT_BASIC_INFORMATION
     if Py_GetFileInformationByName(path, FileStatBasicByNameInfo, addr statInfo, sizeof(statInfo).DWORD):
       if (statInfo.FileAttributes and DWORD FILE_ATTRIBUTE_REPARSE_POINT) == 0 or
@@ -513,7 +512,7 @@ when DWin:
 
     return win32_xstat_slow_impl(path, status, traverse)
 
-  proc win32_xstat(path: WideCString, status: var Stat, traverse: bool): int =
+  proc win32_xstat(path: WideCString, status: var Stat, traverse: bool): cint =
     #[Protocol violation: we explicitly clear errno, instead of
       setting it to a POSIX error. Callers should use GetLastError.]#
     result = win32_xstat_impl(path, status, traverse)
@@ -523,20 +522,35 @@ when DWin:
     status.st_ctime = status.st_birthtime
     status.st_ctime_nsec = status.st_birthtime_nsec
 
+template def3STAT(S, L, F){.dirty.} =
+  template  STATf(p: string, s): cint= S
+  template LSTAT(p: string, s): cint = L
+  template FSTAT(p: int, s): cint = F
 
-  template  STATf(p, s): untyped = win32_xstat(newWideCString p, s, true)
-  template LSTAT(p, s): untyped = win32_xstat(newWideCString p, s, false)
-  template FSTAT(p, s): untyped = Py_fstat_noraise(p, s)
+
+when DWin:
+  def3STAT(
+    win32_xstat(newWideCString p, s, true),
+    win32_xstat(newWideCString p, s, false),
+    Py_fstat_noraise(p, s),
+  )
 elif InJs:
-  template  STATf(p, s): untyped = statAux(p, s)
-  template LSTAT(p, s): untyped = lstatAux(p, s)
-  template FSTAT(p, s): untyped = fstatAux(p, s)
+  template ret0(body): cint =
+    body
+    0
+  def3STAT(
+    ret0 statAux(s, p),
+    ret0 lstatAux(s, p),
+    ret0 fstatAux(s, p),
+  )
 else:
-  template  STATf(p, s): untyped = posix.stat(cstring p, s)
-  template LSTAT(p, s): untyped = posix.lstat(cstring p, s)
-  template FSTAT(p, s): untyped = posix.fstat(cint p, s)
+  def3STAT(
+     posix.stat(cstring p, s),
+     posix.lstat(cstring p, s),
+     posix.fstat(cint p, s),
+  )
 
-proc Py_fstat_noraise*(fd: int, status: var Stat): int =
+proc Py_fstat_noraise*(fd: int, status: var Stat): cint =
   ## EXT.
   ## 
   ## fileutils.c `_Py_fstat_noraise`
@@ -585,8 +599,8 @@ proc Py_fstat_noraise*(fd: int, status: var Stat): int =
     
     Py_attribute_data_to_stat(info, 0, addr basicInfo, pIdInfo, status)
     return 0
-  else:
-    int posix.fstat(cint fd, status)
+  elif InJS:
+    int FSTAT(fd, status) 
 
 proc Py_fstat*(fd: int, status: var Stat) =
   ## EXT.

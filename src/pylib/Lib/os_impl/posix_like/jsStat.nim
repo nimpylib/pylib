@@ -3,7 +3,7 @@ when defined(js):
   import std/jsffi
   import std/jscore
   type Date* = DateTime
-  from ../common import importNode
+  from ../common import importNode, importDenoOrNodeMod
   const InNode = defined(nodejs)
   type Stat*#[{.importByNodeOrDeno("require('fs').Stats", "Deno.FileInfo").}]# = ref object of JsObject
     ## Stat in node, FileInfo in deno

@@ -3,7 +3,8 @@
 when defined(js):
   import ../common
 
-  using mode: int
+  type Mode* = int
+  using mode: Mode
   proc chmodImpl(path: cstring, mode){.importDenoOrNodeMod(fs, chmodSync).}
   proc lchmodImpl(path: cstring, mode){.importNode(fs, lchmodSync).}  ## XXX: nodejs: only works on macos
   proc fchmodImpl(fd: int, mode){.importNode(fs, fchmodSync).}

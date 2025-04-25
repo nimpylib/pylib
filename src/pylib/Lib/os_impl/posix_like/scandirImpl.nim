@@ -198,9 +198,10 @@ when HAVE_FDOPENDIR:
       else:
         doAssert false, "unreachable"
 
-template eScandirType =
-  {.error: "TypeError:" &
-  "scandir: path should be string, bytes, os.PathLike or None, not int".}
+type ScandirNotSupportFd = object of RootEffect
+proc eScandirType{.tags: [ScandirNotSupportFd].} =
+  raise newException(TypeError,
+  "scandir: path should be string, bytes, os.PathLike or None, not int")
 template scandirImpl(path){.dirty.} =
   sys.audit("os.scandir", path)
   when path is int:
@@ -227,9 +228,9 @@ template scandirImpl(path){.dirty.} =
               kind=nimPCKindFromDirent(path, name, direntp))
             yield de
       else:
-        eScandirType
+        eScandirType()
     else:
-      eScandirType
+      eScandirType()
   else:
     let spath = $path
     when defined(js):
