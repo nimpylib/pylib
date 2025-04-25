@@ -156,8 +156,35 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     expectKind statement[0], nnkStmtList
     nStmt.add mparser.parsePyBody statement[0]
     var excBranch = statement[1]
-    excBranch[^1] = mparser.parsePyBody excBranch[^1]
-    nStmt.add excBranch
+    let nExcBranchStmts = mparser.parsePyBody excBranch[^1]
+    let first = excBranch[0]
+    proc errNotParenExcs(where: NimNode) =
+      error "SyntaxError: multiple exception types must be parenthesized", where
+    func newExceptBranch(excs, body: NimNode): NimNode =
+      result = newNimNode nnkExceptBranch
+      for e in excs:
+        result.add e
+      result.add body
+    if first.kind == nnkTupleConstr:
+      # except (exc, ...) -> except exc, ... as Nim disallows the former.
+      let excs = first
+      if excBranch.len != 2:
+        errNotParenExcs excs
+      excBranch = newExceptBranch(excs, nExcBranchStmts)
+      nStmt.add excBranch
+    elif first.kind == nnkInfix and first[0].eqIdent"as":
+      if first[1].kind != nnkTupleConstr:
+        errNotParenExcs first[2]
+
+      let exc = first[2]
+      var nBody = newStmtList(newLetStmt(exc, newCall(bindSym"getCurrentException")))
+      for i in nExcBranchStmts: nBody.add i
+
+      var nExcBranch = newExceptBranch(first[1], nBody)
+      nStmt.add nExcBranch
+    else:
+      excBranch[^1] = nExcBranchStmts
+      nStmt.add excBranch
     result.add nStmt
   of nnkInfix:
     result.add statement
