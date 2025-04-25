@@ -23,7 +23,7 @@ when defined(js):
         when defined(nodejs):  # fast-path when defined nodejs
           nodeExpr
         else:
-          DenoDetectedJsExpr & ("?$1:$2" % [nodeExpr, denoExpr])
+          DenoDetectedJsExpr & ("?$1:$2" % [denoExpr, nodeExpr])
     template JsPragma: NimNode =  # lazy eval on `JsExpr`
       nnkExprColonExpr.newTree(ident"importjs", JsExpr)
 
@@ -34,7 +34,11 @@ when defined(js):
       else:
         def[0][0] = nnkPragmaExpr.newTree(def[0][0], nnkPragma.newTree JsPragma)
     of RoutineNodes:
-      nodeExpr.add "(@)"; denoExpr.add "(@)"  # add pattern for proc's params
+      func addParamsIfNotAttr(s: var string) =
+        if s[^1] == '$': s.setLen s.len-1
+        else: s.add "(@)"
+      nodeExpr.addParamsIfNotAttr()
+      denoExpr.addParamsIfNotAttr()
       def.addPragma JsPragma
     else:
       error "only var/let and procs is supported, but got " & $def.kind, def
@@ -42,11 +46,14 @@ when defined(js):
   macro importByNodeOrDeno*(node, deno: static[string]; def) =
     ## pragma
     importByNodeOrDenoImpl(def, nodeExpr=node, denoExpr=deno)
+  proc myrepr(n: NimNode): string =
+    if n.kind in nnkStrLit..nnkTripleStrLit: n.strVal
+    else: repr n
   proc importDenoOrImpl(def: NimNode; objInNode: string;
       denoAttr: NimNode, nodeAttr=denoAttr): NimNode =
     let
-      denoAttr = repr denoAttr
-      nodeAttr = repr nodeAttr
+      denoAttr = myrepr denoAttr
+      nodeAttr = myrepr nodeAttr
     importByNodeOrDenoImpl(def,
       nodeExpr=objInNode&'.'&nodeAttr,
       denoExpr="Deno."&denoAttr
@@ -55,13 +62,15 @@ when defined(js):
   func requireExpr(module: string): string = "require('" & module & "')"
   macro importDenoOrNodeMod*(modInNode, attr; def) =
     importDenoOrImpl(def, requireExpr $modInNode, attr)
+  macro importInNodeModOrDeno*(modInNode, attrNode, attrDeno; def) =
+    importDenoOrImpl(def, requireExpr $modInNode, attrDeno, attrNode)
   macro importDenoOr*(objInNode, attr; def) =
     importDenoOrImpl(def, $objInNode, attr)
 
   proc importNodeImpl(def: NimNode, module, symExpr: string): NimNode =
     importByNodeOrDenoImpl(def,
       requireExpr(module) & '.' & symExpr,
-      "(await import('" & module & "'))." & symExpr
+      "(await import('node:" & module & "'))." & symExpr
     )
 
   proc importDenoOrProcessAux(denoAttr, nodeAttr, def: NimNode): NimNode =
