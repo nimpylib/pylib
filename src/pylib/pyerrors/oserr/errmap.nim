@@ -15,7 +15,7 @@ when defined(js):
   template decl_c_intImpl(variable, name, _; defval) =
     let variable = from_js_const(name, defval)
   {.pragma: ErrnoMapAttr.}
-  template ifHasErr(name, body) =
+  template ifHasErr(name: int; body) =
     if name != DEF_INT: body
 else:
   import ../../pyconfig/util
@@ -24,7 +24,7 @@ else:
   template decl_c_intImpl(variable, name, includeFile; defval) =
     const variable = from_c_int(name, includeFile, defval)
   {.pragma: ErrnoMapAttr, compileTime.}
-  template ifHasErr(name, body) =
+  template ifHasErr(name: int; body) =
     when name != DEF_INT: body
 
 template decl_c_int*(name, includeFile; defval) =
@@ -38,20 +38,32 @@ var errnomap*{.ErrnoMapAttr.}: Table[cint, proc(): ref PyOSError{.OSErrorInitAtt
 proc default_oserror*(): ref PyOSError{.OSErrorInitAttrs.} =
   new PyOSError
 
-template decl_err(err){.dirty.} =
-  decl_c_int(err, "<errno.h>", DEF_INT)
+template decl_err(variable, err){.dirty.} =
+  decl_c_intImpl(variable, err, "<errno.h>", DEF_INT)
 
-template decl_err_cint(err){.dirty.} =
-  when declared(err):
+template isConst(e): bool = compiles((const _=err))
+
+template asgExp(err; nerr: int; doSth) =
+  asgn_cint err, cast[cint](nerr)
+  export err
+  doSth
+
+template decl_err_cint(err, doIfDefined){.dirty.} =
+  ## generate `const err*: cint = ...` if err defined in `<errno.h>`
+  bind asgExp
+  when isConst(err):
     export err
+    doIfDefined
   else:
-    decl_c_intImpl(`n err`, name, "<errno.h>", DEF_INT)
-    template asgExp =
-      asgn_cint err, cast[cint](`n err`)
-      export err
-    when defined(js): asgExp
+    decl_err(`n err`, err)
+    when defined(js): asgExp err, `n err`, doIfDefined
     else:
-      ifHasErr `n err`: asgExp
+      ifHasErr `n err`: asgExp err, `n err`, doIfDefined
+
+template decl_err_cint(err) =
+  ## generate `const err*: cint = ...` if err defined in `<errno.h>`
+  bind decl_err_cint
+  decl_err_cint(err): discard
 
 decl_err_cint E2BIG
 decl_err_cint ENOEXEC
@@ -66,12 +78,8 @@ decl_err_cint EINVAL
 
 when true: # PyExc_InitState
     template ADD_ERRNO(exc, err){.dirty.} =
-        when not declared(err):
-          decl_err(err)
-        else:
-          export err
-        ifHasErr err:
-           errnomap[cast[cint](err)] = proc(): ref PyOSError = new exc
+        decl_err_cint err:
+           errnomap[err] = proc(): ref PyOSError = new exc
 # The following is just copied from CPython's PyExc_InitState AS-IS.
 
     ADD_ERRNO(BlockingIOError, EAGAIN);
