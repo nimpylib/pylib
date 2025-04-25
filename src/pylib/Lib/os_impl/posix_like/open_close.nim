@@ -4,7 +4,10 @@ import std/os
 import ../common
 import ../consts
 
+type NotImplForNonNode = object of RootEffect
+
 when defined(js):
+  template notImpl = raise newException(NotImplementedError, "")
   when defined(nodejs):
     proc openSync(path: cstring, flags, mode: cint): cint{.importNode(fs, openSync).}
     # in fact flags, mode is optional and accepts cstring, but we don't need such variants here
@@ -17,10 +20,11 @@ when defined(js):
       catchJsErrAsCode msg, closeSync(fd)
   else:
     const openNotImpl = "not impl for non-nodejs JS engine"
-    proc openSync(path: cstring, flags, mode: cint): cint{.error:
-      openNotImpl.}
+    proc openSync(path: cstring, flags, mode: cint): cint{.tags: [NotImplForNonNode].} =
     # XXX: Deno.openSync returns FsFile instead of integer
-    proc c_close(fd: cint, msg: var string): int{.error: openNotImpl.}
+      notImpl
+    proc c_close(fd: cint): int{.tags: [NotImplForNonNode].} = notImpl
+    proc c_close(fd: cint, msg: var string): int{.tags: [NotImplForNonNode].} = notImpl
 
 else:
   let EINTR{.importc, header: "<errno.h>".}: cint
@@ -55,7 +59,7 @@ else:
     let DEFAULT_DIR_FD{.importc, nodecl.}: cint
 
 
-proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int =
+proc open*(path: PathLike, flags: int, mode=0o777, dir_fd = -1): int{.forbids: [NotImplForNonNode].} =
   ## `dir_fd` is ignored under Windows
   sys.audit("open", path, mode, flags)
   when defined(js):
