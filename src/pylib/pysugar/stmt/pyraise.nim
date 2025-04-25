@@ -3,21 +3,38 @@
 
 import std/macros
 
+proc add_parent(e: ref Exception; e2: ref Exception): ref Exception =
+  result = e
+  result.parent = e2
+
 func rewriteRaiseImpl(res: var NimNode, raiseCont: NimNode, parent=newNilLit()): bool =
     var msg = newLit ""
+    res = newNimNode nnkWhenStmt
+    template callIfValid(chkDest, dest) =
+      res.add nnkElifExpr.newTree(
+        newCall("compiles", chkDest),
+          dest
+      )
+    template callAddParent(ori) =
+      callIfValid(ori,
+          newCall(bindSym"add_parent", ori, parent)
+      )
     template rewriteWith(err: NimNode){.dirty.} =
+      callAddParent(
+        newCall("newPy" & err.strVal, msg))
+      callAddParent(
+        newCall("new" & err.strVal, msg))
       let nExc = newCall("newException", err, msg, parent)
+      callIfValid(nExc, nExc)
+      res.add(
       # User may define some routinues that are used in `raise`,
-      res = nnkWhenStmt.newTree(
-        nnkElifExpr.newTree(
-          newCall(bindSym"compiles", nExc), nExc
-        ),
         nnkElseExpr.newTree(
           raiseCont
         )
       )
       #[
-        when compiles(`nExc`):
+        when ...
+        elif compiles(`nExc`):
           `nExc`
         else:
           `raiseCont`
@@ -45,8 +62,10 @@ func rewriteRaiseImpl(res: var NimNode, raiseCont: NimNode, parent=newNilLit()):
       return
 
 proc rewriteRaise*(rStmt: NimNode): NimNode =
-  ## Rewrites `raise ErrType/ErrType()/ErrType(msg)`
-  ## to `raise newException(ErrType, msg/"")`
+  ## - Rewrites `raise ErrType/ErrType()/ErrType(msg)`
+  ##   to `raise newException(ErrType, msg/"")`
+  ## - Rewrites `raise XxError[(...)]` to `raise new[Py]XxError(...)`
+  ## - Rewrites `raise XxError[(...)] from P` to `raise new[Py]OSError(...).add_parent(P)`
   ## 
   ## assume `rStmt` is nnkRaiseStmt
   var res: NimNode
