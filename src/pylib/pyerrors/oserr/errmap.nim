@@ -46,9 +46,12 @@ template decl_err_cint(err){.dirty.} =
     export err
   else:
     decl_c_intImpl(`n err`, name, "<errno.h>", DEF_INT)
-    ifHasErr `n err`:
+    template asgExp =
       asgn_cint err, cast[cint](`n err`)
       export err
+    when defined(js): asgExp
+    else:
+      ifHasErr `n err`: asgExp
 
 decl_err_cint E2BIG
 decl_err_cint ENOEXEC
