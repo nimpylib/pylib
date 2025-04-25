@@ -9,5 +9,5 @@ when not defined(js):
     term, inheritable]
   export term, set_inheritable, get_inheritable
 
-
+genUname string
 

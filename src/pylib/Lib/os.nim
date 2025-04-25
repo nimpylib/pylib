@@ -11,10 +11,10 @@ import ./os_impl/private/platform_utils
 import ../pyconfig/bootstrap_hash
 
 import ./n_os
-export n_os except scandir, DirEntry, urandom, getrandom
+export n_os except scandir, DirEntry, urandom, getrandom, genUname, uname, uname_result
 
 import ../version
-
+genUname PyStr
 template scandir*(): untyped{.pysince(3,5).} = n_os.scandir()
 template scandir*[T](p: PathLike[T]): untyped{.pysince(3,5).} = n_os.scandir(p)
 template scandir*(p: int): untyped{.pysince(3,5).} = n_os.scandir(p)

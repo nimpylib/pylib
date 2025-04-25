@@ -9,6 +9,7 @@ const
   HAVE_FTRUNCATE* = true
 
 AC_CHECK_FUNCS(
+  uname,
   unlinkat,
   fdopendir,
 )
