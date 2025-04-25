@@ -65,7 +65,7 @@ template toBool*[T](arg: T): bool =
   # If we have len proc for this object
   when compiles(arg.len):
     arg.len > 0
-  elif T is SomeNumber:
+  elif system.`is`(arg, SomeNumber):
     # If we can compare if it's not 0
     arg != 0  # works for NaN
   # If we can compare if it's greater than 0
@@ -78,7 +78,7 @@ template toBool*[T](arg: T): bool =
     arg != None
   elif compiles(bool(arg)):
     bool(arg)
-  elif T is Option:
+  elif system.`is`(T, Option):
     arg.optionToBool
   else:
     # XXX: is this correct?
