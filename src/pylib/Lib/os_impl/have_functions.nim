@@ -51,12 +51,18 @@ macro contains*(s: HaveFunc; fns: varargs[untyped]): bool =
   ## used for `{xxx, ...} <= s`
   multiContainsImpl(s, fns)
 
-macro `>=`*(s: HaveFunc; fns: untyped): bool =
+macro issuperset*(s: HaveFunc; fns: untyped): bool =
   ## used for `{xxx, ...} <= s`
   multiContainsImpl(s, fns)
 
+template `>=`*(s: HaveFunc, fns): bool =
+  bind issuperset
+  s.issuperset(fns)
+
 # Not work for even `(x, ...) <= s`:
-template `<=`*(fns: untyped; s: untyped): bool = bind `>=`; s>=fns
+template `<=`*(fns: untyped; s: HaveFunc): bool =
+  bind issuperset
+  s.issuperset(fns)
 
 const MS_WINDOWS = defined(windows)
 template reset_set(name){.dirty.} =
