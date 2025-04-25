@@ -106,9 +106,13 @@ proc PySys_ClearAuditHooks() =
   try: PySys_Audit(ClearAuditHooksName)
   except Exception: discard
 
-when (NimMajor, NimMinor, NimPatch) >= (2, 1, 1):
+template sinceNim(ma, mi, pa): bool =
+  (NimMajor, NimMinor, NimPatch) >= (ma, mi, pa)
+const Js = defined(js)
+when not Js and sinceNim(2,1,1) or
+    Js and sinceNim(2,3,2):
   ## XXX: FIXED-NIM-BUG: though nimAllowNonVarDestructor is defined at least since 2.0.6,
-  ## it still cannot be compiled till abour 2.1.1
+  ## it still cannot be compiled till about 2.1.1
   proc `=destroy`*(self: PyRuntimeState) = PySys_ClearAuditHooks()
 else:
   proc `=destroy`*(self: var PyRuntimeState) = PySys_ClearAuditHooks()
