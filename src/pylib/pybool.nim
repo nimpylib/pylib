@@ -1,5 +1,7 @@
 
 from ./collections_abc import Iterable
+import ./noneType
+import std/options
 
 type
   PyBool* = distinct bool
@@ -55,13 +57,16 @@ converter bool*(arg: HasMoreThan): bool = arg > 0 or arg < 0
 converter bool*(arg: CanCompToNil): bool = arg != nil
 ]#
 
+proc optionToBool[T](arg: Option[T]): bool
+
 template toBool*[T](arg: T): bool =
   ## Converts argument to boolean, checking python-like truthiness.
+  bind None, isSome, Option, optionToBool
   # If we have len proc for this object
   when compiles(arg.len):
     arg.len > 0
   elif T is SomeNumber:
-  # If we can compare if it's not 0
+    # If we can compare if it's not 0
     arg != 0  # works for NaN
   # If we can compare if it's greater than 0
   elif compiles(arg > 0):
@@ -69,9 +74,18 @@ template toBool*[T](arg: T): bool =
   # Initialized variables only
   elif compiles(arg != nil):
     arg != nil
+  elif compiles(arg != None):
+    arg != None
+  elif compiles(bool(arg)):
+    bool(arg)
+  elif T is Option:
+    arg.optionToBool
   else:
     # XXX: is this correct?
     true
+
+proc optionToBool[T](arg: Option[T]): bool =
+  arg.isSome and arg.unsafeGet.toBool
 
 converter toNimBool*(self): bool = bool(self)
 converter pybool*(x: bool): PyBool = PyBool(x)
