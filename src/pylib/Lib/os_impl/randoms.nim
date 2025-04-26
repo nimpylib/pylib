@@ -68,13 +68,6 @@ when have_getrandom_syscall:
   import ../signal_impl/c_api
   import ../../pyerrors/oserr
 
-  let SYS_getrandom {.importc, header: "<sys/syscall.h>".}: clong
-  const syscallHeader = """#include <unistd.h>
-  #include <sys/syscall.h>"""
-  proc syscall(n: clong): clong {.
-      importc: "syscall", varargs, header: syscallHeader.}
-
-
   proc getrandom*(size: int, flags = 0): seq[uint8] =
 
     if size < 0:

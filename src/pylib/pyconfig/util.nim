@@ -162,9 +162,9 @@ template c_defined*(variable; c_macro: string; headers: openArray = []) =
       """
     exit(
   #if defined(""" & c_macro & """)
-      1
-  #else
       0
+  #else
+      1
   #endif
     );
   """.}
