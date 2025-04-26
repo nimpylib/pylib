@@ -71,7 +71,7 @@ proc from_c_int_expr(cacheName, cexpr: string; defval: NimNode): NimNode =
   result = quote do:
     from_c_int(`cexpr`, `defval`):
       {.emit: ["/*VARSECTION*/\n#define ", `pureVarId`, " ", `cexpr`, "\n"].}
-
+#" <- for code lint
 macro from_c_int_underlined*(variable: static[string]; defval: int): int =
   let pureVar = variable.strip(chars = {'_'})
   from_c_int_expr(pureVar, variable, defval)
@@ -107,7 +107,7 @@ template from_c_int*(variable; defvar: int): int =
   bind noop
   from_c_int(variable, defvar, noop)
 
-template AC_LINK_IFELSE*(variable, defval, code) = decl_ac_impl('c', variable, defval, code)
+template AC_LINK_IFELSE*(variable, defval, code) = decl_ac_impl('c', variable, defval, code)  ## variable = whether code exits with 0
 template AC_RUN_IFELSE*(variable, defval, code) = decl_ac_impl(RunSubCmd, variable, defval, code)
 
 

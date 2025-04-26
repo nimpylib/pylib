@@ -3,9 +3,9 @@
 import ./util
 
 AC_RUN_IFELSE X87_double_rounding, false:
-  # ref "On IEEE 754, test should return 0 if rounding"
+  # On IEEE 754, test should return 1 if rounding mode is round-to-nearest.
   # maybe following is enough, but I still put origin C code below
-  import std/fenv;quit int(fegetround()!=FE_TONEAREST)
+  import std/fenv;quit int(fegetround()==FE_TONEAREST)
 #[
  Detect whether system arithmetic is subject to x87-style double
  rounding issues.  The result of this test has little meaning on non
