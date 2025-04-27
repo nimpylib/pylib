@@ -67,7 +67,7 @@ else:
     let file = $p
     when defined(windows):
       let f = newWideCString(file)
-      if Py_DeleteFileW(f) != 0:  ## returns TRUE
+      if Py_DeleteFileW(f):  ## returns TRUE
         return true
     else:
       if unlink(cstring file) == 0'i32: return true  # success
