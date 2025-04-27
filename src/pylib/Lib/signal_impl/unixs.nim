@@ -6,12 +6,14 @@ import ./[
   c_api,
   chk_util,
   pylifecycle,
-  sigsetCvt,
-  sigset_to_set,
   siginfo_decl
 ]
 import ../sys_impl/auditImpl as sys
 when HAVE_SIGSET_T:
+  import ./[
+    sigsetCvt,
+    sigset_to_set,
+  ]
   export Sigset
   converter toSigset*(oa: openArray[int]): Sigset = result.fromIterable oa
 

@@ -11,7 +11,6 @@ when defined(windows):
   import std/winlean
   export winlean
   let SIGBREAK*{.importc, header: "<signal.h>".}: cint
-  proc sigismember*(a1: var Sigset, a2: cint): cint {.importc, header: "<signal.h>".}
   let
     CTRL_C_EVENT*{.importc, header: "<Windows.h>".}: cint
     CTRL_BREAK_EVENT*{.importc, header: "<Windows.h>".}: cint
