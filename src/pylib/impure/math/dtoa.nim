@@ -69,14 +69,10 @@ char* dtoa(double d, int mode, int ndigits, int *decpt, int *sign, char **rve)
 ```]##
 
 proc strtod*(
-  s00: cstring, se: var cstring
-): cdouble{.importc: "strtod", cdecl.} ##[ ```c
+  s00: cstring, se: (var cstring)|(ptr cstring) # for `strtod(s, nil)`
+): cdouble{.importc: "nimpylib_dtoa_strtod", cdecl.} ##[ ```c
 double strtod(const char *s00, char **se)
 ```]##
-
-proc strtod*(
-  s00: cstring, se: ptr cstring
-): cdouble{.importc: "strtod", cdecl.} ## for `strtod(s, nil)`
 
 proc freedtoa*(s: cstring){.importc, cdecl.}
 
