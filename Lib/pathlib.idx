@@ -5,11 +5,11 @@ nim	stem	pathlib.html#stem,Path	proc stem(self: Path): PyStr		28
 nim	parts	pathlib.html#parts,Path	proc parts(self: Path): PyList[PyStr]		32
 nim	suffixes	pathlib.html#suffixes,Path	proc suffixes(self: Path): PyList[PyStr]		32
 nim	fspath	pathlib.html#fspath	proc fspath(self: Path): PyStr		49
-nim	Path	pathlib.html#Path,varargs[P]	proc Path[P: PathLike](pathsegments: varargs[P]): types.Path		51
+nim	Path	pathlib.html#Path,varargs[P]_2	proc Path[P: PathLike](pathsegments: varargs[P]): types.Path		51
 nim	`/`	pathlib.html#/,,PathLike	proc `/`(self: Path; p: PathLike): Path		55
 nim	`/`	pathlib.html#/,PathLike,	proc `/`(p: PathLike; self: Path): Path		56
 nim	`/=`	pathlib.html#/=,Path,PathLike	proc `/=`(head: var Path; tail: PathLike): Path		57
-nim	joinpath	pathlib.html#joinpath,,varargs[P]	proc joinpath[P: PathLike](self: Path; pathsegments: varargs[P]): Path		59
+nim	joinpath	pathlib.html#joinpath,,varargs[P]_2	proc joinpath[P: PathLike](self: Path; pathsegments: varargs[P]): Path		59
 nim	open	pathlib.html#open.t,Path,StringLike,int	template open(self: Path; mode: StringLike = "r"; buffering = -1; encoding = DefEncoding;\n     errors = DefErrors; newline = DefNewLine): untyped		64
 nim	read_text	pathlib.html#read_text	proc read_text(self: Path; encoding = DefEncoding; errors = DefErrors): PyStr		71
 nim	write_text	pathlib.html#write_text,,PyStr	proc write_text(self: Path; data: PyStr; encoding = DefEncoding; errors = DefErrors): int		76

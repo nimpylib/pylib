@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../../nimdoc.out.css?v=2.2.2">
+<link rel="stylesheet" type="text/css" href="../../nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="../../dochack.js?v=2.2.2"></script>
+<script type="text/javascript" src="../../dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -72,33 +72,49 @@
   <li><a class="reference" href="#%5B%5D%2Cstat_result%2Cint" title="`[]`(self: stat_result; i: int): BiggestInt">`[]`(self: stat_result; i: int): BiggestInt</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">fstat
+  <li><a class="reference" href="#fstat%2Cint" title="fstat(fd: int): stat_result">fstat(fd: int): stat_result</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">lstat
+  <li><a class="reference" href="#lstat%2CPathLike%5BT%5D" title="lstat[T](path: PathLike[T]; dir_fd = DEFAULT_DIR_FD): stat_result">lstat[T](path: PathLike[T]; dir_fd = DEFAULT_DIR_FD): stat_result</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">Py_fstat
+  <li><a class="reference" href="#Py_fstat%2Cint%2CStat" title="Py_fstat(fd: int; status: var Stat)">Py_fstat(fd: int; status: var Stat)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">Py_fstat_noraise
+  <li><a class="reference" href="#Py_fstat_noraise%2Cint%2CStat" title="Py_fstat_noraise(fd: int; status: var Stat): cint">Py_fstat_noraise(fd: int; status: var Stat): cint</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">st_atime
-  <li><a class="reference" href="#st_atime%2Cstat_result" title="st_atime(self`gensym0: stat_result): float">st_atime(self`gensym0: stat_result): float</a></li>
+  <li><a class="reference" href="#st_atime%2Cstat_result" title="st_atime(self`gensym1: stat_result): float">st_atime(self`gensym1: stat_result): float</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">st_atime_ns
-  <li><a class="reference" href="#st_atime_ns%2Cstat_result" title="st_atime_ns(self`gensym0: stat_result): BiggestInt">st_atime_ns(self`gensym0: stat_result): BiggestInt</a></li>
+  <li><a class="reference" href="#st_atime_ns%2Cstat_result" title="st_atime_ns(self`gensym1: stat_result): BiggestInt">st_atime_ns(self`gensym1: stat_result): BiggestInt</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">st_ctime
-  <li><a class="reference" href="#st_ctime%2Cstat_result" title="st_ctime(self`gensym2: stat_result): float">st_ctime(self`gensym2: stat_result): float</a></li>
+  <li><a class="reference" href="#st_ctime%2Cstat_result" title="st_ctime(self`gensym3: stat_result): float">st_ctime(self`gensym3: stat_result): float</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">st_ctime_ns
-  <li><a class="reference" href="#st_ctime_ns%2Cstat_result" title="st_ctime_ns(self`gensym2: stat_result): BiggestInt">st_ctime_ns(self`gensym2: stat_result): BiggestInt</a></li>
+  <li><a class="reference" href="#st_ctime_ns%2Cstat_result" title="st_ctime_ns(self`gensym3: stat_result): BiggestInt">st_ctime_ns(self`gensym3: stat_result): BiggestInt</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">st_mtime
-  <li><a class="reference" href="#st_mtime%2Cstat_result" title="st_mtime(self`gensym1: stat_result): float">st_mtime(self`gensym1: stat_result): float</a></li>
+  <li><a class="reference" href="#st_mtime%2Cstat_result" title="st_mtime(self`gensym2: stat_result): float">st_mtime(self`gensym2: stat_result): float</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">st_mtime_ns
-  <li><a class="reference" href="#st_mtime_ns%2Cstat_result" title="st_mtime_ns(self`gensym1: stat_result): BiggestInt">st_mtime_ns(self`gensym1: stat_result): BiggestInt</a></li>
+  <li><a class="reference" href="#st_mtime_ns%2Cstat_result" title="st_mtime_ns(self`gensym2: stat_result): BiggestInt">st_mtime_ns(self`gensym2: stat_result): BiggestInt</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">stat
-  <li><a class="reference" href="#stat%2Cint" title="stat(path: int): stat_result">stat(path: int): stat_result</a></li>
-<li><a class="reference" href="#stat%2CPathLike%5BT%5D" title="stat[T](path: PathLike[T]): stat_result">stat[T](path: PathLike[T]): stat_result</a></li>
+  <li><a class="reference" href="#stat%2Cint" title="stat(path: int; dir_fd = DEFAULT_DIR_FD; follow_symlinks = true): stat_result">stat(path: int; dir_fd = DEFAULT_DIR_FD; follow_symlinks = true): stat_result</a></li>
+<li><a class="reference" href="#stat%2CPathLike%5BT%5D" title="stat[T](path: PathLike[T]; dir_fd = DEFAULT_DIR_FD; follow_symlinks = true): stat_result">stat[T](path: PathLike[T]; dir_fd = DEFAULT_DIR_FD; follow_symlinks = true): stat_result</a></li>
 
 </ul>
 
@@ -135,7 +151,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../common.html">../common</a>
+    <a class="reference external" href="../common.html">../common</a>, <a class="reference external" href="pyCfg.html">pyCfg</a>, <a class="reference external" href="../util/handle_signal.html">../util/handle_signal</a>, <a class="reference external" href="../../_._/pyconfig/stats.html">../../../pyconfig/stats</a>, <a class="reference external" href="../../_._/pyconfig/os.html">../../../pyconfig/os</a>, <a class="reference external" href="chkarg.html">chkarg</a>
   </dl>
 </div>
 <div class="section" id="7">
@@ -147,8 +163,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L94" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L94" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -165,8 +181,66 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L159" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L159" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L201" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L201" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="fstat-procs-all">
+  <div id="fstat,int">
+  <dt><pre><span class="Keyword">proc</span> <a href="#fstat%2Cint"><span class="Identifier">fstat</span></a><span class="Other">(</span><span class="Identifier">fd</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L679" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L679" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="lstat-procs-all">
+  <div id="lstat,PathLike[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#lstat%2CPathLike%5BT%5D"><span class="Identifier">lstat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">path</span><span class="Other">:</span> <a href="../../_._/io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">dir_fd</span> <span class="Other">=</span> <span class="Identifier">DEFAULT_DIR_FD</span><span class="Other">)</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L675" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L675" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="Py_fstat-procs-all">
+  <div id="Py_fstat,int,Stat">
+  <dt><pre><span class="Keyword">proc</span> <a href="#Py_fstat%2Cint%2CStat"><span class="Identifier">Py_fstat</span></a><span class="Other">(</span><span class="Identifier">fd</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Stat</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>EXT.</p>
+<p>fileutils.c <tt class="docutils literal"><span class="pre"><span class="Identifier">_Py_fstat</span></span></tt></p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L606" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L606" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="Py_fstat_noraise-procs-all">
+  <div id="Py_fstat_noraise,int,Stat">
+  <dt><pre><span class="Keyword">proc</span> <a href="#Py_fstat_noraise%2Cint%2CStat"><span class="Identifier">Py_fstat_noraise</span></a><span class="Other">(</span><span class="Identifier">fd</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Stat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>EXT.</p>
+<p>fileutils.c <tt class="docutils literal"><span class="pre"><span class="Identifier">_Py_fstat_noraise</span></span></tt></p>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L554" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L554" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -174,13 +248,13 @@
 </div>
 <div id="st_atime-procs-all">
   <div id="st_atime,stat_result">
-  <dt><pre><span class="Keyword">func</span> <a href="#st_atime%2Cstat_result"><span class="Identifier">st_atime</span></a><span class="Other">(</span><span class="Identifier">self`gensym0</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#st_atime%2Cstat_result"><span class="Identifier">st_atime</span></a><span class="Other">(</span><span class="Identifier">self`gensym1</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L114" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L114" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -188,15 +262,15 @@
 </div>
 <div id="st_atime_ns-procs-all">
   <div id="st_atime_ns,stat_result">
-  <dt><pre><span class="Keyword">func</span> <a href="#st_atime_ns%2Cstat_result"><span class="Identifier">st_atime_ns</span></a><span class="Other">(</span><span class="Identifier">self`gensym0</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#st_atime_ns%2Cstat_result"><span class="Identifier">st_atime_ns</span></a><span class="Other">(</span><span class="Identifier">self`gensym1</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.3</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L132" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L132" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L174" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L174" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -204,13 +278,13 @@ since Python 3.3</div>
 </div>
 <div id="st_ctime-procs-all">
   <div id="st_ctime,stat_result">
-  <dt><pre><span class="Keyword">func</span> <a href="#st_ctime%2Cstat_result"><span class="Identifier">st_ctime</span></a><span class="Other">(</span><span class="Identifier">self`gensym2</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#st_ctime%2Cstat_result"><span class="Identifier">st_ctime</span></a><span class="Other">(</span><span class="Identifier">self`gensym3</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L114" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L114" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -218,15 +292,15 @@ since Python 3.3</div>
 </div>
 <div id="st_ctime_ns-procs-all">
   <div id="st_ctime_ns,stat_result">
-  <dt><pre><span class="Keyword">func</span> <a href="#st_ctime_ns%2Cstat_result"><span class="Identifier">st_ctime_ns</span></a><span class="Other">(</span><span class="Identifier">self`gensym2</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#st_ctime_ns%2Cstat_result"><span class="Identifier">st_ctime_ns</span></a><span class="Other">(</span><span class="Identifier">self`gensym3</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.3</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L134" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L134" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L176" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L176" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -234,13 +308,13 @@ since Python 3.3</div>
 </div>
 <div id="st_mtime-procs-all">
   <div id="st_mtime,stat_result">
-  <dt><pre><span class="Keyword">func</span> <a href="#st_mtime%2Cstat_result"><span class="Identifier">st_mtime</span></a><span class="Other">(</span><span class="Identifier">self`gensym1</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#st_mtime%2Cstat_result"><span class="Identifier">st_mtime</span></a><span class="Other">(</span><span class="Identifier">self`gensym2</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L114" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L114" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -248,15 +322,15 @@ since Python 3.3</div>
 </div>
 <div id="st_mtime_ns-procs-all">
   <div id="st_mtime_ns,stat_result">
-  <dt><pre><span class="Keyword">func</span> <a href="#st_mtime_ns%2Cstat_result"><span class="Identifier">st_mtime_ns</span></a><span class="Other">(</span><span class="Identifier">self`gensym1</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#st_mtime_ns%2Cstat_result"><span class="Identifier">st_mtime_ns</span></a><span class="Other">(</span><span class="Identifier">self`gensym2</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.3</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L133" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L133" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L175" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L175" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -264,31 +338,23 @@ since Python 3.3</div>
 </div>
 <div id="stat-procs-all">
   <div id="stat,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#stat%2Cint"><span class="Identifier">stat</span></a><span class="Other">(</span><span class="Identifier">path</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#stat%2Cint"><span class="Identifier">stat</span></a><span class="Other">(</span><span class="Identifier">path</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">dir_fd</span> <span class="Other">=</span> <span class="Identifier">DEFAULT_DIR_FD</span><span class="Other">;</span> <span class="Identifier">follow_symlinks</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L202" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L202" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L672" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L672" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="stat,PathLike[T]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#stat%2CPathLike%5BT%5D"><span class="Identifier">stat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">path</span><span class="Other">:</span> <a href="../../_._/io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#stat%2CPathLike%5BT%5D"><span class="Identifier">stat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">path</span><span class="Other">:</span> <a href="../../_._/io_abc.html#PathLike"><span class="Identifier">PathLike</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">dir_fd</span> <span class="Other">=</span> <span class="Identifier">DEFAULT_DIR_FD</span><span class="Other">;</span> <span class="Identifier">follow_symlinks</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <a href="stat.html#stat_result"><span class="Identifier">stat_result</span></a></pre></dt>
   <dd>
     
-    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
-Under Windows, it's just a wrapper over <tt class="docutils literal"><span class="pre"><span class="Identifier">_wstat</span></span></tt>, so this differs from Python's <tt class="docutils literal"><span class="pre"><span class="Identifier">os</span><span class="Operator">.</span><span class="Identifier">stat</span></span></tt> either in prototype (the <tt class="docutils literal"><span class="pre"><span class="Identifier">follow_symlinks</span></span></tt> param is not supported) and some items of result. For details, see <a class="reference external" href="https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stat-functions">https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/stat-functions</a></div>
-
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">let</span> <span class="Identifier">s</span> <span class="Operator">=</span> <span class="Identifier">stat</span><span class="Punctuation">(</span><span class="StringLit">&quot;.&quot;</span><span class="Punctuation">)</span>
-<span class="Keyword">when</span> <span class="Identifier">defined</span><span class="Punctuation">(</span><span class="Identifier">windows</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-  <span class="Comment"># _stat's result: st_gid, st_uid is always zero.</span>
-  <span class="Keyword">template</span> <span class="Identifier">zero</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">)</span> <span class="Operator">=</span> <span class="Identifier">assert</span> <span class="Identifier">x</span><span class="Operator">.</span><span class="Identifier">int</span> <span class="Operator">==</span> <span class="DecNumber">0</span>
-  <span class="Identifier">zero</span> <span class="Identifier">s</span><span class="Operator">.</span><span class="Identifier">st_gid</span>
-  <span class="Identifier">zero</span> <span class="Identifier">s</span><span class="Operator">.</span><span class="Identifier">st_uid</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L203" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L203" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L669" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L669" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -306,8 +372,8 @@ Under Windows, it's just a wrapper over <tt class="docutils literal"><span class
   <dd>
     
     as Python's <tt class="docutils literal"><span class="pre"><span class="Identifier">__getattr__</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L137" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L137" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L179" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L179" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -319,8 +385,8 @@ Under Windows, it's just a wrapper over <tt class="docutils literal"><span class
   <dd>
     
     stat(<tt class="docutils literal"><span class="pre"><span class="Identifier">path</span></span></tt>).<tt class="docutils literal"><span class="pre"><span class="Identifier">attr</span></span></tt>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L191" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L191" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/posix_like/stat.nim#L225" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/posix_like/stat.nim#L225" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -336,7 +402,7 @@ Under Windows, it's just a wrapper over <tt class="docutils literal"><span class
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 22:52:34 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:57:35 UTC</small>
       </div>
     </div>
   </div>

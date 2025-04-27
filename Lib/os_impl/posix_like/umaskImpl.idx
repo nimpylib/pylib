@@ -1,0 +1,2 @@
+nimTitle	umaskImpl	os_impl/posix_like/umaskImpl.html	module src/pylib/Lib/os_impl/posix_like/umaskImpl		0
+nim	umask	os_impl/posix_like/umaskImpl.html#umask,int	proc umask(mode: int): int		9

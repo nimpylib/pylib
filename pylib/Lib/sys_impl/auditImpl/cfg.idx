@@ -1,0 +1,4 @@
+nimTitle	cfg	pylib/Lib/sys_impl/auditImpl/cfg.html	module src/pylib/Lib/sys_impl/auditImpl/cfg		0
+nim	config_should_audit	pylib/Lib/sys_impl/auditImpl/cfg.html#config_should_audit	const config_should_audit		3
+nim	whenAuditEnabled	pylib/Lib/sys_impl/auditImpl/cfg.html#whenAuditEnabled.t	template whenAuditEnabled(body)		7
+nim	whenAuditEnabledOr	pylib/Lib/sys_impl/auditImpl/cfg.html#whenAuditEnabledOr.t,T,T	template whenAuditEnabledOr[T](exp, elseExp: T): T		12

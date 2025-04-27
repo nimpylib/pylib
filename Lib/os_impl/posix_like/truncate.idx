@@ -1,3 +1,3 @@
 nimTitle	truncate	os_impl/posix_like/truncate.html	module src/pylib/Lib/os_impl/posix_like/truncate		0
-nim	ftruncate	os_impl/posix_like/truncate.html#ftruncate,Positive,int64	proc ftruncate(file: Positive; length: int64)		30
-nim	truncate	os_impl/posix_like/truncate.html#truncate,CanIOOpenT,Natural	proc truncate(file: CanIOOpenT; length: Natural)		35
+nim	ftruncate	os_impl/posix_like/truncate.html#ftruncate,Positive,Natural	proc ftruncate(file: Positive; length: Natural)		45
+nim	truncate	os_impl/posix_like/truncate.html#truncate,CanIOOpenT,Natural	proc truncate(file: CanIOOpenT; length: Natural)		49

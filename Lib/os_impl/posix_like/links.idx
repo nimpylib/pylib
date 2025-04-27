@@ -1,6 +1,6 @@
 nimTitle	links	os_impl/posix_like/links.html	module src/pylib/Lib/os_impl/posix_like/links		0
-nim	readlink	os_impl/posix_like/links.html#readlink,PathLike[T]	proc readlink[T](path: PathLike[T]): T		244
-nim	symlink	os_impl/posix_like/links.html#symlink,PathLike[T],PathLike[T],int	proc symlink[T](src, dst: PathLike[T]; target_is_directory = false; dir_fd: int)		303
-nim	symlink	os_impl/posix_like/links.html#symlink,PathLike[T],PathLike[T]	proc symlink[T](src, dst: PathLike[T]; target_is_directory = false)		308
-nim	link	os_impl/posix_like/links.html#link,PathLike[T],PathLike[T]	proc link[T](src, dst: PathLike[T])		314
-nimgrp	symlink	os_impl/posix_like/links.html#symlink-procs-all	proc		303
+nim	readlink	os_impl/posix_like/links.html#readlink,PathLike[T]	proc readlink[T](path: PathLike[T]): T		241
+nim	symlink	os_impl/posix_like/links.html#symlink,PathLike[T],PathLike[T],int	proc symlink[T](src, dst: PathLike[T]; target_is_directory = false; dir_fd: int)		300
+nim	symlink	os_impl/posix_like/links.html#symlink,PathLike[T],PathLike[T]	proc symlink[T](src, dst: PathLike[T]; target_is_directory = false)		315
+nim	link	os_impl/posix_like/links.html#link,PathLike[T],PathLike[T]	proc link[T](src, dst: PathLike[T])		319
+nimgrp	symlink	os_impl/posix_like/links.html#symlink-procs-all	proc		300

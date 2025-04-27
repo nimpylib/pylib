@@ -1,0 +1,22 @@
+nimTitle	ct	pylib/Lib/sys_impl/flagsImpl/ct.html	module src/pylib/Lib/sys_impl/flagsImpl/ct		0
+nim	fields	pylib/Lib/sys_impl/flagsImpl/ct.html#fields	var fields		9
+nim	debug	pylib/Lib/sys_impl/flagsImpl/ct.html#debug	const debug		22
+nim	inspect	pylib/Lib/sys_impl/flagsImpl/ct.html#inspect	const inspect		22
+nim	interactive	pylib/Lib/sys_impl/flagsImpl/ct.html#interactive	const interactive		22
+nim	isolated	pylib/Lib/sys_impl/flagsImpl/ct.html#isolated	const isolated		22
+nim	optimize	pylib/Lib/sys_impl/flagsImpl/ct.html#optimize	const optimize		22
+nim	dont_write_bytecode	pylib/Lib/sys_impl/flagsImpl/ct.html#dont_write_bytecode	const dont_write_bytecode		22
+nim	no_user_site	pylib/Lib/sys_impl/flagsImpl/ct.html#no_user_site	const no_user_site		22
+nim	no_site	pylib/Lib/sys_impl/flagsImpl/ct.html#no_site	const no_site		22
+nim	ignore_environment	pylib/Lib/sys_impl/flagsImpl/ct.html#ignore_environment	const ignore_environment		22
+nim	verbose	pylib/Lib/sys_impl/flagsImpl/ct.html#verbose	const verbose		22
+nim	bytes_warning	pylib/Lib/sys_impl/flagsImpl/ct.html#bytes_warning	const bytes_warning		22
+nim	quiet	pylib/Lib/sys_impl/flagsImpl/ct.html#quiet	const quiet		22
+nim	hash_randomization	pylib/Lib/sys_impl/flagsImpl/ct.html#hash_randomization	const hash_randomization		22
+nim	dev_mode	pylib/Lib/sys_impl/flagsImpl/ct.html#dev_mode	const dev_mode		18
+nim	utf8_mode	pylib/Lib/sys_impl/flagsImpl/ct.html#utf8_mode	const utf8_mode		22
+nim	safe_path	pylib/Lib/sys_impl/flagsImpl/ct.html#safe_path	const safe_path		18
+nim	int_max_str_digits	pylib/Lib/sys_impl/flagsImpl/ct.html#int_max_str_digits	const int_max_str_digits		22
+nim	warn_default_encoding	pylib/Lib/sys_impl/flagsImpl/ct.html#warn_default_encoding	const warn_default_encoding		22
+nim	redefineFlags	pylib/Lib/sys_impl/flagsImpl/ct.html#redefineFlags.m,varargs[untyped]	macro redefineFlags(kws: varargs[untyped])		48
+nim	genFlagsObj	pylib/Lib/sys_impl/flagsImpl/ct.html#genFlagsObj.m	macro genFlagsObj()		60

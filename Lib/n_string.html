@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.2">
+<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="dochack.js?v=2.2.2"></script>
+<script type="text/javascript" src="dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -89,6 +89,9 @@
     </ul>
   </details>
 </li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
+</li>
 
 </ul>
 
@@ -103,7 +106,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="_._/pystring.html">../pystring</a>, <a class="reference external" href="string_impl/capwordsImpl.html">string_impl/capwordsImpl</a>, <a class="reference external" href="string_impl/consts.html">string_impl/consts</a>, <a class="reference external" href="string_impl/templateImpl.html">string_impl/templateImpl</a>
+    <a class="reference external" href="pystring.html">pystring</a>, <a class="reference external" href="capwordsImpl.html">capwordsImpl</a>, <a class="reference external" href="consts.html">consts</a>, <a class="reference external" href="templateImpl.html">templateImpl</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -139,7 +142,7 @@
 </div>
 <div id="get_identifiers-procs-all">
   <div id="get_identifiers,Template">
-  <dt><pre><span class="Keyword">proc</span> <a href="#get_identifiers%2CTemplate"><span class="Identifier">get_identifiers</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#get_identifiers%2CTemplate"><span class="Identifier">get_identifiers</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -159,7 +162,7 @@
   <dl class="item">
     <div id="safe_substitute-macros-all">
   <div id="safe_substitute.m,Template,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#safe_substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">safe_substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#safe_substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">safe_substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
@@ -169,7 +172,7 @@
   </dd>
 </div>
 <div id="safe_substitute.m,Template,Table,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#safe_substitute.m%2CTemplate%2CTable%2Cvarargs%5Buntyped%5D"><span class="Identifier">safe_substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <span class="Identifier">Table</span><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#safe_substitute.m%2CTemplate%2CTable%2Cvarargs%5Buntyped%5D"><span class="Identifier">safe_substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <span class="Identifier">Table</span><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
@@ -182,7 +185,7 @@
 </div>
 <div id="substitute-macros-all">
   <div id="substitute.m,Template,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
@@ -192,7 +195,7 @@
   </dd>
 </div>
 <div id="substitute.m,Template,Table,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2CTable%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="string_impl/template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <span class="Identifier">Table</span><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#substitute.m%2CTemplate%2CTable%2Cvarargs%5Buntyped%5D"><span class="Identifier">substitute</span></a><span class="Other">(</span><span class="Identifier">templ</span><span class="Other">:</span> <a href="template_decl.html#Template"><span class="Identifier">Template</span></a><span class="Other">;</span> <span class="Identifier">mapping</span><span class="Other">:</span> <span class="Identifier">Table</span><span class="Other">;</span> <span class="Identifier">kws</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     
@@ -206,6 +209,12 @@
 
   </dl>
 </div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="capwordsImpl.html#genCapwords.t,,,,,,"><span class="Identifier">genCapwords</span></a>, <a href="consts.html#punctuation"><span class="Identifier">punctuation</span></a>, <a href="consts.html#digits"><span class="Identifier">digits</span></a>, <a href="consts.html#hexdigits"><span class="Identifier">hexdigits</span></a>, <a href="consts.html#whitespace"><span class="Identifier">whitespace</span></a>, <a href="consts.html#octdigits"><span class="Identifier">octdigits</span></a>, <a href="consts.html#ascii_uppercase"><span class="Identifier">ascii_uppercase</span></a>, <a href="consts.html#ascii_letters"><span class="Identifier">ascii_letters</span></a>, <a href="consts.html#ascii_lowercase"><span class="Identifier">ascii_lowercase</span></a>, <a href="consts.html#printable"><span class="Identifier">printable</span></a>, <a href="template_decl.html#$,Template"><span class="Identifier">$</span></a>, <a href="templateImpl.html#Template,string"><span class="Identifier">Template</span></a>, <a href="substituteImpl.html#initIgnoreExcHandle"><span class="Identifier">initIgnoreExcHandle</span></a>, <a href="template_decl.html#delimiter.e,Template"><span class="Identifier">delimiter</span></a>, <a href="substituteImpl.html#initRaisesExcHandle"><span class="Identifier">initRaisesExcHandle</span></a>, <a href="template_decl.html#Template"><span class="Identifier">Template</span></a>, <a href="templateImpl.html#get_identifiersMayDup.i,Template"><span class="Identifier">get_identifiersMayDup</span></a>, <a href="templateImpl.html#is_valid,Template"><span class="Identifier">is_valid</span></a>, <a href="n_chainmap.html#contains,ChainMap[K,V],K"><span class="Identifier">contains</span></a>, <a href="n_chainmap.html#[],ChainMap[K,V],K"><span class="Identifier">[]</span></a>
+  </dl>
+</div>
 
   </div>
 </div>
@@ -213,7 +222,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 22:51:51 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:56:51 UTC</small>
       </div>
     </div>
   </div>

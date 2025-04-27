@@ -1,0 +1,5 @@
+nimTitle	pyatomic	pylib/Lib/signal_impl/pyatomic.html	module src/pylib/Lib/signal_impl/pyatomic		0
+nim	Py_atomic_load_ptr	pylib/Lib/signal_impl/pyatomic.html#Py_atomic_load_ptr.t,ptr.T	template Py_atomic_load_ptr[T](obj: ptr T): T		3
+nim	Py_atomic_store_ptr	pylib/Lib/signal_impl/pyatomic.html#Py_atomic_store_ptr.t,ptr.T,T	template Py_atomic_store_ptr[T](obj: ptr T; value: T)		4
+nim	Py_atomic_load	pylib/Lib/signal_impl/pyatomic.html#Py_atomic_load.t,T	template Py_atomic_load[T](obj: T): T		6
+nim	Py_atomic_store	pylib/Lib/signal_impl/pyatomic.html#Py_atomic_store.t,T,T	template Py_atomic_store[T](obj: T; value: T)		11

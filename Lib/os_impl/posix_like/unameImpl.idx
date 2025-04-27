@@ -1,0 +1,2 @@
+nimTitle	unameImpl	os_impl/posix_like/unameImpl.html	module src/pylib/Lib/os_impl/posix_like/unameImpl		0
+nim	genUname	os_impl/posix_like/unameImpl.html#genUname.t	template genUname(S)		28

@@ -6,9 +6,10 @@ nim	`[]`	os_impl/walkImpl.html#[].t,WalkRes[T],staticint	template `[]`[T](self: 
 nim	repr	os_impl/walkImpl.html#repr.t,WalkRes[T]	template repr[T](self: WalkRes[T]): string		25
 nim	`$`	os_impl/walkImpl.html#$.t,WalkRes[T]	template `$`[T](self: WalkRes[T]): string		33
 nim	shallIgnore	os_impl/walkImpl.html#shallIgnore	const shallIgnore		40
-nim	walk	os_impl/walkImpl.html#walk.i,PathLike[T]	iterator walk[T](top: PathLike[T]; topdown = True; onerror = shallIgnore;\n        followlinks = False): WalkRes[T]		65
-nim	walk	os_impl/walkImpl.html#walk.i,PathLike[T]_2	iterator walk[T](top: PathLike[T]; topdown = True; onerror = None; followlinks = False): WalkRes[\n    T]		156
-nim	walk	os_impl/walkImpl.html#walk,PathLike[T]	proc walk[T](top: PathLike[T]; topdown = True; onerror = shallIgnore;\n        followlinks = False): WalkIterator[T]		163
-nim	walk	os_impl/walkImpl.html#walk,PathLike[T]_2	proc walk[T](top: PathLike[T]; topdown = True; onerror = None; followlinks = False): WalkIterator[\n    T]		168
-nimgrp	walk	os_impl/walkImpl.html#walk-procs-all	proc		163
-nimgrp	walk	os_impl/walkImpl.html#walk-iterators-all	iterator		65
+nim	walk_symlinks_as_files	os_impl/walkImpl.html#walk_symlinks_as_files	let walk_symlinks_as_files		66
+nim	walk	os_impl/walkImpl.html#walk.i,PathLike[T]	iterator walk[T](top: PathLike[T]; topdown = True; onerror = shallIgnore;\n        followlinks: bool | WalkSymlinksAsFiles = False): WalkRes[T]		69
+nim	walk	os_impl/walkImpl.html#walk.i,PathLike[T]_2	iterator walk[T](top: PathLike[T]; topdown = True; onerror = None; followlinks = False): WalkRes[\n    T]		165
+nim	walk	os_impl/walkImpl.html#walk,PathLike[T]	proc walk[T](top: PathLike[T]; topdown = True; onerror = shallIgnore;\n        followlinks = False): WalkIterator[T]		172
+nim	walk	os_impl/walkImpl.html#walk,PathLike[T]_2	proc walk[T](top: PathLike[T]; topdown = True; onerror = None; followlinks = False): WalkIterator[\n    T]		177
+nimgrp	walk	os_impl/walkImpl.html#walk-procs-all	proc		172
+nimgrp	walk	os_impl/walkImpl.html#walk-iterators-all	iterator		69

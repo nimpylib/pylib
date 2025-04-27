@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.2">
+<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="../dochack.js?v=2.2.2"></script>
+<script type="text/javascript" src="../dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -63,12 +63,32 @@
   <li><a class="reference" href="#%25%2CT%2CT" title="`%`[T: SomeNumber](a, b: T): T">`%`[T: SomeNumber](a, b: T): T</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">&=
+  <li><a class="reference" href="#%26%3D%2CI%2CI" title="`&amp;=`[I: SomeInteger](a: var I; b: I)">`&amp;=`[I: SomeInteger](a: var I; b: I)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">//
   <li><a class="reference" href="#%2F%2F%2CA%2CB" title="`//`[A, B: SomeFloat | SomeInteger](a: A; b: B): SomeNumber">`//`[A, B: SomeFloat | SomeInteger](a: A; b: B): SomeNumber</a></li>
 
 </ul>
+<ul class="simple nested-toc-section"><<=
+  <li><a class="reference" href="#%3C%3C%3D%2CI%2CI" title="`&lt;&lt;=`[I: SomeInteger](a: var I; b: I)">`&lt;&lt;=`[I: SomeInteger](a: var I; b: I)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">>>=
+  <li><a class="reference" href="#%3E%3E%3D%2CI%2CI" title="`&gt;&gt;=`[I: SomeInteger](a: var I; b: I)">`&gt;&gt;=`[I: SomeInteger](a: var I; b: I)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">^=
+  <li><a class="reference" href="#%5E%3D%2CI%2CI" title="`^=`[I: SomeInteger](a: var I; b: I)">`^=`[I: SomeInteger](a: var I; b: I)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">divmod
   <li><a class="reference" href="#divmod%2CT%2CT" title="divmod[T: SomeNumber](x, y: T): (T, T)">divmod[T: SomeNumber](x, y: T): (T, T)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">|=
+  <li><a class="reference" href="#%7C%3D%2CI%2CI" title="`|=`[I: SomeInteger](a: var I; b: I)">`|=`[I: SomeInteger](a: var I; b: I)</a></li>
 
 </ul>
 
@@ -86,6 +106,10 @@
 </ul>
 <ul class="simple nested-toc-section">%=
   <li><a class="reference" href="#%25%3D.t%2CSomeNumber%2CSomeNumber" title="`%=`(self: var SomeNumber; x: SomeNumber)">`%=`(self: var SomeNumber; x: SomeNumber)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">&
+  <li><a class="reference" href="#%26.t%2CI%2CI" title="`&amp;`[I: SomeInteger](a, b: I): I">`&amp;`[I: SomeInteger](a, b: I): I</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">**
@@ -117,10 +141,6 @@
   <li><a class="reference" href="#%3C%3C.t%2CI%2CI" title="`&lt;&lt;`[I: SomeInteger](a, b: I): I">`&lt;&lt;`[I: SomeInteger](a, b: I): I</a></li>
 
 </ul>
-<ul class="simple nested-toc-section"><<=
-  <li><a class="reference" href="#%3C%3C%3D.t%2CI%2CI" title="`&lt;&lt;=`[I: SomeInteger](a, b: I)">`&lt;&lt;=`[I: SomeInteger](a, b: I)</a></li>
-
-</ul>
 <ul class="simple nested-toc-section"><=
   <li><a class="reference" href="#%3C%3D.t%2CA%2CB_2" title="`&lt;=`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool">`&lt;=`[A: SomeFloat; B: SomeInteger](a: A; b: B): bool</a></li>
 <li><a class="reference" href="#%3C%3D.t%2CA%2CB" title="`&lt;=`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool">`&lt;=`[A: SomeInteger; B: SomeFloat](a: A; b: B): bool</a></li>
@@ -141,8 +161,16 @@
   <li><a class="reference" href="#%3E%3E.t%2CI%2CI" title="`&gt;&gt;`[I: SomeInteger](a, b: I): I">`&gt;&gt;`[I: SomeInteger](a, b: I): I</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">>>=
-  <li><a class="reference" href="#%3E%3E%3D.t%2CI%2CI" title="`&gt;&gt;=`[I: SomeInteger](a, b: I)">`&gt;&gt;=`[I: SomeInteger](a, b: I)</a></li>
+<ul class="simple nested-toc-section">^
+  <li><a class="reference" href="#%5E.t%2CI%2CI" title="`^`[I: SomeInteger](a, b: I): I">`^`[I: SomeInteger](a, b: I): I</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">|
+  <li><a class="reference" href="#%7C.t%2CI%2CI" title="`|`[I: SomeInteger](a, b: I): I">`|`[I: SomeInteger](a, b: I): I</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">~
+  <li><a class="reference" href="#~.t%2CI" title="`~`[I: SomeInteger](a: I): I">`~`[I: SomeInteger](a: I): I</a></li>
 
 </ul>
 
@@ -160,13 +188,14 @@
     <div id="tocRoot"></div>
     
     <p class="module-desc">
-<h2><a class="toc-backref" id="why-no-nimslasheq-definedqmark" href="#why-no-nimslasheq-definedqmark">why no <tt class="docutils literal"><span class="pre"><span class="Operator">/=</span></span></tt> defined?</a></h2><p>For <tt class="docutils literal"><span class="pre"><span class="Keyword">template</span> <span class="Punctuation">`</span><span class="Operator">/=</span><span class="Punctuation">`</span><span class="Operator">*</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">:</span> <span class="Keyword">var</span> <span class="Identifier">SomeInteger</span><span class="Punctuation">,</span> <span class="Identifier">y</span><span class="Punctuation">:</span> <span class="Identifier">SomeInteger</span><span class="Punctuation">)</span></span></tt>:</p>
+<h2><a class="toc-backref" id="why-no-nimslasheq-definedqmark" href="#why-no-nimslasheq-definedqmark">why no <tt class="docutils literal"><span class="pre"><span class="Operator">/=</span></span></tt> defined?</a></h2><p>For</p>
+<p><pre class="listing"><span class="Keyword">template</span> <span class="Punctuation">`</span><span class="Operator">/=</span><span class="Punctuation">`</span><span class="Operator">*</span><span class="Punctuation">(</span><span class="Identifier">x</span><span class="Punctuation">:</span> <span class="Keyword">var</span> <span class="Identifier">SomeInteger</span><span class="Punctuation">,</span> <span class="Identifier">y</span><span class="Punctuation">:</span> <span class="Identifier">SomeInteger</span><span class="Punctuation">)</span></pre></p>
 <p>Nim is static-typed, but <tt class="docutils literal"><span class="pre"><span class="Operator">/=</span></span></tt> will cause lhs convert from int to float</p>
 </p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="pyerrors/aritherr.html">pyerrors/aritherr</a>
+    <a class="reference external" href="pyerrors/aritherr.html">pyerrors/aritherr</a>, <a class="reference external" href="numTypes/ints/bitops.html">numTypes/ints/bitops</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -183,8 +212,21 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">mod</
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Identifier">assert</span> <span class="DecNumber">13</span> <span class="Operator">%</span> <span class="Operator">-</span><span class="DecNumber">3</span> <span class="Operator">==</span> <span class="Operator">-</span><span class="DecNumber">2</span>
 <span class="Identifier">assert</span> <span class="Operator">-</span><span class="DecNumber">13</span> <span class="Operator">%</span> <span class="DecNumber">3</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L92" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L92" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L90" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L90" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="&amp;=-procs-all">
+  <div id="&=,I,I">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%26%3D%2CI%2CI"><span class="Identifier">`&amp;=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -201,8 +243,47 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Identifier">assert</span> <span class="DecNumber">13</span> <span class="Operator">//</span> <span class="Operator">-</span><span class="DecNumber">3</span> <span class="Operator">==</span> <span class="Operator">-</span><span class="DecNumber">5</span>
 <span class="Identifier">assert</span> <span class="DecNumber">13</span> <span class="Keyword">div</span> <span class="Operator">-</span><span class="DecNumber">3</span> <span class="Operator">==</span> <span class="Operator">-</span><span class="DecNumber">4</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L108" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L108" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L106" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L106" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="&lt;&lt;=-procs-all">
+  <div id="<<=,I,I">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%3C%3C%3D%2CI%2CI"><span class="Identifier">`&lt;&lt;=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="&gt;&gt;=-procs-all">
+  <div id=">>=,I,I">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%3E%3E%3D%2CI%2CI"><span class="Identifier">`&gt;&gt;=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="^=-procs-all">
+  <div id="^=,I,I">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%5E%3D%2CI%2CI"><span class="Identifier">`^=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -214,8 +295,21 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     differs from <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">math</span></span></tt> <tt class="docutils literal"><span class="pre"><span class="Identifier">divmod</span></span></tt>, see <a class="reference internal nimdoc" title="proc `//`[A, B: SomeFloat | SomeInteger](a: A; b: B): SomeNumber" href="#//,A,B">//</a> and <a class="reference internal nimdoc" title="proc `%`[T: SomeNumber](a, b: T): T" href="#%,T,T">%</a> for details.
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L124" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L124" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L122" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L122" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="|=-procs-all">
+  <div id="|=,I,I">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%7C%3D%2CI%2CI"><span class="Identifier">`|=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -233,8 +327,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L103" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L103" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L101" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L101" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -243,8 +337,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L104" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L104" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L102" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L102" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -256,8 +350,21 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L106" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L106" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L104" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L104" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="&amp;-templates-all">
+  <div id="&.t,I,I">
+  <dt><pre><span class="Keyword">template</span> <a href="#%26.t%2CI%2CI"><span class="Identifier">`&amp;`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">I</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -269,8 +376,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L58" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L58" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -279,8 +386,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -289,8 +396,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L47" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L47" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -310,8 +417,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
 <span class="Identifier">assert</span> <span class="Identifier">f</span> <span class="Operator">==</span> <span class="FloatNumber">0.2</span>
 <span class="Keyword">const</span> <span class="Identifier">i</span> <span class="Operator">=</span> <span class="DecNumber">5</span> <span class="Operator">**</span> <span class="DecNumber">2</span>
 <span class="Identifier">assert</span> <span class="Identifier">i</span> <span class="Operator">==</span> <span class="Identifier">int</span><span class="Punctuation">(</span><span class="DecNumber">25</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -328,8 +435,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <span class="Keyword">discard</span> <span class="Punctuation">(</span><span class="DecNumber">5</span> <span class="Operator">**</span> <span class="Identifier">i</span><span class="Punctuation">)</span>
   <span class="Comment">## this runs iff `i` is of static[int]</span>
   <span class="Comment">## e.g. `5 ** -1`</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -341,8 +448,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L65" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L65" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -354,8 +461,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L85" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L85" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L83" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L83" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -367,8 +474,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L121" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L121" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L119" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L119" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -380,8 +487,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -390,8 +497,8 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L73" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L73" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L71" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L71" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -402,24 +509,9 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Keyword">div</
   <dt><pre><span class="Keyword">template</span> <a href="#%3C%3C.t%2CI%2CI"><span class="Identifier">`&lt;&lt;`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">I</span></pre></dt>
   <dd>
     
-    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
-this causes overflow silently. Yet Python's int never overflows.</div>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="&lt;&lt;=-templates-all">
-  <div id="<<=.t,I,I">
-  <dt><pre><span class="Keyword">template</span> <a href="#%3C%3C%3D.t%2CI%2CI"><span class="Identifier">`&lt;&lt;=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
-  <dd>
     
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L69" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L69" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -431,8 +523,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L77" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L77" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -441,8 +533,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L76" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L76" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L74" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L74" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -454,8 +546,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L83" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L83" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L81" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L81" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -464,8 +556,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L82" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L82" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -479,8 +571,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
     Compare 2 typedesc like Python.
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Identifier">doAssert</span> <span class="Keyword">type</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Keyword">type</span><span class="Punctuation">(</span><span class="DecNumber">2</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L128" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L128" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L126" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L126" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -489,8 +581,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L78" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L78" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -499,8 +591,8 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L77" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L77" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -512,21 +604,47 @@ this causes overflow silently. Yet Python's int never overflows.</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L62" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L62" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
-<div id="&gt;&gt;=-templates-all">
-  <div id=">>=.t,I,I">
-  <dt><pre><span class="Keyword">template</span> <a href="#%3E%3E%3D.t%2CI%2CI"><span class="Identifier">`&gt;&gt;=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span></pre></dt>
+<div id="^-templates-all">
+  <div id="^.t,I,I">
+  <dt><pre><span class="Keyword">template</span> <a href="#%5E.t%2CI%2CI"><span class="Identifier">`^`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">I</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/ops.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/ops.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="|-templates-all">
+  <div id="|.t,I,I">
+  <dt><pre><span class="Keyword">template</span> <a href="#%7C.t%2CI%2CI"><span class="Identifier">`|`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">I</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="~-templates-all">
+  <div id="~.t,I">
+  <dt><pre><span class="Keyword">template</span> <a href="#~.t%2CI"><span class="Identifier">`~`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">I</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/numTypes/ints/bitops.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/numTypes/ints/bitops.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -542,7 +660,7 @@ this causes overflow silently. Yet Python's int never overflows.</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 22:50:27 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:54:57 UTC</small>
       </div>
     </div>
   </div>

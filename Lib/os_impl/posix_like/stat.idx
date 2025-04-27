@@ -1,14 +1,18 @@
 nimTitle	stat	os_impl/posix_like/stat.html	module src/pylib/Lib/os_impl/posix_like/stat		0
-nim	stat_result	os_impl/posix_like/stat.html#stat_result	type stat_result		94
-nim	st_atime	os_impl/posix_like/stat.html#st_atime,stat_result	proc st_atime(self`gensym0: stat_result): float		114
-nim	st_atime_ns	os_impl/posix_like/stat.html#st_atime_ns,stat_result	proc st_atime_ns(self`gensym0: stat_result): BiggestInt		132
-nim	st_mtime	os_impl/posix_like/stat.html#st_mtime,stat_result	proc st_mtime(self`gensym1: stat_result): float		114
-nim	st_mtime_ns	os_impl/posix_like/stat.html#st_mtime_ns,stat_result	proc st_mtime_ns(self`gensym1: stat_result): BiggestInt		133
-nim	st_ctime	os_impl/posix_like/stat.html#st_ctime,stat_result	proc st_ctime(self`gensym2: stat_result): float		114
-nim	st_ctime_ns	os_impl/posix_like/stat.html#st_ctime_ns,stat_result	proc st_ctime_ns(self`gensym2: stat_result): BiggestInt		134
-nim	`.`	os_impl/posix_like/stat.html#..t,stat_result,	template `.`(self: stat_result; attr): untyped		137
-nim	`[]`	os_impl/posix_like/stat.html#[],stat_result,int	proc `[]`(self: stat_result; i: int): BiggestInt		159
-nim	statAttr	os_impl/posix_like/stat.html#statAttr.t,,untyped	template statAttr(path: PathLike | int; attr: untyped): untyped		191
-nim	stat	os_impl/posix_like/stat.html#stat,int	proc stat(path: int): stat_result		202
-nim	stat	os_impl/posix_like/stat.html#stat,PathLike[T]	proc stat[T](path: PathLike[T]): stat_result		203
-nimgrp	stat	os_impl/posix_like/stat.html#stat-procs-all	proc		202
+nim	stat_result	os_impl/posix_like/stat.html#stat_result	type stat_result		136
+nim	st_atime	os_impl/posix_like/stat.html#st_atime,stat_result	proc st_atime(self`gensym1: stat_result): float		156
+nim	st_atime_ns	os_impl/posix_like/stat.html#st_atime_ns,stat_result	proc st_atime_ns(self`gensym1: stat_result): BiggestInt		174
+nim	st_mtime	os_impl/posix_like/stat.html#st_mtime,stat_result	proc st_mtime(self`gensym2: stat_result): float		156
+nim	st_mtime_ns	os_impl/posix_like/stat.html#st_mtime_ns,stat_result	proc st_mtime_ns(self`gensym2: stat_result): BiggestInt		175
+nim	st_ctime	os_impl/posix_like/stat.html#st_ctime,stat_result	proc st_ctime(self`gensym3: stat_result): float		156
+nim	st_ctime_ns	os_impl/posix_like/stat.html#st_ctime_ns,stat_result	proc st_ctime_ns(self`gensym3: stat_result): BiggestInt		176
+nim	`.`	os_impl/posix_like/stat.html#..t,stat_result,	template `.`(self: stat_result; attr): untyped		179
+nim	`[]`	os_impl/posix_like/stat.html#[],stat_result,int	proc `[]`(self: stat_result; i: int): BiggestInt		201
+nim	statAttr	os_impl/posix_like/stat.html#statAttr.t,,untyped	template statAttr(path: PathLike | int; attr: untyped): untyped		225
+nim	Py_fstat_noraise	os_impl/posix_like/stat.html#Py_fstat_noraise,int,Stat	proc Py_fstat_noraise(fd: int; status: var Stat): cint		554
+nim	Py_fstat	os_impl/posix_like/stat.html#Py_fstat,int,Stat	proc Py_fstat(fd: int; status: var Stat)		606
+nim	stat	os_impl/posix_like/stat.html#stat,PathLike[T]	proc stat[T](path: PathLike[T]; dir_fd = DEFAULT_DIR_FD; follow_symlinks = true): stat_result		669
+nim	stat	os_impl/posix_like/stat.html#stat,int	proc stat(path: int; dir_fd = DEFAULT_DIR_FD; follow_symlinks = true): stat_result		672
+nim	lstat	os_impl/posix_like/stat.html#lstat,PathLike[T]	proc lstat[T](path: PathLike[T]; dir_fd = DEFAULT_DIR_FD): stat_result		675
+nim	fstat	os_impl/posix_like/stat.html#fstat,int	proc fstat(fd: int): stat_result		679
+nimgrp	stat	os_impl/posix_like/stat.html#stat-procs-all	proc		669

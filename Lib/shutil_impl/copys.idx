@@ -1,0 +1,5 @@
+nimTitle	copys	shutil_impl/copys.html	module src/pylib/Lib/shutil_impl/copys		0
+nim	copyfileobj	shutil_impl/copys.html#copyfileobj,File,File	proc copyfileobj(s, d: File; length = COPY_BUFSIZE)		36
+nim	SameFileError	shutil_impl/copys.html#SameFileError	object SameFileError		48
+nim	copyfile	shutil_impl/copys.html#copyfile,,	proc copyfile[T](src`gensym5, dst`gensym5: PathLike[T];\n            follow_symlinks`gensym5 = true)		81
+nim	copy	shutil_impl/copys.html#copy,,	proc copy[T](src`gensym6, dst`gensym6: PathLike[T]; follow_symlinks`gensym6 = true)		91

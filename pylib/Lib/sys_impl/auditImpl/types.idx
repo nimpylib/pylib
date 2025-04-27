@@ -1,0 +1,3 @@
+nimTitle	types	pylib/Lib/sys_impl/auditImpl/types.html	module src/pylib/Lib/sys_impl/auditImpl/types		0
+nim	HookProc	pylib/Lib/sys_impl/auditImpl/types.html#HookProc	type HookProc		6
+nim	HookEntry	pylib/Lib/sys_impl/auditImpl/types.html#HookEntry	tuple HookEntry		7

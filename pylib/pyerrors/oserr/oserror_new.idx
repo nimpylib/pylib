@@ -2,4 +2,4 @@ nimTitle	oserror_new	pylib/pyerrors/oserr/oserror_new.html	module src/pylib/pyer
 nim	OSErrorArgs	pylib/pyerrors/oserr/oserror_new.html#OSErrorArgs	tuple OSErrorArgs		22
 nim	oserror_use_init	pylib/pyerrors/oserr/oserror_new.html#oserror_use_init.t	template oserror_use_init[E: PyOSError](self): bool		40
 nim	init	pylib/pyerrors/oserr/oserror_new.html#init,ref.E,OSErrorArgs	proc init[E: PyOSError](self: ref E; args: OSErrorArgs)		55
-nim	OSError_new	pylib/pyerrors/oserr/oserror_new.html#OSError_new,bool,cint,string,string,cint,string,static[bool]	proc OSError_new[E: PyOSError](useWinError: bool; myerrno: cint; strerr: string;\n                          filename: string | int = ""; winerror: cint = 0;\n                          filename2 = ""; fillMsg: static[bool] = true): ref PyOSError		67
+nim	OSError_new	pylib/pyerrors/oserr/oserror_new.html#OSError_new,cint,string,string,cint,string,static[bool]	proc OSError_new[E: PyOSError](myerrno: cint; strerr: string;\n                          filename: string | int = ""; winerror: cint = 0;\n                          filename2 = ""; fillMsg: static[bool] = true): ref PyOSError		67

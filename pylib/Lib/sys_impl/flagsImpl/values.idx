@@ -1,0 +1,12 @@
+nimTitle	values	pylib/Lib/sys_impl/flagsImpl/values.html	module src/pylib/Lib/sys_impl/flagsImpl/values		0
+nim	debug	pylib/Lib/sys_impl/flagsImpl/values.html#debug	let debug		20
+nim	verbose	pylib/Lib/sys_impl/flagsImpl/values.html#verbose	let verbose		20
+nim	optimize	pylib/Lib/sys_impl/flagsImpl/values.html#optimize	let optimize		20
+nim	inspect	pylib/Lib/sys_impl/flagsImpl/values.html#inspect	let inspect		20
+nim	dont_write_bytecode	pylib/Lib/sys_impl/flagsImpl/values.html#dont_write_bytecode	let dont_write_bytecode		20
+nim	no_user_site	pylib/Lib/sys_impl/flagsImpl/values.html#no_user_site	let no_user_site		20
+nim	safe_path	pylib/Lib/sys_impl/flagsImpl/values.html#safe_path	let safe_path		20
+nim	int_max_str_digits	pylib/Lib/sys_impl/flagsImpl/values.html#int_max_str_digits	let int_max_str_digits		20
+nim	utf8_mode	pylib/Lib/sys_impl/flagsImpl/values.html#utf8_mode	let utf8_mode		20
+nim	dev_mode	pylib/Lib/sys_impl/flagsImpl/values.html#dev_mode	let dev_mode		20
+nim	warn_default_encoding	pylib/Lib/sys_impl/flagsImpl/values.html#warn_default_encoding	let warn_default_encoding		20

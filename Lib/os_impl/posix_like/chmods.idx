@@ -1,0 +1,3 @@
+nimTitle	chmods	os_impl/posix_like/chmods.html	module src/pylib/Lib/os_impl/posix_like/chmods		0
+nim	chmod	os_impl/posix_like/chmods.html#chmod,,int	proc chmod(path: (when HAVE_FCHMODAT:\n  string | int\nelse:\n  string); mode: int; dir_fd = DEFAULT_DIR_FD; follow_symlinks = not MS_WINDOWS)		74
+nim	fchmod	os_impl/posix_like/chmods.html#fchmod,int,int	proc fchmod(fd: int; mode: int)		185

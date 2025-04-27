@@ -1,2 +1,3 @@
 nimTitle	valid_signals_impl	signal_impl/valid_signals_impl.html	module src/pylib/Lib/signal_impl/valid_signals_impl		0
-nim	fill_valid_signals	signal_impl/valid_signals_impl.html#fill_valid_signals,Set[int]	proc fill_valid_signals(res: var Set[int])		4
+nim	have_valid_signals	signal_impl/valid_signals_impl.html#have_valid_signals	const have_valid_signals		4
+nim	fill_valid_signals	signal_impl/valid_signals_impl.html#fill_valid_signals,Set[int]	proc fill_valid_signals(res: var Set[int])		6

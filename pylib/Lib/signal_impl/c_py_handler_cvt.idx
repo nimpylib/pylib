@@ -1,0 +1,3 @@
+nimTitle	c_py_handler_cvt	pylib/Lib/signal_impl/c_py_handler_cvt.html	module src/pylib/Lib/signal_impl/c_py_handler_cvt		0
+nim	toCSighandler	pylib/Lib/signal_impl/c_py_handler_cvt.html#toCSighandler,PySigHandler	proc toCSighandler(p: PySigHandler): CSigHandler		4
+nim	toPySighandler	pylib/Lib/signal_impl/c_py_handler_cvt.html#toPySighandler	proc toPySighandler(p: CSigHandler | NimSigHandler): PySigHandler		10

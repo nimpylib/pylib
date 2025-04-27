@@ -1,0 +1,4 @@
+nimTitle	stats	_._/pyconfig/stats.html	module src/pylib/pyconfig/stats		0
+nim	HAVElstat	_._/pyconfig/stats.html#HAVElstat	const HAVElstat		50
+nim	HAVEfstatat	_._/pyconfig/stats.html#HAVEfstatat	const HAVEfstatat		50
+nim	HAVEfstatatRUNTIME	_._/pyconfig/stats.html#HAVEfstatatRUNTIME	const HAVEfstatatRUNTIME		17

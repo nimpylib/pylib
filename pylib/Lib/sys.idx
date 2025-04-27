@@ -1,18 +1,20 @@
 nimTitle	sys	pylib/Lib/sys.html	module src/pylib/Lib/sys		0
-nim	float_repr_style	pylib/Lib/sys.html#float_repr_style	const float_repr_style		16
+nim	addaudithook	pylib/Lib/sys.html#addaudithook.t,HookProc	template addaudithook(hook: HookProc)		18
+nim	audit	pylib/Lib/sys.html#audit.t,string,varargs[typed]	template audit(event: string; args: varargs[typed])		19
+nim	float_repr_style	pylib/Lib/sys.html#float_repr_style	const float_repr_style		21
 nim	platform	pylib/Lib/sys.html#platform	const platform		58
-nim	version_info	pylib/Lib/sys.html#version_info	const version_info		33
-nim	implementation	pylib/Lib/sys.html#implementation	const implementation		47
-nim	version	pylib/Lib/sys.html#version	const version		53
-nim	hexversion	pylib/Lib/sys.html#hexversion	const hexversion		54
-nim	maxsize	pylib/Lib/sys.html#maxsize	const maxsize		56
-nim	byteorder	pylib/Lib/sys.html#byteorder	const byteorder		57
-nim	copyright	pylib/Lib/sys.html#copyright	const copyright		58
-nim	orig_argv	pylib/Lib/sys.html#orig_argv	var orig_argv		34
-nim	argv	pylib/Lib/sys.html#argv	var argv		39
-nim	executable	pylib/Lib/sys.html#executable.t	template executable(): PyStr		61
-nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding	proc getfilesystemencoding(): PyStr		28
-nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding	proc getdefaultencoding(): PyStr		29
-nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		31
-nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		35
-nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		31
+nim	version_info	pylib/Lib/sys.html#version_info_2	const version_info		33
+nim	implementation	pylib/Lib/sys.html#implementation_2	const implementation		47
+nim	version	pylib/Lib/sys.html#version_2	const version		53
+nim	hexversion	pylib/Lib/sys.html#hexversion_2	const hexversion		54
+nim	maxsize	pylib/Lib/sys.html#maxsize_2	const maxsize		56
+nim	byteorder	pylib/Lib/sys.html#byteorder_2	const byteorder		57
+nim	copyright	pylib/Lib/sys.html#copyright_2	const copyright		58
+nim	orig_argv	pylib/Lib/sys.html#orig_argv_2	var orig_argv		34
+nim	argv	pylib/Lib/sys.html#argv_2	var argv		39
+nim	executable	pylib/Lib/sys.html#executable.t_2	template executable(): PyStr		61
+nim	getfilesystemencoding	pylib/Lib/sys.html#getfilesystemencoding_2	proc getfilesystemencoding(): PyStr		33
+nim	getdefaultencoding	pylib/Lib/sys.html#getdefaultencoding_2	proc getdefaultencoding(): PyStr		34
+nim	exit	pylib/Lib/sys.html#exit,T	proc exit[T](obj: T)		36
+nim	exit	pylib/Lib/sys.html#exit,NoneType	proc exit(x: NoneType)		40
+nimgrp	exit	pylib/Lib/sys.html#exit-procs-all	proc		36

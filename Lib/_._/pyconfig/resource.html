@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../../nimdoc.out.css?v=2.2.2">
+<link rel="stylesheet" type="text/css" href="../../nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="../../dochack.js?v=2.2.2"></script>
+<script type="text/javascript" src="../../dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -61,6 +61,8 @@
       <li><a class="reference" href="#HAVE_GETPAGESIZE" title="HAVE_GETPAGESIZE = true">HAVE_GETPAGESIZE</a></li>
 <li><a class="reference" href="#HAVE_PRLIMIT" title="HAVE_PRLIMIT = true">HAVE_PRLIMIT</a></li>
 <li><a class="reference" href="#HAVE_SYSCONF_PAGE_SIZE" title="HAVE_SYSCONF_PAGE_SIZE = false">HAVE_SYSCONF_PAGE_SIZE</a></li>
+<li><a class="reference" href="#RUSAGE_BOTH" title="RUSAGE_BOTH = -9223372036854775808">RUSAGE_BOTH</a></li>
+<li><a class="reference" href="#RUSAGE_THREAD" title="RUSAGE_THREAD = 1">RUSAGE_THREAD</a></li>
 <li><a class="reference" href="#SIZEOF_RLIMIT_T" title="SIZEOF_RLIMIT_T = 8">SIZEOF_RLIMIT_T</a></li>
 
     </ul>
@@ -116,13 +118,33 @@
 
   </dd>
 </div>
+<div id="RUSAGE_BOTH">
+  <dt><pre><a href="resource.html#RUSAGE_BOTH"><span class="Identifier">RUSAGE_BOTH</span></a> <span class="Other">=</span> <span class="DecNumber">-9223372036854775808</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/resource.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/resource.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="RUSAGE_THREAD">
+  <dt><pre><a href="resource.html#RUSAGE_THREAD"><span class="Identifier">RUSAGE_THREAD</span></a> <span class="Other">=</span> <span class="DecNumber">1</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/resource.nim#L6" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/resource.nim#L6" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 <div id="SIZEOF_RLIMIT_T">
   <dt><pre><a href="resource.html#SIZEOF_RLIMIT_T"><span class="Identifier">SIZEOF_RLIMIT_T</span></a> <span class="Other">=</span> <span class="DecNumber">8</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/resource.nim#L4" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/resource.nim#L4" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/resource.nim#L8" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/resource.nim#L8" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -136,7 +158,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 22:51:11 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:55:33 UTC</small>
       </div>
     </div>
   </div>

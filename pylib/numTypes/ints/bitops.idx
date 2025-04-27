@@ -1,0 +1,2 @@
+nimTitle	bitops	pylib/numTypes/ints/bitops.html	module src/pylib/numTypes/ints/bitops		0
+nim	exportIntBitOps	pylib/numTypes/ints/bitops.html#exportIntBitOps.t	template exportIntBitOps()		8

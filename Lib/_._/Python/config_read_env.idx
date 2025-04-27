@@ -1,0 +1,7 @@
+nimTitle	config_read_env	_._/Python/config_read_env.html	module src/pylib/Python/config_read_env		0
+nim	toPyEnv	_._/Python/config_read_env.html#toPyEnv	proc toPyEnv(name: string): string		12
+nim	ib_i	_._/Python/config_read_env.html#ib_i,,T	proc ib_i[T](name: string; flagInit: T): T		13
+nim	ib_e	_._/Python/config_read_env.html#ib_e,,T	proc ib_e[T](name: string; flagInit: T): T		23
+nim	ib_b	_._/Python/config_read_env.html#ib_b,,int	proc ib_b(name: string; flagInit: int): int		24
+nim	ib_b	_._/Python/config_read_env.html#ib_b,,bool	proc ib_b(name: string; flagInit: bool): bool		25
+nimgrp	ibb	_._/Python/config_read_env.html#ib_b-procs-all	proc		24

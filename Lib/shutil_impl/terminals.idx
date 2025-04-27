@@ -1,0 +1,2 @@
+nimTitle	terminals	shutil_impl/terminals.html	module src/pylib/Lib/shutil_impl/terminals		0
+nim	get_terminal_size	shutil_impl/terminals.html#get_terminal_size,(int, int)	proc get_terminal_size(fallback = (80, 24)): terminal_size		7

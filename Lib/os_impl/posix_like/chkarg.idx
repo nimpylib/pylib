@@ -1,0 +1,14 @@
+nimTitle	chkarg	os_impl/posix_like/chkarg.html	module src/pylib/Lib/os_impl/posix_like/chkarg		0
+nim	argument_unavailable_error	os_impl/posix_like/chkarg.html#argument_unavailable_error,string,string	proc argument_unavailable_error(function_name: string; argument_name: string)		19
+nim	argument_unavailable_error	os_impl/posix_like/chkarg.html#argument_unavailable_error,string	proc argument_unavailable_error(argument_name: string)		27
+nim	follow_symlinks_specified	os_impl/posix_like/chkarg.html#follow_symlinks_specified,string,	proc follow_symlinks_specified(function_name: string; follow_symlinks: bool): bool		39
+nim	follow_symlinks_specified	os_impl/posix_like/chkarg.html#follow_symlinks_specified.t,bool	template follow_symlinks_specified(follow_symlinks: bool): untyped		45
+nim	pathanddir_fdinvalid	os_impl/posix_like/chkarg.html#pathanddir_fdinvalid,string,,	proc pathanddir_fdinvalid(function_name: string; path: Path; dir_fd: int): bool		59
+nim	pathanddir_fdinvalid	os_impl/posix_like/chkarg.html#pathanddir_fdinvalid.t,,	template pathanddir_fdinvalid(path; dir_fd): untyped		73
+nim	dir_fdandfdinvalid	os_impl/posix_like/chkarg.html#dir_fdandfdinvalid,string,,	proc dir_fdandfdinvalid(function_name: string; dir_fd: int; fd: int): bool		59
+nim	dir_fdandfdinvalid	os_impl/posix_like/chkarg.html#dir_fdandfdinvalid.t,,	template dir_fdandfdinvalid(dir_fd; fd): untyped		74
+nim	fdandfollow_symlinksinvalid	os_impl/posix_like/chkarg.html#fdandfollow_symlinksinvalid,string,,	proc fdandfollow_symlinksinvalid(function_name: string; fd: int;\n                            follow_symlinks: bool): bool		59
+nim	fdandfollow_symlinksinvalid	os_impl/posix_like/chkarg.html#fdandfollow_symlinksinvalid.t,,	template fdandfollow_symlinksinvalid(fd; follow_symlinks): untyped		75
+nim	dir_fdandfollow_symlinksinvalid	os_impl/posix_like/chkarg.html#dir_fdandfollow_symlinksinvalid,string,,	proc dir_fdandfollow_symlinksinvalid(function_name: string; dir_fd: int;\n                                follow_symlinks: bool): bool		59
+nim	dir_fdandfollow_symlinksinvalid	os_impl/posix_like/chkarg.html#dir_fdandfollow_symlinksinvalid.t,,	template dir_fdandfollow_symlinksinvalid(dir_fd; follow_symlinks): untyped		76
+nimgrp	argumentunavailableerror	os_impl/posix_like/chkarg.html#argument_unavailable_error-procs-all	proc		19

@@ -1,15 +1,15 @@
 nimTitle	unixs	signal_impl/unixs.html	module src/pylib/Lib/signal_impl/unixs		0
-nim	alarm	signal_impl/unixs.html#alarm,int	proc alarm(seconds: int): int		17
-nim	pause	signal_impl/unixs.html#pause	proc pause(): int		18
-nim	pthread_kill	signal_impl/unixs.html#pthread_kill,uint,int	proc pthread_kill(thread_id: uint; signalnum: int)		20
-nim	toSigset	signal_impl/unixs.html#toSigset.c,openArray[int]	converter toSigset(oa: openArray[int]): Sigset		30
-nim	pthread_sigmask	signal_impl/unixs.html#pthread_sigmask,int,Sigset	proc pthread_sigmask(how: int; mask: Sigset): Set[int]		36
-nim	ItimerVal	signal_impl/unixs.html#ItimerVal	object ItimerVal		45
-nim	ItimerError	signal_impl/unixs.html#ItimerError	object ItimerError		63
-nim	setitimer	signal_impl/unixs.html#setitimer,int,float,float	proc setitimer(which: int; seconds: float; interval = 0.0): tuple[\n    delay, interval: float]		65
-nim	getitimer	signal_impl/unixs.html#getitimer,int	proc getitimer(which: int): tuple[delay, interval: float]		74
-nim	siginterrupt	signal_impl/unixs.html#siginterrupt,int,int	proc siginterrupt(signalnum, flag: int)		82
-nim	sigpending	signal_impl/unixs.html#sigpending	proc sigpending(): Set[int]		99
-nim	sigwait	signal_impl/unixs.html#sigwait,Sigset	proc sigwait(sigset: Sigset): int		105
-nim	sigwaitinfo	signal_impl/unixs.html#sigwaitinfo,Sigset	proc sigwaitinfo(sigset: Sigset): struct_siginfo		112
-nim	sigtimedwait	signal_impl/unixs.html#sigtimedwait,Sigset,Timestamp	proc sigtimedwait(sigset: Sigset; timeout: Timestamp): struct_siginfo		133
+nim	toSigset	signal_impl/unixs.html#toSigset.c,openArray[int]	converter toSigset(oa: openArray[int]): Sigset		18
+nim	alarm	signal_impl/unixs.html#alarm,int	proc alarm(seconds: int): int		33
+nim	pause	signal_impl/unixs.html#pause	proc pause(): int		34
+nim	pthread_kill	signal_impl/unixs.html#pthread_kill,uint,int	proc pthread_kill(thread_id: uint; signalnum: int)		32
+nim	pthread_sigmask	signal_impl/unixs.html#pthread_sigmask,int,Sigset	proc pthread_sigmask(how: int; mask: Sigset): Set[int]		51
+nim	ItimerError	signal_impl/unixs.html#ItimerError	object ItimerError		60
+nim	ItimerVal	signal_impl/unixs.html#ItimerVal	object ItimerVal		63
+nim	setitimer	signal_impl/unixs.html#setitimer,int,float,float	proc setitimer(which: int; seconds: float; interval = 0.0): tuple[\n    delay, interval: float]		82
+nim	getitimer	signal_impl/unixs.html#getitimer,int	proc getitimer(which: int): tuple[delay, interval: float]		93
+nim	siginterrupt	signal_impl/unixs.html#siginterrupt,int,int	proc siginterrupt(signalnum, flag: int)		101
+nim	sigpending	signal_impl/unixs.html#sigpending	proc sigpending(): Set[int]		118
+nim	sigwait	signal_impl/unixs.html#sigwait,Sigset	proc sigwait(sigset: Sigset): int		124
+nim	sigwaitinfo	signal_impl/unixs.html#sigwaitinfo,Sigset	proc sigwaitinfo(sigset: Sigset): struct_siginfo		131
+nim	sigtimedwait	signal_impl/unixs.html#sigtimedwait,Sigset,Timestamp	proc sigtimedwait(sigset: Sigset; timeout: Timestamp): struct_siginfo		152

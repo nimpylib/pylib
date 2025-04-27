@@ -1,1 +1,3 @@
 nimTitle	n_os	n_os.html	module src/pylib/Lib/n_os		0
+nim	uname_result	n_os.html#uname_result	tuple uname_result		5
+nim	uname	n_os.html#uname	proc uname(): uname_result		12

@@ -18,5 +18,4 @@ nim	RLIMIT_RTTIME	resource_impl/consts.html#RLIMIT_RTTIME	let RLIMIT_RTTIME		12
 nim	RLIMIT_SIGPENDING	resource_impl/consts.html#RLIMIT_SIGPENDING	let RLIMIT_SIGPENDING		12
 nim	RUSAGE_SELF	resource_impl/consts.html#RUSAGE_SELF	let RUSAGE_SELF		12
 nim	RUSAGE_CHILDREN	resource_impl/consts.html#RUSAGE_CHILDREN	let RUSAGE_CHILDREN		12
-nim	RUSAGE_BOTH	resource_impl/consts.html#RUSAGE_BOTH	let RUSAGE_BOTH		12
-nim	RUSAGE_THREAD	resource_impl/consts.html#RUSAGE_THREAD	let RUSAGE_THREAD		12
+nim	RUSAGE_THREAD	resource_impl/consts.html#RUSAGE_THREAD	const RUSAGE_THREAD		18

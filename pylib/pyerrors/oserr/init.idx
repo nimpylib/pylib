@@ -1,5 +1,13 @@
 nimTitle	init	pylib/pyerrors/oserr/init.html	module src/pylib/pyerrors/oserr/init		0
-nim	newPyOSError	pylib/pyerrors/oserr/init.html#newPyOSError,cint,string,string,cint,string	proc newPyOSError(myerrno: cint; strerr: string; filename = ""; winerror: cint = 0;\n             filename2 = ""): ref PyOSError		11
-nim	PyOSError	pylib/pyerrors/oserr/init.html#PyOSError,cint,string,string,cint,string	proc PyOSError(myerrno: cint; strerr: string; filename = ""; winerror: cint = 0;\n          filename2 = ""): ref PyOSError		12
-nim	newBlockingIOError	pylib/pyerrors/oserr/init.html#newBlockingIOError,cint,string,int,cint,string	proc newBlockingIOError(myerrno: cint; strerr: string; filename = 0;\n                   winerror: cint = 0; filename2 = ""): ref PyOSError		11
-nim	BlockingIOError	pylib/pyerrors/oserr/init.html#BlockingIOError,cint,string,int,cint,string	proc BlockingIOError(myerrno: cint; strerr: string; filename = 0; winerror: cint = 0;\n                filename2 = ""): ref PyOSError		12
+nim	newPyOSError	pylib/pyerrors/oserr/init.html#newPyOSError,cint,string,string,cint,string	proc newPyOSError(myerrno: cint; strerr: string; filename = ""; winerror: cint = 0;\n             filename2 = ""): ref PyOSError		6
+nim	newPyOSError	pylib/pyerrors/oserr/init.html#newPyOSError,string	proc newPyOSError(strerr: string = ""): ref PyOSError		14
+nim	PyOSError	pylib/pyerrors/oserr/init.html#PyOSError,cint,string,string,cint,string	proc PyOSError(myerrno: cint; strerr: string; filename = ""; winerror: cint = 0;\n          filename2 = ""): ref PyOSError		6
+nim	PyOSError	pylib/pyerrors/oserr/init.html#PyOSError,string	proc PyOSError(strerr: string = ""): ref PyOSError		17
+nim	newBlockingIOError	pylib/pyerrors/oserr/init.html#newBlockingIOError,cint,string,int,cint,string	proc newBlockingIOError(myerrno: cint; strerr: string; filename = 0;\n                   winerror: cint = 0; filename2 = ""): ref PyOSError		6
+nim	newBlockingIOError	pylib/pyerrors/oserr/init.html#newBlockingIOError,string	proc newBlockingIOError(strerr: string = ""): ref PyOSError		14
+nim	BlockingIOError	pylib/pyerrors/oserr/init.html#BlockingIOError,cint,string,int,cint,string	proc BlockingIOError(myerrno: cint; strerr: string; filename = 0; winerror: cint = 0;\n                filename2 = ""): ref PyOSError		6
+nim	BlockingIOError	pylib/pyerrors/oserr/init.html#BlockingIOError,string	proc BlockingIOError(strerr: string = ""): ref PyOSError		18
+nimgrp	Blockingioerror	pylib/pyerrors/oserr/init.html#BlockingIOError-procs-all	proc		15
+nimgrp	newpyoserror	pylib/pyerrors/oserr/init.html#newPyOSError-procs-all	proc		14
+nimgrp	Pyoserror	pylib/pyerrors/oserr/init.html#PyOSError-procs-all	proc		15
+nimgrp	newblockingioerror	pylib/pyerrors/oserr/init.html#newBlockingIOError-procs-all	proc		14

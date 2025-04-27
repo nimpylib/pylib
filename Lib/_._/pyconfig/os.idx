@@ -1,0 +1,12 @@
+nimTitle	os	_._/pyconfig/os.html	module src/pylib/pyconfig/os		0
+nim	DEFAULT_DIR_FD	_._/pyconfig/os.html#DEFAULT_DIR_FD	const DEFAULT_DIR_FD		5
+nim	AT_SYMLINK_NOFOLLOW	_._/pyconfig/os.html#AT_SYMLINK_NOFOLLOW	const AT_SYMLINK_NOFOLLOW		6
+nim	HAVE_OPENAT	_._/pyconfig/os.html#HAVE_OPENAT	const HAVE_OPENAT		8
+nim	HAVE_FTRUNCATE	_._/pyconfig/os.html#HAVE_FTRUNCATE	const HAVE_FTRUNCATE		9
+nim	HAVEuname	_._/pyconfig/os.html#HAVEuname	const HAVEuname		50
+nim	HAVEunlinkat	_._/pyconfig/os.html#HAVEunlinkat	const HAVEunlinkat		50
+nim	HAVEfdopendir	_._/pyconfig/os.html#HAVEfdopendir	const HAVEfdopendir		50
+nim	HAVEunlinkatRUNTIME	_._/pyconfig/os.html#HAVEunlinkatRUNTIME	const HAVEunlinkatRUNTIME		17
+nim	HAVEfdopendirRUNTIME	_._/pyconfig/os.html#HAVEfdopendirRUNTIME	const HAVEfdopendirRUNTIME		17
+nim	unlinkat	_._/pyconfig/os.html#unlinkat,cint,cstring,cint	proc unlinkat(dir_fd: cint; path: cstring; flag: cint): cint		21
+nim	AT_REMOVEDIR	_._/pyconfig/os.html#AT_REMOVEDIR	let AT_REMOVEDIR		23

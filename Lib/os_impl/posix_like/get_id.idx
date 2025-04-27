@@ -1,2 +1,3 @@
 nimTitle	get_id	os_impl/posix_like/get_id.html	module src/pylib/Lib/os_impl/posix_like/get_id		0
-nim	getpid	os_impl/posix_like/get_id.html#getpid	proc getpid(): int		7
+nim	getpid	os_impl/posix_like/get_id.html#getpid	proc getpid(): int		8
+nim	getppid	os_impl/posix_like/get_id.html#getppid	proc getppid(): int		124

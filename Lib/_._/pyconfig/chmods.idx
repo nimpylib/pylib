@@ -1,0 +1,6 @@
+nimTitle	chmods	_._/pyconfig/chmods.html	module src/pylib/pyconfig/chmods		0
+nim	HAVEchmod	_._/pyconfig/chmods.html#HAVEchmod	const HAVEchmod		50
+nim	HAVEfchmod	_._/pyconfig/chmods.html#HAVEfchmod	const HAVEfchmod		50
+nim	HAVEfchmodat	_._/pyconfig/chmods.html#HAVEfchmodat	const HAVEfchmodat		50
+nim	HAVE_LCHMOD	_._/pyconfig/chmods.html#HAVE_LCHMOD	const HAVE_LCHMOD		15
+nim	HAVEfchmodatRUNTIME	_._/pyconfig/chmods.html#HAVEfchmodatRUNTIME	const HAVEfchmodatRUNTIME		17

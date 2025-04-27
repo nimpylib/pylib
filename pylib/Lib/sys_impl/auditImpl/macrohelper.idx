@@ -1,0 +1,3 @@
+nimTitle	macrohelper	pylib/Lib/sys_impl/auditImpl/macrohelper.html	module src/pylib/Lib/sys_impl/auditImpl/macrohelper		0
+nim	addaudit	pylib/Lib/sys_impl/auditImpl/macrohelper.html#addaudit.t,NimNode,staticstring,varargs[untyped]	template addaudit(res: NimNode; event: static string; vargs: varargs[untyped])		12
+nim	newStmtWithAudit	pylib/Lib/sys_impl/auditImpl/macrohelper.html#newStmtWithAudit.t,staticstring,varargs[untyped]	template newStmtWithAudit(event: static string; vargs: varargs[untyped]): NimNode		17

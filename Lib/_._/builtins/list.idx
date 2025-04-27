@@ -29,7 +29,7 @@ nim	sorted	_._/builtins/list.html#sorted,PyList[T]	proc sorted[T](self: PyList[T
 nim	`+`	_._/builtins/list.html#+,PyList[T],openArray[T]	proc `+`[T](self: PyList[T]; x: openArray[T]): PyList[T]		133
 nim	list	_._/builtins/list.html#list,sinkseq[T]	proc list[T](x: sink seq[T]): PyList[T]		136
 nim	list	_._/builtins/list.html#list,sinkopenArray[T]	proc list[T](a: sink openArray[T]): PyList[T]		137
-nim	list	_._/builtins/list.html#list	proc list[T](): PyList[T]		142
+nim	list	_._/builtins/list.html#list_2	proc list[T](): PyList[T]		142
 nim	`*`	_._/builtins/list.html#*,Natural,PyList[T]	proc `*`[T](n: Natural; ls: PyList[T]): PyList[T]		147
 nim	`*`	_._/builtins/list.html#*.t,PyList[T],Natural	template `*`[T](ls: PyList[T]; n: Natural): PyList[T]		151
 nim	`*=`	_._/builtins/list.html#*=,PyList[T],int	proc `*=`[T](self: var PyList[T]; n: int)		154

@@ -1,5 +1,5 @@
 nimTitle	require_time_module	datetime_impl/datetime_impl/meth/require_time_module.html	module src/pylib/Lib/datetime_impl/datetime_impl/meth/require_time_module		0
 nim	timetuple	datetime_impl/datetime_impl/meth/require_time_module.html#timetuple	proc timetuple(self: datetime): struct_time		20
 nim	strftime	datetime_impl/datetime_impl/meth/require_time_module.html#strftime,,string	proc strftime(self: datetime; format: string): string		80
-nim	strptime	datetime_impl/datetime_impl/meth/require_time_module.html#strptime,,string,string	proc strptime(_: _`gensym3556770074:type; datetime_string, format: string): datetime		84
+nim	strptime	datetime_impl/datetime_impl/meth/require_time_module.html#strptime,,string,string	proc strptime(_: _`gensym4026532122:type; datetime_string, format: string): datetime		84
 nim	ctime	datetime_impl/datetime_impl/meth/require_time_module.html#ctime	proc ctime(self: datetime): string		93

@@ -1,0 +1,2 @@
+nimTitle	have_x_runtime	_._/pyconfig/have_x_runtime.html	module src/pylib/pyconfig/have_x_runtime		0
+nim	check_func_runtime	_._/pyconfig/have_x_runtime.html#check_func_runtime.t,,varargs[untyped]	template check_func_runtime(fn; versionsOfApple: varargs[untyped])		15

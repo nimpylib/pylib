@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.2">
+<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="dochack.js?v=2.2.2"></script>
+<script type="text/javascript" src="dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -102,6 +102,9 @@
     </ul>
   </details>
 </li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
+</li>
 
 </ul>
 
@@ -124,8 +127,9 @@
   <dl class="item">
     <div id="gettempdir-procs-all">
   <div id="gettempdir">
-  <dt><pre><span class="Keyword">proc</span> <a href="#gettempdir"><span class="Identifier">gettempdir</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span>
-                           <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadEnvEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#gettempdir"><span class="Identifier">gettempdir</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">NotImplementedError</span><span class="Other">,</span>
+                                    <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadEnvEffect</span><span class="Other">]</span><span class="Other">,</span>
+                           <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -138,7 +142,8 @@
 </div>
 <div id="gettempdirb-procs-all">
   <div id="gettempdirb">
-  <dt><pre><span class="Keyword">proc</span> <a href="#gettempdirb"><span class="Identifier">gettempdirb</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#gettempdirb"><span class="Identifier">gettempdirb</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">NotImplementedError</span><span class="Other">,</span>
+                                       <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span>
                               <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadEnvEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -154,7 +159,8 @@ since Python 3.5</div>
 </div>
 <div id="gettempprefix-procs-all">
   <div id="gettempprefix">
-  <dt><pre><span class="Keyword">proc</span> <a href="#gettempprefix"><span class="Identifier">gettempprefix</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#gettempprefix"><span class="Identifier">gettempprefix</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">NotImplementedError</span><span class="Other">,</span>
+                                       <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span>
                               <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadEnvEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -168,8 +174,8 @@ since Python 3.5</div>
 </div>
 <div id="gettempprefixb-procs-all">
   <div id="gettempprefixb">
-  <dt><pre><span class="Keyword">proc</span> <a href="#gettempprefixb"><span class="Identifier">gettempprefixb</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span>
-                                 <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadEnvEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#gettempprefixb"><span class="Identifier">gettempprefixb</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span>
+    <span class="Identifier">NotImplementedError</span><span class="Other">,</span> <span class="Identifier">FileNotFoundError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadEnvEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
@@ -232,6 +238,12 @@ since Python 3.5</div>
 
   </dl>
 </div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="n_tempfile.html#sToOpt.c,string"><span class="Identifier">sToOpt</span></a>, <a href="n_tempfile.html#close,TemporaryFileWrapper"><span class="Identifier">close</span></a>, <a href="n_tempfile.html#read.t,,"><span class="Identifier">read</span></a>, <a href="n_tempfile.html#close,TemporaryFileCloser[IO]"><span class="Identifier">close</span></a>, <a href="n_tempfile.html#NamedTemporaryFile.t,static[],int"><span class="Identifier">NamedTemporaryFile</span></a>, <a href="n_tempfile.html#TemporaryFileCloser"><span class="Identifier">TemporaryFileCloser</span></a>, <a href="n_tempfile.html#readline.t,,"><span class="Identifier">readline</span></a>, <a href="n_tempfile.html#write.t,,"><span class="Identifier">write</span></a>, <a href="n_tempfile.html#tempdir"><span class="Identifier">tempdir</span></a>, <a href="n_tempfile.html#tell.t,,"><span class="Identifier">tell</span></a>, <a href="n_tempfile.html#=destroy,TemporaryDirectoryWrapper"><span class="Identifier">=destroy</span></a>, <a href="n_tempfile.html#TMP_MAX"><span class="Identifier">TMP_MAX</span></a>, <a href="n_tempfile.html#flush,TemporaryFileWrapper[IO]"><span class="Identifier">flush</span></a>, <a href="n_tempfile.html#TemporaryDirectoryWrapper"><span class="Identifier">TemporaryDirectoryWrapper</span></a>, <a href="n_tempfile.html#close,TemporaryDirectoryWrapper"><span class="Identifier">close</span></a>, <a href="n_tempfile.html#TemporaryDirectory"><span class="Identifier">TemporaryDirectory</span></a>, <a href="n_tempfile.html#cleanup,TemporaryDirectoryWrapper"><span class="Identifier">cleanup</span></a>, <a href="n_tempfile.html#TemporaryFileWrapper"><span class="Identifier">TemporaryFileWrapper</span></a>, <a href="n_tempfile.html#seek.t,,"><span class="Identifier">seek</span></a>
+  </dl>
+</div>
 
   </div>
 </div>
@@ -239,7 +251,7 @@ since Python 3.5</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 22:52:15 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:57:20 UTC</small>
       </div>
     </div>
   </div>

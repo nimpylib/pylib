@@ -1,5 +1,7 @@
 nimTitle	resource	_._/pyconfig/resource.html	module src/pylib/pyconfig/resource		0
-nim	SIZEOF_RLIMIT_T	_._/pyconfig/resource.html#SIZEOF_RLIMIT_T	const SIZEOF_RLIMIT_T		4
+nim	RUSAGE_BOTH	_._/pyconfig/resource.html#RUSAGE_BOTH	const RUSAGE_BOTH		5
+nim	RUSAGE_THREAD	_._/pyconfig/resource.html#RUSAGE_THREAD	const RUSAGE_THREAD		6
+nim	SIZEOF_RLIMIT_T	_._/pyconfig/resource.html#SIZEOF_RLIMIT_T	const SIZEOF_RLIMIT_T		8
 nim	HAVE_PRLIMIT	_._/pyconfig/resource.html#HAVE_PRLIMIT	const HAVE_PRLIMIT		50
 nim	HAVE_GETPAGESIZE	_._/pyconfig/resource.html#HAVE_GETPAGESIZE	const HAVE_GETPAGESIZE		50
 nim	HAVE_SYSCONF_PAGE_SIZE	_._/pyconfig/resource.html#HAVE_SYSCONF_PAGE_SIZE	const HAVE_SYSCONF_PAGE_SIZE		50

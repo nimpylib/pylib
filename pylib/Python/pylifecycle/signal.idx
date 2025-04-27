@@ -1,0 +1,3 @@
+nimTitle	signal	pylib/Python/pylifecycle/signal.html	module src/pylib/Python/pylifecycle/signal		0
+nim	PyOS_getsig	pylib/Python/pylifecycle/signal.html#PyOS_getsig,cint	proc PyOS_getsig(sig: cint): CSigHandler		12
+nim	PyOS_setsig	pylib/Python/pylifecycle/signal.html#PyOS_setsig,cint,CSigHandler	proc PyOS_setsig(sig: cint; handler: CSigHandler): CSigHandler		26

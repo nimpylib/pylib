@@ -3,6 +3,6 @@ nim	TimePair	os_impl/posix_like/utime.html#TimePair	tuple TimePair		10
 nim	NsUnit	os_impl/posix_like/utime.html#NsUnit	type NsUnit		13
 nim	TimeNsPair	os_impl/posix_like/utime.html#TimeNsPair	tuple TimeNsPair		15
 nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimePair[F: SomeFloat]	proc utime[T; F: SomeFloat](path: PathLike[T]; times: TimePair[F];\n                       follow_symlinks = true)		111
-nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimeNsPair	proc utime[T](path: PathLike[T]; ns: TimeNsPair; follow_symlinks = true)		113
-nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T]	proc utime[T](path: PathLike[T]; follow_symlinks = true)		118
+nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T],TimeNsPair	proc utime[T](path: PathLike[T]; ns: TimeNsPair; follow_symlinks = true)		114
+nim	utime	os_impl/posix_like/utime.html#utime,PathLike[T]	proc utime[T](path: PathLike[T]; follow_symlinks = true)		120
 nimgrp	utime	os_impl/posix_like/utime.html#utime-procs-all	proc		111

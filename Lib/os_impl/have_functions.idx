@@ -1,0 +1,11 @@
+nimTitle	have_functions	os_impl/have_functions.html	module src/pylib/Lib/os_impl/have_functions		0
+nim	`$`	os_impl/have_functions.html#$,HaveFunc	proc `$`(s: HaveFunc): string		19
+nim	contains	os_impl/have_functions.html#contains.t,HaveFunc,untyped	template contains(s: HaveFunc; fn: untyped): bool		38
+nim	contains	os_impl/have_functions.html#contains.m,HaveFunc,varargs[untyped]	macro contains(s: HaveFunc; fns: varargs[untyped]): bool		50
+nim	issuperset	os_impl/have_functions.html#issuperset.m,HaveFunc,untyped	macro issuperset(s: HaveFunc; fns: untyped): bool		54
+nim	`>=`	os_impl/have_functions.html#>=.t,HaveFunc,	template `>=`(s: HaveFunc; fns): bool		58
+nim	`<=`	os_impl/have_functions.html#<=.t,untyped,HaveFunc	template `<=`(fns: untyped; s: HaveFunc): bool		63
+nim	supports_dir_fd	os_impl/have_functions.html#supports_dir_fd	const supports_dir_fd		83
+nim	supports_effective_ids	os_impl/have_functions.html#supports_effective_ids	const supports_effective_ids		83
+nim	supports_fd	os_impl/have_functions.html#supports_fd	const supports_fd		83
+nim	supports_follow_symlinks	os_impl/have_functions.html#supports_follow_symlinks	const supports_follow_symlinks		83

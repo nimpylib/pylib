@@ -16,7 +16,7 @@ nim	substitute	string.html#substitute.m,Template,Mapping,varargs[untyped]	macro 
 nim	safe_substitute	string.html#safe_substitute.m,Template,varargs[untyped]	macro safe_substitute(templ: Template; kws: varargs[untyped]): PyStr		61
 nim	safe_substitute	string.html#safe_substitute.m,Template,Mapping,varargs[untyped]	macro safe_substitute(templ: Template; mapping: Mapping; kws: varargs[untyped]): PyStr		56
 nim	is_valid	string.html#is_valid,Template	proc is_valid(templ: Template): bool		58
-nim	get_identifiers	string.html#get_identifiers,Template	proc get_identifiers(templ: Template): PyList[PyStr]		61
+nim	get_identifiers	string.html#get_identifiers,Template	proc get_identifiers(templ: Template): PyList[PyStr]		60
 nimgrp	capwords	string.html#capwords-procs-all	proc		4
 nimgrp	safesubstitute	string.html#safe_substitute-macros-all	macro		56
 nimgrp	substitute	string.html#substitute-macros-all	macro		55

@@ -1,7 +1,7 @@
 nimTitle	set	pylib/builtins/set.html	module src/pylib/builtins/set		0
 nim	SomeSet	pylib/builtins/set.html#SomeSet	type SomeSet		18
-nim	set	pylib/builtins/set.html#set	proc set[H](): PySet[H]		29
-nim	pyset	pylib/builtins/set.html#pyset	proc pyset[H](): PySet[H]		29
+nim	set	pylib/builtins/set.html#set_2	proc set[H](): PySet[H]		29
+nim	pyset	pylib/builtins/set.html#pyset_2	proc pyset[H](): PySet[H]		29
 nim	set	pylib/builtins/set.html#set,HashSet[H]	proc set[H](s: HashSet[H]): PySet[H]		31
 nim	pyset	pylib/builtins/set.html#pyset,HashSet[H]	proc pyset[H](s: HashSet[H]): PySet[H]		31
 nim	set	pylib/builtins/set.html#set,SomePySet[H]	proc set[H](s: SomePySet[H]): PySet[H]		33
@@ -10,7 +10,7 @@ nim	set	pylib/builtins/set.html#set,openArray[H]	proc set[H](arr: openArray[H]):
 nim	pyset	pylib/builtins/set.html#pyset,openArray[H]	proc pyset[H](arr: openArray[H]): PySet[H]		34
 nim	set	pylib/builtins/set.html#set,Iterable[H]	proc set[H](iterable: Iterable[H]): PySet[H]		35
 nim	pyset	pylib/builtins/set.html#pyset,Iterable[H]	proc pyset[H](iterable: Iterable[H]): PySet[H]		28
-nim	frozenset	pylib/builtins/set.html#frozenset	proc frozenset[H](): PyFrozenSet[H]		40
+nim	frozenset	pylib/builtins/set.html#frozenset_2	proc frozenset[H](): PyFrozenSet[H]		40
 nim	frozenset	pylib/builtins/set.html#frozenset,HashSet[H]	proc frozenset[H](s: HashSet[H]): PyFrozenSet[H]		42
 nim	frozenset	pylib/builtins/set.html#frozenset,SomePySet[H]	proc frozenset[H](s: SomePySet[H]): PyFrozenSet[H]		44
 nim	frozenset	pylib/builtins/set.html#frozenset,openArray[H]	proc frozenset[H](arr: openArray[H]): PyFrozenSet[H]		45

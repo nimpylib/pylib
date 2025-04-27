@@ -1,0 +1,2 @@
+nimTitle	pyCfg	os_impl/posix_like/pyCfg.html	module src/pylib/Lib/os_impl/posix_like/pyCfg		0
+nim	importConfig	os_impl/posix_like/pyCfg.html#importConfig.t	template importConfig(name)		2

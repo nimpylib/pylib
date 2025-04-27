@@ -18,4 +18,5 @@ nim	splitdrive	os_impl/path.html#splitdrive,PathLike[T]	proc splitdrive[T](p: Pa
 nim	splitext	os_impl/path.html#splitext,PathLike[T]	proc splitext[T](p: PathLike[T]): (T, T)		78
 nim	join	os_impl/path.html#join,PathLike[T],PathLike[T]	proc join[T](a, b: PathLike[T]): T		91
 nim	join	os_impl/path.html#join,PathLike[T],PathLike[T],PathLike[T],varargs[PathLike[T]]	proc join[T](a, b, c: PathLike[T]; ps: varargs[PathLike[T]]): T		95
+nim	samestat	os_impl/path.html#samestat,stat_result,stat_result	proc samestat(s1, s2: stat_result): bool		102
 nimgrp	join	os_impl/path.html#join-procs-all	proc		91

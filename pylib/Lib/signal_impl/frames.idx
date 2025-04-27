@@ -1,0 +1,4 @@
+nimTitle	frames	pylib/Lib/signal_impl/frames.html	module src/pylib/Lib/signal_impl/frames		0
+nim	getFrameOrNil	pylib/Lib/signal_impl/frames.html#getFrameOrNil	proc getFrameOrNil(): PFrame		2
+nim	getFrameOrNil	pylib/Lib/signal_impl/frames.html#getFrameOrNil,int	proc getFrameOrNil(up: int): PFrame		7
+nimgrp	getframeornil	pylib/Lib/signal_impl/frames.html#getFrameOrNil-procs-all	proc		2

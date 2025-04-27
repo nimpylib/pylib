@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.2">
+<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="../dochack.js?v=2.2.2"></script>
+<script type="text/javascript" src="../dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -58,7 +58,11 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">urandom
+      <ul class="simple nested-toc-section">getrandom
+  <li><a class="reference" href="#getrandom%2Cint%2Cint" title="getrandom(size: int; flags = 0): seq[uint8]">getrandom(size: int; flags = 0): seq[uint8]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">urandom
   <li><a class="reference" href="#urandom%2Cint" title="urandom(size: int): seq[uint8]">urandom(size: int): seq[uint8]</a></li>
 
 </ul>
@@ -80,13 +84,27 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="../_._/nimpatch/newUninit.html">../../nimpatch/newUninit</a>, <a class="reference external" href="../_._/pyconfig/bootstrap_hash.html">../../pyconfig/bootstrap_hash</a>, <a class="reference external" href="private/defined_macros.html">private/defined_macros</a>, <a class="reference external" href="../errno_impl/errnoUtils.html">../errno_impl/errnoUtils</a>, <a class="reference external" href="../_._/pyerrors/rterr.html">../../pyerrors/rterr</a>
+    <a class="reference external" href="../_._/nimpatch/newUninit.html">../../nimpatch/newUninit</a>, <a class="reference external" href="../_._/pyconfig/bootstrap_hash.html">../../pyconfig/bootstrap_hash</a>, <a class="reference external" href="private/defined_macros.html">private/defined_macros</a>, <a class="reference external" href="../errno_impl/errnoUtils.html">../errno_impl/errnoUtils</a>, <a class="reference external" href="../_._/pyerrors/rterr.html">../../pyerrors/rterr</a>, <a class="reference external" href="../errno_impl/errnoConsts.html">../errno_impl/errnoConsts</a>, <a class="reference external" href="../signal_impl/c_api.html">../signal_impl/c_api</a>, <a class="reference external" href="../_._/pyerrors/oserr.html">../../pyerrors/oserr</a>
   </dl>
 </div>
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="urandom-procs-all">
+    <div id="getrandom-procs-all">
+  <div id="getrandom,int,int">
+  <dt><pre><span class="Keyword">proc</span> <a href="#getrandom%2Cint%2Cint"><span class="Identifier">getrandom</span></a><span class="Other">(</span><span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">flags</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">uint8</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">PyOSError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/os_impl/randoms.nim#L71" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/os_impl/randoms.nim#L71" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="urandom-procs-all">
   <div id="urandom,int">
   <dt><pre><span class="Keyword">proc</span> <a href="#urandom%2Cint"><span class="Identifier">urandom</span></a><span class="Other">(</span><span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">uint8</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">NotImplementedError</span><span class="Other">,</span>
     <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -110,7 +128,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-20 22:52:35 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:57:36 UTC</small>
       </div>
     </div>
   </div>

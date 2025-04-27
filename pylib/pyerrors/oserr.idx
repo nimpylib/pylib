@@ -5,16 +5,16 @@ nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike,typedes
 nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike,typedesc,OSErrorCode,string	proc raiseExcWithPath(fp: PathLike; exc: typedesc; err: OSErrorCode;\n                 additionalInfo: string)		60
 nim	noWeirdTarget	pylib/pyerrors/oserr.html#noWeirdTarget.t	template noWeirdTarget(def)		66
 nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike,OSErrorCode	proc raiseExcWithPath(p: PathLike; errCode: OSErrorCode)		71
-nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike	proc raiseExcWithPath(p: PathLike)		75
-nim	raiseExcWithPath2	pylib/pyerrors/oserr.html#raiseExcWithPath2,PathLike,PathLike	proc raiseExcWithPath2(src, dst: PathLike)		84
-nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,	template tryOsOp(p: PathLike; body)		93
-nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,bool,	template tryOsOp(p: PathLike; raiseCond: bool; body)		98
-nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,bool,	template tryOsOp(raiseCond: bool; body)		104
-nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,PathLike,	template tryOsOp(p1, p2: PathLike; body)		110
-nim	errnoMsg	pylib/pyerrors/oserr.html#errnoMsg,cint	proc errnoMsg(errno: cint): string		119
-nim	raiseErrno	pylib/pyerrors/oserr.html#raiseErrno	proc raiseErrno(errno = getErrno())		129
-nim	raiseErrnoT	pylib/pyerrors/oserr.html#raiseErrnoT	proc raiseErrnoT[T: PyOSError](errno = getErrno())		133
-nim	raiseErrnoWithPath	pylib/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T]; errno = getErrno())		136
+nim	raiseExcWithPath	pylib/pyerrors/oserr.html#raiseExcWithPath,PathLike	proc raiseExcWithPath(p: PathLike)		78
+nim	raiseExcWithPath2	pylib/pyerrors/oserr.html#raiseExcWithPath2,PathLike,PathLike	proc raiseExcWithPath2(src, dst: PathLike)		87
+nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,	template tryOsOp(p: PathLike; body)		96
+nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,bool,	template tryOsOp(p: PathLike; raiseCond: bool; body)		101
+nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,bool,	template tryOsOp(raiseCond: bool; body)		107
+nim	tryOsOp	pylib/pyerrors/oserr.html#tryOsOp.t,PathLike,PathLike,	template tryOsOp(p1, p2: PathLike; body)		113
+nim	errnoMsg	pylib/pyerrors/oserr.html#errnoMsg,cint	proc errnoMsg(errno: cint): string		122
+nim	raiseErrno	pylib/pyerrors/oserr.html#raiseErrno	proc raiseErrno(errno = getErrno())		132
+nim	raiseErrnoT	pylib/pyerrors/oserr.html#raiseErrnoT	proc raiseErrnoT[T: PyOSError](errno = getErrno())		136
+nim	raiseErrnoWithPath	pylib/pyerrors/oserr.html#raiseErrnoWithPath,PathLike[T]	proc raiseErrnoWithPath[T](p: PathLike[T]; errno = getErrno())		139
 nimgrp	raiseexcwithpath	pylib/pyerrors/oserr.html#raiseExcWithPath-procs-all	proc		56
-nimgrp	tryosop	pylib/pyerrors/oserr.html#tryOsOp-templates-all	template		93
+nimgrp	tryosop	pylib/pyerrors/oserr.html#tryOsOp-templates-all	template		96
 nimgrp	oserrormsgwithpath	pylib/pyerrors/oserr.html#osErrorMsgWithPath-templates-all	template		36

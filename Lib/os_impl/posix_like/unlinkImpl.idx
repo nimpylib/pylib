@@ -1,2 +1,2 @@
 nimTitle	unlinkImpl	os_impl/posix_like/unlinkImpl.html	module src/pylib/Lib/os_impl/posix_like/unlinkImpl		0
-nim	unlinkImpl	os_impl/posix_like/unlinkImpl.html#unlinkImpl,PathLike	proc unlinkImpl(p: PathLike)		49
+nim	unlinkImpl	os_impl/posix_like/unlinkImpl.html#unlinkImpl,PathLike	proc unlinkImpl(p: PathLike)		74

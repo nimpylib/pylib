@@ -1,0 +1,4 @@
+nimTitle	handler_types	pylib/Python/pylifecycle/signal/handler_types.html	module src/pylib/Python/pylifecycle/signal/handler_types		0
+nim	PySigHandler	pylib/Python/pylifecycle/signal/handler_types.html#PySigHandler	type PySigHandler		3
+nim	CSigHandler	pylib/Python/pylifecycle/signal/handler_types.html#CSigHandler	type CSigHandler		4
+nim	NimSigHandler	pylib/Python/pylifecycle/signal/handler_types.html#NimSigHandler	type NimSigHandler		5

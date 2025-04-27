@@ -1,0 +1,5 @@
+nimTitle	main	pylib/Lib/sys_impl/auditImpl/main.html	module src/pylib/Lib/sys_impl/auditImpl/main		0
+nim	PySys_Audit	pylib/Lib/sys_impl/auditImpl/main.html#PySys_Audit.t,string,varargs[typed]	template PySys_Audit(event: string; args: varargs[typed])		4
+nim	PySys_AddAuditHook	pylib/Lib/sys_impl/auditImpl/main.html#PySys_AddAuditHook.t,HookProc	template PySys_AddAuditHook(hook: HookProc; userData = default Any)		9
+nim	addaudithook	pylib/Lib/sys_impl/auditImpl/main.html#addaudithook.t,HookProc	template addaudithook(hook: HookProc)		10
+nim	audit	pylib/Lib/sys_impl/auditImpl/main.html#audit.t,string,varargs[typed]	template audit(event: string; args: varargs[typed])		12

@@ -1,13 +1,17 @@
 nimTitle	isX	stat_impl/isX.html	module src/pylib/Lib/stat_impl/isX		0
-nim	S_ISDIR	stat_impl/isX.html#S_ISDIR,int	proc S_ISDIR(omode: int): bool		10
-nim	S_ISCHR	stat_impl/isX.html#S_ISCHR,int	proc S_ISCHR(omode: int): bool		11
-nim	S_ISBLK	stat_impl/isX.html#S_ISBLK,int	proc S_ISBLK(omode: int): bool		12
-nim	S_ISREG	stat_impl/isX.html#S_ISREG,int	proc S_ISREG(omode: int): bool		13
-nim	S_ISFIFO	stat_impl/isX.html#S_ISFIFO,int	proc S_ISFIFO(omode: int): bool		14
-nim	S_ISLNK	stat_impl/isX.html#S_ISLNK,int	proc S_ISLNK(omode: int): bool		15
-nim	S_ISSOCK	stat_impl/isX.html#S_ISSOCK,int	proc S_ISSOCK(omode: int): bool		16
-nim	S_ISDOOR	stat_impl/isX.html#S_ISDOOR,int	proc S_ISDOOR(omode: int): bool		17
-nim	S_ISPORT	stat_impl/isX.html#S_ISPORT,int	proc S_ISPORT(omode: int): bool		18
-nim	S_ISWHT	stat_impl/isX.html#S_ISWHT,int	proc S_ISWHT(omode: int): bool		19
-nim	S_IMODE	stat_impl/isX.html#S_IMODE,int	proc S_IMODE(omode: int): int		22
-nim	S_IFMT	stat_impl/isX.html#S_IFMT,int	proc S_IFMT(omode: int): int		31
+nim	S_ISDIR	stat_impl/isX.html#S_ISDIR,int	proc S_ISDIR(omode: int): bool		11
+nim	S_ISCHR	stat_impl/isX.html#S_ISCHR,int	proc S_ISCHR(omode: int): bool		12
+nim	S_ISBLK	stat_impl/isX.html#S_ISBLK,int	proc S_ISBLK(omode: int): bool		13
+nim	S_ISREG	stat_impl/isX.html#S_ISREG,int	proc S_ISREG(omode: int): bool		14
+nim	S_ISFIFO	stat_impl/isX.html#S_ISFIFO,int	proc S_ISFIFO(omode: int): bool		15
+nim	S_ISLNK	stat_impl/isX.html#S_ISLNK,int	proc S_ISLNK(omode: int): bool		16
+nim	S_ISSOCK	stat_impl/isX.html#S_ISSOCK,int	proc S_ISSOCK(omode: int): bool		17
+nim	S_ISDOOR	stat_impl/isX.html#S_ISDOOR,int	proc S_ISDOOR(omode: int): bool		18
+nim	S_ISPORT	stat_impl/isX.html#S_ISPORT,int	proc S_ISPORT(omode: int): bool		19
+nim	S_ISWHT	stat_impl/isX.html#S_ISWHT,int	proc S_ISWHT(omode: int): bool		20
+nim	S_IMODE	stat_impl/isX.html#S_IMODE,Mode	proc S_IMODE(omode: Mode): int		23
+nim	S_IMODE	stat_impl/isX.html#S_IMODE,int	proc S_IMODE(omode: int): int		25
+nim	S_IFMT	stat_impl/isX.html#S_IFMT,Mode	proc S_IFMT(omode: Mode): int		30
+nim	S_IFMT	stat_impl/isX.html#S_IFMT,int	proc S_IFMT(omode: int): int		33
+nimgrp	Simode	stat_impl/isX.html#S_IMODE-procs-all	proc		23
+nimgrp	Sifmt	stat_impl/isX.html#S_IFMT-procs-all	proc		30

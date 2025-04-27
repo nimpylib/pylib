@@ -1,0 +1,2 @@
+nimTitle	rmtreeImpl	shutil_impl/rmtreeImpl.html	module src/pylib/Lib/shutil_impl/rmtreeImpl		0
+nim	rmtree	shutil_impl/rmtreeImpl.html#rmtree,string,OnExc,OnExc,int	proc rmtree(path: string; ignore_errors = false; onerror: OnExc = nil;\n       onexc: OnExc = nil; dir_fd = -1)		207

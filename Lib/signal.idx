@@ -1,5 +1,5 @@
 nimTitle	signal	signal.html	module src/pylib/Lib/signal		0
-nim	sigpending	signal.html#sigpending	proc sigpending(): PySet[int]		14
-nim	pthread_sigmask	signal.html#pthread_sigmask,int,Sigset	proc pthread_sigmask(how: int; mask: Sigset): PySet[int]		16
-nim	strsignal	signal.html#strsignal,int	proc strsignal(signalnum: int): PyStr		25
-nim	valid_signals	signal.html#valid_signals	proc valid_signals(): PySet[int]		28
+nim	sigpending	signal.html#sigpending	proc sigpending(): PySet[int]		16
+nim	pthread_sigmask	signal.html#pthread_sigmask,int,Sigset	proc pthread_sigmask(how: int; mask: Sigset): PySet[int]		18
+nim	strsignal	signal.html#strsignal,int	proc strsignal(signalnum: int): PyStr		29
+nim	valid_signals	signal.html#valid_signals	proc valid_signals(): PySet[int]		33

@@ -1,7 +1,10 @@
 nimTitle	os	os.html	module src/pylib/Lib/os		0
+nim	uname_result	os.html#uname_result	tuple uname_result		5
+nim	uname	os.html#uname	proc uname(): uname_result		17
 nim	scandir	os.html#scandir.t	template scandir(): untyped		18
 nim	scandir	os.html#scandir.t,PathLike[T]	template scandir[T](p: PathLike[T]): untyped		19
-nim	close	os.html#close.t,DirEntry	template close(p: DirEntry)		23
-nim	urandom	os.html#urandom,int	proc urandom(size: int): PyBytes		25
-nim	getrandom	os.html#getrandom,int,int	proc getrandom(size: int; flags = 0): PyBytes		29
+nim	scandir	os.html#scandir.t,int	template scandir(p: int): untyped		20
+nim	close	os.html#close.t,DirEntry	template close(p: DirEntry)		24
+nim	urandom	os.html#urandom,int	proc urandom(size: int): PyBytes		26
+nim	getrandom	os.html#getrandom,int,int	proc getrandom(size: int; flags = 0): PyBytes		30
 nimgrp	scandir	os.html#scandir-templates-all	template		18
