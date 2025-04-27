@@ -10,11 +10,16 @@ import ../version
 import ./collections/abc
 
 export n_signal except sigpending, pthread_sigmask, strsignal, valid_signals
-when defined(unix):
-  proc sigpending*(): PySet[int] = newPySet n_signal.sigpending()
 
-  proc pthread_sigmask*(how: int, mask: Sigset): PySet[int] =
-    newPySet n_signal.pthread_sigmask(how, mask)
+import std/macros
+macro mayUndef(def) =
+  let cond = newCall("declared", def.name)
+  result = nnkWhenStmt.newTree(nnkElifBranch.newTree(cond, def))
+
+proc sigpending*(): PySet[int]{.mayUndef.} = newPySet n_signal.sigpending()
+
+proc pthread_sigmask*(how: int, mask: Sigset): PySet[int]{.mayUndef.} =
+  newPySet n_signal.pthread_sigmask(how, mask)
 
   #[ XXX: NIM-BUG: compiler stuck here
   converter toSigset*(oa: Iterable[int]): Sigset =

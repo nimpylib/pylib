@@ -8,9 +8,8 @@ let NSIG* = int Py_NSIG
 export signals, signal_util, enums
 export SIG_DFL, SIG_IGN
 
-when defined(unix):
-  import ./signal_impl/unixs
-  export unixs
+import ./signal_impl/unixs
+export unixs
 
 proc valid_signals*(): HashSet[int] =
   result = initHashSet[int]()

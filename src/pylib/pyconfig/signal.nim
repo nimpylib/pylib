@@ -25,10 +25,13 @@ const Py_NSIG* = from_c_int(Py_NSIG, 64):
 #endif
 """.}
 
-AC_LINK_IFELSE HAVE_STRSIGNAL, false:
-  proc strsignal(signalnum: cint): cstring {.importc, header: "<string.h>".}
-  discard strsignal(0)
-
+AC_CHECK_FUNCS(strsignal, pthread_kill, alarm, pause,
+getitimer,
+setitimer,
+sigaction, #sigaltstack \
+  sigfillset, siginterrupt, sigpending, #[sigrelse,]# sigtimedwait, sigwait,
+  sigwaitinfo)
+AC_CHECK_FUNC(pthread_sigmask)
 const DEF_SIG* = -1  ## CPython checks `SIG*` in [0, NSIG)
 when not defined(windows):
   template SIG(sym) =

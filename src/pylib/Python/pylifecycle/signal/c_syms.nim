@@ -1,4 +1,12 @@
 
+import ../../../pyconfig/signal
+export signal
+const
+  HAVE_BROKEN_PTHREAD_SIGMASK* = defined(cygwin) # XXX: cygwin not supported
+  PYPTHREAD_SIGMASK* = HAVE_PTHREAD_SIGMASK and not HAVE_BROKEN_PTHREAD_SIGMASK
+  HAVE_SIGSET_T* = PYPTHREAD_SIGMASK or HAVE_SIGWAIT or
+    HAVE_SIGWAITINFO or HAVE_SIGTIMEDWAIT
+
 when defined(windows):
   import std/winlean
   export winlean
@@ -21,7 +29,7 @@ else:
 
 import ./handler_types
 
-const HAVE_SIGACTION* = declared(sigaction)
+
 when HAVE_SIGACTION:
   proc sigaction*(a1: cint; a2: ptr Sigaction; a3: var Sigaction): cint{.importc: "sigaction", header: "<sys/signal.h>".}
   ## XXX: posix/winlean's a2 cannot be nil (a var Sigaction)
