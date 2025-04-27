@@ -101,17 +101,17 @@ when (NimMajor, NimMinor, NimPatch) >= (2, 1, 1):
 else:
   using destSelf: var signal_state_t
 
-proc PySignal_Fini(state: signal_state_t) =
+proc PySignal_Fini(destSelf) =
   for signum in cint(1) ..< Py_NSIG.cint:
     let fn = get_handler(signum)
     Py_atomic_store(Handlers[signum].tripped, false)
     set_handler(signum, nil)
-    if not fn.isNil and fn != state.default_handler and 
-      fn != state.ignore_handler:
+    if not fn.isNil and fn != destSelf.default_handler and 
+      fn != destSelf.ignore_handler:
         discard PyOS_setsig(signum, SIG_DFL)
   when DWin:
     if destSelf.sigint_event != Handle(0):
-      closeHandle(destSelf.sigint_event)
+      discard closeHandle(destSelf.sigint_event)
 
 proc PySignal_Fini*() = PySignal_Fini state
 
