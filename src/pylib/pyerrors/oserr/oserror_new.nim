@@ -28,13 +28,13 @@ type
 template PyNumber_Check(x): bool = x is int
 template PyNumber_AsSsize_t(x, _): int = x
 
-template parseOSErrorArgs(args: var OSErrorArgs) =
+template parseOSErrorArgs(args: var OSErrorArgs, useWinError) =
   ## Parses arguments for OSError construction
   ## Returns tuple containing errno, strerror, filename, filename2, and winerror (on Windows)
   ## Note: This function doesn't cleanup on error, the caller should
   when defined(windows):
     args.winerror = winerror
-    if args.winerror != 0:
+    if useWinError:
       args.errno = winerror_to_errno(args.winerror)
 
 template oserror_use_init*[E: PyOSError](self): bool =
@@ -64,7 +64,7 @@ proc init*[E: PyOSError](self: ref E, args: OSErrorArgs) =
   when defined(windows):
     self.winerror = args.winerror
 
-proc OSError_new*[E: PyOSError](useWinError: bool, myerrno: cint, strerr: string,
+proc OSError_new*[E: PyOSError](myerrno: cint, strerr: string,
     filename: string|int = "", winerror: cint = 0, filename2 = "", fillMsg: static[bool] = true): ref PyOSError =
   ## may returns a subclass of OSError
   type Third = typeof(filename)
@@ -72,8 +72,9 @@ proc OSError_new*[E: PyOSError](useWinError: bool, myerrno: cint, strerr: string
   var newtype = proc (): ref PyOSError = new E
   let use_init = oserror_use_init[E](result)
   if not use_init:
+    let useWinError = winerror != 0
     if useWinError:
-      parseOSErrorArgs(args)
+      parseOSErrorArgs(args, useWinError)
     when E is PyOSError:
       newtype = errnomap.getOrDefault(args.errno, default_oserror)
   result = newtype()

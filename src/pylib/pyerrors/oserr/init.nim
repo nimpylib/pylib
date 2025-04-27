@@ -5,7 +5,7 @@ import ./oserror_new
 template gen(name, typ, thirdDefVal){.dirty.} =
   proc name*(myerrno: cint, strerr: string,
       filename = thirdDefVal, winerror: cint = 0, filename2 = ""): ref PyOSError =
-    OSError_new[types.typ](true, myerrno, strerr, filename, winerror, filename2)
+    OSError_new[types.typ](myerrno, strerr, filename, winerror, filename2)
   proc name*(strerr: string = ""): ref PyOSError =
     new result
     result.strerror = strerr

@@ -70,7 +70,10 @@ template noWeirdTarget*(def) =
 
 proc raiseExcWithPath*(p: PathLike, errCode: OSErrorCode){.sideEffect.} =
   ## raises OSError or its one of SubError type
-  raise OSError_new[oserrors_types.PyOSError](true, errCode.cint, p.fspath)
+  raise when defined(windows):
+    OSError_new[oserrors_types.PyOSError](0, p.fspath, winerror=errCode.cint)
+  else:
+    OSError_new[oserrors_types.PyOSError](errCode.cint, p.fspath)
 
 proc raiseExcWithPath*(p: PathLike){.sideEffect.} =
   let oserr = osLastError()
@@ -119,7 +122,7 @@ elif not weirdTarget:
   func errnoMsg*(errno: cint): string = $c_strerror(errno)
 
 proc newErrnoErrT[E: PyOSError](errno=getErrno(), strerr: string): owned(ref PyOSError) =
-  OSError_new[E](false, errno, strerr)
+  OSError_new[E](errno, strerr)
 proc newErrnoErrT[E: PyOSError](errno=getErrno()): owned(ref PyOSError) =
   newErrnoErrT[E](errno, errnoMsg(errno))
 
@@ -136,11 +139,11 @@ proc raiseErrnoT*[T: PyOSError](errno=getErrno()) =
 proc raiseErrnoWithPath*[T](p: PathLike[T]; errno = getErrno()) =
   ## raises OSError or its SubError.
   ## refer to errno even under Windows.
-  raise OSError_new[oserrors_types.PyOSError](false, errno, errnoMsg(errno), p.fspath)
+  raise OSError_new[oserrors_types.PyOSError](errno, errnoMsg(errno), p.fspath)
 
 when InJs:
   proc raiseErrnoWithMsg*(errno: cint, errMsg: string) =
-    raise OSError_new[oserrors_types.PyOSError](false, errno, errMsg, fillMsg=false)
+    raise OSError_new[oserrors_types.PyOSError](errno, errMsg, fillMsg=false)
 
   template catchJsErrAndDo(doSth; doErr) =
       var errMsg = ""
