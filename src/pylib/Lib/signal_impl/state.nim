@@ -83,6 +83,7 @@ proc set_handler*(i: cint, fn: PySigHandler) =
 when compileOption("threads"):
   import  std/locks
   var lock: Lock
+  lock.initLock()
   template withLock(body) =
     lock.withLock body
 else:
@@ -117,3 +118,4 @@ proc PySignal_Fini*() = PySignal_Fini state
 
 proc `=destroy`(destSelf) =
   PySignal_Fini(destSelf)
+  deinitLock lock

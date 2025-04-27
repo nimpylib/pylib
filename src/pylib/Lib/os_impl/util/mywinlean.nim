@@ -61,7 +61,8 @@ typedef union _LARGE_INTEGER {
 
   WCHAR* = uint16
 
-  WIN32_FIND_DATAW*{.importc, header: "<minwinbase.h>".} = object
+  WIN32_FIND_DATAW*{.importc, header: "<Windows.h>" # MinGW error if using <minwinbase.h>
+  .} = object
     dwFileAttributes*: DWORD
     ftCreationTime*: FILETIME
     ftLastAccessTime*: FILETIME
