@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
 env:
   nim-version: 'stable'
   git-url-arg: --git.url:https://github.com/${{ github.repository }} --git.commit:master
