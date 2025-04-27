@@ -116,17 +116,15 @@ definition are defined on these versions of macOS.]#
 when DW:
   import ../os_impl/util/mywinlean
   template exp(name) =
-    const name* = int(mywinlean.name)
+    export name
   template impExp(name) =
-    let 
-      `c name`{.importc: astToStr(name), header: WINNT_H.}: cint
-      name* = int(`c name`)
+    let name*{.importc: astToStr(name), header: WINNT_H.}: DWORD
   # Add Windows-specific constants
   #  the following commented out constants are defined above.
   impExp(FILE_ATTRIBUTE_ARCHIVE)
   impExp(FILE_ATTRIBUTE_COMPRESSED)
   impExp(FILE_ATTRIBUTE_DEVICE)
-  impExp(FILE_ATTRIBUTE_DIRECTORY)
+  exp(FILE_ATTRIBUTE_DIRECTORY)
   impExp(FILE_ATTRIBUTE_ENCRYPTED)
   impExp(FILE_ATTRIBUTE_HIDDEN)
   #impExp(FILE_ATTRIBUTE_INTEGRITY_STREAM)
@@ -134,8 +132,8 @@ when DW:
   impExp(FILE_ATTRIBUTE_NOT_CONTENT_INDEXED)
   #impExp(FILE_ATTRIBUTE_NO_SCRUB_DATA)
   impExp(FILE_ATTRIBUTE_OFFLINE)
-  impExp(FILE_ATTRIBUTE_READONLY)
-  impExp(FILE_ATTRIBUTE_REPARSE_POINT)
+  exp(FILE_ATTRIBUTE_READONLY)
+  exp(FILE_ATTRIBUTE_REPARSE_POINT)
   impExp(FILE_ATTRIBUTE_SPARSE_FILE)
   impExp(FILE_ATTRIBUTE_SYSTEM)
   impExp(FILE_ATTRIBUTE_TEMPORARY)

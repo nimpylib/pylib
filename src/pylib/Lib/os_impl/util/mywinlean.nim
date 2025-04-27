@@ -3,7 +3,8 @@ import std/winlean except DWORD, ULONG
 export winlean except DWORD, ULONG,
   OPEN_EXISTING, FILE_SHARE_READ, FILE_SHARE_WRITE,
   FILE_FLAG_OPEN_REPARSE_POINT, FILE_ATTRIBUTE_DIRECTORY,
-  BY_HANDLE_FILE_INFORMATION, FILE_ATTRIBUTE_REPARSE_POINT
+  FILE_ATTRIBUTE_READONLY, FILE_ATTRIBUTE_REPARSE_POINT,
+  BY_HANDLE_FILE_INFORMATION, INVALID_FILE_ATTRIBUTES
 import ./get_osfhandle
 export get_osfhandle
 type
@@ -141,13 +142,15 @@ const
   FILE_DEVICE_SERIAL_PORT* = 0x0000001b
   FILE_DEVICE_SOUND* = 0x0000001d
 
-  FILE_ATTRIBUTE_DIRECTORY* = 0x10
+  FILE_ATTRIBUTE_READONLY* = cast[DWORD](1)
+  FILE_ATTRIBUTE_DIRECTORY* = cast[DWORD](0x10)
 
   GENERIC_READ* = cast[DWORD](0x80000000)
 
   IO_REPARSE_TAG_SYMLINK* = cast[DWORD](0xA000000C)
 
   FILE_READ_ATTRIBUTES* = 128
+  FILE_WRITE_ATTRIBUTES* = 0x100
 
   FILE_ATTRIBUTE_REPARSE_POINT* = cast[DWORD](0x400)
   IO_REPARSE_TAG_MOUNT_POINT* = cast[DWORD](0xA0000003)
@@ -157,7 +160,8 @@ let
 
 proc GetFileAttributesW*(lpFileName: LPCWSTR): DWORD {.
     stdcall, header: "<WinNT.h>", importc.}
-
+proc SetFileAttributesW*(lsFileName: LPCWSTR, attr: DWORD): WINBOOL {.
+    stdcall, header: "<WinNT.h>", importc.}
 
 proc GetFileType*(h: Handle): DWORD{.importc, header: "<fileapi.h>".}
 

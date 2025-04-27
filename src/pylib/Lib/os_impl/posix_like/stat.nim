@@ -81,7 +81,8 @@ else:
     import ../../../pyerrors/oserr/PC_errmap
     import ../../errno_impl/errnoUtils
     import ../../n_stat
-    import ../../stat_impl/consts
+    import ../../stat_impl/consts except FILE_ATTRIBUTE_DIRECTORY,
+      BY_HANDLE_FILE_INFORMATION, FILE_ATTRIBUTE_REPARSE_POINT
     import ../util/get_osfhandle
     #type Time64 = int64
     when defined(nimPreviewSlimSystem):
@@ -403,7 +404,7 @@ when DWin:
           status.st_mode = status.st_mode or 0o111
 
   proc win32_xstat_slow_impl(path: LPCWSTR, status: var Stat,
-                          traverse: bool): int =
+                          traverse: bool): cint =
 
     var traverse = traverse
 
@@ -416,7 +417,7 @@ when DWin:
     var tagInfo: FILE_ATTRIBUTE_TAG_INFO
     var fileType, error: DWORD
     var isUnhandledTag = false
-    var retval = 0
+    var retval = cint 0
     template goto_cleanup =
       if hFile != INVALID_HANDLE_VALUE:
         error = if retval != 0: GetLastError() else: 0

@@ -248,7 +248,7 @@ else:
       # but GetFileAttributesW doesn't
       let src_resolvedW = newWideCString src_resolved
 
-      let res = getFileAttributesW(src_resolvedW)
+      let res = GetFileAttributesW(src_resolvedW)
       result = res == FILE_ATTRIBUTE_DIRECTORY
 
     var windows_has_symlink_unprivileged_flag = true

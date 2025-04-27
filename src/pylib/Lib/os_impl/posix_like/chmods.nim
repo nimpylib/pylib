@@ -34,9 +34,6 @@ elif not useMS_WINDOWSproc:
       fchmodat(cint dir_fd, path, Mode mode, flag)
 else: # MS_WINDOWS and not JS
   import ../util/mywinlean
-  const
-    INVALID_FILE_ATTRIBUTES = -1'i32
-    ERROR_INVALID_HANDLE = 6
   import std/widestrs
   import ../../stat_impl/consts
 
@@ -45,14 +42,14 @@ else: # MS_WINDOWS and not JS
     hfile: Handle, infoClass: FILE_INFO_BY_HANDLE_CLASS, lpBuffer: pointer, dwBufferSize: DWORD
   ): bool {.importc, header: "<fileapi.h>".}
   proc win32_lchmod(path: WideCString, mode: int): bool =
-    var attr = getFileAttributesW(path)
+    var attr = GetFileAttributesW(path)
     if attr == INVALID_FILE_ATTRIBUTES:
       return false
     if (mode and S_IWRITE) != 0:
       attr = attr and (not FILE_ATTRIBUTE_READONLY)
     else:
       attr = attr or FILE_ATTRIBUTE_READONLY
-    return setFileAttributesW(path, attr) != 0
+    return SetFileAttributesW(path, attr) != 0
 
   proc win32_hchmod(hfile: Handle, mode: int): bool =
     var info: FILE_BASIC_INFO
@@ -85,18 +82,20 @@ proc chmod*(
   sys.audit("os.chmod", path, mode, dir_fd)
   when useMS_WINDOWSproc:
     var res = false
-    if path is int:
-      return win32_fchmod(path, mode)
-    elif follow_symlinks:
-      let hfile = createFileW(path,
-        FILE_READ_ATTRIBUTES or FILE_WRITE_ATTRIBUTES,
-        0, nil,
-        OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nil)
-      if hfile != INVALID_HANDLE_VALUE:
-        res = win32_hchmod(hfile, mode)
-        closeHandle(hfile)
-      else:
-        res = win32_lchmod(newWideCString(path), mode)
+    when path is int:
+      if win32_fchmod(fd, mode):
+        raiseExcWithPath path
+    else:
+      if follow_symlinks:
+        let hfile = createFileW(newWideCString path,
+          FILE_READ_ATTRIBUTES or FILE_WRITE_ATTRIBUTES,
+          0, nil,
+          OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)
+        if hfile != INVALID_HANDLE_VALUE:
+          res = win32_hchmod(hfile, mode)
+          discard closeHandle(hfile)
+        else:
+          res = win32_lchmod(newWideCString(path), mode)
     if not res:
       raiseErrnoWithPath path
   else:
