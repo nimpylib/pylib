@@ -636,13 +636,7 @@ proc openNoNonInhertFlag(f: var File, filehandle: FileHandle,
   f = c_fdopen(filehandle, fop)
   result = f != nil
 
-proc raiseOsOrFileNotFoundError*(file: int) =
-    let err = osLastError()
-    let fn = "fd: " & $file
-    raiseOSError(err,
-      "[Errno " & $err & "] " & "can't open " & fn)
-
-proc raiseOsOrFileNotFoundError*[T](file: PathLike[T]) =
+proc raiseOsOrFileNotFoundError[T](file: PathLike[T]) =
   file.raiseExcWithPath()
 
 proc initBufAsPy*(nfile: var File, buf: int) =
