@@ -46,6 +46,7 @@ import ../pystring/[strimpl, strbltins]
 import ../pybytes/[bytesimpl, bytesbltins]
 import ./warnings
 import ./sys_impl/auditImpl as sys
+import ../nimpatch/winOpenFileHandle
 
 const
   SEEK_SET* = 0
@@ -603,39 +604,6 @@ let
   # NOTE: For Win32, the behavior is the same as _IOFBF - Full Buffering
   IONBF {.importc: "_IONBF", nodecl.}: cint
 
-# patch for system/io.nim or std/syncio.nim,
-# see https://github.com/nim-lang/Nim/pull/23456
-const
-  NoInheritFlag =
-    # Platform specific flag for creating a File without inheritance.
-    when not defined(nimInheritHandles):
-      when defined(windows): ""
-      elif defined(linux) or defined(bsd): "e"
-      else: ""
-    else: ""
-  FormatOpen: array[FileMode, cstring] = [
-    cstring("rb" & NoInheritFlag), "wb" & NoInheritFlag, "w+b" & NoInheritFlag,
-    "r+b" & NoInheritFlag, "ab" & NoInheritFlag
-  ]
-when defined(windows):
-  proc getOsfhandle(fd: cint): int {.
-    importc: "_get_osfhandle", header: "<io.h>".}
-  proc c_fdopen(filehandle: cint, mode: cstring): File {.
-    importc: "_fdopen", header: "<stdio.h>".}
-else:
-  proc c_fdopen(filehandle: cint, mode: cstring): File {.
-    importc: "fdopen", header: "<stdio.h>".}
-proc openNoNonInhertFlag(f: var File, filehandle: FileHandle,
-           mode: FileMode = fmRead): bool {.tags: [], raises: [].} =
-  when not defined(nimInheritHandles) and declared(setInheritable):
-    let oshandle = when defined(windows): FileHandle getOsfhandle(filehandle)
-                   else: filehandle
-    if not setInheritable(oshandle, false):
-      return false
-  let fop = FormatOpen[mode]
-  f = c_fdopen(filehandle, fop)
-  result = f != nil
-
 proc raiseOsOrFileNotFoundError[T](file: PathLike[T]) =
   file.raiseExcWithPath()
 
@@ -660,8 +628,8 @@ template openImpl(result: untyped;
 ) =
   bind genOpenInfo, initTextIO,
     FileMode, FileHandle,
-    openNoNonInhertFlag, `file=`
-    
+    open, `file=`
+
   var buf = buffering
   var
     nmode: FileMode
@@ -672,7 +640,7 @@ template openImpl(result: untyped;
   var nfile: File
   sys.audit("open", file, smode)  ## XXX: PY-DIFF: 3rd arg shall be flags
   when file is int:
-    let succ = openNoNonInhertFlag(nfile, FileHandle file, mode=nmode)
+    let succ = open(nfile, FileHandle file, mode=nmode)
   else:
     let succ = open(nfile, $file, mode=nmode)
   # Nim/Python:
