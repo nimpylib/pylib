@@ -63,6 +63,10 @@ type
     nlCarriageReturn
     nlCarriage
 
+const InJs = defined(js)
+when InJs:
+  import ./io_impl/jsio
+
 type
   IOBase* = ref object of RootObj
     closed*: bool
@@ -342,12 +346,15 @@ proc read*(self: TextIOWrapper, size: int): PyStr =
   result = self.readImpl(size)
   Iencode
 
-proc write(self: IOBase, s: string): int{.discardable.} =
-  self.file.write s
-  s.len
+proc writeRetI(self: IOBase, s: string): int =
+  when InJs:
+    self.file.writeRetI(s)
+  else:
+    self.file.write s
+    s.len
 
 proc write*(self: RawIOBase, s: PyBytes): int{.discardable.} =
-  write(IOBase(self), $s)
+  writeRetI(IOBase(self), $s)
 
 proc writeImpl(self: NoEncTextIOWrapper, s: string, cvtRet: proc(s: string): int): int{.discardable.} =
   proc retSubs(toNewLine: string): int = cvtRet(s.replace("\n", toNewLine))
@@ -361,7 +368,7 @@ proc writeImpl(self: NoEncTextIOWrapper, s: string, cvtRet: proc(s: string): int
 
 proc write*(self: NoEncTextIOWrapper, s: PyStr): int{.discardable.} =
   proc cvtRet(oriStr: string): int =
-    discard write(IOBase(self), s)
+    discard writeRetI(IOBase(self), s)
     s.len
   writeImpl(self, s, cvtRet)
 
@@ -391,11 +398,11 @@ proc write*(self: TextIOWrapper, s: PyStr): int{.discardable.} =
   
   proc cvtRet(oriStr: string): int =
     let t = self.codec.encode(oriStr)
-    discard write(IOBase(self), t.data)
+    discard writeRetI(IOBase(self), t.data)
     t.len
   writeImpl(self, s, cvtRet)
 
-proc truncate*(self: IOBase): int{.discardable.} =
+proc truncate*(self: IOBase, size: int64 = self.tell()): int64{.discardable.} =
   runnableExamples:
     const fn = "tempfiletest"
     var f = open(fn, "w+")
@@ -404,11 +411,11 @@ proc truncate*(self: IOBase): int{.discardable.} =
     f.truncate()
     assert f.read() == ""
     f.close()
-  result = self.tell().int
-  truncate self.fileno, result
-
-proc truncate*(self: IOBase, size: int64): int64{.discardable.} =
   truncate self.fileno, size
+  when InJs:
+    truncate self.file, size
+  else:
+    truncate self.fileno, result
   size
 
 # workaround,
@@ -461,10 +468,13 @@ proc isatty(p: CanIOOpenT): bool =
   when p is int:
     result = p.isatty()
   else:
-    var f: File
-    if f.open($p, fmRead):
-      result = f.isatty()
-      f.close()
+    when InJs:
+      result = p.isatty()
+    else:
+      var f: File
+      if f.open($p, fmRead):
+        result = f.isatty()
+        f.close()
 
 proc norm_buffering(file: CanIOOpenT, buffering: var int): bool =
   ## returns line_buffering
