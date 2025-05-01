@@ -4,6 +4,7 @@
 
 runnableExamples:
   assert complex(1, 3) == complex("1.0+3.0J")
+  assert complex(1, 3) == 1 + 3.J
 
   # complex only stores floats, not int,
   # just as Python's
@@ -285,11 +286,24 @@ template pow*[T](self: PyTComplex[T], x: ComplexPowSecondParamType[T], _: NoneTy
 func `'j`*(s: static string): PyComplex =
   ## 1+3'j or 1+3'J
   ## 
-  ## NOTE: Nim disallows custom suffixes without `'`.
+  ## .. note:: Nim disallows custom suffixes without `'`.
   ##  Therefore, something like `1+3j` is not not allowed.
-  ## Consider using `complex` instead.
+  ## 
+  ## Consider using `complex` or `j`_ instead,
+  ## which are totaly Python syntax compatiable.
   runnableExamples:
     assert 1+3'j == 1.0+3.0'J
   var imPart: BiggestFloat
   assert s.len == s.parsePyFloat imPart
   complex(0.0, imPart)
+
+template j*(i: int{lit}): PyComplex =
+  runnableExamples:
+    assert complex(1, 3) == 1+3.j
+  bind complex
+  complex(0.0, float(i))
+
+template J*(i: int{lit}): PyComplex =
+  ## the same as `j`_, e.g. `1+3.J`
+  bind complex
+  complex(0.0, float(i))

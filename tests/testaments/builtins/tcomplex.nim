@@ -91,9 +91,9 @@ suite "complex":
     check(complex(real=4.25, imag=1.5), 4.25, 1.5)
     check(complex(4.25, imag=1.5), 4.25, 1.5)
   test "literals":
-    check 1-3'j == complex(1, -3)
+    check 1-3.j == complex(1, -3)
     checkpoint "at compile-time"
-    const c = -3-1'j
+    const c = -3-1.j
     check c.real == -3
     check c.imag == -1
   test "str":
@@ -114,8 +114,6 @@ suite "complex.__repr__":
     assertEqual str(complex(0.0, NaN)),  "nanj"
     assertEqual str(complex(-0.0, NaN)), "(-0+nanj)"
 
-
-from std/math import almostEqual
 
 type OverflowError = OverflowDefect
 
@@ -140,40 +138,40 @@ suite "complex.__pow__":
               assertAlmostEqual(a, b)
   test "CPython:test_complex.ComplexTest.test_pow":
     def test_pow():
-        assertAlmostEqual(pow(1+1'j, 0+0'j), 1.0)
-        assertAlmostEqual(pow(0+0'j, 2+0'j), 0.0)
-        assertEqual(pow(0+0'j, 2000+0'j), 0.0'j)
+        assertAlmostEqual(pow(1+1.j, 0+0.j), 1.0)
+        assertAlmostEqual(pow(0+0.j, 2+0.j), 0.0)
+        assertEqual(pow(0+0.j, 2000+0.j), 0.j)
         # TODO
-        #assertEqual(pow(0, 0+0'j), 1.0)
-        #assertEqual(pow(-1, 0+0'j), 1.0)
+        #assertEqual(pow(0, 0+0.j), 1.0)
+        #assertEqual(pow(-1, 0+0.j), 1.0)
 
         when not NimHasBindOverloadSymBugForComplexPow:
-          assertRaises(ZeroDivisionError, pow, 0+0'j, 1'j)
-          assertRaises(OverflowError, pow, 1e200+1'j, 1e200+1'j)
-          assertRaises(ZeroDivisionError, pow, 0+0'j, -1000)
-        assertAlmostEqual(pow(1'j, -1), 1/1'j)
-        assertAlmostEqual(pow(1'j, 200), complex(1))
-        #assertRaises(ValueError, pow, 1+1'j, 1+1'j, 1+1'j)
-        #assertRaises(TypeError, pow, 1'j, None)
-        #assertRaises(TypeError, pow, None, 1'j)
-        #assertAlmostEqual(pow(1'j, 0.5), 0.7071067811865476+0.7071067811865475'j)
+          assertRaises(ZeroDivisionError, pow, 0+0.j, 1.j)
+          assertRaises(OverflowError, pow, 1e200+1.j, 1e200+1.j)
+          assertRaises(ZeroDivisionError, pow, 0+0.j, -1000)
+        assertAlmostEqual(pow(1.j, -1), 1/1.j)
+        assertAlmostEqual(pow(1.j, 200), complex(1))
+        #assertRaises(ValueError, pow, 1+1.j, 1+1.j, 1+1.j)
+        #assertRaises(TypeError, pow, 1.j, None)
+        #assertRaises(TypeError, pow, None, 1.j)
+        #assertAlmostEqual(pow(1.j, 0.5), 0.7071067811865476+0.7071067811865475'j)
 
         a = 3.33+4.43'j
         c1 = complex(1)
-        assertEqual(a ** 0'j, c1)
-        assertEqual(a ** (0.0+0.0'j), c1)  ## NOTE: `a ** 0.0+0.0'J` will cause compile error
+        assertEqual(a ** 0.j, c1)
+        assertEqual(a ** (0.0+0.j), c1)  ## NOTE: `a ** 0.0+0.0'J` will cause compile error
 
-        assertEqual(3'j ** 0'j, c1)
-        assertEqual(3'j ** 0, c1)
+        assertEqual(3.j ** 0.j, c1)
+        assertEqual(3.j ** 0, c1)
 
         try:
-            discard 0'j ** a
+            discard 0.j ** a
             fail() # "should fail 0.0 to negative or complex power")
         except ZeroDivisionError:
             discard
 
         try:
-            discard 0'j ** (3-2'j)
+            discard 0.j ** (3-2.j)
             fail()  # "should fail 0.0 to negative or complex power")
         except ZeroDivisionError:
             discard
@@ -183,7 +181,7 @@ suite "complex.__pow__":
         assertEqual(a ** -105, a ** -105)
         assertEqual(a ** -30, a ** -30)
 
-        assertEqual(0.0'j ** 0, c1)
+        assertEqual(0.j ** 0, c1)
 
         b = 5.1+2.3'j
         #assertRaises(ValueError, pow, a, b, 0)
