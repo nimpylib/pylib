@@ -61,7 +61,7 @@ proc optionToBool[T](arg: Option[T]): bool
 
 template toBool*[T](arg: T): bool =
   ## Converts argument to boolean, checking python-like truthiness.
-  bind None, isSome, Option, optionToBool
+  bind None, isSome, Option, optionToBool, NoneType
   # If we have len proc for this object
   when compiles(arg.len):
     arg.len > 0
@@ -72,10 +72,12 @@ template toBool*[T](arg: T): bool =
   elif compiles(arg > 0):
     arg > 0 or arg < 0
   # Initialized variables only
-  elif compiles(arg != nil):
-    arg != nil
-  elif compiles(arg != None):
-    arg != None
+  elif compiles(arg.isNil):
+    not arg.isNil
+  elif system.`is`(T, NoneType):
+    false #arg != None
+  elif compiles(arg.isNone):
+    not arg.isNone
   elif compiles(bool(arg)):
     bool(arg)
   elif system.`is`(T, Option):
