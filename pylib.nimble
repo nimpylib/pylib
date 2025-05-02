@@ -12,7 +12,9 @@ description   = "Nim library with python-like functions and operators"
 license       = "MIT"
 skipDirs      = @["examples"]
 
-requires "nim >= 1.6.0"  # ensure `pydef.nim`c's runnableExamples works
+requires "nim > 2.0.4"
+# 1.6.0: ensure `pydef.nim`c's runnableExamples works
+# 2.0.4: `Lib/sys_impl/getencodings` `template importPython(submod, sym) = from ../../Python/submod import sym` doesn't work
 
 import std/os
 
@@ -35,6 +37,16 @@ func getArgs(taskName: string): seq[string] =
     swap rargs[^1], rargs[0] # the file must be the last, others' order don't matter
   return rargs
 
+template mytask(name: untyped, taskDesc: string, body){.dirty.} =
+  task name, taskDesc:
+    let taskName = astToStr(name)
+    body
+
+template taskWithArgs(name, taskDesc, body){.dirty.} =
+  mytask name, taskDesc:
+    var args = getArgs taskName
+    body
+
 task testJs, "Test JS":
   selfExec "js -r -d:nodejs tests/tester"
   runTestament "js"
@@ -43,8 +55,7 @@ task testC, "Test C":
   selfExec "r --mm:orc tests/tester"
   runTestament "c"
 
-task testament, "Testament":
-  let args = getArgs "testament"
+taskWithArgs testament, "Testament":
   var targets = args.quoteShellCommand
   if targets.len == 0: targets = "c js"
   runTestament targets
@@ -73,10 +84,10 @@ func getHandledArg(taskName: string, def_arg: string): string =
   args.handledArgs def_arg
   result = quoteShellCommand args
 
-task testDoc, "cmdargs: if the last is arg: " & 
+mytask testDoc, "cmdargs: if the last is arg: " & 
     "ALL: gen for all(default); else: a nim file":
   let def_arg = srcDir / "pylib.nim"
-  let sargs = getHandledArg("testDoc", def_arg)
+  let sargs = getHandledArg(taskName, def_arg)
   selfExec "doc --project --outdir:docs " & sargs
 
 
@@ -89,8 +100,7 @@ proc testLib(fp: string, sargs: string) =
       cmd.add " --project"
     selfExec cmd & " --outdir:docs/Lib " & sargs & ' ' & fp
 
-task testLibDoc, "Test doc-gen and runnableExamples, can pass several args":
-  var args = getArgs "testLibDoc"
+taskWithArgs testLibDoc, "Test doc-gen and runnableExamples, can pass several args":
   let def = "ALL"
   args.handledArgs def
   let fpOrDef = args.pop()
@@ -131,3 +141,26 @@ printPkgInfo() failed.
     exec "nimble uninstall -y pylib"
   
   exec "nimble install"
+
+taskWithArgs changelog, "output for changelog files":
+  if args.len == 0:
+    args.add "HEAD"
+  template catRng(a, b): string = a & ".." & b
+  let sufArg =
+    if args.len == 1:
+      let arg = args[0]
+      if ".." in arg: arg
+      else:
+        let lastTagExecRes = gorgeEx("git describe --tags --abbrev=0")
+        assert lastTagExecRes.exitCode == 0
+        let lastTag = lastTagExecRes.output
+        catRng(lastTag, arg)
+    else:
+      let
+        rng2 = args.pop()
+        rng1 = args.pop()
+      args.add catRng(rng1, rng2)
+      quoteShellCommand(args)
+  
+  exec """git log --reverse --format="%s. (%h)" """ & sufArg
+
