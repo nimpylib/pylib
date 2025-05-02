@@ -10,7 +10,7 @@ runnableExamples:
   # just as Python's
   assert not (type(complex(1, 2).real) is int)
 
-import std/complex as ncomplex except im, complex
+import std/complex as ncomplex except im, complex, pow
 export ncomplex.`/`  # XXX: NIM-BUG: or 
 #[ lib/pure/complex.nim's `func inv*[T](z: Complex[T])` will:
 Error: type mismatch
@@ -18,7 +18,7 @@ Expression: conjugate(z) / abs2(z)
   [1] conjugate(z): Complex[system.float64]
   [2] abs2(z): float64]#
 from std/math import copySign, isNaN
-from ./private/ncomplex_pow import nil
+import ./private/ncomplex_pow
 from ../numTypes/floats/parsefloat import parsePyFloat
 import ../numTypes/utils/stripOpenArray
 from ../noneType import NoneType
@@ -223,27 +223,28 @@ template genBinOpT(name, op, TA, TB: untyped, retMap: typed){.dirty.} =
     bind op, toNimCall, retMap
     retMap toNimCall[T](op, a, b)
 
-template borrowBin(name; op; transSelf=true, retMap: typed=AsIs) =
+template borrowBin(name; op; transSelf=true, retMap: typed=AsIs, arg2Int=true) =
   genBinOpT name, op, PyTComplex[T], PyTComplex[T], retMap
   when not defined(pylibNoLenient):
     genBinOpT name, op, PyTComplex[T], T, retMap
-    genBinOpT name, op, PyTComplex[T], SomeInteger, retMap
+    when arg2Int:
+      genBinOpT name, op, PyTComplex[T], SomeInteger, retMap
     when transSelf:
       genBinOpT name, op, T, PyTComplex[T], retMap
       genBinOpT name, op, SomeInteger, PyTComplex[T], retMap
 
 template borrowBinIop(op) = borrowBin(op, op, transSelf=false)
-template borrowBinRet(name; op) =
-  borrowBin(name, op, transSelf=true, retMap=toPyComplex)
+template borrowBinRet(name; op; arg2I=true) =
+  borrowBin(name, op, transSelf=true, retMap=toPyComplex, arg2Int=arg2I)
 
-template borrowBinRet(op) = borrowBinRet(op, op)
+template borrowBinRet(op; arg2I=true) = borrowBinRet(op, op, arg2I)
 
 borrowBinRet `+`
 borrowBinRet `-`
 borrowBinRet `*`
 borrowBinRet `/`
-borrowBinRet pow
-borrowBinRet `**`, op=pow
+borrowBinRet pow, arg2I=false
+borrowBinRet `**`, op=pow, arg2I=false
 borrowBin `==`, `==`
 borrowBinIop `+=`
 borrowBinIop `-=`
@@ -255,7 +256,7 @@ template genPow(name){.dirty.} =
     bind pycomplex, toNimComplex
     pycomplex ncomplex_pow.powu(self.toNimComplex, x)
 
-  template name*[T](self: PyTComplex[T], x: int): PyTComplex[T] =
+  template name*[T](self: PyTComplex[T], x: SomeInteger): PyTComplex[T] =
     bind pycomplex, toNimComplex
     pycomplex ncomplex_pow.pow(self.toNimComplex, x)
 

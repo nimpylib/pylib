@@ -1,4 +1,8 @@
-
+## why this module doesn't use `pow` in std/complex (we call it `ncomplex.pow` below):
+## 
+## - For integer 2nd arg, we'll use `c_powi`_ or `c_powu`,
+##  which produce more precious result than ncomplex.pow
+## - ncomplex.pow doesn't raise any exception
 from std/complex as ncomplex import Complex
 from std/math import copysign, hypot, pow, arctan2, exp, ln, cos, sin, floor
 template atan2(x, y): untyped = arctan2(x, y)
@@ -17,7 +21,7 @@ template push_ARM64_patch = opt_ARM64_patch "off"
 template pop_ARM64_patch = opt_ARM64_patch "on"
 
 proc Py_c_quot[T](a, b: Complex[T]): Complex[T] =
-  ## as ncomplex.`/` is just the same as "the original algorithm" (see below),
+  ## as ncomplex.`/` is just almost the same as "the original algorithm" describled below,
   ## so we do not use it here.
   ## The following is CPython's comment:
   ##
@@ -41,8 +45,6 @@ proc Py_c_quot[T](a, b: Complex[T]): Complex[T] =
   ##  larger magnitude.  The earliest reference I found was to CACM
   ##  Algorithm 116 (Complex Division, Robert L. Smith, Stanford
   ##  University).
-  ##
-  ##  the result
   push_ARM64_patch
   prepareRWErrno
 
@@ -87,6 +89,7 @@ proc Py_c_quot[T](a, b: Complex[T]): Complex[T] =
   pop_ARM64_patch
 
 proc Py_c_pow[T](a, b: Complex[T]): Complex[T] =
+  ## `std/complex`.pow does never set errno
   prepareRWErrno
   if b.re == 0.0 and b.im == 0.0:
     result.re = 1.0
@@ -116,11 +119,11 @@ template c_prod(a: var Complex, b) =
 
 template c_1[T]: Complex[T] = ncomplex.complex[T](1, 0)
 
-func c_powuImpl[T](x: Complex[T]; n: int): Complex[T] =
-  # assuming n is Natural
+func c_powuImpl[T](x: Complex[T]; n: SomeInteger): Complex[T] =
+  # assuming n > 0
   var
     p = x
-    mask = 1
+    mask = typeof(n) 1
   result = c_1[T]()
 
   # multiply in step of binary system
@@ -133,7 +136,7 @@ func c_powuImpl[T](x: Complex[T]; n: int): Complex[T] =
 
 func c_powu*[T](x: Complex[T]; n: Natural): Complex[T]{.raises:[], inline.} = c_powuImpl(x, n)
 
-func c_powi*[T](x: Complex[T], i: int): Complex[T]{.raises:[], inline.} =
+func c_powi*[T](x: Complex[T], i: SomeInteger): Complex[T]{.raises:[], inline.} =
   if i > 0: c_powuImpl(x, i)
   else: Py_c_quot(c_1[T](), c_powuImpl(x, -i))
 
@@ -163,7 +166,7 @@ func pow*[T](a, b: Complex[T]): Complex[T] =
     else:
         result = Py_c_pow(a, b)
 
-func pow*[T](self: Complex[T], i: int): Complex[T] =
+func pow*[T](self: Complex[T], i: SomeInteger): Complex[T] =
   checkedPowBody:
     result = c_powi(self, i)
     Py_ADJUST_ERANGE2(result.re, result.im)
