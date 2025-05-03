@@ -3,21 +3,24 @@
 ## platform independent implementation.
 import ./private/doc_utils
 
-var docTableInner{.compileTime.}: DocTable
-when defined(nimdoc):
-  const
-    strfpDoc = slurp"./doc/nstrfptime.rst"
-    strpDoc = slurp"./doc/nstrptime.rst"
-  static: # `slurp` will fail silently if such a file doesn't exist
-    assert strfpDoc.len != 0
-    assert strpDoc.len != 0
-  docTableInner = initDocTable(
-    strfpDoc, {
-    "strptime": strpDoc
-  })
-# if let `const docTable = initDocTable(...)` shown in doc,
+# if let:`const docTable = initDocTable(...)` shown in doc,
 # a large lump of data will occur in doc.
-const docTable* = docTableInner  ## used to transport doc string to outer module.
+let docTableInner{.compileTime.} =
+  when defined(nimdoc):
+    const
+      strfpDoc = slurp"./doc/nstrfptime.rst"
+      strpDoc = slurp"./doc/nstrptime.rst"
+    static: # `slurp` will fail silently if such a file doesn't exist
+      assert strfpDoc.len != 0
+      assert strpDoc.len != 0
+    initDocTable(
+      strfpDoc, {
+      "strptime": strpDoc
+    })
+  else:
+    default DocTable
+let docTable*{.compileTime.} = docTableInner ##\
+## used to transport doc string to outer module.
 
 export fetchDoc
 
