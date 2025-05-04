@@ -11,7 +11,7 @@ import ./os_impl/private/platform_utils
 import ../pyconfig/bootstrap_hash
 
 import ./n_os
-export n_os except scandir, DirEntry, urandom, getrandom, genUname, uname, uname_result
+export n_os except scandir, DirEntry, urandom, getrandom, genUname, uname, uname_result, sched_getaffinity, sched_setaffinity
 
 import ../version
 genUname PyStr
@@ -29,3 +29,14 @@ proc urandom*(size: int): PyBytes =
 proc getrandom*(size: int, flags = 0): PyBytes{.
     platformAvailWhen(linux, have_getrandom_syscall), pysince(3,6).} =
   bytes n_os.getrandom(size, flags)
+
+import ./os_impl/posix_like/sched
+when HAVE_SCHED_SETAFFINITY:
+  from ./collections/abc import Iterable
+  import ../builtins/set
+  proc sched_setaffinity*(pid: int, mask: Iterable[int]) =
+    sched_setaffinityImpl(pid, mask)
+  proc sched_getaffinity*(pid: int): PySet[int] =
+    result = newPySet[int]()
+    sched_getaffinityImpl(pid) do (x: cint):
+      result.add int x
