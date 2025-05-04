@@ -9,7 +9,7 @@ import ./pyCfg
 importConfig [os]
 when HAVE_FDOPENDIR:
   when HAVE_FDOPENDIR_RUNTIME:
-    import ../../errno_impl/errnoUtils
+    import ./errnoUtils
 
 when InJs:
   import std/jsffi

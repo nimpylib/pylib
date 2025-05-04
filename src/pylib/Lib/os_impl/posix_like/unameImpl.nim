@@ -11,7 +11,7 @@ template genUnameResult(S){.dirty.} =
   ]
 when HAVE_UNAME:
   import std/posix
-  import ./errnoHandle
+  import ./errnoRaise
   proc utsFieldToString[T](field: T): string =
     # Implementation of utsFieldToString goes here
     when T is array:  # array of char

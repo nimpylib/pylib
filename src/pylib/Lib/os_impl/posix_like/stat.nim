@@ -79,7 +79,7 @@ else:
     import ../util/[
       mywinlean, getFileInfo]
     import ../../../pyerrors/oserr/PC_errmap
-    import ../../errno_impl/errnoUtils
+    import ./errnoUtils
     import ../../n_stat
     import ../../stat_impl/consts except FILE_ATTRIBUTE_DIRECTORY,
       BY_HANDLE_FILE_INFORMATION, FILE_ATTRIBUTE_REPARSE_POINT

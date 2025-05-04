@@ -1,6 +1,6 @@
 
 import ../common
-import ../../errno_impl/errnoUtils
+import ./errnoUtils
 import ./pyCfg
 importConfig [
   chmods,
