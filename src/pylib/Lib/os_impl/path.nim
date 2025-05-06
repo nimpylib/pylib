@@ -1,6 +1,7 @@
 
 import std/os as nos
 import std/times as ntimes
+import std/macros
 import ./posix_like/stat
 
 import ./common
@@ -88,17 +89,27 @@ func splitext*[T](p: PathLike[T]): (T, T) =
 
 # fsExp expanduser, expandTilde
 
-func join*[T](a, b: PathLike[T]): T =
-  result = mapPathLike[T] joinPath($a.fspath, $b.fspath)
+template joinImpl[T](a, b: T): T = mapPathLike[T] joinPath($a.fspath, $b.fspath)
+
+proc nestListWithFirst*(op: NimNode; pack: NimNode; first: NimNode): NimNode =
+  ## `[a, b, c]` is transformed into `op(first, op(a, op(c, d)))`.
+  ## note this differs macros.nestList
+  if pack.len == 0:
+    return first
+  result = pack[^1]
+  for i in countdown(pack.len - 2, 0):
+    result = newCall(op, pack[i], result)
+  result = newCall(op, first, result)
 
 # XXX: Cannot be easily impl as varargs[PathLike]
-func join*[T](a, b, c: PathLike[T], ps: varargs[PathLike[T]]): T =
+macro join*[T](a: PathLike[T], ps: varargs[PathLike[T]]): T =
   ## ..warning:: NIM-BUG: Currently this variant may fail to compile with
   ## `Error: type mismatch`
-  result = mapPathLike[T] joinPath(a.fspath, b.fspath)
-  for p in ps:
-    result = mapPathLike[T] joinPath(result, p.fspath)
-  
+  nestListWithFirst(bindSym"joinImpl", ps, a)
+
+macro join*[T: PyStr|PyBytes](a: T, ps: varargs[T]): T =
+  nestListWithFirst(bindSym"joinImpl", ps, a)
+
 proc samestat*(s1, s2: stat_result): bool =
    return (s1.st_ino == s2.st_ino and
             s1.st_dev == s2.st_dev)
