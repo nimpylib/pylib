@@ -1,6 +1,6 @@
 
 template una(dest, src){.dirty.} =
-  template dest*[I: SomeInteger](a: I): I = src(a, b)
+  template dest*[I: SomeInteger](a: I): I = src(a)
 template bin(dest, src, idest){.dirty.} =
   template dest*[I: SomeInteger](a, b: I): I = src(a, b)
   proc idest*[I: SomeInteger](a: var I, b: I) = a = src(a, b)
