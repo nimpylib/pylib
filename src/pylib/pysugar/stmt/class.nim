@@ -279,6 +279,9 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       genericsClassId.add g
   
   result = newStmtList()
+  parser.classes.add classId
+  let dunderDirId = ident className & ".dunder.dict.keys()"  # `classId.__dict__.keys()`
+  var dunderDirVal = newNimNode(nnkBracket)
   var typDefLs = nnkRecList.newTree()
   template addAttr(name; typ=emptyn, defVal=emptyn) =
     typDefLs.add nnkIdentDefs.newTree(name, typ, defVal)
@@ -307,6 +310,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       var generics_cpy = generics.copyNimTree()
       let tup = parser.parseSignatureMayGenerics(generics_cpy, signature, deftype)
       var procName = tup.name
+      dunderDirVal.add newLit procName.strVal
       let isConstructor = procName.eqIdent "init"
       if isConstructor:
         procName = newIdentNode("new" & className)
@@ -329,7 +333,6 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
         if args.len > 1 and args[1][0].eqIdent "self":
           args[1][1] = genericsClassId
       # Function body
-      parser.classes.add classId
       var docNode: NimNode
       var parsedbody = recReplaceSuperCall(parser.parsePyBodyWithDoc(def[2], docNode), supCls)
       # If we're generating a constructor proc - we need to return self
@@ -375,6 +378,10 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   #     when not declaredInScope `classId`:
   #       `typDef`
   result.add defs
+  
+  result.add newConstStmt(
+    dunderDirId.postfix"*", dunderDirVal
+  )
   discard parser.classes.pop()
   # Echo generated code
   # echo result.toStrLit
