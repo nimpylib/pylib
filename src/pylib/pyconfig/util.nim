@@ -1,7 +1,7 @@
 
 
 import std/os
-from std/strutils import parseInt, strip, multiReplace
+from std/strutils import parseInt, strip, multiReplace, replace
 import std/macros
 
 const weirdTarget = defined(js) or defined(nimscript)
@@ -170,6 +170,20 @@ template c_defined*(variable; c_macro: string; headers: openArray = []) =
   """.}
     main()
 
+template gen_checks_by_name(name){.dirty.} =
+  macro `name S`*(xs: varargs[untyped]): untyped =
+    result = newStmtList()
+    for x in xs:
+      result.add quote do:
+        name(`x`)
+
+macro gen_checks(def) =
+  let name = def.name
+  result = newStmtList(
+    def,
+    newCall(bindSym"gen_checks_by_name", name)
+  )
+
 template AC_CHECK_FUNC*(res, function) =
   ## export const HAVE_`function`
   AC_LINK_IFELSE res, false:
@@ -189,12 +203,41 @@ choke me
     proc function(): cchar{.importc, cdecl.}
     discard function()
 
-template AC_CHECK_FUNC*(function) =
+template AC_CHECK_FUNC*(function){.gen_checks.} =
   AC_CHECK_FUNC(`HAVE function`, function)
 
+template AC_CHECK_HEADER*(res, header) =
+  AC_LINK_IFELSE res, false:
+    {.emit: [
+      "/*INCLUDESECTION*/\n",
+      "#include <", header ,">\n",
+    ].}  #" <- for code lint
 
-macro AC_CHECK_FUNCS*(functions: varargs[untyped]): untyped =
+func haveHeaderIdent(ori: NimNode): NimNode{.compileTime.} =
+  ident "HAVE_" & ori.repr.replace('.', '_')
+
+macro AC_CHECK_HEADER*(header){.gen_checks.} =
+  let
+    id = haveHeaderIdent header
+  result = newCall(bindSym"AC_CHECK_HEADER", id, header)
+
+proc adds(h, args: NimNode): NimNode =
+  result = h
+  for i in args:
+    result.add i
+
+macro AC_CHECK_HEADER_THEN_FUNCS*(header; functions) =
   result = newStmtList()
-  for fun in functions:
-    result.add quote do:
-      AC_CHECK_FUNC(`fun`)
+  let headerHaveId = haveHeaderIdent header
+  result.add newCall(bindSym"AC_CHECK_HEADER", headerHaveId, header)
+  result.add nnkWhenStmt.newTree(
+    nnkElifBranch.newTree(headerHaveId,
+      newCall(bindSym"AC_CHECK_FUNCS").adds(functions)
+    ),
+    nnkElse.newTree do:
+      var ls = newStmtList()
+      for f in functions:
+        ls.add newConstStmt(ident("HAVE_" & f.strVal).postfix"*", newLit(false))
+      ls
+  )
+

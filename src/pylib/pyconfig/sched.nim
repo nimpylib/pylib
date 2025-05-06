@@ -1,9 +1,7 @@
 
 import ./util
 
-AC_CHECK_FUNCS(
-  sched_setaffinity
-)
+AC_CHECK_HEADER_THEN_FUNCS sched.h, [sched_setaffinity]
 
 when HAVEsched_setaffinity:
   import std/posix
