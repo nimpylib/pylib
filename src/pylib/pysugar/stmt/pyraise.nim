@@ -7,6 +7,12 @@ proc add_parent(e: ref Exception; e2: ref Exception): ref Exception =
   result = e
   result.parent = e2
 
+func identFrom(pre: string, typ: NimNode): NimNode =
+  if typ.kind == nnkDotExpr:
+    newDotExpr(typ[0], ident(pre & typ[1].strVal))
+  else:
+    ident(pre & typ.strVal)
+
 func rewriteRaiseImpl(res: var NimNode, raiseCont: NimNode, parent=newNilLit()): bool =
     var msg = newLit ""
     res = newNimNode nnkWhenStmt
@@ -21,9 +27,9 @@ func rewriteRaiseImpl(res: var NimNode, raiseCont: NimNode, parent=newNilLit()):
       )
     template rewriteWith(err: NimNode){.dirty.} =
       callAddParent(
-        newCall("newPy" & err.strVal, msg))
+        newCall(identFrom("newPy", err), msg))
       callAddParent(
-        newCall("new" & err.strVal, msg))
+        newCall(identFrom("new", err), msg))
       let nExc = newCall("newException", err, msg, parent)
       callIfValid(nExc, nExc)
       res.add(
