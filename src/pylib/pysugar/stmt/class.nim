@@ -240,44 +240,62 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       classId = parseGenericParams(generics, n)
     else:
       error "generics support is not opened (pysince 3.12)", n
-  if obj.kind != nnkIdent:
+  var initSubClassArgs = @[emptyn]  # will be `[0]=`
+  var supClses: seq[NimNode]
+  case obj.kind
+  of nnkIdent:
+    discard
+  of nnkCall:
     #  class O([SupCls])
-    if obj.kind == nnkCall:
-      if obj[0].kind == nnkBracketExpr:
-        parseGenerics obj[0]
-      else:
-        let arg = obj[1]
-        case arg.kind
-        of nnkIdent, nnkObjectTy, nnkDotExpr, nnkBracketExpr:
-          #  class O(...)
-          classId = obj[0]
-        else:
-          error "metaclass/object.__init_subclass__ is not implemented yet, " &
-            "only one positional param is allowed for class, got " &
-            $obj.kind & " whose 1st node kind is " & $arg.kind, arg
-      let supLen = obj.len - 1
-      if supLen > 1:
-        error "multi-inhert is not allowed in Nim, " &
-          "i.e. only one super class is expected, got " & $supLen
-      elif supLen == 1:
-        #  class O(SupCls)
-        supCls = obj[1]
-      if supCls.kind != nnkObjectTy: # not `class O(object)`
-        supClsNode = nnkOfInherit.newTree supCls
-        defPragmas.remove1 ident"base"
-    elif obj.kind == nnkBracketExpr:
-      parseGenerics obj
+    if obj[0].kind == nnkBracketExpr:
+      parseGenerics obj[0]
     else:
-      error "unexpected class syntax, got: ", obj
+      classId = obj[0]
+    for i in 1..<obj.len:
+      let arg = obj[i]
+      case arg.kind
+      of nnkExprEqExpr:
+        initSubClassArgs.add arg
+      of nnkObjectTy:
+        supClses.add ident"RootObj"
+      else:
+        supClses.add arg
+    let supLen = supClses.len
+    if supLen > 1:
+      error "multi-inhert is not allowed in Nim, " &
+        "i.e. only one super class is expected, got " & $supLen
+    elif supLen == 1:
+      #  class O(SupCls)
+      supCls = supClses[0]
+    if supCls.kind != nnkObjectTy: # not `class O(object)`
+      supClsNode = nnkOfInherit.newTree supCls
+      defPragmas.remove1 ident"base"
+  of nnkBracketExpr:
+    parseGenerics obj
+  else:
+    error "unexpected class syntax, got: ", obj
   
   let className = $classId
-  var genericsClassId = classId
+  var
+    genericsClassId = classId
+    concreteGenericsClassId = classId
   if generics.len != 0:
     genericsClassId = nnkBracketExpr.newTree(classId)
+    concreteGenericsClassId = nnkBracketExpr.newTree(classId)
+
     for i in generics.items():
-      let g = i[0]  # g.kind == nnkIdentDef
-      genericsClassId.add g
-  
+      # i.kind == nnkIdentDef
+      genericsClassId.add i[0]
+      concreteGenericsClassId.add(
+        if i[2].kind != nnkEmpty: i[2]
+        elif i[1].kind != nnkEmpty: i[1]
+        else: bindSym"char"  # any is okey.
+      )
+  initSubClassArgs[0] = newCall(bindSym"typeof", concreteGenericsClassId)
+  template exportIfTop(n: NimNode): NimNode =
+    if topLevel: n.mkExport
+    else:
+      nnkPragmaExpr.newTree(n, nnkPragma.newTree ident"used")
   result = newStmtList()
   parser.classes.add classId
   let dunderDirId = ident className & ".dunder.dict.keys()"  # `classId.__dict__.keys()`
@@ -382,6 +400,13 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   result.add newConstStmt(
     dunderDirId.postfix"*", dunderDirVal
   )
+  let initSub = newCall("init_subclass").add initSubClassArgs
+  result.add nnkWhenStmt.newTree(
+    nnkElifBranch.newTree(newCall("compiles", initSub),
+      initSub
+    )
+  )
+
   discard parser.classes.pop()
   # Echo generated code
   # echo result.toStrLit
