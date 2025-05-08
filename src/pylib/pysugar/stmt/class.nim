@@ -40,10 +40,10 @@ proc replaceSuperCall(n: var NimNode, defSupCls: NimNode): bool =
   var supCls = defSupCls
   let cLen = callSup.len
   if cLen > 1:
-    expectIdent callSup[1], "self"
+    expectIdent callSup[2], "self"
   if callSup.len > 2:
-    if cLen > 3: error "super(self, <SupCls>) expected, but got too many args"
-    supCls = callSup[2]
+    if cLen > 3: error "super(<SupCls>, self) expected, but got too many args"
+    supCls = callSup[1]
 
   n[0][0] = newCall(supCls, ident"self")
 
@@ -63,8 +63,8 @@ The AST map:
     DotExpr
       Call
         Ident "super"
-        [Ident "self"]
         [<SuperClass>]
+        [Ident "self"]
       Ident "f"
       <args>
 
@@ -90,7 +90,7 @@ The AST map:
     checkSupSub("procCall(SupCls(self).f())"):
       super().f()
     checkSupSub("procCall(SS(self).f(a, b))"):
-      super(self, SS).f(a, b)
+      super(SS, self).f(a, b)
     checkSupSub("a = procCall(SupCls(self).f(a, b))"):
       a = super().f(a, b)
     checkSupSub("a = procCall(SupCls(self).f(procCall(SupCls(self).m()), b))"):
