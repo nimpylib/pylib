@@ -1,5 +1,6 @@
 
 import ./stmt/class
+export class.new
 import ./parserWithCfg
 
 macro class*(obj, body: untyped): untyped = 
