@@ -1,6 +1,6 @@
 
 import std/macros
-import ./frame, ./funcSignature, ./decorator, ./tonim, ./types
+import ./frame, ./funcSignature, ./decorator, ./types
 import ./pydef
 
 template emptyn: NimNode = newEmptyNode()
@@ -155,6 +155,9 @@ func remove1[T](s: var seq[T], x: T) =
     return
   s.delete idx
 
+proc rmBase(n: var seq[NimNode]) =
+  n.remove1 ident"base"
+
 proc tryPreClsBltinDecorater(mparser: var PyAsgnRewriter,
   args: var seq[NimNode], procType: var NimNodeKind,
   pragmas: var seq[NimNode], methKind: var MethKind
@@ -204,7 +207,7 @@ then you will find it compile but `O.f()` gives `0` instead of `3`
 ]#
       warning "There may be a error like: " & 
         "`Error: cannot instantiate: '_`gensymXXX:type'`"
-    pragmas.remove1 ident"base"
+    pragmas.rmBase
   template clsType: NimNode =
     nnkBracketExpr.newTree(ident"typedesc", curClass())
   
@@ -224,13 +227,29 @@ then you will find it compile but `O.f()` gives `0` instead of `3`
   withType(nnkProcDef)
   return true
 
-template mkPragma(pragmas: seq[NimNode]): NimNode =
+template mkPragma(pragmas: openArray[NimNode]): NimNode =
   if pragmas.len == 0: emptyn
   else: nnkPragma.newNimNode.add pragmas
 
-proc genNewCls(classId, generics: NimNode, initArgs, initPragmas: seq[NimNode]): NimNode =
-  ## returns decl of `newXxx`
-  let classNewName = ident("new" & classId.strVal)
+proc newMethAsProc(name, generics: NimNode, params: openArray[NimNode], body: NimNode, procType = nnkProcDef, pragmas: openArray[NimNode]): NimNode =
+  let procType = (if procType == nnkMethodDef: nnkProcDef else: procType)
+  var pragmas = @pragmas
+  pragmas.rmBase
+  newProc(name, generics, params, body, procType, pragmas.mkPragma)
+
+proc mkExport(n: NimNode): NimNode = n.postfix"*"
+
+proc newMethProc(topLevel: bool, name, generics: NimNode, params: openArray[NimNode], body: NimNode, procType = nnkProcDef, pragmas: openArray[NimNode]): NimNode =
+  if topLevel:
+    var pragmas = @pragmas
+    pragmas.rmBase
+    result = newProc(name.mkExport, generics, params, body, procType, pragmas.mkPragma)
+  else:
+    result = newMethAsProc(name, generics, params, body, procType, pragmas)
+    result.addPragma ident"used"
+
+proc genNewCls(topLevel: bool, classNewProcName, classId, generics: NimNode, initArgs, initPragmas: openArray[NimNode]): NimNode =
+  ## returns decl of proc
   var newArgs = @[classId]
   var body = newStmtList()
   let resId = ident"result"
@@ -249,11 +268,11 @@ proc genNewCls(classId, generics: NimNode, initArgs, initPragmas: seq[NimNode]):
   body.add newAssignment(resId, nnkObjConstr.newTree(callNew))
   if defInit:
     body.add callInit
-  var pragmas = initPragmas
-  pragmas.remove1 ident"base"
-  newProc(classNewName, generics, newArgs, body, pragmas=pragmas.mkPragma)
+  var pragmas = @initPragmas
+  pragmas.rmBase
+  newMethProc(topLevel, classNewProcName, generics, newArgs, body, pragmas=pragmas)
 
-proc classImpl*(parser: var PySyntaxProcesser; obj, body: NimNode): NimNode = 
+proc classImpl*(parser: var PySyntaxProcesser; obj, body: NimNode, topLevel = true): NimNode =
   ##[ minic Python's `class`.
 
 support `def` for method with nested `def/class` supported
@@ -294,7 +313,6 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   var
     classId = obj
     supCls = ident"RootObj"
-    supClsNode = nnkOfInherit.newTree supCls
     defPragmas = @[ident"base"]
     generics = emptyn
   template parseGenerics(n: NimNode) =
@@ -329,13 +347,16 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     elif supLen == 1:
       #  class O(SupCls)
       supCls = supClses[0]
-    if supCls.kind != nnkObjectTy: # not `class O(object)`
-      supClsNode = nnkOfInherit.newTree supCls
-      defPragmas.remove1 ident"base"
+    if not supCls.eqIdent"RootObj": # not `class O(object)`
+      if not topLevel:
+        error "non-topLevel class cannot inherit currently " &
+          "(as Nim's method must be top-level)", obj[1]
+      defPragmas.rmBase
   of nnkBracketExpr:
     parseGenerics obj
   else:
     error "unexpected class syntax, got: ", obj
+  let supClsNode = nnkOfInherit.newTree supCls
   
   let className = $classId
   var
@@ -399,7 +420,10 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     of nnkCommand:  # TODO: support async
       #  def a(b, c=1).
       # Other stuff than defines: comments, etc
-      if not def[0].eqIdent "def":
+      if def[0].eqIdent "class":
+        result.add parser.classImpl(def[1], def[2], topLevel=false)
+        continue
+      elif not def[0].eqIdent "def":
         result.add def
         continue
       let signature = def[1]
@@ -466,8 +490,8 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
         initPragmas = pragmas
         initGenerics = generics_cpy
       let nDef = parser.consumeDecorator(
-          newProc(procName, generics_cpy, args, body, 
-            procType, pragmas=pragmas.mkPragma)
+          newMethProc(topLevel, procName, generics_cpy, args, body, 
+            procType, pragmas=pragmas)
         )
       addMeth nDef
 
@@ -479,10 +503,10 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     else:
       result.add def  # AS-IS
 
-  addMeth genNewCls(classId, initGenerics, initArgs, initPragmas)
+  addMeth genNewCls(topLevel, ident("new" & classId.strVal), classId, initGenerics, initArgs, initPragmas)
 
   let ty = nnkRefTy.newTree nnkObjectTy.newTree(emptyn, supClsNode, typDefLs)
-  let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId, generics, ty)
+  let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId.exportIfTop, generics, ty)
   result.add:
     nnkWhenStmt.newTree(
       nnkElifBranch.newTree(
@@ -499,7 +523,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   result.add defs
   
   result.add newConstStmt(
-    dunderDirId.postfix"*", dunderDirVal
+    dunderDirId.exportIfTop, dunderDirVal
   )
   let initSub = newCall("init_subclass").add initSubClassArgs
   result.add nnkWhenStmt.newTree(

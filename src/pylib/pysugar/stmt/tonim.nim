@@ -25,11 +25,13 @@
 
 import std/macros
 import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator, ./exprRewrite
+import ./class
 import ../../private/inspect_cleandoc
 
 using mparser: var PyAsgnRewriter
 proc parsePyBody*(mparser; body: NimNode): NimNode  # front decl
 proc parsePyBodyWithDoc*(mparser; body: NimNode): NimNode  # front decl
+proc parsePyBodyWithDoc*(mparser; body: NimNode, docNode: var NimNode): NimNode  # front decl
 
 proc tryHandleDocStr(res: var NimNode; n: NimNode, dedent=false): bool =
   if n.kind in nnkStrLit..nnkTripleStrLit: 
@@ -116,7 +118,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
         defRe = asyncImpl(statement[1], statement[2], parser=mparser)
       result.add mparser.consumeDecorator(defRe)
     of "class":
-      error "class in def is not supported yet"
+      result.add mparser.classImpl(statement[1], statement[2], topLevel=false)
       # TODO: impl by define such class in global but mangling its name
       # It has to be global as  class's def is implemented via `method`,
       # which is only allowed at global scope 
