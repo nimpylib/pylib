@@ -3,7 +3,7 @@ import ./stmt/class
 export class.new
 import ./parserWithCfg
 
-macro class*(obj, body: untyped): untyped = 
+macro classAux(obj, body: untyped, topLevel: static[bool]): untyped = 
   ## wrapper of `classImpl proc<./stmt/tonim.html>`_
   runnableExamples:
     class O:
@@ -31,4 +31,12 @@ macro class*(obj, body: untyped): untyped =
         return super().f(b)
     assert CC().f(2) == 3
   var parser = parserWithDefCfg()
-  parser.classImpl(obj, body)
+  parser.classImpl(obj, body, topLevel)
+
+template class*(obj, body) =
+  bind classAux
+  classAux(obj, body,
+    instantiationInfo().column == 0
+    # cannot handle `when`
+  )
+
