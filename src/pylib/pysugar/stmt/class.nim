@@ -74,7 +74,7 @@ proc replaceSuperCall(n: var NimNode, defSupCls: NimNode, methKind: MethKind): b
 
   result = true
 
-template new*[T; R: RootRef](_: typedesc[R], cls: typedesc[T],
+template new*[T; R: ref](_: typedesc[R], cls: typedesc[T],
     _: varargs[untyped]): typedesc[T] =
   ## py's `object.__new__`
   cls
