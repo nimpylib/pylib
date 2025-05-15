@@ -21,10 +21,12 @@ template pass* = discard
 template lambda*(code: untyped): untyped =
   (proc (): auto = code)  # Mimic Pythons Lambda
 
-template `:=`*(name, value: untyped): untyped =
+template `:=`*[T](name; value: T): T =
   ## Mimic Pythons Operator.
-  ## Creates new variable `name` and assign `value` to it.
-  (var name = value; name)
+  when compiles((var name: T)):
+    var name: T
+  name = value
+  name
 
 macro del*(seqIdx: untyped) =
   ##[
