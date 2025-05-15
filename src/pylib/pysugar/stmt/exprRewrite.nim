@@ -4,7 +4,7 @@ import std/macrocache
 from std/strutils import toLowerAscii, normalize
 import ../../pystring/[strimpl, strprefix]
 import ../../builtins/[list_decl, set, dict, pyslice]
-import ./frame
+import ./frame, ./chainCmp
 
 const CollectionSyms = CacheSeq"CollectionSyms"
 static:
@@ -153,17 +153,25 @@ proc toTuple(mparser; e): NimNode =
   for i in e:
     result.add mparser.toPyExpr i
 
-proc rewriteEqualMinus(mparser; e; k=nnkAsgn): NimNode =
+proc tryRewriteEqualMinus(mparser; e; res: var NimNode; k=nnkAsgn): bool =
   ## x==-1 -> x == -1
   ## x=-1 -> x = -1
   
   let lhs = mparser.toPyExpr e[1]
   template rhs: NimNode = newCall("-", mparser.toPyExpr e[2])
+  template ret(n: NimNode) =
+    res = n
+    return true
   if e[0].eqIdent"=-":
-    k.newTree lhs, rhs
+    ret k.newTree(lhs, rhs)
   elif e[0].eqIdent"==-":
-    newCall "==", lhs, rhs
-  else: e
+    ret newCall("==", lhs, rhs)
+
+
+proc rewriteInfix(mparser; e; k=nnkAsgn): NimNode =
+  if mparser.tryRewriteEqualMinus(e, result, k=k):
+    return
+  result = expandChainImpl(e)
 
 proc callToPyExpr*(mparser; e): NimNode
 
@@ -182,7 +190,7 @@ template toPyExprImpl(mparser; atm: NimNode; toListCb; equalMinusAs=nnkAsgn): Ni
   of nnkPar:
     nnkPar.newTree mparser.toPyExpr atm[0]
   of nnkInfix:
-    mparser.rewriteEqualMinus atm, equalMinusAs
+    mparser.rewriteInfix atm, equalMinusAs
 
   of nnkTripleStrLit,
       nnkStrLit, nnkRStrLit:
