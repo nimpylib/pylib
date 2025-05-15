@@ -2,7 +2,8 @@
 import std/macros
 import ./frame, ./funcSignature, ./decorator, ./types
 import ./pydef
-
+import ../../noneType
+proc getNoneTypeNode: NimNode = bindSym"NoneType"
 template emptyn: NimNode = newEmptyNode()
 
 proc parseDeclWithType(def: NimNode): tuple[name, typ, val: NimNode] =
@@ -389,7 +390,6 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   var defs = newStmtList()
   var decls = newStmtList()
   template addMeth(def: NimNode) = defs.add def
-  #[ return type 'auto' cannot be used in forward declarations
   template addMethWithDecl(def: NimNode) =
     defs.add def
     var decl = def.copyNimNode
@@ -398,7 +398,6 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       decl.add def[i].copyNimTree
     decl.add newEmptyNode()
     decls.add decl
-  ]#
   var noNew = true
   var
     initArgs: seq[NimNode]
@@ -454,7 +453,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
             args[1]
         args[1][1] = classId
       if isConstructor:
-        if args[0].strVal in ["None", "auto"]:
+        if args[0].eqIdent"auto":
           args[0] = newEmptyNode()
         expectIdent args[1][0], "self"
         markSelfType
@@ -468,6 +467,9 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       else:
         if args.len > 1 and args[1][0].eqIdent "self":
           markSelfType
+      if args[0].eqIdent"None":
+        args[0] = getNoneTypeNode()
+        pragmas.add ident"discardable"
       # Function body
       var docNode: NimNode
       var parsedbody = recReplaceSuperCall(
@@ -493,7 +495,11 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
           newMethProc(topLevel, procName, generics_cpy, args, body, 
             procType, pragmas=pragmas)
         )
-      addMeth nDef
+      if args[0].eqIdent"auto":
+        # return type 'auto' cannot be used in forward declarations
+        addMeth nDef
+      else:
+        addMethWithDecl nDef
 
     of nnkStrLit, nnkRStrLit, nnkTripleStrLit:
       result.add newCommentStmtNode $def
@@ -503,7 +509,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     else:
       result.add def  # AS-IS
 
-  addMeth genNewCls(topLevel, ident("new" & classId.strVal), classId, initGenerics, initArgs, initPragmas)
+  addMethWithDecl genNewCls(topLevel, ident("new" & classId.strVal), classId, initGenerics, initArgs, initPragmas)
 
   let ty = nnkRefTy.newTree nnkObjectTy.newTree(emptyn, supClsNode, typDefLs)
   let typDef = nnkTypeSection.newTree nnkTypeDef.newTree(classId.exportIfTop, generics, ty)
