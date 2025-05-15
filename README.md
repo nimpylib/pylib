@@ -220,9 +220,11 @@ class Example(object):  # Mimic simple Python "classes".
     self.stop = argument
     return self.stop
 
-# Oop, the following is no longer Python....
-let e = newExample(5, 3)
-print(e.stopit(5))
+def exa():
+  e = Example(5, 3)
+  print(e.stopit(5))
+
+exa()
 ```
 
 Nimpylib heavily relies on Nim generics, converters, operator overloading, and even on concepts.
