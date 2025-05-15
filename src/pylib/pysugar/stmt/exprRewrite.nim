@@ -4,6 +4,7 @@ import std/macrocache
 from std/strutils import toLowerAscii, normalize
 import ../../pystring/[strimpl, strprefix]
 import ../../builtins/[list_decl, set, dict, pyslice]
+import ./frame
 
 const CollectionSyms = CacheSeq"CollectionSyms"
 static:
@@ -13,25 +14,26 @@ static:
   CollectionSyms.add bindSym"slice"
 
 using e: NimNode
-proc toPyExpr*(atm: NimNode): NimNode
+using mparser: var PyAsgnRewriter
+proc toPyExpr*(mparser; atm: NimNode): NimNode
 
 template newSlice(a, b: NimNode): NimNode =
   newCall(CollectionSyms[3], a, b)
 
-proc colonToSlice(colonExpr: NimNode): NimNode =
+proc colonToSlice(mparser; colonExpr: NimNode): NimNode =
   ## a:b -> slice(a,b)
-  newSlice(colonExpr[0].toPyExpr, colonExpr[1].toPyExpr)
+  newSlice(mparser.toPyExpr colonExpr[0], mparser.toPyExpr colonExpr[1])
 
-proc rewriteSliceInBracket(bracketExpr: NimNode): NimNode =
+proc rewriteSliceInBracket(mparser; bracketExpr: NimNode): NimNode =
   result = bracketExpr.copyNimNode
-  result.add bracketExpr[0].toPyExpr
+  result.add mparser.toPyExpr bracketExpr[0]
   for i in 1..<bracketExpr.len:
     let ele = bracketExpr[i]
     result.add:
       let k = ele.kind
-      if k == nnkExprColonExpr: colonToSlice ele
+      if k == nnkExprColonExpr: mparser.colonToSlice ele
       elif k == nnkInfix and ele[0].eqIdent":-": # like `ls[1:-1]`
-        newSlice(ele[1].toPyExpr, prefix(ele[2].toPyExpr, "-"))
+        newSlice(mparser.toPyExpr ele[1], prefix(mparser.toPyExpr ele[2], "-"))
       else: ele
 
 #[
@@ -75,14 +77,14 @@ func validStrLit(e: NimNode): bool =
       actStr.normalize == "fmt"
 
 
-proc rewriteStrLitCat(e: NimNode): NimNode =
+proc rewriteStrLitCat(mparser; e: NimNode): NimNode =
   if e.len != 2:
     return e
   let
     lhs = e[0]
     rhs = e[1]
   if not lhs.validStrLit: return e
-  result = infix(lhs.toPyExpr, "&", rhs.toPyExpr)
+  result = infix(mparser.toPyExpr lhs, "&", mparser.toPyExpr rhs)
 
 func toStr(e): NimNode =
   result = nnkCallStrLit.newTree(bindSym"u", e)
@@ -94,12 +96,12 @@ template asisIfEmpty(e) =
 func getTypeof(e: NimNode): NimNode =
   newCall("typeof", e)
 
-proc rewriteEachEle(e: NimNode; bracketNode = nnkBracket): NimNode =
+proc rewriteEachEle(mparser; e: NimNode; bracketNode = nnkBracket): NimNode =
   result = newNimNode bracketNode
   for i in e:
-    result.add i.toPyExpr
+    result.add mparser.toPyExpr i
 
-template mapEleCall(
+template mapEleCall(mparser;
   initCall, e: NimNode;
   bracketNode = nnkBracket,
   ): NimNode =
@@ -112,7 +114,7 @@ template mapEleCall(
      with original `PyTComplex` type (a.k.a. being regarded as a new type)
   ]#
   e.asisIfEmpty
-  let res = rewriteEachEle(e, bracketNode)
+  let res = mparser.rewriteEachEle(e, bracketNode)
   let eleTyp = getTypeof res[0]
   newCall(
     nnkBracketExpr.newTree(
@@ -122,16 +124,16 @@ template mapEleCall(
   )
 
 
-proc toList(e): NimNode = mapEleCall(CollectionSyms[0], e)
-proc toSet (e): NimNode = mapEleCall(CollectionSyms[1], e)
-proc toDict(e): NimNode =
+proc toList(mparser; e): NimNode = mparser.mapEleCall(CollectionSyms[0], e)
+proc toSet (mparser; e): NimNode = mparser.mapEleCall(CollectionSyms[1], e)
+proc toDict(mparser; e): NimNode =
   e.asisIfEmpty
 
   var eles = e.copyNimNode
   for i in e:
     var n = i.copyNimNode
     n.add i[0].toStr
-    n.add i[1].toPyExpr
+    n.add mparser.toPyExpr i[1]
     eles.add n
 
   let
@@ -146,41 +148,41 @@ proc toDict(e): NimNode =
       eleValTyp
     ), eles
   )
-proc toTuple(e): NimNode =
+proc toTuple(mparser; e): NimNode =
   result = newNimNode nnkTupleConstr
   for i in e:
-    result.add i.toPyExpr
+    result.add mparser.toPyExpr i
 
-proc rewriteEqualMinus(e; k=nnkAsgn): NimNode =
+proc rewriteEqualMinus(mparser; e; k=nnkAsgn): NimNode =
   ## x==-1 -> x == -1
   ## x=-1 -> x = -1
   
-  let lhs = e[1].toPyExpr
-  template rhs: NimNode = newCall("-", e[2].toPyExpr)
+  let lhs = mparser.toPyExpr e[1]
+  template rhs: NimNode = newCall("-", mparser.toPyExpr e[2])
   if e[0].eqIdent"=-":
     k.newTree lhs, rhs
   elif e[0].eqIdent"==-":
     newCall "==", lhs, rhs
   else: e
 
-proc callToPyExpr*(e): NimNode
+proc callToPyExpr*(mparser; e): NimNode
 
-template toPyExprImpl(atm: NimNode; toListCb; equalMinusAs=nnkAsgn): NimNode =
+template toPyExprImpl(mparser; atm: NimNode; toListCb; equalMinusAs=nnkAsgn): NimNode =
   case atm.kind
   of nnkExprEqExpr:
-    nnkExprEqExpr.newTree(atm[0], atm[1].toPyExpr)
+    nnkExprEqExpr.newTree(atm[0], mparser.toPyExpr atm[1])
   of nnkBracketExpr:
-    rewriteSliceInBracket atm
+    mparser.rewriteSliceInBracket atm
   of nnkCommand:
-    rewriteStrLitCat atm
+    mparser.rewriteStrLitCat atm
   of nnkCall:
-    callToPyExpr atm
+    mparser.callToPyExpr atm
   of nnkPrefix:
-    nnkPrefix.newTree atm[0], atm[1].toPyExpr
+    nnkPrefix.newTree atm[0], mparser.toPyExpr atm[1]
   of nnkPar:
-    nnkPar.newTree atm[0].toPyExpr
+    nnkPar.newTree mparser.toPyExpr atm[0]
   of nnkInfix:
-    rewriteEqualMinus atm, equalMinusAs
+    mparser.rewriteEqualMinus atm, equalMinusAs
 
   of nnkTripleStrLit,
       nnkStrLit, nnkRStrLit:
@@ -189,22 +191,65 @@ template toPyExprImpl(atm: NimNode; toListCb; equalMinusAs=nnkAsgn): NimNode =
   # NOTE: f"xxx" does perform `translateEscape`
   #  so we don't perform translation here
 
-  of nnkBracket:    atm.toListCb
-  of nnkCurly:      atm.toSet
-  of nnkTableConstr:atm.toDict
-  of nnkTupleConstr:atm.toTuple
+  of nnkBracket:    mparser.toListCb atm
+  of nnkCurly:      mparser.toSet    atm
+  of nnkTableConstr:mparser.toDict   atm
+  of nnkTupleConstr:mparser.toTuple  atm
   else:
     atm
 
-proc toPyExpr*(atm: NimNode): NimNode = toPyExprImpl atm, toList
-proc toPyExprNoList*(atm: NimNode): NimNode = toPyExprImpl atm, rewriteEachEle
+proc toPyExpr*(mparser; atm: NimNode): NimNode = mparser.toPyExprImpl atm, toList
+proc toPyExprNoList*(mparser; atm: NimNode): NimNode = mparser.toPyExprImpl atm, rewriteEachEle
 
-proc argInCallToPyExpr(atm: NimNode): NimNode =
+proc argInCallToPyExpr(mparser; atm: NimNode): NimNode =
   ## f(x=-1) needs to be rewritten as Call(ExprEqExpr(Ident"x", -1))
-  toPyExprImpl atm, toList, nnkExprEqExpr
+  mparser.toPyExprImpl atm, toList, nnkExprEqExpr
 
-proc callToPyExpr*(e): NimNode =
-  result = e.copyNimNode
-  for i in e:
-    result.add i.argInCallToPyExpr
+proc preNew(n: NimNode): NimNode =
+  ident("new" & n.strVal)
+
+proc callToPyExpr*(mparser; e): NimNode =
+  ## In addition, it will rewrite `cls(xxx)` to `newCls(xxx)`
+  let callee = e[0]
+  template addArg(addArgCb) =
+    for i in 1..<e.len:
+      let arg{.inject.} = mparser.argInCallToPyExpr e[i]
+      addArgCb
+  template retAfterAddOriCall =
+    addArg:
+      oriCall.add arg
+    return oriCall
+    
+  var
+    newCls: NimNode
+    oriCall = newCall callee
+  case callee.kind
+  of nnkIdent: newCls = callee.preNew
+  of nnkDotExpr:
+    if callee[1].len == 0:
+      var lhs = callee[0]
+      # in case `module.cls`
+      newCls = newDotExpr(lhs, callee[1].preNew)
+      while true:
+        if lhs.eqIdent"self":
+          # assume no module named self
+          retAfterAddOriCall
+        elif lhs.len == 0:
+          break
+        elif lhs.kind != nnkDotExpr or lhs[1].kind != nnkIdent:
+          retAfterAddOriCall
+        lhs = lhs[0]
+    else:
+      retAfterAddOriCall
+  else:
+    retAfterAddOriCall
+  var newClsCall = newCall newCls
+  addArg:
+    oriCall.add arg
+    newClsCall.add arg
+  result = quote do:
+    when declared(`newCls`) and declared(`callee`) and compiles(`newClsCall`):
+      `newClsCall`
+    else:
+      `oriCall`
 
