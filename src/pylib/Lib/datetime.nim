@@ -5,6 +5,8 @@ export n_datetime except tzname, isoformat, strftime, ctime
 
 import ../pystring/strimpl
 import ../noneType
+import ./typing_impl/str_optional_obj
+expOptObjCvt()
 import ../pyerrors/simperr
 
 
@@ -12,19 +14,19 @@ method tzname*(tz: tzinfo; dt: datetime): PyStr{.base.} =
   str n_datetime.tzname(tz, dt)
 method tzname*(tz: timezone; dt: datetime): PyStr =
   str n_datetime.tzname(tz, dt)
-func tzname*(dt: datetime): PyStr =
-  ## .. hint:: this won't returns `None`, but may return a empty string
-  str n_datetime.tzname(dt)
+func tzname*(dt: datetime): OptionalObj[PyStr] =
+  newStrOptionalObj n_datetime.tzname(dt)
 
 using self: datetime # | date
 func strftime*(self; format: PyStr): PyStr = str n_datetime.strftime(self, $format)
 func isoformat*(self; sep: StringLike = 'T', timespec="auto"): PyStr =
   template lenErr =
     raise newException(TypeError, "isoformat() argument 1 must be a unicode character, not str")
-  when sep is string:
-    let sep = str sep    
+  when system.`is`(sep, string):
+    # NIM-BUG: have to prefix by `system` once optional_obj.`is` imported
+    let sep = str sep
   if sep.len != 1: lenErr()
-  when sep is char:
+  when system.`is`(sep, char):
     let ch = sep
   else:
     let ch = $sep
