@@ -79,6 +79,10 @@ template new*[T; R: ref](_: typedesc[R], cls: typedesc[T],
   ## py's `object.__new__`
   cls
 
+proc init_subclass*[T: ref](cls: typedesc[T]) =
+  ## py's `object.__init_subclass__`
+  discard
+
 proc recReplaceSuperCall*(n: NimNode, defSupCls: NimNode, start=0, methKind=mkNorm): NimNode =
   ##[ Recursively maps
 
@@ -532,11 +536,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     dunderDirId.exportIfTop, dunderDirVal
   )
   let initSub = newCall("init_subclass").add initSubClassArgs
-  result.add nnkWhenStmt.newTree(
-    nnkElifBranch.newTree(newCall("compiles", initSub),
-      initSub
-    )
-  )
+  result.add initSub
 
   discard parser.classes.pop()
   # Echo generated code

@@ -1,6 +1,6 @@
 
 import ./stmt/class
-export class.new
+export class.new, class.init_subclass
 import ./parserWithCfg
 
 macro classAux(obj, body: untyped, topLevel: static[bool]): untyped = 
