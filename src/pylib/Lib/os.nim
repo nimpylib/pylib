@@ -11,8 +11,11 @@ import ./os_impl/private/platform_utils
 import ../pyconfig/bootstrap_hash
 
 import ./n_os
-export n_os except scandir, DirEntry, urandom, getrandom, genUname, uname, uname_result, sched_getaffinity, sched_setaffinity
-
+export n_os except scandir, DirEntry, urandom, getrandom, genUname, uname, uname_result,
+  sched_getaffinity, sched_setaffinity,
+  cpu_count, process_cpu_count
+import ./typing_impl/optional_obj
+expOptObjCvt()
 import ../version
 genUname PyStr
 template scandir*(): untyped{.pysince(3,5).} = n_os.scandir()
@@ -40,3 +43,12 @@ when HAVE_SCHED_SETAFFINITY:
     result = newPySet[int]()
     sched_getaffinityImpl(pid) do (x: cint):
       result.add int x
+
+template wrapMayNone(name){.dirty.} =
+  proc name*(): OptionalObj[int] =
+    let res = n_os.name()
+    if res > 0: newOptionalObj(res)
+    else: newOptionalObj[int]()
+
+wrapMayNone cpu_count
+wrapMayNone process_cpu_count

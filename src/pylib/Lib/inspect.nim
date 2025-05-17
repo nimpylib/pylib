@@ -12,6 +12,8 @@ export list_decl
 
 import ../pystring/strimpl
 export strimpl
+import ./typing_impl/str_optional_obj
+expOptObjCvt()
 from ../pystring/strmeth import splitlines
 import ../version
 
@@ -37,8 +39,11 @@ gen_getmembers_static pysince(3,11)
 template wrapPyStr1(fun; T){.dirty.} =
   template fun*(obj: T): PyStr =
     str n_inspect.fun(obj)
+template wrapPyOptStr1(fun; T){.dirty.} =
+  template fun*(obj: T): OptionalObj[PyStr] =
+    newStrOptionalObj n_inspect.fun(obj)
 
-wrapPyStr1 getmodulename, PyStr
+wrapPyOptStr1 getmodulename, PyStr
 
 wrapExportSincePy(3,12, markcoroutinefunction)
 
@@ -49,12 +54,13 @@ wrapExportSincePy(3,5, isawaitable)
 
 
 template wrapPyStr1(fun){.dirty.} = wrapPyStr1(fun, untyped)
+template wrapPyOptStr1(fun){.dirty.} = wrapPyOptStr1(fun, untyped)
 
 wrapPyStr1 cleandoc, PyStr
 wrapPyStr1 getfile
-wrapPyStr1 getsourcefile
+wrapPyOptStr1 getsourcefile
 wrapPyStr1 getsource
-wrapPyStr1 getdoc
+wrapPyOptStr1 getdoc
 
 macro getsourcelines*(obj: typed): (PyList[string], int) =
   ## get source code of the object

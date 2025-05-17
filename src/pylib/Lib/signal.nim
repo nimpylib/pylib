@@ -4,6 +4,8 @@ import ./signal_impl/valid_signals_impl
 
 import ../builtins/set
 import ../pystring/strimpl
+import ./typing_impl/str_optional_obj
+expOptObjCvt()
 import ../version
 
 export n_signal except sigpending, pthread_sigmask, strsignal, valid_signals
@@ -26,8 +28,8 @@ proc pthread_sigmask*(how: int, mask: Sigset): PySet[int]{.mayUndef.} =
     result.fromIterable oa
   ]#
 
-proc strsignal*(signalnum: int): PyStr{.pysince(3,8).} =
-  str n_signal.strsignal signalnum
+proc strsignal*(signalnum: int): OptionalObj[PyStr]{.pysince(3,8).} =
+  newStrOptionalObj n_signal.strsignal signalnum
 
 when have_valid_signals:
   proc valid_signals*(): PySet[int]{.pysince(3,8).} =
