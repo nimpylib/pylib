@@ -62,12 +62,13 @@ wrapPyOptStr1 getsourcefile
 wrapPyStr1 getsource
 wrapPyOptStr1 getdoc
 
-macro getsourcelines*(obj: typed): (PyList[string], int) =
-  ## get source code of the object
+template getsourcelines*(obj: typed): (PyList[PyStr], int) =
+  ## get source code of the object:
   ##
-  ## the first element is the source code
-  ## the second element is the line number of the first line of the source code
-  newLit getsourcelinesImpl(obj, splitlines)
+  ## - the first element is the source code
+  ## - the second element is the line number of the first line of the source code
+  bind splitlines, getsourcelinesImpl
+  getsourcelinesImpl(obj, splitlines)
 
 # TODO:
 # https://docs.python.org/3/library/inspect.html#introspecting-callables-with-the-signature-object
