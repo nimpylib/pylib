@@ -3,6 +3,8 @@ import std/macros
 import ./frame, ./funcSignature, ./decorator, ./types
 import ./pydef
 import ../../noneType
+import ../../pystring/[strimpl]
+import ../../builtins/[list]
 proc getNoneTypeNode: NimNode = bindSym"NoneType"
 template emptyn: NimNode = newEmptyNode()
 
@@ -163,6 +165,12 @@ func remove1[T](s: var seq[T], x: T) =
 proc rmBase(n: var seq[NimNode]) =
   n.remove1 ident"base"
 
+template bracketExpr(head, i: NimNode): NimNode =
+  nnkBracketExpr.newTree(head, i)
+
+proc typedescOf(t: NimNode): NimNode =
+  bracketExpr(bindSym"typedesc", t)
+
 proc tryPreClsBltinDecorater(mparser: var PyAsgnRewriter,
   args: var seq[NimNode], procType: var NimNodeKind,
   pragmas: var seq[NimNode], methKind: var MethKind
@@ -214,7 +222,7 @@ then you will find it compile but `O.f()` gives `0` instead of `3`
         "`Error: cannot instantiate: '_`gensymXXX:type'`"
     pragmas.rmBase
   template clsType: NimNode =
-    nnkBracketExpr.newTree(ident"typedesc", curClass())
+    typedescOf(curClass())
   
   if decor.name.len != 0:
     return false
@@ -253,6 +261,13 @@ proc newMethProc(topLevel: bool, name, generics: NimNode, params: openArray[NimN
     result = newMethAsProc(name, generics, params, body, procType, pragmas)
     result.addPragma ident"used"
 
+proc newProc(topLevel: bool, name, generics: NimNode, params: openArray[NimNode], body: NimNode, procType = nnkProcDef, pragmas: openArray[NimNode]=[]): NimNode =
+  if topLevel:
+    result = newProc(name.mkExport, generics, params, body, procType, pragmas.mkPragma)
+  else:
+    result = newProc(name, generics, params, body, procType, pragmas.mkPragma)
+    result.addPragma ident"used"
+
 proc genNewCls(topLevel: bool, classNewProcName, classId, generics: NimNode, initArgs, initPragmas: openArray[NimNode]): NimNode =
   ## returns decl of proc
   var newArgs = @[classId]
@@ -276,6 +291,15 @@ proc genNewCls(topLevel: bool, classNewProcName, classId, generics: NimNode, ini
   var pragmas = @initPragmas
   pragmas.rmBase
   newMethProc(topLevel, classNewProcName, generics, newArgs, body, pragmas=pragmas)
+
+template bindS(s){.dirty.} =
+  ## XXX: NIM-BUG: to avoid `undeclared identifier Error`
+  proc `get s`: NimNode = bindSym astToStr s
+
+bindS PyStr
+bindS PyList
+
+bindS newPyListOfStr
 
 proc classImpl*(parser: var PySyntaxProcesser; obj, body: NimNode, topLevel = true): NimNode =
   ##[ minic Python's `class`.
@@ -464,7 +488,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
         initArgs = args
       elif methKind == mkCls:
         if isNew:
-          args[0] = nnkBracketExpr.newTree(bindSym"typedesc", genericsClassId)
+          args[0] = typedescOf(genericsClassId)
         chk1ArgCls
       elif methKind == mkStatic:
         discard
@@ -496,7 +520,7 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
         initPragmas = pragmas
         initGenerics = generics_cpy
       let nDef = parser.consumeDecorator(
-          newMethProc(topLevel, procName, generics_cpy, args, body, 
+          newProc(topLevel, procName, generics_cpy, args, body, 
             procType, pragmas=pragmas)
         )
       if args[0].eqIdent"auto":
@@ -534,6 +558,14 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   
   result.add newConstStmt(
     dunderDirId.exportIfTop, dunderDirVal
+  )
+  result.add newProc(topLevel,
+    ident("dir"), emptyn,
+    [bracketExpr(getPyList(), getPyStr()),
+     newIdentDefs(ident"_",  typedescOf(classId))],
+    newCall(  #bracketExpr(getlist(), getPyStr())
+      getnewPyListOfStr()
+      , dunderDirId)
   )
   let initSub = newCall("init_subclass").add initSubClassArgs
   result.add initSub
