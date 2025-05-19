@@ -439,11 +439,11 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
       # - dotted called decorator, e.g. @unittest.skipIf(COND, MSG)
       if def.len == 2 and def[0].kind == nnkIdent:
         let tup = parseDeclWithType(def)
-        addAttr tup.name, tup.typ, tup.val
+        addAttr tup.name, tup.typ, parser.parsePyExpr tup.val
       else:
         parser.pushDecorator extractDottedCalledDecorator def
     of nnkAsgn:  #  a = 1
-      addAttr def[0], emptyn, def[1]
+      addAttr def[0], emptyn, parser.parsePyExpr def[1]
     of nnkCommand:  # TODO: support async
       #  def a(b, c=1).
       # Other stuff than defines: comments, etc

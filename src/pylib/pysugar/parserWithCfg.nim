@@ -1,7 +1,7 @@
 
 import ../version
 import ./stmt/[pydef, tonim]
-export parsePyBody, parsePyBodyWithDoc
+export parsePyBody, parsePyBodyWithDoc, parsePyExpr
 
 const
   PySignatureSupportGenerics* = (PyMajor, PyMinor) >= (3, 12)

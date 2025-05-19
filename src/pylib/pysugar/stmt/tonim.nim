@@ -42,12 +42,16 @@ proc tryHandleDocStr(res: var NimNode; n: NimNode, dedent=false): bool =
     )
     return true
 
+proc parsePyExpr*(mparser; exp: NimNode): NimNode =
+  bind toPyExpr
+  toPyExpr(mparser, exp)
+
 template parseBodyOnlyLast(ele): NimNode =
   ## parse body only for last but apply `toPyExpr`_ for remaining
   var subStmt = newNimNode ele.kind
   let last = ele.len - 1
   for i in 0..<last:
-    subStmt.add mparser.toPyExpr ele[i]
+    subStmt.add mparser.parsePyExpr ele[i]
   subStmt.add mparser.parsePyBody ele[last]
   subStmt
 
@@ -67,7 +71,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     for defs in statement:
       mparser.add $statement[0]
       var nDefs = defs.copyNimTree
-      nDefs[^1] = mparser.toPyExpr nDefs[^1]
+      nDefs[^1] = mparser.parsePyExpr nDefs[^1]
       nStmt.add nDefs
     result.add nStmt
   of nnkAsgn:
@@ -82,16 +86,16 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     let (varName, varValue) = (statement[0], statement[1])
     case varName.kind
     of nnkIdent:
-      handleVar varName, mparser.toPyExpr varValue
+      handleVar varName, mparser.parsePyExpr varValue
     of nnkTupleConstr:
       # no need to construct list if meeting `nnkBracket`
       unpackImplRec(data=mparser.toPyExprNoList varValue,
         symbols=varName, res=result, receiver=handleVar)
     of nnkBracketExpr:
-      result.add newAssignment(mparser.toPyExpr varName, mparser.toPyExpr varValue)
+      result.add newAssignment(mparser.parsePyExpr varName, mparser.parsePyExpr varValue)
     else:
       # varName may be `nnkDotExpr`. e.g.`a.b=1`
-      result.add statement.copyNimNode.add(varName, mparser.toPyExpr varValue)
+      result.add statement.copyNimNode.add(varName, mparser.parsePyExpr varValue)
   of nnkCommand:
     let preCmd = $statement[0]
     case preCmd
@@ -131,7 +135,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
         cmd.add:
           if i.kind == nnkStmtList:
             mparser.parsePyBody i
-          else: mparser.toPyExpr i
+          else: mparser.parsePyExpr i
       result.add cmd
   of nnkRaiseStmt:
     result.add rewriteRaise statement
@@ -144,7 +148,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       nStmt.add mparser.parsePyStmt e
     result.add nStmt
   of nnkReturnStmt, nnkDiscardStmt:
-    result.add statement.copyNimNode.add(mparser.toPyExpr statement[0])
+    result.add statement.copyNimNode.add(mparser.parsePyExpr statement[0])
   of nnkIfStmt, nnkWhenStmt:
     var nStmt = newNimNode statement.kind
     for branch in statement:
@@ -198,7 +202,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
   of nnkForStmt, nnkWhileStmt:
     result.add parseBodyOnlyLast statement
   elif statement.len == 0:
-    result.add mparser.toPyExpr statement
+    result.add mparser.parsePyExpr statement
   else:
     # XXX: maybe no use
     var nStmt = newNimNode statement.kind
@@ -211,7 +215,7 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
         nStmt.add mparser.parsePyBody e
       of nnkOfBranch, nnkElifBranch, nnkElse, nnkForStmt:
         result.add parseBodyOnlyLast e
-      else: nStmt.add mparser.toPyExpr e
+      else: nStmt.add mparser.parsePyExpr e
     result.add nStmt
 
 
