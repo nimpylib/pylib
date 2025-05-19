@@ -1,5 +1,6 @@
 
-
+import std/typetraits
+import ../pystring/strimpl
 type
   list*[T] = ref object
     data: seq[T]
@@ -24,6 +25,10 @@ func repr*[T: set|string|openArray](self: PyList[T]): string =
 
 func newPyList*[T](s: sink seq[T]): PyList[T]{.inline.} = PyList[T](data: s)
 func newPyList*[T](a: sink openArray[T]): PyList[T]{.inline.} = PyList[T](data: @a)
+
+static: assert PyStr.distinctBase is string, "current impl of newPyListOfStr assumes PyStr is distinct string"
+func newPyListOfStr*(a: PyList[string]): PyList[PyStr]{.inline.} = cast[PyList[PyStr]](a)
+func newPyListOfStr*(a: openArray[string]): PyList[PyStr]{.inline.} = newPyListOfStr(newPyList a)
 
 when true:
   #[ XXX: NIM-BUG: as of 2.3.1, without following, compile for a module that imports both test_datetime and test_array
