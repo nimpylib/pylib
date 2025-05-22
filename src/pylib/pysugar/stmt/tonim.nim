@@ -24,7 +24,7 @@
 # ```
 
 import std/macros
-import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator, ./exprRewrite
+import ./pyraise, ./frame, ./pydef, ./unpack, ./decorator, ./exprRewrite, ./decl
 import ./class
 import ../../private/inspect_cleandoc
 
@@ -196,7 +196,12 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
     result.add statement
   of nnkCall:
     if statement[^1].kind == nnkStmtList:
-      result.add parseBodyOnlyLast statement
+      if statement.len == 2 and statement[0].kind == nnkIdent and statement[1].len == 1:
+        # a: int|a: int = 1
+        let tup = parseDeclWithType(statement)
+        result.add rewriteDeclInStmtAux(tup.name, tup.typ, mparser.parsePyExpr tup.val)
+      else:
+        result.add parseBodyOnlyLast statement
     else:
       result.add mparser.callToPyExpr statement
   of nnkForStmt, nnkWhileStmt:
