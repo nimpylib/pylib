@@ -1,32 +1,12 @@
 
 import std/macros
-import ./frame, ./funcSignature, ./decorator, ./types
+import ./frame, ./funcSignature, ./decorator, ./types, ./decl
 import ./pydef
 import ../../noneType
 import ../../pystring/[strimpl]
 import ../../builtins/[list]
 proc getNoneTypeNode: NimNode = bindSym"NoneType"
 template emptyn: NimNode = newEmptyNode()
-
-proc parseDeclWithType(def: NimNode): tuple[name, typ, val: NimNode] =
-  ## a: int     -> a int <EmptyNode>
-  ## a: int = 1 -> a int 1
-  expectLen def, 2
-  let
-    name = def[0]
-    rhs = def[1]
-  expectKind rhs, nnkStmtList
-  expectLen rhs, 1
-  let inner = rhs[0]
-  var typ, defVal: NimNode = emptyn
-  if inner.kind == nnkAsgn: #  a: int = 1
-    typ = inner[0]
-    defVal = inner[1]
-  else: #  a: int
-    typ = inner
-  result.name = name
-  result.typ = typ
-  result.val = defVal
 
 #proc mapSuper(nCall: NimNode): NimNode = discard
 
@@ -414,7 +394,8 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
   var dunderDirVal = newNimNode(nnkBracket)
   var typDefLs = nnkRecList.newTree()
   template addAttr(name; typ=emptyn, defVal=emptyn) =
-    typDefLs.add nnkIdentDefs.newTree(name, typ, defVal)
+    #bind typDefLs  # XXX: NIM-BUG: as of Nim-2.3.1, adding this line causes Nim compiler think `typDefLs: void`
+    typDefLs.add newIdentDefs(name, typ, defVal)
   var defs = newStmtList()
   var decls = newStmtList()
   template addMeth(def: NimNode) = defs.add def
@@ -437,11 +418,16 @@ so if wantting the attr inherited from SupCls, just write it as-is (e.g. `self.a
     of nnkCall:
       # - attr define, e.g. a: int / a: int = 1
       # - dotted called decorator, e.g. @unittest.skipIf(COND, MSG)
-      if def.len == 2 and def[0].kind == nnkIdent:
+      # - normal function call, e.g. print(1)  (this may be easily ignored,
+      #    but truly supported in Python)
+      if def.len == 2 and def[0].kind == nnkIdent and def[1].len == 1:
+        # a: int / a: int = 1
         let tup = parseDeclWithType(def)
-        addAttr tup.name, tup.typ, parser.parsePyExpr tup.val
-      else:
+        addAttr(tup.name, tup.typ, tup.val)
+      elif def[0].eqIdent"@":
         parser.pushDecorator extractDottedCalledDecorator def
+      else:
+        result.add parser.callToPyExpr def
     of nnkAsgn:  #  a = 1
       addAttr def[0], emptyn, parser.parsePyExpr def[1]
     of nnkCommand:  # TODO: support async
