@@ -26,28 +26,30 @@ proc replaceSuperCall(n: var NimNode, defSupCls: NimNode, methKind: MethKind): b
   nret callSup.kind == nnkCall
   nret callSup[0].eqIdent "super"
 
-  var cLen = callSup.len
+  var cArgLen = callSup.len - 1
   let supCls =
-    if cLen > 2:
-      if cLen > 3: error "super([<cls>[, self]]) expected, but got too many args"
+    if cArgLen > 1:
+      if cArgLen > 2: error "super([<cls>[, self]]) expected, but got too many args"
       callSup[1]
     else:
-      if cLen == 1:
+      if cArgLen == 0:
         callSup.add defSupCls
-        cLen.inc
+        cArgLen.inc
       defSupCls
 
-  if methKind == mkCls:
-    if cLen == 3:
-      expectIdent callSup[2], "cls"
+  template expectLastOrAdd(id: string) =
+    if cArgLen == 2:
+      expectIdent callSup[2], id
     else:
-      callSup.add ident"cls"
-      cLen.inc
+      callSup.add ident id
+      cArgLen.inc
+
+  if methKind == mkCls:
+    expectLastOrAdd "cls"
     n = newDotExpr(supCls, n[0][1]).newCall(callSup[2])
   elif methKind == mkNorm:
-    if cLen > 1:
-      expectIdent callSup[2], "self"
-    n[0][0] = newCall(supCls, ident"self")
+    expectLastOrAdd "self"
+    n[0][0] = newCall(supCls, callSup[2])
 
     #let meth = n[0][1]
     #let args = n[1..^1]
