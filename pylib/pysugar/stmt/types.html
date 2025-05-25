@@ -57,6 +57,8 @@
     <ul class="simple simple-toc-section">
       <li><a class="reference" href="#PySyntaxProcesser" title="PySyntaxProcesser = concept var self
     parsePyBodyWithDoc(self, NimNode) is NimNode
+    parsePyBodyWithDoc(self, NimNode, var NimNode) is NimNode
+    parsePyExpr(self, NimNode) is NimNode
     self.supportGenerics is bool
     self.dedentDoc is bool">PySyntaxProcesser</a></li>
 
@@ -80,6 +82,8 @@
     <div id="PySyntaxProcesser">
   <dt><pre><a href="types.html#PySyntaxProcesser"><span class="Identifier">PySyntaxProcesser</span></a> <span class="Other">=</span> <span class="Keyword">concept</span> <span class="Keyword">var</span> <span class="Identifier">self</span>
     <span class="Identifier">parsePyBodyWithDoc</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">,</span> <span class="Identifier">NimNode</span><span class="Other">)</span> <span class="Identifier">is</span> <span class="Identifier">NimNode</span>
+    <span class="Identifier">parsePyBodyWithDoc</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">,</span> <span class="Identifier">NimNode</span><span class="Other">,</span> <span class="Keyword">var</span> <span class="Identifier">NimNode</span><span class="Other">)</span> <span class="Identifier">is</span> <span class="Identifier">NimNode</span>
+    <span class="Identifier">parsePyExpr</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">,</span> <span class="Identifier">NimNode</span><span class="Other">)</span> <span class="Identifier">is</span> <span class="Identifier">NimNode</span>
     <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">supportGenerics</span> <span class="Identifier">is</span> <span class="Identifier">bool</span>
     <span class="Identifier">self</span><span class="Other">.</span><span class="Identifier">dedentDoc</span> <span class="Identifier">is</span> <span class="Identifier">bool</span></pre></dt>
   <dd>
@@ -100,7 +104,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:55:10 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:42 UTC</small>
       </div>
     </div>
   </div>

@@ -69,18 +69,6 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
-    <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">getsourcelines
-  <li><a class="reference" href="#getsourcelines.m%2Ctyped" title="getsourcelines(obj: typed): (PyList[string], int)">getsourcelines(obj: typed): (PyList[string], int)</a></li>
-
-</ul>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">cleandoc
@@ -88,7 +76,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">getdoc
-  <li><a class="reference" href="#getdoc.t%2Cuntyped" title="getdoc(obj: untyped): PyStr">getdoc(obj: untyped): PyStr</a></li>
+  <li><a class="reference" href="#getdoc.t%2Cuntyped" title="getdoc(obj: untyped): OptionalObj[PyStr]">getdoc(obj: untyped): OptionalObj[PyStr]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getfile
@@ -106,7 +94,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">getmodulename
-  <li><a class="reference" href="#getmodulename.t%2CPyStr" title="getmodulename(obj: PyStr): PyStr">getmodulename(obj: PyStr): PyStr</a></li>
+  <li><a class="reference" href="#getmodulename.t%2CPyStr" title="getmodulename(obj: PyStr): OptionalObj[PyStr]">getmodulename(obj: PyStr): OptionalObj[PyStr]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getsource
@@ -114,7 +102,11 @@
 
 </ul>
 <ul class="simple nested-toc-section">getsourcefile
-  <li><a class="reference" href="#getsourcefile.t%2Cuntyped" title="getsourcefile(obj: untyped): PyStr">getsourcefile(obj: untyped): PyStr</a></li>
+  <li><a class="reference" href="#getsourcefile.t%2Cuntyped" title="getsourcefile(obj: untyped): OptionalObj[PyStr]">getsourcefile(obj: untyped): OptionalObj[PyStr]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">getsourcelines
+  <li><a class="reference" href="#getsourcelines.t%2Ctyped" title="getsourcelines(obj: typed): (PyList[PyStr], int)">getsourcelines(obj: typed): (PyList[PyStr], int)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">isawaitable
@@ -150,7 +142,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="n_inspect.html">n_inspect</a>, <a class="reference external" href="inspect_impl/sourcegetters.html">inspect_impl/sourcegetters</a>, <a class="reference external" href="inspect_impl/members.html">inspect_impl/members</a>, <a class="reference external" href="_._/builtins/list_decl.html">../builtins/list_decl</a>, <a class="reference external" href="_._/pystring/strimpl.html">../pystring/strimpl</a>, <a class="reference external" href="_._/pystring/strmeth.html">../pystring/strmeth</a>, <a class="reference external" href="_._/version.html">../version</a>
+    <a class="reference external" href="n_inspect.html">n_inspect</a>, <a class="reference external" href="inspect_impl/sourcegetters.html">inspect_impl/sourcegetters</a>, <a class="reference external" href="inspect_impl/members.html">inspect_impl/members</a>, <a class="reference external" href="_._/builtins/list_decl.html">../builtins/list_decl</a>, <a class="reference external" href="_._/pystring/strimpl.html">../pystring/strimpl</a>, <a class="reference external" href="typing_impl/str_optional_obj.html">typing_impl/str_optional_obj</a>, <a class="reference external" href="_._/pystring/strmeth.html">../pystring/strmeth</a>, <a class="reference external" href="_._/version.html">../version</a>
   </dl>
 </div>
 <div class="section" id="15">
@@ -162,8 +154,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -172,29 +164,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-
-  </dl>
-</div>
-<div class="section" id="17">
-  <h1><a class="toc-backref" href="#17">Macros</a></h1>
-  <dl class="item">
-    <div id="getsourcelines-macros-all">
-  <div id="getsourcelines.m,typed">
-  <dt><pre><span class="Keyword">macro</span> <a href="#getsourcelines.m%2Ctyped"><span class="Identifier">getsourcelines</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="_._/builtins/list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">int</span><span class="Other">)</span></pre></dt>
-  <dd>
-    
-    <p>get source code of the object</p>
-<p>the first element is the source code the second element is the line number of the first line of the source code</p>
-
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L59" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L59" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -212,8 +183,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L53" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L53" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L59" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L59" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -221,12 +192,12 @@
 </div>
 <div id="getdoc-templates-all">
   <div id="getdoc.t,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#getdoc.t%2Cuntyped"><span class="Identifier">getdoc</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#getdoc.t%2Cuntyped"><span class="Identifier">getdoc</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <a href="typing_impl/optional_obj.html#OptionalObj"><span class="Identifier">OptionalObj</span></a><span class="Other">[</span><a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -238,8 +209,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L54" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L54" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -251,8 +222,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -261,8 +232,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -276,8 +247,8 @@
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.11</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -288,8 +259,8 @@ since Python 3.11</div>
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.11</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -297,12 +268,12 @@ since Python 3.11</div>
 </div>
 <div id="getmodulename-templates-all">
   <div id="getmodulename.t,PyStr">
-  <dt><pre><span class="Keyword">template</span> <a href="#getmodulename.t%2CPyStr"><span class="Identifier">getmodulename</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#getmodulename.t%2CPyStr"><span class="Identifier">getmodulename</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">)</span><span class="Other">:</span> <a href="typing_impl/optional_obj.html#OptionalObj"><span class="Identifier">OptionalObj</span></a><span class="Other">[</span><a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L41" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L41" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L46" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L46" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -314,8 +285,8 @@ since Python 3.11</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L56" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L56" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L62" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L62" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -323,12 +294,28 @@ since Python 3.11</div>
 </div>
 <div id="getsourcefile-templates-all">
   <div id="getsourcefile.t,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#getsourcefile.t%2Cuntyped"><span class="Identifier">getsourcefile</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a></pre></dt>
+  <dt><pre><span class="Keyword">template</span> <a href="#getsourcefile.t%2Cuntyped"><span class="Identifier">getsourcefile</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <a href="typing_impl/optional_obj.html#OptionalObj"><span class="Identifier">OptionalObj</span></a><span class="Other">[</span><a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="getsourcelines-templates-all">
+  <div id="getsourcelines.t,typed">
+  <dt><pre><span class="Keyword">template</span> <a href="#getsourcelines.t%2Ctyped"><span class="Identifier">getsourcelines</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">typed</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="_._/builtins/list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">[</span><a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">int</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    get source code of the object:<ul class="simple"><li>the first element is the source code</li>
+<li>the second element is the line number of the first line of the source code</li>
+</ul>
+
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L65" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L65" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -342,8 +329,8 @@ since Python 3.11</div>
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.5</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L46" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L46" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L51" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L51" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -357,8 +344,8 @@ since Python 3.5</div>
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.5</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L45" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L45" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -372,8 +359,8 @@ since Python 3.5</div>
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.12</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L43" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L43" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/inspect.nim#L48" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/inspect.nim#L48" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -385,7 +372,7 @@ since Python 3.12</div>
 <div class="section" id="19">
   <h1><a class="toc-backref" href="#19">Exports</a></h1>
   <dl class="item">
-    <a href="inspect_impl/sourcegetters.html#getline.m,typed"><span class="Identifier">getline</span></a>, <a href="inspect_impl/isX.html#iscoroutine.m,typed"><span class="Identifier">iscoroutine</span></a>, <a href="inspect_impl/isX.html#istraceback.t,typed"><span class="Identifier">istraceback</span></a>, <a href="inspect_impl/isX.html#isfunction.m,typed"><span class="Identifier">isfunction</span></a>, <a href="inspect_impl/isX.html#isbuiltin.m,typed"><span class="Identifier">isbuiltin</span></a>, <a href="inspect_impl/isX.html#isframe.t,typed"><span class="Identifier">isframe</span></a>, <a href="inspect_impl/isX.html#isawaitable.t,typed"><span class="Identifier">isawaitable</span></a>, <a href="inspect_impl/isX.html#ismethod.m,typed"><span class="Identifier">ismethod</span></a>, <a href="inspect_impl/isX.html#iscoroutinefunction.m,typed"><span class="Identifier">iscoroutinefunction</span></a>, <a href="inspect_impl/isX.html#ismodule.m,typed"><span class="Identifier">ismodule</span></a>, <a href="inspect_impl/isX.html#isclass.m,typed"><span class="Identifier">isclass</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[float]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[T]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#setLen,PyList,Natural"><span class="Identifier">setLen</span></a>, <a href="_._/builtins/list_decl.html#<=.t,openArray[A],PyList[B]"><span class="Identifier">&lt;=</span></a>, <a href="_._/builtins/list_decl.html#list"><span class="Identifier">list</span></a>, <a href="_._/builtins/list_decl.html#<,PyList[A],PyList[B]"><span class="Identifier">&lt;</span></a>, <a href="_._/builtins/list_decl.html#items.i,PyList[T]"><span class="Identifier">items</span></a>, <a href="_._/builtins/list_decl.html#==,PyList[A],openArray[B]"><span class="Identifier">==</span></a>, <a href="_._/builtins/list_decl.html#<=,PyList[A],PyList[B]"><span class="Identifier">&lt;=</span></a>, <a href="_._/builtins/list_decl.html#==.t,openArray[A],PyList[B]"><span class="Identifier">==</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[int]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#repr,PyList[T: set or string or openArray]"><span class="Identifier">repr</span></a>, <a href="_._/builtins/list_decl.html#asSeq.c,PyList[T]"><span class="Identifier">asSeq</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkseq[T]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#<=,PyList[A],openArray[B]"><span class="Identifier">&lt;=</span></a>, <a href="_._/builtins/list_decl.html#PyList"><span class="Identifier">PyList</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[char]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#mitems.i,PyList[T]"><span class="Identifier">mitems</span></a>, <a href="_._/builtins/list_decl.html#newPyListOfCap,int"><span class="Identifier">newPyListOfCap</span></a>, <a href="_._/builtins/list_decl.html#<,PyList[A],openArray[B]"><span class="Identifier">&lt;</span></a>, <a href="_._/builtins/list_decl.html#==,PyList[A],PyList[B]"><span class="Identifier">==</span></a>, <a href="_._/builtins/list_decl.html#@,PyList[T]"><span class="Identifier">@</span></a>, <a href="_._/builtins/list_decl.html#checkLenientOps.t,,"><span class="Identifier">checkLenientOps</span></a>, <a href="_._/builtins/list_decl.html#getPtr,sinkPyList[T],"><span class="Identifier">getPtr</span></a>, <a href="_._/builtins/list_decl.html#newPyList,int"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#<.t,openArray[A],PyList[B]"><span class="Identifier">&lt;</span></a>, <a href="_._/builtins/list_decl.html#asSeq.c,PyList[T]_2"><span class="Identifier">asSeq</span></a>, <a href="_._/builtins/list_decl.html#pairs.i,PyList[T]"><span class="Identifier">pairs</span></a>, <a href="_._/pystring/strimpl.html#runeLenAt,,Natural"><span class="Identifier">runeLenAt</span></a>, <a href="_._/pystring/strimpl.html#not.t,PyStr"><span class="Identifier">not</span></a>, <a href="_._/pystring/strimpl.html#str,string"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#str.t,O"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#toPyStr.c,string"><span class="Identifier">toPyStr</span></a>, <a href="_._/pystring/strimpl.html#contains,PyStr,PyStr"><span class="Identifier">contains</span></a>, <a href="_._/pystring/strimpl.html#substr,,int,int"><span class="Identifier">substr</span></a>, <a href="_._/pystring/strimpl.html#byteLen"><span class="Identifier">byteLen</span></a>, <a href="_._/pystring/strimpl.html#str,Rune"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#items.i"><span class="Identifier">items</span></a>, <a href="_._/pystring/strimpl.html#StringLike"><span class="Identifier">StringLike</span></a>, <a href="_._/pystring/strimpl.html#==,string,"><span class="Identifier">==</span></a>, <a href="_._/pystring/strimpl.html#str,char"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#toNimString.c"><span class="Identifier">toNimString</span></a>, <a href="_._/pystring/strimpl.html#+,,StringLike"><span class="Identifier">+</span></a>, <a href="_._/pystring/strimpl.html#==,,PyStr"><span class="Identifier">==</span></a>, <a href="_._/pystring/strimpl.html#str,PyStr"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#chars.i"><span class="Identifier">chars</span></a>, <a href="_._/pystring/strimpl.html#contains,PyStr,string"><span class="Identifier">contains</span></a>, <a href="_._/pystring/strimpl.html#and.t,PyStr,PyStr"><span class="Identifier">and</span></a>, <a href="_._/pystring/strimpl.html#getChar,,Natural"><span class="Identifier">getChar</span></a>, <a href="_._/pystring/strimpl.html#$"><span class="Identifier">$</span></a>, <a href="_._/pystring/strimpl.html#len"><span class="Identifier">len</span></a>, <a href="_._/pystring/strimpl.html#+=,,string"><span class="Identifier">+=</span></a>, <a href="_._/pystring/strimpl.html#str.t,T"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#+=,,PyStr"><span class="Identifier">+=</span></a>, <a href="_._/pystring/strimpl.html#len,char"><span class="Identifier">len</span></a>, <a href="_._/pystring/strimpl.html#toPyStr.c,char"><span class="Identifier">toPyStr</span></a>, <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a>, <a href="_._/pystring/strimpl.html#runes.i"><span class="Identifier">runes</span></a>, <a href="_._/pystring/strimpl.html#[],,HSlice[int,BackwardsIndex]"><span class="Identifier">[]</span></a>, <a href="_._/pystring/strimpl.html#==,,string"><span class="Identifier">==</span></a>, <a href="_._/pystring/strimpl.html#runeAtPos,,int"><span class="Identifier">runeAtPos</span></a>, <a href="_._/pystring/strimpl.html#or.t,PyStr,PyStr"><span class="Identifier">or</span></a>, <a href="_._/pystring/strimpl.html#contains,PyStr,char"><span class="Identifier">contains</span></a>, <a href="_._/pystring/strimpl.html#+,,PyStr"><span class="Identifier">+</span></a>, <a href="_._/pystring/strimpl.html#toNimStr"><span class="Identifier">toNimStr</span></a>, <a href="_._/pystring/strimpl.html#fspath"><span class="Identifier">fspath</span></a>, <a href="_._/pystring/strimpl.html#+=,,char"><span class="Identifier">+=</span></a>, <a href="_._/pystring/strimpl.html#toPyStr.c,Rune"><span class="Identifier">toPyStr</span></a>, <a href="_._/pystring/strimpl.html#[],,Slice[int]"><span class="Identifier">[]</span></a>, <a href="_._/pystring/strimpl.html#[],,int"><span class="Identifier">[]</span></a>
+    <a href="inspect_impl/sourcegetters.html#getline.m,typed"><span class="Identifier">getline</span></a>, <a href="inspect_impl/isX.html#iscoroutine.m,typed"><span class="Identifier">iscoroutine</span></a>, <a href="inspect_impl/isX.html#istraceback.t,typed"><span class="Identifier">istraceback</span></a>, <a href="inspect_impl/isX.html#isfunction.m,typed"><span class="Identifier">isfunction</span></a>, <a href="inspect_impl/isX.html#isbuiltin.m,typed"><span class="Identifier">isbuiltin</span></a>, <a href="inspect_impl/isX.html#isframe.t,typed"><span class="Identifier">isframe</span></a>, <a href="inspect_impl/isX.html#isawaitable.t,typed"><span class="Identifier">isawaitable</span></a>, <a href="inspect_impl/isX.html#ismethod.m,typed"><span class="Identifier">ismethod</span></a>, <a href="inspect_impl/isX.html#iscoroutinefunction.m,typed"><span class="Identifier">iscoroutinefunction</span></a>, <a href="inspect_impl/isX.html#ismodule.m,typed"><span class="Identifier">ismodule</span></a>, <a href="inspect_impl/isX.html#isclass.m,typed"><span class="Identifier">isclass</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkseq[T]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[T]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#setLen,PyList,Natural"><span class="Identifier">setLen</span></a>, <a href="_._/builtins/list_decl.html#<=.t,openArray[A],PyList[B]"><span class="Identifier">&lt;=</span></a>, <a href="_._/builtins/list_decl.html#list"><span class="Identifier">list</span></a>, <a href="_._/builtins/list_decl.html#<,PyList[A],PyList[B]"><span class="Identifier">&lt;</span></a>, <a href="_._/builtins/list_decl.html#items.i,PyList[T]"><span class="Identifier">items</span></a>, <a href="_._/builtins/list_decl.html#==,PyList[A],PyList[B]"><span class="Identifier">==</span></a>, <a href="_._/builtins/list_decl.html#<=,PyList[A],PyList[B]"><span class="Identifier">&lt;=</span></a>, <a href="_._/builtins/list_decl.html#newPyListOfStr,PyList[string]"><span class="Identifier">newPyListOfStr</span></a>, <a href="_._/builtins/list_decl.html#==,PyList[A],openArray[B]"><span class="Identifier">==</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[int]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#repr,PyList[T: set or string or openArray]"><span class="Identifier">repr</span></a>, <a href="_._/builtins/list_decl.html#asSeq.c,PyList[T]"><span class="Identifier">asSeq</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[float]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#<=,PyList[A],openArray[B]"><span class="Identifier">&lt;=</span></a>, <a href="_._/builtins/list_decl.html#PyList"><span class="Identifier">PyList</span></a>, <a href="_._/builtins/list_decl.html#newPyList,sinkopenArray[char]"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#mitems.i,PyList[T]"><span class="Identifier">mitems</span></a>, <a href="_._/builtins/list_decl.html#newPyListOfCap,int"><span class="Identifier">newPyListOfCap</span></a>, <a href="_._/builtins/list_decl.html#<,PyList[A],openArray[B]"><span class="Identifier">&lt;</span></a>, <a href="_._/builtins/list_decl.html#newPyListOfStr,openArray[string]"><span class="Identifier">newPyListOfStr</span></a>, <a href="_._/builtins/list_decl.html#==.t,openArray[A],PyList[B]"><span class="Identifier">==</span></a>, <a href="_._/builtins/list_decl.html#@,PyList[T]"><span class="Identifier">@</span></a>, <a href="_._/builtins/list_decl.html#checkLenientOps.t,,"><span class="Identifier">checkLenientOps</span></a>, <a href="_._/builtins/list_decl.html#getPtr,sinkPyList[T],"><span class="Identifier">getPtr</span></a>, <a href="_._/builtins/list_decl.html#newPyList,int"><span class="Identifier">newPyList</span></a>, <a href="_._/builtins/list_decl.html#<.t,openArray[A],PyList[B]"><span class="Identifier">&lt;</span></a>, <a href="_._/builtins/list_decl.html#asSeq.c,PyList[T]_2"><span class="Identifier">asSeq</span></a>, <a href="_._/builtins/list_decl.html#pairs.i,PyList[T]"><span class="Identifier">pairs</span></a>, <a href="_._/pystring/strimpl.html#runeLenAt,,Natural"><span class="Identifier">runeLenAt</span></a>, <a href="_._/pystring/strimpl.html#not.t,PyStr"><span class="Identifier">not</span></a>, <a href="_._/pystring/strimpl.html#str,string"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#str.t,O"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#toPyStr.c,string"><span class="Identifier">toPyStr</span></a>, <a href="_._/pystring/strimpl.html#contains,PyStr,PyStr"><span class="Identifier">contains</span></a>, <a href="_._/pystring/strimpl.html#substr,,int,int"><span class="Identifier">substr</span></a>, <a href="_._/pystring/strimpl.html#byteLen"><span class="Identifier">byteLen</span></a>, <a href="_._/pystring/strimpl.html#str,Rune"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#items.i"><span class="Identifier">items</span></a>, <a href="_._/pystring/strimpl.html#StringLike"><span class="Identifier">StringLike</span></a>, <a href="_._/pystring/strimpl.html#==,string,"><span class="Identifier">==</span></a>, <a href="_._/pystring/strimpl.html#str,char"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#toNimString.c"><span class="Identifier">toNimString</span></a>, <a href="_._/pystring/strimpl.html#+,,StringLike"><span class="Identifier">+</span></a>, <a href="_._/pystring/strimpl.html#==,,PyStr"><span class="Identifier">==</span></a>, <a href="_._/pystring/strimpl.html#str,PyStr"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#chars.i"><span class="Identifier">chars</span></a>, <a href="_._/pystring/strimpl.html#contains,PyStr,string"><span class="Identifier">contains</span></a>, <a href="_._/pystring/strimpl.html#and.t,PyStr,PyStr"><span class="Identifier">and</span></a>, <a href="_._/pystring/strimpl.html#getChar,,Natural"><span class="Identifier">getChar</span></a>, <a href="_._/pystring/strimpl.html#$"><span class="Identifier">$</span></a>, <a href="_._/pystring/strimpl.html#len"><span class="Identifier">len</span></a>, <a href="_._/pystring/strimpl.html#+=,,string"><span class="Identifier">+=</span></a>, <a href="_._/pystring/strimpl.html#str.t,T"><span class="Identifier">str</span></a>, <a href="_._/pystring/strimpl.html#+=,,PyStr"><span class="Identifier">+=</span></a>, <a href="_._/pystring/strimpl.html#len,char"><span class="Identifier">len</span></a>, <a href="_._/pystring/strimpl.html#toPyStr.c,char"><span class="Identifier">toPyStr</span></a>, <a href="_._/pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a>, <a href="_._/pystring/strimpl.html#runes.i"><span class="Identifier">runes</span></a>, <a href="_._/pystring/strimpl.html#[],,HSlice[int,BackwardsIndex]"><span class="Identifier">[]</span></a>, <a href="_._/pystring/strimpl.html#==,,string"><span class="Identifier">==</span></a>, <a href="_._/pystring/strimpl.html#runeAtPos,,int"><span class="Identifier">runeAtPos</span></a>, <a href="_._/pystring/strimpl.html#or.t,PyStr,PyStr"><span class="Identifier">or</span></a>, <a href="_._/pystring/strimpl.html#contains,PyStr,char"><span class="Identifier">contains</span></a>, <a href="_._/pystring/strimpl.html#+,,PyStr"><span class="Identifier">+</span></a>, <a href="_._/pystring/strimpl.html#toNimStr"><span class="Identifier">toNimStr</span></a>, <a href="_._/pystring/strimpl.html#fspath"><span class="Identifier">fspath</span></a>, <a href="_._/pystring/strimpl.html#+=,,char"><span class="Identifier">+=</span></a>, <a href="_._/pystring/strimpl.html#toPyStr.c,Rune"><span class="Identifier">toPyStr</span></a>, <a href="_._/pystring/strimpl.html#[],,Slice[int]"><span class="Identifier">[]</span></a>, <a href="_._/pystring/strimpl.html#[],,int"><span class="Identifier">[]</span></a>, <a href="typing_impl/optional_obj.html#==,,NoneType"><span class="Identifier">==</span></a>, <a href="typing_impl/optional_obj.html#unsafeGet.c,OptionalObj[T]"><span class="Identifier">unsafeGet</span></a>, <a href="typing_impl/optional_obj.html#is,,NoneType"><span class="Identifier">is</span></a>, <a href="typing_impl/optional_obj.html#expOptObjCvt.t"><span class="Identifier">expOptObjCvt</span></a>, <a href="typing_impl/optional_obj.html#unsafeToNone.c,OptionalObj[T]"><span class="Identifier">unsafeToNone</span></a>
   </dl>
 </div>
 
@@ -395,7 +382,7 @@ since Python 3.12</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:56:23 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:52:55 UTC</small>
       </div>
     </div>
   </div>

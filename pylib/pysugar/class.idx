@@ -1,2 +1,2 @@
 nimTitle	class	pylib/pysugar/class.html	module src/pylib/pysugar/class		0
-nim	class	pylib/pysugar/class.html#class.m,untyped,untyped	macro class(obj, body: untyped): untyped		5
+nim	class	pylib/pysugar/class.html#class.t,,	template class(obj, body)		36

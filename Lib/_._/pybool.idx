@@ -17,17 +17,17 @@ nim	`or`	_._/pybool.html#or,bool,	proc `or`(b: bool; self: PyBool): PyBool		23
 nim	repr	_._/pybool.html#repr	proc repr(self: PyBool): string		25
 nim	`$`	_._/pybool.html#$	proc `$`(self: PyBool): string		30
 nim	toBool	_._/pybool.html#toBool.t,T	template toBool[T](arg: T): bool		62
-nim	toNimBool	_._/pybool.html#toNimBool.c	converter toNimBool(self: PyBool): bool		90
-nim	pybool	_._/pybool.html#pybool.c,bool	converter pybool(x: bool): PyBool		91
-nim	pybool	_._/pybool.html#pybool.c,T	converter pybool[T](x: T): PyBool		92
-nim	`not`	_._/pybool.html#not,T	proc `not`[T](nself: T): PyBool		102
-nim	`and`	_._/pybool.html#and,T,T	proc `and`[T](nself, npyb: T): T		103
-nim	`or`	_._/pybool.html#or,T,T	proc `or`[T](nself, npyb: T): T		105
-nim	bool	_._/pybool.html#bool,T	proc bool[T](arg: T): PyBool		108
-nim	all	_._/pybool.html#all,Iterable[T]	proc all[T](iter: Iterable[T]): PyBool		110
-nim	any	_._/pybool.html#any,Iterable[T]	proc any[T](iter: Iterable[T]): PyBool		117
+nim	toNimBool	_._/pybool.html#toNimBool.c	converter toNimBool(self: PyBool): bool		92
+nim	pybool	_._/pybool.html#pybool.c,bool	converter pybool(x: bool): PyBool		93
+nim	pybool	_._/pybool.html#pybool.c,T	converter pybool[T](x: T): PyBool		94
+nim	`not`	_._/pybool.html#not,T	proc `not`[T](nself: T): PyBool		104
+nim	`and`	_._/pybool.html#and,T,T	proc `and`[T](nself, npyb: T): T		105
+nim	`or`	_._/pybool.html#or,T,T	proc `or`[T](nself, npyb: T): T		107
+nim	bool	_._/pybool.html#bool,T	proc bool[T](arg: T): PyBool		110
+nim	all	_._/pybool.html#all,Iterable[T]	proc all[T](iter: Iterable[T]): PyBool		112
+nim	any	_._/pybool.html#any,Iterable[T]	proc any[T](iter: Iterable[T]): PyBool		119
 nimgrp	==	_._/pybool.html#==-procs-all	proc		18
 nimgrp	and	_._/pybool.html#and-procs-all	proc		22
 nimgrp	not	_._/pybool.html#not-procs-all	proc		21
 nimgrp	or	_._/pybool.html#or-procs-all	proc		23
-nimgrp	pybool	_._/pybool.html#pybool-converters-all	converter		91
+nimgrp	pybool	_._/pybool.html#pybool-converters-all	converter		93

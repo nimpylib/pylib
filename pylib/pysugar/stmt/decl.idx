@@ -1,0 +1,5 @@
+nimTitle	decl	pylib/pysugar/stmt/decl.html	module src/pylib/pysugar/stmt/decl		0
+nim	parseDeclWithType	pylib/pysugar/stmt/decl.html#parseDeclWithType,NimNode	proc parseDeclWithType(def: NimNode): tuple[name, typ, val: NimNode]		8
+nim	DoXxx	pylib/pysugar/stmt/decl.html#DoXxx	type DoXxx		55
+nim	rewriteDeclAux	pylib/pysugar/stmt/decl.html#rewriteDeclAux.t,NimNode,NimNode,NimNode,DoXxx,DoXxx,DoXxx	template rewriteDeclAux(variable, oriTyp, val: NimNode; typId = oriTyp.ensureType;\n               doLiteral: DoXxx = newConstStmtWithType;\n               doFinal: DoXxx = nnkLetSection.newDecl;\n               doElse: DoXxx = nnkVarSection.newDecl): NimNode		90
+nim	rewriteDeclInStmtAux	pylib/pysugar/stmt/decl.html#rewriteDeclInStmtAux,NimNode,NimNode,NimNode	proc rewriteDeclInStmtAux(variable, oriTyp, val: NimNode; typId = oriTyp.ensureType): NimNode		101

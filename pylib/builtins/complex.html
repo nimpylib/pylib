@@ -66,15 +66,6 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#10" id="60">Consts</a></summary>
-    <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#NimHasBindOverloadSymBugForComplexPow" title="NimHasBindOverloadSymBugForComplexPow = true">NimHasBindOverloadSymBugForComplexPow</a></li>
-
-    </ul>
-  </details>
-</li>
-<li>
-  <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">$
@@ -86,7 +77,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">**=
-  <li><a class="reference" href="#%2A%2A%3D%2CPyTComplex%5BT%5D%2CComplexPowSecondParamType%5BT%5D" title="`**=`[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T])">`**=`[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T])</a></li>
+  <li><a class="reference" href="#%2A%2A%3D%2CPyTComplex%5BT%5D%2C" title="`**=`[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T] | SomeInteger)">`**=`[T](self: var PyTComplex[T]; x: ComplexPowSecondParamType[T] | SomeInteger)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">abs
@@ -116,61 +107,76 @@
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">*
-  <li><a class="reference" href="#%2A.t%2CPyTComplex%2CPyTComplex" title="`*`(a, b: PyTComplex): PyTComplex">`*`(a, b: PyTComplex): PyTComplex</a></li>
-<li><a class="reference" href="#%2A.t%2CI%2CPyTComplex%5BT%5D" title="`*`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]">`*`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2A.t%2CPyTComplex%5BT%5D%2CI" title="`*`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]">`*`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2A.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D" title="`*`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]">`*`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2A.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT" title="`*`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]">`*`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]</a></li>
+  <li><a class="reference" href="#%2A.t%2C%2C" title="`*`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`*`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2A.t%2C%2CSomeInteger" title="`*`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`*`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%2A.t%2C%2CT" title="`*`[T](a: PyTComplex[T]; b: T): untyped">`*`[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#%2A.t%2CSomeInteger%2C" title="`*`[T](a: SomeInteger; b: PyTComplex[T]): untyped">`*`[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2A.t%2CT%2C" title="`*`[T](a: T; b: PyTComplex[T]): untyped">`*`[T](a: T; b: PyTComplex[T]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">**
-  <li><a class="reference" href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CComplexPowSecondParamType%5BT%5D" title="`**`[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]): PyTComplex[T]">`**`[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2A%2A.t%2CPyTComplex%5BT%5D%2Cint" title="`**`[T](self: PyTComplex[T]; x: int): PyTComplex[T]">`**`[T](self: PyTComplex[T]; x: int): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CPyComplex" title="`**`[T](self: PyTComplex[T]; x: PyComplex): PyTComplex[T]">`**`[T](self: PyTComplex[T]; x: PyComplex): PyTComplex[T]</a></li>
+  <li><a class="reference" href="#%2A%2A.t%2C%2C" title="`**`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`**`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2A%2A.t%2C%2CT" title="`**`[T](a: PyTComplex[T]; b: T): untyped">`**`[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#%2A%2A.t%2CSomeInteger%2C" title="`**`[T](a: SomeInteger; b: PyTComplex[T]): untyped">`**`[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2A%2A.t%2CT%2C" title="`**`[T](a: T; b: PyTComplex[T]): untyped">`**`[T](a: T; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CSomeInteger" title="`**`[T](self: PyTComplex[T]; x: SomeInteger): PyTComplex[T]">`**`[T](self: PyTComplex[T]; x: SomeInteger): PyTComplex[T]</a></li>
+<li><a class="reference" href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CstaticNatural" title="`**`[T](self: PyTComplex[T]; x: static Natural): PyTComplex[T]">`**`[T](self: PyTComplex[T]; x: static Natural): PyTComplex[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">*=
-  <li><a class="reference" href="#%2A%3D.t%2CPyTComplex%2CPyTComplex" title="`*=`(a, b: PyTComplex): untyped">`*=`(a, b: PyTComplex): untyped</a></li>
+  <li><a class="reference" href="#%2A%3D.t%2C%2C" title="`*=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`*=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2A%3D.t%2C%2CSomeInteger" title="`*=`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`*=`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%2A%3D.t%2C%2CT" title="`*=`[T](a: PyTComplex[T]; b: T): untyped">`*=`[T](a: PyTComplex[T]; b: T): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">+
-  <li><a class="reference" href="#%2B.t%2CPyTComplex%2CPyTComplex" title="`+`(a, b: PyTComplex): PyTComplex">`+`(a, b: PyTComplex): PyTComplex</a></li>
-<li><a class="reference" href="#%2B.t%2CI%2CPyTComplex%5BT%5D" title="`+`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]">`+`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2B.t%2CPyTComplex%5BT%5D%2CI" title="`+`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]">`+`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2B.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D" title="`+`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]">`+`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2B.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT" title="`+`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]">`+`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]</a></li>
+  <li><a class="reference" href="#%2B.t%2C%2C" title="`+`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`+`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2B.t%2C%2CSomeInteger" title="`+`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`+`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%2B.t%2C%2CT" title="`+`[T](a: PyTComplex[T]; b: T): untyped">`+`[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#%2B.t%2CSomeInteger%2C" title="`+`[T](a: SomeInteger; b: PyTComplex[T]): untyped">`+`[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2B.t%2CT%2C" title="`+`[T](a: T; b: PyTComplex[T]): untyped">`+`[T](a: T; b: PyTComplex[T]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">+=
-  <li><a class="reference" href="#%2B%3D.t%2CPyTComplex%2CPyTComplex" title="`+=`(a, b: PyTComplex): untyped">`+=`(a, b: PyTComplex): untyped</a></li>
+  <li><a class="reference" href="#%2B%3D.t%2C%2C" title="`+=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`+=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2B%3D.t%2C%2CSomeInteger" title="`+=`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`+=`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%2B%3D.t%2C%2CT" title="`+=`[T](a: PyTComplex[T]; b: T): untyped">`+=`[T](a: PyTComplex[T]; b: T): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">-
-  <li><a class="reference" href="#-.t%2CPyTComplex%2CPyTComplex" title="`-`(a, b: PyTComplex): PyTComplex">`-`(a, b: PyTComplex): PyTComplex</a></li>
-<li><a class="reference" href="#-.t%2CI%2CPyTComplex%5BT%5D" title="`-`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]">`-`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#-.t%2CPyTComplex%5BT%5D%2CI" title="`-`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]">`-`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]</a></li>
-<li><a class="reference" href="#-.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D" title="`-`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]">`-`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#-.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT" title="`-`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]">`-`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]</a></li>
+  <li><a class="reference" href="#-.t%2C%2C" title="`-`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`-`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#-.t%2C%2CSomeInteger" title="`-`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`-`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#-.t%2C%2CT" title="`-`[T](a: PyTComplex[T]; b: T): untyped">`-`[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#-.t%2CSomeInteger%2C" title="`-`[T](a: SomeInteger; b: PyTComplex[T]): untyped">`-`[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#-.t%2CT%2C" title="`-`[T](a: T; b: PyTComplex[T]): untyped">`-`[T](a: T; b: PyTComplex[T]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">-=
-  <li><a class="reference" href="#-%3D.t%2CPyTComplex%2CPyTComplex" title="`-=`(a, b: PyTComplex): untyped">`-=`(a, b: PyTComplex): untyped</a></li>
+  <li><a class="reference" href="#-%3D.t%2C%2C" title="`-=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`-=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#-%3D.t%2C%2CSomeInteger" title="`-=`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`-=`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#-%3D.t%2C%2CT" title="`-=`[T](a: PyTComplex[T]; b: T): untyped">`-=`[T](a: PyTComplex[T]; b: T): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">/
-  <li><a class="reference" href="#%2F.t%2CPyTComplex%2CPyTComplex" title="`/`(a, b: PyTComplex): PyTComplex">`/`(a, b: PyTComplex): PyTComplex</a></li>
-<li><a class="reference" href="#%2F.t%2CI%2CPyTComplex%5BT%5D" title="`/`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]">`/`[I: SomeInteger; T](a: I; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2F.t%2CPyTComplex%5BT%5D%2CI" title="`/`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]">`/`[I: SomeInteger; T](z: PyTComplex[T]; a: I): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2F.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D" title="`/`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]">`/`[T: SomeFloat](a: T; z: PyTComplex[T]): PyTComplex[T]</a></li>
-<li><a class="reference" href="#%2F.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT" title="`/`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]">`/`[T: SomeFloat](z: PyTComplex[T]; a: T): PyTComplex[T]</a></li>
+  <li><a class="reference" href="#%2F.t%2C%2C" title="`/`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`/`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2F.t%2C%2CSomeInteger" title="`/`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`/`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%2F.t%2C%2CT" title="`/`[T](a: PyTComplex[T]; b: T): untyped">`/`[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#%2F.t%2CSomeInteger%2C" title="`/`[T](a: SomeInteger; b: PyTComplex[T]): untyped">`/`[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2F.t%2CT%2C" title="`/`[T](a: T; b: PyTComplex[T]): untyped">`/`[T](a: T; b: PyTComplex[T]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">/=
-  <li><a class="reference" href="#%2F%3D.t%2CPyTComplex%2CPyTComplex" title="`/=`(a, b: PyTComplex): untyped">`/=`(a, b: PyTComplex): untyped</a></li>
+  <li><a class="reference" href="#%2F%3D.t%2C%2C" title="`/=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`/=`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%2F%3D.t%2C%2CSomeInteger" title="`/=`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`/=`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%2F%3D.t%2C%2CT" title="`/=`[T](a: PyTComplex[T]; b: T): untyped">`/=`[T](a: PyTComplex[T]; b: T): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">==
-  <li><a class="reference" href="#%3D%3D.t%2CPyTComplex%2CPyTComplex" title="`==`(a, b: PyTComplex): untyped">`==`(a, b: PyTComplex): untyped</a></li>
+  <li><a class="reference" href="#%3D%3D.t%2C%2C" title="`==`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">`==`[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%3D%3D.t%2C%2CSomeInteger" title="`==`[T](a: PyTComplex[T]; b: SomeInteger): untyped">`==`[T](a: PyTComplex[T]; b: SomeInteger): untyped</a></li>
+<li><a class="reference" href="#%3D%3D.t%2C%2CT" title="`==`[T](a: PyTComplex[T]; b: T): untyped">`==`[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#%3D%3D.t%2CSomeInteger%2C" title="`==`[T](a: SomeInteger; b: PyTComplex[T]): untyped">`==`[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#%3D%3D.t%2CT%2C" title="`==`[T](a: T; b: PyTComplex[T]): untyped">`==`[T](a: T; b: PyTComplex[T]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">complex
@@ -186,14 +192,27 @@
   <li><a class="reference" href="#imag%3D.t%2CPyTComplex%5BT%5D%2CT" title="imag=[T](z: PyTComplex[T]; _: T)">imag=[T](z: PyTComplex[T]; _: T)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">j
+  <li><a class="reference" href="#j.t" title="j(i: int{lit}): PyComplex">j(i: int{lit}): PyComplex</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">J
+  <li><a class="reference" href="#J.t_2" title="J(i: int{lit}): PyComplex">J(i: int{lit}): PyComplex</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">pow
-  <li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2CComplexPowSecondParamType%5BT%5D%2CNoneType" title="pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]; _: NoneType): PyTComplex[
-    T]">pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T]; _: NoneType): PyTComplex[
-    T]</a></li>
-<li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2Cint" title="pow[T](self: PyTComplex[T]; x: int): PyTComplex[T]">pow[T](self: PyTComplex[T]; x: int): PyTComplex[T]</a></li>
-<li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2CPyTComplex%5BT%5D" title="pow[T](self: PyTComplex[T]; x: PyTComplex[T]): PyTComplex[T]">pow[T](self: PyTComplex[T]; x: PyTComplex[T]): PyTComplex[T]</a></li>
+  <li><a class="reference" href="#pow.t%2C%2C" title="pow[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped">pow[T](a: PyTComplex[T]; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#pow.t%2C%2CT" title="pow[T](a: PyTComplex[T]; b: T): untyped">pow[T](a: PyTComplex[T]; b: T): untyped</a></li>
+<li><a class="reference" href="#pow.t%2CSomeInteger%2C" title="pow[T](a: SomeInteger; b: PyTComplex[T]): untyped">pow[T](a: SomeInteger; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#pow.t%2CT%2C" title="pow[T](a: T; b: PyTComplex[T]): untyped">pow[T](a: T; b: PyTComplex[T]): untyped</a></li>
+<li><a class="reference" href="#pow.t%2C%2CPyTComplex%5BT%5D%2CNoneType" title="pow[T](self: ComplexPowSecondParamType[T] | SomeInteger; x: PyTComplex[T];
+       _: NoneType): PyTComplex[T]">pow[T](self: ComplexPowSecondParamType[T] | SomeInteger; x: PyTComplex[T];
+       _: NoneType): PyTComplex[T]</a></li>
+<li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2C%2CNoneType" title="pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T] | SomeInteger;
+       _: NoneType): PyTComplex[T]">pow[T](self: PyTComplex[T]; x: ComplexPowSecondParamType[T] | SomeInteger;
+       _: NoneType): PyTComplex[T]</a></li>
+<li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2CSomeInteger" title="pow[T](self: PyTComplex[T]; x: SomeInteger): PyTComplex[T]">pow[T](self: PyTComplex[T]; x: SomeInteger): PyTComplex[T]</a></li>
 <li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2CstaticNatural" title="pow[T](self: PyTComplex[T]; x: static Natural): PyTComplex[T]">pow[T](self: PyTComplex[T]; x: static Natural): PyTComplex[T]</a></li>
-<li><a class="reference" href="#pow.t%2CPyTComplex%5BT%5D%2CT" title="pow[T](self: PyTComplex[T]; x: T): PyTComplex[T]">pow[T](self: PyTComplex[T]; x: T): PyTComplex[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">pycomplex
@@ -233,6 +252,7 @@
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">src</span><span class="Operator">/</span><span class="Identifier">pylib</span><span class="Operator">/</span><span class="Identifier">builtins</span><span class="Operator">/</span><span class="Identifier">complex</span>
 <span class="Identifier">assert</span> <span class="Identifier">complex</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">3</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">complex</span><span class="Punctuation">(</span><span class="StringLit">&quot;1.0+3.0J&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">complex</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">3</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">1</span> <span class="Operator">+</span> <span class="FloatNumber">3.</span><span class="Identifier">J</span>
 
 <span class="Comment"># complex only stores floats, not int,</span>
 <span class="Comment"># just as Python's</span>
@@ -251,8 +271,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L30" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L30" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -261,24 +281,8 @@
   <dd>
     
     generics version of <a class="reference internal nimdoc" title="type PyComplex" href="#PyComplex">PyComplex</a>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-  </dl>
-</div>
-<div class="section" id="10">
-  <h1><a class="toc-backref" href="#10">Consts</a></h1>
-  <dl class="item">
-    <div id="NimHasBindOverloadSymBugForComplexPow">
-  <dt><pre><a href="complex.html#NimHasBindOverloadSymBugForComplexPow"><span class="Identifier">NimHasBindOverloadSymBugForComplexPow</span></a> <span class="Other">=</span> <span class="DecNumber">true</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L265" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L265" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L29" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L29" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -294,8 +298,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L86" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L86" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -306,26 +310,28 @@
   <dt><pre><span class="Keyword">func</span> <a href="#%27j%2Cstaticstring"><span class="Identifier">`'j`</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">static</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyComplex"><span class="Identifier">PyComplex</span></a></pre></dt>
   <dd>
     
-    <p>1+3'j or 1+3'J</p>
-<p>NOTE: Nim disallows custom suffixes without <tt class="docutils literal"><span class="pre"><span class="CharLit">'</span></span></tt>. Therefore, something like <tt class="docutils literal"><span class="pre"><span class="DecNumber">1</span><span class="Operator">+</span><span class="DecNumber">3</span><span class="Identifier">j</span></span></tt> is not not allowed. Consider using <tt class="docutils literal"><span class="pre"><span class="Identifier">complex</span></span></tt> instead.</p>
+    1+3'j or 1+3'J<div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
+Nim disallows custom suffixes without <tt class="docutils literal"><span class="pre"><span class="CharLit">'</span></span></tt>. Therefore, something like <tt class="docutils literal"><span class="pre"><span class="DecNumber">1</span><span class="Operator">+</span><span class="DecNumber">3</span><span class="Identifier">j</span></span></tt> is not not allowed.</div>
+<p>Consider using <tt class="docutils literal"><span class="pre"><span class="Identifier">complex</span></span></tt> or <a class="reference internal nimdoc" title="template j(i: int{lit}): PyComplex" href="#j.t">j</a> instead, which are totaly Python syntax compatiable.</p>
 
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Identifier">assert</span> <span class="DecNumber">1</span><span class="Operator">+</span><span class="DecNumber">3'</span><span class="Identifier">j</span> <span class="Operator">==</span> <span class="FloatNumber">1.0</span><span class="Operator">+</span><span class="FloatNumber">3.0'</span><span class="Identifier">J</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L285" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L285" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L280" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L280" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="**=-procs-all">
-  <div id="**=,PyTComplex[T],ComplexPowSecondParamType[T]">
-  <dt><pre><span class="Keyword">func</span> <a href="#%2A%2A%3D%2CPyTComplex%5BT%5D%2CComplexPowSecondParamType%5BT%5D"><span class="Identifier">`**=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">ComplexPowSecondParamType</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <div id="**=,PyTComplex[T],">
+  <dt><pre><span class="Keyword">func</span> <a href="#%2A%2A%3D%2CPyTComplex%5BT%5D%2C"><span class="Identifier">`**=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span>
+              <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">ComplexPowSecondParamType</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Operator">|</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L277" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L277" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L268" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L268" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -337,8 +343,8 @@
   <dd>
     
     builtins.abs for complex
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L193" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L193" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L204" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L204" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -350,8 +356,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L116" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L116" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -360,8 +366,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L87" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L87" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L96" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L96" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -370,8 +376,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L89" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L89" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -383,8 +389,8 @@
   <dd>
     
     complex.conjugate()
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L195" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L195" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L206" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L206" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -401,8 +407,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">repr</span><span class="Punctuation">(</span><span class="Identifier">complex</span><span class="Punctuation">(</span><span class="Operator">-</span><span class="FloatNumber">0.0</span><span class="Punctuation">,</span> <span class="FloatNumber">3.0</span><span class="Punctuation">)</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;(-0+3j)&quot;</span> <span class="Comment"># not &quot;3j&quot;, as in Python</span>
 
 <span class="Identifier">assert</span> <span class="Identifier">repr</span><span class="Punctuation">(</span><span class="Identifier">complex</span><span class="Punctuation">(</span><span class="FloatNumber">1.0</span><span class="Punctuation">,</span> <span class="FloatNumber">2.0</span><span class="Punctuation">)</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;(1+2j)&quot;</span>  <span class="Comment"># '.0' is removed as Python's</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L49" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L49" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -415,118 +421,28 @@
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
     <div id="*-templates-all">
-  <div id="*.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`*`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">PyTComplex</span></pre></dt>
+  <div id="*.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2C%2C"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L215" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L215" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="*.t,I,PyTComplex[T]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CI%2CPyTComplex%5BT%5D"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="*.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2C%2CSomeInteger"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="*.t,PyTComplex[T],I">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CPyTComplex%5BT%5D%2CI"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L236" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L236" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="*.t,T,PyTComplex[T: SomeFloat]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="*.t,PyTComplex[T: SomeFloat],T">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="**-templates-all">
-  <div id="**.t,PyTComplex[T],ComplexPowSecondParamType[T]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CComplexPowSecondParamType%5BT%5D"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">ComplexPowSecondParamType</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span>
-    <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="**.t,PyTComplex[T],int">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CPyTComplex%5BT%5D%2Cint"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L273" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L273" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="**.t,PyTComplex[T],PyComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CPyComplex"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <a href="complex.html#PyComplex"><span class="Identifier">PyComplex</span></a><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L270" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L270" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="*=-templates-all">
-  <div id="*=.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2A%3D.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`*=`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L219" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L219" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="+-templates-all">
-  <div id="+.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`+`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">PyTComplex</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L213" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L213" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="+.t,I,PyTComplex[T]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CI%2CPyTComplex%5BT%5D"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="*.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2C%2CT"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -535,8 +451,8 @@
 
   </dd>
 </div>
-<div id="+.t,PyTComplex[T],I">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CPyTComplex%5BT%5D%2CI"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="*.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CSomeInteger%2C"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -545,54 +461,223 @@
 
   </dd>
 </div>
-<div id="+.t,T,PyTComplex[T: SomeFloat]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="*.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A.t%2CT%2C"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="+.t,PyTComplex[T: SomeFloat],T">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+
+</div>
+<div id="**-templates-all">
+  <div id="**.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2C%2C"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="**.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2C%2CT"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="**.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CSomeInteger%2C"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="**.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CT%2C"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="**.t,PyTComplex[T],SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CSomeInteger"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L264" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L264" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="**.t,PyTComplex[T],staticNatural">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%2A.t%2CPyTComplex%5BT%5D%2CstaticNatural"><span class="Identifier">`**`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">static</span> <span class="Identifier">Natural</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L255" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L255" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="*=-templates-all">
+  <div id="*=.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%3D.t%2C%2C"><span class="Identifier">`*=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="*=.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%3D.t%2C%2CSomeInteger"><span class="Identifier">`*=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="*=.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2A%3D.t%2C%2CT"><span class="Identifier">`*=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="+-templates-all">
+  <div id="+.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2C%2C"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="+.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2C%2CSomeInteger"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="+.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2C%2CT"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="+.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CSomeInteger%2C"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="+.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B.t%2CT%2C"><span class="Identifier">`+`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="+=-templates-all">
-  <div id="+=.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2B%3D.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`+=`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <div id="+=.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B%3D.t%2C%2C"><span class="Identifier">`+=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L217" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L217" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="+=.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B%3D.t%2C%2CSomeInteger"><span class="Identifier">`+=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="+=.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2B%3D.t%2C%2CT"><span class="Identifier">`+=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="--templates-all">
-  <div id="-.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`-`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">PyTComplex</span></pre></dt>
+  <div id="-.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2C%2C"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L214" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L214" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="-.t,I,PyTComplex[T]">
-  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CI%2CPyTComplex%5BT%5D"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="-.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2C%2CSomeInteger"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="-.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2C%2CT"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -601,64 +686,51 @@
 
   </dd>
 </div>
-<div id="-.t,PyTComplex[T],I">
-  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CPyTComplex%5BT%5D%2CI"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="-.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CSomeInteger%2C"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L235" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L235" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="-.t,T,PyTComplex[T: SomeFloat]">
-  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="-.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CT%2C"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="-.t,PyTComplex[T: SomeFloat],T">
-  <dt><pre><span class="Keyword">template</span> <a href="#-.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT"><span class="Identifier">`-`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="-=-templates-all">
-  <div id="-=.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#-%3D.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`-=`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <div id="-=.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#-%3D.t%2C%2C"><span class="Identifier">`-=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L218" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L218" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-
-</div>
-<div id="/-templates-all">
-  <div id="/.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`/`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">PyTComplex</span></pre></dt>
+<div id="-=.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#-%3D.t%2C%2CSomeInteger"><span class="Identifier">`-=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L216" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L216" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="/.t,I,PyTComplex[T]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CI%2CPyTComplex%5BT%5D"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="-=.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#-%3D.t%2C%2CT"><span class="Identifier">`-=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
@@ -667,59 +739,142 @@
 
   </dd>
 </div>
-<div id="/.t,PyTComplex[T],I">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CPyTComplex%5BT%5D%2CI"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">I</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+
+</div>
+<div id="/-templates-all">
+  <div id="/.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2C%2C"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L237" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L237" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="/.t,T,PyTComplex[T: SomeFloat]">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CT%2CPyTComplex%5BT%3A%20SomeFloat%5D"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="/.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2C%2CSomeInteger"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="/.t,PyTComplex[T: SomeFloat],T">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CPyTComplex%5BT%3A%20SomeFloat%5D%2CT"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">SomeFloat</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="/.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2C%2CT"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L226" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="/.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CSomeInteger%2C"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="/.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F.t%2CT%2C"><span class="Identifier">`/`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="/=-templates-all">
-  <div id="/=.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%2F%3D.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`/=`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <div id="/=.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F%3D.t%2C%2C"><span class="Identifier">`/=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L220" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L220" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="/=.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F%3D.t%2C%2CSomeInteger"><span class="Identifier">`/=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="/=.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%2F%3D.t%2C%2CT"><span class="Identifier">`/=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="==-templates-all">
-  <div id="==.t,PyTComplex,PyTComplex">
-  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2CPyTComplex%2CPyTComplex"><span class="Identifier">`==`</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <div id="==.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2C%2C"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L221" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L221" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==.t,,SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2C%2CSomeInteger"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2C%2CT"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2CSomeInteger%2C"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="==.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3D%3D.t%2CT%2C"><span class="Identifier">`==`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -731,8 +886,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L98" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L98" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -743,8 +898,8 @@
     <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Admonition:</b></span>
 since Python 3.8</div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L103" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L103" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L112" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L112" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -756,8 +911,8 @@ since Python 3.8</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L37" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L37" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -770,42 +925,112 @@ since Python 3.8</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L37" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L37" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L43" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L43" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="j-templates-all">
+  <div id="j.t">
+  <dt><pre><span class="Keyword">template</span> <a href="#j.t"><span class="Identifier">j</span></a><span class="Other">(</span><span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">{</span><span class="Identifier">lit</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyComplex"><span class="Identifier">PyComplex</span></a></pre></dt>
+  <dd>
+    
+    
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Identifier">assert</span> <span class="Identifier">complex</span><span class="Punctuation">(</span><span class="DecNumber">1</span><span class="Punctuation">,</span> <span class="DecNumber">3</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">1</span><span class="Operator">+</span><span class="FloatNumber">3.</span><span class="Identifier">j</span></pre>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L294" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L294" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="J-templates-all">
+  <div id="J.t_2">
+  <dt><pre><span class="Keyword">template</span> <a href="#J.t_2"><span class="Identifier">J</span></a><span class="Other">(</span><span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">{</span><span class="Identifier">lit</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyComplex"><span class="Identifier">PyComplex</span></a></pre></dt>
+  <dd>
+    
+    the same as <a class="reference internal nimdoc" title="template j(i: int{lit}): PyComplex" href="#j.t">j</a>, e.g. <tt class="docutils literal"><span class="pre"><span class="DecNumber">1</span><span class="Operator">+</span><span class="FloatNumber">3.</span><span class="Identifier">J</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L300" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L300" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 <div id="pow-templates-all">
-  <div id="pow.t,PyTComplex[T],ComplexPowSecondParamType[T],NoneType">
-  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CPyTComplex%5BT%5D%2CComplexPowSecondParamType%5BT%5D%2CNoneType"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">ComplexPowSecondParamType</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span>
-                <span class="Operator">_</span><span class="Other">:</span> <a href="../noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <div id="pow.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2C%2C"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L281" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L281" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L227" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="pow.t,PyTComplex[T],int">
-  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CPyTComplex%5BT%5D%2Cint"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="pow.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2C%2CT"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L256" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L256" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="pow.t,PyTComplex[T],PyTComplex[T]">
-  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CPyTComplex%5BT%5D%2CPyTComplex%5BT%5D"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="pow.t,SomeInteger,">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CSomeInteger%2C"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L244" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L244" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L234" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="pow.t,T,">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CT%2C"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="pow.t,,PyTComplex[T],NoneType">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2C%2CPyTComplex%5BT%5D%2CNoneType"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">ComplexPowSecondParamType</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Operator">|</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span>
+                <span class="Identifier">x</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Operator">_</span><span class="Other">:</span> <a href="../noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L278" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L278" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="pow.t,PyTComplex[T],,NoneType">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CPyTComplex%5BT%5D%2C%2CNoneType"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span>
+                <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">ComplexPowSecondParamType</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Operator">|</span> <span class="Identifier">SomeInteger</span><span class="Other">;</span> <span class="Operator">_</span><span class="Other">:</span> <a href="../noneType.html#NoneType"><span class="Identifier">NoneType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span>
+    <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L277" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L277" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="pow.t,PyTComplex[T],SomeInteger">
+  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CPyTComplex%5BT%5D%2CSomeInteger"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L263" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L263" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -814,18 +1039,8 @@ since Python 3.8</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L252" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L252" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="pow.t,PyTComplex[T],T">
-  <dt><pre><span class="Keyword">template</span> <a href="#pow.t%2CPyTComplex%5BT%5D%2CT"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L248" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L248" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L255" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L255" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -837,8 +1052,8 @@ since Python 3.8</div>
   <dd>
     
     alias of <tt class="docutils literal"><span class="pre"><span class="Identifier">complex</span></span></tt>. Useful when import both std/complex and pylib
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L188" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L188" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L197" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L197" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -846,9 +1061,9 @@ since Python 3.8</div>
   <dt><pre><span class="Keyword">template</span> <a href="#pycomplex.t%2CComplex%5BT%5D"><span class="Identifier">pycomplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
-    Convert Nim's Complex in std/complex to PyTComplex
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L82" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L82" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L92" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L92" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -860,8 +1075,8 @@ since Python 3.8</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L37" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L37" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -874,8 +1089,8 @@ since Python 3.8</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -887,8 +1102,8 @@ since Python 3.8</div>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/complex.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/complex.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -904,7 +1119,7 @@ since Python 3.8</div>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:54:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:30 UTC</small>
       </div>
     </div>
   </div>

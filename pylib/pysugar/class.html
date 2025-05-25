@@ -56,15 +56,18 @@
 </li>
 <li>
   <details open>
-    <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
+    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">class
-  <li><a class="reference" href="#class.m%2Cuntyped%2Cuntyped" title="class(obj, body: untyped): untyped">class(obj, body: untyped): untyped</a></li>
+  <li><a class="reference" href="#class.t%2C%2C" title="class(obj, body)">class(obj, body)</a></li>
 
 </ul>
 
     </ul>
   </details>
+</li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
 </li>
 
 </ul>
@@ -83,48 +86,29 @@
     <a class="reference external" href="stmt/class.html">stmt/class</a>, <a class="reference external" href="parserWithCfg.html">parserWithCfg</a>
   </dl>
 </div>
-<div class="section" id="17">
-  <h1><a class="toc-backref" href="#17">Macros</a></h1>
+<div class="section" id="18">
+  <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
-    <div id="class-macros-all">
-  <div id="class.m,untyped,untyped">
-  <dt><pre><span class="Keyword">macro</span> <a href="#class.m%2Cuntyped%2Cuntyped"><span class="Identifier">class</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">,</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+    <div id="class-templates-all">
+  <div id="class.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#class.t%2C%2C"><span class="Identifier">class</span></a><span class="Other">(</span><span class="Identifier">obj</span><span class="Other">,</span> <span class="Identifier">body</span><span class="Other">)</span></pre></dt>
   <dd>
     
-    wrapper of <a class="reference external" href="./stmt/tonim.html">classImpl proc</a>
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Identifier">class</span> <span class="Identifier">O</span><span class="Punctuation">:</span>
-  <span class="StringLit">&quot;doc&quot;</span>
-  <span class="Identifier">a</span><span class="Punctuation">:</span> <span class="Identifier">int</span>
-  <span class="Identifier">b</span> <span class="Operator">=</span> <span class="DecNumber">2</span>
-  <span class="Identifier">c</span><span class="Punctuation">:</span> <span class="Identifier">int</span> <span class="Operator">=</span> <span class="DecNumber">1</span>
-  <span class="Identifier">def</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Keyword">return</span> <span class="Identifier">self</span><span class="Operator">.</span><span class="Identifier">b</span>
-<span class="Identifier">assert</span> <span class="Identifier">O</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
-
-<span class="Identifier">class</span> <span class="Identifier">O1</span><span class="Punctuation">(</span><span class="Identifier">O</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-  <span class="Identifier">a1</span> <span class="Operator">=</span> <span class="Operator">-</span><span class="DecNumber">1</span>
-  <span class="Identifier">def</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Keyword">return</span> <span class="Identifier">self</span><span class="Operator">.</span><span class="Identifier">a1</span>
-<span class="Identifier">assert</span> <span class="Identifier">O1</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">a</span> <span class="Operator">==</span> <span class="DecNumber">0</span>
-<span class="Identifier">assert</span> <span class="Identifier">O</span><span class="Punctuation">(</span><span class="Identifier">O1</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">-</span><span class="DecNumber">1</span>
-
-<span class="Comment"># will error: class OO(O1, O): aaa = 1</span>
-
-<span class="Identifier">class</span> <span class="Identifier">C</span><span class="Punctuation">:</span>
-  <span class="Identifier">def</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">:</span> <span class="Identifier">float</span><span class="Punctuation">)</span> <span class="Operator">-&gt;</span> <span class="Identifier">int</span><span class="Punctuation">:</span> <span class="Keyword">return</span> <span class="DecNumber">1</span><span class="Operator">+</span><span class="Identifier">int</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">C</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="DecNumber">2</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">3</span>
-
-<span class="Identifier">class</span> <span class="Identifier">CC</span><span class="Punctuation">(</span><span class="Identifier">C</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-  <span class="Identifier">def</span> <span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">:</span> <span class="Identifier">float</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">CC</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="DecNumber">2</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">3</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/class.nim#L5" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/class.nim#L5" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/class.nim#L36" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/class.nim#L36" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
+  </dl>
+</div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="stmt/class.html#new.t,typedesc[R],typedesc[T],varargs[untyped]"><span class="Identifier">new</span></a>, <a href="stmt/class.html#init_subclass,typedesc[T]"><span class="Identifier">init_subclass</span></a>
   </dl>
 </div>
 
@@ -134,7 +118,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:55:14 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:44 UTC</small>
       </div>
     </div>
   </div>

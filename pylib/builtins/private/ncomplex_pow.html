@@ -59,7 +59,7 @@
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">c_powi
-  <li><a class="reference" href="#c_powi%2CComplex%5BT%5D%2Cint" title="c_powi[T](x: Complex[T]; i: int): Complex[T]">c_powi[T](x: Complex[T]; i: int): Complex[T]</a></li>
+  <li><a class="reference" href="#c_powi%2CComplex%5BT%5D%2CSomeInteger" title="c_powi[T](x: Complex[T]; i: SomeInteger): Complex[T]">c_powi[T](x: Complex[T]; i: SomeInteger): Complex[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">c_powu
@@ -68,7 +68,7 @@
 </ul>
 <ul class="simple nested-toc-section">pow
   <li><a class="reference" href="#pow%2CComplex%5BT%5D%2CComplex%5BT%5D" title="pow[T](a, b: Complex[T]): Complex[T]">pow[T](a, b: Complex[T]): Complex[T]</a></li>
-<li><a class="reference" href="#pow%2CComplex%5BT%5D%2Cint" title="pow[T](self: Complex[T]; i: int): Complex[T]">pow[T](self: Complex[T]; i: int): Complex[T]</a></li>
+<li><a class="reference" href="#pow%2CComplex%5BT%5D%2CSomeInteger" title="pow[T](self: Complex[T]; i: SomeInteger): Complex[T]">pow[T](self: Complex[T]; i: SomeInteger): Complex[T]</a></li>
 <li><a class="reference" href="#pow%2CComplex%5BT%5D%2CstaticNatural" title="pow[T](self: Complex[T]; n: static Natural): Complex[T]">pow[T](self: Complex[T]; n: static Natural): Complex[T]</a></li>
 
 </ul>
@@ -90,7 +90,12 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc"></p>
+    <p class="module-desc">why this module doesn't use <tt class="docutils literal"><span class="pre"><span class="Identifier">pow</span></span></tt> in std/complex (we call it <tt class="docutils literal"><span class="pre"><span class="Identifier">ncomplex</span><span class="Operator">.</span><span class="Identifier">pow</span></span></tt> below):<ul class="simple"><li>For integer 2nd arg, we'll use <a class="reference internal nimdoc" title="proc c_powi[T](x: Complex[T]; i: SomeInteger): Complex[T]" href="#c_powi,Complex[T],SomeInteger">c_powi</a> or <tt class="docutils literal"><span class="pre"><span class="Identifier">c_powu</span></span></tt>,</li>
+</ul>
+<p>which produce more precious result than ncomplex.pow</p>
+<ul class="simple"><li>ncomplex.pow doesn't raise any exception</li>
+</ul>
+</p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
@@ -101,13 +106,13 @@
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
     <div id="c_powi-procs-all">
-  <div id="c_powi,Complex[T],int">
-  <dt><pre><span class="Keyword">func</span> <a href="#c_powi%2CComplex%5BT%5D%2Cint"><span class="Identifier">c_powi</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> </span><span class="Identifier">inline</span>.}</pre></dt>
+  <div id="c_powi,Complex[T],SomeInteger">
+  <dt><pre><span class="Keyword">func</span> <a href="#c_powi%2CComplex%5BT%5D%2CSomeInteger"><span class="Identifier">c_powi</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> </span><span class="Identifier">inline</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L139" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L139" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -119,8 +124,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L134" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L134" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L137" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L137" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -132,18 +137,18 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L154" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L154" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L157" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L157" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="pow,Complex[T],int">
-  <dt><pre><span class="Keyword">func</span> <a href="#pow%2CComplex%5BT%5D%2Cint"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<div id="pow,Complex[T],SomeInteger">
+  <dt><pre><span class="Keyword">func</span> <a href="#pow%2CComplex%5BT%5D%2CSomeInteger"><span class="Identifier">pow</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">SomeInteger</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Complex</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L166" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L166" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L169" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L169" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -152,8 +157,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L171" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L171" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L174" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L174" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -165,8 +170,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L176" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L176" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/ncomplex_pow.nim#L179" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/ncomplex_pow.nim#L179" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -182,7 +187,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:54:57 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:29 UTC</small>
       </div>
     </div>
   </div>

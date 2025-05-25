@@ -1,10 +1,11 @@
 nimTitle	tonim	pylib/pysugar/stmt/tonim.html	module src/pylib/pysugar/stmt/tonim		0
-nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody,,NimNode	proc parsePyBody(mparser; body: NimNode): NimNode		31
-nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode): NimNode		32
-nim	parsePyStmt	pylib/pysugar/stmt/tonim.html#parsePyStmt,,NimNode	proc parsePyStmt(mparser; statement: NimNode): NimNode		52
-nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode; docNode: var NimNode): NimNode		229
-nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody.t,NimNode	template parsePyBody(body: NimNode): NimNode		240
-nimgrp	parsepybodywithdoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc-procs-all	proc		32
+nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody,,NimNode	proc parsePyBody(mparser; body: NimNode): NimNode		32
+nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode): NimNode		33
+nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode; docNode: var NimNode): NimNode		34
+nim	parsePyExpr	pylib/pysugar/stmt/tonim.html#parsePyExpr,,NimNode	proc parsePyExpr(mparser; exp: NimNode): NimNode		45
+nim	parsePyStmt	pylib/pysugar/stmt/tonim.html#parsePyStmt,,NimNode	proc parsePyStmt(mparser; statement: NimNode): NimNode		58
+nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody.t,NimNode	template parsePyBody(body: NimNode): NimNode		251
+nimgrp	parsepybodywithdoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc-procs-all	proc		33
 heading	Limits	pylib/pysugar/stmt/tonim.html#limits	  Limits		0
 heading	global/nonlocal for nonexisting variable	pylib/pysugar/stmt/tonim.html#limits-globalslashnonlocal-for-nonexisting-variable	   global/nonlocal for nonexisting variable		0
 heading	global/nonlocal only means nimnot local, with some limited checks	pylib/pysugar/stmt/tonim.html#limits-globalslashnonlocal-only-means-nimnot-local-with-some-limited-checks	   global/nonlocal only means <tt class="docutils literal"><span class="pre"><span class="Keyword">not</span> <span class="Identifier">local</span></span></tt>, with some limited checks		0

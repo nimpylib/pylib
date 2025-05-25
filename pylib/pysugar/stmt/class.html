@@ -54,6 +54,8 @@
   <ul class="simple"><li><a class="reference" id="notecolon_toc" href="#notecolon"><em>NOTE</em>:</a></li>
 <ul class="simple"><li><a class="reference" id="notecolon-method-overwrite_toc" href="#notecolon-method-overwrite">Method Overwrite</a></li>
 <li><a class="reference" id="notecolon-nimsuper-function_toc" href="#notecolon-nimsuper-function"><tt class="docutils literal"><span class="pre"><span class="Identifier">super</span></span></tt> function</a></li>
+<li><a class="reference" id="Z1dot_toc" href="#Z1dot">1.</a></li>
+<li><a class="reference" id="Z2_toc" href="#Z2">2</a></li>
 </ul></ul><li>
   <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
 </li>
@@ -62,11 +64,29 @@
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">classImpl
-  <li><a class="reference" href="#classImpl%2CPySyntaxProcesser%2CNimNode%2CNimNode" title="classImpl(parser: var PySyntaxProcesser; obj, body: NimNode): NimNode">classImpl(parser: var PySyntaxProcesser; obj, body: NimNode): NimNode</a></li>
+  <li><a class="reference" href="#classImpl%2CPySyntaxProcesser%2CNimNode%2CNimNode" title="classImpl(parser: var PySyntaxProcesser; obj, body: NimNode; topLevel = true): NimNode">classImpl(parser: var PySyntaxProcesser; obj, body: NimNode; topLevel = true): NimNode</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">init_subclass
+  <li><a class="reference" href="#init_subclass%2Ctypedesc%5BT%5D" title="init_subclass[T: ref](cls: typedesc[T])">init_subclass[T: ref](cls: typedesc[T])</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">recReplaceSuperCall
-  <li><a class="reference" href="#recReplaceSuperCall%2CNimNode%2CNimNode%2Cint" title="recReplaceSuperCall(n: NimNode; defSupCls: NimNode; start = 0): NimNode">recReplaceSuperCall(n: NimNode; defSupCls: NimNode; start = 0): NimNode</a></li>
+  <li><a class="reference" href="#recReplaceSuperCall%2CNimNode%2CNimNode%2Cint" title="recReplaceSuperCall(n: NimNode; defSupCls: NimNode; start = 0; methKind = mkNorm): NimNode">recReplaceSuperCall(n: NimNode; defSupCls: NimNode; start = 0; methKind = mkNorm): NimNode</a></li>
+
+</ul>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">new
+  <li><a class="reference" href="#new.t%2Ctypedesc%5BR%5D%2Ctypedesc%5BT%5D%2Cvarargs%5Buntyped%5D" title="new[T; R: ref](_: typedesc[R]; cls: typedesc[T]; _: varargs[untyped]): typedesc[
+    T]">new[T; R: ref](_: typedesc[R]; cls: typedesc[T]; _: varargs[untyped]): typedesc[
+    T]</a></li>
 
 </ul>
 
@@ -87,7 +107,7 @@
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
   <dl class="item">
-    <a class="reference external" href="frame.html">frame</a>, <a class="reference external" href="funcSignature.html">funcSignature</a>, <a class="reference external" href="decorator.html">decorator</a>, <a class="reference external" href="tonim.html">tonim</a>, <a class="reference external" href="types.html">types</a>, <a class="reference external" href="pydef.html">pydef</a>
+    <a class="reference external" href="frame.html">frame</a>, <a class="reference external" href="funcSignature.html">funcSignature</a>, <a class="reference external" href="decorator.html">decorator</a>, <a class="reference external" href="types.html">types</a>, <a class="reference external" href="decl.html">decl</a>, <a class="reference external" href="pydef.html">pydef</a>, <a class="reference external" href="../../noneType.html">../../noneType</a>, <a class="reference external" href="../../pystring/strimpl.html">../../pystring/strimpl</a>, <a class="reference external" href="../../builtins/list.html">../../builtins/list</a>
   </dl>
 </div>
 <div class="section" id="12">
@@ -95,7 +115,8 @@
   <dl class="item">
     <div id="classImpl-procs-all">
   <div id="classImpl,PySyntaxProcesser,NimNode,NimNode">
-  <dt><pre><span class="Keyword">proc</span> <a href="#classImpl%2CPySyntaxProcesser%2CNimNode%2CNimNode"><span class="Identifier">classImpl</span></a><span class="Other">(</span><span class="Identifier">parser</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types.html#PySyntaxProcesser"><span class="Identifier">PySyntaxProcesser</span></a><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">,</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">NimNode</span></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#classImpl%2CPySyntaxProcesser%2CNimNode%2CNimNode"><span class="Identifier">classImpl</span></a><span class="Other">(</span><span class="Identifier">parser</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types.html#PySyntaxProcesser"><span class="Identifier">PySyntaxProcesser</span></a><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">,</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">;</span>
+               <span class="Identifier">topLevel</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">NimNode</span></pre></dt>
   <dd>
     
     <p>minic Python's <tt class="docutils literal"><span class="pre"><span class="Identifier">class</span></span></tt>.</p>
@@ -116,8 +137,21 @@
 <p>For the precious one, as now <tt class="docutils literal"><span class="pre"><span class="Identifier">super</span></span></tt> is implemented via Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">procCall</span></span></tt>, it's not easy to bind <tt class="docutils literal"><span class="pre"><span class="Identifier">super</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>(aka. a <tt class="docutils literal"><span class="pre"><span class="Identifier">SupCls</span></span></tt> instance) to a variable.</p>
 <p>For the latter one, as Nim doesn't allow override <tt class="docutils literal"><span class="pre"><span class="Identifier">SupCls</span></span></tt>'s attr (lead to a compile-error), so if wantting the attr inherited from SupCls, just write it as-is (e.g. <tt class="docutils literal"><span class="pre"><span class="Identifier">self</span><span class="Operator">.</span><span class="Identifier">a</span></span></tt>) (Technologically, it can be implemented via <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">macros</span></span></tt> <tt class="docutils literal"><span class="pre"><span class="Identifier">owner</span></span></tt>) </p>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/class.nim#L194" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/class.nim#L194" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/class.nim#L286" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/class.nim#L286" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="init_subclass-procs-all">
+  <div id="init_subclass,typedesc[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#init_subclass%2Ctypedesc%5BT%5D"><span class="Identifier">init_subclass</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Keyword">ref</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">cls</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    py's <tt class="docutils literal"><span class="pre"><span class="Keyword">object</span><span class="Operator">.</span><span class="Identifier">__init_subclass__</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/class.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/class.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -125,18 +159,20 @@
 </div>
 <div id="recReplaceSuperCall-procs-all">
   <div id="recReplaceSuperCall,NimNode,NimNode,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#recReplaceSuperCall%2CNimNode%2CNimNode%2Cint"><span class="Identifier">recReplaceSuperCall</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">;</span> <span class="Identifier">defSupCls</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">NimNode</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#recReplaceSuperCall%2CNimNode%2CNimNode%2Cint"><span class="Identifier">recReplaceSuperCall</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">;</span> <span class="Identifier">defSupCls</span><span class="Other">:</span> <span class="Identifier">NimNode</span><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span>
+                         <span class="Identifier">methKind</span> <span class="Other">=</span> <span class="Identifier">mkNorm</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">NimNode</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <p>Recursively maps <tt class="docutils literal"><span class="pre"><span class="Identifier">super</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span></span></tt> to <tt class="docutils literal"><span class="pre"><span class="Identifier">procCall</span><span class="Punctuation">(</span><span class="Operator">&lt;</span><span class="Identifier">SuperClass</span><span class="Operator">&gt;</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span><span class="Punctuation">)</span></span></tt></p>
+    Recursively maps
+<h3><a class="toc-backref" id="Z1dot" href="#Z1dot">1.</a></h3><p><tt class="docutils literal"><span class="pre"><span class="Identifier">super</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span></span></tt> to <tt class="docutils literal"><span class="pre"><span class="Identifier">procCall</span><span class="Punctuation">(</span><span class="Operator">&lt;</span><span class="Identifier">SuperClass</span><span class="Operator">&gt;</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span><span class="Punctuation">)</span></span></tt></p>
 <p>The AST map:</p>
 <p><pre class="listing"><span class="Identifier">Call</span>
 <span class="Identifier">DotExpr</span>
 <span class="Identifier">Call</span>
   <span class="Identifier">Ident</span> <span class="StringLit">&quot;super&quot;</span>
-  <span class="Punctuation">[</span><span class="Identifier">Ident</span> <span class="StringLit">&quot;self&quot;</span><span class="Punctuation">]</span>
   <span class="Punctuation">[</span><span class="Operator">&lt;</span><span class="Identifier">SuperClass</span><span class="Operator">&gt;</span><span class="Punctuation">]</span>
+  <span class="Punctuation">[</span><span class="Identifier">Ident</span> <span class="StringLit">&quot;self&quot;</span><span class="Punctuation">]</span>
 <span class="Identifier">Ident</span> <span class="StringLit">&quot;f&quot;</span>
 <span class="Operator">&lt;</span><span class="Identifier">args</span><span class="Operator">&gt;</span>
 
@@ -151,7 +187,10 @@
   <span class="Identifier">Call</span>
     <span class="Operator">&lt;</span><span class="Identifier">SuperClass</span><span class="Operator">&gt;</span>
     <span class="Identifier">Ident</span> <span class="StringLit">&quot;self&quot;</span>
-  <span class="Identifier">Ident</span> <span class="StringLit">&quot;f&quot;</span></pre>  </p>
+  <span class="Identifier">Ident</span> <span class="StringLit">&quot;f&quot;</span>
+<span class="Operator">&lt;</span><span class="Identifier">args</span><span class="Operator">&gt;</span></pre></p>
+
+<h3><a class="toc-backref" id="Z2" href="#Z2">2</a></h3><p><tt class="docutils literal"><span class="pre"><span class="Identifier">super</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">new</span><span class="Operator">/</span><span class="Identifier">init_subclass</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span></span></tt> to <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;</span><span class="Identifier">SuperClass</span><span class="Operator">&gt;.</span><span class="Identifier">new</span><span class="Operator">/</span><span class="Identifier">init_subclass</span><span class="Punctuation">(</span><span class="Operator">...</span><span class="Punctuation">)</span></span></tt> </p>
 
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Punctuation">[</span><span class="Identifier">macros</span><span class="Punctuation">,</span> <span class="Identifier">strutils</span><span class="Punctuation">]</span>
@@ -162,7 +201,7 @@
 <span class="Identifier">checkSupSub</span><span class="Punctuation">(</span><span class="StringLit">&quot;procCall(SupCls(self).f())&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
   <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
 <span class="Identifier">checkSupSub</span><span class="Punctuation">(</span><span class="StringLit">&quot;procCall(SS(self).f(a, b))&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-  <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Identifier">self</span><span class="Punctuation">,</span> <span class="Identifier">SS</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">)</span>
+  <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Identifier">SS</span><span class="Punctuation">,</span> <span class="Identifier">self</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">)</span>
 <span class="Identifier">checkSupSub</span><span class="Punctuation">(</span><span class="StringLit">&quot;a = procCall(SupCls(self).f(a, b))&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
   <span class="Identifier">a</span> <span class="Operator">=</span> <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">f</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">,</span> <span class="Identifier">b</span><span class="Punctuation">)</span>
 <span class="Identifier">checkSupSub</span><span class="Punctuation">(</span><span class="StringLit">&quot;a = procCall(SupCls(self).f(procCall(SupCls(self).m()), b))&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
@@ -172,8 +211,28 @@
 <span class="Comment"># NOTE: the following is not supported, so left unchanged</span>
 <span class="Identifier">checkSupSub</span><span class="Punctuation">(</span><span class="StringLit">&quot;super()&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
 <span class="Identifier">checkSupSub</span><span class="Punctuation">(</span><span class="StringLit">&quot;super().a&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">super</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">a</span></pre>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/class.nim#L56" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/class.nim#L56" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/class.nim#L70" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/class.nim#L70" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+
+  </dl>
+</div>
+<div class="section" id="18">
+  <h1><a class="toc-backref" href="#18">Templates</a></h1>
+  <dl class="item">
+    <div id="new-templates-all">
+  <div id="new.t,typedesc[R],typedesc[T],varargs[untyped]">
+  <dt><pre><span class="Keyword">template</span> <a href="#new.t%2Ctypedesc%5BR%5D%2Ctypedesc%5BT%5D%2Cvarargs%5Buntyped%5D"><span class="Identifier">new</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">R</span><span class="Other">:</span> <span class="Keyword">ref</span><span class="Other">]</span><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">R</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">cls</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span>
+    <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    py's <tt class="docutils literal"><span class="pre"><span class="Keyword">object</span><span class="Operator">.</span><span class="Identifier">__new__</span></span></tt>
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar/stmt/class.nim#L61" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar/stmt/class.nim#L61" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -189,7 +248,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:55:13 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:43 UTC</small>
       </div>
     </div>
   </div>

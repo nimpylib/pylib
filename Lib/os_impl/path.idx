@@ -1,22 +1,23 @@
 nimTitle	path	os_impl/path.html	module src/pylib/Lib/os_impl/path		0
-nim	isabs	os_impl/path.html#isabs,PathLike	proc isabs(s: PathLike): bool		36
-nim	isfile	os_impl/path.html#isfile,PathLike	proc isfile(s: PathLike): bool		37
-nim	isdir	os_impl/path.html#isdir,PathLike	proc isdir(s: PathLike): bool		38
-nim	islink	os_impl/path.html#islink,PathLike	proc islink(s: PathLike): bool		39
-nim	dirname	os_impl/path.html#dirname,PathLike[T]	proc dirname[T](s: PathLike[T]): T		41
-nim	basename	os_impl/path.html#basename,PathLike[T]	proc basename[T](s: PathLike[T]): T		43
-nim	abspath	os_impl/path.html#abspath,PathLike[T]	proc abspath[T](s: PathLike[T]): T		45
-nim	normpath	os_impl/path.html#normpath,PathLike[T]	proc normpath[T](s: PathLike[T]): T		46
-nim	relpath	os_impl/path.html#relpath,PathLike[T]	proc relpath[T](p: PathLike[T]; start = curdir): T		48
-nim	getctime	os_impl/path.html#getctime,PathLike[T]	proc getctime[T](p: PathLike[T]): float		58
-nim	getmtime	os_impl/path.html#getmtime,PathLike[T]	proc getmtime[T](p: PathLike[T]): float		59
-nim	getatime	os_impl/path.html#getatime,PathLike[T]	proc getatime[T](p: PathLike[T]): float		60
-nim	getsize	os_impl/path.html#getsize,PathLike[T]	proc getsize[T](filename: PathLike[T]): int		62
-nim	samefile	os_impl/path.html#samefile,PathLike,PathLike	proc samefile(a, b: PathLike): bool		66
-nim	split	os_impl/path.html#split,PathLike[T]	proc split[T](p: PathLike[T]): (T, T)		74
-nim	splitdrive	os_impl/path.html#splitdrive,PathLike[T]	proc splitdrive[T](p: PathLike[T]): (T, T)		75
-nim	splitext	os_impl/path.html#splitext,PathLike[T]	proc splitext[T](p: PathLike[T]): (T, T)		78
-nim	join	os_impl/path.html#join,PathLike[T],PathLike[T]	proc join[T](a, b: PathLike[T]): T		91
-nim	join	os_impl/path.html#join,PathLike[T],PathLike[T],PathLike[T],varargs[PathLike[T]]	proc join[T](a, b, c: PathLike[T]; ps: varargs[PathLike[T]]): T		95
-nim	samestat	os_impl/path.html#samestat,stat_result,stat_result	proc samestat(s1, s2: stat_result): bool		102
-nimgrp	join	os_impl/path.html#join-procs-all	proc		91
+nim	isabs	os_impl/path.html#isabs,PathLike	proc isabs(s: PathLike): bool		37
+nim	isfile	os_impl/path.html#isfile,PathLike	proc isfile(s: PathLike): bool		38
+nim	isdir	os_impl/path.html#isdir,PathLike	proc isdir(s: PathLike): bool		39
+nim	islink	os_impl/path.html#islink,PathLike	proc islink(s: PathLike): bool		40
+nim	dirname	os_impl/path.html#dirname,PathLike[T]	proc dirname[T](s: PathLike[T]): T		42
+nim	basename	os_impl/path.html#basename,PathLike[T]	proc basename[T](s: PathLike[T]): T		44
+nim	abspath	os_impl/path.html#abspath,PathLike[T]	proc abspath[T](s: PathLike[T]): T		46
+nim	normpath	os_impl/path.html#normpath,PathLike[T]	proc normpath[T](s: PathLike[T]): T		47
+nim	relpath	os_impl/path.html#relpath,PathLike[T]	proc relpath[T](p: PathLike[T]; start = curdir): T		49
+nim	getctime	os_impl/path.html#getctime,PathLike[T]	proc getctime[T](p: PathLike[T]): float		59
+nim	getmtime	os_impl/path.html#getmtime,PathLike[T]	proc getmtime[T](p: PathLike[T]): float		60
+nim	getatime	os_impl/path.html#getatime,PathLike[T]	proc getatime[T](p: PathLike[T]): float		61
+nim	getsize	os_impl/path.html#getsize,PathLike[T]	proc getsize[T](filename: PathLike[T]): int		63
+nim	samefile	os_impl/path.html#samefile,PathLike,PathLike	proc samefile(a, b: PathLike): bool		67
+nim	split	os_impl/path.html#split,PathLike[T]	proc split[T](p: PathLike[T]): (T, T)		75
+nim	splitdrive	os_impl/path.html#splitdrive,PathLike[T]	proc splitdrive[T](p: PathLike[T]): (T, T)		76
+nim	splitext	os_impl/path.html#splitext,PathLike[T]	proc splitext[T](p: PathLike[T]): (T, T)		79
+nim	nestListWithFirst	os_impl/path.html#nestListWithFirst,NimNode,NimNode,NimNode	proc nestListWithFirst(op: NimNode; pack: NimNode; first: NimNode): NimNode		94
+nim	join	os_impl/path.html#join.m,PathLike[T],varargs[PathLike[T]]	macro join[T](a: PathLike[T]; ps: varargs[PathLike[T]]): T		105
+nim	join	os_impl/path.html#join.m,T,varargs[T]	macro join[T: PyStr | PyBytes](a: T; ps: varargs[T]): T		110
+nim	samestat	os_impl/path.html#samestat,stat_result,stat_result	proc samestat(s1, s2: stat_result): bool		113
+nimgrp	join	os_impl/path.html#join-macros-all	macro		105

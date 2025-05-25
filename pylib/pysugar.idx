@@ -1,5 +1,5 @@
 nimTitle	pysugar	pylib/pysugar.html	module src/pylib/pysugar		0
 nim	pass	pylib/pysugar.html#pass.t	template pass()		19
 nim	lambda	pylib/pysugar.html#lambda.t,untyped	template lambda(code: untyped): untyped		21
-nim	`:=`	pylib/pysugar.html#:=.t,untyped,untyped	template `:=`(name, value: untyped): untyped		24
-nim	del	pylib/pysugar.html#del.m,untyped	macro del(seqIdx: untyped)		29
+nim	`:=`	pylib/pysugar.html#:=.t,,T	template `:=`[T](name; value: T): T		24
+nim	del	pylib/pysugar.html#del.m,untyped	macro del(seqIdx: untyped)		31

@@ -56,7 +56,19 @@
     <summary><a class="reference reference-toplevel" href="#17" id="67">Macros</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">AC_CHECK_FUNCS
-  <li><a class="reference" href="#AC_CHECK_FUNCS.m%2Cvarargs%5Buntyped%5D" title="AC_CHECK_FUNCS(functions: varargs[untyped]): untyped">AC_CHECK_FUNCS(functions: varargs[untyped]): untyped</a></li>
+  <li><a class="reference" href="#AC_CHECK_FUNCS.m%2Cvarargs%5Buntyped%5D" title="AC_CHECK_FUNCS(xs: varargs[untyped]): untyped">AC_CHECK_FUNCS(xs: varargs[untyped]): untyped</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">AC_CHECK_HEADER
+  <li><a class="reference" href="#AC_CHECK_HEADER.m" title="AC_CHECK_HEADER(header)">AC_CHECK_HEADER(header)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">AC_CHECK_HEADER_THEN_FUNCS
+  <li><a class="reference" href="#AC_CHECK_HEADER_THEN_FUNCS.m%2C%2C" title="AC_CHECK_HEADER_THEN_FUNCS(header; functions)">AC_CHECK_HEADER_THEN_FUNCS(header; functions)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">AC_CHECK_HEADERS
+  <li><a class="reference" href="#AC_CHECK_HEADERS.m%2Cvarargs%5Buntyped%5D" title="AC_CHECK_HEADERS(xs: varargs[untyped]): untyped">AC_CHECK_HEADERS(xs: varargs[untyped]): untyped</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">from_c_int_expr
@@ -78,6 +90,10 @@
       <ul class="simple nested-toc-section">AC_CHECK_FUNC
   <li><a class="reference" href="#AC_CHECK_FUNC.t" title="AC_CHECK_FUNC(function)">AC_CHECK_FUNC(function)</a></li>
 <li><a class="reference" href="#AC_CHECK_FUNC.t%2C%2C" title="AC_CHECK_FUNC(res, function)">AC_CHECK_FUNC(res, function)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">AC_CHECK_HEADER
+  <li><a class="reference" href="#AC_CHECK_HEADER.t%2C%2C" title="AC_CHECK_HEADER(res, header)">AC_CHECK_HEADER(res, header)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">AC_LINK_IFELSE
@@ -126,12 +142,51 @@
   <dl class="item">
     <div id="AC_CHECK_FUNCS-macros-all">
   <div id="AC_CHECK_FUNCS.m,varargs[untyped]">
-  <dt><pre><span class="Keyword">macro</span> <a href="#AC_CHECK_FUNCS.m%2Cvarargs%5Buntyped%5D"><span class="Identifier">AC_CHECK_FUNCS</span></a><span class="Other">(</span><span class="Identifier">functions</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dt><pre><span class="Keyword">macro</span> <a href="#AC_CHECK_FUNCS.m%2Cvarargs%5Buntyped%5D"><span class="Identifier">AC_CHECK_FUNCS</span></a><span class="Other">(</span><span class="Identifier">xs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L196" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L196" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L206" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L206" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="AC_CHECK_HEADER-macros-all">
+  <div id="AC_CHECK_HEADER.m">
+  <dt><pre><span class="Keyword">macro</span> <a href="#AC_CHECK_HEADER.m"><span class="Identifier">AC_CHECK_HEADER</span></a><span class="Other">(</span><span class="Identifier">header</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L219" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L219" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="AC_CHECK_HEADER_THEN_FUNCS-macros-all">
+  <div id="AC_CHECK_HEADER_THEN_FUNCS.m,,">
+  <dt><pre><span class="Keyword">macro</span> <a href="#AC_CHECK_HEADER_THEN_FUNCS.m%2C%2C"><span class="Identifier">AC_CHECK_HEADER_THEN_FUNCS</span></a><span class="Other">(</span><span class="Identifier">header</span><span class="Other">;</span> <span class="Identifier">functions</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L229" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L229" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="AC_CHECK_HEADERS-macros-all">
+  <div id="AC_CHECK_HEADERS.m,varargs[untyped]">
+  <dt><pre><span class="Keyword">macro</span> <a href="#AC_CHECK_HEADERS.m%2Cvarargs%5Buntyped%5D"><span class="Identifier">AC_CHECK_HEADERS</span></a><span class="Other">(</span><span class="Identifier">xs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L219" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L219" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -175,8 +230,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L192" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L192" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L206" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L206" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -185,8 +240,21 @@
   <dd>
     
     export const HAVE<span class="target" id="function">function</span>
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L173" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L173" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L187" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L187" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="AC_CHECK_HEADER-templates-all">
+  <div id="AC_CHECK_HEADER.t,,">
+  <dt><pre><span class="Keyword">template</span> <a href="#AC_CHECK_HEADER.t%2C%2C"><span class="Identifier">AC_CHECK_HEADER</span></a><span class="Other">(</span><span class="Identifier">res</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">)</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pyconfig/util.nim#L209" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pyconfig/util.nim#L209" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -301,7 +369,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:54:18 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:49:51 UTC</small>
       </div>
     </div>
   </div>

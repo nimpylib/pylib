@@ -1,8 +1,8 @@
 nimTitle	ncomplex_pow	pylib/builtins/private/ncomplex_pow.html	module src/pylib/builtins/private/ncomplex_pow		0
-nim	c_powu	pylib/builtins/private/ncomplex_pow.html#c_powu,Complex[T],Natural	proc c_powu[T](x: Complex[T]; n: Natural): Complex[T]		134
-nim	c_powi	pylib/builtins/private/ncomplex_pow.html#c_powi,Complex[T],int	proc c_powi[T](x: Complex[T]; i: int): Complex[T]		136
-nim	pow	pylib/builtins/private/ncomplex_pow.html#pow,Complex[T],Complex[T]	proc pow[T](a, b: Complex[T]): Complex[T]		154
-nim	pow	pylib/builtins/private/ncomplex_pow.html#pow,Complex[T],int	proc pow[T](self: Complex[T]; i: int): Complex[T]		166
-nim	pow	pylib/builtins/private/ncomplex_pow.html#pow,Complex[T],staticNatural	proc pow[T](self: Complex[T]; n: static Natural): Complex[T]		171
-nim	powu	pylib/builtins/private/ncomplex_pow.html#powu,Complex[T],Natural	proc powu[T](self: Complex[T]; n: Natural): Complex[T]		176
-nimgrp	pow	pylib/builtins/private/ncomplex_pow.html#pow-procs-all	proc		154
+nim	c_powu	pylib/builtins/private/ncomplex_pow.html#c_powu,Complex[T],Natural	proc c_powu[T](x: Complex[T]; n: Natural): Complex[T]		137
+nim	c_powi	pylib/builtins/private/ncomplex_pow.html#c_powi,Complex[T],SomeInteger	proc c_powi[T](x: Complex[T]; i: SomeInteger): Complex[T]		139
+nim	pow	pylib/builtins/private/ncomplex_pow.html#pow,Complex[T],Complex[T]	proc pow[T](a, b: Complex[T]): Complex[T]		157
+nim	pow	pylib/builtins/private/ncomplex_pow.html#pow,Complex[T],SomeInteger	proc pow[T](self: Complex[T]; i: SomeInteger): Complex[T]		169
+nim	pow	pylib/builtins/private/ncomplex_pow.html#pow,Complex[T],staticNatural	proc pow[T](self: Complex[T]; n: static Natural): Complex[T]		174
+nim	powu	pylib/builtins/private/ncomplex_pow.html#powu,Complex[T],Natural	proc powu[T](self: Complex[T]; n: Natural): Complex[T]		179
+nimgrp	pow	pylib/builtins/private/ncomplex_pow.html#pow-procs-all	proc		157

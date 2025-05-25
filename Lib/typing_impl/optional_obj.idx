@@ -1,0 +1,12 @@
+nimTitle	optional_obj	typing_impl/optional_obj.html	module src/pylib/Lib/typing_impl/optional_obj		0
+nim	OptionalObj	typing_impl/optional_obj.html#OptionalObj	type OptionalObj		4
+nim	isSome	typing_impl/optional_obj.html#isSome,OptionalObj[T]	proc isSome[T](self: OptionalObj[T]): bool		9
+nim	isNone	typing_impl/optional_obj.html#isNone,OptionalObj[T]	proc isNone[T](self: OptionalObj[T]): bool		10
+nim	`is`	typing_impl/optional_obj.html#is,,NoneType	proc `is`(self: OptionalObj; _: NoneType): bool		12
+nim	`==`	typing_impl/optional_obj.html#==,,NoneType	proc `==`(self: OptionalObj; _: NoneType): bool		13
+nim	unsafeGet	typing_impl/optional_obj.html#unsafeGet.c,OptionalObj[T]	converter unsafeGet[T](self: OptionalObj[T]): T		15
+nim	unsafeToNone	typing_impl/optional_obj.html#unsafeToNone.c,OptionalObj[T]	converter unsafeToNone[T](self: OptionalObj[T]): NoneType		20
+nim	newOptionalObj	typing_impl/optional_obj.html#newOptionalObj,T	proc newOptionalObj[T](x: T): OptionalObj[T]		23
+nim	newOptionalObj	typing_impl/optional_obj.html#newOptionalObj	proc newOptionalObj[T](): OptionalObj[T]		24
+nim	expOptObjCvt	typing_impl/optional_obj.html#expOptObjCvt.t	template expOptObjCvt()		26
+nimgrp	newoptionalobj	typing_impl/optional_obj.html#newOptionalObj-procs-all	proc		23

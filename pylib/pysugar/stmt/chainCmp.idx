@@ -1,0 +1,3 @@
+nimTitle	chainCmp	pylib/pysugar/stmt/chainCmp.html	module src/pylib/pysugar/stmt/chainCmp		0
+nim	expandChainImpl	pylib/pysugar/stmt/chainCmp.html#expandChainImpl,NimNode	proc expandChainImpl(cExp: NimNode): NimNode		40
+nim	expandChain	pylib/pysugar/stmt/chainCmp.html#expandChain.m	macro expandChain(cExp): bool		44

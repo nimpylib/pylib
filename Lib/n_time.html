@@ -124,6 +124,10 @@
 <p>e.g. <tt class="docutils literal"><span class="pre"><span class="Identifier">n_time</span><span class="Operator">.</span><span class="Identifier">ctime</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> returns a string</p>
 
 <h2><a class="toc-backref" id="time-for-nim-py-diff" href="#time-for-nim-py-diff">py diff</a></h2><p>Currently, <tt class="docutils literal"><span class="pre"><span class="Identifier">tm_name</span></span></tt> is either &quot;LOCAL&quot; or &quot;Etc/UTC&quot;, due to std/times only returning those two.</p>
+<div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+A few of the format directives for <tt class="docutils literal"><span class="pre"><span class="Identifier">strftime</span></span></tt>/<tt class="docutils literal"><span class="pre"><span class="Identifier">strptime</span></span></tt> are not supported, and using them causes <tt class="docutils literal"><span class="pre"><span class="Identifier">AssertDefect</span></span></tt>. They are listed in <a class="reference external" href="time_impl/nstrpftime.html#NotImplDirectives">nstrfptime.NotImplDirectives</a></div>
+<div class="admonition admonition-info"><span class="admonition-info-text"><b>Hint:</b></span>
+Some directives (only for strftime) whose implementents are platform-depend in CPython are always supported here: '%V' '%G' '%g'</div>
 </p>
     <div class="section" id="6">
   <h1><a class="toc-backref" href="#6">Imports</a></h1>
@@ -255,7 +259,11 @@
     <span class="Identifier">TimeFormatParseError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">TimeEffect</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+In current implementation, whitespace in format string means itself AS-IS, unlike C or Python, where any whitespace means a serial of any whitespaces. If really wanting the behavior of C's, consider using <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">strscan</span></span></tt>.</div>
+<div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+Current <tt class="docutils literal"><span class="pre"><span class="Identifier">strptime</span></span></tt> is just locale-unaware, when it comes to &quot;the locale's format&quot;, like <tt class="docutils literal"><span class="pre"><span class="StringLit">&quot;%x&quot;</span></span></tt>, it always uses the format of <tt class="docutils literal"><span class="pre"><span class="StringLit">&quot;C&quot;</span> <span class="Identifier">locale</span></span></tt>, no matter what the locale is. a.k.a. Changing locale via C's api in <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;</span><span class="Identifier">locale</span><span class="Operator">.</span><span class="Identifier">h</span><span class="Operator">&gt;</span></span></tt> doesn't affect this function.</div>
+
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/Lib/n_time.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/Lib/n_time.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -279,7 +287,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:57:19 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:52:10 UTC</small>
       </div>
     </div>
   </div>

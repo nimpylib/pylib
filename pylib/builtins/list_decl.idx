@@ -1,34 +1,37 @@
 nimTitle	list_decl	pylib/builtins/list_decl.html	module src/pylib/builtins/list_decl		0
-nim	list	pylib/builtins/list_decl.html#list	type list		4
-nim	PyList	pylib/builtins/list_decl.html#PyList	type PyList		8
-nim	asSeq	pylib/builtins/list_decl.html#asSeq.c,PyList[T]	converter asSeq[T](self: PyList[T]): seq[T]		11
-nim	asSeq	pylib/builtins/list_decl.html#asSeq.c,PyList[T]_2	converter asSeq[T](self: var PyList[T]): var seq[T]		12
-nim	`@`	pylib/builtins/list_decl.html#@,PyList[T]	proc `@`[T](ls: PyList[T]): seq[T]		14
-nim	setLen	pylib/builtins/list_decl.html#setLen,PyList,Natural	proc setLen(self: PyList; len: Natural)		15
-nim	repr	pylib/builtins/list_decl.html#repr,PyList[T: set or string or openArray]	proc repr[T: set | string | openArray](self: PyList[T]): string		21
-nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkseq[T]	proc newPyList[T](s: sink seq[T]): PyList[T]		25
-nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[T]	proc newPyList[T](a: sink openArray[T]): PyList[T]		26
-nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[int]	proc newPyList(a: sink openArray[int]): PyList[int]		37
-nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[float]	proc newPyList(a: sink openArray[float]): PyList[float]		38
-nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[char]	proc newPyList(a: sink openArray[char]): PyList[char]		39
-nim	newPyList	pylib/builtins/list_decl.html#newPyList,int	proc newPyList[T](len = 0): PyList[T]		41
-nim	newPyListOfCap	pylib/builtins/list_decl.html#newPyListOfCap,int	proc newPyListOfCap[T](cap = 0): PyList[T]		42
-nim	items	pylib/builtins/list_decl.html#items.i,PyList[T]	iterator items[T](self: PyList[T]): T		45
-nim	mitems	pylib/builtins/list_decl.html#mitems.i,PyList[T]	iterator mitems[T](self: PyList[T]): var T		48
-nim	pairs	pylib/builtins/list_decl.html#pairs.i,PyList[T]	iterator pairs[T](self: PyList[T]): (int, T)		52
-nim	getPtr	pylib/builtins/list_decl.html#getPtr,sinkPyList[T],	proc getPtr[T](self: sink PyList[T]; i: Natural | BackwardsIndex): ptr T		62
-nim	checkLenientOps	pylib/builtins/list_decl.html#checkLenientOps.t,,	template checkLenientOps(A, B)		69
-nim	`==`	pylib/builtins/list_decl.html#==,PyList[A],PyList[B]	proc `==`[A, B](self: PyList[A]; o: PyList[B]): bool		98
-nim	`==`	pylib/builtins/list_decl.html#==,PyList[A],openArray[B]	proc `==`[A, B](self: PyList[A]; o: openArray[B]): bool		101
-nim	`==`	pylib/builtins/list_decl.html#==.t,openArray[A],PyList[B]	template `==`[A, B](o: openArray[A]; self: PyList[B]): bool		108
-nim	`<=`	pylib/builtins/list_decl.html#<=,PyList[A],PyList[B]	proc `<=`[A, B](self: PyList[A]; o: PyList[B]): bool		98
-nim	`<=`	pylib/builtins/list_decl.html#<=,PyList[A],openArray[B]	proc `<=`[A, B](self: PyList[A]; o: openArray[B]): bool		101
-nim	`<=`	pylib/builtins/list_decl.html#<=.t,openArray[A],PyList[B]	template `<=`[A, B](o: openArray[A]; self: PyList[B]): bool		109
-nim	`<`	pylib/builtins/list_decl.html#<,PyList[A],PyList[B]	proc `<`[A, B](self: PyList[A]; o: PyList[B]): bool		98
-nim	`<`	pylib/builtins/list_decl.html#<,PyList[A],openArray[B]	proc `<`[A, B](self: PyList[A]; o: openArray[B]): bool		101
-nim	`<`	pylib/builtins/list_decl.html#<.t,openArray[A],PyList[B]	template `<`[A, B](o: openArray[A]; self: PyList[B]): bool		110
-nimgrp	==	pylib/builtins/list_decl.html#==-procs-all	proc		108
-nimgrp	newpylist	pylib/builtins/list_decl.html#newPyList-procs-all	proc		25
-nimgrp	<=	pylib/builtins/list_decl.html#<=-procs-all	proc		109
-nimgrp	<	pylib/builtins/list_decl.html#<-procs-all	proc		110
-nimgrp	asseq	pylib/builtins/list_decl.html#asSeq-converters-all	converter		11
+nim	list	pylib/builtins/list_decl.html#list	type list		5
+nim	PyList	pylib/builtins/list_decl.html#PyList	type PyList		9
+nim	asSeq	pylib/builtins/list_decl.html#asSeq.c,PyList[T]	converter asSeq[T](self: PyList[T]): seq[T]		12
+nim	asSeq	pylib/builtins/list_decl.html#asSeq.c,PyList[T]_2	converter asSeq[T](self: var PyList[T]): var seq[T]		13
+nim	`@`	pylib/builtins/list_decl.html#@,PyList[T]	proc `@`[T](ls: PyList[T]): seq[T]		15
+nim	setLen	pylib/builtins/list_decl.html#setLen,PyList,Natural	proc setLen(self: PyList; len: Natural)		16
+nim	repr	pylib/builtins/list_decl.html#repr,PyList[T: set or string or openArray]	proc repr[T: set | string | openArray](self: PyList[T]): string		22
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkseq[T]	proc newPyList[T](s: sink seq[T]): PyList[T]		26
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[T]	proc newPyList[T](a: sink openArray[T]): PyList[T]		27
+nim	newPyListOfStr	pylib/builtins/list_decl.html#newPyListOfStr,PyList[string]	proc newPyListOfStr(a: PyList[string]): PyList[PyStr]		30
+nim	newPyListOfStr	pylib/builtins/list_decl.html#newPyListOfStr,openArray[string]	proc newPyListOfStr(a: openArray[string]): PyList[PyStr]		31
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[int]	proc newPyList(a: sink openArray[int]): PyList[int]		42
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[float]	proc newPyList(a: sink openArray[float]): PyList[float]		43
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,sinkopenArray[char]	proc newPyList(a: sink openArray[char]): PyList[char]		44
+nim	newPyList	pylib/builtins/list_decl.html#newPyList,int	proc newPyList[T](len = 0): PyList[T]		46
+nim	newPyListOfCap	pylib/builtins/list_decl.html#newPyListOfCap,int	proc newPyListOfCap[T](cap = 0): PyList[T]		47
+nim	items	pylib/builtins/list_decl.html#items.i,PyList[T]	iterator items[T](self: PyList[T]): T		50
+nim	mitems	pylib/builtins/list_decl.html#mitems.i,PyList[T]	iterator mitems[T](self: PyList[T]): var T		53
+nim	pairs	pylib/builtins/list_decl.html#pairs.i,PyList[T]	iterator pairs[T](self: PyList[T]): (int, T)		57
+nim	getPtr	pylib/builtins/list_decl.html#getPtr,sinkPyList[T],	proc getPtr[T](self: sink PyList[T]; i: Natural | BackwardsIndex): ptr T		67
+nim	checkLenientOps	pylib/builtins/list_decl.html#checkLenientOps.t,,	template checkLenientOps(A, B)		74
+nim	`==`	pylib/builtins/list_decl.html#==,PyList[A],PyList[B]	proc `==`[A, B](self: PyList[A]; o: PyList[B]): bool		103
+nim	`==`	pylib/builtins/list_decl.html#==,PyList[A],openArray[B]	proc `==`[A, B](self: PyList[A]; o: openArray[B]): bool		106
+nim	`==`	pylib/builtins/list_decl.html#==.t,openArray[A],PyList[B]	template `==`[A, B](o: openArray[A]; self: PyList[B]): bool		113
+nim	`<=`	pylib/builtins/list_decl.html#<=,PyList[A],PyList[B]	proc `<=`[A, B](self: PyList[A]; o: PyList[B]): bool		103
+nim	`<=`	pylib/builtins/list_decl.html#<=,PyList[A],openArray[B]	proc `<=`[A, B](self: PyList[A]; o: openArray[B]): bool		106
+nim	`<=`	pylib/builtins/list_decl.html#<=.t,openArray[A],PyList[B]	template `<=`[A, B](o: openArray[A]; self: PyList[B]): bool		114
+nim	`<`	pylib/builtins/list_decl.html#<,PyList[A],PyList[B]	proc `<`[A, B](self: PyList[A]; o: PyList[B]): bool		103
+nim	`<`	pylib/builtins/list_decl.html#<,PyList[A],openArray[B]	proc `<`[A, B](self: PyList[A]; o: openArray[B]): bool		106
+nim	`<`	pylib/builtins/list_decl.html#<.t,openArray[A],PyList[B]	template `<`[A, B](o: openArray[A]; self: PyList[B]): bool		115
+nimgrp	==	pylib/builtins/list_decl.html#==-procs-all	proc		113
+nimgrp	newpylistofstr	pylib/builtins/list_decl.html#newPyListOfStr-procs-all	proc		30
+nimgrp	newpylist	pylib/builtins/list_decl.html#newPyList-procs-all	proc		26
+nimgrp	<=	pylib/builtins/list_decl.html#<=-procs-all	proc		114
+nimgrp	<	pylib/builtins/list_decl.html#<-procs-all	proc		115
+nimgrp	asseq	pylib/builtins/list_decl.html#asSeq-converters-all	converter		12

@@ -1,0 +1,3 @@
+nimTitle	cpus	os_impl/cpus.html	module src/pylib/Lib/os_impl/cpus		0
+nim	cpu_count	os_impl/cpus.html#cpu_count	proc cpu_count(): int		10
+nim	process_cpu_count	os_impl/cpus.html#process_cpu_count	proc process_cpu_count(): int		22

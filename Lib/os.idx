@@ -1,10 +1,12 @@
 nimTitle	os	os.html	module src/pylib/Lib/os		0
 nim	uname_result	os.html#uname_result	tuple uname_result		5
-nim	uname	os.html#uname	proc uname(): uname_result		17
-nim	scandir	os.html#scandir.t	template scandir(): untyped		18
-nim	scandir	os.html#scandir.t,PathLike[T]	template scandir[T](p: PathLike[T]): untyped		19
-nim	scandir	os.html#scandir.t,int	template scandir(p: int): untyped		20
-nim	close	os.html#close.t,DirEntry	template close(p: DirEntry)		24
-nim	urandom	os.html#urandom,int	proc urandom(size: int): PyBytes		26
-nim	getrandom	os.html#getrandom,int,int	proc getrandom(size: int; flags = 0): PyBytes		30
-nimgrp	scandir	os.html#scandir-templates-all	template		18
+nim	uname	os.html#uname	proc uname(): uname_result		20
+nim	scandir	os.html#scandir.t	template scandir(): untyped		21
+nim	scandir	os.html#scandir.t,PathLike[T]	template scandir[T](p: PathLike[T]): untyped		22
+nim	scandir	os.html#scandir.t,int	template scandir(p: int): untyped		23
+nim	close	os.html#close.t,DirEntry	template close(p: DirEntry)		27
+nim	urandom	os.html#urandom,int	proc urandom(size: int): PyBytes		29
+nim	getrandom	os.html#getrandom,int,int	proc getrandom(size: int; flags = 0): PyBytes		33
+nim	cpu_count	os.html#cpu_count	proc cpu_count(): OptionalObj[int]		53
+nim	process_cpu_count	os.html#process_cpu_count	proc process_cpu_count(): OptionalObj[int]		54
+nimgrp	scandir	os.html#scandir-templates-all	template		21

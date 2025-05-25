@@ -71,7 +71,7 @@
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">:=
-  <li><a class="reference" href="#%3A%3D.t%2Cuntyped%2Cuntyped" title="`:=`(name, value: untyped): untyped">`:=`(name, value: untyped): untyped</a></li>
+  <li><a class="reference" href="#%3A%3D.t%2C%2CT" title="`:=`[T](name; value: T): T">`:=`[T](name; value: T): T</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">lambda
@@ -125,8 +125,8 @@
 <div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
 Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">del</span><span class="Punctuation">(</span><span class="Identifier">seq</span><span class="Punctuation">,</span> <span class="Identifier">idx</span><span class="Punctuation">)</span></span></tt> is an O(1) operation, which moves the last element to <tt class="docutils literal"><span class="pre"><span class="Identifier">idx</span></span></tt></div>
 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar.nim#L29" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar.nim#L29" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -139,11 +139,11 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">de
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
     <div id=":=-templates-all">
-  <div id=":=.t,untyped,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#%3A%3D.t%2Cuntyped%2Cuntyped"><span class="Identifier">`:=`</span></a><span class="Other">(</span><span class="Identifier">name</span><span class="Other">,</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+  <div id=":=.t,,T">
+  <dt><pre><span class="Keyword">template</span> <a href="#%3A%3D.t%2C%2CT"><span class="Identifier">`:=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">name</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
   <dd>
     
-    Mimic Pythons Operator. Creates new variable <tt class="docutils literal"><span class="pre"><span class="Identifier">name</span></span></tt> and assign <tt class="docutils literal"><span class="pre"><span class="Identifier">value</span></span></tt> to it.
+    Mimic Pythons Operator.
     <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/pysugar.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/pysugar.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
@@ -183,7 +183,7 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">de
 <div class="section" id="19">
   <h1><a class="toc-backref" href="#19">Exports</a></h1>
   <dl class="item">
-    <a href="pysugar/pywith.html#with.m,varargs[untyped]"><span class="Identifier">with</span></a>, <a href="pysugar/tonim.html#tonim.m"><span class="Identifier">tonim</span></a>, <a href="pysugar/class.html#class.m,untyped,untyped"><span class="Identifier">class</span></a>, <a href="pysugar/pydef.html#async.m,,"><span class="Identifier">async</span></a>, <a href="pysugar/pydef.html#def.m,,"><span class="Identifier">def</span></a>, <a href="pysugar/pydef.html#define.m,,"><span class="Identifier">define</span></a>, <a href="pysugar/parserWithCfg.html#PySignatureSupportGenerics"><span class="Identifier">PySignatureSupportGenerics</span></a>, <a href="pysugar/unpack.html#unpack.m,untyped,varargs[untyped]"><span class="Identifier">unpack</span></a>
+    <a href="pysugar/pywith.html#with.m,varargs[untyped]"><span class="Identifier">with</span></a>, <a href="pysugar/tonim.html#tonim.m"><span class="Identifier">tonim</span></a>, <a href="pysugar/stmt/class.html#init_subclass,typedesc[T]"><span class="Identifier">init_subclass</span></a>, <a href="pysugar/class.html#class.t,,"><span class="Identifier">class</span></a>, <a href="pysugar/stmt/class.html#new.t,typedesc[R],typedesc[T],varargs[untyped]"><span class="Identifier">new</span></a>, <a href="pysugar/pydef.html#async.m,,"><span class="Identifier">async</span></a>, <a href="pysugar/pydef.html#def.m,,"><span class="Identifier">def</span></a>, <a href="pysugar/pydef.html#define.m,,"><span class="Identifier">define</span></a>, <a href="pysugar/parserWithCfg.html#PySignatureSupportGenerics"><span class="Identifier">PySignatureSupportGenerics</span></a>, <a href="pysugar/unpack.html#unpack.m,untyped,varargs[untyped]"><span class="Identifier">unpack</span></a>
   </dl>
 </div>
 
@@ -193,7 +193,7 @@ Nim's <tt class="docutils literal"><span class="pre"><span class="Identifier">de
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 16:55:16 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:47 UTC</small>
       </div>
     </div>
   </div>

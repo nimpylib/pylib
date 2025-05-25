@@ -9,8 +9,12 @@ nim	AC_RUN_IFELSE	_._/pyconfig/util.html#AC_RUN_IFELSE.t,,,	template AC_RUN_IFEL
 nim	AX_C_FLOAT_WORDS_BIGENDIAN	_._/pyconfig/util.html#AX_C_FLOAT_WORDS_BIGENDIAN.t,,,,	template AX_C_FLOAT_WORDS_BIGENDIAN(id; doIfTrue, doIfFalse, doIfUnknown)		114
 nim	AX_C_FLOAT_WORDS_BIGENDIAN_def	_._/pyconfig/util.html#AX_C_FLOAT_WORDS_BIGENDIAN_def.t,,,	template AX_C_FLOAT_WORDS_BIGENDIAN_def(defIfTrue, defIfFalse, doIfUnknown)		143
 nim	c_defined	_._/pyconfig/util.html#c_defined.t,,string,openArray	template c_defined(variable; c_macro: string; headers: openArray = [])		149
-nim	AC_CHECK_FUNC	_._/pyconfig/util.html#AC_CHECK_FUNC.t,,	template AC_CHECK_FUNC(res, function)		173
-nim	AC_CHECK_FUNC	_._/pyconfig/util.html#AC_CHECK_FUNC.t	template AC_CHECK_FUNC(function)		192
-nim	AC_CHECK_FUNCS	_._/pyconfig/util.html#AC_CHECK_FUNCS.m,varargs[untyped]	macro AC_CHECK_FUNCS(functions: varargs[untyped]): untyped		196
-nimgrp	Accheckfunc	_._/pyconfig/util.html#AC_CHECK_FUNC-templates-all	template		173
+nim	AC_CHECK_FUNC	_._/pyconfig/util.html#AC_CHECK_FUNC.t,,	template AC_CHECK_FUNC(res, function)		187
+nim	AC_CHECK_FUNC	_._/pyconfig/util.html#AC_CHECK_FUNC.t	template AC_CHECK_FUNC(function)		206
+nim	AC_CHECK_FUNCS	_._/pyconfig/util.html#AC_CHECK_FUNCS.m,varargs[untyped]	macro AC_CHECK_FUNCS(xs: varargs[untyped]): untyped		206
+nim	AC_CHECK_HEADER	_._/pyconfig/util.html#AC_CHECK_HEADER.t,,	template AC_CHECK_HEADER(res, header)		209
+nim	AC_CHECK_HEADER	_._/pyconfig/util.html#AC_CHECK_HEADER.m	macro AC_CHECK_HEADER(header)		219
+nim	AC_CHECK_HEADERS	_._/pyconfig/util.html#AC_CHECK_HEADERS.m,varargs[untyped]	macro AC_CHECK_HEADERS(xs: varargs[untyped]): untyped		219
+nim	AC_CHECK_HEADER_THEN_FUNCS	_._/pyconfig/util.html#AC_CHECK_HEADER_THEN_FUNCS.m,,	macro AC_CHECK_HEADER_THEN_FUNCS(header; functions)		229
+nimgrp	Accheckfunc	_._/pyconfig/util.html#AC_CHECK_FUNC-templates-all	template		187
 nimgrp	fromcint	_._/pyconfig/util.html#from_c_int-templates-all	template		62

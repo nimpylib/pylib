@@ -1,0 +1,4 @@
+nimTitle	winOpenFileHandle	pylib/nimpatch/winOpenFileHandle.html	module src/pylib/nimpatch/winOpenFileHandle		0
+nim	FixedVer	pylib/nimpatch/winOpenFileHandle.html#FixedVer	const FixedVer		12
+nim	BeforeFixedVer	pylib/nimpatch/winOpenFileHandle.html#BeforeFixedVer	const BeforeFixedVer		13
+nim	hasBug	pylib/nimpatch/winOpenFileHandle.html#hasBug	const hasBug		15

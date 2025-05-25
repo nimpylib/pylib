@@ -1,0 +1,2 @@
+nimTitle	str_optional_obj	typing_impl/str_optional_obj.html	module src/pylib/Lib/typing_impl/str_optional_obj		0
+nim	newStrOptionalObj	typing_impl/str_optional_obj.html#newStrOptionalObj,string	proc newStrOptionalObj(x: string): OptionalObj[PyStr]		7
