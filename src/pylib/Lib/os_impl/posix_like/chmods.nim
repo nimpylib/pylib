@@ -87,13 +87,13 @@ proc chmod*(
         raiseExcWithPath path
     else:
       if follow_symlinks:
-        let hfile = createFileW(newWideCString path,
+        let hfile = CreateFileW(newWideCString path,
           FILE_READ_ATTRIBUTES or FILE_WRITE_ATTRIBUTES,
           0, nil,
-          OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)
+          OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)
         if hfile != INVALID_HANDLE_VALUE:
           res = win32_hchmod(hfile, mode)
-          discard closeHandle(hfile)
+          discard CloseHandle(hfile)
         else:
           res = win32_lchmod(newWideCString(path), mode)
     if not res:

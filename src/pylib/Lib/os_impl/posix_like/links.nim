@@ -182,11 +182,11 @@ else:
       # in C, array converts to pointer implicitly, but not in Nim.
 
       var rdb = cast[Py_PREPARSE_DATA_BUFFER](target_buffer)
-      let reparse_point_handle = createFileW( wstr,
+      let reparse_point_handle = CreateFileW( wstr,
             0, 0, nil,
             OPEN_EXISTING,
             FILE_FLAG_OPEN_REPARSE_POINT or FILE_FLAG_BACKUP_SEMANTICS,
-            0)
+            NULL)
       if (reparse_point_handle != INVALID_HANDLE_VALUE):
         io_result = deviceIoControl(reparse_point_handle,
                 FSCTL_GET_REPARSE_POINT,
@@ -195,7 +195,7 @@ else:
                 addr n_bytes_returned,
                 nil # we're not using OVERLAPPED_IO
         )
-        discard closeHandle(reparse_point_handle)
+        discard CloseHandle(reparse_point_handle)
       if io_result == WINBOOL(0):
         raiseOSError(osLastError())
 

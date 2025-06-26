@@ -83,7 +83,6 @@ else:
     import ../../n_stat
     import ../../stat_impl/consts except FILE_ATTRIBUTE_DIRECTORY,
       BY_HANDLE_FILE_INFORMATION, FILE_ATTRIBUTE_REPARSE_POINT
-    import ../util/get_osfhandle
     #type Time64 = int64
     when defined(nimPreviewSlimSystem):
       import std/widestrs
@@ -385,7 +384,7 @@ when DWin:
       dealloc(filename)
     if hFindFile == INVALID_HANDLE_VALUE:
       return false
-    findClose(hFindFile)
+    FindClose(hFindFile)
     findDataToFileInfo(fileData, info, reparseTag)
     return true
 
@@ -421,7 +420,7 @@ when DWin:
     template goto_cleanup =
       if hFile != INVALID_HANDLE_VALUE:
         error = if retval != 0: GetLastError() else: 0
-        if closeHandle(hFile) == 0:
+        if CloseHandle(hFile) == 0:
           retval = -1
         elif retval != 0:
           SetLastError(error)
@@ -432,7 +431,7 @@ when DWin:
     if not traverse:
       flags = flags or DWORD FILE_FLAG_OPEN_REPARSE_POINT
 
-    hFile = CreateFileW(path, access, 0, nil, OPEN_EXISTING, flags, 0)
+    hFile = CreateFileW(path, access, 0, nil, OPEN_EXISTING, flags, NULL)
     if hFile == INVALID_HANDLE_VALUE:
       error = GetLastError()
       case error
@@ -442,7 +441,7 @@ when DWin:
       of ERROR_INVALID_PARAMETER:
         hFile = CreateFileW(path, access or GENERIC_READ,
                             FILE_SHARE_READ or FILE_SHARE_WRITE, nil,
-                            OPEN_EXISTING, flags, 0)
+                            OPEN_EXISTING, flags, NULL)
         if hFile == INVALID_HANDLE_VALUE:
           return -1
       of ERROR_CANT_ACCESS_FILE:
@@ -450,7 +449,7 @@ when DWin:
           traverse = false
           isUnhandledTag = true
           hFile = CreateFileW(path, access, 0, nil, OPEN_EXISTING,
-                              flags or FILE_FLAG_OPEN_REPARSE_POINT, 0)
+                              flags or FILE_FLAG_OPEN_REPARSE_POINT, NULL)
         if hFile == INVALID_HANDLE_VALUE:
           return -1
       else:

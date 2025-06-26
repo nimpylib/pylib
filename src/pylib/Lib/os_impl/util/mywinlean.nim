@@ -1,16 +1,21 @@
 
-import std/winlean except DWORD, ULONG
-export winlean except DWORD, ULONG,
+import std/winlean except DWORD, ULONG, HANDLE
+export winlean except DWORD, ULONG, HANDLE,
+  INVALID_HANDLE_VALUE,
   OPEN_EXISTING, FILE_SHARE_READ, FILE_SHARE_WRITE,
   FILE_FLAG_OPEN_REPARSE_POINT, FILE_ATTRIBUTE_DIRECTORY,
   FILE_ATTRIBUTE_READONLY, FILE_ATTRIBUTE_REPARSE_POINT,
-  BY_HANDLE_FILE_INFORMATION, INVALID_FILE_ATTRIBUTES
+  BY_HANDLE_FILE_INFORMATION, INVALID_FILE_ATTRIBUTES,
+  FILE_FLAG_BACKUP_SEMANTICS
 import ./get_osfhandle
-export get_osfhandle
 type
   BOOL* = enum
     FALSE = cint 0
     TRUE = cint 1
+  HANDLE* = pointer
+
+proc Py_get_osfhandle_noraise*(fd: int): HANDLE =
+  cast[HANDLE](get_osfhandle.Py_get_osfhandle_noraise(fd))
 
 converter toBool*(b: BOOL): bool = b != FALSE
 template `!`*(b: BOOL): bool = b == FALSE
@@ -92,6 +97,8 @@ typedef union _LARGE_INTEGER {
   FILE_ATTRIBUTE_TAG_INFO*{.importc, header: "<winbase.h>".} = object
     FileAttributes*, ReparseTag*: DWORD
 const
+  NULL* = cast[pointer](0)
+  INVALID_HANDLE_VALUE* = cast[HANDLE](-1)
   ERROR_INVALID_HANDLE* = 6
   ERROR_NOT_ENOUGH_MEMORY* = 8
 
@@ -118,7 +125,8 @@ const
   FILE_SHARE_READ* = 1
   FILE_SHARE_WRITE* = 2
 
-  FILE_FLAG_OPEN_REPARSE_POINT* = 0x00200000
+  FILE_FLAG_OPEN_REPARSE_POINT* = DWORD 0x00200000
+  FILE_FLAG_BACKUP_SEMANTICS* = DWORD 0x02000000
 
   FILE_DEVICE_CD_ROM* = 2
   FILE_DEVICE_CD_ROM_FILE_SYSTEM* = 3
@@ -191,6 +199,8 @@ template GetFileBasicInformationByHandleEx*(
 proc FindFirstFileW*(lpFileName: WideCString,
                     lpFindFileData: var WIN32_FIND_DATAW): Handle {.
     stdcall, dynlib: "kernel32", importc, sideEffect.}
+
+proc CloseHandle*(hObject: HANDLE): WINBOOL {.stdcall, dynlib: "kernel32", importc.}
 
 proc GetLastError*(): DWORD {.
     stdcall, header: "<errhandlingapi.h>", importc, sideEffect.}
