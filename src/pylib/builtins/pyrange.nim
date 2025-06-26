@@ -46,6 +46,12 @@ iterator items*[T](rng: PyRange[T]): T =
       yield res
       res -= opposite
 
+func `@`*[T](rng: PyRange[T]): seq[T] =
+  ## EXT: range to Nim seq
+  result = newSeqOfCap[T](rng.len)
+  for i in rng:
+    result.add i
+
 func contains*[T](x: PyRange[T], y: T): bool =
   ## Checks if given value is in range
   result =

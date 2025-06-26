@@ -135,6 +135,14 @@ func `+`*[T](self: PyList[T], x: openArray[T]): PyList[T] =
 
 func list*[T](x: sink seq[T]): PyList[T] = newPyList x
 func list*[T](a: sink openArray[T]): PyList[T] = newPyList a
+
+type Seqable[T] = concept self
+  @self is seq[T]
+
+proc list*[T](s: sink Seqable[T]): PyList[T] =
+  ## EXT: accept any `s` where `@s` is `seq[T]`
+  newPyList @s
+
 # Impl end
 
 # the following does nothing with how PyList is implemented.
