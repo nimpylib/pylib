@@ -8,6 +8,7 @@ on:
       - './*.nimble'
       - 'tests/**'
   pull_request:
+  workflow_dispatch:
 env:
   nim-version: 'stable'
 jobs:
