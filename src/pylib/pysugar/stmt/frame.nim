@@ -13,6 +13,7 @@ type
   PyAsgnRewriter* = object
     dedentDoc*: bool
     supportGenerics*: bool
+    noParnMultiExecInExcept*: bool
     frame: PyAsgnFrame
     classes*: seq[NimNode]  ## class type, 
                           ## empty if outside a `class` definition
@@ -22,10 +23,12 @@ proc newPyAsgnFrame*(): PyAsgnFrame =
   new result
   result.parent = nil
 
-proc newPyAsgnRewriter*(supportGenerics=false, dedentDoc=false): PyAsgnRewriter =
+proc newPyAsgnRewriter*(supportGenerics = false, dedentDoc = false,
+    noParnMultiExecInExcept = false): PyAsgnRewriter =
   result.frame = newPyAsgnFrame()
   result.supportGenerics = supportGenerics
   result.dedentDoc = dedentDoc
+  result.noParnMultiExecInExcept = noParnMultiExecInExcept
 
 using mparser: var PyAsgnRewriter
 

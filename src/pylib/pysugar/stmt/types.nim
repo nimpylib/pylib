@@ -8,3 +8,4 @@ type
     parsePyExpr(self, NimNode) is NimNode
     self.supportGenerics is bool
     self.dedentDoc is bool
+    self.noParnMultiExecInExcept is bool

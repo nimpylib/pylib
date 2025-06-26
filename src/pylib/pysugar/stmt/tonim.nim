@@ -189,8 +189,12 @@ proc parsePyStmt*(mparser; statement: NimNode): NimNode =
       var nExcBranch = newExceptBranch(first[1], nBody)
       nStmt.add nExcBranch
     else:
-      excBranch[^1] = nExcBranchStmts
-      nStmt.add excBranch
+      if mparser.noParnMultiExecInExcept:
+        excBranch[^1] = nExcBranchStmts
+        nStmt.add excBranch
+      else:
+        # before Python3.14
+        error "SyntaxError: multiple exception types must be parenthesized", first
     result.add nStmt
   of nnkInfix:
     result.add statement
