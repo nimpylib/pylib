@@ -35,7 +35,14 @@ jobs:
     - name: genLibDoc
       run: nimble testLibDoc ${{ env.git-url-arg }} --outdir:${{ env.lib-deploy-dir }}
     - name: "Copy to index.html"
-      run: cp ${{ env.deploy-dir }}/${{ github.event.repository.name }}.html ${{ env.deploy-dir }}/index.html
+      run: |
+        cd ${{ env.deploy-dir }}
+        index_file=${{ github.event.repository.name }}.html
+        # package name is not prefixed with 'nim',
+        # in case repo name is prefixed.
+        [ -f $index_file ] || index_file=${index_file#nim}
+        cp $index_file index.html
+        cd $OLDPWD
     - name: "CNAME"
       run: |
         cname=$(echo ${{ github.event.repository.homepage }} | grep -oP 'https?://\K[^/]+')
