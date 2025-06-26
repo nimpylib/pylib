@@ -142,6 +142,19 @@ printPkgInfo() failed.
   
   exec "nimble install"
 
+func stripLfOrCrlf(s: var string) =
+  ## Copied from strutils.stripLineEnd
+  if s.len > 0:
+    case s[^1]
+    of '\n':
+      if s.len > 1 and s[^2] == '\r':
+        s.setLen s.len-2
+      else:
+        s.setLen s.len-1
+    # of '\r', '\v', '\f': s.setLen s.len-1
+    else:
+      discard
+
 taskWithArgs changelog, "output for changelog files":
   if args.len == 0:
     args.add "HEAD"
@@ -153,7 +166,9 @@ taskWithArgs changelog, "output for changelog files":
       else:
         let lastTagExecRes = gorgeEx("git describe --tags --abbrev=0")
         assert lastTagExecRes.exitCode == 0
-        let lastTag = lastTagExecRes.output
+        var lastTag = lastTagExecRes.output
+        # XXX: On Windows it ends with \r\n. But nothing on Linux
+        lastTag.stripLfOrCrlf
         catRng(lastTag, arg)
     else:
       let
