@@ -16,8 +16,8 @@ nim	clear	_._/builtins/dict.html#clear	proc clear(self: PyDict)		44
 nim	len	_._/builtins/dict.html#len,SomePyDictView	proc len(view: SomePyDictView): int		46
 nim	iter	_._/builtins/dict.html#iter.t,SomePyDictView	template iter(view: SomePyDictView): untyped		47
 nim	items	_._/builtins/dict.html#items.t,SomePyDictView	template items(view: SomePyDictView): untyped		48
-nim	contains	_._/builtins/dict.html#contains,PyDictKeyView[T],T	proc contains[T](t: PyDictKeyView[T]; x: T): bool		49
-nim	contains	_._/builtins/dict.html#contains,PyDictValueView[T],T	proc contains[T](t: PyDictValueView[T]; x: T): bool		50
+nim	contains	_._/builtins/dict.html#contains,PyDictKeyView[T,auto],T	proc contains[T](t: PyDictKeyView[T, auto]; x: T): bool		49
+nim	contains	_._/builtins/dict.html#contains,PyDictValueView[auto,T],T	proc contains[T](t: PyDictValueView[auto, T]; x: T): bool		50
 nim	contains	_._/builtins/dict.html#contains,PyDictItemView[K,V],	proc contains[K, V](t: PyDictItemView[K, V]; x: (K, V)): bool		53
 nim	repr	_._/builtins/dict.html#repr.t,PyDictKeyView	template repr(self: PyDictKeyView): string		42
 nim	`$`	_._/builtins/dict.html#$.t,PyDictKeyView	template `$`(self: PyDictKeyView): string		57
@@ -30,8 +30,8 @@ nim	iter	_._/builtins/dict.html#iter.i,PyDict[K,V]	iterator iter[K, V](self: PyD
 nim	iter	_._/builtins/dict.html#iter,PyDict[K,V]	proc iter[K, V](self: PyDict[K, V]): PyIterator[K]		77
 nim	values	_._/builtins/dict.html#values.i,PyDict[K,V]	iterator values[K, V](self: PyDict[K, V]): V		81
 nim	items	_._/builtins/dict.html#items.i,PyDict[K,V]	iterator items[K, V](self: PyDict[K, V]): (K, V)		84
-nim	keys	_._/builtins/dict.html#keys,PyDict[K,V]	proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K]		87
-nim	values	_._/builtins/dict.html#values,PyDict[K,V]	proc values[K, V](self: PyDict[K, V]): PyDictValueView[V]		88
+nim	keys	_._/builtins/dict.html#keys,PyDict[K,V]	proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K, V]		87
+nim	values	_._/builtins/dict.html#values,PyDict[K,V]	proc values[K, V](self: PyDict[K, V]): PyDictValueView[K, V]		88
 nim	items	_._/builtins/dict.html#items,PyDict[K,V]	proc items[K, V](self: PyDict[K, V]): PyDictItemView[K, V]		89
 nim	toPyDict	_._/builtins/dict.html#toPyDict,openArray[]	proc toPyDict[K, V](x: openArray[(K, V)]): PyDict[K, V]		91
 nim	toPyDict	_._/builtins/dict.html#toPyDict	proc toPyDict[K, V](x: not openArray[(K, V)] and Iterable[(K, V)]): PyDict[K, V]		95

@@ -29,19 +29,20 @@ nim	sorted	pylib/builtins/list.html#sorted,PyList[T]	proc sorted[T](self: PyList
 nim	`+`	pylib/builtins/list.html#+,PyList[T],openArray[T]	proc `+`[T](self: PyList[T]; x: openArray[T]): PyList[T]		133
 nim	list	pylib/builtins/list.html#list,sinkseq[T]	proc list[T](x: sink seq[T]): PyList[T]		136
 nim	list	pylib/builtins/list.html#list,sinkopenArray[T]	proc list[T](a: sink openArray[T]): PyList[T]		137
-nim	list	pylib/builtins/list.html#list_2	proc list[T](): PyList[T]		142
-nim	`*`	pylib/builtins/list.html#*,Natural,PyList[T]	proc `*`[T](n: Natural; ls: PyList[T]): PyList[T]		147
-nim	`*`	pylib/builtins/list.html#*.t,PyList[T],Natural	template `*`[T](ls: PyList[T]; n: Natural): PyList[T]		151
-nim	`*=`	pylib/builtins/list.html#*=,PyList[T],int	proc `*=`[T](self: var PyList[T]; n: int)		154
-nim	`+`	pylib/builtins/list.html#+.t,PyList[T],PyList[T]	template `+`[T](self: var PyList[T]; x: PyList[T]): PyList[T]		158
+nim	list	pylib/builtins/list.html#list,sinkSeqable[T]	proc list[T](s: sink Seqable[T]): PyList[T]		142
+nim	list	pylib/builtins/list.html#list_2	proc list[T](): PyList[T]		150
+nim	`*`	pylib/builtins/list.html#*,Natural,PyList[T]	proc `*`[T](n: Natural; ls: PyList[T]): PyList[T]		155
+nim	`*`	pylib/builtins/list.html#*.t,PyList[T],Natural	template `*`[T](ls: PyList[T]; n: Natural): PyList[T]		159
+nim	`*=`	pylib/builtins/list.html#*=,PyList[T],int	proc `*=`[T](self: var PyList[T]; n: int)		162
+nim	`+`	pylib/builtins/list.html#+.t,PyList[T],PyList[T]	template `+`[T](self: var PyList[T]; x: PyList[T]): PyList[T]		166
 nim	repr	pylib/builtins/list.html#repr.t,PyList	template repr(self: PyList): string		42
-nim	`$`	pylib/builtins/list.html#$.t,PyList	template `$`(self: PyList): string		172
-nim	sort	pylib/builtins/list.html#sort,PyList[T],proc(T)	proc sort[T, K](self: var PyList[T]; key: proc (x: T): K; reverse = false)		234
-nim	sorted	pylib/builtins/list.html#sorted,Sequence[T],proc(T)	proc sorted[T, K](x: Sequence[T]; key: proc (x: T): K; reverse = false): PyList[T]		239
-nim	sorted	pylib/builtins/list.html#sorted,,proc(T)	proc sorted[T, K](x: not Sequence[T] and Iterable[T]; key: proc (x: T): K;\n             reverse = false): PyList[T]		244
+nim	`$`	pylib/builtins/list.html#$.t,PyList	template `$`(self: PyList): string		180
+nim	sort	pylib/builtins/list.html#sort,PyList[T],proc(T)	proc sort[T, K](self: var PyList[T]; key: proc (x: T): K; reverse = false)		242
+nim	sorted	pylib/builtins/list.html#sorted,Sequence[T],proc(T)	proc sorted[T, K](x: Sequence[T]; key: proc (x: T): K; reverse = false): PyList[T]		247
+nim	sorted	pylib/builtins/list.html#sorted,,proc(T)	proc sorted[T, K](x: not Sequence[T] and Iterable[T]; key: proc (x: T): K;\n             reverse = false): PyList[T]		252
 nim	delitem	pylib/builtins/list.html#delitem,PyList,Slice[int]	proc delitem(ms: var PyList; indices: Slice[int])		13
-nim	delitem	pylib/builtins/list.html#delitem,PyList,PySlice	proc delitem(ms: var PyList; indices: PySlice)		249
-nim	`[]=`	pylib/builtins/list.html#[]=,PyList[T],Slice[int],Sequence[T]	proc `[]=`[T](ms: var PyList[T]; indices: Slice[int]; o: Sequence[T])		250
+nim	delitem	pylib/builtins/list.html#delitem,PyList,PySlice	proc delitem(ms: var PyList; indices: PySlice)		257
+nim	`[]=`	pylib/builtins/list.html#[]=,PyList[T],Slice[int],Sequence[T]	proc `[]=`[T](ms: var PyList[T]; indices: Slice[int]; o: Sequence[T])		258
 nimgrp	sort	pylib/builtins/list.html#sort-procs-all	proc		125
 nimgrp	[]=	pylib/builtins/list.html#[]=-procs-all	proc		31
 nimgrp	list	pylib/builtins/list.html#list-procs-all	proc		44

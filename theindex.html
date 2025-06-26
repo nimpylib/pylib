@@ -464,6 +464,8 @@
 <li><a class="reference external"
           data-doc-search-tag="list_decl: proc `@`[T](ls: PyList[T]): seq[T]" href="pylib/builtins/list_decl.html#%40%2CPyList%5BT%5D">list_decl: proc `@`[T](ls: PyList[T]): seq[T]</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="pyrange: proc `@`[T](rng: PyRange[T]): seq[T]" href="pylib/builtins/pyrange.html#%40%2CPyRange%5BT%5D">pyrange: proc `@`[T](rng: PyRange[T]): seq[T]</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="collections: proc `@`[T](s: Sequence[T]): seq[T]" href="pylib/collections_abc/collections.html#%40%2CSequence%5BT%5D">collections: proc `@`[T](s: Sequence[T]): seq[T]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bytesimpl: proc `@`(self: PyBytes): seq[char]" href="pylib/pybytes/bytesimpl.html#%40%2CPyBytes">bytesimpl: proc `@`(self: PyBytes): seq[char]</a></li>
@@ -1332,9 +1334,9 @@
           <li><a class="reference external"
           data-doc-search-tag="dict: proc contains[K, V](t: PyDictItemView[K, V]; x: (K, V)): bool" href="pylib/builtins/dict.html#contains%2CPyDictItemView%5BK%2CV%5D%2C">dict: proc contains[K, V](t: PyDictItemView[K, V]; x: (K, V)): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: proc contains[T](t: PyDictKeyView[T]; x: T): bool" href="pylib/builtins/dict.html#contains%2CPyDictKeyView%5BT%5D%2CT">dict: proc contains[T](t: PyDictKeyView[T]; x: T): bool</a></li>
+          data-doc-search-tag="dict: proc contains[T](t: PyDictKeyView[T, auto]; x: T): bool" href="pylib/builtins/dict.html#contains%2CPyDictKeyView%5BT%2Cauto%5D%2CT">dict: proc contains[T](t: PyDictKeyView[T, auto]; x: T): bool</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="dict: proc contains[T](t: PyDictValueView[T]; x: T): bool" href="pylib/builtins/dict.html#contains%2CPyDictValueView%5BT%5D%2CT">dict: proc contains[T](t: PyDictValueView[T]; x: T): bool</a></li>
+          data-doc-search-tag="dict: proc contains[T](t: PyDictValueView[auto, T]; x: T): bool" href="pylib/builtins/dict.html#contains%2CPyDictValueView%5Bauto%2CT%5D%2CT">dict: proc contains[T](t: PyDictValueView[auto, T]; x: T): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="pyrange: proc contains[T](x: PyRange[T]; y: T): bool" href="pylib/builtins/pyrange.html#contains%2CPyRange%5BT%5D%2CT">pyrange: proc contains[T](x: PyRange[T]; y: T): bool</a></li>
           <li><a class="reference external"
@@ -3632,7 +3634,7 @@
           </ul></dd>
 <dt><a name="keys" href="#keys"><span>keys:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="dict: proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K]" href="pylib/builtins/dict.html#keys%2CPyDict%5BK%2CV%5D">dict: proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K]</a></li>
+          data-doc-search-tag="dict: proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K, V]" href="pylib/builtins/dict.html#keys%2CPyDict%5BK%2CV%5D">dict: proc keys[K, V](self: PyDict[K, V]): PyDictKeyView[K, V]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="dict: iterator keys[K, V](self: PyDict[K, V]): K" href="pylib/builtins/dict.html#keys.i%2CPyDict%5BK%2CV%5D">dict: iterator keys[K, V](self: PyDict[K, V]): K</a></li>
           <li><a class="reference external"
@@ -3709,6 +3711,8 @@
           data-doc-search-tag="list: proc list[T](a: sink openArray[T]): PyList[T]" href="pylib/builtins/list.html#list%2CsinkopenArray%5BT%5D">list: proc list[T](a: sink openArray[T]): PyList[T]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list: proc list[T](x: sink seq[T]): PyList[T]" href="pylib/builtins/list.html#list%2Csinkseq%5BT%5D">list: proc list[T](x: sink seq[T]): PyList[T]</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="list: proc list[T](s: sink Seqable[T]): PyList[T]" href="pylib/builtins/list.html#list%2CsinkSeqable%5BT%5D">list: proc list[T](s: sink Seqable[T]): PyList[T]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="list: proc list[T](): PyList[T]" href="pylib/builtins/list.html#list_2">list: proc list[T](): PyList[T]</a></li>
           <li><a class="reference external"
@@ -4076,7 +4080,9 @@
           </ul></dd>
 <dt><a name="newPyAsgnRewriter" href="#newPyAsgnRewriter"><span>newPyAsgnRewriter:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="frame: proc newPyAsgnRewriter(supportGenerics = false; dedentDoc = false): PyAsgnRewriter" href="pylib/pysugar/stmt/frame.html#newPyAsgnRewriter">frame: proc newPyAsgnRewriter(supportGenerics = false; dedentDoc = false): PyAsgnRewriter</a></li>
+          data-doc-search-tag="frame: proc newPyAsgnRewriter(supportGenerics = false; dedentDoc = false;
+                  noParnMultiExecInExcept = false): PyAsgnRewriter" href="pylib/pysugar/stmt/frame.html#newPyAsgnRewriter">frame: proc newPyAsgnRewriter(supportGenerics = false; dedentDoc = false;
+                  noParnMultiExecInExcept = false): PyAsgnRewriter</a></li>
           </ul></dd>
 <dt><a name="newPyByteArray" href="#newPyByteArray"><span>newPyByteArray:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -5025,6 +5031,10 @@
 <dt><a name="PyMinor" href="#PyMinor"><span>PyMinor:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="versionInfo: const PyMinor" href="pylib/versionInfo.html#PyMinor">versionInfo: const PyMinor</a></li>
+          </ul></dd>
+<dt><a name="PyNoParnMultiExecInExcept" href="#PyNoParnMultiExecInExcept"><span>PyNoParnMultiExecInExcept:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="parserWithCfg: const PyNoParnMultiExecInExcept" href="pylib/pysugar/parserWithCfg.html#PyNoParnMultiExecInExcept">parserWithCfg: const PyNoParnMultiExecInExcept</a></li>
           </ul></dd>
 <dt><a name="Py_normalize_encoding" href="#Py_normalize_encoding"><span>Py_normalize_encoding:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -6476,7 +6486,7 @@
           </ul></dd>
 <dt><a name="values" href="#values"><span>values:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="dict: proc values[K, V](self: PyDict[K, V]): PyDictValueView[V]" href="pylib/builtins/dict.html#values%2CPyDict%5BK%2CV%5D">dict: proc values[K, V](self: PyDict[K, V]): PyDictValueView[V]</a></li>
+          data-doc-search-tag="dict: proc values[K, V](self: PyDict[K, V]): PyDictValueView[K, V]" href="pylib/builtins/dict.html#values%2CPyDict%5BK%2CV%5D">dict: proc values[K, V](self: PyDict[K, V]): PyDictValueView[K, V]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="dict: iterator values[K, V](self: PyDict[K, V]): V" href="pylib/builtins/dict.html#values.i%2CPyDict%5BK%2CV%5D">dict: iterator values[K, V](self: PyDict[K, V]): V</a></li>
           <li><a class="reference external"
@@ -6606,7 +6616,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:47 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-06-26 15:52:23 UTC</small>
       </div>
     </div>
   </div>

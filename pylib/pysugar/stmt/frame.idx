@@ -2,13 +2,13 @@ nimTitle	frame	pylib/pysugar/stmt/frame.html	module src/pylib/pysugar/stmt/frame
 nim	Decorator	pylib/pysugar/stmt/frame.html#Decorator	type Decorator		4
 nim	PyAsgnFrame	pylib/pysugar/stmt/frame.html#PyAsgnFrame	type PyAsgnFrame		9
 nim	PyAsgnRewriter	pylib/pysugar/stmt/frame.html#PyAsgnRewriter	object PyAsgnRewriter		13
-nim	newPyAsgnFrame	pylib/pysugar/stmt/frame.html#newPyAsgnFrame	proc newPyAsgnFrame(): PyAsgnFrame		21
-nim	newPyAsgnRewriter	pylib/pysugar/stmt/frame.html#newPyAsgnRewriter	proc newPyAsgnRewriter(supportGenerics = false; dedentDoc = false): PyAsgnRewriter		25
-nim	decorators	pylib/pysugar/stmt/frame.html#decorators	proc decorators(mparser): var seq[Decorator]		32
-nim	push	pylib/pysugar/stmt/frame.html#push	proc push(mparser)		35
-nim	pop	pylib/pysugar/stmt/frame.html#pop	proc pop(mparser)		42
-nim	add	pylib/pysugar/stmt/frame.html#add,,string	proc add(mparser; ident: string)		46
-nim	contains	pylib/pysugar/stmt/frame.html#contains,,string	proc contains(mparser; ident: string): bool		49
-nim	onceDeclInFrames	pylib/pysugar/stmt/frame.html#onceDeclInFrames,string,	proc onceDeclInFrames(ident: string; mparser): bool		53
-nim	nonlocalContains	pylib/pysugar/stmt/frame.html#nonlocalContains,,string	proc nonlocalContains(mparser; ident: string): bool		61
-nim	nonlocalAdd	pylib/pysugar/stmt/frame.html#nonlocalAdd,,string	proc nonlocalAdd(mparser; ident: string)		63
+nim	newPyAsgnFrame	pylib/pysugar/stmt/frame.html#newPyAsgnFrame	proc newPyAsgnFrame(): PyAsgnFrame		22
+nim	newPyAsgnRewriter	pylib/pysugar/stmt/frame.html#newPyAsgnRewriter	proc newPyAsgnRewriter(supportGenerics = false; dedentDoc = false;\n                  noParnMultiExecInExcept = false): PyAsgnRewriter		26
+nim	decorators	pylib/pysugar/stmt/frame.html#decorators	proc decorators(mparser): var seq[Decorator]		35
+nim	push	pylib/pysugar/stmt/frame.html#push	proc push(mparser)		38
+nim	pop	pylib/pysugar/stmt/frame.html#pop	proc pop(mparser)		45
+nim	add	pylib/pysugar/stmt/frame.html#add,,string	proc add(mparser; ident: string)		49
+nim	contains	pylib/pysugar/stmt/frame.html#contains,,string	proc contains(mparser; ident: string): bool		52
+nim	onceDeclInFrames	pylib/pysugar/stmt/frame.html#onceDeclInFrames,string,	proc onceDeclInFrames(ident: string; mparser): bool		56
+nim	nonlocalContains	pylib/pysugar/stmt/frame.html#nonlocalContains,,string	proc nonlocalContains(mparser; ident: string): bool		64
+nim	nonlocalAdd	pylib/pysugar/stmt/frame.html#nonlocalAdd,,string	proc nonlocalAdd(mparser; ident: string)		66

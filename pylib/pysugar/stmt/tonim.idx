@@ -4,7 +4,7 @@ nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode
 nim	parsePyBodyWithDoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc,,NimNode,NimNode	proc parsePyBodyWithDoc(mparser; body: NimNode; docNode: var NimNode): NimNode		34
 nim	parsePyExpr	pylib/pysugar/stmt/tonim.html#parsePyExpr,,NimNode	proc parsePyExpr(mparser; exp: NimNode): NimNode		45
 nim	parsePyStmt	pylib/pysugar/stmt/tonim.html#parsePyStmt,,NimNode	proc parsePyStmt(mparser; statement: NimNode): NimNode		58
-nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody.t,NimNode	template parsePyBody(body: NimNode): NimNode		251
+nim	parsePyBody	pylib/pysugar/stmt/tonim.html#parsePyBody.t,NimNode	template parsePyBody(body: NimNode): NimNode		255
 nimgrp	parsepybodywithdoc	pylib/pysugar/stmt/tonim.html#parsePyBodyWithDoc-procs-all	proc		33
 heading	Limits	pylib/pysugar/stmt/tonim.html#limits	  Limits		0
 heading	global/nonlocal for nonexisting variable	pylib/pysugar/stmt/tonim.html#limits-globalslashnonlocal-for-nonexisting-variable	   global/nonlocal for nonexisting variable		0

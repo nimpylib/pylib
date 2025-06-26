@@ -75,8 +75,8 @@
 
   </div>
   <div class="nine columns" id="content">
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/pycore_pymath.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/pycore_pymath.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/private/pycore_pymath.nim#L1" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/private/pycore_pymath.nim#L1" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
     <div id="tocRoot"></div>
     
@@ -98,8 +98,8 @@
   <dd>
     
     Py_ADJUST_ERANGE1(x) Py_ADJUST_ERANGE2(x, y) Set errno to 0 before calling a libm function, and invoke one of these macros after, passing the function result(s) (_Py_ADJUST_ERANGE2 is useful for functions returning complex results).  This makes two kinds of adjustments to errno:  (A) If it looks like the platform libm set errno=ERANGE due to underflow, clear errno. (B) If it looks like the platform libm overflowed but didn't set errno, force errno to ERANGE.  In effect, we're trying to force a useful implementation of C89 errno behavior. Caution: This isn't reliable.  C99 no longer requires libm to set errno under any exceptional condition, but does require +- HUGE_VAL return values on overflow.  A 754 box <em>probably</em> maps HUGE_VAL to a double infinity, and we're cool if that's so, unless the input was an infinity and an infinity is the expected result.  A C89 system sets errno to ERANGE, so we check for that too.  We're out of luck if a C99 754 box doesn't map HUGE_VAL to +Inf, or if the returned result is a NaN, or if a C89 box returns HUGE_VAL in non-overflow cases. 
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/pycore_pymath.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/pycore_pymath.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/private/pycore_pymath.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/private/pycore_pymath.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -111,8 +111,8 @@
   <dd>
     
     
-    <a href="https://github.com/nimpylib/pylib/tree/master/src/pylib/builtins/private/pycore_pymath.nim#L40" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/pylib/edit/devel/src/pylib/builtins/private/pycore_pymath.nim#L40" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/private/pycore_pymath.nim#L40" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/private/pycore_pymath.nim#L40" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -128,7 +128,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-05-25 07:50:29 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-06-26 15:52:05 UTC</small>
       </div>
     </div>
   </div>

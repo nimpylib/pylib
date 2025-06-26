@@ -7,10 +7,11 @@ nim	range	_._/builtins/pyrange.html#range.t,T,T	template range[T: SomeInteger](s
 nim	range	_._/builtins/pyrange.html#range.t,T	template range[T: SomeInteger](stop: T): PyRange[T]		29
 nim	len	_._/builtins/pyrange.html#len.t,PyRange[T]	template len[T](rng: PyRange[T]): int		34
 nim	items	_._/builtins/pyrange.html#items.i,PyRange[T]	iterator items[T](rng: PyRange[T]): T		37
-nim	contains	_._/builtins/pyrange.html#contains,PyRange[T],T	proc contains[T](x: PyRange[T]; y: T): bool		49
-nim	`[]`	_._/builtins/pyrange.html#[],PyRange[T],Natural	proc `[]`[T](x: PyRange[T]; y: Natural): T		58
-nim	min	_._/builtins/pyrange.html#min,PyRange[T]	proc min[T](x: PyRange[T]): T		63
-nim	max	_._/builtins/pyrange.html#max,PyRange[T]	proc max[T](x: PyRange[T]): T		69
-nim	count	_._/builtins/pyrange.html#count,PyRange[T],T	proc count[T](r: PyRange[T]; x: T): int		75
-nim	index	_._/builtins/pyrange.html#index,PyRange[T],T	proc index[T](r: PyRange[T]; x: T): int		78
+nim	`@`	_._/builtins/pyrange.html#@,PyRange[T]	proc `@`[T](rng: PyRange[T]): seq[T]		49
+nim	contains	_._/builtins/pyrange.html#contains,PyRange[T],T	proc contains[T](x: PyRange[T]; y: T): bool		55
+nim	`[]`	_._/builtins/pyrange.html#[],PyRange[T],Natural	proc `[]`[T](x: PyRange[T]; y: Natural): T		64
+nim	min	_._/builtins/pyrange.html#min,PyRange[T]	proc min[T](x: PyRange[T]): T		69
+nim	max	_._/builtins/pyrange.html#max,PyRange[T]	proc max[T](x: PyRange[T]): T		75
+nim	count	_._/builtins/pyrange.html#count,PyRange[T],T	proc count[T](r: PyRange[T]; x: T): int		81
+nim	index	_._/builtins/pyrange.html#index,PyRange[T],T	proc index[T](r: PyRange[T]; x: T): int		84
 nimgrp	range	_._/builtins/pyrange.html#range-templates-all	template		24
