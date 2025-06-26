@@ -17,7 +17,7 @@ const
   Serial* = 0
 
   PyMajor*{.intdefine.} = 3
-  PyMinor*{.intdefine.} = 13
+  PyMinor*{.intdefine.} = 14
   PyPatch*{.intdefine.} = 0
   PyReleaseLevel* = PyReleaseLevelEnum.final
   PySerial* = 0
