@@ -17,3 +17,10 @@ test "dict":
   # XXX: the following cannot run if included in ../../tester.nim
   # why?
   check str(dict([(1,2)])) == str("{1: 2}")
+
+test "dict views":
+  let
+    d = dict(a=1)
+    v = d.values()  # not compile before 0.9.12
+
+  check 1 in v

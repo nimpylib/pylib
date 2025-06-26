@@ -13,13 +13,13 @@ export emptyPyDict
 type
   PyDictView* = object of RootObj ## .. warning:: currently `mapping` attr
                                   ##   is dict itself, i.e. modifiable
-  PyDictKeyView*[T] = object of PyDictView
-    mapping*: PyDict[T, auto]
-  PyDictValueView*[T] = object of PyDictView
-    mapping*: PyDict[auto, T]
+  PyDictKeyView*[K, V] = object of PyDictView
+    mapping*: PyDict[K, V]
+  PyDictValueView*[K, V] = object of PyDictView
+    mapping*: PyDict[K, V]
   PyDictItemView*[K, V] = object of PyDictView
     mapping*: PyDict[K, V]
-  SomeSinglePyDictView*[T] = PyDictValueView[T]|PyDictKeyView[T]
+  SomeSinglePyDictView*[T] = PyDictValueView[auto, T]|PyDictKeyView[T, auto]
   SomePyDictView* = PyDictKeyView | PyDictValueView | PyDictItemView
 
 
@@ -46,8 +46,8 @@ proc clear*(self) = self.toNimTable.clear
 proc len*(view: SomePyDictView): int = view.mapping.len
 template iter*(view: SomePyDictView): untyped = view.mapping.iter
 template items*(view: SomePyDictView): untyped = view.iter
-func contains*[T](t: PyDictKeyView[T], x: T): bool = contains(t.mapping, x)
-func contains*[T](t: PyDictValueView[T], x: T): bool = 
+func contains*[T](t: PyDictKeyView[T, auto], x: T): bool = contains(t.mapping, x)
+func contains*[T](t: PyDictValueView[auto, T], x: T): bool = 
   for v in t.mapping.values():
     if v == x: return true
 func contains*[K, V](t: PyDictItemView[K, V], x: (K, V)): bool = 
@@ -84,8 +84,8 @@ iterator values*[K, V](self: PyDict[K ,V]): V =
 iterator items*[K, V](self: PyDict[K ,V]): (K, V) =
   for i in self.toNimTable.pairs(): yield i
 
-func keys*[K, V](self: PyDict[K ,V]): PyDictKeyView[K] = result.mapping = self
-func values*[K, V](self: PyDict[K ,V]): PyDictValueView[V] = result.mapping = self
+func keys*[K, V](self: PyDict[K ,V]): PyDictKeyView[K, V] = result.mapping = self
+func values*[K, V](self: PyDict[K ,V]): PyDictValueView[K, V] = result.mapping = self
 func items*[K, V](self: PyDict[K ,V]): PyDictItemView[K, V] = result.mapping = self
 
 func toPyDict*[K, V](x: openArray[(K, V)]): PyDict[K, V] =
