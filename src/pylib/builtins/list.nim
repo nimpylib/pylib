@@ -41,7 +41,14 @@ func `[]=`*[T](self: var PyList[T], s: HSlice, x: PyList[T]) =
 func `[]=`*[T](self: var PyList[T], s: BackwardsIndex, x: T) =
   system.`[]=`(self.asSeq, s, x)
 
-proc list*[T](iter: Iterable[T]): PyList[T] # front decl
+type Seqable[T] = concept self
+  @self is seq[T]
+
+proc list*[T](s: sink Seqable[T]): PyList[T] =
+  ## EXT: accept any `s` where `@s` is `seq[T]`
+  newPyList @s
+
+proc list*[T](iter: (Iterable[T] and not Seqable[T])): PyList[T] # front decl
 func `[]=`*[T](self: var PyList[T], s: HSlice, x: Iterable[T]) =
   self[s] = list(x)
 
@@ -136,13 +143,6 @@ func `+`*[T](self: PyList[T], x: openArray[T]): PyList[T] =
 func list*[T](x: sink seq[T]): PyList[T] = newPyList x
 func list*[T](a: sink openArray[T]): PyList[T] = newPyList a
 
-type Seqable[T] = concept self
-  @self is seq[T]
-
-proc list*[T](s: sink Seqable[T]): PyList[T] =
-  ## EXT: accept any `s` where `@s` is `seq[T]`
-  newPyList @s
-
 # Impl end
 
 # the following does nothing with how PyList is implemented.
@@ -167,7 +167,7 @@ template `+`*[T](self: var PyList[T], x: PyList[T]): PyList[T] =
   self.extend x
 
 # it has side effects as it may call `items`
-proc list*[T](iter: Iterable[T]): PyList[T] =
+proc list*[T](iter: (Iterable[T] and not Seqable[T])): PyList[T] =
   when iter is Sized:
     result = newPyList[T](len(iter))
     for i, v in enumerate(iter):
