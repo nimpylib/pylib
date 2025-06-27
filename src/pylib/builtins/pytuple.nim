@@ -1,6 +1,7 @@
 ## Currently we just use `system.tuple` for Python's tuple
 
 import std/macros
+import std/typetraits
 
 macro items*(t: tuple): untyped =
   result = newNimNode nnkBracket
@@ -17,7 +18,9 @@ macro items*(t: tuple): untyped =
       result.add nnkBracketExpr.newTree(t, newLit i)
   result = newCall(ident"items", result)
 
-macro len*(t: tuple): int = newLit t.len
+template len*[T: tuple](_: T): int =
+  bind tupleLen
+  tupleLen T
 
 when defined(js):
   import ./private/strIter
@@ -34,3 +37,7 @@ when isMainModule:
   let t = (1, 2)
   for i in t:
     echo i
+
+  block:
+    let t = (1, 2, 3)
+    echo t.len
