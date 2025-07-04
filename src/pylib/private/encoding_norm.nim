@@ -8,7 +8,7 @@ template Py_TOLOWER(c: char): char = c.toLowerAscii()
 
 # translated from CPython-3.13-alpha/Object/unicodeobjetc.c L3234
 # `_Py_normalize_encoding`, but use Nim's string over C's char pointer.
-template Py_normalize_encoding_impl(encoding: string, map2char) =
+template Py_normalize_encoding_impl(encoding; map2char) =
   var punct = false
   for c in encoding:
     if Py_ISALNUM(c) or c == '.':
@@ -19,7 +19,7 @@ template Py_normalize_encoding_impl(encoding: string, map2char) =
     else:
       punct = true
 
-proc Py_normalize_encoding*(encoding: string): string =
+proc Py_normalize_encoding*(encoding: string|cstring): string =
   ##  Normalize an encoding name: similar to encodings.normalize_encoding(), but
   ##    also convert to lowercase.
   Py_normalize_encoding_impl(encoding, Py_TOLOWER)

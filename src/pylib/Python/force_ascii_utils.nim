@@ -60,7 +60,7 @@ when not (Py_FORCE_UTF8_FS_ENCODING) and not defined(windows):
           ##  CODESET is not set or empty
           break noerror
         ##  longest name: "iso_646.irv_1991\0"
-        let encoding = Py_normalize_encoding($codeset)
+        let encoding = Py_normalize_encoding(codeset)
         when defined(hpux):
           if encoding == "roman8":
             var ch: array[2, cchar]
