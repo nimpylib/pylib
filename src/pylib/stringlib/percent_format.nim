@@ -1,0 +1,294 @@
+## `__mod__` implementation for `str`, `bytes` or `bytearray`.
+## 
+import std/[strutils, tables]
+import std/strformat
+import std/typetraits
+import std/typeinfo
+
+import std/macros
+
+import ../pyerrors/simperr
+
+proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
+  ##[ Add a substring to the string.
+     `start..<stop`
+
+   roughly equal to self.add s[start ..< stop]
+  ]##
+  let rng = start ..< stop
+  when declared(copyMem):
+    let bLen = self.len
+    self.setLen bLen + rng.len
+    #for i in rng: self[bLen + i] = s[i]
+    copyMem(addr(self[bLen]), addr(s[start]), rng.len)
+  else:
+    for i in rng:
+      self.add s[i]
+
+# ['-', '+', ' ', '#', '0']
+const
+  F_LJUST = 1 shl 0
+  F_SIGN  = 1 shl 1
+  F_BLANK = 1 shl 2
+  F_ALT   = 1 shl 3
+  F_ZERO  = 1 shl 4
+
+template `|=`(f, g: int) =
+  ## Bitwise OR for `FormatCode`.
+  f = f or g
+
+proc getTypeName*(t: AnyKind): string =
+  ## e.g. get `"int"` from `akInt`
+  ($t)[2..^1]
+    .toLowerAscii()  # only for a little better report msg in "* wants "
+
+macro genParserOfRange(start, stop: static AnyKind) =
+  ## start..stop
+  let
+    pureTypName = start.getTypeName
+    typName = "Biggest" & pureTypName
+    typId = ident typName
+    procName = ident "parse" & typName
+
+  var procBody = newStmtList quote do:
+    if v.kind notin `start` .. `stop`:
+      raise newException(TypeError, "* wants " & `pureTypName`)
+
+  var vId = ident "v"
+  var caseBody = nnkCaseStmt.newTree newDotExpr(vId, ident"kind")
+
+  for kindIdx in start.ord .. stop.ord:
+    let kind = cast[AnyKind](kindIdx)
+    caseBody.add nnkOfBranch.newTree(
+      newLit kind,
+      newCall(typId,
+        newDotExpr(vId, ident "get" & kind.getTypeName)
+      )
+    )
+  caseBody.add nnkElse.newTree(
+    quote do:
+      doAssert false; default `typId`
+  )
+
+  procBody.add caseBody
+
+  result = quote do:
+    proc `procName`(`vId`: Any): `typId` = `procBody`
+
+
+genParserOfRange(akInt, akInt64)
+genParserOfRange(akFloat, akFloat64)
+genParserOfRange(akUInt, akUInt64)
+
+proc parseNumberAsBiggestInt(v: Any|string): BiggestInt =
+  when v is Any:
+    if v.kind in akFloat .. akFloat64: BiggestInt v.parseBiggestFloat
+    else: v.parseBiggestInt
+  else:
+    BiggestInt v.parseFloat
+
+#TODO:
+proc format_obj(v: Any): string = $v
+
+#TODO: consider Rune
+
+func chkLen1(s: string|cstring) =
+  if s.len != 1:
+    raise newException(TypeError, "character format requires a single character")
+
+proc parseChar(v: Any): char =
+  ## byte_converter
+  template doWithS(s) =
+    s.chkLen1
+    return s[0]
+  case v.kind
+  of akString:
+    let s = v.getString
+    doWithS s
+  of akCString:
+    let s = v.getCString
+    doWithS s
+  of akChar:
+    return v.getChar
+  else:
+    doAssert false, "not impl"  #FIX-PY: #raise newException(TypeError, "Invalid type for character conversion")
+
+proc parseChar(s: string): char =
+  s.chkLen1
+  s[0]
+
+template pushDigitChar(self: var BiggestInt, c: char) =
+  ## assuming c in '0' .. '9'
+  self = self * 10 + (c.ord -% '0'.ord)
+
+proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
+    #TODO: also support mapping in additional to literal sugar
+    ](format: string, args: openArray[T]): string =
+  ## Format a string using a Python-like `%` formatting.
+  ## `args` is a sequence of strings to substitute into the format string.
+  ## 
+  ## like `PyUnicode_Format` in unicodeobject.c & `_PyBytes_FormatEx` in bytesobject.c
+  when declared(newStringOfCap):
+    result = newStringOfCap(format.len)
+  const dictMode = T is_not Any
+  var idx = 0
+  when dictMode:
+    var
+      darg: string
+      dict = toTable(args)
+    template getnextarg(_): string = darg
+    template getstring(s: string): string = s
+    template parseBiggestFloat(s: string): float = s.parseFloat
+  else:
+    var
+      (arglen, argidx) = (args.len, 0)
+    template getnextarg(args): Any =
+      ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
+      ## to mean `getnextarg(args, arglen, argidx)`
+      ## so no need for the later 2 arg
+      let t_argidx = argidx
+      if t_argidx < arglen:
+        inc argidx
+        args[t_argidx]
+      else:
+        raise newException(TypeError, "not enough arguments for format string")
+  while idx < format.len:
+    if format[idx] != '%':
+      # Copy non-format characters
+      let start = idx
+      while idx < format.len and format[idx] != '%':
+        inc idx
+      result.addSubStr(format, start, idx)
+    else:
+      # Handle format specifier
+      inc idx
+      if idx < format.len and format[idx] == '%':  # %% means %
+        result.add('%')
+        inc idx
+        continue
+
+      if idx < format.len and format[idx] == '(':
+        # Dictionary mode
+        when not dictMode:
+          raise newException(TypeError, "format requires a mapping")
+        else:
+          template raiseIncompFmtKey() =
+            raise newException(ValueError, "incomplete format key")
+          let start = idx
+          inc idx
+          var pcount = 1
+          while pcount > 0 and idx < format.len:
+            inc idx
+            if format[idx - 1] == ')':
+              dec pcount
+            elif format[idx - 1] == '(':
+              inc pcount
+          if pcount > 0:
+            raiseIncompFmtKey()
+          let key = format[start + 1 ..< idx - 1]
+          if not dict.hasKey(key):
+            raise newException(KeyError, "key not found in mapping: " & key)
+          darg = dict[key]
+
+      # Parse flags
+      var flags = 0
+      while idx < format.len:
+        let i = ['-', '+', ' ', '#', '0'].find(format[idx])
+        if i != -1:
+          flags |= (1 shl i)
+          inc idx
+        else:
+          break
+
+
+      # Parse width. Example: "%10s" => width=10
+      var width = BiggestInt -1
+      if idx < format.len and format[idx] == '*':
+        width = parseBiggestInt getnextarg(args)
+        if width < 0:
+          flags |= F_LJUST
+          width = -width
+
+        inc idx
+      elif idx < format.len and format[idx].isDigit:
+        width = 0
+        while idx < format.len and format[idx].isDigit:
+          width.pushDigitChar format[idx]
+          inc idx
+
+      # Parse precision. Example: "%.3f" => prec=3
+      var precision = BiggestInt -1
+      if idx < format.len and format[idx] == '.':
+        inc idx
+        if idx < format.len and format[idx] == '*':
+          precision = parseBiggestInt getnextarg(args)
+          inc idx
+        elif idx < format.len and format[idx].isDigit:
+          precision = 0
+          while idx < format.len and format[idx].isDigit:
+            precision.pushDigitChar format[idx]
+            inc idx
+
+      # Parse type specifier
+      if idx >= format.len:
+        raise newException(ValueError, "incomplete format")
+      let specifier = format[idx]
+      inc idx
+
+      when not dictMode:
+        if argidx >= arglen:
+          raise newException(TypeError, "not enough arguments for format string")
+        let value = args[argidx]
+        inc argidx
+      else:
+        let value = darg
+
+      #TODO: skip prec prefix h l L
+
+      #TODO: use flags
+      case specifier
+      #TODO: support 'r' 'a'
+      of 's', 'b': #TODO: b need special treat when for `str`
+        result.add value.getString
+      of 'd', 'i', 'x', 'X', 'o':
+        let i = value.parseNumberAsBiggestInt
+        result.formatValue i, $specifier
+      of 'u':
+        result.add $value.parseBiggestUInt
+      of 'f', 'F', 'e', 'E', 'g', 'G':
+        let f = value.parseBiggestFloat
+        result.formatValue f, $specifier
+      of 'c':
+        result.add parseChar(value)
+      else:
+        raise newException(ValueError, fmt"unsupported format character: '{specifier}' (0x{specifier.ord:x}) at index {idx - 1}")
+
+  when not dictMode:
+    if argidx < arglen:
+      raise newException(TypeError, "not all arguments converted during bytes formatting")
+
+
+when isMainModule:
+  macro Py_FormatEx(s: string, args: tuple): string =
+    ## Helper function to format a string with a tuple.
+    ## This is used to ensure compatibility with the original Python `%` formatting.
+    result = newStmtList()
+    let nargs = genSym(nskVar, "nargs")
+    result.add newVarStmt(nargs, args)
+    var ls = newNimNode nnkBracket
+    let tupLen = args.getType().len - 1
+    let toAnyId = bindSym("toAny")
+    for i in 0..<tupLen:
+      ls.add quote do:
+        `toAnyId` `nargs`[`i`]
+    result.add quote do:
+      Py_FormatEx(`s`, `ls`)
+
+  # Test cases
+  echo Py_FormatEx("Hello, %s! Hello %d", ("World", 86))
+  echo Py_FormatEx("Number: %d", (42,))
+  echo Py_FormatEx("Hex: %x", (255,))
+  echo Py_FormatEx("Float: %.2f", (3.14159,))
+  echo Py_FormatEx("Char: %c", ('A',))
+  echo Py_FormatEx("Dict: %(key)s", {"key": "value"})
+  echo Py_FormatEx("Multiple: %s, %d", ("test", 123))
