@@ -7,6 +7,8 @@ import std/typeinfo
 
 import std/macros
 
+from std/parseutils import parseBiggestInt
+
 import ../pyerrors/simperr
 
 proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
@@ -80,12 +82,19 @@ genParserOfRange(akInt, akInt64)
 genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
-proc parseNumberAsBiggestInt(v: Any|string): BiggestInt =
+proc parseNumberAsBiggestInt(v: Any|string, res: var BiggestInt): bool =
+  ## returns if is indeed int internal
   when v is Any:
-    if v.kind in akFloat .. akFloat64: BiggestInt v.parseBiggestFloat
-    else: v.parseBiggestInt
+    if v.kind in akFloat .. akFloat64:
+      res = BiggestInt v.parseBiggestFloat
+      false
+    else:
+      res = v.parseBiggestInt
+      true
   else:
-    BiggestInt v.parseFloat
+    result = v.len == parseBiggestInt(v, res)
+    if not result:
+      res = BiggestInt v.parseFloat
 
 #TODO:
 proc format_obj(v: Any): string = $v
@@ -251,7 +260,17 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
       of 's', 'b': #TODO: b need special treat when for `str`
         result.add value.getString
       of 'd', 'i', 'x', 'X', 'o':
-        let i = value.parseNumberAsBiggestInt
+        var i: BiggestInt
+        let isInt = value.parseNumberAsBiggestInt(i)
+        if not isInt:
+          let shallIntOnly = specifier not_in {'d', 'i'}
+          if shallIntOnly:
+            raise newException(TypeError, &"%{specifier} format: an integer is required, not float")
+          #XXX:
+          #[here we cannot mixin `index()` as well as `int()` for `value`, so there's
+            no need to check if `int` returns an integer, thus err msg can only be in one form (as used above)
+            instead of a string interpolared by "a real number" and type of `value`
+            ]#
         result.formatValue i, $specifier
       of 'u':
         result.add $value.parseBiggestUInt
