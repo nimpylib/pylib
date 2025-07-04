@@ -8,6 +8,7 @@ import std/typeinfo
 import std/macros
 
 from std/parseutils import parseBiggestInt
+from std/unicode import runeLen, Rune, runeAt
 
 import ../pyerrors/simperr
 
@@ -57,10 +58,12 @@ macro genParserOfRange(start, stop: static AnyKind) =
     typName = "Biggest" & pureTypName
     typId = ident typName
     procName = ident "parse" & typName
+    errMsgId = ident"errMsg"
+    errMsgLit = newLit "* wants " & pureTypName
 
   var procBody = newStmtList quote do:
     if v.kind notin `start` .. `stop`:
-      raise newException(TypeError, "* wants " & `pureTypName`)
+      raise newException(TypeError, `errMsgId`)
 
   var vId = ident "v"
   var caseBody = nnkCaseStmt.newTree newDotExpr(vId, ident"kind")
@@ -81,7 +84,7 @@ macro genParserOfRange(start, stop: static AnyKind) =
   procBody.add caseBody
 
   result = quote do:
-    proc `procName`(`vId`: Any): `typId` = `procBody`
+    proc `procName`(`vId`: Any, `errMsgId`=`errMsgLit`): `typId` = `procBody`
 
 
 genParserOfRange(akInt, akInt64)
@@ -105,10 +108,8 @@ proc parseNumberAsBiggestInt(v: Any|string, res: var BiggestInt): bool =
 #TODO:
 #proc format_obj(v: Any): string = $v
 
-#TODO: consider Rune
-
-func chkLen1(s: string|cstring) =
-  if s.len != 1:
+func chkLen1(slen: int) =
+  if slen != 1:
     raise newException(TypeError, "character format requires a single character")
 
 const
@@ -116,9 +117,9 @@ const
 
 proc parseChar(v: Any): char =
   ## byte_converter
-  template doWithS(s) =
-    s.chkLen1
-    return s[0]
+  template doWithS(s): untyped =
+    s.len.chkLen1
+    s[0]
   case v.kind
   of akString:
     let s = v.getString
@@ -127,13 +128,27 @@ proc parseChar(v: Any): char =
     let s = v.getCString
     doWithS s
   of akChar:
-    return v.getChar
+    v.getChar
   else:
-    doAssert false, "not impl"  #FIX-PY: #raise newException(TypeError, "Invalid type for character conversion")
+    const err = "%c requires an integer in range(256) or a single byte"
+    let i = parseBiggestInt(v, err)
+    if i not_in 0..255:
+      raise newException(TypeError, err)
+    cast[char](i)
 
 proc parseChar(s: string): char =
-  s.chkLen1
+  s.len.chkLen1
   s[0]
+
+proc parseRune(v: Any|string): Rune =
+  when v is string:
+    v.runeLen.chkLen1
+    v.runeAt 0
+  else:
+    if v.kind == akChar:
+      Rune v.getChar
+    else:
+      Rune v.parseBiggestInt"%c requires int or char"
 
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
@@ -156,6 +171,8 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
     `disallow%b` = true): string =
   ## Format a string using a Python-like `%` formatting.
   ## `args` is a sequence of strings to substitute into the format string.
+  ## 
+  ## if `disallow%b` is true, %c also accept `int` and `Rune`
   ## 
   ## like `PyUnicode_Format` in unicodeobject.c & `_PyBytes_FormatEx` in bytesobject.c
   ## with exceptions:
@@ -339,13 +356,19 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
         let f = value.parseBiggestFloat
         result.formatValue f, spec
       of 'c':
-        result.formatValue parseChar(value), spec
+        if `disallow%b`:
+          result.formatValue parseRune(value), spec
+        else:
+          result.formatValue parseChar(value), spec
       else:
         raiseUnsupSpec(specifier, idx)
 
   when not dictMode:
     if argidx < arglen:
-      raise newException(TypeError, "not all arguments converted during bytes formatting")
+      raise newException(TypeError, "not all arguments converted during " & (
+        if `disallow%b`: "string"
+        else: "bytes"
+        ) & " formatting")
 
 
 when isMainModule:
