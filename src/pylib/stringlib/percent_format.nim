@@ -105,6 +105,9 @@ func chkLen1(s: string|cstring) =
   if s.len != 1:
     raise newException(TypeError, "character format requires a single character")
 
+const
+  ovfChk = compileOption("overflowChecks")
+
 proc parseChar(v: Any): char =
   ## byte_converter
   template doWithS(s) =
@@ -126,9 +129,14 @@ proc parseChar(s: string): char =
   s.chkLen1
   s[0]
 
-template pushDigitChar(self: var BiggestInt, c: char) =
+template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
-  self = self * 10 + (c.ord -% '0'.ord)
+  {.push overflowCheck: off.}  # we do check by our own.
+  when ovfChk:
+    if self > (T.high - (T(c) - '0'.ord)) div 10:
+      raise newException(ValueError, astToStr(self) & " too big")
+  self = self * 10 + (c.ord - '0'.ord)
+  {.pop.}
 
 proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
     #TODO: also support mapping in additional to literal sugar
