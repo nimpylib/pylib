@@ -252,6 +252,12 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
             prec.pushDigitChar format[idx]
             inc idx
 
+      # Skip length spec (type prefix) just as Python does.
+      #[ We are able to do so because the type system used here
+      is both dynamic and safe. ]#
+      if idx < format.len and format[idx] in {'h', 'l', 'L'}:
+        inc idx
+
       # Parse type specifier
       if idx >= format.len:
         raise newException(ValueError, "incomplete format")
@@ -266,7 +272,6 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
       else:
         let value = darg
 
-      #TODO: skip prec prefix h l L
 
       var
         spec = StandardFormatSpecifier(
