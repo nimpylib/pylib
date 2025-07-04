@@ -14,7 +14,7 @@ from std/unicode import runeLen, runeOffset, Rune, `$`
 import std/strformat{.all.}
 
 
-proc toRadix(typ: char): int =
+proc myToRadix(typ: char): int =
   ## XXX: differs from the one in std/strformat,
   ## which fails to handle 'i' and 'u'
   case typ
@@ -101,7 +101,7 @@ proc formatInt(n: SomeNumber; radix: int; spec: StandardFormatSpecifier): string
 
 
 proc formatValue*[T: SomeInteger](s: var string, value: T, spec: StandardFormatSpecifier) =
-  s.add formatInt(value, spec.typ.toRadix, spec)
+  s.add formatInt(value, spec.typ.myToRadix, spec)
 
 
 proc toFloatFormatMode(typ: char): FloatFormatMode{.declWhenNotRunArgs(('e')).} =

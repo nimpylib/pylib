@@ -11,6 +11,8 @@ from std/parseutils import parseBiggestInt
 
 import ../pyerrors/simperr
 
+import ./formatWithSpec
+
 proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
   ##[ Add a substring to the string.
      `start..<stop`
@@ -38,6 +40,10 @@ const
 template `|=`(f, g: int) =
   ## Bitwise OR for `FormatCode`.
   f = f or g
+
+template `&`(f, g: int): bool =
+  ## this should returns int, but here we will only use it in bool context
+  bool(f and g)
 
 proc getTypeName*(t: AnyKind): string =
   ## e.g. get `"int"` from `akInt`
@@ -97,7 +103,7 @@ proc parseNumberAsBiggestInt(v: Any|string, res: var BiggestInt): bool =
       res = BiggestInt v.parseFloat
 
 #TODO:
-proc format_obj(v: Any): string = $v
+#proc format_obj(v: Any): string = $v
 
 #TODO: consider Rune
 
@@ -234,16 +240,16 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
           inc idx
 
       # Parse precision. Example: "%.3f" => prec=3
-      var precision = BiggestInt -1
+      var prec = BiggestInt -1
       if idx < format.len and format[idx] == '.':
         inc idx
         if idx < format.len and format[idx] == '*':
-          precision = parseBiggestInt getnextarg(args)
+          prec = parseBiggestInt getnextarg(args)
           inc idx
         elif idx < format.len and format[idx].isDigit:
-          precision = 0
+          prec = 0
           while idx < format.len and format[idx].isDigit:
-            precision.pushDigitChar format[idx]
+            prec.pushDigitChar format[idx]
             inc idx
 
       # Parse type specifier
@@ -262,11 +268,30 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
 
       #TODO: skip prec prefix h l L
 
-      #TODO: use flags
+      var
+        spec = StandardFormatSpecifier(
+          fill: ' ',
+          align: '>',  # `%-format` use right alignment by default for both number and string (unlike f-string)
+          sign: '-',
+          alternateForm: flags & F_ALT,
+          padWithZero: flags & F_ZERO,
+          minimumWidth: int width,
+          precision: int prec,
+          typ: specifier,
+        )
+
+      if flags & F_BLANK:
+        spec.sign = ' '
+      if flags & F_LJUST:
+        spec.align = '<'
+        spec.padWithZero = false
+        #NOTE: left adjusted: `(overrides the '0' conversion if both are given).`
+      if flags & F_SIGN:
+        spec.sign = '+'
       case specifier
       #TODO: support 'r' 'a'
       of 's', 'b': #TODO: b need special treat when for `str`
-        result.add value.getString
+        result.formatValue value.getString, spec
       of 'd', 'i', 'x', 'X', 'o':
         var i: BiggestInt
         let isInt = value.parseNumberAsBiggestInt(i)
@@ -279,14 +304,15 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
             no need to check if `int` returns an integer, thus err msg can only be in one form (as used above)
             instead of a string interpolared by "a real number" and type of `value`
             ]#
-        result.formatValue i, $specifier
+        result.formatValue i, spec
       of 'u':
-        result.add $value.parseBiggestUInt
+        let ui = $value.parseBiggestUInt
+        result.formatValue ui, spec
       of 'f', 'F', 'e', 'E', 'g', 'G':
         let f = value.parseBiggestFloat
-        result.formatValue f, $specifier
+        result.formatValue f, spec
       of 'c':
-        result.add parseChar(value)
+        result.formatValue parseChar(value), spec
       else:
         raise newException(ValueError, fmt"unsupported format character: '{specifier}' (0x{specifier.ord:x}) at index {idx - 1}")
 
