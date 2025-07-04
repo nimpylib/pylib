@@ -144,13 +144,25 @@ template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   self = self * 10 + (c.ord - '0'.ord)
   {.pop.}
 
+
+proc raiseUnsupSpec(specifier: char, idx: int) =
+  raise newException(ValueError, fmt"unsupported format character: '{specifier}' (0x{specifier.ord:x}) at index {idx - 1}")
+
 proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
     #TODO: also support mapping in additional to literal sugar
-    ](format: string, args: openArray[T]): string =
+    ](format: string, args: openArray[T],
+    reprCb: proc (x: string): string = repr,
+    asciiCb: proc (x: string): string = repr,
+    `disallow%b` = true): string =
   ## Format a string using a Python-like `%` formatting.
   ## `args` is a sequence of strings to substitute into the format string.
   ## 
   ## like `PyUnicode_Format` in unicodeobject.c & `_PyBytes_FormatEx` in bytesobject.c
+  ## with exceptions:
+  ## 
+  ## - CPython's `%u` is just the same with `%d` (`%i`, etc), which means accepting negative int and float.
+  ##   Therefore, for example, `"%u" % (-1.1,)` just gives `"-1"`,
+  ##   which is somewhat felt strange. As of in Nim uint exists, %u refers to any unsigned int.
   when declared(newStringOfCap):
     result = newStringOfCap(format.len)
   const dictMode = T is_not Any
@@ -294,9 +306,19 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
       if flags & F_SIGN:
         spec.sign = '+'
       case specifier
-      #TODO: support 'r' 'a'
-      of 's', 'b': #TODO: b need special treat when for `str`
-        result.formatValue value.getString, spec
+      of 'r':
+        let s = value.getString.reprCb
+        result.formatValue s, spec
+      of 'a':
+        let s = value.getString.asciiCb
+        result.formatValue s, spec
+      of 's', 'b':
+        var s = value.getString
+        if `disallow%b`:
+          if specifier == 'b':
+            raiseUnsupSpec(specifier, idx)
+
+        result.formatValue s, spec
       of 'd', 'i', 'x', 'X', 'o':
         var i: BiggestInt
         let isInt = value.parseNumberAsBiggestInt(i)
@@ -319,7 +341,7 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
       of 'c':
         result.formatValue parseChar(value), spec
       else:
-        raise newException(ValueError, fmt"unsupported format character: '{specifier}' (0x{specifier.ord:x}) at index {idx - 1}")
+        raiseUnsupSpec(specifier, idx)
 
   when not dictMode:
     if argidx < arglen:
