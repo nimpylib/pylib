@@ -1,0 +1,6 @@
+nimTitle	formatWithSpec	_._/stringlib/formatWithSpec.html	module src/pylib/stringlib/formatWithSpec		0
+nim	formatValue	_._/stringlib/formatWithSpec.html#formatValue,string,T,StandardFormatSpecifier	proc formatValue[T: SomeInteger](s: var string; value: T;\n                            spec: StandardFormatSpecifier)		103
+nim	formatValue	_._/stringlib/formatWithSpec.html#formatValue,string,SomeFloat,StandardFormatSpecifier	proc formatValue(result: var string; value: SomeFloat; spec: StandardFormatSpecifier)		118
+nim	formatValue	_._/stringlib/formatWithSpec.html#formatValue,string,string,StandardFormatSpecifier	proc formatValue(result: var string; value: string; spec: StandardFormatSpecifier)		123
+nim	formatValue	_._/stringlib/formatWithSpec.html#formatValue,string,,StandardFormatSpecifier	proc formatValue(result: var string; value: char | Rune;\n            spec: StandardFormatSpecifier)		135
+nimgrp	formatvalue	_._/stringlib/formatWithSpec.html#formatValue-procs-all	proc		103

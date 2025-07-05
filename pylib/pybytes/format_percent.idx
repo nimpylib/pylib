@@ -1,0 +1,3 @@
+nimTitle	format_percent	pylib/pybytes/format_percent.html	module src/pylib/pybytes/format_percent		0
+nim	nimpylib_private_genByteLikePercentFormat	pylib/pybytes/format_percent.html#nimpylib_private_genByteLikePercentFormat.t	template nimpylib_private_genByteLikePercentFormat(Bytes)		7
+nim	`%`	pylib/pybytes/format_percent.html#%.m,PyBytes,untyped	macro `%`(s: PyBytes; args: untyped): PyBytes		12

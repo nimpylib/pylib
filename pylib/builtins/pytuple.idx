@@ -1,3 +1,3 @@
 nimTitle	pytuple	pylib/builtins/pytuple.html	module src/pylib/builtins/pytuple		0
-nim	items	pylib/builtins/pytuple.html#items.m	macro items(t: tuple): untyped		5
-nim	len	pylib/builtins/pytuple.html#len.m	macro len(t: tuple): int		20
+nim	items	pylib/builtins/pytuple.html#items.m	macro items(t: tuple): untyped		6
+nim	len	pylib/builtins/pytuple.html#len.t,T	template len[T: tuple](_: T): int		21

@@ -99,9 +99,11 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#hash%2Cfloat"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+this uses <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">hashes</span></span></tt> algorithm, which differs from CPython's. Also, <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">==</span><span class="Identifier">b</span></span></tt> &lt;=&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span></span></tt>, where a, b are of <em>different</em> types, is not guaranteed.</div>
+
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L20" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L20" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -109,9 +111,11 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#hash%2Cint"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L12" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L12" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+this uses <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">hashes</span></span></tt> algorithm, which differs from CPython's. Also, <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">==</span><span class="Identifier">b</span></span></tt> &lt;=&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span></span></tt>, where a, b are of <em>different</em> types, is not guaranteed.</div>
+
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L19" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L19" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -119,39 +123,41 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#hash%2Cproc"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">proc</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L15" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L15" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+this uses <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">hashes</span></span></tt> algorithm, which differs from CPython's. Also, <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">==</span><span class="Identifier">b</span></span></tt> &lt;=&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span></span></tt>, where a, b are of <em>different</em> types, is not guaranteed.</div>
+
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L22" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L22" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="hash,PyDict">
-  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyDict"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: PyDict&quot;</span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyDict"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="dict_decl.html#PyDict"><span class="Identifier">PyDict</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: \'dict\'&quot;</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L32" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L32" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="hash,PyList">
-  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyList"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: PyList&quot;</span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyList"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="list_decl.html#PyList"><span class="Identifier">PyList</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: \'list\'&quot;</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="hash,PySet">
-  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPySet"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="set_decl.html#PySet"><span class="Identifier">PySet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: PySet&quot;</span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPySet"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="set_decl.html#PySet"><span class="Identifier">PySet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span class="Identifier">error</span><span class="Other">:</span> <span class="StringLit">&quot;TypeError: unhashable type: \'set\'&quot;</span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L26" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L26" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -159,9 +165,11 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#hash_2"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="../pystring/strimpl.html#PyStr"><span class="Identifier">PyStr</span></a> <span class="Operator">|</span> <a href="../pybytes/bytesimpl.html#PyBytes"><span class="Identifier">PyBytes</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+this uses <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">hashes</span></span></tt> algorithm, which differs from CPython's. Also, <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">==</span><span class="Identifier">b</span></span></tt> &lt;=&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span></span></tt>, where a, b are of <em>different</em> types, is not guaranteed.</div>
+
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -169,9 +177,11 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CPyTComplex"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="complex.html#PyTComplex"><span class="Identifier">PyTComplex</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L17" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+this uses <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">hashes</span></span></tt> algorithm, which differs from CPython's. Also, <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">==</span><span class="Identifier">b</span></span></tt> &lt;=&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span></span></tt>, where a, b are of <em>different</em> types, is not guaranteed.</div>
+
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L24" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L24" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -179,9 +189,11 @@
   <dt><pre><span class="Keyword">proc</span> <a href="#hash"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
   <dd>
     
-    
-    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <div class="admonition admonition-warning"><span class="admonition-warning-text"><b>Warning:</b></span>
+this uses <tt class="docutils literal"><span class="pre"><span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">hashes</span></span></tt> algorithm, which differs from CPython's. Also, <tt class="docutils literal"><span class="pre"><span class="Identifier">a</span><span class="Operator">==</span><span class="Identifier">b</span></span></tt> &lt;=&gt; <tt class="docutils literal"><span class="pre"><span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">a</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">hash</span><span class="Punctuation">(</span><span class="Identifier">b</span><span class="Punctuation">)</span></span></tt>, where a, b are of <em>different</em> types, is not guaranteed.</div>
+
+    <a href="https://github.com/nimpylib/nimpylib/tree/master/src/pylib/builtins/pyhashes.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/nimpylib/nimpylib/edit/devel/src/pylib/builtins/pyhashes.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -197,7 +209,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-06-26 16:17:56 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-07-05 19:01:49 UTC</small>
       </div>
     </div>
   </div>

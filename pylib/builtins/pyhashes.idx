@@ -1,11 +1,11 @@
 nimTitle	pyhashes	pylib/builtins/pyhashes.html	module src/pylib/builtins/pyhashes		0
-nim	hash	pylib/builtins/pyhashes.html#hash,int	proc hash(x: int): int		12
-nim	hash	pylib/builtins/pyhashes.html#hash,float	proc hash(x: float): int		13
-nim	hash	pylib/builtins/pyhashes.html#hash	proc hash(x: tuple): int		14
-nim	hash	pylib/builtins/pyhashes.html#hash,proc	proc hash(x: proc): int		15
-nim	hash	pylib/builtins/pyhashes.html#hash,PyTComplex	proc hash(x: PyTComplex): int		17
-nim	hash	pylib/builtins/pyhashes.html#hash_2	proc hash(x: PyStr | PyBytes): int		18
-nim	hash	pylib/builtins/pyhashes.html#hash,PyList	proc hash(x: PyList): int		24
-nim	hash	pylib/builtins/pyhashes.html#hash,PyDict	proc hash(x: PyDict): int		25
-nim	hash	pylib/builtins/pyhashes.html#hash,PySet	proc hash(x: PySet): int		26
-nimgrp	hash	pylib/builtins/pyhashes.html#hash-procs-all	proc		10
+nim	hash	pylib/builtins/pyhashes.html#hash,int	proc hash(x: int): int		19
+nim	hash	pylib/builtins/pyhashes.html#hash,float	proc hash(x: float): int		20
+nim	hash	pylib/builtins/pyhashes.html#hash	proc hash(x: tuple): int		21
+nim	hash	pylib/builtins/pyhashes.html#hash,proc	proc hash(x: proc): int		22
+nim	hash	pylib/builtins/pyhashes.html#hash,PyTComplex	proc hash(x: PyTComplex): int		24
+nim	hash	pylib/builtins/pyhashes.html#hash_2	proc hash(x: PyStr | PyBytes): int		25
+nim	hash	pylib/builtins/pyhashes.html#hash,PyList	proc hash(x: PyList): int		31
+nim	hash	pylib/builtins/pyhashes.html#hash,PyDict	proc hash(x: PyDict): int		32
+nim	hash	pylib/builtins/pyhashes.html#hash,PySet	proc hash(x: PySet): int		33
+nimgrp	hash	pylib/builtins/pyhashes.html#hash-procs-all	proc		12

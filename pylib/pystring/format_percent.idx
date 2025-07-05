@@ -1,0 +1,2 @@
+nimTitle	format_percent	pylib/pystring/format_percent.html	module src/pylib/pystring/format_percent		0
+nim	`%`	pylib/pystring/format_percent.html#%.m,PyStr,untyped	macro `%`(s: PyStr; args: untyped): PyStr		10

@@ -60,7 +60,7 @@
 
 </ul>
 <ul class="simple nested-toc-section">Py_normalize_encoding
-  <li><a class="reference" href="#Py_normalize_encoding%2Cstring" title="Py_normalize_encoding(encoding: string): string">Py_normalize_encoding(encoding: string): string</a></li>
+  <li><a class="reference" href="#Py_normalize_encoding" title="Py_normalize_encoding(encoding: string | cstring): string">Py_normalize_encoding(encoding: string | cstring): string</a></li>
 
 </ul>
 
@@ -99,9 +99,8 @@
 
 </div>
 <div id="Py_normalize_encoding-procs-all">
-  <div id="Py_normalize_encoding,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#Py_normalize_encoding%2Cstring"><span class="Identifier">Py_normalize_encoding</span></a><span class="Other">(</span><span class="Identifier">encoding</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <div id="Py_normalize_encoding">
+  <dt><pre><span class="Keyword">proc</span> <a href="#Py_normalize_encoding"><span class="Identifier">Py_normalize_encoding</span></a><span class="Other">(</span><span class="Identifier">encoding</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
   <dd>
     
     Normalize an encoding name: similar to encodings.normalize_encoding(), but also convert to lowercase.
@@ -122,7 +121,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-06-26 16:20:11 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-07-05 19:02:30 UTC</small>
       </div>
     </div>
   </div>
