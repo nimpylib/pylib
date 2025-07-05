@@ -172,7 +172,7 @@ proc getAsChar(v: Any): char =
     let i = getBiggestInt(v, rng256ErrMsg)
     getAsChar i
 
-proc getAsChar(s: string): char =
+proc getAsChar(s: string|cstring): char =
   s.len.chkLen1
   s[0]
 
@@ -180,15 +180,30 @@ template raiseOverflowError(msg) =
   raise newException(OverflowDefect, msg)
 
 const cRequiredMsg = "%c requires int or char"
-proc getRune(v: Any|string|SomeInteger): Rune =
-  when v is string:
+template oa(v): untyped = v.toOpenArray(0, v.high)
+proc getAsRune(v: Any|string|cstring|openArray[char]|SomeInteger): Rune =
+  when v is openArray[char]:
     v.runeLen.chkLen1
     v.runeAt 0
+  elif v is string:
+    getAsRune oa v
+  elif v is cstring:
+    getAsRune(
+      when compiles(oa v): oa v
+      else: $v  # JS
+    )
   elif v is Any:
-    if v.kind == akChar:
+    case v.kind
+    of akChar:
       Rune v.getChar
+    of akString:
+      let s = v.getString
+      getAsRune s
+    of akCString:
+      let s = v.getCString
+      getAsRune s
     else:
-      getRune v.getBiggestInt cRequiredMsg
+      getAsRune v.getBiggestInt cRequiredMsg
   else:
     v.chkInRange 0x110000:
       raiseOverflowError "%c arg not in range(0x110000)"
@@ -196,15 +211,15 @@ proc getRune(v: Any|string|SomeInteger): Rune =
 
 #[ FIXME: Error check cannot be handled as following, otherwise `StrLike` like
   `PyBytes` won't work but raise `TypeError` shown as below
-template getRune[T](v: T): Rune =
+template getAsRune[T](v: T): Rune =
   {.error: "TypeError: %c requires an int or a unicode character, not " & $T.}
 ]#
-template mistype(TT; N; R; msgWithT){.dirty.} =
-  proc `get N`[T: TT](v: T): R =
+template mistype(TT; R; msgWithT){.dirty.} =
+  proc `getAs R`[T: TT](v: T): R =
     raise newException(TypeError, msgWithT)
 
-mistype SomeFloat, Rune, Rune, cRequiredButNotPre & $T
-mistype SomeFloat, AsChar, char, cRequiredMsg
+mistype SomeFloat, Rune, cRequiredButNotPre & $T
+mistype SomeFloat, char, cRequiredMsg
 
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
@@ -435,7 +450,7 @@ proc Py_FormatEx*[T: untyped
         result.formatValue f, spec
       of 'c':
         if `disallow%b`:
-          result.formatValue getRune(value), spec
+          result.formatValue getAsRune(value), spec
         else:
           result.formatValue getAsChar(value), spec
       else:
