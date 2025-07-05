@@ -57,9 +57,8 @@ macro genParserOfRange(start, stop: static AnyKind) =
     pureTypName = start.getTypeName
     typName = "Biggest" & pureTypName
     typId = ident typName
-    procName = ident "parse" & typName
+    procName = ident "get" & typName
     errMsgId = ident"errMsg"
-    errMsgLit = newLit "* wants " & pureTypName
 
   var procBody = newStmtList quote do:
     if v.kind notin `start` .. `stop`:
@@ -84,42 +83,42 @@ macro genParserOfRange(start, stop: static AnyKind) =
   procBody.add caseBody
 
   result = quote do:
-    proc `procName`(`vId`: Any, `errMsgId`=`errMsgLit`): `typId` = `procBody`
+    proc `procName`(`vId`: Any, `errMsgId`: string): `typId` = `procBody`
 
 
 genParserOfRange(akInt, akInt64)
-genParserOfRange(akFloat, akFloat64)
+#genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
-template getstring(s: SomeNumber): string = $s
+template getString(s: SomeNumber): string = $s
 template numParse(R){.dirty.} =
-  template `parse R`(s: SomeNumber, msgPre = ""): R = R s
+  template `get R`(s: SomeNumber, msgPre: string): R = R s
 
 numParse BiggestInt
 numParse BiggestUInt
 
-template parseNumberAsBiggestInt(v: SomeNumber, res: var BiggestInt, msgPre: string): bool =
+template getAsBiggestInt(v: SomeNumber, res: var BiggestInt, msgPre: string): bool =
   res = BiggestInt v
   v is SomeInteger
-proc parseNumberAsBiggestInt(v: Any, res: var BiggestInt, msgPre: string): bool =
+proc getAsBiggestInt(v: Any, res: var BiggestInt, msgPre: string): bool =
   ## returns if is indeed int internal
   if v.kind in akFloat .. akFloat64:
-    res = BiggestInt v.parseBiggestFloat
+    res = BiggestInt v.getBiggestFloat
     false
   else:
-    res = v.parseBiggestInt msgPre & v.kind.getTypeName
+    res = v.getBiggestInt msgPre & v.kind.getTypeName
     true
 
-template parseNumberAsBiggestFloat(v: SomeNumber, msgPre: string): float =
+template getAsBiggestFloat(v: SomeNumber, msgPre: string): float =
   float v
-proc parseNumberAsBiggestFloat(v: Any, msgPre: string): float =
+proc getAsBiggestFloat(v: Any, msgPre: string): float =
   let msg = msgPre & v.kind.getTypeName
   if v.kind in akFloat .. akFloat64:
-    v.parseBiggestFloat
+    v.getBiggestFloat
   elif v.kind in akUInt .. akUInt64:
-    float v.parseBiggestUInt msg
+    float v.getBiggestUInt msg
   else:
-    float v.parseBiggestInt msg
+    float v.getBiggestInt msg
 
 #TODO:
 #proc format_obj(v: Any): string = $v  # and for object type, etc.
@@ -150,12 +149,12 @@ when bndChk:
 else:
   template chkInRange(x, hi; body) = discard
 
-proc parseChar(s: SomeInteger): char =
+proc getAsChar(s: SomeInteger): char =
   s.chkInRange 256:
     raise newException(TypeError, rng256ErrMsg)
   cast[char](s)
 
-proc parseChar(v: Any): char =
+proc getAsChar(v: Any): char =
   ## byte_converter
   template doWithS(s): untyped =
     s.len.chkLen1
@@ -170,10 +169,10 @@ proc parseChar(v: Any): char =
   of akChar:
     v.getChar
   else:
-    let i = parseBiggestInt(v, rng256ErrMsg)
-    parseChar i
+    let i = getBiggestInt(v, rng256ErrMsg)
+    getAsChar i
 
-proc parseChar(s: string): char =
+proc getAsChar(s: string): char =
   s.len.chkLen1
   s[0]
 
@@ -181,7 +180,7 @@ template raiseOverflowError(msg) =
   raise newException(OverflowDefect, msg)
 
 const cRequiredMsg = "%c requires int or char"
-proc parseRune(v: Any|string|SomeInteger): Rune =
+proc getRune(v: Any|string|SomeInteger): Rune =
   when v is string:
     v.runeLen.chkLen1
     v.runeAt 0
@@ -189,7 +188,7 @@ proc parseRune(v: Any|string|SomeInteger): Rune =
     if v.kind == akChar:
       Rune v.getChar
     else:
-      parseRune v.parseBiggestInt cRequiredMsg
+      getRune v.getBiggestInt cRequiredMsg
   else:
     v.chkInRange 0x110000:
       raiseOverflowError "%c arg not in range(0x110000)"
@@ -197,15 +196,15 @@ proc parseRune(v: Any|string|SomeInteger): Rune =
 
 #[ FIXME: Error check cannot be handled as following, otherwise `StrLike` like
   `PyBytes` won't work but raise `TypeError` shown as below
-template parseRune[T](v: T): Rune =
+template getRune[T](v: T): Rune =
   {.error: "TypeError: %c requires an int or a unicode character, not " & $T.}
 ]#
-template mistype(TT; R; msgWithT){.dirty.} =
-  proc `parse R`[T: TT](v: T): R =
+template mistype(TT; N; R; msgWithT){.dirty.} =
+  proc `get N`[T: TT](v: T): R =
     raise newException(TypeError, msgWithT)
 
-mistype SomeFloat, Rune, cRequiredButNotPre & $T
-mistype SomeFloat, char, cRequiredMsg
+mistype SomeFloat, Rune, Rune, cRequiredButNotPre & $T
+mistype SomeFloat, AsChar, char, cRequiredMsg
 
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
@@ -267,17 +266,17 @@ proc Py_FormatEx*[T: untyped
       else:
         raise newException(TypeError, "not enough arguments for format string")
   when compiles(InnerVal("")):
-    template getstring(s: InnerVal): string = 
+    template getString(s: InnerVal): string = 
       when InnerVal is string: s
       else: string s
     template genErr(R){.dirty.} =
-      proc `parse R`(v: InnerVal, msgPre: string): R =
+      proc `get R`(v: InnerVal, msgPre: string): R =
         raise newException(TypeError, msgPre & $InnerVal)
     genErr BiggestUInt
     genErr BiggestInt
     template err = raise newException(TypeError, msgPre & $InnerVal)
-    proc parseNumberAsBiggestInt(v: InnerVal, res: var BiggestInt, msgPre: string): bool = err
-    proc parseNumberAsBiggestFloat(v: InnerVal, msgPre: string): float = err
+    proc getAsBiggestInt(v: InnerVal, res: var BiggestInt, msgPre: string): bool = err
+    proc getAsBiggestFloat(v: InnerVal, msgPre: string): float = err
   {.push boundChecks: off.}
   var idx = 0
   while idx < format.len:
@@ -333,7 +332,7 @@ proc Py_FormatEx*[T: untyped
       const starWantsInt = "* wants int"
       var width = BiggestInt -1
       if idx < format.len and format[idx] == '*':
-        width = parseBiggestInt(getnextarg(args), starWantsInt)
+        width = getBiggestInt(getnextarg(args), starWantsInt)
         if width < 0:
           flags |= F_LJUST
           width = -width
@@ -350,7 +349,7 @@ proc Py_FormatEx*[T: untyped
       if idx < format.len and format[idx] == '.':
         inc idx
         if idx < format.len and format[idx] == '*':
-          prec = parseBiggestInt(getnextarg(args), starWantsInt)
+          prec = getBiggestInt(getnextarg(args), starWantsInt)
           inc idx
         elif idx < format.len and format[idx].isDigit:
           prec = 0
@@ -417,7 +416,7 @@ proc Py_FormatEx*[T: untyped
         result.formatValue s, spec
       of 'd', 'i', 'x', 'X', 'o':
         var i: BiggestInt
-        let isInt = value.parseNumberAsBiggestInt(i, realnumExpectedMsgPre)
+        let isInt = value.getAsBiggestInt(i, realnumExpectedMsgPre)
         if not isInt:
           let shallIntOnly = specifier not_in {'d', 'i'}
           if shallIntOnly:
@@ -429,16 +428,16 @@ proc Py_FormatEx*[T: untyped
             ]#
         result.formatValue i, spec
       of 'u':
-        let ui = value.parseBiggestUInt(realnumExpectedMsgPre)
+        let ui = value.getBiggestUInt(realnumExpectedMsgPre)
         result.formatValue ui, spec
       of 'f', 'F', 'e', 'E', 'g', 'G':
-        let f = value.parseNumberAsBiggestFloat "must be real number, not "
+        let f = value.getAsBiggestFloat "must be real number, not "
         result.formatValue f, spec
       of 'c':
         if `disallow%b`:
-          result.formatValue parseRune(value), spec
+          result.formatValue getRune(value), spec
         else:
-          result.formatValue parseChar(value), spec
+          result.formatValue getAsChar(value), spec
       else:
         raiseUnsupSpec(specifier, idx)
 
