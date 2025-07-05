@@ -1,8 +1,10 @@
 
 import ./pybytes
-export pybytes
+export pybytes except nimpylib_private_genByteLikePercentFormat
 import ./collections_abc, ./mutSeqSliceOp
 import std/strutils
+
+import ./stringlib/percent_format
 
 # Begin impl
 type
@@ -18,6 +20,8 @@ func newPyByteArray*(s: sink string): PyByteArray{.inline.} = PyByteArray(data: 
 func newPyByteArray*(len: int): PyByteArray{.inline.} = PyByteArray(data: newString(len))
 
 func bytes*(self: sink PyByteArray): PyBytes{.inline.} = bytes(self.data)
+
+nimpylib_private_genByteLikePercentFormat PyByteArray
 
 template asNim(self: PyByteArray): string =
   ## returns a mutable var

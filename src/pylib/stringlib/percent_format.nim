@@ -371,8 +371,7 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
         ) & " formatting")
 
 
-when isMainModule:
-  macro Py_FormatEx(s: string, args: tuple): string =
+proc mapTuple(cb, s, args: NimNode): NimNode =
     ## Helper function to format a string with a tuple.
     ## This is used to ensure compatibility with the original Python `%` formatting.
     result = newStmtList()
@@ -384,14 +383,39 @@ when isMainModule:
     for i in 0..<tupLen:
       ls.add quote do:
         `toAnyId` `nargs`[`i`]
-    result.add quote do:
-      Py_FormatEx(`s`, `ls`)
+    result.add newCall(cb, s, ls)
+
+template cvtIfNotString[S](res): S =
+  when S is string: res
+  else: S res
+
+template genPercentAndExport*(S=string,
+    reprCb: proc (x: string): string = repr,
+    asciiCb: proc (x: string): string = repr,
+    disallowPercentb = true){.dirty.} =
+  template partial(s; args): untyped =
+    bind Py_FormatEx, cvtIfNotString
+    cvtIfNotString[S] Py_FormatEx(s, args, reprCb, asciiCb, disallowPercentb)
+  template `%`*(s: S, arg: typed{atom}): S =
+    #bind partial
+    var va = arg
+    partial(s, [va.toAny])
+  template `%`*(s: S, dict: openArray[(S, S)]): S =
+    #bind partial
+    partial(s, dict)
+  macro `%`*(s: S, args: tuple): S =
+    bind mapTuple
+    bind bindSym
+    mapTuple bindSym"partial", s, args
+
+when isMainModule:
+  genPercentAndExport string
 
   # Test cases
-  echo Py_FormatEx("Hello, %s! Hello %d", ("World", 86))
-  echo Py_FormatEx("Number: %d", (42,))
-  echo Py_FormatEx("Hex: %x", (255,))
-  echo Py_FormatEx("Float: %.2f", (3.14159,))
-  echo Py_FormatEx("Char: %c", ('A',))
-  echo Py_FormatEx("Dict: %(key)s", {"key": "value"})
-  echo Py_FormatEx("Multiple: %s, %d", ("test", 123))
+  echo "Hello, %s! Hello %c" % ("World", 86)
+  echo "Number: %d" % (42,)
+  echo "Hex: %#x" % 255
+  echo "Float: %.2f" % (3.14159,)
+  echo "Char: %c" % ('A',)
+  echo "Dict: %(key)s" % {"key": "value"}
+  echo "Multiple: %s, %d" % ("test", 123)
