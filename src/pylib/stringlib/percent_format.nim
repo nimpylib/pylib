@@ -1,6 +1,7 @@
 ## `__mod__` implementation for `str`, `bytes` or `bytearray`.
 ## 
-import std/[strutils, tables]
+import std/strutils except `%`  # avoid overload
+import std/tables
 import std/strformat
 import std/typetraits
 import std/typeinfo
@@ -169,10 +170,9 @@ proc raiseUnsupSpec(specifier: char, idx: int) =
 # see below
 
 proc Py_FormatEx*[T: untyped
-    #[: openArray[Any]|Getitemable[string, string]
+    #[: openArray[Any]|Getitemable[string, Any|string]
     XXX: not compiles due to NIM-BUG]#
     ](
-    #TODO: also support mapping in additional to literal sugar
     format: string, args: T,
     reprCb: proc (x: string): string = repr,
     asciiCb: proc (x: string): string = repr,
@@ -193,15 +193,19 @@ proc Py_FormatEx*[T: untyped
   const dictMode = compiles(args[""])
   var idx = 0
   when dictMode:
-    var darg: string
+    # It used to be `type InnerVal = string`
+    type InnerVal = typeof args[""]
+    var darg: InnerVal
     template dict: untyped = args
-    template getnextarg(_): string = darg
-    template getstring(s: string): string = s
-    template parseBiggestFloat(s: string): float = s.parseFloat
+    template getnextarg(_): InnerVal = darg
+    when InnerVal is string:
+      template getstring(s: string): string = s
+      template parseBiggestFloat(s: string): float = s.parseFloat
   else:
+    type InnerVal = Any
     var
       (arglen, argidx) = (args.len, 0)
-    template getnextarg(args): Any =
+    template getnextarg(args): InnerVal =
       ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
       ## to mean `getnextarg(args, arglen, argidx)`
       ## so no need for the later 2 arg
@@ -390,6 +394,35 @@ proc mapTuple(cb, s, args: NimNode): NimNode =
         `toAnyId` `nargs`[`i`]
     result.add newCall(cb, s, ls)
 
+proc toTableWithValueTypeAny(lit: NimNode): NimNode #[Table[string, Any]]# =
+  result = newStmtList()  # `toAny` only receive `var`, so we firstly put values on stack
+
+  let res = genSym(nskVar, "res")
+  let initLen = newLit lit.len
+  result.add newVarStmt(res, quote do: initTable[string, Any](`initLen`))
+  for i in lit:
+    var kv = i
+    while kv.kind == nnkHiddenSubConv and kv[0].kind == nnkEmpty:
+      kv = kv[1]
+    kv.expectKind {nnkTupleConstr, nnkExprColonExpr}
+    let (k, v) = (kv[0], kv[1])
+    let id = genSym(nskVar, k.strVal)
+    result.add newVarStmt(id, v)
+
+    result.add quote do: `res`[`k`] = `id`.toAny
+
+  result.add res
+
+#[NOTE:
+  
+  To support dict literal whose values are of different types,
+`%` cannot be overloaded.
+
+If not, dict literal will be resolved,
+and Nim will complain it's a invalid Nim expression
+
+So this module only contains one `%` defined
+]#
 template cvtIfNotString[S](res): S =
   when S is string: res
   else: S res
@@ -401,18 +434,26 @@ template genPercentAndExport*(S=string,
   template partial(s; args): untyped =
     bind Py_FormatEx, cvtIfNotString
     cvtIfNotString[S] Py_FormatEx(s, args, reprCb, asciiCb, disallowPercentb)
-  template `%`*(s: S, arg: typed{atom}): S =
+  template percentFormat(s: S, arg: typed#[Mapping or T]#): S =
     #bind partial
-    var va = arg
-    partial(s, [va.toAny])
-  template `%`*(s: S, dict: untyped{nkBracket}): S =
-    #bind partial
-    bind toTable
-    partial(s, dict.toTable)
-  macro `%`*(s: S, args: tuple): S =
+    bind toAny
+    when compiles(arg[""]):
+      partial(s, arg)
+    else:
+      var va = arg
+      partial(s, [va.toAny])
+  macro percentFormat(s: S, args: tuple): S =
     bind mapTuple
     bind bindSym
     mapTuple bindSym"partial", s, args
+
+  macro `%`*(s: S, args: untyped): S =
+    bind kind, nnkTableConstr, bindSym, newCall
+    bind toTableWithValueTypeAny
+    if args.kind == nnkTableConstr:
+      newCall(bindSym"partial", s, toTableWithValueTypeAny(args))
+    else:
+      newCall(bindSym"percentFormat", s, args)
 
 when isMainModule:
   genPercentAndExport string
@@ -423,5 +464,5 @@ when isMainModule:
   echo "Hex: %#x" % 255
   echo "Float: %.2f" % (3.14159,)
   echo "Char: %c" % ('A',)
-  echo "Dict: %(key)s" % {"key": "value"}
+  echo "Dict: %(key)s" % {"key": "value", "k2": 1}
   echo "Multiple: %s, %d" % ("test", 123)
