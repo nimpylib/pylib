@@ -191,7 +191,6 @@ proc Py_FormatEx*[T: untyped
   when declared(newStringOfCap):
     result = newStringOfCap(format.len)
   const dictMode = compiles(args[""])
-  var idx = 0
   when dictMode:
     # It used to be `type InnerVal = string`
     type InnerVal = typeof args[""]
@@ -215,6 +214,8 @@ proc Py_FormatEx*[T: untyped
         args[t_argidx]
       else:
         raise newException(TypeError, "not enough arguments for format string")
+  {.push boundChecks: off.}
+  var idx = 0
   while idx < format.len:
     if format[idx] != '%':
       # Copy non-format characters
@@ -235,8 +236,6 @@ proc Py_FormatEx*[T: untyped
         when not dictMode:
           raise newException(TypeError, "format requires a mapping")
         else:
-          template raiseIncompFmtKey() =
-            raise newException(ValueError, "incomplete format key")
           let start = idx
           inc idx
           var pcount = 1
@@ -247,20 +246,24 @@ proc Py_FormatEx*[T: untyped
             elif format[idx - 1] == '(':
               inc pcount
           if pcount > 0:
-            raiseIncompFmtKey()
+            raise newException(ValueError, "incomplete format key")
           let key = format[start + 1 ..< idx - 1]
           darg = dict[key]
 
       # Parse flags
       var flags = 0
+      template pushF(f) =
+        flags |= f
+        inc idx
       while idx < format.len:
-        let i = ['-', '+', ' ', '#', '0'].find(format[idx])
-        if i != -1:
-          flags |= (1 shl i)
-          inc idx
+        case format[idx]
+        of '-': pushF F_LJUST
+        of '+': pushF F_SIGN
+        of ' ': pushF F_BLANK
+        of '#': pushF F_ALT
+        of '0': pushF F_ZERO
         else:
           break
-
 
       # Parse width. Example: "%10s" => width=10
       var width = BiggestInt -1
@@ -378,6 +381,7 @@ proc Py_FormatEx*[T: untyped
         if `disallow%b`: "string"
         else: "bytes"
         ) & " formatting")
+  {.pop.}  # boundChecks: off
 
 
 proc mapTuple(cb, s, args: NimNode): NimNode =
