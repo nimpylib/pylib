@@ -170,7 +170,7 @@ proc raiseUnsupSpec(specifier: char, idx: int) =
 # see below
 
 proc Py_FormatEx*[T: untyped
-    #[: openArray[Any]|Getitemable[string, Any|string]
+    #[: openArray[Any|string]|Getitemable[string, Any|string]
     XXX: not compiles due to NIM-BUG]#
     ](
     format: string, args: T,
@@ -197,13 +197,9 @@ proc Py_FormatEx*[T: untyped
     var darg: InnerVal
     template dict: untyped = args
     template getnextarg(_): InnerVal = darg
-    when InnerVal is string:
-      template getstring(s: string): string = s
-      template parseBiggestFloat(s: string): float = s.parseFloat
   else:
-    type InnerVal = Any
-    var
-      (arglen, argidx) = (args.len, 0)
+    type InnerVal = typeof args[0]
+    var (arglen, argidx) = (args.len, 0)
     template getnextarg(args): InnerVal =
       ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
       ## to mean `getnextarg(args, arglen, argidx)`
@@ -214,6 +210,11 @@ proc Py_FormatEx*[T: untyped
         args[t_argidx]
       else:
         raise newException(TypeError, "not enough arguments for format string")
+  when compiles(InnerVal("")):
+    template getstring(s: InnerVal): string = 
+      when InnerVal is string: s
+      else: string s
+    template parseBiggestFloat(s: Innerval): float = s.parseFloat
   {.push boundChecks: off.}
   var idx = 0
   while idx < format.len:
@@ -431,6 +432,10 @@ template cvtIfNotString[S](res): S =
   when S is string: res
   else: S res
 
+when defined(js):
+  # get rid of `Error: 'repr' is a built-in and cannot be used as a first-class procedure`
+  proc repr(x: string): string = system.repr(x)
+
 template genPercentAndExport*(S=string,
     reprCb: proc (x: string): string = repr,
     asciiCb: proc (x: string): string = repr,
@@ -443,6 +448,8 @@ template genPercentAndExport*(S=string,
     bind toAny
     when compiles(arg[""]):
       partial(s, arg)
+    elif arg is string|S:
+      partial(s, [arg])
     else:
       var va = arg
       partial(s, [va.toAny])
