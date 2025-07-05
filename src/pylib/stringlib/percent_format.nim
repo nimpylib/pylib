@@ -92,9 +92,20 @@ genParserOfRange(akInt, akInt64)
 genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
-proc parseNumberAsBiggestInt(v: Any|string, res: var BiggestInt): bool =
+template getstring(s: SomeNumber): string = $s
+template numParse(R){.dirty.} =
+  template `parse R`(s: SomeNumber): R = R s
+numParse float
+numParse BiggestInt
+numParse BiggestUInt
+numParse BiggestFloat
+
+proc parseNumberAsBiggestInt(v: Any|string|SomeNumber, res: var BiggestInt): bool =
   ## returns if is indeed int internal
-  when v is Any:
+  when v is SomeNumber:
+    res = BiggestInt v
+    v is SomeInteger
+  elif v is Any:
     if v.kind in akFloat .. akFloat64:
       res = BiggestInt v.parseBiggestFloat
       false
@@ -107,14 +118,38 @@ proc parseNumberAsBiggestInt(v: Any|string, res: var BiggestInt): bool =
       res = BiggestInt v.parseFloat
 
 #TODO:
-#proc format_obj(v: Any): string = $v
+#proc format_obj(v: Any): string = $v  # and for object type, etc.
 
+const cRequiredButNotPre = "%c requires an int or a unicode character, not "
 func chkLen1(slen: int) =
   if slen != 1:
-    raise newException(TypeError, "character format requires a single character")
+    raise newException(TypeError, cRequiredButNotPre &
+                     "a string of length " & $slen)
+
+const rng256ErrMsg = "%c requires an integer in range(256) or a single byte"
 
 const
+  bndChk = compileOption("boundChecks")
   ovfChk = compileOption("overflowChecks")
+
+when bndChk:
+  template chkInRange[T: SomeInteger](x: T, hi; body) =
+    const unsigned = T is SomeUnsignedInt
+    if (
+      when unsigned: false
+      else: x < 0
+    ) or (
+      when compiles(hi > high T) and (hi > high T): false
+      elif unsigned: BiggestUInt(x) >= hi
+      else: BiggestInt(x) >= hi
+    ): body
+else:
+  template chkInRange(x, hi; body) = discard
+
+proc parseChar(s: SomeInteger): char =
+  s.chkInRange 256:
+    raise newException(TypeError, rng256ErrMsg)
+  cast[char](s)
 
 proc parseChar(v: Any): char =
   ## byte_converter
@@ -131,25 +166,42 @@ proc parseChar(v: Any): char =
   of akChar:
     v.getChar
   else:
-    const err = "%c requires an integer in range(256) or a single byte"
-    let i = parseBiggestInt(v, err)
-    if i not_in 0..255:
-      raise newException(TypeError, err)
-    cast[char](i)
+    let i = parseBiggestInt(v, rng256ErrMsg)
+    parseChar i
 
 proc parseChar(s: string): char =
   s.len.chkLen1
   s[0]
 
-proc parseRune(v: Any|string): Rune =
+template raiseOverflowError(msg) =
+  raise newException(OverflowDefect, msg)
+
+const cRequiredMsg = "%c requires int or char"
+proc parseRune(v: Any|string|SomeInteger): Rune =
   when v is string:
     v.runeLen.chkLen1
     v.runeAt 0
-  else:
+  elif v is Any:
     if v.kind == akChar:
       Rune v.getChar
     else:
-      Rune v.parseBiggestInt"%c requires int or char"
+      parseRune v.parseBiggestInt cRequiredMsg
+  else:
+    v.chkInRange 0x110000:
+      raiseOverflowError "%c arg not in range(0x110000)"
+    cast[Rune](v)
+
+#[ FIXME: Error check cannot be handled as following, otherwise `StrLike` like
+  `PyBytes` won't work but raise `TypeError` shown as below
+template parseRune[T](v: T): Rune =
+  {.error: "TypeError: %c requires an int or a unicode character, not " & $T.}
+]#
+template mistype(TT; R; msgWithT){.dirty.} =
+  proc `parse R`[T: TT](v: T): R =
+    raise newException(TypeError, msgWithT)
+
+mistype SomeFloat, Rune, cRequiredButNotPre & $T
+mistype SomeFloat, char, cRequiredMsg
 
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
@@ -448,7 +500,7 @@ template genPercentAndExport*(S=string,
     bind toAny
     when compiles(arg[""]):
       partial(s, arg)
-    elif arg is string|S:
+    elif arg is string|S|SomeNumber:
       partial(s, [arg])
     else:
       var va = arg
