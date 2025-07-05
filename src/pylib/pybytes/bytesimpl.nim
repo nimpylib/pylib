@@ -114,8 +114,8 @@ func `@`*(self: PyBytes): seq[char] =
   ## 
   ## Python has no concept of seq (though has list)
   when declared(newSeqUninit):
-    # only newer Nim declares it.
-    result = newSeqUninit[char] self.len
+    # only newer Nim declares it, and only allows `SomeNumber`
+    result = cast[seq[char]](newSeqUninit[uint8] self.len)
   else:
     result = newSeq[char] self.len
   var i = 0
