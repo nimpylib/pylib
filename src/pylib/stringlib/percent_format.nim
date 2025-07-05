@@ -1,6 +1,6 @@
 ## `__mod__` implementation for `str`, `bytes` or `bytearray`.
 ## 
-import std/strutils except `%`  # avoid overload
+from std/strutils import toLowerAscii, isDigit # except `%`  # avoid overload
 import std/tables
 import std/strformat
 import std/typetraits
@@ -8,7 +8,6 @@ import std/typeinfo
 
 import std/macros
 
-from std/parseutils import parseBiggestInt
 from std/unicode import runeLen, Rune, runeAt
 
 import ../pyerrors/simperr
@@ -94,28 +93,33 @@ genParserOfRange(akUInt, akUInt64)
 
 template getstring(s: SomeNumber): string = $s
 template numParse(R){.dirty.} =
-  template `parse R`(s: SomeNumber): R = R s
-numParse float
+  template `parse R`(s: SomeNumber, msgPre = ""): R = R s
+
 numParse BiggestInt
 numParse BiggestUInt
-numParse BiggestFloat
 
-proc parseNumberAsBiggestInt(v: Any|string|SomeNumber, res: var BiggestInt): bool =
+template parseNumberAsBiggestInt(v: SomeNumber, res: var BiggestInt, msgPre: string): bool =
+  res = BiggestInt v
+  v is SomeInteger
+proc parseNumberAsBiggestInt(v: Any, res: var BiggestInt, msgPre: string): bool =
   ## returns if is indeed int internal
-  when v is SomeNumber:
-    res = BiggestInt v
-    v is SomeInteger
-  elif v is Any:
-    if v.kind in akFloat .. akFloat64:
-      res = BiggestInt v.parseBiggestFloat
-      false
-    else:
-      res = v.parseBiggestInt
-      true
+  if v.kind in akFloat .. akFloat64:
+    res = BiggestInt v.parseBiggestFloat
+    false
   else:
-    result = v.len == parseBiggestInt(v, res)
-    if not result:
-      res = BiggestInt v.parseFloat
+    res = v.parseBiggestInt msgPre & v.kind.getTypeName
+    true
+
+template parseNumberAsBiggestFloat(v: SomeNumber, msgPre: string): float =
+  float v
+proc parseNumberAsBiggestFloat(v: Any, msgPre: string): float =
+  let msg = msgPre & v.kind.getTypeName
+  if v.kind in akFloat .. akFloat64:
+    v.parseBiggestFloat
+  elif v.kind in akUInt .. akUInt64:
+    float v.parseBiggestUInt msg
+  else:
+    float v.parseBiggestInt msg
 
 #TODO:
 #proc format_obj(v: Any): string = $v  # and for object type, etc.
@@ -266,7 +270,14 @@ proc Py_FormatEx*[T: untyped
     template getstring(s: InnerVal): string = 
       when InnerVal is string: s
       else: string s
-    template parseBiggestFloat(s: Innerval): float = s.parseFloat
+    template genErr(R){.dirty.} =
+      proc `parse R`(v: InnerVal, msgPre: string): R =
+        raise newException(TypeError, msgPre & $InnerVal)
+    genErr BiggestUInt
+    genErr BiggestInt
+    template err = raise newException(TypeError, msgPre & $InnerVal)
+    proc parseNumberAsBiggestInt(v: InnerVal, res: var BiggestInt, msgPre: string): bool = err
+    proc parseNumberAsBiggestFloat(v: InnerVal, msgPre: string): float = err
   {.push boundChecks: off.}
   var idx = 0
   while idx < format.len:
@@ -319,9 +330,10 @@ proc Py_FormatEx*[T: untyped
           break
 
       # Parse width. Example: "%10s" => width=10
+      const starWantsInt = "* wants int"
       var width = BiggestInt -1
       if idx < format.len and format[idx] == '*':
-        width = parseBiggestInt getnextarg(args)
+        width = parseBiggestInt(getnextarg(args), starWantsInt)
         if width < 0:
           flags |= F_LJUST
           width = -width
@@ -338,7 +350,7 @@ proc Py_FormatEx*[T: untyped
       if idx < format.len and format[idx] == '.':
         inc idx
         if idx < format.len and format[idx] == '*':
-          prec = parseBiggestInt getnextarg(args)
+          prec = parseBiggestInt(getnextarg(args), starWantsInt)
           inc idx
         elif idx < format.len and format[idx].isDigit:
           prec = 0
@@ -387,6 +399,8 @@ proc Py_FormatEx*[T: untyped
         #NOTE: left adjusted: `(overrides the '0' conversion if both are given).`
       if flags & F_SIGN:
         spec.sign = '+'
+
+      let realnumExpectedMsgPre = &"%{specifier} format: a real number is required, not "
       case specifier
       of 'r':
         let s = value.getString.reprCb
@@ -403,7 +417,7 @@ proc Py_FormatEx*[T: untyped
         result.formatValue s, spec
       of 'd', 'i', 'x', 'X', 'o':
         var i: BiggestInt
-        let isInt = value.parseNumberAsBiggestInt(i)
+        let isInt = value.parseNumberAsBiggestInt(i, realnumExpectedMsgPre)
         if not isInt:
           let shallIntOnly = specifier not_in {'d', 'i'}
           if shallIntOnly:
@@ -415,10 +429,10 @@ proc Py_FormatEx*[T: untyped
             ]#
         result.formatValue i, spec
       of 'u':
-        let ui = $value.parseBiggestUInt
+        let ui = value.parseBiggestUInt(realnumExpectedMsgPre)
         result.formatValue ui, spec
       of 'f', 'F', 'e', 'E', 'g', 'G':
-        let f = value.parseBiggestFloat
+        let f = value.parseNumberAsBiggestFloat "must be real number, not "
         result.formatValue f, spec
       of 'c':
         if `disallow%b`:
