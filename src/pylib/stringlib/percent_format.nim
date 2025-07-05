@@ -163,9 +163,17 @@ template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
 proc raiseUnsupSpec(specifier: char, idx: int) =
   raise newException(ValueError, fmt"unsupported format character: '{specifier}' (0x{specifier.ord:x}) at index {idx - 1}")
 
-proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
+
+#type Getitemable*[K, V] = concept self
+#  self[K] is V
+# see below
+
+proc Py_FormatEx*[T: untyped
+    #[: openArray[Any]|Getitemable[string, string]
+    XXX: not compiles due to NIM-BUG]#
+    ](
     #TODO: also support mapping in additional to literal sugar
-    ](format: string, args: openArray[T],
+    format: string, args: T,
     reprCb: proc (x: string): string = repr,
     asciiCb: proc (x: string): string = repr,
     `disallow%b` = true): string =
@@ -182,12 +190,11 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
   ##   which is somewhat felt strange. As of in Nim uint exists, %u refers to any unsigned int.
   when declared(newStringOfCap):
     result = newStringOfCap(format.len)
-  const dictMode = T is_not Any
+  const dictMode = compiles(args[""])
   var idx = 0
   when dictMode:
-    var
-      darg: string
-      dict = toTable(args)
+    var darg: string
+    template dict: untyped = args
     template getnextarg(_): string = darg
     template getstring(s: string): string = s
     template parseBiggestFloat(s: string): float = s.parseFloat
@@ -238,8 +245,6 @@ proc Py_FormatEx*[T: Any|(string, string)  # the later means `{a: b}` literal
           if pcount > 0:
             raiseIncompFmtKey()
           let key = format[start + 1 ..< idx - 1]
-          if not dict.hasKey(key):
-            raise newException(KeyError, "key not found in mapping: " & key)
           darg = dict[key]
 
       # Parse flags
@@ -400,9 +405,10 @@ template genPercentAndExport*(S=string,
     #bind partial
     var va = arg
     partial(s, [va.toAny])
-  template `%`*(s: S, dict: openArray[(S, S)]): S =
+  template `%`*(s: S, dict: untyped{nkBracket}): S =
     #bind partial
-    partial(s, dict)
+    bind toTable
+    partial(s, dict.toTable)
   macro `%`*(s: S, args: tuple): S =
     bind mapTuple
     bind bindSym
