@@ -58,11 +58,11 @@ macro genParserOfRange(start, stop: static AnyKind) =
     typName = "Biggest" & pureTypName
     typId = ident typName
     procName = ident "get" & typName
-    errMsgId = ident"errMsg"
+    errMsgPreId = ident"errMsgPre"
 
   var procBody = newStmtList quote do:
     if v.kind notin `start` .. `stop`:
-      raise newException(TypeError, `errMsgId`)
+      raise newException(TypeError, `errMsgPreId` & v.kind.getTypeName)
 
   var vId = ident "v"
   var caseBody = nnkCaseStmt.newTree newDotExpr(vId, ident"kind")
@@ -83,11 +83,11 @@ macro genParserOfRange(start, stop: static AnyKind) =
   procBody.add caseBody
 
   result = quote do:
-    proc `procName`(`vId`: Any, `errMsgId`: string): `typId` = `procBody`
+    proc `procName`(`vId`: Any, `errMsgPreId`: string): `typId` = `procBody`
 
 
 genParserOfRange(akInt, akInt64)
-#genParserOfRange(akFloat, akFloat64)
+genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
 template getString(s: SomeNumber): string = $s
@@ -97,28 +97,22 @@ template numParse(R){.dirty.} =
 numParse BiggestInt
 numParse BiggestUInt
 
-template getAsBiggestInt(v: SomeNumber, res: var BiggestInt, msgPre: string): bool =
-  res = BiggestInt v
-  v is SomeInteger
-proc getAsBiggestInt(v: Any, res: var BiggestInt, msgPre: string): bool =
-  ## returns if is indeed int internal
-  if v.kind in akFloat .. akFloat64:
-    res = BiggestInt v.getBiggestFloat
-    false
-  else:
-    res = v.getBiggestInt msgPre & v.kind.getTypeName
-    true
 
-template getAsBiggestFloat(v: SomeNumber, msgPre: string): float =
-  float v
-proc getAsBiggestFloat(v: Any, msgPre: string): float =
-  let msg = msgPre & v.kind.getTypeName
-  if v.kind in akFloat .. akFloat64:
-    v.getBiggestFloat
-  elif v.kind in akUInt .. akUInt64:
-    float v.getBiggestUInt msg
-  else:
-    float v.getBiggestInt msg
+# == getAsBiggestInt,getAsBiggestFloat ==
+
+template genGetAs(T){.dirty.} =
+  template `getAs T`(v: SomeNumber, msgPre: string): T = T v
+  proc `getAs T`(v: Any, msgPre: string): T =
+    case v.kind
+    of akFloat .. akFloat64:
+      T v.getBiggestFloat msgPre
+    of akUInt .. akUInt64:
+      T v.getBiggestUInt msgPre
+    else:
+      T v.getBiggestInt msgPre
+
+genGetAs BiggestInt
+genGetAs BiggestFloat
 
 #TODO:
 #proc format_obj(v: Any): string = $v  # and for object type, etc.
@@ -149,39 +143,32 @@ when bndChk:
 else:
   template chkInRange(x, hi; body) = discard
 
+
+# == getAsChar,getAsRune ==
+
 proc getAsChar(s: SomeInteger): char =
   s.chkInRange 256:
     raise newException(TypeError, rng256ErrMsg)
   cast[char](s)
 
-proc getAsChar(v: Any): char =
-  ## byte_converter
-  template doWithS(s): untyped =
-    s.len.chkLen1
-    s[0]
-  case v.kind
-  of akString:
-    let s = v.getString
-    doWithS s
-  of akCString:
-    let s = v.getCString
-    doWithS s
-  of akChar:
-    v.getChar
-  else:
-    let i = getBiggestInt(v, rng256ErrMsg)
-    getAsChar i
-
 proc getAsChar(s: string|cstring): char =
   s.len.chkLen1
   s[0]
+
+proc getAsChar(v: Any): char =
+  ## byte_converter
+  case v.kind
+  of akString: getAsChar v.getString
+  of akCString: getAsChar v.getCString
+  of akChar: v.getChar
+  else: getAsChar getBiggestInt(v, rng256ErrMsg)
 
 template raiseOverflowError(msg) =
   raise newException(OverflowDefect, msg)
 
 const cRequiredMsg = "%c requires int or char"
-template oa(v): untyped = v.toOpenArray(0, v.high)
 proc getAsRune(v: Any|string|cstring|openArray[char]|SomeInteger): Rune =
+  template oa(v): untyped{.used.} = v.toOpenArray(0, v.high)
   when v is openArray[char]:
     v.runeLen.chkLen1
     v.runeAt 0
@@ -221,6 +208,9 @@ template mistype(TT; R; msgWithT){.dirty.} =
 mistype SomeFloat, Rune, cRequiredButNotPre & $T
 mistype SomeFloat, char, cRequiredMsg
 
+
+# == Py_FormatEx ==
+
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
   {.push overflowCheck: off.}  # we do check by our own.
@@ -241,7 +231,7 @@ proc raiseUnsupSpec(specifier: char, idx: int) =
 
 proc Py_FormatEx*[T: untyped
     #[: openArray[T]|Getitemable[string, T]
-    where T is Any|string|SomeNumber
+    where T is Any|string|SomeNumber|<string-convertable>
     XXX: not compiles due to NIM-BUG]#
     ](
     format: string, args: T,
@@ -285,14 +275,15 @@ proc Py_FormatEx*[T: untyped
     template getString(s: InnerVal): string = 
       when InnerVal is string: s
       else: string s
+    template err = raise newException(TypeError, msgPre & $InnerVal)
     template genErr(R){.dirty.} =
-      proc `get R`(v: InnerVal, msgPre: string): R =
-        raise newException(TypeError, msgPre & $InnerVal)
+      proc `get R`(v: InnerVal, msgPre: string): R = err
     genErr BiggestUInt
     genErr BiggestInt
-    template err = raise newException(TypeError, msgPre & $InnerVal)
-    proc getAsBiggestInt(v: InnerVal, res: var BiggestInt, msgPre: string): bool = err
-    proc getAsBiggestFloat(v: InnerVal, msgPre: string): float = err
+    template genAsErr(R){.dirty.} =
+      proc `getAs R`(v: InnerVal, msgPre: string): R = err
+    genAsErr BiggestInt
+    genAsErr BiggestFloat
   {.push boundChecks: off.}
   var idx = 0
   while idx < format.len:
@@ -415,7 +406,6 @@ proc Py_FormatEx*[T: untyped
       if flags & F_SIGN:
         spec.sign = '+'
 
-      let realnumExpectedMsgPre = &"%{specifier} format: a real number is required, not "
       case specifier
       of 'r':
         let s = value.getString.reprCb
@@ -430,21 +420,20 @@ proc Py_FormatEx*[T: untyped
             raiseUnsupSpec(specifier, idx)
 
         result.formatValue s, spec
-      of 'd', 'i', 'x', 'X', 'o':
-        var i: BiggestInt
-        let isInt = value.getAsBiggestInt(i, realnumExpectedMsgPre)
-        if not isInt:
-          let shallIntOnly = specifier not_in {'d', 'i'}
-          if shallIntOnly:
-            raise newException(TypeError, &"%{specifier} format: an integer is required, not float")
-          #XXX:
-          #[here we cannot mixin `index()` as well as `int()` for `value`, so there's
-            no need to check if `int` returns an integer, thus err msg can only be in one form (as used above)
-            instead of a string interpolared by "a real number" and type of `value`
-            ]#
+      of 'd', 'i':
+        let i = value.getAsBiggestInt &"%{specifier} format: a real number is required, not "
+        result.formatValue i, spec
+      of 'x', 'X', 'o':
+        let i = value.getBiggestInt &"%{specifier} format: an integer is required, not "
+        #XXX:
+        #[here we cannot mixin `index()` as well as `int()` for `value`, so there's
+          no need to check if `int` returns an integer, thus err msg can only be in one form (as used above)
+          instead of a string interpolared by "a real number" and type of `value`
+          ]#
         result.formatValue i, spec
       of 'u':
-        let ui = value.getBiggestUInt(realnumExpectedMsgPre)
+        # PY-DIFF: accepting only SomeUnsignedInt over any real number
+        let ui = value.getBiggestUInt &"%{specifier} format: an unsigned integer is required, not "
         result.formatValue ui, spec
       of 'f', 'F', 'e', 'E', 'g', 'G':
         let f = value.getAsBiggestFloat "must be real number, not "
