@@ -33,8 +33,7 @@ test "percent format with mapping":
       "Akame's hair is black")
 
 
-when not defined(js): # As of Nim2.3.1, JS lacks it
- test "percent format with multiply args":
+test "percent format with multiply args":
   check:
     u"%s is %d." % ("A", 555) == "A is 555."
     u"%c%f" % ("c", 4) == "c4.000000"

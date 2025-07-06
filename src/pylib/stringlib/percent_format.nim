@@ -4,7 +4,7 @@ from std/strutils import toLowerAscii, isDigit # except `%`  # avoid overload
 import std/tables
 import std/strformat
 import std/typetraits
-import std/typeinfo
+import ../nimpatch/typeinfo
 
 import std/macros
 
@@ -240,7 +240,8 @@ proc raiseUnsupSpec(specifier: char, idx: int) =
 # see below
 
 proc Py_FormatEx*[T: untyped
-    #[: openArray[Any|string]|Getitemable[string, Any|string]
+    #[: openArray[T]|Getitemable[string, T]
+    where T is Any|string|SomeNumber
     XXX: not compiles due to NIM-BUG]#
     ](
     format: string, args: T,
@@ -541,7 +542,7 @@ template genPercentAndExport*(S=string,
   macro `%`*(s: S, args: untyped): S =
     bind kind, nnkTableConstr, bindSym, newCall
     bind toTableWithValueTypeAny
-    if args.kind == nnkTableConstr:
+    if kind(args) == nnkTableConstr:
       newCall(bindSym"partial", s, toTableWithValueTypeAny(args))
     else:
       newCall(bindSym"percentFormat", s, args)
