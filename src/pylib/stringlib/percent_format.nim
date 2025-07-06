@@ -59,28 +59,14 @@ macro genParserOfRange(start, stop: static AnyKind) =
     typId = ident typName
     procName = ident "get" & typName
     errMsgPreId = ident"errMsgPre"
+    vId = ident "v"
 
   var procBody = newStmtList quote do:
     if v.kind notin `start` .. `stop`:
       raise newException(TypeError, `errMsgPreId` & v.kind.getTypeName)
 
-  var vId = ident "v"
-  var caseBody = nnkCaseStmt.newTree newDotExpr(vId, ident"kind")
-
-  for kindIdx in start.ord .. stop.ord:
-    let kind = cast[AnyKind](kindIdx)
-    caseBody.add nnkOfBranch.newTree(
-      newLit kind,
-      newCall(typId,
-        newDotExpr(vId, ident "get" & kind.getTypeName)
-      )
-    )
-  caseBody.add nnkElse.newTree(
-    quote do:
-      doAssert false; default `typId`
-  )
-
-  procBody.add caseBody
+  # getBiggestXxx(v) will auto extend value
+  procBody.add newCall(procName, vId)
 
   result = quote do:
     proc `procName`(`vId`: Any, `errMsgPreId`: string): `typId` = `procBody`
@@ -98,11 +84,11 @@ numParse BiggestInt
 numParse BiggestUInt
 
 
-# == getAsBiggestInt,getAsBiggestFloat ==
+# == getSomeNumberAsBiggestInt,getSomeNumberAsBiggestFloat ==
 
-template genGetAs(T){.dirty.} =
-  template `getAs T`(v: SomeNumber, msgPre: string): T = T v
-  proc `getAs T`(v: Any, msgPre: string): T =
+template genGetSomeNumber(T){.dirty.} =
+  template `getSomeNumberAs T`(v: SomeNumber, msgPre: string): T = T v
+  proc `getSomeNumberAs T`(v: Any, msgPre: string): T =
     case v.kind
     of akFloat .. akFloat64:
       T v.getBiggestFloat msgPre
@@ -111,8 +97,8 @@ template genGetAs(T){.dirty.} =
     else:
       T v.getBiggestInt msgPre
 
-genGetAs BiggestInt
-genGetAs BiggestFloat
+genGetSomeNumber BiggestInt
+genGetSomeNumber BiggestFloat
 
 #TODO:
 #proc format_obj(v: Any): string = $v  # and for object type, etc.
@@ -278,10 +264,10 @@ proc Py_FormatEx*[T: untyped
     template err = raise newException(TypeError, msgPre & $InnerVal)
     template genErr(R){.dirty.} =
       proc `get R`(v: InnerVal, msgPre: string): R = err
-    genErr BiggestUInt
+    genErr BiggestUint
     genErr BiggestInt
     template genAsErr(R){.dirty.} =
-      proc `getAs R`(v: InnerVal, msgPre: string): R = err
+      proc `getSomeNumberAs R`(v: InnerVal, msgPre: string): R = err
     genAsErr BiggestInt
     genAsErr BiggestFloat
   {.push boundChecks: off.}
@@ -421,7 +407,7 @@ proc Py_FormatEx*[T: untyped
 
         result.formatValue s, spec
       of 'd', 'i':
-        let i = value.getAsBiggestInt &"%{specifier} format: a real number is required, not "
+        let i = value.getSomeNumberAsBiggestInt &"%{specifier} format: a real number is required, not "
         result.formatValue i, spec
       of 'x', 'X', 'o':
         let i = value.getBiggestInt &"%{specifier} format: an integer is required, not "
@@ -436,7 +422,7 @@ proc Py_FormatEx*[T: untyped
         let ui = value.getBiggestUInt &"%{specifier} format: an unsigned integer is required, not "
         result.formatValue ui, spec
       of 'f', 'F', 'e', 'E', 'g', 'G':
-        let f = value.getAsBiggestFloat "must be real number, not "
+        let f = value.getSomeNumberAsBiggestFloat "must be real number, not "
         result.formatValue f, spec
       of 'c':
         if `disallow%b`:
