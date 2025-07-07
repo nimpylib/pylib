@@ -11,15 +11,34 @@ addPatch(NimVersionTuple, defined(js) or defined(nimscript)):
     Any* = object
       value: pointer
       kind*: AnyKind
+      fields: seq[tuple[name: string, any: Any]]
+      baseTypeKind*: AnyKind
+  when defined(js):
+    {.define: anyDollarNotSupportCollectionType.}
+    proc toInt(x: pointer): int = 
+      {.emit: "if(`x`_Idx===undefined)`x`_Idx = 0;".}
+      cast[int](x)
+    proc toPointer(x: int): pointer =
+      {.emit: "`result`_Idx = 0;".}
+      cast[pointer](x)
+  
+  else:
+    template toInt(x: pointer): int = cast[int](x)
+    template toPointer(x: int): pointer = cast[pointer](x)
+  template anyWithValue(v: pointer): Any = Any(value: v)
 
+  template genToAny(T: typedesc; ak){.dirty.} =
+    proc toAny*(x: var T): Any =
+      result.kind = ak
+      result.value = addr x
+  template genToAny(T: typedesc){.dirty.} =
+    genToAny T, `ak T`
   template genGet(T: typedesc, ak){.dirty.} =
     proc `get T`*(v: Any): T =
       assert v.kind == ak
       (cast[ptr T](v.value))[]
   template genToAnyAndGet(T: typedesc){.dirty.} =
-    proc toAny*(x: var T): Any =
-      result.kind = `ak T`
-      result.value = addr x
+    genToAny T
     genGet T, `ak T`
   genToAnyAndGet bool
   genToAnyAndGet char
@@ -44,6 +63,9 @@ addPatch(NimVersionTuple, defined(js) or defined(nimscript)):
   proc getCapTypeName(t: AnyKind): string = ($t)[2..^1]  ## e.g. get `"Int"` from `akInt`
 
   import std/macros
+  import std/typetraits
+  from std/strutils import toLowerAscii
+  proc unreachable(){.noReturn.} = raiseAssert "unreachable"
   macro genParserOfRange(start, stop: static AnyKind) =
     ## start..stop
     let
@@ -67,7 +89,7 @@ addPatch(NimVersionTuple, defined(js) or defined(nimscript)):
       )
     caseBody.add nnkElse.newTree(
       quote do:
-        raiseAssert "unreachable"; default `typId`
+        unreachable(); default `typid`
     )
 
     procBody.add caseBody
@@ -79,6 +101,36 @@ addPatch(NimVersionTuple, defined(js) or defined(nimscript)):
   genParserOfRange akInt, akInt64
   genParserOfRange akUInt, akUInt64
   genParserOfRange akFloat, akFloat64
+
+  # == pointer ==
+  genToAnyAndGet pointer
+
+  # == enum ==
+  proc toAny*[T: enum](x: var T): Any =
+    result.kind = akEnum
+    result.value = addr x
+    result.baseTypeKind = akInt # XXX: FIXME
+    for eVal in T:
+      result.fields.add ($eVal, anyWithValue(eVal.ord.toPointer))
+  proc getEnumField*(x: Any): string =
+    assert x.kind == akEnum
+    let xVal = cast[ptr BiggestInt](x.value)[]
+    for (name, val) in x.fields:
+      if cast[int](val.value) == xVal:
+        return name
+
+
+  # == tuple|object ==
+  template genToAnyWithFields(TT, ak){.dirty.} =
+    proc toAny*[T: TT](x: var T): Any =
+      result.kind = ak
+      result.value = addr x
+      for k, v in fieldPairs(x):
+        result.fields.add (k, v.toAny)
+  genToAnyWithFields tuple, akTuple
+  genToAnyWithFields object, akObject
+  iterator fields*(x: Any): tuple[name: string, any: Any] =
+    for t in x.fields: yield t
 
 
 when not hasBug:

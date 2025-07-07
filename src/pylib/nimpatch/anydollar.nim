@@ -36,6 +36,9 @@ when anyDollarSupportCollectionType:
     joinImpl i, 0..<x.len, left, right:
       $x[i]
 
+  proc nilOrPrefixed(x: Any, pre: string): string =
+    if x.isNil: "nil" else: pre & $x[]
+
 proc dollarFields(x: Any): string =
   ## join(fields, '(', ')')`x=>` do:
   joinImpl t, x.fields, '(', ')':
@@ -77,13 +80,13 @@ proc dollarTuple(x: Any): string =
 
   before either of the two bugs mentioned above gets fixed
   ]#
-proc nilOrPrefixed(x: Any, pre: string): string =
-  if x.isNil: "nil" else: pre & $x[]
 
-proc unreachableDollar(_: Any): string =
+proc unreachable{.noReturn.} =
   raiseAssert "unreachable"
+proc unreachableDollar(_: Any): string =
+  unreachable()
 
-proc getFloat128(x: Any): string = x.unreachableDollar
+proc getFloat128(x: Any): string = unreachable()
 
 const
   akGetableAndDollarable = {
@@ -93,22 +96,22 @@ const
   }
 
   akDollarMapSupported = {
-     akEnum: @getEnumField
+     akNone: unreachableDollar
+    ,akEnum: @getEnumField
     ,akObject: dollarFields
     ,akTuple: dollarTuple
     ,akProc, akPointer: `x=>` repr getPointer(x)
-    ,akPtr: `x=>` x.nilOrPrefixed"ptr "  # the same as repr(ptr T)
-    ,akRef: `x=>` x.nilOrPrefixed"ref "  # NOT the same as repr(ref T),
-    # which returns `type(attr: val[,...])` but we cannot get typename
   }
 
 when anyDollarSupportCollectionType:
   const akDollarMap = {
-    akNone: unreachableDollar
-    ,akArray: join('[', ']')
+     akArray: join('[', ']')
     ,akSequence: join("@[", ']')
     ,akSet: join(elements, '{', '}')
     ,akRange: `x=>` $skipRange(x)
+    ,akPtr: `x=>` x.nilOrPrefixed"ptr "  # the same as repr(ptr T)
+    ,akRef: `x=>` x.nilOrPrefixed"ref "  # NOT the same as repr(ref T),
+    # which returns `type(attr: val[,...])` but we cannot get typename
   }
 
 macro dollarImpl(x: Any) =
@@ -135,11 +138,11 @@ macro dollarImpl(x: Any) =
   else:
     result.add nnkElse.newTree(
       quote do:
-        result = "<a " & $`x`.kind & ">"
+        unreachable()
     )
 
 proc `$`*(x: Any): string{.dollar.} =
-  dollarImpl(x)
+  dollarImpl(x)    # which returns `type(attr: val[,...])` but we cannot get typename
 
 when isMainModule:
   proc str[T](x: T): string =
