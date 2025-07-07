@@ -5,6 +5,7 @@ import std/tables
 import std/strformat
 import std/typetraits
 import ../nimpatch/typeinfo
+import ../nimpatch/anydollar
 
 import std/macros
 
@@ -14,37 +15,6 @@ import ../pyerrors/simperr
 
 import ./formatWithSpec
 
-proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
-  ##[ Add a substring to the string.
-     `start..<stop`
-
-   roughly equal to self.add s[start ..< stop]
-  ]##
-  let rng = start ..< stop
-  when declared(copyMem):
-    let bLen = self.len
-    self.setLen bLen + rng.len
-    #for i in rng: self[bLen + i] = s[i]
-    copyMem(addr(self[bLen]), addr(s[start]), rng.len)
-  else:
-    for i in rng:
-      self.add s[i]
-
-# ['-', '+', ' ', '#', '0']
-const
-  F_LJUST = 1 shl 0
-  F_SIGN  = 1 shl 1
-  F_BLANK = 1 shl 2
-  F_ALT   = 1 shl 3
-  F_ZERO  = 1 shl 4
-
-template `|=`(f, g: int) =
-  ## Bitwise OR for `FormatCode`.
-  f = f or g
-
-template `&`(f, g: int): bool =
-  ## this should returns int, but here we will only use it in bool context
-  bool(f and g)
 
 proc getTypeName*(t: AnyKind): string =
   ## e.g. get `"int"` from `akInt`
@@ -76,7 +46,6 @@ genParserOfRange(akInt, akInt64)
 genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
-template getString(s: SomeNumber): string = $s
 template numParse(R){.dirty.} =
   template `get R`(s: SomeNumber, msgPre: string): R = R s
 
@@ -99,9 +68,6 @@ template genGetSomeNumber(T){.dirty.} =
 
 genGetSomeNumber BiggestInt
 genGetSomeNumber BiggestFloat
-
-#TODO:
-#proc format_obj(v: Any): string = $v  # and for object type, etc.
 
 const cRequiredButNotPre = "%c requires an int or a unicode character, not "
 func chkLen1(slen: int) =
@@ -197,6 +163,38 @@ mistype SomeFloat, char, cRequiredMsg
 
 # == Py_FormatEx ==
 
+proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
+  ##[ Add a substring to the string.
+     `start..<stop`
+
+   roughly equal to self.add s[start ..< stop]
+  ]##
+  let rng = start ..< stop
+  when declared(copyMem):
+    let bLen = self.len
+    self.setLen bLen + rng.len
+    #for i in rng: self[bLen + i] = s[i]
+    copyMem(addr(self[bLen]), addr(s[start]), rng.len)
+  else:
+    for i in rng:
+      self.add s[i]
+
+# ['-', '+', ' ', '#', '0']
+const
+  F_LJUST = 1 shl 0
+  F_SIGN  = 1 shl 1
+  F_BLANK = 1 shl 2
+  F_ALT   = 1 shl 3
+  F_ZERO  = 1 shl 4
+
+template `|=`(f, g: int) =
+  ## Bitwise OR for `FormatCode`.
+  f = f or g
+
+template `&`(f, g: int): bool =
+  ## this should returns int, but here we will only use it in bool context
+  bool(f and g)
+
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
   {.push overflowCheck: off.}  # we do check by our own.
@@ -258,9 +256,6 @@ proc Py_FormatEx*[T: untyped
       else:
         raise newException(TypeError, "not enough arguments for format string")
   when compiles(InnerVal("")):
-    template getString(s: InnerVal): string = 
-      when InnerVal is string: s
-      else: string s
     template err = raise newException(TypeError, msgPre & $InnerVal)
     template genErr(R){.dirty.} =
       proc `get R`(v: InnerVal, msgPre: string): R = err
@@ -393,18 +388,18 @@ proc Py_FormatEx*[T: untyped
         spec.sign = '+'
 
       case specifier
-      of 'r':
-        let s = value.getString.reprCb
-        result.formatValue s, spec
       of 'a':
-        let s = value.getString.asciiCb
+        let s = asciiCb $value
+        result.formatValue s, spec
+      # PY-DIFF: Before str, repr, bytes, int, float dynamically invoke objects function attributes,
+      #   we cannot dynamically dispatch as Python does.
+      of 'r':
+        let s = reprCb $value
         result.formatValue s, spec
       of 's', 'b':
-        var s = value.getString
-        if `disallow%b`:
-          if specifier == 'b':
-            raiseUnsupSpec(specifier, idx)
-
+        if `disallow%b` and specifier == 'b':
+          raiseUnsupSpec(specifier, idx)
+        let s = $value
         result.formatValue s, spec
       of 'd', 'i':
         let i = value.getSomeNumberAsBiggestInt &"%{specifier} format: a real number is required, not "
