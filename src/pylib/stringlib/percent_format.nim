@@ -225,13 +225,18 @@ template `&`(f, g: int): bool =
 
 template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   ## assuming c in '0' .. '9'
-  {.push overflowCheck: off.}  # we do check by our own.
+  {.push overflowChecks: off.}  # we do check by our own.
   when ovfChk:
     if self > (T.high - (T(c) - '0'.ord)) div 10:
       raise newException(ValueError, astToStr(self) & " too big")
   self = self * 10 + (c.ord - '0'.ord)
   {.pop.}
 
+proc parseBiggestIntAt(idx: var int, s: string): BiggestInt{.inline.} =
+  result = 0
+  while idx < s.len and s[idx].isDigit:
+    result.pushDigitChar s[idx]
+    inc idx
 
 proc raiseUnsupSpec(specifier: char, idx: int) =
   raise newException(ValueError, fmt"unsupported format character: '{specifier}' (0x{specifier.ord:x}) at index {idx - 1}")
@@ -269,19 +274,20 @@ proc Py_FormatEx*[T: untyped
     type InnerVal = typeof args[""]
     var darg: InnerVal
     template dict: untyped = args
-    template getnextarg(_): InnerVal = darg
+    proc getBiggestIntFromArgAndNext(): BiggestInt =
+      raise_TypeError starWantsInt
   else:
     type InnerVal = typeof args[0]
     var argidx = 0
     let arglen = args.len
-    template getnextarg(args): InnerVal =
+    template getBiggestIntFromArgAndNext(): BiggestInt =
       ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
       ## to mean `getnextarg(args, arglen, argidx)`
       ## so no need for the later 2 arg
       let t_argidx = argidx
       if t_argidx < arglen:
         inc argidx
-        args[t_argidx]
+        args[t_argidx].getBiggestInt startWantsInt
       else:
         raise newException(TypeError, "not enough arguments for format string")
   {.push boundChecks: off.}
@@ -335,34 +341,32 @@ proc Py_FormatEx*[T: untyped
         else:
           break
 
+      proc parseBiggestIntAt(idx: var int): BiggestInt =
+        result = 0
+        while idx < format.len and format[idx].isDigit:
+          result.pushDigitChar format[idx]
+          inc idx
       # Parse width. Example: "%10s" => width=10
-      const starWantsInt = "* wants int"
       var width = BiggestInt -1
       if idx < format.len and format[idx] == '*':
-        width = getBiggestInt(getnextarg(args), starWantsInt)
+        width = getBiggestIntFromArgAndNext()
         if width < 0:
           flags |= F_LJUST
           width = -width
 
         inc idx
-      elif idx < format.len and format[idx].isDigit:
-        width = 0
-        while idx < format.len and format[idx].isDigit:
-          width.pushDigitChar format[idx]
-          inc idx
+      else:
+        width = parseBiggestIntAt(idx, format)
 
       # Parse precision. Example: "%.3f" => prec=3
       var prec = BiggestInt -1
       if idx < format.len and format[idx] == '.':
         inc idx
         if idx < format.len and format[idx] == '*':
-          prec = getBiggestInt(getnextarg(args), starWantsInt)
+          prec = getBiggestIntFromArgAndNext()
           inc idx
-        elif idx < format.len and format[idx].isDigit:
-          prec = 0
-          while idx < format.len and format[idx].isDigit:
-            prec.pushDigitChar format[idx]
-            inc idx
+        else:
+          prec = parseBiggestIntAt(idx, format)
 
       # Skip length spec (type prefix) just as Python does.
       #[ We are able to do so because the type system used here
