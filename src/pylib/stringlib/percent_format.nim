@@ -7,14 +7,20 @@ import std/typetraits
 import ../nimpatch/typeinfo
 import ../nimpatch/anydollar
 
-import std/macros
+import std/macros except `$`, `[]`
 
 from std/unicode import runeLen, Rune, runeAt
 
 import ../pyerrors/simperr
+template raise_TypeError(msg) =
+  raise newException(TypeError, msg)
 
 import ./formatWithSpec
 
+const staticEval = not defined(pylibDisableStaticPercentFormat)
+template onStaticEval(body) =
+  bind staticEval
+  when staticEval: body
 
 proc getTypeName*(t: AnyKind): string =
   ## e.g. get `"int"` from `akInt`
@@ -33,7 +39,7 @@ macro genParserOfRange(start, stop: static AnyKind) =
 
   var procBody = newStmtList quote do:
     if v.kind notin `start` .. `stop`:
-      raise newException(TypeError, `errMsgPreId` & v.kind.getTypeName)
+      raise_TypeError(`errMsgPreId` & v.kind.getTypeName)
 
   # getBiggestXxx(v) will auto extend value
   procBody.add newCall(procName, vId)
@@ -46,38 +52,90 @@ genParserOfRange(akInt, akInt64)
 genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
-proc err(E: typedesc, msgPre: string){.inline, noReturn.} =
-  raise newException(TypeError, msgPre & $E)
+template err(E: typedesc, msgPre: string) =
+  raise_TypeError(msgPre & $E)
 
-proc othersErrImpl(msgPre, def: NimNode): NimNode =
+proc strValStripAcc(n: NimNode): string =
+  if n.kind == nnkAccQuoted:
+    for i in n:
+      result.add i.strVal
+  else:
+    result = n.strVal
+
+template borrMacrosGetitem{.dirty.} =
+  template `[]`(n: NimNode, i: int): NimNode = macros.`[]`(n, i)
+
+proc othersErrImpl(msgPre, def: NimNode, msgPreIsParam: static bool): NimNode =
+  borrMacrosGetitem
   let emptyn = newEmptyNode()
 
   result = newStmtList def
   let procType = nnkProcDef
-  var nParams = def.params.copyNimTree
   #let E = genSym(nskType, "E")
-  var generics = def[2].copyNimTree
-  let old1Type = nParams[1][1]
-  for i in 0..<generics.len:
-    # also works if generics is Empty, when this loop does noop
-    if generics[i][0].eqIdent old1Type:
-      generics.del i
-      if generics.len == 0:
-        generics = emptyn
-      break
-  nParams[1][1] = ident"auto"
+  let
+    old1Type = def.params[1][1]
+    def1node = def[0] # XXX: NIM-BUG: def.name failed for proc named "`get R`"
+    defName = def1node.strValStripAcc  # assuming def is not exported
+  template dupDef(newParams, body: NimNode): NimNode =
+    var generics = def[2].copyNimTree
+    for i in 0..<generics.len:
+      # also works if generics is Empty, when this loop does noop
+      if generics[i][0].eqIdent old1Type:
+        generics.del i
+        if generics.len == 0:
+          generics = emptyn
+        break
 
-  let errDef = procType.newTree(
-    def[0], # XXX: NIM-BUG: def.name failed for proc named "`get R`"
-    emptyn,
-    generics, #nnkGenericParams.newTree(newIdentDefs(E, emptyn)),
-    nParams,
-    def.pragma,
-    emptyn,
-    newStmtList newCall(bindSym"err", newCall("typeof", nParams[1][0]), msgPre))
-  result.add errDef
-macro othersErr(msgPre, def) = othersErrImpl msgPre, def
-macro othersErr(def) = othersErrImpl ident"msgPre", def
+    procType.newTree(ident defName,
+      emptyn, generics, #nnkGenericParams.newTree(newIdentDefs(E, emptyn)),
+      newParams, def.pragma, emptyn, body
+    )
+
+  var nParams: NimNode
+  template withNParams(param1type, body) =
+    block:
+      nParams = def.params.copyNimTree
+      nParams[1][1] = param1type
+      body
+
+  template errDefBody: NimNode =
+    newCall(bindSym"err", newCall("typeof", nParams[1][0]), msgPre)
+    
+  withNParams ident"auto":
+    result.add dupDef(nParams, errDefBody)
+
+  onStaticEval:
+    when msgPreIsParam:
+      withNParams ident"auto":
+        var typ = nnkBracketExpr.newTree(ident"static", nParams[2][1])
+        #typ = nnkCurlyExpr.newTree(typ,
+        #  ident"lit",
+        #  nnkAccQuoted.newTree(ident"const").prefix"~"
+        #)
+        # static[string]{lit, ~`const`}
+        # XXX: a single `lit` not work as expected
+        nParams[2][1] = typ
+        var def = dupDef(nParams, nnkStaticStmt.newTree errDefBody)
+        def.addPragma ident"compileTime"
+        result.add def
+
+    let nnn = bindSym"NimNode"
+    withNParams nnn:
+      nParams[0] = nnn
+      let defNameNode = newLit defName
+      var call = newCall(bindSym"newCall", quote do:
+        `bindSym` `defNameNode`
+      )
+      call.add nParams[1][0]
+      when msgPreIsParam:
+        let p = nParams[2][0]
+        assert p.eqIdent "msgPre"
+        call.add newCall(bindSym"newLit", p)
+
+      result.add dupDef(nParams, call)
+
+macro othersErr(msgPre, def) = othersErrImpl msgPre, def, false
+macro othersErr(def) = othersErrImpl ident"msgPre", def, true
 
 template numParse(R){.dirty.} =
   template `get R`(s: SomeNumber|char, msgPre: string): R{.othersErr.} = R s
@@ -105,7 +163,7 @@ genGetSomeNumber BiggestFloat
 const cRequiredButNotPre = "%c requires an int or a unicode character, not "
 func chkLen1(slen: int) =
   if slen != 1:
-    raise newException(TypeError, cRequiredButNotPre &
+    raise_TypeError(cRequiredButNotPre &
                      "a string of length " & $slen)
 
 const rng256ErrMsg = "%c requires an integer in range(256) or a single byte"
@@ -134,7 +192,7 @@ else:
 template getAsChar(s: char): char = s
 proc getAsChar(s: SomeInteger): char =
   s.chkInRange 256:
-    raise newException(TypeError, rng256ErrMsg)
+    raise_TypeError(rng256ErrMsg)
   cast[char](s)
 
 proc getAsChar(s: string|cstring): char =
@@ -190,6 +248,40 @@ template getAsRune[T](v: T): Rune =
 ]#
 
 # == Py_FormatEx ==
+onStaticEval:
+  template `&=`(result: var NimNode, s: NimNode) =
+    result = infix(result, "&", s)
+
+  template formatedValue(v; spec): string =
+    var s: string
+    s.formatValue v, spec
+    s
+
+# NIM-BUG: repr(spec) is (fill: <int>, ..)
+#  over StandardFormatSpecifier(fill: char, ...)
+
+proc newLit(spec: StandardFormatSpecifier): NimNode =
+  result = nnkObjConstr.newTree bindSym"StandardFormatSpecifier"
+  for name, val in spec.fieldPairs:
+    result.add nnkExprColonExpr.newTree(
+      ident name,
+      newLit val
+    )
+
+onStaticEval:
+  proc formatValue(result: var NimNode, x: NimNode, spec: StandardFormatSpecifier) =
+    let sp = newLit spec
+    result &= newCall(bindSym"formatedValue", x, sp)
+  proc formatValue[T](result: var NimNode, x: int, spec: NimNode) =
+    result.formatedValue newLit x, spec
+
+  proc add(result: var NimNode, c: char) =
+    result &= newLit c
+
+  proc addSubStr(result: var NimNode, s: NimNode, start, stop: int) =
+    result &= (quote do: `s`[`start` ..< `stop`])
+  proc addSubStr(result: var NimNode, s: string, start, stop: int) =
+    result &= newLit s[start ..< stop]
 
 proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
   ##[ Add a substring to the string.
@@ -246,15 +338,29 @@ proc raiseUnsupSpec(specifier: char, idx: int) =
 #  self[K] is V
 # see below
 
-proc Py_FormatEx*[T: untyped
-    #[: openArray[T]|Getitemable[string, T]
-    where T is Any|string|SomeNumber|char|<string-convertable>
-    XXX: not compiles due to NIM-BUG]#
-    ](
-    format: string, args: T,
-    reprCb: proc (x: string): string = repr,
-    asciiCb: proc (x: string): string = repr,
-    `disallow%b` = true): string =
+
+template getTypeOfMap(args): untyped =
+  when args is NimNode: NimNode
+  else: typeof args[""]
+
+proc getLength(d: NimNode): int =
+  case d.kind
+  of nnkIdent, nnkSym:
+    d.getType.len - 1
+    #-1  # unknown length
+  of nnkTupleConstr, nnkBracket: d.len
+  else: error "unknown args of kind: " & $d.kind, d
+proc getLength(d: tuple): int = d.tupleLen
+template getLength(d): int = d.len
+
+proc callGetItem[T: not NimNode](d: NimNode; ki: T): NimNode =
+  nnkBracketExpr.newTree(d, newLit ki)
+
+template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool],
+  format: string,
+  args: A,
+  `disallow%b`: bool
+) =
   ## Format a string using a Python-like `%` formatting.
   ## `args` is a sequence of strings to substitute into the format string.
   ## 
@@ -266,30 +372,64 @@ proc Py_FormatEx*[T: untyped
   ## - CPython's `%u` is just the same with `%d` (`%i`, etc), which means accepting negative int and float.
   ##   Therefore, for example, `"%u" % (-1.1,)` just gives `"-1"`,
   ##   which is somewhat felt strange. As of in Nim uint exists, %u refers to any unsigned int.
-  when declared(newStringOfCap):
-    result = newStringOfCap(format.len)
-  const dictMode = compiles(args[""])
+  bind getTypeOfMap, addSubStr, getLength
+  bind raise_TypeError, getBiggestInt, getBiggestFloat,
+    getSomeNumberAsBiggestInt, getSomeNumberAsBiggestFloat,
+    getAsRune, getAsChar
+  bind `|=`, `&`, F_LJUST, F_SIGN, F_BLANK, F_ALT, F_ZERO
+  const compileTime = result is NimNode
+  when not compileTime:
+    when declared(newStringOfCap):
+      result = newStringOfCap(format.len)
+  else:
+    result = newLit ""
+    bind callGetItem
+    when dictMode:
+      proc `[]`(d: NimNode, key: string): NimNode =
+        callGetItem(d, key)
+    else:
+      ## assuming d is args
+      var needCallGetItem = args.kind == nnkSym
+      proc `[]`(d: NimNode, i: int): NimNode =
+        if needCallGetItem: callGetItem(d, i)
+        else: macros.`[]`(d, i)
+
+    proc `$`(n: NimNode): NimNode = n.prefix"$"
+  const starWantsInt = "* wants int"
   when dictMode:
     # It used to be `type InnerVal = string`
-    type InnerVal = typeof args[""]
+    type InnerVal = getTypeOfMap args
     var darg: InnerVal
     template dict: untyped = args
     proc getBiggestIntFromArgAndNext(): BiggestInt =
       raise_TypeError starWantsInt
   else:
-    type InnerVal = typeof args[0]
     var argidx = 0
-    let arglen = args.len
+    let arglen = getLength(args)
     template getBiggestIntFromArgAndNext(): BiggestInt =
       ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
       ## to mean `getnextarg(args, arglen, argidx)`
       ## so no need for the later 2 arg
+      ##
+      ## In addition, you can find getnextarg only used
+      ##   before `PyLong_Check` and PyLong_AsInt,PyLong_AsSsize_t,
+      ##   so it can be folded, named as `getBiggestIntFromArgAndNext`
+      ##
       let t_argidx = argidx
       if t_argidx < arglen:
         inc argidx
-        args[t_argidx].getBiggestInt startWantsInt
+        when compileTime:
+          let n = args[t_argidx]
+          if n.kind not_in nnkIntLit..nnkInt64Lit:
+            # TODO
+            raise_TypeError("due to impl strict, " &
+              "only int literal is allowed for '*' currently")
+          n.intVal
+        else:
+          args[t_argidx].getBiggestInt starWantsInt &
+            ", but got "  # PY-DIFF: not have this part, but fine
       else:
-        raise newException(TypeError, "not enough arguments for format string")
+        raise_TypeError("not enough arguments for format string")
   {.push boundChecks: off.}
   var idx = 0
   while idx < format.len:
@@ -310,7 +450,7 @@ proc Py_FormatEx*[T: untyped
       if idx < format.len and format[idx] == '(':
         # Dictionary mode
         when not dictMode:
-          raise newException(TypeError, "format requires a mapping")
+          raise_TypeError("format requires a mapping")
         else:
           let start = idx
           inc idx
@@ -341,11 +481,6 @@ proc Py_FormatEx*[T: untyped
         else:
           break
 
-      proc parseBiggestIntAt(idx: var int): BiggestInt =
-        result = 0
-        while idx < format.len and format[idx].isDigit:
-          result.pushDigitChar format[idx]
-          inc idx
       # Parse width. Example: "%10s" => width=10
       var width = BiggestInt -1
       if idx < format.len and format[idx] == '*':
@@ -382,7 +517,7 @@ proc Py_FormatEx*[T: untyped
 
       when not dictMode:
         if argidx >= arglen:
-          raise newException(TypeError, "not enough arguments for format string")
+          raise_TypeError("not enough arguments for format string")
         let value = args[argidx]
         inc argidx
       else:
@@ -410,6 +545,7 @@ proc Py_FormatEx*[T: untyped
       if flags & F_SIGN:
         spec.sign = '+'
 
+      template specFmt: string  = '%' & specifier & " format: "
       case specifier
       of 'a':
         let s = asciiCb $value
@@ -425,10 +561,10 @@ proc Py_FormatEx*[T: untyped
         let s = $value
         result.formatValue s, spec
       of 'd', 'i':
-        let i = value.getSomeNumberAsBiggestInt &"%{specifier} format: a real number is required, not "
+        let i = getSomeNumberAsBiggestInt(value, specFmt&"a real number is required, not ")
         result.formatValue i, spec
       of 'x', 'X', 'o':
-        let i = value.getBiggestInt &"%{specifier} format: an integer is required, not "
+        let i = value.getBiggestInt specFmt&"an integer is required, not "
         #XXX:
         #[here we cannot mixin `index()` as well as `int()` for `value`, so there's
           no need to check if `int` returns an integer, thus err msg can only be in one form (as used above)
@@ -437,10 +573,10 @@ proc Py_FormatEx*[T: untyped
         result.formatValue i, spec
       of 'u':
         # PY-DIFF: accepting only SomeUnsignedInt over any real number
-        let ui = value.getBiggestUInt &"%{specifier} format: an unsigned integer is required, not "
+        let ui = value.getBiggestUInt specFmt&"an unsigned integer is required, not "
         result.formatValue ui, spec
       of 'f', 'F', 'e', 'E', 'g', 'G':
-        let f = value.getSomeNumberAsBiggestFloat "must be real number, not "
+        let f = getSomeNumberAsBiggestFloat(value, "must be real number, not ")
         result.formatValue f, spec
       of 'c':
         if `disallow%b`:
@@ -452,13 +588,37 @@ proc Py_FormatEx*[T: untyped
 
   when not dictMode:
     if argidx < arglen:
-      raise newException(TypeError, "not all arguments converted during " & (
+      raise_TypeError("not all arguments converted during " & (
         if `disallow%b`: "string"
         else: "bytes"
       ) & " formatting")
   {.pop.}  # boundChecks: off
 
-proc allElementsSameType(eleTypes: NimNode, start=0): bool =
+proc Py_FormatEx*[T: not NimNode
+    #[: openArray[T]|Getitemable[string, T]
+    where T is Any|string|SomeNumber|char|<string-convertable>
+    XXX: not compiles due to NIM-BUG]#
+    ](dictMode: static[bool],
+    format: string, args: T,
+    reprCb: proc (x: string): string = repr,
+    asciiCb: proc (x: string): string = repr,
+    `disallow%b` = true
+    ): string =
+  result.Py_FormatExImpl dictMode, format, args, `disallow%b`
+
+onStaticEval:
+  proc Py_FormatEx*(dictMode: static[bool],
+      format: string, args: NimNode,
+      t_reprCb, t_asciiCb : static[proc (x: string): string],
+      `disallow%b` = true
+      ): NimNode =
+    ## only exported if `pylibDisableStaticPercentFormat` not defined
+    proc reprCb(n: NimNode): NimNode = newCall(bindSym"treprCb", n)
+    proc asciiCb(n: NimNode): NimNode = newCall(bindSym"tasciiCb", n)
+    result.Py_FormatExImpl dictMode, format, args, `disallow%b`
+
+proc allElementsSameType*(eleTypes: NimNode, start=0): bool =
+  borrMacrosGetitem
   if eleTypes.len <= start: return
   let firstType = eleTypes[start].typeKind
   for i in (start+1)..<eleTypes.len:
@@ -466,10 +626,13 @@ proc allElementsSameType(eleTypes: NimNode, start=0): bool =
       return
   return true
 
+template toAnyId: NimNode = bindSym"toAny"
+
 template asIs(x): untyped = x
 proc tupleToArray(args: NimNode): NimNode =
   ## - tuple[T,...] -> array[I, T]
   ## - otherwise    -> array[I, Any]
+  borrMacrosGetitem
   result = newStmtList()
   var nargs = args
   let notAtm = args.len != 0
@@ -496,7 +659,7 @@ proc tupleToArray(args: NimNode): NimNode =
           nargs = genSym(nskLet, "nargs")
           result.add newLetStmt(nargs, args)
     else:
-      mapper = bindSym"toAny"
+      mapper = toAnyId
       if notAtm or (
         args.kind == nnkSym and args.symKind != nskVar
         # not `var xxx ...`
@@ -510,6 +673,7 @@ proc tupleToArray(args: NimNode): NimNode =
   result.add arr
 
 proc toTableWithValueTypeAny(lit: NimNode): NimNode #[Table[string, Any]]# =
+  borrMacrosGetitem
   result = newStmtList()  # `toAny` only receive `var`, so we firstly put values on stack
 
   let res = genSym(nskVar, "res")
@@ -524,7 +688,7 @@ proc toTableWithValueTypeAny(lit: NimNode): NimNode #[Table[string, Any]]# =
     let id = genSym(nskVar, k.strVal)
     result.add newVarStmt(id, v)
 
-    result.add quote do: `res`[`k`] = `id`.toAny
+    result.add quote do: `res`[`k`] = `id`.`toAnyId`
 
   result.add res
 
@@ -541,6 +705,9 @@ So this module only contains one `%` defined
 template cvtIfNotString[S](res): S =
   when S is string: res
   else: S res
+proc cvtIfNotString[S](res: NimNode): NimNode =
+  when S is string: res
+  else: newCall(getTypeInst S, res)
 
 when defined(js):
   # get rid of `Error: 'repr' is a built-in and cannot be used as a first-class procedure`
@@ -550,19 +717,39 @@ template genPercentAndExport*(S=string,
     reprCb: proc (x: string): string = repr,
     asciiCb: proc (x: string): string = repr,
     disallowPercentb = true){.dirty.} =
-  template partial(s; args): untyped =
+  bind staticEval, onStaticEval
+  template partialBody(dictMode, s, args): untyped{.dirty.} =
     bind Py_FormatEx, cvtIfNotString
-    cvtIfNotString[S] Py_FormatEx(s, args, reprCb, asciiCb, disallowPercentb)
+    cvtIfNotString[S] Py_FormatEx(dictMode, s, args, reprCb, asciiCb, disallowPercentb)
+  template partial(s; args): untyped =
+    const dictMode = compiles(args[S""])
+    partialBody dictMode, s, args
+  proc partial(s: string; args: NimNode, dictMode: static bool): NimNode{.onStaticEval.} =
+    partialBody dictMode, s, args
+
+  onStaticEval:
+    when S is string:
+      template toString(s: S): string = s
+    else:
+      template toString(s: S): string = string(s)
+
+    type GetitemableOfK[K] = concept self
+      self[K]
+    template genPercentFormat(T, dictMode){.dirty.} =
+      macro percentFormat(s: static S, arg: T): S =
+        bind nnkBracket, newTree
+        partial(s.toString, (when dictMode: arg else: newTree(nnkBracket, arg)), dictMode)
+    genPercentFormat GetitemableOfK[S], true
+    genPercentFormat typed, false
   template percentFormat(s: S, arg: typed#[Mapping or T]#): S =
     #bind partial
-    when compiles(arg[""]):
-      partial(s, arg)
-    else:
-      partial(s, [arg])
+    partial(s, (when compiles(arg[S""]): arg else: [arg]))
   macro percentFormat(s: S, args: tuple): S =
     bind tupleToArray
     bind bindSym, newCall
     newCall bindSym"partial", s, tupleToArray args
+  macro percentFormat(s: static S, args: tuple): S{.onStaticEval.} =
+    partial s.toString, args
 
   macro `%`*(s: S, args: untyped): S =
     bind kind, nnkTableConstr, bindSym, newCall

@@ -1,5 +1,6 @@
 discard """
   targets: "c js"
+  matrix: ";-d:pylibDisableStaticPercentFormat"
 """
 import pylib/pystring
 import pylib/pybytes
@@ -11,6 +12,13 @@ discard "$#" % "asd"
 import std/unittest
 
 suite "percent format":
+  #test "static format string eval at CT": when defined(pylibDisableStaticPercentFormat):
+  test "static format is type-checked":
+      template notCompiles(e) =
+        check not compiles(static(e))
+      notCompiles u"%i" % u"asd"
+      notCompiles u"%c" % u"asd"
+
   test "with one non-tuple non-mapping arg":
     let one = 1.0  # test non-const
     check:
@@ -69,3 +77,14 @@ suite "percent format":
       u"%s" % [1] == "[1]"
       u"%r" % 1.0 == "'1.0'"
 
+  test "non-const format string":
+    var fmts = u"abc %d."
+    check fmts % 3 == u"abc 3."
+    when defined(anyDollarNotSupportCollectionType):
+      fmts += "%.1f"
+      check fmts % (2, 2.3) == u"abc 2.2.3"
+
+
+  test "with tuple using flags":
+    check:
+      u"%*u" % (3, 1u) == "  1"
