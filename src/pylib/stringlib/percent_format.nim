@@ -46,8 +46,41 @@ genParserOfRange(akInt, akInt64)
 genParserOfRange(akFloat, akFloat64)
 genParserOfRange(akUInt, akUInt64)
 
+proc err(E: typedesc, msgPre: string){.inline, noReturn.} =
+  raise newException(TypeError, msgPre & $E)
+
+proc othersErrImpl(msgPre, def: NimNode): NimNode =
+  let emptyn = newEmptyNode()
+
+  result = newStmtList def
+  let procType = nnkProcDef
+  var nParams = def.params.copyNimTree
+  #let E = genSym(nskType, "E")
+  var generics = def[2].copyNimTree
+  let old1Type = nParams[1][1]
+  for i in 0..<generics.len:
+    # also works if generics is Empty, when this loop does noop
+    if generics[i][0].eqIdent old1Type:
+      generics.del i
+      if generics.len == 0:
+        generics = emptyn
+      break
+  nParams[1][1] = ident"auto"
+
+  let errDef = procType.newTree(
+    def[0], # XXX: NIM-BUG: def.name failed for proc named "`get R`"
+    emptyn,
+    generics, #nnkGenericParams.newTree(newIdentDefs(E, emptyn)),
+    nParams,
+    def.pragma,
+    emptyn,
+    newStmtList newCall(bindSym"err", newCall("typeof", nParams[1][0]), msgPre))
+  result.add errDef
+macro othersErr(msgPre, def) = othersErrImpl msgPre, def
+macro othersErr(def) = othersErrImpl ident"msgPre", def
+
 template numParse(R){.dirty.} =
-  template `get R`(s: SomeNumber, msgPre: string): R = R s
+  template `get R`(s: SomeNumber|char, msgPre: string): R{.othersErr.} = R s
 
 numParse BiggestInt
 numParse BiggestUInt
@@ -56,8 +89,8 @@ numParse BiggestUInt
 # == getSomeNumberAsBiggestInt,getSomeNumberAsBiggestFloat ==
 
 template genGetSomeNumber(T){.dirty.} =
-  template `getSomeNumberAs T`(v: SomeNumber, msgPre: string): T = T v
-  proc `getSomeNumberAs T`(v: Any, msgPre: string): T =
+  template `getSomeNumberAs T`(v: SomeNumber|char, msgPre: string): T = T v
+  proc `getSomeNumberAs T`(v: Any, msgPre: string): T{.othersErr.} =
     case v.kind
     of akFloat .. akFloat64:
       T v.getBiggestFloat msgPre
@@ -98,6 +131,7 @@ else:
 
 # == getAsChar,getAsRune ==
 
+template getAsChar(s: char): char = s
 proc getAsChar(s: SomeInteger): char =
   s.chkInRange 256:
     raise newException(TypeError, rng256ErrMsg)
@@ -107,7 +141,7 @@ proc getAsChar(s: string|cstring): char =
   s.len.chkLen1
   s[0]
 
-proc getAsChar(v: Any): char =
+proc getAsChar(v: Any): char{.othersErr(cRequiredButNotPre).} =
   ## byte_converter
   case v.kind
   of akString: getAsChar v.getString
@@ -118,8 +152,8 @@ proc getAsChar(v: Any): char =
 template raiseOverflowError(msg) =
   raise newException(OverflowDefect, msg)
 
-const cRequiredMsg = "%c requires int or char"
-proc getAsRune(v: Any|string|cstring|openArray[char]|SomeInteger): Rune =
+proc getAsRune(v: Any|string|cstring|openArray[char]|SomeInteger|char): Rune{.
+    othersErr(cRequiredButNotPre).} =
   template oa(v): untyped{.used.} = v.toOpenArray(0, v.high)
   when v is openArray[char]:
     v.runeLen.chkLen1
@@ -142,10 +176,11 @@ proc getAsRune(v: Any|string|cstring|openArray[char]|SomeInteger): Rune =
       let s = v.getCString
       getAsRune s
     else:
-      getAsRune v.getBiggestInt cRequiredMsg
+      getAsRune v.getBiggestInt cRequiredButNotPre
   else:
-    v.chkInRange 0x110000:
-      raiseOverflowError "%c arg not in range(0x110000)"
+    when v is_not char:
+      v.chkInRange 0x110000:
+        raiseOverflowError "%c arg not in range(0x110000)"
     cast[Rune](v)
 
 #[ FIXME: Error check cannot be handled as following, otherwise `StrLike` like
@@ -153,13 +188,6 @@ proc getAsRune(v: Any|string|cstring|openArray[char]|SomeInteger): Rune =
 template getAsRune[T](v: T): Rune =
   {.error: "TypeError: %c requires an int or a unicode character, not " & $T.}
 ]#
-template mistype(TT; R; msgWithT){.dirty.} =
-  proc `getAs R`[T: TT](v: T): R =
-    raise newException(TypeError, msgWithT)
-
-mistype SomeFloat, Rune, cRequiredButNotPre & $T
-mistype SomeFloat, char, cRequiredMsg
-
 
 # == Py_FormatEx ==
 
@@ -215,7 +243,7 @@ proc raiseUnsupSpec(specifier: char, idx: int) =
 
 proc Py_FormatEx*[T: untyped
     #[: openArray[T]|Getitemable[string, T]
-    where T is Any|string|SomeNumber|<string-convertable>
+    where T is Any|string|SomeNumber|char|<string-convertable>
     XXX: not compiles due to NIM-BUG]#
     ](
     format: string, args: T,
@@ -244,7 +272,8 @@ proc Py_FormatEx*[T: untyped
     template getnextarg(_): InnerVal = darg
   else:
     type InnerVal = typeof args[0]
-    var (arglen, argidx) = (args.len, 0)
+    var argidx = 0
+    let arglen = args.len
     template getnextarg(args): InnerVal =
       ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
       ## to mean `getnextarg(args, arglen, argidx)`
@@ -255,16 +284,6 @@ proc Py_FormatEx*[T: untyped
         args[t_argidx]
       else:
         raise newException(TypeError, "not enough arguments for format string")
-  when compiles(InnerVal("")):
-    template err = raise newException(TypeError, msgPre & $InnerVal)
-    template genErr(R){.dirty.} =
-      proc `get R`(v: InnerVal, msgPre: string): R = err
-    genErr BiggestUint
-    genErr BiggestInt
-    template genAsErr(R){.dirty.} =
-      proc `getSomeNumberAs R`(v: InnerVal, msgPre: string): R = err
-    genAsErr BiggestInt
-    genAsErr BiggestFloat
   {.push boundChecks: off.}
   var idx = 0
   while idx < format.len:
@@ -432,23 +451,59 @@ proc Py_FormatEx*[T: untyped
       raise newException(TypeError, "not all arguments converted during " & (
         if `disallow%b`: "string"
         else: "bytes"
-        ) & " formatting")
+      ) & " formatting")
   {.pop.}  # boundChecks: off
 
+proc allElementsSameType(eleTypes: NimNode, start=0): bool =
+  if eleTypes.len <= start: return
+  let firstType = eleTypes[start].typeKind
+  for i in (start+1)..<eleTypes.len:
+    if eleTypes[i].typeKind != firstType:
+      return
+  return true
 
-proc mapTuple(cb, s, args: NimNode): NimNode =
-    ## Helper function to format a string with a tuple.
-    ## This is used to ensure compatibility with the original Python `%` formatting.
-    result = newStmtList()
-    let nargs = genSym(nskVar, "nargs")
-    result.add newVarStmt(nargs, args)
-    var ls = newNimNode nnkBracket
-    let tupLen = args.getType().len - 1
-    let toAnyId = bindSym("toAny")
-    for i in 0..<tupLen:
-      ls.add quote do:
-        `toAnyId` `nargs`[`i`]
-    result.add newCall(cb, s, ls)
+template asIs(x): untyped = x
+proc tupleToArray(args: NimNode): NimNode =
+  ## - tuple[T,...] -> array[I, T]
+  ## - otherwise    -> array[I, Any]
+  result = newStmtList()
+  var nargs = args
+  let notAtm = args.len != 0
+  var arr = newNimNode nnkBracket
+  let tupEleTypes = args.getType()  # [0] idx is tuple itself
+  let tupLen = tupEleTypes.len - 1
+
+  let canUseNonAnyArr = allElementsSameType(tupEleTypes, 1)
+  var mapper: NimNode
+  block mkArr:
+    # we distinguish several situation to optimize,
+    #  preventing unneeded copy (when assigning)
+    template arrAddWithEachIdx(i, exp) =
+      for i in 0..<tupLen:
+        arr.add exp
+    if canUseNonAnyArr:
+      mapper = bindSym"asIs"
+      if notAtm:  # we must ensure it only evaluated once
+        if args.kind == nnkTupleConstr:  # is literal
+          # e.g. here we directly transform (64,2) to [64, 2]
+          arrAddWithEachIdx i, nargs[i]
+          break mkArr
+        else:  # not literal but may has sideEffect
+          nargs = genSym(nskLet, "nargs")
+          result.add newLetStmt(nargs, args)
+    else:
+      mapper = bindSym"toAny"
+      if notAtm or (
+        args.kind == nnkSym and args.symKind != nskVar
+        # not `var xxx ...`
+      ):
+        # NOTE: toAny requires var argument
+        nargs = genSym(nskVar, "nargs")
+        result.add newVarStmt(nargs, args)
+    arrAddWithEachIdx i, quote do:
+      `mapper` `nargs`[`i`]
+    
+  result.add arr
 
 proc toTableWithValueTypeAny(lit: NimNode): NimNode #[Table[string, Any]]# =
   result = newStmtList()  # `toAny` only receive `var`, so we firstly put values on stack
@@ -496,18 +551,14 @@ template genPercentAndExport*(S=string,
     cvtIfNotString[S] Py_FormatEx(s, args, reprCb, asciiCb, disallowPercentb)
   template percentFormat(s: S, arg: typed#[Mapping or T]#): S =
     #bind partial
-    bind toAny
     when compiles(arg[""]):
       partial(s, arg)
-    elif arg is string|S|SomeNumber:
-      partial(s, [arg])
     else:
-      var va = arg
-      partial(s, [va.toAny])
+      partial(s, [arg])
   macro percentFormat(s: S, args: tuple): S =
-    bind mapTuple
-    bind bindSym
-    mapTuple bindSym"partial", s, args
+    bind tupleToArray
+    bind bindSym, newCall
+    newCall bindSym"partial", s, tupleToArray args
 
   macro `%`*(s: S, args: untyped): S =
     bind kind, nnkTableConstr, bindSym, newCall
