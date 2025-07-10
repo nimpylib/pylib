@@ -260,18 +260,9 @@ onStaticEval:
 # NIM-BUG: repr(spec) is (fill: <int>, ..)
 #  over StandardFormatSpecifier(fill: char, ...)
 
-proc newLit(spec: StandardFormatSpecifier): NimNode =
-  result = nnkObjConstr.newTree bindSym"StandardFormatSpecifier"
-  for name, val in spec.fieldPairs:
-    result.add nnkExprColonExpr.newTree(
-      ident name,
-      newLit val
-    )
-
 onStaticEval:
-  proc formatValue(result: var NimNode, x: NimNode, spec: StandardFormatSpecifier) =
-    let sp = newLit spec
-    result &= newCall(bindSym"formatedValue", x, sp)
+  proc formatValue(result: var NimNode, x: NimNode, spec: NimNode) =
+    result &= newCall(bindSym"formatedValue", x, spec)
   proc formatValue[T](result: var NimNode, x: int, spec: NimNode) =
     result.formatedValue newLit x, spec
 
@@ -324,7 +315,7 @@ template pushDigitChar[T: BiggestInt](self: (var T){sym}, c: char) =
   self = self * 10 + (c.ord - '0'.ord)
   {.pop.}
 
-proc parseBiggestIntAt(idx: var int, s: string): BiggestInt{.inline.} =
+proc parseNonNegBiggestIntAt(idx: var int, s: string): BiggestInt{.inline.} =
   result = 0
   while idx < s.len and s[idx].isDigit:
     result.pushDigitChar s[idx]
@@ -356,6 +347,51 @@ template getLength(d): int = d.len
 proc callGetItem[T: not NimNode](d: NimNode; ki: T): NimNode =
   nnkBracketExpr.newTree(d, newLit ki)
 
+proc initStandardFormatSpecifier(specifier: char, flags: int, width, prec: SomeInteger
+    ): StandardFormatSpecifier =
+  var flags = flags
+  let
+    widthIsNeg = width < 0
+    # CPython's check for this is not written here
+    #  but you can tell moving here doesn't change functionality
+    #  we move here as `initStandardFormatSpecifier` be
+    #  running at CT on `onStaticEval`
+    width = int(
+      if widthIsNeg:
+        flags |= F_LJUST
+        -width
+      else: width
+    )
+    prec = int prec
+
+  result = StandardFormatSpecifier(
+      fill: ' ',
+      align: '>',  # `%-format` use right alignment by default for both number and string (unlike f-string)
+      sign: '-',
+      alternateForm: flags & F_ALT,
+      padWithZero: flags & F_ZERO,
+      minimumWidth: width,
+      precision: prec,
+      typ: specifier,
+    )
+
+  if flags & F_BLANK:
+    result.sign = ' '
+  if flags & F_LJUST:
+    result.align = '<'
+    result.padWithZero = false
+    #NOTE: left adjusted: `(overrides the '0' conversion if both are given).`
+  if flags & F_SIGN:
+    result.sign = '+'
+
+
+onStaticEval:
+  proc initStandardFormatSpecifier(specifier: char, flags: int, width, prec: NimNode#[BiggestInt]#,
+      ): NimNode#[StandardFormatSpecifier]# =
+    newCall(bindSym"initStandardFormatSpecifier",
+      newLit specifier, newLit flags,
+      width, prec)
+
 template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool],
   format: string,
   args: A,
@@ -378,10 +414,15 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
     getAsRune, getAsChar
   bind `|=`, `&`, F_LJUST, F_SIGN, F_BLANK, F_ALT, F_ZERO
   const compileTime = result is NimNode
+  const bign1 = BiggestInt -1
   when not compileTime:
     when declared(newStringOfCap):
       result = newStringOfCap(format.len)
+    type WidthOrPrec = BiggestInt
+    template toWidthOrPrec(x): untyped = x
   else:
+    type WidthOrPrec = NimNode
+    template toWidthOrPrec(x: BiggestInt): NimNode = newIntLitNode x
     result = newLit ""
     bind callGetItem
     when dictMode:
@@ -401,12 +442,12 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
     type InnerVal = getTypeOfMap args
     var darg: InnerVal
     template dict: untyped = args
-    proc getBiggestIntFromArgAndNext(): BiggestInt =
+    proc getBiggestIntFromArgAndNext(): WidthOrPrec =
       raise_TypeError starWantsInt
   else:
     var argidx = 0
     let arglen = getLength(args)
-    template getBiggestIntFromArgAndNext(): BiggestInt =
+    template getBiggestIntFromArgAndNext(): WidthOrPrec =
       ## `getnextarg(args; arglen: int, p_argidx: var int)` but use closure
       ## to mean `getnextarg(args, arglen, argidx)`
       ## so no need for the later 2 arg
@@ -419,12 +460,7 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
       if t_argidx < arglen:
         inc argidx
         when compileTime:
-          let n = args[t_argidx]
-          if n.kind not_in nnkIntLit..nnkInt64Lit:
-            # TODO
-            raise_TypeError("due to impl strict, " &
-              "only int literal is allowed for '*' currently")
-          n.intVal
+          args[t_argidx]
         else:
           args[t_argidx].getBiggestInt starWantsInt &
             ", but got "  # PY-DIFF: not have this part, but fine
@@ -481,27 +517,21 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
         else:
           break
 
-      # Parse width. Example: "%10s" => width=10
-      var width = BiggestInt -1
-      if idx < format.len and format[idx] == '*':
-        width = getBiggestIntFromArgAndNext()
-        if width < 0:
-          flags |= F_LJUST
-          width = -width
+      template getStarFromArgOrTryFromFormatString(): WidthOrPrec =
+        if idx < format.len and format[idx] == '*':
+          inc idx
+          getBiggestIntFromArgAndNext()
+        else:
+          parseNonNegBiggestIntAt(idx, format).toWidthOrPrec
 
-        inc idx
-      else:
-        width = parseBiggestIntAt(idx, format)
+      # Parse width. Example: "%10s" => width=10
+      let width = getStarFromArgOrTryFromFormatString()
 
       # Parse precision. Example: "%.3f" => prec=3
-      var prec = BiggestInt -1
+      var prec = bign1.toWidthOrPrec
       if idx < format.len and format[idx] == '.':
         inc idx
-        if idx < format.len and format[idx] == '*':
-          prec = getBiggestIntFromArgAndNext()
-          inc idx
-        else:
-          prec = parseBiggestIntAt(idx, format)
+        prec = getStarFromArgOrTryFromFormatString()
 
       # Skip length spec (type prefix) just as Python does.
       #[ We are able to do so because the type system used here
@@ -523,27 +553,7 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
       else:
         let value = darg
 
-
-      var
-        spec = StandardFormatSpecifier(
-          fill: ' ',
-          align: '>',  # `%-format` use right alignment by default for both number and string (unlike f-string)
-          sign: '-',
-          alternateForm: flags & F_ALT,
-          padWithZero: flags & F_ZERO,
-          minimumWidth: int width,
-          precision: int prec,
-          typ: specifier,
-        )
-
-      if flags & F_BLANK:
-        spec.sign = ' '
-      if flags & F_LJUST:
-        spec.align = '<'
-        spec.padWithZero = false
-        #NOTE: left adjusted: `(overrides the '0' conversion if both are given).`
-      if flags & F_SIGN:
-        spec.sign = '+'
+      let spec = initStandardFormatSpecifier(specifier, flags, width, prec)
 
       template specFmt: string  = '%' & specifier & " format: "
       case specifier

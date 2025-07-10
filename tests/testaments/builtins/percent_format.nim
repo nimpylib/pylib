@@ -20,6 +20,7 @@ suite "percent format":
       notCompiles u"%c" % u"asd"
 
   test "with one non-tuple non-mapping arg":
+    check u"%s" % "" == u""
     let one = 1.0  # test non-const
     check:
       b"Here is %b." % b"Night Raid" == b"Here is Night Raid."
@@ -86,5 +87,12 @@ suite "percent format":
 
 
   test "with tuple using flags":
+    var width = 2
     check:
-      u"%*u" % (3, 1u) == "  1"
+      u"%*d" % (3, 1) == "  1"
+      u"%*d" % (width, 1) == " 1"
+
+    width = -2
+    check:
+      u"%*d_%c" % (width, 1, 'a') == "1 _a"
+
