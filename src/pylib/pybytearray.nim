@@ -21,8 +21,6 @@ func newPyByteArray*(len: int): PyByteArray{.inline.} = PyByteArray(data: newStr
 
 func bytes*(self: sink PyByteArray): PyBytes{.inline.} = bytes(self.data)
 
-nimpylib_private_genByteLikePercentFormat PyByteArray
-
 template asNim(self: PyByteArray): string =
   ## returns a mutable var
   self.data
@@ -48,6 +46,8 @@ wrapCmp `<`
 func `$`*(self): string = self.asNim
 func toNimString*(self: PyByteArray): string = self.asNim
 func toNimString*(self: var PyByteArray): var string = self.asNim
+
+nimpylib_private_genByteLikePercentFormat PyByteArray
 
 func bytearray*: PyByteArray = newPyByteArray()
 func bytearray*(o: BytesLike): PyByteArray = newPyByteArray(o)

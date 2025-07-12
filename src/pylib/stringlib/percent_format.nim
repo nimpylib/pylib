@@ -702,7 +702,7 @@ template genPercentAndExport*(S=string,
     when S is string:
       template toString(s: S): string = s
     else:
-      template toString(s: S): string = string(s)
+      template toString(s: S): string = $(s)
 
     template genPercentFormat(T, dictMode){.dirty.} =
       macro percentFormat(s: static S, arg: T): S =
