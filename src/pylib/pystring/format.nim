@@ -10,7 +10,13 @@ template format*[T](value: T, format_spec: PyStr = ""): PyStr =
 template format*(s: PyStr, argKw: varargs[untyped]): PyStr =
   ## str.format
   ## 
-  ## NOTE: `s` must be static (e.g. a str literal), 
-  ## as this will be expanded at compile-time
+  ## .. hint:: if `s` is static (e.g. a str literal), 
+  ##   this will be expanded at compile-time; otherwise at run-time,
+  ##   and exception may be raised for bad format syntax.
+  ##   so using static `s` is recommended.
+  bind pyformat, str
   str pyformat($s, argKw)
 
+template format_map*(s: PyStr, map): PyStr =
+  bind pyformatMap, str
+  str pyformatMap($s, map)
