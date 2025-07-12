@@ -2,6 +2,7 @@
 import ./strimpl
 import ../stringlib/format as pyformatlib
 import std/macros
+import ../version
 
 template format*[T](value: T, format_spec: PyStr = ""): PyStr =
   ## builtins.format
@@ -17,6 +18,6 @@ template format*(s: PyStr, argKw: varargs[untyped]): PyStr =
   bind pyformat, str
   str pyformat($s, argKw)
 
-template format_map*(s: PyStr, map): PyStr =
+template format_map*(s: PyStr, map): PyStr{.pysince(3,2).} =
   bind pyformatMap, str
   str pyformatMap($s, map)
