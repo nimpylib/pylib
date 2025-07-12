@@ -8,6 +8,7 @@ import std/[
 ]
 import ./formats
 export formats
+import ./format_utils
 
 type
   Ident = distinct NimNode
@@ -37,8 +38,8 @@ proc expectCh(s: string, idx: int, ch: char) =
   if s[idx] != ch:
     raiseFormatError(s, idx, '`' & ch & "` expected")
 
-template formatCallIdent: NimNode = ident"formatValue"
-template formatAltCallIdent: NimNode = ident"format"
+template format(v, spec: NimNode): NimNode =
+  newCall(bindSym"format", v, spec)
 
 proc pyformatImplAux*(s: string, args: seq[NimNode], kw: Kw): NimNode =
   ##[
@@ -46,24 +47,15 @@ proc pyformatImplAux*(s: string, args: seq[NimNode], kw: Kw): NimNode =
 
     Convertion is not supported yet (like `!r`).
   ]##
-  # XXX: current impl is char-based for
-  # str snippets between interpolations snippets,
-  # and will generate too much lines of `<str>.add('<c>')` in generated code
-  # TODO: rewrite to add via substr
-  template addNode(res: NimNode, expAdd: NimNode, format_spec: NimNode) =
-    result.add when defined(pylibUseFormatValue):
-      newCall(formatCallIdent, res,
-        expAdd,
-        format_spec
-      )
-    else:
-      let strAdd = newCall(formatAltCallIdent, expAdd, format_spec)
-      newCall("add", res, strAdd)
-  
-  let res = genSym(nskVar, "formatRes")
-  result = newStmtList()
-  result.add newVarStmt(res, newCall(bindSym"newStringOfCap",
-                                     newLit(s.len)))
+  result = newLit ""
+
+  # minic that `result` is a string
+  template addNode(res, expAdd, format_spec) =
+    res &= (
+      when defined(pylibUseFormatValue): formatValue(res, expAdd, format_spec)
+      else: format(expAdd, format_spec)
+    )
+
   template parseSpec: string =
     var format_spec = ""
     if s[curIdx] == SpecSep:
@@ -72,14 +64,11 @@ proc pyformatImplAux*(s: string, args: seq[NimNode], kw: Kw): NimNode =
 
   template pushIdent(identS: string) =
     let fspec = parseSpec()
-    res.addNode kw[ ident(identS) ], newLit fspec
+    result.addNode kw[ ident(identS) ], newLit fspec
   template pushIdx(idx: int) =
     let fspec = parseSpec()
-    res.addNode args[idx], newLit fspec
-  
-  template add(_: NimNode, cs: char|string) =
-    result.add newCall(bindSym"add", res, newLit(cs))
-  # minic that `result` is a string
+    result.addNode args[idx], newLit fspec
+
   var curIdx = 0
   var
     varIdx = -1
@@ -124,10 +113,9 @@ proc pyformatImplAux*(s: string, args: seq[NimNode], kw: Kw): NimNode =
       expectCh(s, curIdx, EndCh)
       curIdx.inc
     else:
-      result.add c
-      curIdx.inc
-  result.add res
-  result = newBlockStmt result
+      let startIdx = curIdx
+      curIdx.inc s.skipUntil(BegCh, startIdx)
+      result.addSubStr s, startIdx, curIdx
 
 macro pyformat*(s: static[string], argKw: varargs[untyped]): string =
   let

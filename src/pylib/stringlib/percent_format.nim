@@ -15,7 +15,7 @@ import ../pyerrors/simperr
 template raise_TypeError(msg) =
   raise newException(TypeError, msg)
 
-import ./formatWithSpec
+import ./format_utils
 
 const staticEval = not defined(pylibDisableStaticPercentFormat)
 template onStaticEval(body) =
@@ -248,47 +248,6 @@ template getAsRune[T](v: T): Rune =
 ]#
 
 # == Py_FormatEx ==
-onStaticEval:
-  template `&=`(result: var NimNode, s: NimNode) =
-    result = infix(result, "&", s)
-
-  template formatedValue(v; spec): string =
-    var s: string
-    s.formatValue v, spec
-    s
-
-# NIM-BUG: repr(spec) is (fill: <int>, ..)
-#  over StandardFormatSpecifier(fill: char, ...)
-
-onStaticEval:
-  proc formatValue(result: var NimNode, x: NimNode, spec: NimNode) =
-    result &= newCall(bindSym"formatedValue", x, spec)
-  proc formatValue[T](result: var NimNode, x: int, spec: NimNode) =
-    result.formatedValue newLit x, spec
-
-  proc add(result: var NimNode, c: char) =
-    result &= newLit c
-
-  proc addSubStr(result: var NimNode, s: NimNode, start, stop: int) =
-    result &= (quote do: `s`[`start` ..< `stop`])
-  proc addSubStr(result: var NimNode, s: string, start, stop: int) =
-    result &= newLit s[start ..< stop]
-
-proc addSubStr(self: var string, s: openArray[char], start: int, stop: int) =
-  ##[ Add a substring to the string.
-     `start..<stop`
-
-   roughly equal to self.add s[start ..< stop]
-  ]##
-  let rng = start ..< stop
-  when declared(copyMem):
-    let bLen = self.len
-    self.setLen bLen + rng.len
-    #for i in rng: self[bLen + i] = s[i]
-    copyMem(addr(self[bLen]), addr(s[start]), rng.len)
-  else:
-    for i in rng:
-      self.add s[i]
 
 # ['-', '+', ' ', '#', '0']
 const
@@ -415,9 +374,10 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
   bind `|=`, `&`, F_LJUST, F_SIGN, F_BLANK, F_ALT, F_ZERO
   const compileTime = result is NimNode
   const bign1 = BiggestInt -1
+  let slen = format.len
   when not compileTime:
     when declared(newStringOfCap):
-      result = newStringOfCap(format.len)
+      result = newStringOfCap(slen)
     type WidthOrPrec = BiggestInt
     template toWidthOrPrec(x): untyped = x
   else:
@@ -468,22 +428,22 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
         raise_TypeError("not enough arguments for format string")
   {.push boundChecks: off.}
   var idx = 0
-  while idx < format.len:
+  while idx < slen:
     if format[idx] != '%':
       # Copy non-format characters
       let start = idx
-      while idx < format.len and format[idx] != '%':
+      while idx < slen and format[idx] != '%':
         inc idx
       result.addSubStr(format, start, idx)
     else:
       # Handle format specifier
       inc idx
-      if idx < format.len and format[idx] == '%':  # %% means %
+      if idx < slen and format[idx] == '%':  # %% means %
         result.add('%')
         inc idx
         continue
 
-      if idx < format.len and format[idx] == '(':
+      if idx < slen and format[idx] == '(':
         # Dictionary mode
         when not dictMode:
           raise_TypeError("format requires a mapping")
@@ -491,7 +451,7 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
           let start = idx
           inc idx
           var pcount = 1
-          while pcount > 0 and idx < format.len:
+          while pcount > 0 and idx < slen:
             inc idx
             if format[idx - 1] == ')':
               dec pcount
@@ -507,7 +467,7 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
       template pushF(f) =
         flags |= f
         inc idx
-      while idx < format.len:
+      while idx < slen:
         case format[idx]
         of '-': pushF F_LJUST
         of '+': pushF F_SIGN
@@ -518,7 +478,7 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
           break
 
       template getStarFromArgOrTryFromFormatString(): WidthOrPrec =
-        if idx < format.len and format[idx] == '*':
+        if idx < slen and format[idx] == '*':
           inc idx
           getBiggestIntFromArgAndNext()
         else:
@@ -529,18 +489,18 @@ template Py_FormatExImpl[A](result: var (NimNode|string), dictMode: static[bool]
 
       # Parse precision. Example: "%.3f" => prec=3
       var prec = bign1.toWidthOrPrec
-      if idx < format.len and format[idx] == '.':
+      if idx < slen and format[idx] == '.':
         inc idx
         prec = getStarFromArgOrTryFromFormatString()
 
       # Skip length spec (type prefix) just as Python does.
       #[ We are able to do so because the type system used here
       is both dynamic and safe. ]#
-      if idx < format.len and format[idx] in {'h', 'l', 'L'}:
+      if idx < slen and format[idx] in {'h', 'l', 'L'}:
         inc idx
 
       # Parse type specifier
-      if idx >= format.len:
+      if idx >= slen:
         raise newException(ValueError, "incomplete format")
       let specifier = format[idx]
       inc idx
@@ -728,6 +688,7 @@ template genPercentAndExport*(S=string,
     asciiCb: proc (x: string): string = repr,
     disallowPercentb = true){.dirty.} =
   bind staticEval, onStaticEval
+  bind GetitemableOfK
   template partialBody(dictMode, s, args): untyped{.dirty.} =
     bind Py_FormatEx, cvtIfNotString
     cvtIfNotString[S] Py_FormatEx(dictMode, s, args, reprCb, asciiCb, disallowPercentb)
@@ -743,8 +704,6 @@ template genPercentAndExport*(S=string,
     else:
       template toString(s: S): string = string(s)
 
-    type GetitemableOfK[K] = concept self
-      self[K]
     template genPercentFormat(T, dictMode){.dirty.} =
       macro percentFormat(s: static S, arg: T): S =
         bind nnkBracket, newTree
