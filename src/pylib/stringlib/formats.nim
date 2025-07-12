@@ -1,5 +1,6 @@
 # import and exported via ./format
 import std/strformat
+import ./formatValue_Any
 
 template format*[T](value: T, format_spec: string = ""): string =
   ## wrapper of std/strformat `formatValue`
