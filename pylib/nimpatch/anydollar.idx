@@ -1,0 +1,2 @@
+nimTitle	anydollar	pylib/nimpatch/anydollar.html	module src/pylib/nimpatch/anydollar		0
+nim	`$`	pylib/nimpatch/anydollar.html#$,Any	proc `$`(x: Any): string		11

@@ -1,0 +1,6 @@
+nimTitle	formatValue_Any	pylib/stringlib/formatValue_Any.html	module src/pylib/stringlib/formatValue_Any		0
+nim	formatValue	pylib/stringlib/formatValue_Any.html#formatValue,string,bool,string	proc formatValue(result: var string; x: bool; spec: string)		12
+nim	formatValue	pylib/stringlib/formatValue_Any.html#formatValue,string,char,string	proc formatValue(result: var string; x: char; spec: string)		13
+nim	formatValue	pylib/stringlib/formatValue_Any.html#formatValue,string,cstring,string	proc formatValue(result: var string; x: cstring; spec: string)		14
+nim	formatValue	pylib/stringlib/formatValue_Any.html#formatValue,string,Any,string	proc formatValue(result: var string; x: Any; spec: string)		45
+nimgrp	formatvalue	pylib/stringlib/formatValue_Any.html#formatValue-procs-all	proc		9

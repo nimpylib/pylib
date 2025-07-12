@@ -1,0 +1,12 @@
+nimTitle	format_utils	pylib/stringlib/format_utils.html	module src/pylib/stringlib/format_utils		0
+nim	GetitemableOfK	pylib/stringlib/format_utils.html#GetitemableOfK	type GetitemableOfK		7
+nim	`&=`	pylib/stringlib/format_utils.html#&=.t,NimNode,NimNode	template `&=`(result: var NimNode; s: NimNode)		10
+nim	formatedValue	pylib/stringlib/format_utils.html#formatedValue.t,,	template formatedValue(v; spec): string		14
+nim	formatValue	pylib/stringlib/format_utils.html#formatValue,NimNode,NimNode,NimNode	proc formatValue(result: var NimNode; x: NimNode; spec: NimNode)		23
+nim	formatValue	pylib/stringlib/format_utils.html#formatValue,NimNode,int,NimNode	proc formatValue[T](result: var NimNode; x: int; spec: NimNode)		25
+nim	add	pylib/stringlib/format_utils.html#add,NimNode,char	proc add(result: var NimNode; c: char)		29
+nim	addSubStr	pylib/stringlib/format_utils.html#addSubStr,NimNode,NimNode,int,int	proc addSubStr(result: var NimNode; s: NimNode; start, stop: int)		32
+nim	addSubStr	pylib/stringlib/format_utils.html#addSubStr,NimNode,string,int,int	proc addSubStr(result: var NimNode; s: string; start, stop: int)		34
+nim	addSubStr	pylib/stringlib/format_utils.html#addSubStr,string,openArray[char],int,int	proc addSubStr(self: var string; s: openArray[char]; start: int; stop: int)		37
+nimgrp	addsubstr	pylib/stringlib/format_utils.html#addSubStr-procs-all	proc		32
+nimgrp	formatvalue	pylib/stringlib/format_utils.html#formatValue-procs-all	proc		23

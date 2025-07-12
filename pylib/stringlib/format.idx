@@ -1,3 +1,9 @@
 nimTitle	format	pylib/stringlib/format.html	module src/pylib/stringlib/format		0
-nim	pyformatImplAux	pylib/stringlib/format.html#pyformatImplAux,string,seq[NimNode],Kw	proc pyformatImplAux(s: string; args: seq[NimNode]; kw: Kw): NimNode		43
-nim	pyformat	pylib/stringlib/format.html#pyformat.m,static[string],varargs[untyped]	macro pyformat(s: static[string]; argKw: varargs[untyped]): string		132
+nim	pyformatImplAux	pylib/stringlib/format.html#pyformatImplAux,string,openArray[NimNode],Kw	proc pyformatImplAux(s: string; args: openArray[NimNode]; kw: Kw): NimNode		124
+nim	pyformatImplAux	pylib/stringlib/format.html#pyformatImplAux,string,openArray[Any],GetitemableOfK[string]	proc pyformatImplAux(s: string; args: openArray[Any]; kw: GetitemableOfK[string]): string		128
+nim	pyformat	pylib/stringlib/format.html#pyformat.m,static[string],varargs[untyped]	macro pyformat(s: static[string]; argKw: varargs[untyped]): string		147
+nim	pyformat	pylib/stringlib/format.html#pyformat.m,string,varargs[untyped]	macro pyformat(s: string; argKw: varargs[untyped]): string		160
+nim	pyformatMap	pylib/stringlib/format.html#pyformatMap.t,staticstring,GetitemableOfK[string]	template pyformatMap(s: static string; map: GetitemableOfK[string]): string		179
+nim	pyformatMap	pylib/stringlib/format.html#pyformatMap.m,string,GetitemableOfK[string]	macro pyformatMap(s: string; map: GetitemableOfK[string]): string		182
+nimgrp	pyformatimplaux	pylib/stringlib/format.html#pyformatImplAux-procs-all	proc		124
+nimgrp	pyformat	pylib/stringlib/format.html#pyformat-macros-all	macro		147

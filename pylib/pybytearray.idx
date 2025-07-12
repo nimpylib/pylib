@@ -5,18 +5,18 @@ nim	newPyByteArray	pylib/pybytearray.html#newPyByteArray	proc newPyByteArray(): 
 nim	newPyByteArray	pylib/pybytearray.html#newPyByteArray,sinkstring	proc newPyByteArray(s: sink string): PyByteArray		19
 nim	newPyByteArray	pylib/pybytearray.html#newPyByteArray,int	proc newPyByteArray(len: int): PyByteArray		20
 nim	bytes	pylib/pybytearray.html#bytes,sinkPyByteArray	proc bytes(self: sink PyByteArray): PyBytes		22
-nim	`%`	pylib/pybytearray.html#%.m,PyByteArray,untyped	macro `%`(s: PyByteArray; args: untyped): PyByteArray		24
-nim	toPyBytes	pylib/pybytearray.html#toPyBytes.c	converter toPyBytes(self: PyByteArray): PyBytes		29
-nim	getCharPtr	pylib/pybytearray.html#getCharPtr,,_2	proc getCharPtr(self: PyByteArray; i: Natural | Natural): ptr char		32
-nim	`==`	pylib/pybytearray.html#==,,PyBytes_2	proc `==`(self: PyByteArray; other: PyBytes): bool		41
-nim	`==`	pylib/pybytearray.html#==,,PyByteArray	proc `==`(self: PyByteArray; other: PyByteArray): bool		44
-nim	`<=`	pylib/pybytearray.html#<=,,PyBytes	proc `<=`(self: PyByteArray; other: PyBytes): bool		41
-nim	`<=`	pylib/pybytearray.html#<=,,PyByteArray	proc `<=`(self: PyByteArray; other: PyByteArray): bool		45
-nim	`<`	pylib/pybytearray.html#<,,PyBytes	proc `<`(self: PyByteArray; other: PyBytes): bool		41
-nim	`<`	pylib/pybytearray.html#<,,PyByteArray	proc `<`(self: PyByteArray; other: PyByteArray): bool		46
-nim	`$`	pylib/pybytearray.html#$_2	proc `$`(self: PyByteArray): string		48
-nim	toNimString	pylib/pybytearray.html#toNimString,PyByteArray	proc toNimString(self: PyByteArray): string		49
-nim	toNimString	pylib/pybytearray.html#toNimString,PyByteArray_2	proc toNimString(self: var PyByteArray): var string		50
+nim	toPyBytes	pylib/pybytearray.html#toPyBytes.c	converter toPyBytes(self: PyByteArray): PyBytes		27
+nim	getCharPtr	pylib/pybytearray.html#getCharPtr,,_2	proc getCharPtr(self: PyByteArray; i: Natural | Natural): ptr char		30
+nim	`==`	pylib/pybytearray.html#==,,PyBytes_2	proc `==`(self: PyByteArray; other: PyBytes): bool		39
+nim	`==`	pylib/pybytearray.html#==,,PyByteArray	proc `==`(self: PyByteArray; other: PyByteArray): bool		42
+nim	`<=`	pylib/pybytearray.html#<=,,PyBytes	proc `<=`(self: PyByteArray; other: PyBytes): bool		39
+nim	`<=`	pylib/pybytearray.html#<=,,PyByteArray	proc `<=`(self: PyByteArray; other: PyByteArray): bool		43
+nim	`<`	pylib/pybytearray.html#<,,PyBytes	proc `<`(self: PyByteArray; other: PyBytes): bool		39
+nim	`<`	pylib/pybytearray.html#<,,PyByteArray	proc `<`(self: PyByteArray; other: PyByteArray): bool		44
+nim	`$`	pylib/pybytearray.html#$_2	proc `$`(self: PyByteArray): string		46
+nim	toNimString	pylib/pybytearray.html#toNimString,PyByteArray	proc toNimString(self: PyByteArray): string		47
+nim	toNimString	pylib/pybytearray.html#toNimString,PyByteArray_2	proc toNimString(self: var PyByteArray): var string		48
+nim	`%`	pylib/pybytearray.html#%.m,PyByteArray,untyped	macro `%`(s: PyByteArray; args: untyped): PyByteArray		50
 nim	bytearray	pylib/pybytearray.html#bytearray	proc bytearray(): PyByteArray		52
 nim	bytearray	pylib/pybytearray.html#bytearray,BytesLike	proc bytearray(o: BytesLike): PyByteArray		53
 nim	bytearray	pylib/pybytearray.html#bytearray,string	proc bytearray(s: string): PyByteArray		54
@@ -47,11 +47,11 @@ nim	delitem	pylib/pybytearray.html#delitem,PyByteArray,Slice[int]	proc delitem(m
 nim	delitem	pylib/pybytearray.html#delitem,PyByteArray,PySlice	proc delitem(ms: var PyByteArray; indices: PySlice)		165
 nim	`[]=`	pylib/pybytearray.html#[]=,PyByteArray,Slice[int],Sequence[int]	proc `[]=`(ms: var PyByteArray; indices: Slice[int]; o: Sequence[int])		166
 nimgrp	delitem	pylib/pybytearray.html#delitem-procs-all	proc		142
-nimgrp	==	pylib/pybytearray.html#==-procs-all	proc		44
+nimgrp	==	pylib/pybytearray.html#==-procs-all	proc		42
 nimgrp	bytearray	pylib/pybytearray.html#bytearray-procs-all	proc		52
 nimgrp	[]=	pylib/pybytearray.html#[]=-procs-all	proc		94
 nimgrp	[]	pylib/pybytearray.html#[]-procs-all	proc		98
-nimgrp	<=	pylib/pybytearray.html#<=-procs-all	proc		45
-nimgrp	<	pylib/pybytearray.html#<-procs-all	proc		46
+nimgrp	<=	pylib/pybytearray.html#<=-procs-all	proc		43
+nimgrp	<	pylib/pybytearray.html#<-procs-all	proc		44
 nimgrp	newpybytearray	pylib/pybytearray.html#newPyByteArray-procs-all	proc		18
-nimgrp	tonimstring	pylib/pybytearray.html#toNimString-procs-all	proc		49
+nimgrp	tonimstring	pylib/pybytearray.html#toNimString-procs-all	proc		47

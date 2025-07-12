@@ -1,0 +1,4 @@
+nimTitle	typeinfo	_._/nimpatch/typeinfo.html	module src/pylib/nimpatch/typeinfo		0
+nim	FixedVer	_._/nimpatch/typeinfo.html#FixedVer	const FixedVer		12
+nim	BeforeFixedVer	_._/nimpatch/typeinfo.html#BeforeFixedVer	const BeforeFixedVer		13
+nim	hasBug	_._/nimpatch/typeinfo.html#hasBug	const hasBug		15
